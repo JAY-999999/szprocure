@@ -14,7 +14,9 @@
 
   var COMPANY = "SZ Procure";
   var DOMAIN = "szprocure.com";
-  var EMAIL = "sales@" + DOMAIN;
+  var EMAIL = "jay@" + DOMAIN;
+  var WHATSAPP = "+86 13530888389";
+  var ADDRESS = "110 Fuhua Road, Futian District, Shenzhen, China";
 
   var LOGO = '<svg class="logo-mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
     + '<rect x="3" y="3" width="26" height="26" rx="7" fill="#0b1b33"/>'
@@ -38,6 +40,7 @@
     +   '<a href="/sourcing-services/" data-zh="采购服务">Sourcing Services</a>'
     +   '<a href="/how-it-works/" data-zh="运作流程">How It Works</a>'
     +   '<a href="/about/" data-zh="关于我们">About</a>'
+    +   '<a href="/contact/" data-zh="联系我们">Contact</a>'
     + '</nav>'
     + '<form class="nav-search" id="globalSearch" role="search" action="/search/">'
     +   '<input type="search" name="q" placeholder="Search parts…" aria-label="Search parts" data-zh-ph="搜索型号…" />'
@@ -57,6 +60,7 @@
     +   '<a href="/sourcing-services/" data-zh="采购服务">Sourcing Services</a>'
     +   '<a href="/how-it-works/" data-zh="运作流程">How It Works</a>'
     +   '<a href="/about/" data-zh="关于我们">About</a>'
+    +   '<a href="/contact/" data-zh="联系我们">Contact</a>'
     +   '<a class="btn btn-primary btn-block" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>'
     + '</div></header>';
 
@@ -73,13 +77,14 @@
     +     '<a href="/how-it-works/" data-zh="运作流程">How It Works</a></div>'
     +   '<div><h4 data-zh="公司">Company</h4>'
     +     '<a href="/about/" data-zh="关于我们">About</a>'
+    +     '<a href="/contact/" data-zh="联系我们">Contact</a>'
     +     '<a href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>'
     +     '<a href="/privacy/" data-zh="隐私政策">Privacy Policy</a>'
     +     '<a href="/terms/" data-zh="服务条款">Terms of Service</a></div>'
     +   '<div class="footer-contact"><h4 data-zh="联系方式">Contact</h4>'
-    +     '<p>' + EMAIL + '</p>'
-    +     '<p data-zh="WhatsApp：+86（占位）">WhatsApp: +86 (placeholder)</p>'
-    +     '<p data-zh="中国深圳">Shenzhen, China</p></div>'
+    +     '<p><a href="mailto:' + EMAIL + '">' + EMAIL + '</a></p>'
+    +     '<p data-zh="WhatsApp：+86 13530888389">WhatsApp: ' + WHATSAPP + '</p>'
+    +     '<p data-zh="中国深圳福田区福华路110号">' + ADDRESS + '</p></div>'
     + '</div>'
     + '<div class="footer-bottom"><span data-zh="© 2026 SZ Procure。保留所有权利。">&copy; 2026 ' + COMPANY + '. All rights reserved.</span>'
     +   '<span data-zh="来自中国的电子元器件与 AI 硬件采购服务">Electronics &amp; AI Hardware Sourcing from China</span></div>'

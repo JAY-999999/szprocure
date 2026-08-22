@@ -104,7 +104,7 @@ def org_jsonld():
     "name": "SZ Procure",
     "url": "{DOMAIN}/",
     "description": "China electronics & AI hardware sourcing — connect global buyers to Shenzhen supply chain.",
-    "email": "sales@szprocure.com",
+    "email": "jay@szprocure.com",
     "address": {{ "@type": "PostalAddress", "addressLocality": "Shenzhen", "addressCountry": "CN" }}
   }}
   </script>"""

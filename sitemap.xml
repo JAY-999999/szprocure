@@ -38,6 +38,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://www.szprocure.com/contact/</loc>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.szprocure.com/contact/"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.szprocure.com/request-a-quote/</loc>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.szprocure.com/request-a-quote/"/>
     <changefreq>monthly</changefreq>
