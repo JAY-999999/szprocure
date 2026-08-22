@@ -1,0 +1,24 @@
+# --- build / python ---
+__pycache__/
+*.pyc
+*.pyo
+
+# --- old backups (do NOT deploy) ---
+_old_*/
+_old_*
+
+# --- local preview helpers (not part of site) ---
+serve_local.py
+打开官网预览.vbs
+打开官网预览.bat
+preview-home.html
+
+# --- OS / editor junk ---
+.DS_Store
+Thumbs.db
+*.swp
+
+# --- large private CSVs (keep sample_parts.csv committed) ---
+芯片/
+料号库/
+*.bak.csv

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Search Parts &amp; Manufacturers | SZ Procure</title>
+  <meta name="description" content="Search electronic component part numbers, manufacturers and categories we source from Shenzhen. Fast, no-login lookup." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.szprocure.com/search/" />
+  <link rel="alternate" hreflang="x-default" href="https://www.szprocure.com/search/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="SZ Procure" />
+  <meta property="og:title" content="Search Parts &amp; Manufacturers | SZ Procure" />
+  <meta property="og:description" content="Search electronic component part numbers, manufacturers and categories we source from Shenzhen." />
+  <meta property="og:url" content="https://www.szprocure.com/search/" />
+  <meta property="og:image" content="https://www.szprocure.com/assets/img/hero.svg" />
+  <link rel="stylesheet" href="/assets/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "SZ Procure",
+    "url": "https://www.szprocure.com/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://www.szprocure.com/search/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.szprocure.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Search", "item": "https://www.szprocure.com/search/" }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <div id="site-header"></div>
+  <main>
+    <nav class="breadcrumb"><div class="container">
+      <a href="/">Home</a> › <span>Search</span>
+    </div></nav>
+    <section class="page-head">
+      <div class="container">
+        <div class="eyebrow">Component Lookup</div>
+        <h1>Search Parts &amp; Manufacturers</h1>
+        <p class="lead">Type a part number, manufacturer or category. We'll match it against our Shenzhen sourcing catalog.</p>
+        <form class="search-bar" id="searchForm" role="search">
+          <input type="search" id="q" name="q" autocomplete="off"
+                 placeholder="e.g. STM32F103C8T6, Texas Instruments, MOSFET"
+                 aria-label="Search parts" />
+          <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        <p class="muted small" id="hint">Tip: matching is instant as you type. Can't find it? Send a quote request.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div id="results" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+  <script src="/assets/site.js" defer></script>
+  <script>
+  (function () {
+    "use strict";
+    var INDEX_URL = "/search-index.json";
+    var index = null;
+    var qEl = document.getElementById("q");
+    var resEl = document.getElementById("results");
+    var params = new URLSearchParams(window.location.search);
+    var initial = params.get("q") || "";
+
+    function norm(s) { return (s || "").toLowerCase().trim(); }
+
+    function score(entry, q) {
+      var k = entry.k;
+      if (k === q) return 100;            // exact
+      if (k.indexOf(q) === 0) return 80;  // prefix
+      if (k.indexOf(q) > -1) return 60;   // substring
+      // token match within title
+      if (entry.t.toLowerCase().indexOf(q) > -1) return 50;
+      return 0;
+    }
+
+    function render(q) {
+      q = norm(q);
+      if (!q) { resEl.innerHTML = ""; return; }
+      if (!index) { resEl.innerHTML = '<p class="muted">Loading index…</p>'; return; }
+      var ranked = index.entries
+        .map(function (e) { return { e: e, s: score(e, q) }; })
+        .filter(function (x) { return x.s > 0; })
+        .sort(function (a, b) { return b.s - a.s; })
+        .slice(0, 30);
+      if (!ranked.length) {
+        resEl.innerHTML = '<div class="callout"><h2>No exact match yet</h2>'
+          + '<p>We may still be able to source <strong>' + escapeHtml(q) + '</strong> from Shenzhen. '
+          + 'Send us the part number and quantity — we\'ll check availability.</p>'
+          + '<a class="btn btn-primary" href="/request-a-quote/?pn=' + encodeURIComponent(q) + '">Request a Quote</a></div>';
+        return;
+      }
+      var html = '<p class="muted">' + ranked.length + ' result(s) for “' + escapeHtml(q) + '”</p><ul class="bullet-list part-index">';
+      ranked.forEach(function (x) {
+        var e = x.e;
+        var badge = e.ty === "Part" ? "part" : (e.ty === "Manufacturer" ? "mfr" : "cat");
+        html += '<li><a href="' + e.u + '"><span class="tag ' + badge + '">' + e.ty + '</span> '
+          + escapeHtml(e.t) + '</a> <span class="muted">— ' + escapeHtml(e.sub) + '</span></li>';
+      });
+      html += '</ul>';
+      resEl.innerHTML = html;
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, function (c) {
+        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+      });
+    }
+
+    function update(q) {
+      // keep URL in sync without reload (shareable)
+      var newUrl = "/search/" + (q ? "?q=" + encodeURIComponent(q) : "");
+      history.replaceState(null, "", newUrl);
+      render(q);
+    }
+
+    document.getElementById("searchForm").addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      update(qEl.value);
+    });
+    qEl.addEventListener("input", function () { update(qEl.value); });
+
+    // load index
+    fetch(INDEX_URL).then(function (r) { return r.json(); }).then(function (d) {
+      index = d;
+      if (initial) { qEl.value = initial; render(initial); }
+      else { qEl.focus(); }
+    }).catch(function () {
+      resEl.innerHTML = '<p class="muted">Search index failed to load. Please refresh.</p>';
+    });
+  })();
+  </script>
+</body>
+</html>

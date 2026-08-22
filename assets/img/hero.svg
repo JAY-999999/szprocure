@@ -1,0 +1,91 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Shenzhen electronics and AI hardware supply chain illustration">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1b33"/>
+      <stop offset="1" stop-color="#13294f"/>
+    </linearGradient>
+    <linearGradient id="chip" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2563eb"/>
+      <stop offset="1" stop-color="#1e40af"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#38bdf8"/>
+      <stop offset="1" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <g stroke="#16335c" stroke-width="1">
+    <path d="M0 60H800M0 120H800M0 180H800M0 240H800M0 300H800M0 360H800M0 420H800M0 480H800M0 540H800"/>
+    <path d="M80 0V600M160 0V600M240 0V600M320 0V600M400 0V600M480 0V600M560 0V600M640 0V600M720 0V600"/>
+  </g>
+
+  <!-- connection traces -->
+  <g stroke="url(#glow)" stroke-width="2.2" fill="none" opacity="0.85" stroke-linecap="round">
+    <path d="M150 180 L300 180 L340 230 L470 230"/>
+    <path d="M150 420 L260 420 L300 360 L430 360 L470 300"/>
+    <path d="M560 200 L620 260 L620 380"/>
+    <path d="M560 440 L640 440 L690 380 L690 300"/>
+    <path d="M470 230 L560 200"/>
+    <path d="M430 360 L520 360 L560 440"/>
+  </g>
+  <g fill="#7dd3fc">
+    <circle cx="150" cy="180" r="5"/><circle cx="470" cy="230" r="5"/>
+    <circle cx="150" cy="420" r="5"/><circle cx="430" cy="360" r="5"/>
+    <circle cx="560" cy="200" r="5"/><circle cx="620" cy="380" r="5"/>
+    <circle cx="560" cy="440" r="5"/><circle cx="690" cy="300" r="5"/>
+    <circle cx="690" cy="440" r="5"/>
+  </g>
+
+  <!-- chip 1 -->
+  <g>
+    <rect x="110" y="140" width="80" height="80" rx="10" fill="url(#chip)"/>
+    <rect x="128" y="158" width="44" height="44" rx="6" fill="#0b1b33"/>
+    <text x="150" y="185" fill="#fff" font-family="monospace" font-size="13" text-anchor="middle">IC</text>
+    <g stroke="#93c5fd" stroke-width="3">
+      <path d="M120 130v-10M140 130v-10M160 130v-10M180 130v-10"/>
+      <path d="M120 230v10M140 230v10M160 230v10M180 230v10"/>
+    </g>
+  </g>
+
+  <!-- chip 2 -->
+  <g>
+    <rect x="390" y="195" width="80" height="80" rx="10" fill="url(#chip)"/>
+    <rect x="408" y="213" width="44" height="44" rx="6" fill="#0b1b33"/>
+    <text x="430" y="240" fill="#fff" font-family="monospace" font-size="12" text-anchor="middle">MCU</text>
+    <g stroke="#93c5fd" stroke-width="3">
+      <path d="M400 185v-10M420 185v-10M440 185v-10M460 185v-10"/>
+      <path d="M400 285v10M420 285v10M440 285v10M460 285v10"/>
+    </g>
+  </g>
+
+  <!-- module / sensor -->
+  <g>
+    <rect x="520" y="160" width="100" height="80" rx="12" fill="#0f2547" stroke="url(#glow)" stroke-width="2"/>
+    <circle cx="560" cy="200" r="14" fill="none" stroke="#7dd3fc" stroke-width="3"/>
+    <circle cx="560" cy="200" r="5" fill="#7dd3fc"/>
+    <text x="600" y="225" fill="#cbd5e1" font-family="monospace" font-size="11" text-anchor="middle">SENSOR</text>
+  </g>
+
+  <!-- AI glasses -->
+  <g transform="translate(470 360)">
+    <rect x="0" y="0" width="120" height="70" rx="16" fill="#0f2547" stroke="url(#glow)" stroke-width="2.5"/>
+    <rect x="14" y="16" width="40" height="30" rx="10" fill="#0b1b33" stroke="#7dd3fc" stroke-width="2"/>
+    <rect x="66" y="16" width="40" height="30" rx="10" fill="#0b1b33" stroke="#7dd3fc" stroke-width="2"/>
+    <circle cx="34" cy="31" r="6" fill="#2563eb"/>
+    <circle cx="86" cy="31" r="6" fill="#2563eb"/>
+    <text x="60" y="62" fill="#93c5fd" font-family="monospace" font-size="11" text-anchor="middle">AI</text>
+  </g>
+
+  <!-- board base -->
+  <g opacity="0.9">
+    <rect x="90" y="380" width="180" height="120" rx="12" fill="#0f2547" stroke="#1e3a66" stroke-width="2"/>
+    <g stroke="#1e3a66" stroke-width="1.5">
+      <path d="M110 410H250M110 440H250M110 470H250"/>
+      <path d="M130 395V490M170 395V490M210 395V490"/>
+    </g>
+    <circle cx="240" cy="490" r="4" fill="#7dd3fc"/>
+  </g>
+
+  <text x="40" y="572" fill="#7f9bc4" font-family="monospace" font-size="13">Shenzhen supply chain · components · AI hardware</text>
+</svg>
