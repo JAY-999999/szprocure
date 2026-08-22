@@ -138,16 +138,6 @@ ul { margin: 0; padding: 0; list-style: none; }
 .card .icon svg { width: 24px; height: 24px; }
 .link-cta { font-weight: 600; color: var(--accent); display: inline-flex; align-items: center; gap: 6px; }
 
-/* ---------- Map embed ---------- */
-.map-section { padding-top: 24px; }
-.map-frame { width: 100%; height: 420px; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); background: var(--bg-soft); }
-.map-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
-.map-caption { display: flex; align-items: center; gap: 8px; margin-top: 14px; color: var(--muted); font-size: .92rem; }
-.map-caption svg { width: 16px; height: 16px; flex-shrink: 0; color: var(--accent); }
-@media (max-width: 720px) {
-  .map-frame { height: 320px; }
-}
-
 .section-head { max-width: 68ch; margin-bottom: 44px; }
 .section-head.center { margin-left: auto; margin-right: auto; text-align: center; }
 
