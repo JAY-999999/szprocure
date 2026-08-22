@@ -18,8 +18,8 @@
 
   var LOGO = '<svg class="logo-mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
     + '<rect x="3" y="3" width="26" height="26" rx="7" fill="#0b1b33"/>'
-    + '<rect x="9" y="9" width="14" height="14" rx="3" fill="#2563eb"/>'
-    + '<path d="M16 3v5M16 24v5M3 16h5M24 16h5" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/>'
+    + '<rect x="9" y="9" width="14" height="14" rx="3" fill="#0A84FF"/>'
+    + '<path d="M16 3v5M16 24v5M3 16h5M24 16h5" stroke="#0A84FF" stroke-width="2" stroke-linecap="round"/>'
     + '<circle cx="16" cy="16" r="2.4" fill="#fff"/></svg>';
 
   var LANG_SWITCH = '<div class="lang-switch" role="group" aria-label="Language">'

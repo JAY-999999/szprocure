@@ -54,6 +54,15 @@ def slugify(pn):
     # AD7606BSTZ -> ad7606bstz ; keep alnum only
     return re.sub(r"[^a-z0-9]", "", pn.lower())
 
+def pn_search_keys(pn):
+    """Return search-key variants for a part number so users find it whether they
+    type the original PN (AMS1117-3.3), the URL slug (ams111733), or a stripped
+    version (ams11173)."""
+    s = pn.strip().lower()
+    variants = {s, slugify(pn)}
+    variants.add(re.sub(r"[^a-z0-9]", "", s))
+    return sorted(variants)
+
 def slugify_name(name):
     # "STMicroelectronics" -> "stmicroelectronics" ; "Power Management" -> "power-management"
     s = name.strip().lower()
@@ -605,8 +614,9 @@ def main():
         # product entries (exact PN match gets priority)
         key_p = ("p", pn.lower())
         if key_p not in seen:
-            search_entries.append({"t": pn, "k": pn.lower(), "ty": "Part",
-                                   "u": f"/products/{p_slug}/", "sub": f"{mfr} · {cat}"})
+            search_entries.append({"t": pn, "k": pn.lower(), "keys": pn_search_keys(pn),
+                                   "ty": "Part", "u": f"/products/{p_slug}/",
+                                   "sub": f"{mfr} · {cat}"})
             seen.add(key_p)
         key_m = ("m", mfr.lower())
         if key_m not in seen:

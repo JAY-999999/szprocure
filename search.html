@@ -81,10 +81,13 @@
     function norm(s) { return (s || "").toLowerCase().trim(); }
 
     function score(entry, q) {
-      var k = entry.k;
-      if (k === q) return 100;            // exact
-      if (k.indexOf(q) === 0) return 80;  // prefix
-      if (k.indexOf(q) > -1) return 60;   // substring
+      var keys = entry.keys || [entry.k];
+      for (var i = 0; i < keys.length; i++) {
+        var k = keys[i];
+        if (k === q) return 100;            // exact
+        if (k.indexOf(q) === 0) return 80;  // prefix
+        if (k.indexOf(q) > -1) return 60;   // substring
+      }
       // token match within title
       if (entry.t.toLowerCase().indexOf(q) > -1) return 50;
       return 0;
