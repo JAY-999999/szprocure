@@ -43,6 +43,22 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 DOMAIN = "https://www.szprocure.com"
 SITEMAP_BATCH = 45000  # urls per sitemap file (Google soft cap 50k)
 
+# GA4 Measurement ID — replace with the real one from your GA4 property.
+# Format: G-XXXXXXXXXX. Leave as placeholder until you create the property.
+GA4_ID = "G-XXXXXXXXXX"
+
+def ga4_script():
+    """Google Analytics 4 tracking snippet, injected before </body> on every page.
+    Uses the standard gtag.js loader. No PII collected; respects same-origin only."""
+    return f"""  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id={GA4_ID}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){{ dataLayer.push(arguments); }}
+    gtag('js', new Date());
+    gtag('config', '{GA4_ID}');
+  </script>"""
+
 STATUS_LABEL = {
     "scarce": ("Long lead-time / hard to source", "scarce"),
     "active": ("Active production", "active"),
@@ -300,6 +316,7 @@ def gen_part_page(row, cat_slug, mfr_slug):
   </main>
   <div id="site-footer"></div>
   <script src="/assets/site.js" defer></script>
+{ga4_script()}
 </body>
 </html>"""
 
@@ -373,6 +390,7 @@ def gen_manufacturer_page(mfr, parts, cat_slugs):
   </main>
   <div id="site-footer"></div>
   <script src="/assets/site.js" defer></script>
+{ga4_script()}
 </body>
 </html>"""
 
@@ -444,6 +462,7 @@ def gen_category_page(cat, parts, mfr_slugs):
   </main>
   <div id="site-footer"></div>
   <script src="/assets/site.js" defer></script>
+{ga4_script()}
 </body>
 </html>"""
 
@@ -496,6 +515,7 @@ def gen_hub_page(kind, title, desc, items):
   </main>
   <div id="site-footer"></div>
   <script src="/assets/site.js" defer></script>
+{ga4_script()}
 </body>
 </html>"""
 
