@@ -44,8 +44,8 @@ DOMAIN = "https://www.szprocure.com"
 SITEMAP_BATCH = 45000  # urls per sitemap file (Google soft cap 50k)
 
 # GA4 Measurement ID — replace with the real one from your GA4 property.
-# Format: G-XXXXXXXXXX. Leave as placeholder until you create the property.
-GA4_ID = "G-XXXXXXXXXX"
+# Format: G-XXXXXXXXXX.
+GA4_ID = "G-ZZLJH3Q2KF"
 
 def ga4_script():
     """Google Analytics 4 tracking snippet, injected before </body> on every page.
