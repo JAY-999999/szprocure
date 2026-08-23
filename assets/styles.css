@@ -372,8 +372,9 @@ ul.part-index li {
   font-size: 12px;
   color: var(--muted, #6b7280);
 }
-.source-link { margin-top: 12px; }
-.source-link a {
+.reference-resources { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border, #e6e9ef); }
+.reference-resources h3 { font-size: 16px; margin-bottom: 8px; }
+.reference-resources .alt-list a {
   display: inline-block;
   font-weight: 600;
   color: var(--accent, #0A84FF);
@@ -381,10 +382,115 @@ ul.part-index li {
   border: 1px solid var(--border, #e6e9ef);
   border-radius: 8px;
   padding: 6px 10px;
+  margin: 4px 6px 4px 0;
 }
-.source-link a:hover { background: #f3f6fb; }
+.reference-resources .alt-list a:hover { background: #f3f6fb; }
 .small { font-size: 11px; }
 
+/* ====== NEW SKU TEMPLATE (90-point layout) ====== */
+/* Product header grid — no big whitespace, info-dense */
+.part-head-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 28px;
+  align-items: center;
+}
+.part-head-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 220px;
+}
+.part-head-cta .btn-block { width: 100%; text-align: center; }
+
+/* Quick Info card (part key information) */
+.quick-info {
+  background: var(--bg-soft, #f7f9fc);
+  border: 1px solid var(--border, #e6e9ef);
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin-bottom: 26px;
+}
+.quick-info-title {
+  margin: 0 0 12px;
+  font-size: 1.05rem;
+  color: var(--text, #1a2233);
+}
+/* spec table (Parameter | Value) */
+.spec-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  font-size: .92rem;
+}
+.spec-table th, .spec-table td {
+  text-align: left;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border, #e6e9ef);
+  vertical-align: top;
+}
+.spec-table th {
+  width: 38%;
+  font-weight: 600;
+  color: var(--muted, #6b7280);
+  background: #fbfcfd;
+}
+.spec-table td { color: var(--text, #1a2233); font-weight: 500; }
+.spec-table.compact th { width: 42%; padding: 6px 10px; font-size: .88rem; }
+.spec-table.compact td { padding: 6px 10px; font-size: .88rem; }
+.spec-tags { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* compressed product figure */
+.inline-fig {
+  float: right;
+  margin: 0 0 14px 18px;
+  width: 116px;
+  padding: 10px;
+  background: #fbfcfd;
+  border: 1px solid var(--border, #e6e9ef);
+  border-radius: 12px;
+  text-align: center;
+}
+.inline-fig img { width: 100px; height: 100px; object-fit: contain; }
+.inline-fig figcaption { margin-top: 6px; font-size: 11px; color: var(--muted, #6b7280); }
+
+/* check-list for sourcing moat */
+.check-list { list-style: none; padding-left: 0; }
+.check-list li { margin: 7px 0; color: var(--text, #1a2233); }
+
+/* sticky quote card */
+.sticky-card {
+  border: 1px solid var(--accent, #0A84FF);
+  background: #f0f7ff;
+}
+.sticky-card h3 { color: var(--accent, #0A84FF); }
+
+/* clear float after figure */
+.part-main > h2:first-of-type { clear: both; }
+
+/* mobile: stack header CTA + un-float figure */
+@media (max-width: 720px) {
+  .part-head-grid { grid-template-columns: 1fr; }
+  .part-head-cta { min-width: 0; }
+  .inline-fig { float: none; margin: 0 auto 16px; display: block; }
+  .spec-table th { width: 44%; }
+}
+
+/* ====== SKU V2 (procurement landing page) ====== */
+.part-head-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.part-head-actions .btn { min-width: 150px; }
+.lead-sub { font-size: 1.05rem; font-weight: 600; color: var(--text, #1a2233); margin: 6px 0 4px; }
+.part-head-aside { min-width: 240px; }
+.key-info { background: var(--bg-soft, #f7f9fc); margin: 0; }
+/* desktop sticky quote card */
+.desk-sticky { position: sticky; top: 24px; }
+/* mobile quote card: shown only on small screens, after first screen, NOT fixed */
+.mobile-quote-only { display: none; }
+@media (max-width: 720px) {
+  .part-head-aside { display: none; }      /* hide desktop key-info aside in header on mobile */
+  .desk-sticky { position: static; }
+  .mobile-quote-only { display: block; margin-top: 4px; }  /* appears right after first screen */
+}
 /* ---- global nav search ---- */
 .nav-search {
   display: flex;

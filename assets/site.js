@@ -12,7 +12,7 @@
 (function () {
   "use strict";
 
-  var COMPANY = "SZ Procure";
+  var BRAND = "SZ Procure";
   var DOMAIN = "szprocure.com";
   var EMAIL = "jay@" + DOMAIN;
   var WHATSAPP = "+86 13530888389";
@@ -32,18 +32,16 @@
 
   var NAV = ''
     + '<header class="site-header"><div class="container nav">'
-    + '<a class="brand" href="/" aria-label="' + COMPANY + ' home">' + LOGO
+    + '<a class="brand" href="/" aria-label="' + BRAND + ' home">' + LOGO
     +   '<span>SZ Procure<small data-zh="深圳采购">Shenzhen Sourcing</small></span></a>'
     + '<nav class="nav-links" aria-label="Primary">'
     +   '<a href="/components/" data-zh="元器件">Components</a>'
     +   '<a href="/ai-hardware/" data-zh="AI 硬件">AI Hardware</a>'
-    +   '<a href="/sourcing-services/" data-zh="采购服务">Sourcing Services</a>'
-    +   '<a href="/how-it-works/" data-zh="运作流程">How It Works</a>'
+    +   '<a href="/sourcing-service/" data-zh="采购服务">Sourcing Service</a>'
     +   '<a href="/about/" data-zh="关于我们">About</a>'
-    +   '<a href="/contact/" data-zh="联系我们">Contact</a>'
     + '</nav>'
-    + '<form class="nav-search" id="globalSearch" role="search" action="/search/">'
-    +   '<input type="search" name="q" placeholder="Search parts…" aria-label="Search parts" data-zh-ph="搜索型号…" />'
+    + '<form class="nav-search" id="globalSearch" role="search" action="/components/">'
+    +   '<input type="search" name="q" placeholder="Search part number…" aria-label="Search part number" data-zh-ph="搜索料号 / 型号…" />'
     + '</form>'
     + '<div class="nav-cta">'
     +   LANG_SWITCH
@@ -52,15 +50,13 @@
     + '</div></div>'
     + '<div class="mobile-menu" id="mobileMenu">'
     +   LANG_SWITCH
-    +   '<form class="nav-search mobile" role="search" action="/search/">'
-    +     '<input type="search" name="q" placeholder="Search parts…" aria-label="Search parts" data-zh-ph="搜索型号…" />'
+    +   '<form class="nav-search mobile" role="search" action="/components/">'
+    +     '<input type="search" name="q" placeholder="Search part number…" aria-label="Search part number" data-zh-ph="搜索料号 / 型号…" />'
     +   '</form>'
     +   '<a href="/components/" data-zh="元器件">Components</a>'
     +   '<a href="/ai-hardware/" data-zh="AI 硬件">AI Hardware</a>'
-    +   '<a href="/sourcing-services/" data-zh="采购服务">Sourcing Services</a>'
-    +   '<a href="/how-it-works/" data-zh="运作流程">How It Works</a>'
+    +   '<a href="/sourcing-service/" data-zh="采购服务">Sourcing Service</a>'
     +   '<a href="/about/" data-zh="关于我们">About</a>'
-    +   '<a href="/contact/" data-zh="联系我们">Contact</a>'
     +   '<a class="btn btn-primary btn-block" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>'
     + '</div></header>';
 
@@ -70,11 +66,9 @@
     +   '<div><a class="brand" href="/">' + LOGO + '<span>SZ Procure<small data-zh="深圳采购">Shenzhen Sourcing</small></span></a>'
     +     '<p style="margin-top:14px;color:#aebfda;max-width:34ch;font-size:.92rem;" data-zh="来自中国的电子元器件与 AI 硬件采购服务。立足深圳，连接供应链。">Electronics &amp; AI Hardware Sourcing from China. Based in Shenzhen, connected to the supply chain.</p></div>'
     +   '<div><h4 data-zh="服务">Services</h4>'
-    +     '<a href="/search/" data-zh="搜索">Search</a>'
     +     '<a href="/components/" data-zh="元器件">Components</a>'
     +     '<a href="/ai-hardware/" data-zh="AI 硬件">AI Hardware</a>'
-    +     '<a href="/sourcing-services/" data-zh="采购服务">Sourcing Services</a>'
-    +     '<a href="/how-it-works/" data-zh="运作流程">How It Works</a></div>'
+    +     '<a href="/sourcing-service/" data-zh="采购服务">Sourcing Service</a></div>'
     +   '<div><h4 data-zh="公司">Company</h4>'
     +     '<a href="/about/" data-zh="关于我们">About</a>'
     +     '<a href="/contact/" data-zh="联系我们">Contact</a>'
@@ -86,7 +80,7 @@
     +     '<p data-zh="WhatsApp：+86 13530888389">WhatsApp: ' + WHATSAPP + '</p>'
     +     '<p data-zh="中国深圳福田区福华路110号">' + ADDRESS + '</p></div>'
     + '</div>'
-    + '<div class="footer-bottom"><span data-zh="© 2026 SZ Procure。保留所有权利。">&copy; 2026 ' + COMPANY + '. All rights reserved.</span>'
+    + '<div class="footer-bottom"><span data-zh="© 2026 SZ Procure。保留所有权利。">&copy; 2026 ' + BRAND + '. All rights reserved.</span>'
     +   '<span data-zh="来自中国的电子元器件与 AI 硬件采购服务">Electronics &amp; AI Hardware Sourcing from China</span></div>'
     + '</div></footer>';
 

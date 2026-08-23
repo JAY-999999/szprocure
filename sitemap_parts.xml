@@ -20,16 +20,10 @@
   <url><loc>https://www.szprocure.com/manufacturers/abracon/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/manufacturers/bojue-electronics/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/manufacturers/tdk-invensense/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/categories/microcontroller/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/categories/voltage-regulator/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/categories/operational-amplifier/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/categories/power-mosfet/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/categories/resistor/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/categories/electrolytic-capacitor/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/categories/rectifier-diode/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/categories/crystal-oscillator/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/categories/pin-header/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/categories/mems-sensor/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/manufacturers/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/categories/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/components/integrated-circuits/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/components/semiconductor-components/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/components/passive-components/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/components/sensors/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/components/connectors/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/components/modules/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
 </urlset>

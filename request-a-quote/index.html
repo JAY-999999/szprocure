@@ -28,8 +28,8 @@
     "name": "SZ Procure",
     "url": "https://www.szprocure.com/",
     "logo": "https://www.szprocure.com/assets/img/hero.svg",
-    "email": "sales@szprocure.com",
-    "description": "Shenzhen-based electronics and AI hardware sourcing company helping overseas businesses access China's supply chain for scarce, long-lead-time and end-of-life electronic components.",
+    "email": "jay@szprocure.com",
+    "description": "Shenzhen-based electronics and AI hardware sourcing service helping overseas businesses access China's supply chain for scarce, long-lead-time and end-of-life electronic components.",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Shenzhen",
@@ -47,95 +47,139 @@
   <main>
     <section class="page-head">
       <div class="container">
-        <div class="eyebrow" data-zh="开始使用">Get Started</div>
+        <div class="eyebrow" data-zh="开始询价">Get a Quote</div>
         <h1 data-zh="获取报价">Request a Quote</h1>
-        <p class="lead" data-zh="把您的需求发给我们，我们的采购团队会进行审阅。">Send us your requirements and our sourcing team will review them.</p>
+        <p class="lead" data-zh="发送您的料号、BOM 或采购需求。我们的深圳采购团队会审阅您的需求，并提供合适的采购方案。">Send your part numbers, BOM or sourcing requirements. Our Shenzhen sourcing team will review your request and provide suitable sourcing options.</p>
       </div>
     </section>
 
     <section class="section">
-      <div class="container" style="max-width:880px">
-        <div class="card" style="padding:36px">
-          <div class="form-success" id="formSuccess">
-            <h3 data-zh="感谢您。">Thank you.</h3>
-            <p data-zh="我们已收到您的需求，将尽快审阅详情。">We've received your request and will review the details shortly.</p>
-          </div>
+      <div class="container">
+        <div class="grid grid-2" style="align-items:start;gap:32px">
 
-          <form id="quote-form" novalidate>
-            <div class="form-grid">
-              <div class="field">
-                <label for="customer_name" data-zh="姓名 *">Full Name <span class="req">*</span></label>
-                <input id="customer_name" name="customer_name" type="text" required />
+          <!-- LEFT: Quote form -->
+          <div class="card" style="padding:36px">
+            <div class="form-success" id="formSuccess">
+              <h3 data-zh="感谢您。">Thank you.</h3>
+              <p data-zh="我们已收到您的需求，将尽快审阅详情并与您联系。">We've received your request and will review the details and get back to you shortly.</p>
+            </div>
+
+            <form id="quote-form" novalidate>
+              <div style="background:var(--bg-soft);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:24px">
+                <h3 style="margin:0 0 8px;font-size:1rem" data-zh="提交时请尽量包含以下信息">What to include in your request</h3>
+                <p style="margin:0 0 10px;color:var(--muted);font-size:.92rem" data-zh="信息越完整，我们越能快速给出合适方案。">The more details you provide, the faster we can return suitable sourcing options.</p>
+                <ul style="margin:0;padding-left:18px;color:var(--ink);font-size:.92rem;line-height:1.9">
+                  <li data-zh="料号（如 STM32F103C8T6, LM358DR）"><strong>Part Number</strong> — e.g. STM32F103C8T6, LM358DR</li>
+                  <li data-zh="BOM 物料清单（可上传文件）"><strong>BOM</strong> — bill of materials (upload via the file box below)</li>
+                  <li data-zh="数量或预估用量"><strong>Quantity</strong> — required or estimated volume</li>
+                  <li data-zh="规格、参数或应用场景"><strong>Specification</strong> — parameters, package, application or notes</li>
+                </ul>
               </div>
-              <div class="field">
-                <label for="company" data-zh="公司 *">Company <span class="req">*</span></label>
-                <input id="company" name="company" type="text" required />
+              <h3 style="margin:0 0 14px" data-zh="联系信息">Contact Information</h3>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="customer_name" data-zh="姓名 *">Name <span class="req">*</span></label>
+                  <input id="customer_name" name="customer_name" type="text" required />
+                </div>
+                <div class="field">
+                  <label for="company" data-zh="公司">Company</label>
+                  <input id="company" name="company" type="text" />
+                </div>
+                <div class="field">
+                  <label for="email" data-zh="邮箱 *">Email <span class="req">*</span></label>
+                  <input id="email" name="email" type="email" required />
+                  <div class="form-error" id="formError"></div>
+                </div>
+                <div class="field">
+                  <label for="phone" data-zh="WhatsApp">WhatsApp</label>
+                  <input id="phone" name="phone" type="text" />
+                </div>
+                <div class="field full">
+                  <label for="country" data-zh="国家 / 地区">Country / Region</label>
+                  <input id="country" name="country" type="text" />
+                </div>
               </div>
-              <div class="field">
-                <label for="email" data-zh="企业邮箱 *">Business Email <span class="req">*</span></label>
-                <input id="email" name="email" type="email" required />
-                <div class="form-error" id="formError"></div>
+
+              <h3 style="margin:28px 0 14px" data-zh="需求详情">Requirement Details</h3>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="part_number" data-zh="料号">Part Number(s)</label>
+                  <input id="part_number" name="part_number" type="text" placeholder="e.g. STM32F103C8T6, LM358DR" data-zh-ph="例如 STM32F103C8T6, LM358DR" />
+                </div>
+                <div class="field">
+                  <label for="quantity" data-zh="数量">Quantity</label>
+                  <input id="quantity" name="quantity" type="text" />
+                </div>
+                <div class="field">
+                  <label for="target_application" data-zh="目标应用">Target Application</label>
+                  <input id="target_application" name="target_application" type="text" placeholder="e.g. Industrial control, medical device" data-zh-ph="例如 工控、医疗设备" />
+                </div>
+                <div class="field">
+                  <label for="required_date" data-zh="要求日期">Required Date</label>
+                  <input id="required_date" name="required_date" type="text" placeholder="e.g. 2026-10-01" data-zh-ph="例如 2026-10-01" />
+                </div>
+                <div class="field full">
+                  <label for="requirements" data-zh="附加说明">Additional Notes</label>
+                  <textarea id="requirements" name="requirements" placeholder="Describe your product, specification, BOM or sourcing request…" data-zh-ph="请描述您的产品、规格、BOM 或采购需求…"></textarea>
+                </div>
               </div>
-              <div class="field">
-                <label for="country" data-zh="国家">Country</label>
-                <input id="country" name="country" type="text" />
-              </div>
-              <div class="field">
-                <label for="phone" data-zh="WhatsApp / 电话">WhatsApp / Phone</label>
-                <input id="phone" name="phone" type="text" />
-              </div>
-              <div class="field">
-                <label for="request_type" data-zh="您需要什么？ *">What are you looking for? <span class="req">*</span></label>
-                <select id="request_type" name="request_type" required>
-                  <option value="" data-zh="请选择…">Select…</option>
-                  <option data-zh="电子元器件">Electronic Components</option>
-                  <option data-zh="BOM 采购">BOM Sourcing</option>
-                  <option data-zh="AI 硬件">AI Hardware</option>
-                  <option data-zh="OEM / ODM">OEM / ODM</option>
-                  <option data-zh="其他">Other</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="part_number" data-zh="料号">Part Number</label>
-                <input id="part_number" name="part_number" type="text" placeholder="e.g. STM32F103C8T6" data-zh-ph="例如 STM32F103C8T6" />
-              </div>
-              <div class="field">
-                <label for="quantity" data-zh="数量">Quantity</label>
-                <input id="quantity" name="quantity" type="text" />
-              </div>
-              <div class="field">
-                <label for="target_price" data-zh="目标价格">Target Price</label>
-                <input id="target_price" name="target_price" type="text" />
-              </div>
-              <div class="field">
-                <label for="delivery_date" data-zh="要求交货日期">Required Delivery Date</label>
-                <input id="delivery_date" name="delivery_date" type="text" />
-              </div>
-              <div class="field">
-                <label for="destination" data-zh="目的国">Destination Country</label>
-                <input id="destination" name="destination" type="text" />
-              </div>
+
+              <h3 style="margin:28px 0 14px" data-zh="文件上传">File Upload</h3>
               <div class="field full">
-                <label for="requirements" data-zh="附加需求">Additional Requirements</label>
-                <textarea id="requirements" name="requirements" placeholder="Describe your product, specification, BOM or sourcing request…" data-zh-ph="请描述您的产品、规格、BOM 或采购需求…"></textarea>
-              </div>
-              <div class="field full">
-                <label data-zh="BOM / 产品规格 / 数据手册">BOM / Product Specification / Datasheet</label>
+                <label data-zh="上传 BOM / 数据手册">Upload BOM / Datasheet</label>
                 <div class="upload-box" data-upload>
                   <p style="margin:0 0 6px;color:var(--ink);font-weight:600" data-zh="拖拽文件到此处，或点击上传">Drag &amp; drop or click to upload</p>
                   <button class="btn btn-ghost" data-upload-trigger data-zh="选择文件">Choose files</button>
-                  <input type="file" name="uploaded_files" accept=".xls,.xlsx,.csv,.pdf,.doc,.docx,.png,.jpg,.jpeg" multiple />
-                  <p class="upload-hint" data-zh="支持格式：Excel、CSV、PDF、DOCX、PNG、JPG">Accepted: Excel, CSV, PDF, DOCX, PNG, JPG</p>
+                  <input type="file" name="uploaded_files" accept=".pdf,.xls,.xlsx,.csv" multiple />
+                  <p class="upload-hint" data-zh="支持格式：PDF、Excel、CSV">Accepted: PDF, Excel, CSV</p>
                 </div>
                 <div class="file-list" data-file-list></div>
                 <p class="form-note" data-zh="提交时文件大小有限制。请勿上传敏感个人信息。">File size is limited on submission. Do not upload sensitive personal data.</p>
               </div>
+
+              <div style="margin-top:24px;display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+                <button class="btn btn-primary btn-lg" type="submit" data-zh="提交需求">Request Quote</button>
+                <span class="form-note" data-zh="提交即表示您同意我们就您的采购需求与您联系。">By submitting, you agree to be contacted about your sourcing request.</span>
+              </div>
+            </form>
+          </div>
+
+          <!-- RIGHT: Trust Card -->
+          <aside>
+            <div class="card" style="padding:28px;background:var(--bg-soft);position:sticky;top:24px">
+              <h3 data-zh="为什么买家联系 SZ Procure" style="margin-top:0">Why Buyers Contact SZ Procure</h3>
+              <div style="margin-top:18px">
+                <h4 data-zh="深圳供应链接入" style="font-size:1rem;margin:0 0 6px">Shenzhen Supply Chain Access</h4>
+                <p data-zh="对接本地电子供应商与采购渠道。" style="color:var(--muted);margin:0 0 18px;font-size:.92rem">Connect with local electronics suppliers and sourcing channels.</p>
+                <h4 data-zh="灵活的采购支持" style="font-size:1rem;margin:0 0 6px">Flexible Sourcing Support</h4>
+                <p data-zh="从单个元器件到 BOM 需求。" style="color:var(--muted);margin:0 0 18px;font-size:.92rem">From individual components to BOM requirements.</p>
+                <h4 data-zh="以买家为中心的服务" style="font-size:1rem;margin:0 0 6px">Buyer-focused Service</h4>
+                <p data-zh="支持报价审核、供应商沟通与采购协调。" style="color:var(--muted);margin:0;font-size:.92rem">Support quotation review, supplier communication and procurement coordination.</p>
+              </div>
+              <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border)">
+                <p style="margin:0 0 6px;font-size:.9rem;color:var(--muted)" data-zh="直接联系">Reach us directly</p>
+                <p style="margin:0 0 4px"><a href="mailto:jay@szprocure.com">jay@szprocure.com</a></p>
+                <p style="margin:0;font-size:.9rem;color:var(--muted)">WhatsApp: +86 13530888389</p>
+              </div>
             </div>
-            <div style="margin-top:24px;display:flex;gap:14px;align-items:center;flex-wrap:wrap">
-              <button class="btn btn-primary btn-lg" type="submit" data-zh="提交需求">Submit Request</button>
-              <span class="form-note" data-zh="提交即表示您同意我们就您的采购需求与您联系。">By submitting, you agree to be contacted about your sourcing request.</span>
-            </div>
-          </form>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS (RFQ) -->
+    <section class="section soft">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow" data-zh="流程">How It Works</div>
+          <h2 data-zh="询价流程">How It Works</h2>
+        </div>
+        <div class="grid grid-4">
+          <div class="step"><div class="num">01</div><h3 data-zh="提交需求">Submit Requirement</h3><p data-zh="发送料号、BOM 或采购需求。">Send part numbers, BOM or sourcing requirements.</p></div>
+          <div class="step"><div class="num">02</div><h3 data-zh="采购与比对">Source &amp; Compare</h3><p data-zh="我们的深圳团队寻找供应商并比对方案。">Our Shenzhen team sources and compares options.</p></div>
+          <div class="step"><div class="num">03</div><h3 data-zh="确认方案">Confirm Solution</h3><p data-zh="确认价格、货期与采购方案。">Confirm pricing, lead time and sourcing plan.</p></div>
+          <div class="step"><div class="num">04</div><h3 data-zh="采购支持">Procurement Support</h3><p data-zh="协助沟通、订单协调与交付。">Assist with communication, order coordination and delivery.</p></div>
         </div>
       </div>
     </section>

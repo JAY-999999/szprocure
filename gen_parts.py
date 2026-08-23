@@ -7,7 +7,7 @@ Reads a parts CSV and generates static pages under SEMANTIC URL paths:
 
   /products/{slug}/        one page per part (the core "knowledge node")
   /manufacturers/{slug}/   one page per manufacturer (captures "X distributor China")
-  /categories/{slug}/      one page per category (big top/mid-funnel traffic hub)
+  /components/{slug}/      one page per top-level category (6 canonical categories)
 
 Why semantic paths (not /part/ or ?id=):
  - Must be designed ONCE before launch. Changing URLs after indexing requires 301s.
@@ -29,8 +29,10 @@ CSV columns (from 料号库.csv):
 
   Image  : path to a locally-hosted SVG/PNG symbol image (self-owned, zero copyright risk).
            e.g. /assets/img/mcu.svg  (falls back to hero.svg if empty)
-  Source : optional external reference URL (e.g. distributor page) rendered as a
-           nofollow "View on <site>" link — legitimate citation, NOT image hotlinking.
+  Source : internal data-curation field ONLY. May point to an external
+           reference site used while compiling the catalog. It is
+           NEVER rendered on generated pages — SZ Procure does not link out to
+           any third-party store. Reference Resources link only to the manufacturer's own site.
 
 Usage:
   python gen_parts.py --csv "path/to/料号库.csv" --out "."
@@ -65,7 +67,147 @@ STATUS_LABEL = {
     "eol": ("End of life / discontinued", "eol"),
 }
 
-# ---- slug helpers -------------------------------------------------------------
+# ---- Category mapping: fine-grained CSV category -> 6 top-level /components/ URLs ----
+# CSV keeps the fine-grained product subcategory (e.g. "Microcontroller") for on-page
+# display and SEO body copy. Breadcrumbs, internal links and category-page grouping
+# all resolve to the 6 canonical top-level categories below.
+# To add a new part later, just add its fine subcategory here — no CSV schema change.
+CATEGORY_MAP = {
+    # Integrated Circuits
+    "Microcontroller": "integrated-circuits",
+    "Microcontrollers": "integrated-circuits",
+    "MCU": "integrated-circuits",
+    "Memory IC": "integrated-circuits",
+    "Memory": "integrated-circuits",
+    "Power Management IC": "integrated-circuits",
+    "Voltage Regulator": "integrated-circuits",
+    "Analog IC": "integrated-circuits",
+    "Operational Amplifier": "integrated-circuits",
+    "Interface IC": "integrated-circuits",
+    "Logic IC": "integrated-circuits",
+    # Discrete Semiconductor Components
+    "Semiconductor Components": "semiconductor-components",
+    "Power MOSFET": "semiconductor-components",
+    "MOSFET": "semiconductor-components",
+    "Diode": "semiconductor-components",
+    "Rectifier Diode": "semiconductor-components",
+    "Transistor": "semiconductor-components",
+    "IGBT": "semiconductor-components",
+    "Rectifier": "semiconductor-components",
+    "Thyristor": "semiconductor-components",
+    # Passive Components
+    "Passive Components": "passive-components",
+    "Resistor": "passive-components",
+    "Resistors": "passive-components",
+    "Capacitor": "passive-components",
+    "Capacitors": "passive-components",
+    "Electrolytic Capacitor": "passive-components",
+    "Inductor": "passive-components",
+    "Inductors": "passive-components",
+    "Crystal Oscillator": "passive-components",
+    "LED Components": "passive-components",
+    # Sensors & Transducers
+    "Sensors & Transducers": "sensors",
+    "Sensors": "sensors",
+    "MEMS Sensor": "sensors",
+    "Temperature Sensors": "sensors",
+    "Pressure Sensors": "sensors",
+    "Motion Sensors": "sensors",
+    "Optical Sensors": "sensors",
+    # Connectors & Electromechanical
+    "Connectors & Electromechanical": "connectors",
+    "Connectors": "connectors",
+    "Pin Header": "connectors",
+    "USB Connectors": "connectors",
+    "FFC/FPC": "connectors",
+    "Board-to-Board": "connectors",
+    "Wire Connectors": "connectors",
+    "Switches": "connectors",
+    # Modules & Communication Modules
+    "Modules & Communication Modules": "modules",
+    "Modules": "modules",
+    "WiFi Modules": "modules",
+    "Bluetooth Modules": "modules",
+    "RF Modules": "modules",
+    "Cellular Modules": "modules",
+    "GNSS Modules": "modules",
+}
+# canonical top-level category slug -> display name (matches /components/ CollectionPage)
+TOP_CATEGORIES = {
+    "integrated-circuits": "Integrated Circuits",
+    "semiconductor-components": "Semiconductor Components",
+    "passive-components": "Passive Components",
+    "sensors": "Sensors & Transducers",
+    "connectors": "Connectors & Electromechanical",
+    "modules": "Modules & Communication Modules",
+}
+DEFAULT_CAT_SLUG = "integrated-circuits"  # fallback for unmapped fine categories
+
+def resolve_cat(fine_cat):
+    """Return (top_slug, top_name) for a fine-grained CSV category.
+    Falls back to DEFAULT_CAT_SLUG with a warning so batch never dies on a new value."""
+    slug = CATEGORY_MAP.get((fine_cat or "").strip())
+    if not slug:
+        print(f"  [WARN] unmapped Category {fine_cat!r} -> default {DEFAULT_CAT_SLUG}")
+        return DEFAULT_CAT_SLUG, TOP_CATEGORIES[DEFAULT_CAT_SLUG]
+    return slug, TOP_CATEGORIES[slug]
+
+# ---- manufacturer official websites (for Reference Resources) -----------------
+# Only OFFICIAL manufacturer / vendor domains are listed here. These are used to
+# link buyers to the manufacturer's own datasheet / technical documentation —
+# NEVER to a third-party marketplace. SZ Procure is a sourcing partner, not a
+# distributor; we keep the brand neutral and self-contained.
+MFR_OFFICIAL = {
+    "STMicroelectronics": "https://www.st.com",
+    "Texas Instruments": "https://www.ti.com",
+    "Analog Devices": "https://www.analog.com",
+    "NXP": "https://www.nxp.com",
+    "Infineon": "https://www.infineon.com",
+    "Microchip": "https://www.microchip.com",
+    "ON Semiconductor": "https://www.onsemi.com",
+    "Renesas": "https://www.renesas.com",
+    "Toshiba": "https://www.toshiba.com",
+    "ROHM": "https://www.rohm.com",
+    "Diodes Incorporated": "https://www.diodes.com",
+    "Fairchild": "https://www.onsemi.com",
+    "Maxim Integrated": "https://www.analog.com",
+    "Vishay": "https://www.vishay.com",
+    "Bourns": "https://www.bourns.com",
+    "Murata": "https://www.murata.com",
+    "TDK": "https://www.tdk.com",
+    "Yageo": "https://www.yageo.com",
+    "KEMET": "https://www.kemet.com",
+    "Panasonic": "https://www.panasonic.com",
+    "Samsung Electro-Mechanics": "https://www.samsungsem.com",
+    "TE Connectivity": "https://www.te.com",
+    "Molex": "https://www.molex.com",
+    "Amphenol": "https://www.amphenol.com",
+    "Omron": "https://www.omron.com",
+    "Bosch": "https://www.bosch.com",
+    "InvenSense": "https://www.invensense.com",
+}
+
+# ---- Popular Components map (display PN -> real product slug) -----------------
+# The hub page (components/index.html) hard-codes a few "Popular Components"
+# cards. Their displayed model numbers do NOT always equal the generated slug
+# (e.g. "LM358" -> slug "lm358dr", "AMS1117-3.3" -> "ams111733"). This map is
+# the single source of truth so we never guess the slug from the model string.
+# A model with no entry (or whose slug is not generated yet) falls back to
+# /request-a-quote/ — never a 404.
+POPULAR_SKU_MAP = {
+    "STM32F103C8T6": "stm32f103c8t6",
+    "LM358":          "lm358dr",
+    "AMS1117-3.3":    "ams111733",
+    "LM2596":         "lm2596",   # slug reserved; falls back to /request-a-quote/ until generated
+}
+
+def popular_href(model: str, generated_slugs=None) -> str:
+    """Return the correct href for a Popular Components card."""
+    slug = POPULAR_SKU_MAP.get(model)
+    if slug and (generated_slugs is None or slug in generated_slugs):
+        return f"/products/{slug}/"
+    return "/request-a-quote/"
+
 def slugify(pn):
     # AD7606BSTZ -> ad7606bstz ; keep alnum only
     return re.sub(r"[^a-z0-9]", "", pn.lower())
@@ -90,6 +232,53 @@ def split_specs(s):
 
 def split_multi(s):
     return [x.strip() for x in re.split(r"[;]", s) if x.strip()]
+
+def parse_faq(raw, pn=""):
+    """Parse FAQ column into list of (question, answer).
+    Format: Q: question?A: answer;  Q: q2?A: a2
+    Falls back to a default procurement FAQ (model-aware) when empty."""
+    pairs = []
+    if raw:
+        for chunk in re.split(r"Q\s*:", raw):
+            chunk = chunk.strip()
+            if not chunk:
+                continue
+            if "?" in chunk and "A:" in chunk:
+                q_part, a_part = chunk.split("?", 1)
+                a_part = a_part.split("A:", 1)[1] if "A:" in a_part else a_part
+                pairs.append((q_part.strip(), a_part.strip()))
+    if not pairs:
+        pn_disp = pn or "this part"
+        pairs = [
+            (f"Where can I buy {pn_disp} from China?",
+             f"SZ Procure helps overseas buyers source {pn_disp} from Shenzhen electronics suppliers. Send the part number and quantity for a quote."),
+            (f"Can SZ Procure supply hard-to-find {pn_disp}?",
+             f"Yes. We support shortage and end-of-life components through our Shenzhen supplier network. Tell us your requirement."),
+        ]
+    return pairs
+
+def render_faq(pairs, pn):
+    """Return (html_block, FAQ JSON-LD script)."""
+    items_html = ""
+    ld_items = []
+    for i, (q, a) in enumerate(pairs, 1):
+        items_html += f'<div class="faq-item"><h3>{esc(q)}</h3><p>{esc(a)}</p></div>'
+        ld_items.append(
+            f'    {{ "@type": "Question", "name": "{esc(q)}", '
+            f'"acceptedAnswer": {{ "@type": "Answer", "text": "{esc(a)}" }} }}'
+        )
+    body = ",\n".join(ld_items)
+    ld = f"""
+  <script type="application/ld+json">
+  {{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+{body}
+    ]
+  }}
+  </script>"""
+    return items_html, ld
 
 def esc(s):
     return html.escape(str(s), quote=True)
@@ -144,83 +333,258 @@ def seo_head(title, desc, url, img=None):
   <meta property="og:image" content="{og_img}" />"""
 
 # ==============================================================================
-# PART PAGE
+# PART PAGE — V2 (procurement landing page, not datasheet)
 # ==============================================================================
-def gen_part_page(row, cat_slug, mfr_slug):
+def gen_part_page(row, cat_slug, mfr_slug, all_rows=None, generated_slugs=None):
     pn = row["PN"].strip()
     mfr = row["Mfr"].strip()
     cat = row["Category"].strip()
+    subcat = (row.get("SubCategory") or "").strip()
     specs_raw = row["KeySpecs"].strip()
     apps = row["Applications"].strip()
-    cust = row["TargetCustomers"].strip()
     alt_raw = row["AltParts"].strip()
+    supply = (row.get("SupplyInfo") or "").strip()
+    faq_raw = (row.get("FAQ") or "").strip()
     region = row["DemandRegion"].strip()
     notes = row["Notes"].strip()
-    status = row["Status"].strip().lower()
     img = (row.get("Image") or "").strip()
-    source = (row.get("Source") or "").strip()
+    # NOTE: `Source` column (CSV) is for internal data curation only — it may
+    # point to an external reference site. We NEVER render it on the page.
+    # SZ Procure is a sourcing partner, not a distributor, so SKU pages must
+    # not link out to any third-party store.
 
     slug = slugify(pn)
+    # ---- same-category cross-links (product spider-web) ----
+    # all_rows: full list of part dicts. Pull up to 6 other SKUs in the same top category.
+    related = []
+    if all_rows:
+        for r in all_rows:
+            opn = r["PN"].strip()
+            oslug = slugify(opn)
+            if oslug == slug:
+                continue
+            ocslug, _ = resolve_cat(r["Category"].strip())
+            if ocslug == cat_slug and len(related) < 6:
+                related.append((opn, oslug))
     url = f"{DOMAIN}/products/{slug}/"
     img_url = img if img else "/assets/img/hero.svg"
     og_img = f"{DOMAIN}{img_url}" if img_url.startswith("/") else img_url
-    title = f"{esc(pn)} {esc(mfr)} {esc(cat)} — Datasheet, Alternatives & Sourcing | SZ Procure"
-    desc = (f"Source {pn} ({mfr} {cat}) from Shenzhen. Specifications, alternate parts "
-            f"({esc(alt_raw) or 'N/A'}), applications and sourcing support for overseas buyers.")
 
+    # Resolve fine category -> 6 top-level /components/ URL (breadcrumbs & links)
+    cat_slug, cat_top = resolve_cat(cat)
+
+    # ---- SEO copy: procurement language, Shenzhen/China sourcing keywords ----
+    # Lead / overview emphasizes the BUYING scenario (global procurement from
+    # Shenzhen supply chain), not just a spec description of the part.
+    overview = (f"SZ Procure helps global buyers source {esc(pn)} ({esc(mfr)} "
+                f"{esc(subcat or cat).lower()}) from the Shenzhen electronics supply chain. "
+                f"Whether you need small batches, hard-to-find versions, or BOM consolidation, "
+                f"our Shenzhen team connects you with verified suppliers and competitive quotes.")
+    title = f"{esc(pn)} {esc(mfr)} — Source from Shenzhen, China | SZ Procure"
+    desc = (f"Source {esc(pn)} ({esc(mfr)} {esc(cat).lower()}) from Shenzhen, China. "
+            f"Shenzhen supplier network, hard-to-find support and BOM procurement for global buyers.")
+
+    # ---- parse repeatable fields ----
     specs = split_specs(specs_raw)
-    alts = split_multi(alt_raw)
+    # Filter alternates: keep only tokens that yield a non-empty slug (real part
+    # numbers). Drops junk like "-" so we never emit alternatePart:["-"] in schema.
+    alts = [a for a in split_multi(alt_raw) if slugify(a)]
     apps_list = split_multi(apps)
-    cust_list = split_multi(cust)
     region_list = split_multi(region)
+    faq_pairs = parse_faq(faq_raw, pn)
 
-    st_label, st_cls = STATUS_LABEL.get(status, ("Status unknown", "active"))
+    # ---- extract spec pairs (Core / Flash / Package / Voltage etc.) ----
+    def infer_spec_key(val: str) -> str:
+        """Map a bare descriptive spec value to a real attribute name.
+        Never invents values — only derives the field label from known
+        semiconductor phrasing. Unmatched values fall back to 'Specification'."""
+        s = val.strip()
+        low = s.lower()
+        # Processor core
+        if any(t in low for t in ("cortex", "arm", "-bit", "mcu", "risc-v", "riscv", "dsp")):
+            return "Core"
+        # Clock speed
+        if "hz" in low and any(t in low for t in ("mhz", "ghz", "khz", ".")):
+            return "Clock Speed"
+        # Program memory
+        if "flash" in low or "eeprom" in low or "rom" in low:
+            return "Program Memory"
+        # RAM / data memory
+        if "ram" in low or ("kb" in low and "flash" not in low):
+            return "RAM"
+        # Package / footprint
+        if any(t in low for t in ("lqfp", "qfp", "sot", "soic", "tssop", "to-", "qfn",
+                                   "hc-", "0805", "0603", "1206", "radial", "sod",
+                                   "dip", "pitch", "qfp", "bga", "dfn", "sop")):
+            return "Package"
+        # Channel type (MOSFET / transistor)
+        if "channel" in low or "n-channel" in low or "p-channel" in low:
+            return "Channel"
+        # Output current / current rating
+        if "a" in low and any(t in low for t in ("output", "ma", "a ", "amp", "33a", "1a")):
+            return "Output Current"
+        # Current rating (bare number + A)
+        if "a" in low and any(ch.isdigit() for ch in low):
+            return "Current Rating"
+        # Voltage (bare number + V, or explicit supply/dropout/voltage)
+        if "v" in low and any(t in low for t in ("v", "voltage", "supply", "dropout", "v fixed", " ldo")):
+            return "Voltage"
+        if any(ch.isdigit() for ch in low) and "v" in low:
+            return "Voltage"
+        # Tolerance (resistor / capacitor %)
+        if "%" in low:
+            return "Tolerance"
+        # Resistance
+        if "ohm" in low or "ω" in low or ("k" in low and "o" in low):
+            return "Resistance"
+        # Capacitance (must check before Voltage — "100uF" contains 'u' not 'v')
+        if "uf" in low or "pf" in low or "nf" in low or "capacitor" in low or "farad" in low:
+            return "Capacitance"
+        # Power rating (W)
+        if "w" in low and any(t in low for t in ("0.", "w", "watt")):
+            return "Power Rating"
+        # Interface (communication bus)
+        if any(t in low for t in ("i2c", "spi", "uart", "can bus", "usb", "interface")):
+            return "Interface"
+        # Configuration / pin layout
+        if any(t in low for t in ("x", "pin", "male", "female", "position", "2x4", "pitch")):
+            return "Configuration"
+        # Technology / construction
+        if any(t in low for t in ("electrolytic", "ceramic", "film", "tantalum", "thick-film",
+                                   "switching", "ldo", "regulator", "op-amp", "gyro", "accel")):
+            return "Type"
+        # Frequency (crystal / oscillator)
+        if "ppm" in low or "load" in low or ("mhz" in low and "ghz" not in low and "khz" not in low):
+            return "Frequency"
+        # Generic amplifier / sensor type
+        if any(t in low for t in ("op-amp", "op amp", "gyro", "accel", "sensor", "ldo", "regulator")):
+            return "Type"
+        return "Specification"
 
-    specs_html = "".join(f"<li><span>{esc(x)}</span></li>" for x in specs) or "<li><span>—</span></li>"
-    alts_html = "".join(
-        f'<li><a href="{DOMAIN}/products/{slugify(a)}/" class="alt-link">{esc(a)}</a></li>'
-        for a in alts
-    ) or "<li>No direct alternates listed — contact us for cross-reference.</li>"
+    spec_pairs = []
+    for token in specs:
+        if ":" in token:
+            k, v = token.split(":", 1)
+            spec_pairs.append((k.strip(), v.strip()))
+        else:
+            # KeySpecs uses comma-separated descriptive values (not key:value),
+            # e.g. "32-bit ARM Cortex-M3, 72MHz, 64KB Flash". Preserve each as a
+            # real spec line with a derived attribute name so Google sees
+            # concrete, labelled entity attributes (not a generic "Specification").
+            spec_pairs.append((infer_spec_key(token), token.strip()))
+
+    # ---- render blocks ----
+    # 3. Technical Specifications table (Item | Value) — for Google entity
+    # understanding. Guarantee at least 8 core fields by backfilling standard
+    # semiconductor attributes (we never invent values — unknown → "See datasheet").
+    # This block lives BELOW the fold (section 3), never in the first screen.
+    STANDARD_FIELDS = [
+        "Package", "Mounting Type", "Operating Temperature",
+        "Supply Voltage", "Operating Current", "Pin Count",
+        "RoHS", "Status",
+    ]
+    filled_keys = {k for k, _ in spec_pairs}
+    backfill = [(k, "See datasheet") for k in STANDARD_FIELDS if k not in filled_keys]
+    all_spec_pairs = spec_pairs + backfill
+    # cap at 12 to keep it readable, prioritize real specs first
+    all_spec_pairs = all_spec_pairs[:12]
+    specs_table = "".join(
+        f"<tr><th>{esc(k)}</th><td>{esc(v)}</td></tr>" for k, v in all_spec_pairs
+    )
+    specs_html = f'<table class="spec-table">\n<tbody>\n{specs_table}</tbody>\n</table>'
+
+    # 1. Key Information table — lean, no stock/inventory wording
+    qi_rows = []
+    qi_rows.append(("Manufacturer", f'<a href="/manufacturers/{mfr_slug}/">{esc(mfr)}</a>'))
+    qi_rows.append(("Category", f'<a href="/components/{cat_slug}/">{esc(cat_top)}</a>'))
+    if subcat and subcat.lower() != cat.lower():
+        qi_rows.append(("Type", esc(subcat)))
+    for k, v in spec_pairs:
+        if k in ("Package", "Core"):
+            qi_rows.append((k, esc(v)))
+    # Supply field uses procurement language, never "stock"
+    qi_rows.append(("Sourcing Availability", "Shenzhen supplier network"))
+    qi_rows.append(("Procurement Support", "Quote by quantity &amp; target price"))
+    quick_info = "".join(f"<tr><th>{esc(k)}</th><td>{v}</td></tr>" for k, v in qi_rows)
+
+    # Alternative Parts links: point to the real SKU page when it exists,
+    # otherwise fall back to Request-a-Quote (never a 404 dead link).
+    alts_html_items = []
+    for a in alts:
+        aslug = slugify(a)
+        if generated_slugs and aslug in generated_slugs:
+            alts_html_items.append(
+                f'<li><a href="/products/{aslug}/" class="alt-link">{esc(a)}</a></li>')
+        else:
+            alts_html_items.append(
+                f'<li><a href="/request-a-quote/?pn={esc(a)}" class="alt-link">{esc(a)} '
+                f'<span class="muted">(request quote)</span></a></li>')
+    alts_html = "".join(alts_html_items) or \
+        "<li>No direct alternates listed — contact us for cross-reference.</li>"
     apps_html = "".join(f"<li>{esc(x)}</li>" for x in apps_list) or "<li>—</li>"
-    cust_html = "".join(f"<li>{esc(x)}</li>" for x in cust_list) or "<li>—</li>"
-    region_html = "".join(f'<span class="tag">{esc(x)}</span>' for x in region_list) or '<span class="tag">Global</span>'
 
-    # scarcity callout — unique value content, avoids thin pages for scarce parts
-    scarcity_block = ""
-    if status == "scarce":
-        scarcity_block = f"""
-    <div class="callout scarce">
-      <h2>Why {esc(pn)} is hard to source</h2>
-      <p>This part shows <strong>long lead times or limited availability</strong> in the open market
-      ({esc(notes) if notes else 'scarce supply'}). Many overseas factories struggle to secure stable
-      volume. We maintain Shenzhen distributor and alternative-channel relationships to help you
-      confirm real availability and lead time before you commit.</p>
-    </div>"""
-    elif status == "eol":
-        scarcity_block = f"""
-    <div class="callout eol">
-      <h2>{esc(pn)} is end-of-life</h2>
-      <p>This part is discontinued by the manufacturer. If your design depends on it, we can help
-      locate last-time-buy stock or qualify a drop-in alternative ({esc(alt_raw) or 'contact us'}).</p>
-    </div>"""
+    # 4. Sourcing Information — FIXED template (our Shenzhen sourcing moat)
+    sourcing_html = f"""<p>SZ Procure is a Shenzhen sourcing partner for <strong>{esc(pn)}</strong> — not a stock catalog. We help global buyers access China's electronics supply chain.</p>
+      <ul class="bullet-list check-list">
+        <li>✔ Original component sourcing</li>
+        <li>✔ Shenzhen supplier network</li>
+        <li>✔ Hard-to-find parts support</li>
+        <li>✔ BOM procurement service</li>
+      </ul>
+      <p>Send your quantity and target price for a quotation.</p>"""
 
-    notes_block = f"<p>{esc(notes)}</p>" if notes else "<p>—</p>"
+    # FAQ block + FAQ schema
+    faq_html, faq_jsonld = render_faq(faq_pairs, pn)
 
-    # External reference link (legitimate citation, nofollow — never image hotlinking)
-    source_link = ""
-    if source:
-        source_link = (f'<p class="source-link">'
-                       f'<a href="{esc(source)}" target="_blank" rel="nofollow noopener">'
-                       f'View on 云汉芯城 ↗</a></p>'
-                       f'<p class="muted small">Reference only — image &amp; data © respective owners.</p>')
+    # Related Products (same top-category) — internal links form a product web.
+    if related:
+        rel_items = "".join(
+            f'<li><a href="/products/{oslug}/" class="alt-link">{esc(opn)}</a></li>'
+            for opn, oslug in related
+        )
+        related_html = (f'<h2>Related {esc(cat_top)}</h2>'
+                        f'<p>Other {esc(cat_top).lower()} we help global buyers source from Shenzhen:</p>'
+                        f'<ul class="alt-list">{rel_items}</ul>')
+    else:
+        related_html = ""
 
-    # breadcrumb: Home > Category > Part
+    # Reference Resources — links ONLY to the manufacturer's OWN official
+    # documentation (datasheet / technical resources). We never link to a
+    # third-party marketplace. If we don't have the manufacturer's official
+    # site mapped, we show a neutral note instead of a store link.
+    ref_block = ""
+    mfr_official = MFR_OFFICIAL.get(mfr)
+    if mfr_official:
+        ref_block = (
+            f'<div class="reference-resources">'
+            f'<h3>Reference Resources</h3>'
+            f'<ul class="alt-list">'
+            f'<li><a href="{esc(mfr_official)}" target="_blank" rel="nofollow noopener">'
+            f'{esc(mfr)} Official Website ↗</a></li>'
+            f'<li><a href="{esc(mfr_official)}" target="_blank" rel="nofollow noopener">'
+            f'{esc(mfr)} Datasheet &amp; Technical Documentation ↗</a></li>'
+            f'</ul>'
+            f'<p class="muted small">Reference only — specifications &amp; images '
+            f'© {esc(mfr)}. SZ Procure is an independent sourcing partner, not the distributor.</p>'
+            f'</div>')
+    else:
+        ref_block = (
+            f'<div class="reference-resources">'
+            f'<h3>Reference Resources</h3>'
+            f'<p>For the official {esc(mfr)} datasheet and technical documentation, '
+            f'visit the manufacturer\'s website. SZ Procure sources this part through '
+            f'the Shenzhen supply chain — we are an independent sourcing partner, not a distributor.</p>'
+            f'</div>')
+
+    # breadcrumb: Home > Components > TopCategory > Part (matches /components/ final structure)
     crumb = breadcrumb_jsonld([
         ("Home", f"{DOMAIN}/"),
-        (cat, f"{DOMAIN}/categories/{cat_slug}/"),
+        ("Components", f"{DOMAIN}/components/"),
+        (cat_top, f"{DOMAIN}/components/{cat_slug}/"),
         (pn, url),
     ])
-    # Product JSON-LD
+    # Product JSON-LD — core fields only. NO price / NO availability / NO offers:
+    # we are a sourcing partner, not a stock catalog — inventory fields would mislead Google.
     alt_ld = ", ".join(f'"{esc(a)}"' for a in alts)
     product_jsonld = f"""
   <script type="application/ld+json">
@@ -228,16 +592,11 @@ def gen_part_page(row, cat_slug, mfr_slug):
     "@context": "https://schema.org",
     "@type": "Product",
     "name": "{esc(pn)}",
-    "category": "{esc(cat)}",
+    "model": "{esc(pn)}",
+    "category": "{esc(cat_top)}",
     "brand": {{ "@type": "Brand", "name": "{esc(mfr)}" }},
-    "description": "{esc(desc)}",
-    "url": "{url}",
-    "offers": {{
-      "@type": "Offer",
-      "priceCurrency": "USD",
-      "availability": "https://schema.org/InStock",
-      "seller": {{ "@type": "Organization", "name": "SZ Procure" }}
-    }}{(", \"alternatePart\": [" + alt_ld + "]") if alt_ld else ""}
+    "description": "{esc(overview)}",
+    "url": "{url}"{(", \"alternatePart\": [" + alt_ld + "]") if alt_ld else ""}
   }}
   </script>"""
 
@@ -250,6 +609,7 @@ def gen_part_page(row, cat_slug, mfr_slug):
   <link rel="stylesheet" href="/assets/styles.css" />
 {crumb}
 {product_jsonld}
+{faq_jsonld}
 {org_jsonld()}
 </head>
 <body>
@@ -257,60 +617,105 @@ def gen_part_page(row, cat_slug, mfr_slug):
   <main>
     <nav class="breadcrumb"><div class="container">
       <a href="/">Home</a> ›
-      <a href="/categories/{cat_slug}/">{esc(cat)}</a> ›
+      <a href="/components/">Components</a> ›
+      <a href="/components/{cat_slug}/">{esc(cat_top)}</a> ›
       <span>{esc(pn)}</span>
     </div></nav>
-    <section class="page-head">
+
+    <!-- 1. Product Header (procurement landing — above the fold, lean) -->
+    <section class="page-head part-head">
+      <div class="container part-head-grid">
+        <div class="part-head-main">
+          <div class="eyebrow"><a href="/manufacturers/{mfr_slug}/">{esc(mfr)}</a> · {esc(subcat or cat)}</div>
+          <h1>{esc(pn)}</h1>
+          <p class="lead-sub">{esc(mfr)} {esc(subcat or cat)}</p>
+          <p class="lead">Source {esc(pn)} from Shenzhen, China — we help global buyers access this part through verified suppliers with flexible quantity and competitive pricing.</p>
+          <div class="part-head-actions">
+            <a class="btn btn-primary btn-lg" href="/request-a-quote/?pn={esc(pn)}">Request a Quote</a>
+            <a class="btn btn-ghost" href="https://wa.me/8613587294123?text=Hi%20SZ%20Procure,%20I%20need%20{esc(pn)}">WhatsApp</a>
+            <a class="btn btn-ghost" href="mailto:jay@szprocure.com?subject=Quote%20for%20{esc(pn)}">Email</a>
+          </div>
+        </div>
+        <aside class="part-head-aside">
+          <div class="card key-info">
+            <h2 class="quick-info-title">Key Information</h2>
+            <table class="spec-table compact"><tbody>
+{quick_info}
+            </tbody></table>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Mobile-only quote card (after first screen, no fixed overlay) -->
+    <section class="section mobile-quote-only">
       <div class="container">
-        <div class="eyebrow"><a href="/manufacturers/{mfr_slug}/">{esc(mfr)}</a> · {esc(cat)}</div>
-        <h1>{esc(pn)} <small>{esc(mfr)}</small></h1>
-        <p class="lead">{esc(cat)} — sourced from Shenzhen's electronics supply chain.</p>
-        <div class="status-row"><span class="status {st_cls}">{st_label}</span>
-          <span class="region">Demand regions: {region_html}</span></div>
+        <div class="card sticky-card">
+          <h3>Need this component?</h3>
+          <p>Send the part number and quantity.</p>
+          <a class="btn btn-primary btn-block" href="/request-a-quote/?pn={esc(pn)}">Request a Quote</a>
+          <p class="muted small">jay@szprocure.com · WhatsApp</p>
+        </div>
       </div>
     </section>
 
     <section class="section">
       <div class="container two-col">
-        <div>
-          <figure class="part-figure">
-            <img src="{img_url}" alt="{esc(pn)} {esc(cat)} symbol / package illustration" width="320" height="240" loading="lazy" />
-            <figcaption>Illustrative package symbol — SZ Procure original artwork.</figcaption>
-          </figure>
+        <div class="part-main">
+          <!-- 2. Product Overview (SEO, not encyclopedia) -->
+          <h2>Product Overview</h2>
+          <p>{overview}</p>
 
-          <h2>Key Specifications</h2>
-          <h2>Key Specifications</h2>
-          <ul class="spec-list">{specs_html}</ul>
+          <!-- 3. Technical Specifications -->
+          <h2>Technical Specifications</h2>
+          {specs_html}
 
-          <h2>Applications</h2>
-          <ul class="bullet-list">{apps_html}</ul>
+          <!-- 4. Sourcing Information (the moat) -->
+          <h2>Sourcing Information</h2>
+          {sourcing_html}
 
-          <h2>Typical Buyers</h2>
-          <ul class="bullet-list">{cust_html}</ul>
+          <!-- 5. Alternative Parts (SEO long-tail) -->
+          <h2>Alternative Parts</h2>
+          <p>Common <strong>{esc(pn)} alternatives</strong> overseas buyers search for:</p>
+          <ul class="alt-list">{alts_html}</ul>
+          <p class="muted small">Looking for "{esc(pn)} alternative"? Tell us your requirement in the quote form.</p>
 
-          <h2>Sourcing Notes</h2>
-          {notes_block}
+          <!-- 5b. Related Products (same-category spider-web) -->
+          {related_html}
+
+          <!-- 6. FAQ (SEO + conversion) -->
+          <h2>Frequently Asked Questions</h2>
+          {faq_html}
+          {ref_block}
         </div>
+
         <aside class="part-aside">
-          <div class="card">
-            <h3>Alternate Parts</h3>
-            <ul class="alt-list">{alts_html}</ul>
-            <h3>Manufacturer</h3>
-            <p><a href="/manufacturers/{mfr_slug}/">{esc(mfr)}</a> — view all parts we source.</p>
-            <h3>Need a quote?</h3>
-            <p>Send us the part number and quantity — we'll check Shenzhen availability.</p>
+          <!-- Sticky Quote Card (desktop) -->
+          <div class="card sticky-card desk-sticky">
+            <h3>Need this component?</h3>
+            <p>Send the part number and quantity.</p>
             <a class="btn btn-primary btn-block" href="/request-a-quote/?pn={esc(pn)}">Request a Quote</a>
-            {source_link}
+            <p class="muted small">jay@szprocure.com<br/>WhatsApp</p>
+          </div>
+
+          <!-- Related Categories -->
+          <div class="card">
+            <h3>Related</h3>
+            <ul class="alt-list">
+              <li><a href="/components/{cat_slug}/">{esc(cat_top)}</a></li>
+              <li><a href="/manufacturers/{mfr_slug}/">{esc(mfr)}</a></li>
+            </ul>
           </div>
         </aside>
       </div>
     </section>
-{scarcity_block}
+
+    <!-- Bottom conversion CTA -->
     <section class="section cta-band">
       <div class="container">
-        <h2>Can't find the exact variant?</h2>
-        <p>We cross-reference packages, grades and end-of-life parts daily. Tell us what you need.</p>
-        <a class="btn btn-primary btn-lg" href="/request-a-quote/">Request a Quote</a>
+        <h2>Request a Quote for {esc(pn)}</h2>
+        <p>Send your quantity and target price — our Shenzhen team will check availability, pricing and lead time.</p>
+        <a class="btn btn-primary btn-lg" href="/request-a-quote/?pn={esc(pn)}">Request a Quote</a>
       </div>
     </section>
   </main>
@@ -335,10 +740,10 @@ def gen_manufacturer_page(mfr, parts, cat_slugs):
         f'<span class="muted">— {esc(p["Category"])}</span></li>'
         for p in sorted(parts, key=lambda x: x["PN"])
     )
-    # related categories for this manufacturer
-    cats = sorted({p["Category"] for p in parts})
+    # related categories for this manufacturer (resolve fine -> top slug)
     cat_links = "".join(
-        f'<li><a href="/categories/{slugify_name(c)}/">{esc(c)}</a></li>' for c in cats
+        f'<li><a href="/components/{resolve_cat(c)[0]}/">{esc(c)}</a></li>'
+        for c in sorted({p["Category"] for p in parts})
     )
     crumb = breadcrumb_jsonld([
         ("Home", f"{DOMAIN}/"),
@@ -397,25 +802,53 @@ def gen_manufacturer_page(mfr, parts, cat_slugs):
 # ==============================================================================
 # CATEGORY PAGE
 # ==============================================================================
-def gen_category_page(cat, parts, mfr_slugs):
-    cat_slug = slugify_name(cat)
-    url = f"{DOMAIN}/categories/{cat_slug}/"
-    title = f"{esc(cat)} — Electronic Components Sourcing China | SZ Procure"
-    desc = (f"Source {esc(cat)} from Shenzhen. Browse {len(parts)} {esc(cat)} parts we help global "
-            f"buyers procure — alternates, lead-time and quote support.")
-    part_links = "".join(
+# ==============================================================================
+# COMPONENT CATEGORY PAGE  (/components/<top-slug>/)
+# SEO entry + category navigation + procurement conversion. Groups SKUs that
+# resolve (via CATEGORY_MAP) to this top-level category.
+# ==============================================================================
+def gen_component_category_page(cat_slug, cat_name, parts, all_rows=None):
+    url = f"{DOMAIN}/components/{cat_slug}/"
+    n = len(parts)
+    title = f"{esc(cat_name)} Sourcing from Shenzhen, China | SZ Procure"
+    desc = (f"Source {esc(cat_name)} from Shenzhen. Browse {n} "
+            f"{esc(cat_name).lower()} we help global buyers procure — alternates, "
+            f"lead-time and quote support.")
+    # ---- 1. Category Introduction (procurement framing) ----
+    intro = (f"<p>{esc(cat_name)} are core building blocks for electronics manufacturing. "
+             f"SZ Procure helps global buyers source {esc(cat_name).lower()} from the "
+             f"Shenzhen supply chain — covering popular families, hard-to-find versions and "
+             f"BOM consolidation with verified suppliers and competitive quotes.</p>")
+    # ---- 2. Subcategories (fine categories mapped into this top category) ----
+    # Reverse-lookup CATEGORY_MAP to list fine categories under this top slug.
+    sub_fine = sorted({fine for fine, sl in CATEGORY_MAP.items() if sl == cat_slug})
+    sub_links = "".join(
+        f'<li><a href="/request-a-quote/?cat={esc(fine)}">{esc(fine)}</a></li>'
+        for fine in sub_fine
+    ) or f'<li><a href="/request-a-quote/">Request a quote</a></li>'
+    # ---- 3. Popular Components (first up to 8 SKUs in this category) ----
+    popular = sorted(parts, key=lambda x: x["PN"])[:8]
+    pop_links = "".join(
         f'<li><a href="/products/{slugify(p["PN"])}/">{esc(p["PN"])}</a> '
-        f'<span class="muted">— {esc(p["Mfr"])}</span></li>'
-        for p in sorted(parts, key=lambda x: x["PN"])
+        f'<span class="muted">— {esc(p.get("Mfr","").strip())}</span></li>'
+        for p in popular
     )
-    mfrs = sorted({p["Mfr"] for p in parts})
+    # ---- 4. Manufacturers in this category ----
+    mfrs = sorted({p.get("Mfr", "").strip() for p in parts if p.get("Mfr", "").strip()})
     mfr_links = "".join(
         f'<li><a href="/manufacturers/{slugify_name(m)}/">{esc(m)}</a></li>' for m in mfrs
+    ) or f'<li><a href="/request-a-quote/">Request a quote</a></li>'
+    # ---- Full SKU list (all parts in this top category) ----
+    part_links = "".join(
+        f'<li><a href="/products/{slugify(p["PN"])}/">{esc(p["PN"])}</a> '
+        f'<span class="muted">— {esc(p.get("Mfr","").strip())} · '
+        f'{esc(p.get("SubCategory") or p.get("Category","").strip())}</span></li>'
+        for p in sorted(parts, key=lambda x: x["PN"])
     )
     crumb = breadcrumb_jsonld([
         ("Home", f"{DOMAIN}/"),
-        ("Categories", f"{DOMAIN}/categories/"),
-        (cat, url),
+        ("Components", f"{DOMAIN}/components/"),
+        (cat_name, url),
     ])
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -432,31 +865,70 @@ def gen_category_page(cat, parts, mfr_slugs):
   <main>
     <nav class="breadcrumb"><div class="container">
       <a href="/">Home</a> ›
-      <a href="/categories/">Categories</a> ›
-      <span>{esc(cat)}</span>
+      <a href="/components/">Components</a> ›
+      <span>{esc(cat_name)}</span>
     </div></nav>
     <section class="page-head">
       <div class="container">
-        <div class="eyebrow">Category</div>
-        <h1>{esc(cat)} Sourcing from China</h1>
-        <p class="lead">{len(parts)} {esc(cat)} parts in our sourcing catalog.</p>
+        <div class="eyebrow">Component Category</div>
+        <h1>{esc(cat_name)} Sourcing from Shenzhen, China</h1>
+        <p class="lead">{n} {esc(cat_name).lower()} we help global buyers source — from Shenzhen's electronics supply chain.</p>
+        <div class="part-head-actions">
+          <a class="btn btn-primary btn-lg" href="/request-a-quote/">Request a Quote</a>
+          <a class="btn btn-ghost" href="https://wa.me/8613587294123">WhatsApp</a>
+          <a class="btn btn-ghost" href="mailto:jay@szprocure.com">Email</a>
+        </div>
       </div>
     </section>
+
+    <!-- 1. Category Introduction -->
+    <section class="section">
+      <div class="container">
+        <h2>About {esc(cat_name)} Sourcing</h2>
+        {intro}
+        <p class="muted small">Not sure which variant you need? Send the part number — our Shenzhen team cross-references and quotes.</p>
+      </div>
+    </section>
+
+    <!-- 2. Subcategories -->
+    <section class="section">
+      <div class="container">
+        <h2>{esc(cat_name)} Subcategories</h2>
+        <ul class="bullet-list part-index">{sub_links}</ul>
+      </div>
+    </section>
+
+    <!-- 3. Popular Components -->
     <section class="section">
       <div class="container two-col">
         <div>
-          <h2>{esc(cat)} Parts We Source</h2>
-          <ul class="bullet-list part-index">{part_links}</ul>
+          <h2>Popular {esc(cat_name)}</h2>
+          <ul class="bullet-list part-index">{pop_links}</ul>
         </div>
         <aside class="part-aside">
-          <div class="card">
-            <h3>Manufacturers in this category</h3>
-            <ul class="alt-list">{mfr_links}</ul>
-            <h3>Need a {esc(cat)} part not listed?</h3>
-            <p>Send us the exact part number — we'll check Shenzhen availability.</p>
+          <div class="card sticky-card desk-sticky">
+            <h3>Need a {esc(cat_name).lower()} part?</h3>
+            <p>Send the part number and quantity for a quote.</p>
             <a class="btn btn-primary btn-block" href="/request-a-quote/">Request a Quote</a>
+            <p class="muted small">jay@szprocure.com<br/>WhatsApp</p>
           </div>
         </aside>
+      </div>
+    </section>
+
+    <!-- 4. Manufacturers -->
+    <section class="section">
+      <div class="container">
+        <h2>Manufacturers in {esc(cat_name)}</h2>
+        <ul class="alt-list">{mfr_links}</ul>
+      </div>
+    </section>
+
+    <!-- Full SKU index -->
+    <section class="section">
+      <div class="container">
+        <h2>All {esc(cat_name)} We Source ({n})</h2>
+        <ul class="bullet-list part-index">{part_links}</ul>
       </div>
     </section>
   </main>
@@ -480,8 +952,8 @@ def gen_hub_page(kind, title, desc, items):
                           f'<span class="muted">— {len(parts)} parts</span></li>')
     else:
         for name, parts in sorted(items.items()):
-            slug = slugify_name(name)
-            rows_html += (f'<li><a href="/categories/{slug}/">{esc(name)}</a> '
+            slug = resolve_cat(name)[0]
+            rows_html += (f'<li><a href="/components/{slug}/">{esc(name)}</a> '
                           f'<span class="muted">— {len(parts)} parts</span></li>')
     crumb = breadcrumb_jsonld([("Home", f"{DOMAIN}/"), (title, url)])
     return f"""<!DOCTYPE html>
@@ -540,26 +1012,37 @@ def main():
 
     print(f"Loaded {len(rows)} parts from {csv_path}")
 
-    # group by manufacturer / category
+    # group by manufacturer / top-level component category
     by_mfr = defaultdict(list)
-    by_cat = defaultdict(list)
+    by_cat = defaultdict(list)  # key = top-level cat_slug (via CATEGORY_MAP)
+    skipped_alt = 0
     for r in rows:
         by_mfr[r["Mfr"].strip()].append(r)
-        by_cat[r["Category"].strip()].append(r)
+        cslug, _ = resolve_cat(r["Category"].strip())
+        by_cat[cslug].append(r)
+        # alt-part sanity: non-empty + each token slugifiable to a non-empty slug
+        alt_raw = (r.get("AltParts") or "").strip()
+        if alt_raw:
+            for a in split_multi(alt_raw):
+                if not slugify(a):
+                    print(f"  [WARN] bad alt token {a!r} for PN {r['PN']} — skipped")
+                    skipped_alt += 1
 
     # ---- generate part pages ----
     written = 0
     urls = []
+    # slugs that will actually get a product page (for alt-link fallback)
+    generated_slugs = {slugify(r["PN"].strip()) for r in rows if r.get("PN", "").strip()}
     for r in rows:
         pn = r["PN"].strip()
         slug = slugify(pn)
         if not slug:
             continue
-        cat_slug = slugify_name(r["Category"].strip())
+        cslug, _ = resolve_cat(r["Category"].strip())
         mfr_slug = slugify_name(r["Mfr"].strip())
         d = os.path.join(out_root, "products", slug)
         os.makedirs(d, exist_ok=True)
-        page = gen_part_page(r, cat_slug, mfr_slug)
+        page = gen_part_page(r, cslug, mfr_slug, all_rows=rows, generated_slugs=generated_slugs)
         with open(os.path.join(d, "index.html"), "w", encoding="utf-8") as f:
             f.write(page)
         urls.append(f"{DOMAIN}/products/{slug}/")
@@ -574,28 +1057,16 @@ def main():
             f.write(gen_manufacturer_page(mfr, parts, {}))
         urls.append(f"{DOMAIN}/manufacturers/{slug}/")
 
-    # ---- generate category pages ----
-    for cat, parts in by_cat.items():
-        slug = slugify_name(cat)
-        d = os.path.join(out_root, "categories", slug)
+    # ---- generate /components/<top-slug>/ category pages (all 6 canonical categories) ----
+    # Iterate over TOP_CATEGORIES so every canonical category gets a page even if
+    # no SKU currently maps to it (avoids dead breadcrumb links).
+    for cslug, cname in TOP_CATEGORIES.items():
+        parts = by_cat.get(cslug, [])
+        d = os.path.join(out_root, "components", cslug)
         os.makedirs(d, exist_ok=True)
         with open(os.path.join(d, "index.html"), "w", encoding="utf-8") as f:
-            f.write(gen_category_page(cat, parts, {}))
-        urls.append(f"{DOMAIN}/categories/{slug}/")
-
-    # ---- hub index pages ----
-    os.makedirs(os.path.join(out_root, "manufacturers"), exist_ok=True)
-    with open(os.path.join(out_root, "manufacturers", "index.html"), "w", encoding="utf-8") as f:
-        f.write(gen_hub_page("manufacturers", "Manufacturers",
-                             "Browse electronic component manufacturers we source from Shenzhen.",
-                             by_mfr))
-    urls.append(f"{DOMAIN}/manufacturers/")
-    os.makedirs(os.path.join(out_root, "categories"), exist_ok=True)
-    with open(os.path.join(out_root, "categories", "index.html"), "w", encoding="utf-8") as f:
-        f.write(gen_hub_page("categories", "Categories",
-                             "Browse electronic component categories we source from Shenzhen.",
-                             by_cat))
-    urls.append(f"{DOMAIN}/categories/")
+            f.write(gen_component_category_page(cslug, cname, parts, all_rows=rows))
+        urls.append(f"{DOMAIN}/components/{cslug}/")
 
     # ---- split sitemap (all generated URLs) ----
     n_batches = (len(urls) + SITEMAP_BATCH - 1) // SITEMAP_BATCH
@@ -645,8 +1116,9 @@ def main():
             seen.add(key_m)
         key_c = ("c", cat.lower())
         if key_c not in seen:
+            c_top = resolve_cat(cat)[0]
             search_entries.append({"t": cat, "k": cat.lower(), "ty": "Category",
-                                   "u": f"/categories/{c_slug}/", "sub": "Browse category"})
+                                   "u": f"/components/{c_top}/", "sub": "Browse category"})
             seen.add(key_c)
     with open(os.path.join(out_root, "search-index.json"), "w", encoding="utf-8") as f:
         f.write('{"entries":')
@@ -655,7 +1127,8 @@ def main():
 
     print(f"Generated {written} product pages under /products/")
     print(f"Manufacturer pages: {len(by_mfr)} under /manufacturers/")
-    print(f"Category pages: {len(by_cat)} under /categories/")
+    print(f"Component category pages: {len(by_cat)} under /components/<top-slug>/")
+    print(f"Alt tokens skipped (bad): {skipped_alt}")
     print(f"Sitemaps: {sm_paths} (+ sitemap_parts_index.xml)")
     print(f"Total indexed URLs this run: {len(urls)}")
     print(f"At 200k scale: ~{(200000+SITEMAP_BATCH-1)//SITEMAP_BATCH} sitemap files, all auto-split.")

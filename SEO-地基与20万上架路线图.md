@@ -75,7 +75,7 @@ python gen_parts.py --csv "路径/20万料号.csv" --out "."
 | Core Web Vitals 实测 | 需上线后用 PageSpeed Insights 测真实字段数据 | 需公网 |
 | 内容支柱(Pillar) | 写"如何解决 LTB/EOL 缺货"类指南攒 E-E-A-T 权威 | 后续内容任务 |
 
-## 四、SEO 策略对齐（对标 Digi-Key/Mouser 护城河）
+## 四、SEO 策略对齐（深圳采购护城河）
 
 | Digi-Key 护城河 | 我们的实现 | 阶段 |
 |----------------|-----------|------|
