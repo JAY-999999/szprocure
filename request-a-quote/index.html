@@ -28,7 +28,7 @@
     "name": "SZ Procure",
     "url": "https://www.szprocure.com/",
     "logo": "https://www.szprocure.com/assets/img/hero.svg",
-    "email": "jay@szprocure.com",
+    "email": "sales@szprocure.com",
     "description": "Shenzhen-based electronics and AI hardware sourcing service helping overseas businesses access China's supply chain for scarce, long-lead-time and end-of-life electronic components.",
     "address": {
       "@type": "PostalAddress",
@@ -64,7 +64,9 @@
               <p data-zh="我们已收到您的需求，将尽快审阅详情并与您联系。">We've received your request and will review the details and get back to you shortly.</p>
             </div>
 
-            <form id="quote-form" novalidate>
+            <form id="quote-form" action="https://formsubmit.co/sales@szprocure.com" method="POST" novalidate>
+              <input type="hidden" name="_subject" value="New RFQ Submission — SZ Procure" />
+              <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
               <div style="background:var(--bg-soft);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:24px">
                 <h3 style="margin:0 0 8px;font-size:1rem" data-zh="提交时请尽量包含以下信息">What to include in your request</h3>
                 <p style="margin:0 0 10px;color:var(--muted);font-size:.92rem" data-zh="信息越完整，我们越能快速给出合适方案。">The more details you provide, the faster we can return suitable sourcing options.</p>
@@ -137,6 +139,7 @@
                 <p class="form-note" data-zh="提交时文件大小有限制。请勿上传敏感个人信息。">File size is limited on submission. Do not upload sensitive personal data.</p>
               </div>
 
+              <div class="form-error" id="formSubmitError"></div>
               <div style="margin-top:24px;display:flex;gap:14px;align-items:center;flex-wrap:wrap">
                 <button class="btn btn-primary btn-lg" type="submit" data-zh="提交需求">Request Quote</button>
                 <span class="form-note" data-zh="提交即表示您同意我们就您的采购需求与您联系。">By submitting, you agree to be contacted about your sourcing request.</span>
@@ -158,7 +161,7 @@
               </div>
               <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border)">
                 <p style="margin:0 0 6px;font-size:.9rem;color:var(--muted)" data-zh="直接联系">Reach us directly</p>
-                <p style="margin:0 0 4px"><a href="mailto:jay@szprocure.com">jay@szprocure.com</a></p>
+                <p style="margin:0 0 4px"><a href="mailto:sales@szprocure.com">sales@szprocure.com</a></p>
                 <p style="margin:0;font-size:.9rem;color:var(--muted)">WhatsApp: +86 13530888389</p>
               </div>
             </div>

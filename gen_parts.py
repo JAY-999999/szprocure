@@ -44,6 +44,7 @@ from collections import defaultdict
 ROOT = os.path.dirname(os.path.abspath(__file__))
 DOMAIN = "https://www.szprocure.com"
 SITEMAP_BATCH = 45000  # urls per sitemap file (Google soft cap 50k)
+SEARCH_SHARD_SIZE = 5000  # entries per search shard (keeps each /search/N.json small)
 
 # GA4 Measurement ID — replace with the real one from your GA4 property.
 # Format: G-XXXXXXXXXX.
@@ -293,7 +294,7 @@ def org_jsonld():
     "name": "SZ Procure",
     "url": "{DOMAIN}/",
     "description": "China electronics & AI hardware sourcing — connect global buyers to Shenzhen supply chain.",
-    "email": "jay@szprocure.com",
+    "email": "sales@szprocure.com",
     "address": {{ "@type": "PostalAddress", "addressLocality": "Shenzhen", "addressCountry": "CN" }}
   }}
   </script>"""
@@ -524,13 +525,14 @@ def gen_part_page(row, cat_slug, mfr_slug, all_rows=None, generated_slugs=None):
     apps_html = "".join(f"<li>{esc(x)}</li>" for x in apps_list) or "<li>—</li>"
 
     # 4. Sourcing Information — FIXED template (our Shenzhen sourcing moat)
-    sourcing_html = f"""<p>SZ Procure is a Shenzhen sourcing partner for <strong>{esc(pn)}</strong> — not a stock catalog. We help global buyers access China's electronics supply chain.</p>
-      <ul class="bullet-list check-list">
-        <li>✔ Original component sourcing</li>
-        <li>✔ Shenzhen supplier network</li>
-        <li>✔ Hard-to-find parts support</li>
-        <li>✔ BOM procurement service</li>
-      </ul>
+    sourcing_html = f"""<p>SZ Procure is a Shenzhen sourcing partner for <strong>{esc(pn)}</strong> — not a stock catalog. We help global buyers access China's electronics supply chain for original components.</p>
+      <dl class="sourcing-facts">
+        <div><dt>Availability</dt><dd>Sourced through Shenzhen electronics supply network</dd></div>
+        <div><dt>MOQ</dt><dd>Flexible MOQ depending on part availability</dd></div>
+        <div><dt>Lead Time</dt><dd>Typical 3-15 working days</dd></div>
+        <div><dt>Authenticity</dt><dd>Original components from verified supply channels</dd></div>
+        <div><dt>Support</dt><dd>Global procurement and shipping support</dd></div>
+      </dl>
       <p>Send your quantity and target price for a quotation.</p>"""
 
     # FAQ block + FAQ schema
@@ -632,8 +634,8 @@ def gen_part_page(row, cat_slug, mfr_slug, all_rows=None, generated_slugs=None):
           <p class="lead">Source {esc(pn)} from Shenzhen, China — we help global buyers access this part through verified suppliers with flexible quantity and competitive pricing.</p>
           <div class="part-head-actions">
             <a class="btn btn-primary btn-lg" href="/request-a-quote/?pn={esc(pn)}">Request a Quote</a>
-            <a class="btn btn-ghost" href="https://wa.me/8613587294123?text=Hi%20SZ%20Procure,%20I%20need%20{esc(pn)}">WhatsApp</a>
-            <a class="btn btn-ghost" href="mailto:jay@szprocure.com?subject=Quote%20for%20{esc(pn)}">Email</a>
+            <a class="btn btn-ghost" href="https://wa.me/8613530888389?text=Hi%20SZ%20Procure,%20I%20need%20{esc(pn)}">WhatsApp</a>
+            <a class="btn btn-ghost" href="mailto:sales@szprocure.com?subject=Quote%20for%20{esc(pn)}">Email</a>
           </div>
         </div>
         <aside class="part-head-aside">
@@ -654,7 +656,7 @@ def gen_part_page(row, cat_slug, mfr_slug, all_rows=None, generated_slugs=None):
           <h3>Need this component?</h3>
           <p>Send the part number and quantity.</p>
           <a class="btn btn-primary btn-block" href="/request-a-quote/?pn={esc(pn)}">Request a Quote</a>
-          <p class="muted small">jay@szprocure.com · WhatsApp</p>
+          <p class="muted small">sales@szprocure.com · WhatsApp</p>
         </div>
       </div>
     </section>
@@ -695,7 +697,7 @@ def gen_part_page(row, cat_slug, mfr_slug, all_rows=None, generated_slugs=None):
             <h3>Need this component?</h3>
             <p>Send the part number and quantity.</p>
             <a class="btn btn-primary btn-block" href="/request-a-quote/?pn={esc(pn)}">Request a Quote</a>
-            <p class="muted small">jay@szprocure.com<br/>WhatsApp</p>
+            <p class="muted small">sales@szprocure.com<br/>WhatsApp</p>
           </div>
 
           <!-- Related Categories -->
@@ -875,8 +877,8 @@ def gen_component_category_page(cat_slug, cat_name, parts, all_rows=None):
         <p class="lead">{n} {esc(cat_name).lower()} we help global buyers source — from Shenzhen's electronics supply chain.</p>
         <div class="part-head-actions">
           <a class="btn btn-primary btn-lg" href="/request-a-quote/">Request a Quote</a>
-          <a class="btn btn-ghost" href="https://wa.me/8613587294123">WhatsApp</a>
-          <a class="btn btn-ghost" href="mailto:jay@szprocure.com">Email</a>
+          <a class="btn btn-ghost" href="https://wa.me/8613530888389">WhatsApp</a>
+          <a class="btn btn-ghost" href="mailto:sales@szprocure.com">Email</a>
         </div>
       </div>
     </section>
@@ -910,7 +912,7 @@ def gen_component_category_page(cat_slug, cat_name, parts, all_rows=None):
             <h3>Need a {esc(cat_name).lower()} part?</h3>
             <p>Send the part number and quantity for a quote.</p>
             <a class="btn btn-primary btn-block" href="/request-a-quote/">Request a Quote</a>
-            <p class="muted small">jay@szprocure.com<br/>WhatsApp</p>
+            <p class="muted small">sales@szprocure.com<br/>WhatsApp</p>
           </div>
         </aside>
       </div>
@@ -1092,7 +1094,13 @@ def main():
 
     # ---- search index (client-side search over generated pages) ----
     # Maps query tokens -> URLs. Kept small: only PN/Mfr/Category + slug URLs.
-    # Front-end (search.html) loads this and does prefix/substring matching.
+    # Front-end (search.html) loads shards on demand and does prefix/substring matching.
+    #
+    # Scalability: at 200k SKU this index would be 60-120MB as a single file and
+    # would freeze the browser if loaded wholesale. Instead we shard it into
+    # /search/0.json, /search/1.json, ... (SEARCH_SHARD_SIZE entries each) plus a
+    # /search/manifest.json that records the shard count. The front-end loads only
+    # the shard(s) relevant to the typed query prefix.
     search_entries = []
     seen = set()
     for r in rows:
@@ -1120,10 +1128,35 @@ def main():
             search_entries.append({"t": cat, "k": cat.lower(), "ty": "Category",
                                    "u": f"/components/{c_top}/", "sub": "Browse category"})
             seen.add(key_c)
-    with open(os.path.join(out_root, "search-index.json"), "w", encoding="utf-8") as f:
-        f.write('{"entries":')
-        f.write(__import__("json").dumps(search_entries, ensure_ascii=False))
-        f.write('}')
+
+    # Shard the index so no single file is huge.
+    # Sort by lowercase key first so each shard covers a contiguous key range;
+    # the manifest records each shard's [from,to] key bounds so the front-end
+    # can load only the shard(s) matching a typed query prefix.
+    search_entries.sort(key=lambda e: e["k"])
+    search_dir = os.path.join(out_root, "search")
+    os.makedirs(search_dir, exist_ok=True)
+    shards = []
+    shard_idx = 0
+    for i in range(0, len(search_entries), SEARCH_SHARD_SIZE):
+        chunk = search_entries[i:i + SEARCH_SHARD_SIZE]
+        shard_path = os.path.join(search_dir, f"{shard_idx}.json")
+        with open(shard_path, "w", encoding="utf-8") as f:
+            f.write('{"entries":')
+            f.write(__import__("json").dumps(chunk, ensure_ascii=False))
+            f.write('}')
+        shards.append({"file": f"/search/{shard_idx}.json",
+                       "n": len(chunk),
+                       "from": chunk[0]["k"], "to": chunk[-1]["k"]})
+        shard_idx += 1
+    # Manifest: shard count + per-shard entry counts + total.
+    manifest = {"version": 1, "shardSize": SEARCH_SHARD_SIZE,
+                "shardCount": len(shards), "total": len(search_entries),
+                "shards": shards}
+    with open(os.path.join(search_dir, "manifest.json"), "w", encoding="utf-8") as f:
+        f.write(__import__("json").dumps(manifest, ensure_ascii=False))
+    print(f"Search index: {len(search_entries)} entries -> {len(shards)} shards under /search/ "
+          f"(+ manifest.json). Avg shard ~{len(search_entries)//max(len(shards),1)} entries.")
 
     print(f"Generated {written} product pages under /products/")
     print(f"Manufacturer pages: {len(by_mfr)} under /manufacturers/")

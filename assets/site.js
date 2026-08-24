@@ -14,7 +14,7 @@
 
   var BRAND = "SZ Procure";
   var DOMAIN = "szprocure.com";
-  var EMAIL = "jay@" + DOMAIN;
+  var EMAIL = "sales@" + DOMAIN;
   var WHATSAPP = "+86 13530888389";
   var ADDRESS = "110 Fuhua Road, Futian District, Shenzhen, China";
 
@@ -84,6 +84,13 @@
     +   '<span data-zh="来自中国的电子元器件与 AI 硬件采购服务">Electronics &amp; AI Hardware Sourcing from China</span></div>'
     + '</div></footer>';
 
+  /* Mobile fixed bottom CTA bar (Request Quote + WhatsApp) — injected on all pages */
+  var MOBILE_CTA = ''
+    + '<div class="mobile-cta-bar" aria-label="Quick contact">'
+    +   '<a class="btn btn-primary" href="/request-a-quote/"><span data-zh="获取报价">Request a Quote</span></a>'
+    +   '<a class="btn btn-ghost" href="https://wa.me/8613530888389" target="_blank" rel="noopener"><span data-zh="WhatsApp">WhatsApp</span></a>'
+    + '</div>';
+
   /* ---------- i18n ---------- */
   function getLang() {
     try { return localStorage.getItem("sz_lang") || "en"; }
@@ -120,6 +127,7 @@
     var f = document.getElementById("site-footer");
     if (h) h.outerHTML = NAV;
     if (f) f.outerHTML = FOOTER;
+    document.body.insertAdjacentHTML("beforeend", MOBILE_CTA);
     bindMenu();
     bindLang();
     bindSearch();
@@ -175,30 +183,67 @@
   function bindQuoteForm() {
     var form = document.getElementById("quote-form");
     if (!form) return;
+    var success = document.getElementById("formSuccess");
+    var emailErr = form.querySelector("#formError");
+    var submitErr = form.querySelector("#formSubmitError");
+    var btn = form.querySelector('button[type="submit"]');
+
+    function clearErrors() {
+      if (emailErr) { emailErr.textContent = ""; emailErr.style.display = "none"; }
+      if (submitErr) { submitErr.textContent = ""; submitErr.style.display = "none"; }
+    }
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
+      clearErrors();
+
+      // 1) Email format check
       var email = form.querySelector("#email");
-      var err = form.querySelector("#formError");
       if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
-        if (err) {
-          err.textContent = (getLang() === "zh") ? "请输入有效的企业邮箱。" : "Please enter a valid business email.";
-          err.style.display = "block";
+        if (emailErr) {
+          emailErr.textContent = (getLang() === "zh") ? "请输入有效的企业邮箱。" : "Please enter a valid business email.";
+          emailErr.style.display = "block";
         }
         email.focus();
         return;
       }
-      if (err) err.style.display = "none";
-      var success = document.getElementById("formSuccess");
-      if (success) success.classList.add("show");
-      form.style.display = "none";
-      if (success) success.scrollIntoView({ behavior: "smooth", block: "center" });
-      /* MVP: no backend. Structure below is API/CRM-ready.
-         payload = {
-           customer_name, company, email, country, phone,
-           request_type, part_number, quantity, target_price,
-           delivery_date, destination, requirements, uploaded_files
-         }
-      */
+
+      // 2) Required fields check
+      var ok = true;
+      form.querySelectorAll("[required]").forEach(function (el) {
+        if (!el.value.trim()) { ok = false; el.classList.add("invalid"); }
+        else { el.classList.remove("invalid"); }
+      });
+      if (!ok) {
+        if (submitErr) {
+          submitErr.textContent = (getLang() === "zh") ? "请填写带 * 的必填项。" : "Please complete the required fields.";
+          submitErr.style.display = "block";
+        }
+        return;
+      }
+
+      // 3) Submit to third-party endpoint (Formsubmit.co → sales@szprocure.com)
+      if (btn) { btn.disabled = true; btn.dataset.label = btn.textContent; btn.textContent = (getLang() === "zh") ? "提交中…" : "Submitting…"; }
+      var data = new FormData(form);
+      fetch(form.getAttribute("action"), {
+        method: "POST",
+        body: data,
+        headers: { "Accept": "application/json" }
+      }).then(function (res) {
+        if (res.ok) {
+          if (success) { success.classList.add("show"); form.style.display = "none"; success.scrollIntoView({ behavior: "smooth", block: "center" }); }
+        } else {
+          throw new Error("bad-status");
+        }
+      }).catch(function () {
+        if (btn) { btn.disabled = false; btn.textContent = btn.dataset.label || "Request Quote"; }
+        if (submitErr) {
+          submitErr.textContent = (getLang() === "zh")
+            ? "提交失败，请稍后重试，或直接将需求发邮件至 sales@szprocure.com。"
+            : "Submission failed. Please try again, or email sales@szprocure.com directly.";
+          submitErr.style.display = "block";
+        }
+      });
     });
   }
 

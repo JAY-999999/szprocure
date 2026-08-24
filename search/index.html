@@ -71,8 +71,11 @@
   <script>
   (function () {
     "use strict";
-    var INDEX_URL = "/search-index.json";
-    var index = null;
+    var MANIFEST_URL = "/search/manifest.json";
+    var LEGACY_INDEX_URL = "/search-index.json"; // fallback for pre-shard deploys
+    var manifest = null;          // {shardCount, shards:[{file,from,to}], total}
+    var loaded = {};              // shardFile -> array of entries (cache)
+    var loading = {};             // shardFile -> Promise (in-flight)
     var qEl = document.getElementById("q");
     var resEl = document.getElementById("results");
     var params = new URLSearchParams(window.location.search);
@@ -93,11 +96,54 @@
       return 0;
     }
 
+    // Pick which shard files a query prefix needs. With entries sorted by key,
+    // each shard covers a contiguous [from,to] range, so a typed prefix maps to
+    // at most 1-2 shards — no wholesale load even at 200k SKU.
+    function shardsFor(q) {
+      if (!manifest) return [];
+      if (q.length < 2) {
+        // short queries: load all shards (rare; fine for small catalogs,
+        // and large catalogs rarely get a 1-char query worth answering live)
+        return manifest.shards.map(function (s) { return s.file; });
+      }
+      var first = q[0];
+      var hits = [];
+      for (var i = 0; i < manifest.shards.length; i++) {
+        var s = manifest.shards[i];
+        if (first >= s.from[0] && first <= s.to[0]) hits.push(s.file);
+      }
+      // also include the next shard as a boundary fallback (prefix may straddle)
+      if (hits.length === 0 && manifest.shards.length) {
+        hits.push(manifest.shards[0].file);
+      }
+      return hits;
+    }
+
+    function loadShard(file) {
+      if (loaded[file]) return Promise.resolve(loaded[file]);
+      if (loading[file]) return loading[file];
+      loading[file] = fetch(file).then(function (r) { return r.json(); }).then(function (d) {
+        loaded[file] = d.entries || [];
+        return loaded[file];
+      });
+      return loading[file];
+    }
+
+    function allLoadedEntries() {
+      var out = [];
+      Object.keys(loaded).forEach(function (k) { out = out.concat(loaded[k]); });
+      return out;
+    }
+
     function render(q) {
       q = norm(q);
       if (!q) { resEl.innerHTML = ""; return; }
-      if (!index) { resEl.innerHTML = '<p class="muted">Loading index…</p>'; return; }
-      var ranked = index.entries
+      if (!manifest && !(LEGACY_INDEX_URL in loaded)) {
+        resEl.innerHTML = '<p class="muted">Loading index…</p>';
+        return;
+      }
+      var entries = allLoadedEntries();
+      var ranked = entries
         .map(function (e) { return { e: e, s: score(e, q) }; })
         .filter(function (x) { return x.s > 0; })
         .sort(function (a, b) { return b.s - a.s; })
@@ -127,10 +173,18 @@
     }
 
     function update(q) {
-      // keep URL in sync without reload (shareable)
-      var newUrl = "/search/" + (q ? "?q=" + encodeURIComponent(q) : "");
+      var nq = norm(q);
+      var newUrl = "/search/" + (nq ? "?q=" + encodeURIComponent(nq) : "");
       history.replaceState(null, "", newUrl);
-      render(q);
+      // load only the shard(s) relevant to this query, then render
+      var files = shardsFor(nq);
+      if (!files.length && !manifest) { render(nq); return; }
+      resEl.innerHTML = '<p class="muted">Loading…</p>';
+      Promise.all(files.map(loadShard)).then(function () {
+        render(nq);
+      }).catch(function () {
+        resEl.innerHTML = '<p class="muted">Search index failed to load. Please refresh.</p>';
+      });
     }
 
     document.getElementById("searchForm").addEventListener("submit", function (ev) {
@@ -139,13 +193,22 @@
     });
     qEl.addEventListener("input", function () { update(qEl.value); });
 
-    // load index
-    fetch(INDEX_URL).then(function (r) { return r.json(); }).then(function (d) {
-      index = d;
-      if (initial) { qEl.value = initial; render(initial); }
+    // load manifest (or fall back to legacy single-file index)
+    fetch(MANIFEST_URL).then(function (r) {
+      if (!r.ok) throw new Error("no manifest");
+      return r.json();
+    }).then(function (m) {
+      manifest = m;
+      if (initial) { qEl.value = initial; update(initial); }
       else { qEl.focus(); }
     }).catch(function () {
-      resEl.innerHTML = '<p class="muted">Search index failed to load. Please refresh.</p>';
+      // legacy deploy: single search-index.json
+      loadShard(LEGACY_INDEX_URL).then(function () {
+        if (initial) { qEl.value = initial; render(initial); }
+        else { qEl.focus(); }
+      }).catch(function () {
+        resEl.innerHTML = '<p class="muted">Search index failed to load. Please refresh.</p>';
+      });
     });
   })();
   </script>
