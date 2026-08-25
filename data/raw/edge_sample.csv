@@ -1,0 +1,5 @@
+supplier,supplier_sku,mpn,manufacturer,title,category,description,attributes,datasheet_url,stock,price
+LCSC,EDGE-EMPTY,TEST-EMPTY-MFR,,Empty Manufacturer Resistor,Resistor,10k Resistor,Resistance: 1kΩ,https://x.com,100,0.01
+LCSC,EDGE-UNKZZZ,TEST-UNK-BRAND,ZZZFakeChipCorp,Unknown Brand MCU,Microcontroller,Mystery MCU,Clock Speed: 100MHz; Core: ARM,https://x.com,10,9.99
+LCSC,EDGE-UNKATTR,TEST-UNK-ATTR,STMicroelectronics,Unknown Attr MCU,Microcontroller,Attr test MCU,Weird Quantum Metric: 42; Clock Speed: 50MHz,https://www.st.com,10,1.00
+LCSC,EDGE-MALFORMED,TEST-MALFORMED,Yageo,Malformed Attr Resistor,Resistor,Resistor bad json,"[1, 2, 3]",https://www.yageo.com,10,0.01

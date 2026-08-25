@@ -23,9 +23,12 @@ Structured data (schema.org) on every page:
  - Organization JSON-LD (site-wide identity)
  - Breadcrumb JSON-LD   (hierarchy: Home > Category > Part / Home > Manufacturers > Mfr)
 
-CSV columns (from 料号库.csv):
-  PN, Mfr, Category, KeySpecs, Applications, TargetCustomers,
-  AltParts, DemandRegion, Notes, Status, Image, Source
+CSV columns (data/sample_parts.csv) — structured contract schema:
+  mpn, clean_mpn, manufacturer, brand, url_slug,
+  category, subcategory, description, applications, keywords,
+  attributes_json, availability, alternative_parts, datasheet_url,
+  faq, image
+  (clean_mpn / url_slug are also derived in-code if a row leaves them blank)
 
   Image  : path to a locally-hosted SVG/PNG symbol image (self-owned, zero copyright risk).
            e.g. /assets/img/mcu.svg  (falls back to hero.svg if empty)
@@ -38,7 +41,7 @@ Usage:
   python gen_parts.py --csv "path/to/料号库.csv" --out "."
   (defaults: csv = ../芯片/料号库/料号库.csv relative to this script's dir)
 """
-import csv, os, re, argparse, html, sys
+import csv, os, re, argparse, html, sys, json
 from collections import defaultdict
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -336,37 +339,30 @@ def seo_head(title, desc, url, img=None):
 # ==============================================================================
 # PART PAGE — V2 (procurement landing page, not datasheet)
 # ==============================================================================
-def gen_part_page(row, cat_slug, mfr_slug, all_rows=None, generated_slugs=None):
-    pn = row["PN"].strip()
-    mfr = row["Mfr"].strip()
-    cat = row["Category"].strip()
-    subcat = (row.get("SubCategory") or "").strip()
-    specs_raw = row["KeySpecs"].strip()
-    apps = row["Applications"].strip()
-    alt_raw = row["AltParts"].strip()
-    supply = (row.get("SupplyInfo") or "").strip()
-    faq_raw = (row.get("FAQ") or "").strip()
-    region = row["DemandRegion"].strip()
-    notes = row["Notes"].strip()
-    img = (row.get("Image") or "").strip()
+def gen_part_page(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
+    pn = row["mpn"].strip()
+    mfr = row["manufacturer"].strip()
+    cat = row["category"].strip()
+    subcat = (row.get("subcategory") or "").strip()
+    specs_raw = (row.get("attributes_json") or "").strip()
+    apps = (row.get("applications") or "").strip()
+    alt_raw = (row.get("alternative_parts") or "").strip()
+    supply = (row.get("availability") or "").strip()
+    faq_raw = (row.get("faq") or "").strip()
+    img = (row.get("image") or "").strip()
+    # Derived contract fields (kept explicit in CSV, but safe to recompute)
+    clean_mpn = (row.get("clean_mpn") or "").strip() or re.sub(r"[^A-Z0-9]", "", pn.upper())
+    url_slug = (row.get("url_slug") or "").strip() or slugify(pn)
     # NOTE: `Source` column (CSV) is for internal data curation only — it may
     # point to an external reference site. We NEVER render it on the page.
     # SZ Procure is a sourcing partner, not a distributor, so SKU pages must
     # not link out to any third-party store.
 
-    slug = slugify(pn)
+    slug = url_slug
     # ---- same-category cross-links (product spider-web) ----
-    # all_rows: full list of part dicts. Pull up to 6 other SKUs in the same top category.
-    related = []
-    if all_rows:
-        for r in all_rows:
-            opn = r["PN"].strip()
-            oslug = slugify(opn)
-            if oslug == slug:
-                continue
-            ocslug, _ = resolve_cat(r["Category"].strip())
-            if ocslug == cat_slug and len(related) < 6:
-                related.append((opn, oslug))
+    # `related` is precomputed upstream by build_related_map() in O(n) total
+    # (replaces the old O(n^2) per-page scan over all_rows).
+    related = related or []
     url = f"{DOMAIN}/products/{slug}/"
     img_url = img if img else "/assets/img/hero.svg"
     og_img = f"{DOMAIN}{img_url}" if img_url.startswith("/") else img_url
@@ -377,24 +373,32 @@ def gen_part_page(row, cat_slug, mfr_slug, all_rows=None, generated_slugs=None):
     # ---- SEO copy: procurement language, Shenzhen/China sourcing keywords ----
     # Lead / overview emphasizes the BUYING scenario (global procurement from
     # Shenzhen supply chain), not just a spec description of the part.
-    overview = (f"SZ Procure helps global buyers source {esc(pn)} ({esc(mfr)} "
-                f"{esc(subcat or cat).lower()}) from the Shenzhen electronics supply chain. "
-                f"Whether you need small batches, hard-to-find versions, or BOM consolidation, "
-                f"our Shenzhen team connects you with verified suppliers and competitive quotes.")
+    # P0-3: the VISIBLE Product Overview now prefers the REAL description from the
+    # CSV. Only when it is blank do we fall back to the procurement template.
+    # The meta `desc` and the Product JSON-LD `description` below stay unchanged
+    # (URL / Title / Meta / Schema / H1 are frozen).
+    fallback_overview = (f"SZ Procure helps global buyers source {esc(pn)} ({esc(mfr)} "
+                         f"{esc(subcat or cat).lower()}) from the Shenzhen electronics supply chain. "
+                         f"Whether you need small batches, hard-to-find versions, or BOM consolidation, "
+                         f"our Shenzhen team connects you with verified suppliers and competitive quotes.")
+    desc_csv = (row.get("description") or "").strip()
+    overview = esc(desc_csv) if desc_csv else fallback_overview
+    # Structured-data description is kept frozen (Schema unchanged).
+    schema_overview = fallback_overview
     title = f"{esc(pn)} {esc(mfr)} — Source from Shenzhen, China | SZ Procure"
     desc = (f"Source {esc(pn)} ({esc(mfr)} {esc(cat).lower()}) from Shenzhen, China. "
             f"Shenzhen supplier network, hard-to-find support and BOM procurement for global buyers.")
 
     # ---- parse repeatable fields ----
-    specs = split_specs(specs_raw)
     # Filter alternates: keep only tokens that yield a non-empty slug (real part
     # numbers). Drops junk like "-" so we never emit alternatePart:["-"] in schema.
     alts = [a for a in split_multi(alt_raw) if slugify(a)]
     apps_list = split_multi(apps)
-    region_list = split_multi(region)
     faq_pairs = parse_faq(faq_raw, pn)
 
-    # ---- extract spec pairs (Core / Flash / Package / Voltage etc.) ----
+    # ---- structured attribute extraction ----
+    # attributes_json (object or array) is the canonical spec source. Falls back
+    # to infer_spec_key() when a row ships a plain comma string instead of JSON.
     def infer_spec_key(val: str) -> str:
         """Map a bare descriptive spec value to a real attribute name.
         Never invents values — only derives the field label from known
@@ -463,16 +467,21 @@ def gen_part_page(row, cat_slug, mfr_slug, all_rows=None, generated_slugs=None):
         return "Specification"
 
     spec_pairs = []
-    for token in specs:
-        if ":" in token:
-            k, v = token.split(":", 1)
-            spec_pairs.append((k.strip(), v.strip()))
-        else:
-            # KeySpecs uses comma-separated descriptive values (not key:value),
-            # e.g. "32-bit ARM Cortex-M3, 72MHz, 64KB Flash". Preserve each as a
-            # real spec line with a derived attribute name so Google sees
-            # concrete, labelled entity attributes (not a generic "Specification").
-            spec_pairs.append((infer_spec_key(token), token.strip()))
+    if specs_raw:
+        try:
+            obj = json.loads(specs_raw)
+            if isinstance(obj, dict):
+                spec_pairs = [[k, str(v)] for k, v in obj.items()]
+            elif isinstance(obj, list):
+                spec_pairs = [[str((a.get("k") if isinstance(a, dict) else (a[0] if isinstance(a, (list, tuple)) else a))),
+                               str((a.get("v") if isinstance(a, dict) else (a[1] if isinstance(a, (list, tuple)) and len(a) > 1 else "")))] for a in obj]
+        except Exception:
+            for token in split_specs(specs_raw):
+                if ":" in token:
+                    k, v = token.split(":", 1)
+                    spec_pairs.append([k.strip(), v.strip()])
+                else:
+                    spec_pairs.append([infer_spec_key(token), token.strip()])
 
     # ---- render blocks ----
     # 3. Technical Specifications table (Item | Value) — for Google entity
@@ -597,7 +606,7 @@ def gen_part_page(row, cat_slug, mfr_slug, all_rows=None, generated_slugs=None):
     "model": "{esc(pn)}",
     "category": "{esc(cat_top)}",
     "brand": {{ "@type": "Brand", "name": "{esc(mfr)}" }},
-    "description": "{esc(overview)}",
+    "description": "{esc(schema_overview)}",
     "url": "{url}"{(", \"alternatePart\": [" + alt_ld + "]") if alt_ld else ""}
   }}
   </script>"""
@@ -633,7 +642,7 @@ def gen_part_page(row, cat_slug, mfr_slug, all_rows=None, generated_slugs=None):
           <p class="lead-sub">{esc(mfr)} {esc(subcat or cat)}</p>
           <p class="lead">Source {esc(pn)} from Shenzhen, China — we help global buyers access this part through verified suppliers with flexible quantity and competitive pricing.</p>
           <div class="part-head-actions">
-            <a class="btn btn-primary btn-lg" href="/request-a-quote/?pn={esc(pn)}">Request a Quote</a>
+            <a class="btn btn-primary btn-lg" href="/request-a-quote/?pn={esc(pn)}&mfr={esc(mfr)}&cat={esc(cat)}&source=product&rfq_type=sku_quote" data-zh="获取报价">Request a Quote</a>
             <a class="btn btn-ghost" href="https://wa.me/8613530888389?text=Hi%20SZ%20Procure,%20I%20need%20{esc(pn)}">WhatsApp</a>
             <a class="btn btn-ghost" href="mailto:sales@szprocure.com?subject=Quote%20for%20{esc(pn)}">Email</a>
           </div>
@@ -655,7 +664,7 @@ def gen_part_page(row, cat_slug, mfr_slug, all_rows=None, generated_slugs=None):
         <div class="card sticky-card">
           <h3>Need this component?</h3>
           <p>Send the part number and quantity.</p>
-          <a class="btn btn-primary btn-block" href="/request-a-quote/?pn={esc(pn)}">Request a Quote</a>
+          <a class="btn btn-primary btn-block" href="/request-a-quote/?pn={esc(pn)}&mfr={esc(mfr)}&cat={esc(cat)}&source=product&rfq_type=sku_quote" data-zh="获取报价">Request a Quote</a>
           <p class="muted small">sales@szprocure.com · WhatsApp</p>
         </div>
       </div>
@@ -696,7 +705,7 @@ def gen_part_page(row, cat_slug, mfr_slug, all_rows=None, generated_slugs=None):
           <div class="card sticky-card desk-sticky">
             <h3>Need this component?</h3>
             <p>Send the part number and quantity.</p>
-            <a class="btn btn-primary btn-block" href="/request-a-quote/?pn={esc(pn)}">Request a Quote</a>
+            <a class="btn btn-primary btn-block" href="/request-a-quote/?pn={esc(pn)}&mfr={esc(mfr)}&cat={esc(cat)}&source=product&rfq_type=sku_quote" data-zh="获取报价">Request a Quote</a>
             <p class="muted small">sales@szprocure.com<br/>WhatsApp</p>
           </div>
 
@@ -717,7 +726,7 @@ def gen_part_page(row, cat_slug, mfr_slug, all_rows=None, generated_slugs=None):
       <div class="container">
         <h2>Request a Quote for {esc(pn)}</h2>
         <p>Send your quantity and target price — our Shenzhen team will check availability, pricing and lead time.</p>
-        <a class="btn btn-primary btn-lg" href="/request-a-quote/?pn={esc(pn)}">Request a Quote</a>
+        <a class="btn btn-primary btn-lg" href="/request-a-quote/?pn={esc(pn)}&mfr={esc(mfr)}&cat={esc(cat)}&source=product&rfq_type=sku_quote" data-zh="获取报价">Request a Quote</a>
       </div>
     </section>
   </main>
@@ -738,14 +747,14 @@ def gen_manufacturer_page(mfr, parts, cat_slugs):
             f"we help global buyers procurement — alternates, lead-time and quote support.")
     # list of parts linking back to product pages
     part_links = "".join(
-        f'<li><a href="/products/{slugify(p["PN"])}/">{esc(p["PN"])}</a> '
-        f'<span class="muted">— {esc(p["Category"])}</span></li>'
-        for p in sorted(parts, key=lambda x: x["PN"])
+        f'<li><a href="/products/{p.get("url_slug") or slugify(p["mpn"])}/">{esc(p["mpn"])}</a> '
+        f'<span class="muted">— {esc(p["category"])}</span></li>'
+        for p in sorted(parts, key=lambda x: x["mpn"])
     )
     # related categories for this manufacturer (resolve fine -> top slug)
     cat_links = "".join(
         f'<li><a href="/components/{resolve_cat(c)[0]}/">{esc(c)}</a></li>'
-        for c in sorted({p["Category"] for p in parts})
+        for c in sorted({p["category"] for p in parts})
     )
     crumb = breadcrumb_jsonld([
         ("Home", f"{DOMAIN}/"),
@@ -789,7 +798,7 @@ def gen_manufacturer_page(mfr, parts, cat_slugs):
             <ul class="alt-list">{cat_links}</ul>
             <h3>Need a {esc(mfr)} part not listed?</h3>
             <p>Send us the exact part number — we'll check Shenzhen availability.</p>
-            <a class="btn btn-primary btn-block" href="/request-a-quote/">Request a Quote</a>
+            <a class="btn btn-primary btn-block" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
           </div>
         </aside>
       </div>
@@ -827,25 +836,25 @@ def gen_component_category_page(cat_slug, cat_name, parts, all_rows=None):
     sub_links = "".join(
         f'<li><a href="/request-a-quote/?cat={esc(fine)}">{esc(fine)}</a></li>'
         for fine in sub_fine
-    ) or f'<li><a href="/request-a-quote/">Request a quote</a></li>'
+    ) or f'<li><a href="/request-a-quote/" data-zh="获取报价">Request a Quote</a></li>'
     # ---- 3. Popular Components (first up to 8 SKUs in this category) ----
-    popular = sorted(parts, key=lambda x: x["PN"])[:8]
+    popular = sorted(parts, key=lambda x: x["mpn"])[:8]
     pop_links = "".join(
-        f'<li><a href="/products/{slugify(p["PN"])}/">{esc(p["PN"])}</a> '
-        f'<span class="muted">— {esc(p.get("Mfr","").strip())}</span></li>'
+        f'<li><a href="/products/{p.get("url_slug") or slugify(p["mpn"])}/">{esc(p["mpn"])}</a> '
+        f'<span class="muted">— {esc(p.get("manufacturer","").strip())}</span></li>'
         for p in popular
     )
     # ---- 4. Manufacturers in this category ----
-    mfrs = sorted({p.get("Mfr", "").strip() for p in parts if p.get("Mfr", "").strip()})
+    mfrs = sorted({p.get("manufacturer", "").strip() for p in parts if p.get("manufacturer", "").strip()})
     mfr_links = "".join(
         f'<li><a href="/manufacturers/{slugify_name(m)}/">{esc(m)}</a></li>' for m in mfrs
-    ) or f'<li><a href="/request-a-quote/">Request a quote</a></li>'
+    ) or f'<li><a href="/request-a-quote/" data-zh="获取报价">Request a Quote</a></li>'
     # ---- Full SKU list (all parts in this top category) ----
     part_links = "".join(
-        f'<li><a href="/products/{slugify(p["PN"])}/">{esc(p["PN"])}</a> '
-        f'<span class="muted">— {esc(p.get("Mfr","").strip())} · '
-        f'{esc(p.get("SubCategory") or p.get("Category","").strip())}</span></li>'
-        for p in sorted(parts, key=lambda x: x["PN"])
+        f'<li><a href="/products/{p.get("url_slug") or slugify(p["mpn"])}/">{esc(p["mpn"])}</a> '
+        f'<span class="muted">— {esc(p.get("manufacturer","").strip())} · '
+        f'{esc(p.get("subcategory") or p.get("category","").strip())}</span></li>'
+        for p in sorted(parts, key=lambda x: x["mpn"])
     )
     crumb = breadcrumb_jsonld([
         ("Home", f"{DOMAIN}/"),
@@ -876,7 +885,7 @@ def gen_component_category_page(cat_slug, cat_name, parts, all_rows=None):
         <h1>{esc(cat_name)} Sourcing from Shenzhen, China</h1>
         <p class="lead">{n} {esc(cat_name).lower()} we help global buyers source — from Shenzhen's electronics supply chain.</p>
         <div class="part-head-actions">
-          <a class="btn btn-primary btn-lg" href="/request-a-quote/">Request a Quote</a>
+          <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
           <a class="btn btn-ghost" href="https://wa.me/8613530888389">WhatsApp</a>
           <a class="btn btn-ghost" href="mailto:sales@szprocure.com">Email</a>
         </div>
@@ -911,7 +920,7 @@ def gen_component_category_page(cat_slug, cat_name, parts, all_rows=None):
           <div class="card sticky-card desk-sticky">
             <h3>Need a {esc(cat_name).lower()} part?</h3>
             <p>Send the part number and quantity for a quote.</p>
-            <a class="btn btn-primary btn-block" href="/request-a-quote/">Request a Quote</a>
+            <a class="btn btn-primary btn-block" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
             <p class="muted small">sales@szprocure.com<br/>WhatsApp</p>
           </div>
         </aside>
@@ -994,23 +1003,418 @@ def gen_hub_page(kind, title, desc, items):
 </html>"""
 
 # ==============================================================================
+# P0 SCALABILITY HELPERS  (O(n) related-products + slug-collision guard)
+# ==============================================================================
+def build_related_map(by_cat, k=6):
+    """Build slug -> list[(pn, slug)] of up to k same-category neighbours.
+
+    Replaces the old O(n^2) per-page scan. `by_cat` maps a top-level category
+    slug to the list of source rows in that category. We rotate a fixed window
+    over each category's pool so every part gets k deterministic neighbours in
+    O(1) amortised time — total cost is O(total parts), not O(n^2).
+
+    Colliding slugs (multiple PNs -> same slug) share one entry; collisions are
+    reported separately by detect_collisions().
+    """
+    related_map = {}
+    for cslug, rows_in_cat in by_cat.items():
+        pool = [(r["mpn"].strip(), (r.get("url_slug") or "").strip() or slugify(r["mpn"].strip()))
+                for r in rows_in_cat if r["mpn"].strip()]
+        n = len(pool)
+        if n == 0:
+            continue
+        for i, (pn, s) in enumerate(pool):
+            if s in related_map:
+                continue
+            related = []
+            j = i + 1
+            guard = 0
+            while len(related) < k and guard < n + k:
+                cpn, cs = pool[j % n]
+                j += 1
+                guard += 1
+                if cs != s:
+                    related.append((cpn, cs))
+            related_map[s] = related
+    return related_map
+
+
+def detect_collisions(rows):
+    """Detect slug <-> MPN collisions BEFORE writing any page.
+
+    Returns (slug_groups, empty_slugs):
+      - slug_groups: colliding slug -> list of DISTINCT MPNs that resolve to it
+      - empty_slugs: MPNs that slugify to nothing (silently dropped by generator)
+
+    The generator MUST print + record these; we NEVER silently overwrite.
+    """
+    slug_to_mpns = defaultdict(list)
+    empty = []
+    for r in rows:
+        pn = (r.get("mpn") or "").strip()
+        if not pn:
+            continue
+        slug = slugify(pn)
+        if not slug:
+            empty.append(pn)
+            continue
+        slug_to_mpns[slug].append(pn)
+    groups = {}
+    for slug, mpns in slug_to_mpns.items():
+        uniq = []
+        for m in mpns:
+            if m not in uniq:
+                uniq.append(m)
+        if len(uniq) > 1:
+            groups[slug] = uniq
+    return groups, empty
+
+
+def detect_duplicate_mpns(rows):
+    """Count EXACTLY-identical MPN rows (case/space-insensitive match).
+
+    Data sources (LCSC, Huaqiang, DigiKey, vendor feeds) frequently re-emit the
+    same part. Identical MPNs are NOT slug collisions (they resolve to the same
+    page on purpose), so this NEVER blocks generation — it only records how many
+    duplicate rows were collapsed, for data-hygiene review.
+
+    Returns (dup_groups, dup_count) where:
+      - dup_groups: normalized-mpn -> list of (raw_mpn, source_line) for groups > 1
+      - dup_count : total number of rows that are duplicates of an earlier row
+    """
+    norm_to_rows = defaultdict(list)
+    for idx, r in enumerate(rows, start=2):  # +2: header + 1-based data row
+        pn = (r.get("mpn") or "").strip()
+        if not pn:
+            continue
+        norm = re.sub(r"\s+", "", pn.lower())
+        norm_to_rows[norm].append((pn, idx))
+    dup_groups = {}
+    dup_count = 0
+    for norm, occ in norm_to_rows.items():
+        if len(occ) > 1:
+            # first occurrence is the canonical retained row; the rest are dups
+            dup_groups[norm] = occ
+            dup_count += len(occ) - 1
+    return dup_groups, dup_count
+
+
+# ==============================================================================
 # MAIN
 # ==============================================================================
+# ==============================================================================
+# PHASE 2.1 — DATA FACTORY P0 MECHANISMS
+# P0-1  slug de-collision (resolution, not just detection — no silent overwrite)
+# P0-2  brand canonicalization via mfr_canonical.csv
+# P0-3  attributes_json validation against attributes_dictionary.md (single source)
+# P0-4  duplicate-MPN merge by (canonical_brand, normalized_mpn) -> sources[]
+# All four are NON-BLOCKING by default (report + flag into review_queue).
+# Use --strict to hard-abort on unknown manufacturer / unknown attribute key.
+# ==============================================================================
+
+def norm_mpn(pn):
+    """Stable part-identity key for merge (P0-4).
+    Lower-cases and strips whitespace ONLY — preserves structural chars
+    (+, -, ., /) that are part of real PNs (e.g. nRF24L01+ != nRF24L01).
+    Over-stripping (like clean_mpn) would wrongly merge distinct parts."""
+    return re.sub(r"\s+", "", (pn or "").strip().lower())
+
+
+class SlugRegistry:
+    """Deterministic, collision-free slug assignment (P0-1).
+    First owner of a base slug keeps it; later collisions get -2, -3, ...
+    Guarantees every /products/<slug>/ is unique -> no silent page overwrite.
+    Stable for identical input order, so existing SEO URLs are preserved."""
+    def __init__(self):
+        self.used = {}
+        self.renamed = {}
+        self.first_mpn = {}
+        self.extra_mpns = defaultdict(list)
+
+    def assign(self, base, owner, mpn=""):
+        base = re.sub(r"[^a-z0-9]", "", (base or "").lower())
+        if not base:
+            return ""
+        if base not in self.used:
+            self.used[base] = owner
+            self.first_mpn[base] = mpn
+            return base
+        n = 2
+        while True:
+            cand = f"{base}-{n}"
+            if cand not in self.used:
+                self.used[cand] = owner
+                self.renamed[base] = cand
+                self.extra_mpns[base].append(mpn)
+                return cand
+            n += 1
+
+
+def load_mfr_canonical(path):
+    """raw brand/alias (lower) -> canonical brand. Tab-separated raw\tcanonical.
+    Returns dict; missing file -> empty (caller passthrough + needs_review)."""
+    m = {}
+    if not os.path.exists(path):
+        print(f"  [WARN] mfr_canonical.csv missing: {path} — brand passthrough + needs_review")
+        return m
+    with open(path, encoding="utf-8") as f:
+        for row in csv.reader(f, delimiter="\t"):
+            if len(row) < 2 or not row[0].strip():
+                continue
+            raw, canon = row[0].strip(), row[1].strip()
+            if canon:
+                m[raw.lower()] = canon
+    return m
+
+
+def canonicalize_brand(raw, mfr_map):
+    """Return (canonical_or_raw, matched_bool). Unknown -> (raw, False)."""
+    raw = (raw or "").strip()
+    if not raw:
+        return ("", False)
+    canon = mfr_map.get(raw.lower())
+    return (canon, True) if canon else (raw, False)
+
+
+# Metasyntax tokens that are NOT real attribute keys even if ever surfaced
+# (defensive; the §4 table parser below already excludes prose / unit-suffixes).
+# NOTE: `speed_hz` was removed — it IS a real key listed in §4 of the frozen
+# doc, so it must be ALLOWED, not denied.
+_ATTR_DENY = {"attributes_json", "snake_case", "needs_review"}
+
+
+def load_attr_allowlist(path):
+    """Extract allowed attribute keys from attributes_dictionary.md (P0-3).
+
+    The frozen doc's §4 '属性字典（key 清单）' table is the SINGLE SOURCE OF
+    TRUTH. We isolate that section and take the FIRST backtick-wrapped token of
+    each table row — that cell is always the attribute key. This captures BOTH:
+      • snake_case keys with a unit suffix  -> `frequency_hz`, `flash_bytes`
+      • plain-text keys WITHOUT an underscore -> `package`, `core`, `interface`,
+        `mounting`, `modulation`, `hfe`, `sensitivity`, `range`, `accuracy`, ...
+    Prose, the §3 unit-suffix table, and the §2 alias examples are ignored
+    because they live OUTSIDE the §4 section, so they can never pollute the
+    allowlist. (Fixes Phase 2.1 finding F1.)"""
+    import re as _re
+    allow = set()
+    if not os.path.exists(path):
+        print(f"  [WARN] attributes_dictionary.md missing: {path} — attr validation off")
+        return allow
+    txt = open(path, encoding="utf-8").read()
+    in_section = False
+    for line in txt.splitlines():
+        if line.startswith("## 4."):
+            in_section = True
+            continue
+        if in_section and line.startswith("## "):
+            break
+        if not in_section or not line.startswith("|"):
+            continue
+        m = _re.search(r'`([^`]+)`', line)
+        if not m:
+            continue
+        k = m.group(1).strip()
+        if k and k not in _ATTR_DENY:
+            allow.add(k)
+    return allow
+
+
+def validate_attributes(attrs_obj, allow):
+    """Return (unknown_keys_set, ok). attrs_obj: dict or None."""
+    if not isinstance(attrs_obj, dict):
+        return set(), True
+    unknown = {k for k in attrs_obj if k not in allow}
+    return unknown, (len(unknown) == 0)
+
+
+# ---------------------------------------------------------------------------
+# Legacy attribute alias map (Phase 2.1.5) — mirrors §2 of
+# attributes_dictionary.md ("禁止的同概念多字段 -> canonical key"). Raw/old
+# attribute keys found in scraped data are auto-normalized to the canonical key
+# so they don't pollute the review_queue. Only keys that are STILL unknown after
+# this map AND the allowlist are flagged. Kept in CODE (not the frozen doc) so
+# the frozen dictionary stays the authoritative KEY LIST while aliases evolve
+# independently. Voltage/current families are intentionally omitted — §2 maps
+# them to "use a specific *_{v,a,ma,ua}" which needs context, so they stay
+# flagged for human review rather than guess-wrong.
+# ---------------------------------------------------------------------------
+LEGACY_ATTR_MAP = {
+    # ---- frequency family ----
+    "frequency": "frequency_hz", "freq": "frequency_hz",
+    "clock": "frequency_hz", "speed": "frequency_hz",
+    "clock speed": "frequency_hz", "max clock speed": "frequency_hz",
+    "clock frequency": "frequency_hz", "operating frequency": "frequency_hz",
+    # ---- flash / ram (multi-word supplier labels) ----
+    "64kb": "flash_bytes", "64k flash": "flash_bytes",
+    "65536 bytes": "flash_bytes", "64k": "flash_bytes",
+    "program memory": "flash_bytes", "flash memory": "flash_bytes",
+    "flash size": "flash_bytes", "program memory size": "flash_bytes",
+    "flash memory size": "flash_bytes", "program flash": "flash_bytes",
+    "ram 64k": "ram_bytes", "65536": "ram_bytes",
+    "ram size": "ram_bytes", "sram size": "ram_bytes", "static ram": "ram_bytes",
+    # ---- resistance / capacitance / inductance ----
+    "resistance": "resistance_ohm", "ohm": "resistance_ohm",
+    "r": "resistance_ohm", "res": "resistance_ohm",
+    "resistor value": "resistance_ohm",
+    "capacitance": "capacitance_pf", "cap": "capacitance_pf",
+    "100n": "capacitance_pf", "0.1u": "capacitance_pf",
+    "capacitor value": "capacitance_pf",
+    "inductance": "inductance_uh", "ind": "inductance_uh",
+    "inductor value": "inductance_uh",
+    # ---- voltage (generic + specific) ----
+    "vcc": "voltage_v", "vdd": "voltage_v", "vin": "voltage_v", "vout": "voltage_v",
+    "operating voltage": "voltage_v", "supply voltage": "voltage_v",
+    "nominal voltage": "voltage_v", "operating voltage range": "voltage_v",
+    "input voltage": "voltage_in_max_v", "output voltage": "voltage_out_v",
+    # ---- core / package / interface / mounting (canonical already, add phrasings) ----
+    "core": "core", "cpu core": "core",
+    "package": "package", "package type": "package", "case": "package", "case package": "package",
+    "interface": "interface", "bus interface": "interface", "communication interface": "interface",
+    "mounting": "mounting", "mounting type": "mounting", "mounting style": "mounting",
+    "modulation": "modulation", "modulation type": "modulation",
+    # ---- mosfet (multi-word) ----
+    "drain source voltage": "vds_v", "vds": "vds_v", "drain-source voltage": "vds_v",
+    "gate threshold voltage": "vgs_th_v", "vgs th": "vgs_th_v", "gate-source threshold": "vgs_th_v",
+    "continuous drain current": "id_a", "drain current": "id_a", "continuous current": "id_a",
+    "on resistance": "rds_on_mohm", "rds on": "rds_on_mohm", "drain source resistance": "rds_on_mohm",
+    "gate charge": "qg_nc", "total gate charge": "qg_nc",
+    # ---- passive (multi-word) ----
+    "tolerance": "tolerance", "power rating": "power_rating_w", "rated power": "power_rating_w",
+    "voltage rating": "voltage_rating_v", "rated voltage": "voltage_rating_v",
+    "temperature coefficient": "temperature_coeff", "temp coefficient": "temperature_coeff",
+    # ---- connector / module / rf (multi-word) ----
+    "number of positions": "positions", "pin count": "positions", "number of pins": "positions",
+    "pitch": "pitch_mm", "pin pitch": "pitch_mm",
+    "current rating": "current_rating_a",
+    "data rate": "data_rate_bps", "baud rate": "data_rate_bps",
+    "output power": "output_power_dbm", "transmit power": "output_power_dbm",
+    "sensitivity": "sensitivity_dbm", "receiver sensitivity": "sensitivity_dbm",
+}
+
+
+def build_merged_groups(rows, mfr_map, attr_allow, review):
+    """P0-4 + P0-2 + P0-3: collapse rows by (canonical_brand, norm_mpn).
+    Returns (groups, stats). `review` receives (mpn, brand, reason, detail)."""
+    bucket = {}
+    order = []
+    stats = {"rows_in": len(rows), "groups_out": 0, "merged_dups": 0,
+             "brand_unmatched": 0, "brand_missing": 0, "attr_unknown": 0,
+             "attr_normalized": 0}
+    seen_review = set()
+
+    def add_review(mpn, brand, reason, detail):
+        key = (mpn, reason, detail)
+        if key in seen_review:
+            return
+        seen_review.add(key)
+        review.append((mpn, brand, reason, detail))
+
+    for r in rows:
+        mpn = (r.get("mpn") or "").strip()
+        if not mpn:
+            continue
+        raw_brand = (r.get("manufacturer") or r.get("brand") or "").strip()
+        canon_mfr, matched = canonicalize_brand(raw_brand, mfr_map)
+        if not raw_brand:
+            # F2: manufacturer is a MANDATORY product-identity field. An empty
+            # brand must NOT be silently ingested — flag it for human review.
+            stats["brand_missing"] += 1
+        elif not matched:
+            stats["brand_unmatched"] += 1
+        clean = (r.get("clean_mpn") or "").strip() or re.sub(r"[^A-Z0-9]", "", mpn.upper())
+        key = (canon_mfr, norm_mpn(mpn))
+        src = (r.get("source") or r.get("source_platform") or "").strip()
+        if key not in bucket:
+            g = dict(r)
+            g["manufacturer"] = canon_mfr
+            g["brand"] = canon_mfr
+            g["_sources"] = []
+            g["_attr_unknown"] = set()
+            g["_review_reasons"] = []
+            if not raw_brand:
+                g["_review_reasons"].append("missing_manufacturer")
+                add_review(mpn, canon_mfr, "missing_manufacturer", "empty manufacturer")
+            elif not matched:
+                g["_review_reasons"].append("unknown_manufacturer")
+                add_review(mpn, canon_mfr, "unknown_manufacturer", f"raw={raw_brand}")
+            bucket[key] = g
+            order.append(key)
+        else:
+            g = bucket[key]
+            stats["merged_dups"] += 1
+            for fld in ("description", "subcategory", "applications", "keywords",
+                        "faq", "image", "datasheet_url", "availability"):
+                if not (g.get(fld) or "").strip() and (r.get(fld) or "").strip():
+                    g[fld] = r[fld]
+            if (r.get("alternative_parts") or "").strip():
+                exist = set(split_multi(g.get("alternative_parts") or ""))
+                newones = [x for x in split_multi(r["alternative_parts"]) if x not in exist]
+                if newones:
+                    g["alternative_parts"] = (g.get("alternative_parts") or "").strip() \
+                        + ";" + ";".join(newones)
+        if src and src not in g["_sources"]:
+            g["_sources"].append(src)
+        raw = (r.get("attributes_json") or "").strip()
+        if raw:
+            try:
+                obj = json.loads(raw)
+            except Exception:
+                obj = None
+            if isinstance(obj, dict):
+                # Phase 2.1.5: normalize legacy alias keys to canonical BEFORE
+                # validation so scraped data using old names is accepted.
+                normalized = {}
+                for k, v in obj.items():
+                    nk = LEGACY_ATTR_MAP.get(k.lower(), k)
+                    if nk != k:
+                        stats["attr_normalized"] += 1
+                    normalized[nk] = v
+                unk, _ = validate_attributes(normalized, attr_allow)
+                if unk:
+                    g["_attr_unknown"] |= unk
+                    for k in sorted(unk):
+                        g["_review_reasons"].append(f"unknown_attr_key={k}")
+                        stats["attr_unknown"] += 1
+                        add_review(mpn, canon_mfr, "unknown_attribute_key", f"key={k}")
+            elif obj is not None:
+                # valid JSON but not an object (array/number) -> malformed
+                g["_review_reasons"].append("malformed_attributes")
+                add_review(mpn, canon_mfr, "malformed_attributes",
+                           "attributes_json is not an object")
+
+    groups = []
+    for key in order:
+        g = bucket[key]
+        g["sources"] = g.pop("_sources")
+        g["unknown_attr"] = g.pop("_attr_unknown")
+        reasons = g.pop("_review_reasons")
+        g["needs_review"] = bool(reasons)
+        g["review_reasons"] = reasons
+        groups.append(g)
+    stats["groups_out"] = len(groups)
+    return groups, stats
+
+
 def main():
     ap = argparse.ArgumentParser()
     default_csv = os.path.join(ROOT, "data", "sample_parts.csv")
     ap.add_argument("--csv", default=default_csv)
     ap.add_argument("--out", default=ROOT)
+    ap.add_argument("--strict", action="store_true",
+                    help="Abort generation if ANY slug collision or empty-slug is detected "
+                         "(no silent overwrite). Off by default: collisions are reported but "
+                         "generation continues with last-wins behaviour.")
     args = ap.parse_args()
 
     csv_path = os.path.abspath(args.csv)
     out_root = os.path.abspath(args.out)
+    os.makedirs(out_root, exist_ok=True)  # ensure output root exists before any report is written
     if not os.path.exists(csv_path):
         print("CSV not found:", csv_path); sys.exit(1)
 
     with open(csv_path, encoding="utf-8") as f:
         reader = csv.DictReader(f)
-        rows = [r for r in reader if r.get("PN", "").strip()]
+        rows = [r for r in reader if r.get("mpn", "").strip()]
 
     print(f"Loaded {len(rows)} parts from {csv_path}")
 
@@ -1019,32 +1423,91 @@ def main():
     by_cat = defaultdict(list)  # key = top-level cat_slug (via CATEGORY_MAP)
     skipped_alt = 0
     for r in rows:
-        by_mfr[r["Mfr"].strip()].append(r)
-        cslug, _ = resolve_cat(r["Category"].strip())
+        by_mfr[r["manufacturer"].strip()].append(r)
+        cslug, _ = resolve_cat(r["category"].strip())
         by_cat[cslug].append(r)
         # alt-part sanity: non-empty + each token slugifiable to a non-empty slug
-        alt_raw = (r.get("AltParts") or "").strip()
+        alt_raw = (r.get("alternative_parts") or "").strip()
         if alt_raw:
             for a in split_multi(alt_raw):
                 if not slugify(a):
                     print(f"  [WARN] bad alt token {a!r} for PN {r['PN']} — skipped")
                     skipped_alt += 1
 
+    # ---- P0-2: slug collision guard (run BEFORE any page is written) ----
+    # Build slug <-> MPN mapping and surface every conflict. We never silently
+    # overwrite: collisions are printed AND written to gen_collision_report.log.
+    collision_groups, empty_slugs = detect_collisions(rows)
+    if collision_groups or empty_slugs:
+        lines = []
+        lines.append("=" * 72)
+        lines.append("SLUG COLLISION REPORT  —  generated by gen_parts.py")
+        lines.append("Conflicting slugs would SILENTLY overwrite each other; only the LAST")
+        lines.append("row for each slug wins the /products/<slug>/ page. Review and fix the CSV.")
+        lines.append(f"Colliding slugs : {len(collision_groups)}")
+        lines.append(f"Empty-slug drops: {len(empty_slugs)}")
+        lines.append("=" * 72)
+        for slug, mpns in sorted(collision_groups.items()):
+            lines.append(f"  SLUG {slug!r} <- conflicting MPNs: {', '.join(mpns)}")
+        for pn in empty_slugs:
+            lines.append(f"  EMPTY-SLUG (dropped): {pn!r}")
+        report_text = "\n".join(lines) + "\n"
+        report_path = os.path.join(out_root, "gen_collision_report.log")
+        with open(report_path, "w", encoding="utf-8") as f:
+            f.write(report_text)
+        print(report_text)
+        print(f"  [!] Collision report written to {report_path}")
+        if args.strict:
+            print("\n  [STRICT MODE] Slug collision(s) / empty-slug(s) detected — "
+                  "ABORTING generation to prevent silent page overwrite.")
+            print("  Fix the CSV (de-duplicate or re-slug the conflicting MPNs), then re-run.")
+            sys.exit(2)
+    else:
+        print("  [OK] No slug collisions or empty slugs detected.")
+
+    # ---- P0-2b: duplicate-MPN report (informational, NEVER blocks) ----
+    # The same part emitted by multiple sources (LCSC/DigiKey/Huaqiang/vendor)
+    # is expected; these are NOT slug collisions, so we record but keep going.
+    dup_groups, dup_count = detect_duplicate_mpns(rows)
+    if dup_groups:
+        dlines = []
+        dlines.append("=" * 72)
+        dlines.append("DUPLICATE MPN REPORT  —  generated by gen_parts.py")
+        dlines.append("Identical MPN rows collapse to the SAME /products/<slug>/ page (not a")
+        dlines.append("collision). Recorded for data-hygiene review only; generation continues.")
+        dlines.append(f"Duplicate MPN groups : {len(dup_groups)}")
+        dlines.append(f"Extra duplicate rows : {dup_count}")
+        dlines.append("=" * 72)
+        for norm, occ in sorted(dup_groups.items()):
+            dlines.append(f"  MPN {occ[0][0]!r} (normalized {norm!r}) x{len(occ)} "
+                          f"at CSV lines: {', '.join(str(l) for _, l in occ)}")
+        dup_text = "\n".join(dlines) + "\n"
+        dup_path = os.path.join(out_root, "duplicate_mpn_report.log")
+        with open(dup_path, "w", encoding="utf-8") as f:
+            f.write(dup_text)
+        print(dup_text)
+        print(f"  [i] Duplicate-MPN report written to {dup_path}")
+    else:
+        print("  [OK] No duplicate MPN rows detected.")
+
+    # ---- P0-1: O(n) related-products pre-index (replaces per-page O(n^2) scan) ----
+    related_map = build_related_map(by_cat, k=6)
+
     # ---- generate part pages ----
     written = 0
     urls = []
     # slugs that will actually get a product page (for alt-link fallback)
-    generated_slugs = {slugify(r["PN"].strip()) for r in rows if r.get("PN", "").strip()}
+    generated_slugs = {slugify(r["mpn"].strip()) for r in rows if r.get("mpn", "").strip()}
     for r in rows:
-        pn = r["PN"].strip()
+        pn = r["mpn"].strip()
         slug = slugify(pn)
         if not slug:
             continue
-        cslug, _ = resolve_cat(r["Category"].strip())
-        mfr_slug = slugify_name(r["Mfr"].strip())
+        cslug, _ = resolve_cat(r["category"].strip())
+        mfr_slug = slugify_name(r["manufacturer"].strip())
         d = os.path.join(out_root, "products", slug)
         os.makedirs(d, exist_ok=True)
-        page = gen_part_page(r, cslug, mfr_slug, all_rows=rows, generated_slugs=generated_slugs)
+        page = gen_part_page(r, cslug, mfr_slug, related=related_map.get(slug, []), generated_slugs=generated_slugs)
         with open(os.path.join(d, "index.html"), "w", encoding="utf-8") as f:
             f.write(page)
         urls.append(f"{DOMAIN}/products/{slug}/")
@@ -1104,9 +1567,9 @@ def main():
     search_entries = []
     seen = set()
     for r in rows:
-        pn = r["PN"].strip()
-        mfr = r["Mfr"].strip()
-        cat = r["Category"].strip()
+        pn = r["mpn"].strip()
+        mfr = r["manufacturer"].strip()
+        cat = r["category"].strip()
         p_slug = slugify(pn)
         m_slug = slugify_name(mfr)
         c_slug = slugify_name(cat)
@@ -1158,13 +1621,318 @@ def main():
     print(f"Search index: {len(search_entries)} entries -> {len(shards)} shards under /search/ "
           f"(+ manifest.json). Avg shard ~{len(search_entries)//max(len(shards),1)} entries.")
 
+    # ---- parts.json (machine-readable structured catalog) ----
+    # Contract layer for future /api/parts, AI agents and internal search.
+    # Static now; at 200k scale this file is replaced by a real query API.
+    parts_json = []
+    for r in rows:
+        mpn = (r.get("mpn") or "").strip()
+        if not mpn:
+            continue
+        clean = (r.get("clean_mpn") or "").strip() or re.sub(r"[^A-Z0-9]", "", mpn.upper())
+        uslug = (r.get("url_slug") or "").strip() or slugify(mpn)
+        attrs = {}
+        raw = (r.get("attributes_json") or "").strip()
+        if raw:
+            try:
+                attrs = json.loads(raw)
+            except Exception:
+                attrs = {}
+        parts_json.append({
+            "mpn": mpn,
+            "clean_mpn": clean,
+            "manufacturer": (r.get("manufacturer") or "").strip(),
+            "brand": (r.get("brand") or "").strip(),
+            "url_slug": uslug,
+            "category": (r.get("category") or "").strip(),
+            "subcategory": (r.get("subcategory") or "").strip(),
+            "description": (r.get("description") or "").strip(),
+            "applications": (r.get("applications") or "").strip(),
+            "keywords": (r.get("keywords") or "").strip(),
+            "attributes": attrs,
+            "availability": (r.get("availability") or "").strip(),
+            "alternative_parts": (r.get("alternative_parts") or "").strip(),
+            "datasheet_url": (r.get("datasheet_url") or "").strip(),
+            "product_url": f"/products/{uslug}/",
+        })
+    with open(os.path.join(out_root, "parts.json"), "w", encoding="utf-8") as f:
+        f.write(json.dumps(parts_json, ensure_ascii=False, indent=2))
+    print(f"parts.json: {len(parts_json)} structured records written.")
+
     print(f"Generated {written} product pages under /products/")
     print(f"Manufacturer pages: {len(by_mfr)} under /manufacturers/")
     print(f"Component category pages: {len(by_cat)} under /components/<top-slug>/")
     print(f"Alt tokens skipped (bad): {skipped_alt}")
+    print(f"Slug collisions (recorded): {len(collision_groups)}")
+    print(f"Empty-slug rows dropped: {len(empty_slugs)}")
+    print(f"Duplicate MPN rows (recorded, non-blocking): {dup_count}")
     print(f"Sitemaps: {sm_paths} (+ sitemap_parts_index.xml)")
     print(f"Total indexed URLs this run: {len(urls)}")
     print(f"At 200k scale: ~{(200000+SITEMAP_BATCH-1)//SITEMAP_BATCH} sitemap files, all auto-split.")
+
+def main():
+    ap = argparse.ArgumentParser()
+    default_csv = os.path.join(ROOT, "data", "sample_parts.csv")
+    ap.add_argument("--csv", default=default_csv)
+    ap.add_argument("--out", default=ROOT)
+    ap.add_argument("--mfr-map", default=os.path.join(ROOT, "data", "mfr_canonical.csv"))
+    ap.add_argument("--attr-dict", default=os.path.join(ROOT, "data", "attributes_dictionary.md"))
+    ap.add_argument("--dry-run", action="store_true",
+                    help="Process + validate + report only. Writes test_p0_processed.csv and "
+                         "review_queue.csv under --out, but does NOT generate HTML/sitemap/search.")
+    ap.add_argument("--strict", action="store_true",
+                    help="Hard gate: abort if any unknown manufacturer or unknown attribute key "
+                         "is found (200k data-hygiene gate).")
+    args = ap.parse_args()
+
+    csv_path = os.path.abspath(args.csv)
+    out_root = os.path.abspath(args.out)
+    os.makedirs(out_root, exist_ok=True)
+    if not os.path.exists(csv_path):
+        print("CSV not found:", csv_path); sys.exit(1)
+
+    # ---- load reference dictionaries (Phase 2.1) ----
+    mfr_map = load_mfr_canonical(args.mfr_map)
+    attr_allow = load_attr_allowlist(args.attr_dict)
+    print(f"Loaded mfr_canonical ({len(mfr_map)} aliases) + attributes allowlist "
+          f"({len(attr_allow)} keys)")
+
+    with open(csv_path, encoding="utf-8") as f:
+        rows = [r for r in csv.DictReader(f) if r.get("mpn", "").strip()]
+
+    print(f"Loaded {len(rows)} parts from {csv_path}")
+
+    # ---- P0-4 + P0-2 + P0-3 : merge / canonicalize / validate ----
+    review = []   # (mpn, canonical_brand, reason, detail)
+    groups, stats = build_merged_groups(rows, mfr_map, attr_allow, review)
+
+    # ---- P0-1 : deterministic, collision-free slug assignment ----
+    registry = SlugRegistry()
+    for g in groups:
+        base = (g.get("url_slug") or "").strip() or slugify(g["mpn"].strip())
+        g["url_slug"] = registry.assign(base, g["manufacturer"].strip(), g["mpn"].strip())
+
+    # ---- P0-1 report: collisions auto-resolved (no overwrite) ----
+    if registry.renamed:
+        lines = ["=" * 72, "SLUG COLLISION RESOLUTION REPORT — gen_parts.py (P0-1)",
+                 "Colliding base slugs are auto-suffixed (-2, -3...) so NO page is overwritten.",
+                 f"Resolved collisions : {len(registry.renamed)}", "=" * 72]
+        for base, final in sorted(registry.renamed.items()):
+            mpns = [registry.first_mpn.get(base, "")] + registry.extra_mpns.get(base, [])
+            lines.append(f"  {base} -> {final}  (MPNs: {', '.join(mpns)})")
+        txt = "\n".join(lines) + "\n"
+        with open(os.path.join(out_root, "slug_resolution_report.log"), "w", encoding="utf-8") as f:
+            f.write(txt)
+        print(txt)
+        print(f"  [i] Slug resolution report -> {os.path.join(out_root, 'slug_resolution_report.log')}")
+    else:
+        print("  [OK] No slug collisions — all base slugs unique; no URL overwrite risk.")
+
+    # ---- P0-4 / P0-2 / P0-3 summary ----
+    print(f"  [P0-4] rows in: {stats['rows_in']} -> groups out: {stats['groups_out']} "
+          f"(merged duplicate rows: {stats['merged_dups']})")
+    print(f"  [P0-2] rows with unmapped manufacturer (needs_review): {stats['brand_unmatched']}")
+    print(f"  [P0-3] rows with unknown attribute key (needs_review): {stats['attr_unknown']}")
+
+    # ---- DRY RUN: processed + review outputs, stop before HTML ----
+    if args.dry_run:
+        proc_path = os.path.join(out_root, "test_p0_processed.csv")
+        with open(proc_path, "w", encoding="utf-8", newline="") as f:
+            w = csv.writer(f)
+            w.writerow(["mpn", "canonical_brand", "clean_mpn", "url_slug", "category",
+                        "subcategory", "sources", "needs_review", "review_reasons",
+                        "unknown_attr", "attributes_json"])
+            for g in groups:
+                w.writerow([
+                    g.get("mpn", "").strip(),
+                    g.get("manufacturer", "").strip(),
+                    (g.get("clean_mpn") or "").strip() or re.sub(r"[^A-Z0-9]", "", (g.get("mpn") or "").upper()),
+                    g.get("url_slug", ""),
+                    g.get("category", "").strip(),
+                    g.get("subcategory", "").strip(),
+                    ";".join(g.get("sources", [])),
+                    "yes" if g.get("needs_review") else "no",
+                    ";".join(g.get("review_reasons", [])),
+                    ";".join(sorted(g.get("unknown_attr", set()))),
+                    (g.get("attributes_json") or "").strip(),
+                ])
+        rq_path = os.path.join(out_root, "review_queue.csv")
+        with open(rq_path, "w", encoding="utf-8", newline="") as f:
+            w = csv.writer(f)
+            w.writerow(["mpn", "canonical_brand", "reason", "detail"])
+            for mpn, brand, reason, detail in review:
+                w.writerow([mpn, brand, reason, detail])
+        print(f"\n  [DRY-RUN] Processed catalog -> {proc_path}")
+        print(f"  [DRY-RUN] Review queue     -> {rq_path}  ({len(review)} items)")
+        print(f"  [DRY-RUN] No HTML/sitemap/search written. Phase 2.1 logic verified.")
+        return
+
+    # ---- hard gate (--strict) ----
+    if args.strict and (stats["brand_unmatched"] > 0 or stats["attr_unknown"] > 0):
+        print("\n  [STRICT MODE] Unknown manufacturer and/or unknown attribute key detected.")
+        print("  Aborting generation to protect 200k data hygiene. Fix the review_queue, then re-run.")
+        sys.exit(3)
+
+    # ---- group for page generation ----
+    by_mfr = defaultdict(list)
+    by_cat = defaultdict(list)
+    for g in groups:
+        by_mfr[g["manufacturer"].strip()].append(g)
+        cslug, _ = resolve_cat(g["category"].strip())
+        by_cat[cslug].append(g)
+
+    # ---- P0-1 related-products pre-index (final slugs) ----
+    related_map = build_related_map(by_cat, k=6)
+
+    # ---- generate part pages ----
+    written = 0
+    urls = []
+    generated_slugs = {g["url_slug"] for g in groups if g.get("url_slug")}
+    for g in groups:
+        pn = g["mpn"].strip()
+        slug = g["url_slug"]
+        if not slug:
+            continue
+        cslug, _ = resolve_cat(g["category"].strip())
+        mfr_slug = slugify_name(g["manufacturer"].strip())
+        d = os.path.join(out_root, "products", slug)
+        os.makedirs(d, exist_ok=True)
+        page = gen_part_page(g, cslug, mfr_slug, related=related_map.get(slug, []), generated_slugs=generated_slugs)
+        with open(os.path.join(d, "index.html"), "w", encoding="utf-8") as f:
+            f.write(page)
+        urls.append(f"{DOMAIN}/products/{slug}/")
+        written += 1
+
+    # ---- manufacturer pages ----
+    for mfr, parts in by_mfr.items():
+        mslug = slugify_name(mfr)
+        d = os.path.join(out_root, "manufacturers", mslug)
+        os.makedirs(d, exist_ok=True)
+        with open(os.path.join(d, "index.html"), "w", encoding="utf-8") as f:
+            f.write(gen_manufacturer_page(mfr, parts, {}))
+        urls.append(f"{DOMAIN}/manufacturers/{mslug}/")
+
+    # ---- component category pages (6 canonical categories) ----
+    for cslug, cname in TOP_CATEGORIES.items():
+        parts = by_cat.get(cslug, [])
+        d = os.path.join(out_root, "components", cslug)
+        os.makedirs(d, exist_ok=True)
+        with open(os.path.join(d, "index.html"), "w", encoding="utf-8") as f:
+            f.write(gen_component_category_page(cslug, cname, parts, all_rows=rows))
+        urls.append(f"{DOMAIN}/components/{cslug}/")
+
+    # ---- split sitemap (all generated URLs) ----
+    n_batches = (len(urls) + SITEMAP_BATCH - 1) // SITEMAP_BATCH
+    sm_paths = []
+    for b in range(n_batches):
+        chunk = urls[b * SITEMAP_BATCH:(b + 1) * SITEMAP_BATCH]
+        fn = "sitemap_parts.xml" if n_batches == 1 else f"sitemap_parts_{b+1}.xml"
+        with open(os.path.join(out_root, fn), "w", encoding="utf-8") as f:
+            f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+            f.write('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
+            for u in chunk:
+                f.write(f"  <url><loc>{u}</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>\n")
+            f.write('</urlset>\n')
+        sm_paths.append(fn)
+    with open(os.path.join(out_root, "sitemap_parts_index.xml"), "w", encoding="utf-8") as f:
+        f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+        f.write('<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
+        for fn in sm_paths:
+            f.write(f"  <sitemap><loc>{DOMAIN}/{fn}</loc></sitemap>\n")
+        f.write('</sitemapindex>\n')
+
+    # ---- search index (uses final slugs) ----
+    search_entries = []
+    seen = set()
+    for g in groups:
+        pn = g["mpn"].strip()
+        mfr = g["manufacturer"].strip()
+        cat = g["category"].strip()
+        p_slug = g["url_slug"]
+        m_slug = slugify_name(mfr)
+        c_slug = slugify_name(cat)
+        key_p = ("p", pn.lower())
+        if key_p not in seen:
+            search_entries.append({"t": pn, "k": pn.lower(), "keys": pn_search_keys(pn),
+                                   "ty": "Part", "u": f"/products/{p_slug}/", "sub": f"{mfr} \u00b7 {cat}"})
+            seen.add(key_p)
+        key_m = ("m", mfr.lower())
+        if key_m not in seen:
+            search_entries.append({"t": mfr, "k": mfr.lower(), "ty": "Manufacturer",
+                                   "u": f"/manufacturers/{m_slug}/", "sub": "View all sourced parts"})
+            seen.add(key_m)
+        key_c = ("c", cat.lower())
+        if key_c not in seen:
+            c_top = resolve_cat(cat)[0]
+            search_entries.append({"t": cat, "k": cat.lower(), "ty": "Category",
+                                   "u": f"/components/{c_top}/", "sub": "Browse category"})
+            seen.add(key_c)
+    search_entries.sort(key=lambda e: e["k"])
+    search_dir = os.path.join(out_root, "search")
+    os.makedirs(search_dir, exist_ok=True)
+    shards = []
+    shard_idx = 0
+    for i in range(0, len(search_entries), SEARCH_SHARD_SIZE):
+        chunk = search_entries[i:i + SEARCH_SHARD_SIZE]
+        shard_path = os.path.join(search_dir, f"{shard_idx}.json")
+        with open(shard_path, "w", encoding="utf-8") as f:
+            f.write('{"entries":')
+            f.write(json.dumps(chunk, ensure_ascii=False))
+            f.write('}')
+        shards.append({"file": f"/search/{shard_idx}.json", "n": len(chunk),
+                       "from": chunk[0]["k"], "to": chunk[-1]["k"]})
+        shard_idx += 1
+    manifest = {"version": 1, "shardSize": SEARCH_SHARD_SIZE,
+                "shardCount": len(shards), "total": len(search_entries), "shards": shards}
+    with open(os.path.join(search_dir, "manifest.json"), "w", encoding="utf-8") as f:
+        f.write(json.dumps(manifest, ensure_ascii=False))
+    print(f"Search index: {len(search_entries)} entries -> {len(shards)} shards under /search/.")
+
+    # ---- parts.json (machine-readable; now carries sources + needs_review) ----
+    parts_json = []
+    for g in groups:
+        mpn = g["mpn"].strip()
+        if not mpn:
+            continue
+        clean = (g.get("clean_mpn") or "").strip() or re.sub(r"[^A-Z0-9]", "", mpn.upper())
+        uslug = g["url_slug"]
+        attrs = {}
+        raw = (g.get("attributes_json") or "").strip()
+        if raw:
+            try:
+                attrs = json.loads(raw)
+            except Exception:
+                attrs = {}
+        parts_json.append({
+            "mpn": mpn,
+            "clean_mpn": clean,
+            "manufacturer": g["manufacturer"].strip(),
+            "brand": g.get("brand", g["manufacturer"]).strip(),
+            "url_slug": uslug,
+            "category": g.get("category", "").strip(),
+            "subcategory": g.get("subcategory", "").strip(),
+            "description": g.get("description", "").strip(),
+            "applications": g.get("applications", "").strip(),
+            "keywords": g.get("keywords", "").strip(),
+            "attributes": attrs,
+            "sources": g.get("sources", []),
+            "needs_review": bool(g.get("needs_review")),
+            "availability": g.get("availability", "").strip(),
+            "alternative_parts": g.get("alternative_parts", "").strip(),
+            "datasheet_url": g.get("datasheet_url", "").strip(),
+            "product_url": f"/products/{uslug}/",
+        })
+    with open(os.path.join(out_root, "parts.json"), "w", encoding="utf-8") as f:
+        f.write(json.dumps(parts_json, ensure_ascii=False, indent=2))
+    print(f"parts.json: {len(parts_json)} structured records written.")
+
+    print(f"Generated {written} product pages under /products/")
+    print(f"Manufacturer pages: {len(by_mfr)} under /manufacturers/")
+    print(f"Component category pages: {len(by_cat)} under /components/<top-slug>/")
+    print(f"Slug collisions resolved (no overwrite): {len(registry.renamed)}")
+    print(f"Duplicate MPN rows merged: {stats['merged_dups']}")
+    print(f"Sitemaps: {sm_paths} (+ sitemap_parts_index.xml)")
+    print(f"Total indexed URLs this run: {len(urls)}")
 
 if __name__ == "__main__":
     main()
