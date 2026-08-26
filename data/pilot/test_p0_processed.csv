@@ -1,0 +1,101 @@
+mpn,canonical_brand,clean_mpn,url_slug,category,subcategory,sources,needs_review,review_reasons,unknown_attr,attributes_json
+STM32F103C8T6,STMicroelectronics,STM32F103C8T6,stm32f103c8t6,Microcontroller,Microcontroller,,no,,,"{""frequency_hz"": ""72MHz"", ""flash_bytes"": ""64KB"", ""ram_bytes"": ""20KB"", ""core"": ""ARM Cortex-M3"", ""voltage_v"": ""2.0-3.6V""}"
+CH32V003F4P6,WCH,CH32V003F4P6,ch32v003f4p6,Microcontroller,Microcontroller,,no,,,"{""frequency_hz"": ""48MHz"", ""flash_bytes"": ""16KB"", ""ram_bytes"": ""2KB"", ""core"": ""RISC-V"", ""voltage_v"": ""3.3-5V""}"
+STM8S003F3P6,STMicroelectronics,STM8S003F3P6,stm8s003f3p6,Microcontroller,Microcontroller,,no,,,"{""frequency_hz"": ""16MHz"", ""flash_bytes"": ""8KB"", ""ram_bytes"": ""1KB"", ""core"": ""STM8"", ""voltage_v"": ""2.95-5.5V""}"
+AO3400A,Alpha & Omega Semiconductor,AO3400A,ao3400a,MOSFET,MOSFET,,no,,,"{""vds_v"": ""30V"", ""vgs_th_v"": ""1.2V"", ""id_a"": ""4A"", ""rds_on_mohm"": ""50mΩ"", ""qg_nc"": ""6nC""}"
+IRF540N,Infineon Technologies,IRF540N,irf540n,MOSFET,MOSFET,,no,,,"{""vds_v"": ""100V"", ""vgs_th_v"": ""2-4V"", ""id_a"": ""33A"", ""rds_on_mohm"": ""44mΩ""}"
+STP55NF06L,STMicroelectronics,STP55NF06L,stp55nf06l,MOSFET,MOSFET,,no,,,"{""vds_v"": ""60V"", ""id_a"": ""55A"", ""rds_on_mohm"": ""14mΩ""}"
+2N7002,ON Semiconductor,2N7002,2n7002,MOSFET,MOSFET,,no,,,"{""vds_v"": ""60V"", ""vgs_th_v"": ""2.5V"", ""id_a"": ""0.115A""}"
+SI2302,Vishay Intertechnology,SI2302,si2302,MOSFET,MOSFET,,no,,,"{""vds_v"": ""20V"", ""id_a"": ""3A"", ""rds_on_mohm"": ""60mΩ""}"
+RC0805JR-0710KL,Yageo,RC0805JR0710KL,rc0805jr0710kl,Resistor,Resistor,,no,,,"{""resistance_ohm"": ""10kΩ"", ""tolerance"": ""±1%"", ""power_rating_w"": ""0.125W"", ""temperature_coeff"": ""±100ppm/°C""}"
+CC0603KRX7R7BB104,Yageo,CC0603KRX7R7BB104,cc0603krx7r7bb104,Capacitor,Capacitor,,no,,,"{""capacitance_pf"": ""100nF"", ""voltage_rating_v"": ""50V"", ""tolerance"": ""±10%""}"
+GRM188R71C104KA01,Murata Manufacturing,GRM188R71C104KA01,grm188r71c104ka01,Capacitor,Capacitor,,no,,,"{""capacitance_pf"": ""0.1uF"", ""voltage_rating_v"": ""50V""}"
+LQG15HN1N8S0M,Murata Manufacturing,LQG15HN1N8S0M,lqg15hn1n8s0m,Inductor,Inductor,,no,,,"{""inductance_uh"": ""1.8nH""}"
+CC0805KKX7R7BB104,Yageo,CC0805KKX7R7BB104,cc0805kkx7r7bb104,Capacitor,Capacitor,,no,,,"{""capacitance_pf"": ""100nF"", ""voltage_rating_v"": ""50V""}"
+0483740001,Molex,0483740001,0483740001,USB Connectors,USB Connectors,,no,,,"{""positions"": ""16"", ""current_rating_a"": ""5A"", ""voltage_v"": ""20V""}"
+PZ254-1-40P,Wurth Elektronik,PZ254140P,pz254140p,Pin Header,Pin Header,,no,,,"{""positions"": ""40"", ""pitch_mm"": ""2.54mm""}"
+B4B-PH-K-S,JST,B4BPHKS,b4bphks,Pin Header,Pin Header,,no,,,"{""positions"": ""4"", ""pitch_mm"": ""2.0mm""}"
+10103594,Amphenol,10103594,10103594,USB Connectors,USB Connectors,,no,,,"{""positions"": ""5"", ""current_rating_a"": ""1A""}"
+DF11-8DP-2DS,Hirose Electric,DF118DP2DS,df118dp2ds,Pin Header,Pin Header,,no,,,"{""positions"": ""8"", ""pitch_mm"": ""2.0mm""}"
+ESP-01S,Espressif Systems,ESP01S,esp01s,WiFi Modules,WiFi Modules,,no,,,"{""frequency_hz"": ""80MHz"", ""data_rate_bps"": ""72Mbps"", ""voltage_v"": ""3.0-3.6V""}"
+nRF24L01+,Nordic Semiconductor,NRF24L01,nrf24l01,RF Modules,RF Modules,,no,,,"{""voltage_v"": ""1.9-3.6V"", ""data_rate_bps"": ""2Mbps""}"
+SIM800L,SIMCom,SIM800L,sim800l,Cellular Modules,Cellular Modules,,no,,,"{""voltage_v"": ""3.4-4.4V"", ""output_power_dbm"": ""33dBm""}"
+NEO-6M,u-blox,NEO6M,neo6m,GNSS Modules,GNSS Modules,,no,,,"{""voltage_v"": ""2.7-3.6V"", ""sensitivity_dbm"": ""-161dBm""}"
+ESP32-WROOM-32,Espressif Systems,ESP32WROOM32,esp32wroom32,WiFi Modules,WiFi Modules,,no,,,"{""frequency_hz"": ""240MHz"", ""voltage_v"": ""3.0-3.6V""}"
+1N4148WS-7-F,Diodes Incorporated,1N4148WS7F,1n4148ws7f,Diode,Diode,,no,,,{}
+1N5819HW-7-F,Diodes Incorporated,1N5819HW7F,1n5819hw7f,Diode,Diode,,no,,,{}
+2N7002K-7,Diodes Incorporated,2N7002K7,2n7002k7,Diode,Diode,,no,,,{}
+1N4148W-7-F,Diodes Incorporated,1N4148W7F,1n4148w7f,Diode,Diode,,no,,,{}
+B560C-13-F,Diodes Incorporated,B560C13F,b560c13f,Diode,Diode,,no,,,{}
+TJA1051T/3/1J,NXP Semiconductors,TJA1051T31J,tja1051t31j,Microcontroller,Microcontroller,,no,,,{}
+"TJA1050T/CM,118",NXP Semiconductors,TJA1050TCM118,tja1050tcm118,Microcontroller,Microcontroller,,no,,,{}
+S9KEAZ128AMLH,NXP Semiconductors,S9KEAZ128AMLH,s9keaz128amlh,Microcontroller,Microcontroller,,no,,,{}
+TJA1042T/3/1J,NXP Semiconductors,TJA1042T31J,tja1042t31j,Microcontroller,Microcontroller,,no,,,{}
+"PCF8563T/5,518",NXP Semiconductors,PCF8563T5518,pcf8563t5518,Microcontroller,Microcontroller,,no,,,{}
+GD32E230C8T6,GigaDevice Semiconductor,GD32E230C8T6,gd32e230c8t6,Microcontroller,Microcontroller,,no,,,{}
+GD32F303CCT6,GigaDevice Semiconductor,GD32F303CCT6,gd32f303cct6,Microcontroller,Microcontroller,,no,,,{}
+GD32F103C8T6,GigaDevice Semiconductor,GD32F103C8T6,gd32f103c8t6,Microcontroller,Microcontroller,,no,,,{}
+GD25Q16ESIGR,GigaDevice Semiconductor,GD25Q16ESIGR,gd25q16esigr,Microcontroller,Microcontroller,,no,,,{}
+GD32F303CBT6,GigaDevice Semiconductor,GD32F303CBT6,gd32f303cbt6,Microcontroller,Microcontroller,,no,,,{}
+MCP6001T-I/OT,Microchip Technology,MCP6001TIOT,mcp6001tiot,Microcontroller,Microcontroller,,no,,,{}
+MCP6002T-I/SN,Microchip Technology,MCP6002TISN,mcp6002tisn,Microcontroller,Microcontroller,,no,,,{}
+AT24C256C-SSHL-T,Microchip Technology,AT24C256CSSHLT,at24c256csshlt,Microcontroller,Microcontroller,,no,,,{}
+MCP3421A0T-E/CH,Microchip Technology,MCP3421A0TECH,mcp3421a0tech,Microcontroller,Microcontroller,,no,,,{}
+ATMEGA328P-AU,Microchip Technology,ATMEGA328PAU,atmega328pau,Microcontroller,Microcontroller,,no,,,{}
+NRF52832-QFAA-R,Nordic Semiconductor,NRF52832QFAAR,nrf52832qfaar,Microcontroller,Microcontroller,,no,,,{}
+NRF52840-QIAA-R,Nordic Semiconductor,NRF52840QIAAR,nrf52840qiaar,Microcontroller,Microcontroller,,no,,,{}
+NRF24L01P-R,Nordic Semiconductor,NRF24L01PR,nrf24l01pr,Microcontroller,Microcontroller,,no,,,{}
+NRF52810-QFAA-R,Nordic Semiconductor,NRF52810QFAAR,nrf52810qfaar,Microcontroller,Microcontroller,,no,,,{}
+NRF52832-CIAA-R,Nordic Semiconductor,NRF52832CIAAR,nrf52832ciaar,Microcontroller,Microcontroller,,no,,,{}
+FM25V02A-GTR,Infineon Technologies,FM25V02AGTR,fm25v02agtr,MOSFET,MOSFET,,no,,,{}
+FM24CL64B-GTR,Infineon Technologies,FM24CL64BGTR,fm24cl64bgtr,MOSFET,MOSFET,,no,,,{}
+FM24CL16B-GTR,Infineon Technologies,FM24CL16BGTR,fm24cl16bgtr,MOSFET,MOSFET,,no,,,{}
+FM25CL64B-GTR,Infineon Technologies,FM25CL64BGTR,fm25cl64bgtr,MOSFET,MOSFET,,no,,,{}
+CYUSB3014-BZXC,Infineon Technologies,CYUSB3014BZXC,cyusb3014bzxc,MOSFET,MOSFET,,no,,,{}
+1N5819UR-1,ON Semiconductor,1N5819UR1,1n5819ur1,MOSFET,MOSFET,,no,,,{}
+RC0402FR-0710KL,Yageo,RC0402FR0710KL,rc0402fr0710kl,Resistor,Resistor,,no,,,{}
+RC0603FR-0710KL,Yageo,RC0603FR0710KL,rc0603fr0710kl,Resistor,Resistor,,no,,,{}
+RC0402FR-071KL,Yageo,RC0402FR071KL,rc0402fr071kl,Resistor,Resistor,,no,,,{}
+RC0402FR-074K7L,Yageo,RC0402FR074K7L,rc0402fr074k7l,Resistor,Resistor,,no,,,{}
+RC0402FR-07100KL,Yageo,RC0402FR07100KL,rc0402fr07100kl,Resistor,Resistor,,no,,,{}
+CRCW060310K0FKEA,Vishay Intertechnology,CRCW060310K0FKEA,crcw060310k0fkea,Resistor,Resistor,,no,,,{}
+SI2301CDS-T1-GE3,Vishay Intertechnology,SI2301CDST1GE3,si2301cdst1ge3,Resistor,Resistor,,no,,,{}
+LL4148-GS08,Vishay Intertechnology,LL4148GS08,ll4148gs08,Resistor,Resistor,,no,,,{}
+SI2309CDS-T1-GE3,Vishay Intertechnology,SI2309CDST1GE3,si2309cdst1ge3,Resistor,Resistor,,no,,,{}
+IRFP460PBF,Vishay Intertechnology,IRFP460PBF,irfp460pbf,Resistor,Resistor,,no,,,{}
+61300211121,Wurth Elektronik,61300211121,61300211121,Inductor,Inductor,,no,,,{}
+61300311121,Wurth Elektronik,61300311121,61300311121,Inductor,Inductor,,no,,,{}
+760390014,Wurth Elektronik,760390014,760390014,Inductor,Inductor,,no,,,{}
+434153017835,Wurth Elektronik,434153017835,434153017835,Inductor,Inductor,,no,,,{}
+82400102,Wurth Elektronik,82400102,82400102,Inductor,Inductor,,no,,,{}
+NCP18XH103F03RB,Murata Manufacturing,NCP18XH103F03RB,ncp18xh103f03rb,Capacitor,Capacitor,,no,,,{}
+NCP15XH103F03RC,Murata Manufacturing,NCP15XH103F03RC,ncp15xh103f03rc,Capacitor,Capacitor,,no,,,{}
+LQW15AN47NG00D,Murata Manufacturing,LQW15AN47NG00D,lqw15an47ng00d,Capacitor,Capacitor,,no,,,{}
+NCU18XH103F6SRB,Murata Manufacturing,NCU18XH103F6SRB,ncu18xh103f6srb,Capacitor,Capacitor,,no,,,{}
+LQM21PN4R7MGRD,Murata Manufacturing,LQM21PN4R7MGRD,lqm21pn4r7mgrd,Capacitor,Capacitor,,no,,,{}
+430300001,Molex,430300001,430300001,USB Connectors,USB Connectors,,no,,,{}
+39000038,Molex,39000038,39000038,USB Connectors,USB Connectors,,no,,,{}
+532610471,Molex,532610471,532610471,USB Connectors,USB Connectors,,no,,,{}
+1054500101,Molex,1054500101,1054500101,USB Connectors,USB Connectors,,no,,,{}
+1040310811,Molex,1040310811,1040310811,USB Connectors,USB Connectors,,no,,,{}
+B2B-XH-A(LF)(SN),JST,B2BXHALFSN,b2bxhalfsn,Pin Header,Pin Header,,no,,,{}
+B2B-PH-K-S(LF)(SN),JST,B2BPHKSLFSN,b2bphkslfsn,Pin Header,Pin Header,,no,,,{}
+B4B-PH-K-S(LF)(SN),JST,B4BPHKSLFSN,b4bphkslfsn,Pin Header,Pin Header,,no,,,{}
+B3B-XH-A(LF)(SN),JST,B3BXHALFSN,b3bxhalfsn,Pin Header,Pin Header,,no,,,{}
+B2P-VH(LF)(SN),JST,B2PVHLFSN,b2pvhlfsn,Pin Header,Pin Header,,no,,,{}
+PCIH47M400A1/AA,Amphenol,PCIH47M400A1AA,pcih47m400a1aa,USB Connectors,USB Connectors,,no,,,{}
+CBD7W2F37S600X/AA,Amphenol,CBD7W2F37S600XAA,cbd7w2f37s600xaa,USB Connectors,USB Connectors,,no,,,{}
+PLB08M300A1/AA,Amphenol,PLB08M300A1AA,plb08m300a1aa,USB Connectors,USB Connectors,,no,,,{}
+PLB08F300A1/AA,Amphenol,PLB08F300A1AA,plb08f300a1aa,USB Connectors,USB Connectors,,no,,,{}
+PLB12M300A1/AA,Amphenol,PLB12M300A1AA,plb12m300a1aa,USB Connectors,USB Connectors,,no,,,{}
+ESP32-S3R8,Espressif Systems,ESP32S3R8,esp32s3r8,WiFi Modules,WiFi Modules,,no,,,{}
+ESP32-S3-WROOM-1-N16R8,Espressif Systems,ESP32S3WROOM1N16R8,esp32s3wroom1n16r8,WiFi Modules,WiFi Modules,,no,,,{}
+ESP32-WROOM-32E-N4,Espressif Systems,ESP32WROOM32EN4,esp32wroom32en4,WiFi Modules,WiFi Modules,,no,,,{}
+ESP32-S3-WROOM-1U-N16R8,Espressif Systems,ESP32S3WROOM1UN16R8,esp32s3wroom1un16r8,WiFi Modules,WiFi Modules,,no,,,{}
+ESP32-C3-MINI-1-N4,Espressif Systems,ESP32C3MINI1N4,esp32c3mini1n4,WiFi Modules,WiFi Modules,,no,,,{}
+MAX-M10S-00B,u-blox,MAXM10S00B,maxm10s00b,GNSS Modules,GNSS Modules,,no,,,{}
+BMD-340-A-R,u-blox,BMD340AR,bmd340ar,GNSS Modules,GNSS Modules,,no,,,{}
+ZED-F9P-04B,u-blox,ZEDF9P04B,zedf9p04b,GNSS Modules,GNSS Modules,,no,,,{}
+SAM-M8Q-0,u-blox,SAMM8Q0,samm8q0,GNSS Modules,GNSS Modules,,no,,,{}
+NEO-M9N-00B,u-blox,NEOM9N00B,neom9n00b,GNSS Modules,GNSS Modules,,no,,,{}
+SIM7080G,SIMCom,SIM7080G,sim7080g,Cellular Modules,Cellular Modules,,no,,,{}
