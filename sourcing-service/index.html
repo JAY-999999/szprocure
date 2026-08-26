@@ -46,8 +46,8 @@
 
   <style>
     /* page-scoped only — does NOT modify the global .card rule (red line respected) */
-    /* amber softened: reads as "challenge / consideration", not a warning alert */
-    .card.challenge .icon { background: #fdf6ec; color: #c08a2d; }
+    /* blue trust system for sourcing standards / buyer focus cards */
+    .card.standard .icon { background: #eef5ff; color: var(--accent, #0A84FF); }
     /* 1000+ is proof, not the hero: compact proof line sitting under the section title */
     .cap-stat { display: flex; align-items: baseline; justify-content: center; gap: 10px; margin: 6px 0 36px; }
     .cap-stat .num { font-size: clamp(2.2rem, 5vw, 3rem); font-weight: 800; color: var(--accent); letter-spacing: -.02em; line-height: 1; }
@@ -61,33 +61,33 @@
         <div class="eyebrow" data-zh="采购服务">Sourcing Service</div>
         <h1 data-zh="可靠的电子元器件采购解决方案">Reliable Electronic Components Sourcing Solutions</h1>
         <p class="lead" data-zh="从常规元器件到难找料、缺货料、替代方案以及 BOM 采购，我们帮助全球买家通过专业采购支持获得可靠的供应解决方案。">From standard components to hard-to-find parts, shortage solutions, replacement sourcing, and BOM procurement, we help global buyers access reliable supply solutions through professional sourcing support.</p>
-        <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Get Quote</a>
+        <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
       </div>
     </section>
 
-    <!-- Section 2: The Challenges Global Buyers Face (empathy first) -->
+    <!-- Section 2: Sourcing Standards / What We Focus On — blue trust framing -->
     <section class="section">
       <div class="container">
         <div class="section-head">
-          <div class="eyebrow" data-zh="理解你的顾虑">UNDERSTANDING YOUR CONCERNS</div>
-          <h2 data-zh="海外买家面临的采购挑战">The Challenges Global Buyers Face</h2>
-          <p class="lead" data-zh="中国拥有全球领先的电子制造供应链。但从庞大而复杂的市场中采购，往往伴随真实顾虑。我们理解这些顾虑——这也正是我们验证体系的出发点。">China hosts one of the world's most advanced electronics supply chains. Yet sourcing from such a vast and complex market brings real concerns. We understand them — and that is exactly why verification matters.</p>
+          <div class="eyebrow" data-zh="采购标准">SOURCING STANDARDS</div>
+          <h2 data-zh="我们关注的采购标准">Sourcing Standards That Matter to You</h2>
+          <p class="lead" data-zh="我们关注全球买家最关心的采购标准：可靠的供应商、稳定的质量和高效的采购流程。">We focus on the sourcing standards that matter most to global buyers: reliable suppliers, consistent quality, and efficient procurement.</p>
         </div>
         <div class="grid grid-3">
-          <div class="card challenge">
-            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5z"/></svg></div>
-            <h3 data-zh="供应商可靠性">Supplier Reliability</h3>
-            <p data-zh="找到可靠的供应渠道可能并不容易。">Finding reliable supply channels can be challenging.</p>
+          <div class="card standard">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M6.5 7.5l4 9M17.5 7.5l-4 9M7 6h10"/></svg></div>
+            <h3 data-zh="已验证的供应商网络">Verified Supplier Network</h3>
+            <p data-zh="连接符合你需求、经过验证的供应商资源。">Access a network of verified suppliers matched to your requirements.</p>
           </div>
-          <div class="card challenge">
+          <div class="card standard">
             <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg></div>
-            <h3 data-zh="产品真实性">Product Authenticity</h3>
-            <p data-zh="担心遇到假货或翻新件。">Concerns about counterfeit or refurbished components.</p>
+            <h3 data-zh="质量优先的采购支持">Quality-First Sourcing</h3>
+            <p data-zh="每一次采购决策都以产品质量和可靠性为核心。">Every sourcing decision is made with product quality and reliability in mind.</p>
           </div>
-          <div class="card challenge">
-            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg></div>
-            <h3 data-zh="质量风险">Quality Risk</h3>
-            <p data-zh="错误的采购决策可能导致项目延期与损失。">Incorrect sourcing decisions may lead to project delays and losses.</p>
+          <div class="card standard">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+            <h3 data-zh="高效的采购流程">Efficient Procurement</h3>
+            <p data-zh="从需求到交付，流程清晰、精简。">A clear, streamlined process from requirement to delivery.</p>
           </div>
         </div>
       </div>
@@ -126,13 +126,13 @@
       </div>
     </section>
 
-    <!-- Section 4: Quality Control & Supplier Verification (our differentiator, moved up) -->
+    <!-- Section 4: Quality Control & Supplier Verification — confidence framing, no risk language -->
     <section class="section">
       <div class="container">
         <div class="section-head">
           <div class="eyebrow" data-zh="质量与验证">QUALITY &amp; VERIFICATION</div>
-          <h2 data-zh="通过可靠验证降低采购风险">Reducing Sourcing Risks Through Reliable Verification</h2>
-          <p class="lead" data-zh="我们通过严谨的验证降低采购风险，让你从复杂的供应市场中放心采购。">We reduce sourcing risk through disciplined verification — so you can buy with confidence from complex supply markets.</p>
+          <h2 data-zh="可靠验证，放心采购">Reliable Verification for Confident Procurement</h2>
+          <p class="lead" data-zh="我们验证供应商和产品信息，让你采购更有把握。">We verify suppliers and product information so you can source with confidence.</p>
         </div>
         <div class="cap-stat">
           <span class="num" data-zh="1000+">1000+</span>
@@ -141,18 +141,18 @@
         <div class="grid grid-3">
           <div class="card">
             <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4h18l-7 8v6l-4 2v-8z"/></svg></div>
-            <h3 data-zh="筛选可靠供应渠道">Supplier Screening</h3>
-            <p data-zh="我们根据采购需求评估并筛选合适的供应商。">We evaluate and select suitable suppliers based on sourcing requirements.</p>
+            <h3 data-zh="供应商筛选">Supplier Screening</h3>
+            <p data-zh="根据你的采购需求评估并筛选合适的供应商。">We evaluate and select suitable suppliers based on sourcing requirements.</p>
           </div>
           <div class="card">
             <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg></div>
-            <h3 data-zh="产品可靠性确认">Product Verification</h3>
-            <p data-zh="我们协助核实产品信息，降低假货与翻新件相关风险。">We help verify product information and reduce risks related to counterfeit or refurbished components.</p>
+            <h3 data-zh="产品验证">Product Verification</h3>
+            <p data-zh="核实产品信息，确保真实性与可靠性。">Verify product information to ensure authenticity and reliability.</p>
           </div>
           <div class="card">
             <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5z"/><path d="M12 8v4M12 16h.01"/></svg></div>
-            <h3 data-zh="降低采购风险">Risk Control</h3>
-            <p data-zh="专业的采购支持帮助客户做出更有把握的采购决策。">Professional sourcing support helps customers make more confident purchasing decisions.</p>
+            <h3 data-zh="质量控制">Quality Control</h3>
+            <p data-zh="以专业检查支持有把握的采购决策。">Professional checks that support confident purchasing decisions.</p>
           </div>
         </div>
       </div>
@@ -229,12 +229,12 @@
       </div>
     </section>
 
-    <!-- Section 7: CTA (unified Get Quote) -->
+    <!-- Section 7: CTA (unified Request a Quote) -->
     <section class="section soft section--cta-simple">
       <div class="container">
         <div class="cta-simple">
           <h2 data-zh="需要采购协助吗？">Need Help With Your Sourcing?</h2>
-          <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Get Quote</a>
+          <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
         </div>
       </div>
     </section>

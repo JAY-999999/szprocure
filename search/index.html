@@ -152,7 +152,7 @@
         resEl.innerHTML = '<div class="callout"><h2>No exact match yet</h2>'
           + '<p>We may still be able to source <strong>' + escapeHtml(q) + '</strong> from Shenzhen. '
           + 'Send us the part number and quantity — we\'ll check availability.</p>'
-          + '<a class="btn btn-primary" href="/request-a-quote/?pn=' + encodeURIComponent(q) + '">Request a Quote</a></div>';
+          + '<a class="btn btn-primary" href="/request-a-quote/?pn=' + encodeURIComponent(q) + '" data-zh="获取报价">Request a Quote</a></div>';
         return;
       }
       var html = '<p class="muted">' + ranked.length + ' result(s) for “' + escapeHtml(q) + '”</p><ul class="bullet-list part-index">';

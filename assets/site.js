@@ -16,7 +16,7 @@
   var DOMAIN = "szprocure.com";
   var EMAIL = "sales@" + DOMAIN;
   var WHATSAPP = "+86 13530888389";
-  var ADDRESS = "110 Fuhua Road, Futian District, Shenzhen, China";
+  var ADDRESS = "14th Floor, Guangye Building, 110 Fuhua Road, Futian District, Shenzhen, Guangdong, China";
 
   var LOGO = '<svg class="logo-mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
     + '<rect x="3" y="3" width="26" height="26" rx="7" fill="#0b1b33"/>'
@@ -33,7 +33,7 @@
   var NAV = ''
     + '<header class="site-header"><div class="container nav">'
     + '<a class="brand" href="/" aria-label="' + BRAND + ' home">' + LOGO
-    +   '<span>SZ Procure<small data-zh="深圳采购">Shenzhen Sourcing</small></span></a>'
+    +   '<span>SZ Procure</span></a>'
     + '<nav class="nav-links" aria-label="Primary">'
     +   '<a href="/components/" data-zh="元器件">Components</a>'
     +   '<a href="/ai-hardware/" data-zh="AI 硬件">AI Hardware</a>'
@@ -41,7 +41,7 @@
     +   '<a href="/about/" data-zh="关于我们">About</a>'
     + '</nav>'
     + '<form class="nav-search" id="globalSearch" role="search" action="/components/">'
-    +   '<input type="search" name="q" placeholder="Search part number…" aria-label="Search part number" data-zh-ph="搜索料号 / 型号…" />'
+    +   '<input type="search" name="q" placeholder="Search Part Number, MPN or Keyword" aria-label="Search Part Number, MPN or Keyword" data-zh-ph="搜索料号、型号或关键词" />'
     + '</form>'
     + '<div class="nav-cta">'
     +   LANG_SWITCH
@@ -51,7 +51,7 @@
     + '<div class="mobile-menu" id="mobileMenu">'
     +   LANG_SWITCH
     +   '<form class="nav-search mobile" role="search" action="/components/">'
-    +     '<input type="search" name="q" placeholder="Search part number…" aria-label="Search part number" data-zh-ph="搜索料号 / 型号…" />'
+    +     '<input type="search" name="q" placeholder="Search Part Number, MPN or Keyword" aria-label="Search Part Number, MPN or Keyword" data-zh-ph="搜索料号、型号或关键词" />'
     +   '</form>'
     +   '<a href="/components/" data-zh="元器件">Components</a>'
     +   '<a href="/ai-hardware/" data-zh="AI 硬件">AI Hardware</a>'
@@ -63,25 +63,24 @@
   var FOOTER = ''
     + '<footer class="site-footer"><div class="container">'
     + '<div class="footer-grid">'
-    +   '<div><a class="brand" href="/">' + LOGO + '<span>SZ Procure<small data-zh="深圳采购">Shenzhen Sourcing</small></span></a>'
-    +     '<p style="margin-top:14px;color:#aebfda;max-width:34ch;font-size:.92rem;" data-zh="来自中国的电子元器件与 AI 硬件采购服务。立足深圳，连接供应链。">Electronics &amp; AI Hardware Sourcing from China. Based in Shenzhen, connected to the supply chain.</p></div>'
+    +   '<div><a class="brand" href="/">' + LOGO + '<span>SZ Procure</span></a>'
+    +     '<p style="margin-top:14px;color:#aebfda;max-width:34ch;font-size:.92rem;" data-zh="为全球客户提供电子元器件与 AI 硬件采购解决方案，连接可靠供应资源。">Providing global buyers with reliable electronic components and AI hardware sourcing solutions.</p></div>'
     +   '<div><h4 data-zh="服务">Services</h4>'
     +     '<a href="/components/" data-zh="元器件">Components</a>'
     +     '<a href="/ai-hardware/" data-zh="AI 硬件">AI Hardware</a>'
     +     '<a href="/sourcing-service/" data-zh="采购服务">Sourcing Service</a></div>'
-    +   '<div><h4 data-zh="公司">Company</h4>'
-    +     '<a href="/about/" data-zh="关于我们">About</a>'
-    +     '<a href="/contact/" data-zh="联系我们">Contact</a>'
-    +     '<a href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>'
-    +     '<a href="/privacy/" data-zh="隐私政策">Privacy Policy</a>'
-    +     '<a href="/terms/" data-zh="服务条款">Terms of Service</a></div>'
++   '<div><h4 data-zh="公司">Company</h4>'
++     '<a href="/about/" data-zh="关于我们">About</a>'
++     '<a href="/contact/" data-zh="联系我们">Contact</a>'
++     '<a href="/privacy/" data-zh="隐私政策">Privacy Policy</a>'
++     '<a href="/terms/" data-zh="服务条款">Terms of Service</a></div>'
     +   '<div class="footer-contact"><h4 data-zh="联系方式">Contact</h4>'
-    +     '<p><a href="mailto:' + EMAIL + '">' + EMAIL + '</a></p>'
-    +     '<p data-zh="WhatsApp：+86 13530888389">WhatsApp: ' + WHATSAPP + '</p>'
-    +     '<p data-zh="中国深圳福田区福华路110号">' + ADDRESS + '</p></div>'
+    +     '<p data-zh="邮箱：' + EMAIL + '">Email: ' + EMAIL + '</p>'
+    +     '<p data-zh="WhatsApp：' + WHATSAPP + '">WhatsApp: ' + WHATSAPP + '</p>'
+    +     '<p data-zh="地址：中国广东省深圳市福田区福华路110号广业大厦14楼">Address: ' + ADDRESS + '</p></div>'
     + '</div>'
     + '<div class="footer-bottom"><span data-zh="© 2026 SZ Procure。保留所有权利。">&copy; 2026 ' + BRAND + '. All rights reserved.</span>'
-    +   '<span data-zh="来自中国的电子元器件与 AI 硬件采购服务">Electronics &amp; AI Hardware Sourcing from China</span></div>'
+    +   '<span data-zh="全球电子元器件与 AI 硬件采购合作伙伴">Global Electronic Components Sourcing Partner</span></div>'
     + '</div></footer>';
 
   /* Mobile fixed bottom CTA bar (Request Quote + WhatsApp) — injected on all pages */
@@ -90,6 +89,12 @@
     +   '<a class="btn btn-primary" href="/request-a-quote/"><span data-zh="获取报价">Request a Quote</span></a>'
     +   '<a class="btn btn-ghost" href="https://wa.me/8613530888389" target="_blank" rel="noopener"><span data-zh="WhatsApp">WhatsApp</span></a>'
     + '</div>';
+
+  /* Desktop floating Quick RFQ button — hidden on mobile via CSS */
+  var FLOAT_CTA = ''
+    + '<a class="float-quote-btn" href="/request-a-quote/" aria-label="Quick RFQ">'
+    +   '<span data-zh="快速询价">Quick RFQ</span>'
+    + '</a>';
 
   /* ---------- i18n ---------- */
   function getLang() {
@@ -127,7 +132,7 @@
     var f = document.getElementById("site-footer");
     if (h) h.outerHTML = NAV;
     if (f) f.outerHTML = FOOTER;
-    document.body.insertAdjacentHTML("beforeend", MOBILE_CTA);
+    document.body.insertAdjacentHTML("beforeend", MOBILE_CTA + FLOAT_CTA);
     bindMenu();
     bindLang();
     bindSearch();
@@ -135,6 +140,9 @@
     bindQuoteForm();
     bindUpload();
     prefillFromQuery();
+    bindChangePart();
+    bindQuotePrefill();
+    detectCountry();
     applyLang(getLang());
   }
 
@@ -172,12 +180,136 @@
     });
   }
 
-  function prefillFromQuery() {
-    var p = new URLSearchParams(window.location.search).get("pn");
-    if (p) {
-      var el = document.getElementById("part_number");
-      if (el) el.value = p;
+  /* Auto-fill RFQ fields from product-page deep links (?pn=&mfr=&cat=&source=).
+     Phase 1: pre-fill product identity fields + show context banner + hint.
+     Fields stay EDITABLE so buyers can request alternatives or adjust the part.
+     Phase 2 will later collapse the form into a 2-field quick mode. */
+  /* Auto-detect visitor country/region from browser timezone + locale (static-site safe, no IP lookup).
+     Tags country_source=auto; a user override flips it to manual in the country input listener below. */
+  function detectCountry() {
+    var el = document.getElementById("country");
+    if (!el || el.value.trim()) return;
+    var country = "", src = "auto";
+    try {
+      var tz = (Intl.DateTimeFormat().resolvedOptions().timeZone) || "";
+      var TZ = {
+        "Asia/Shanghai": "China", "Asia/Hong_Kong": "Hong Kong, China", "Asia/Taipei": "Taiwan, China",
+        "Asia/Macau": "Macao, China", "Asia/Tokyo": "Japan", "Asia/Seoul": "South Korea", "Asia/Singapore": "Singapore",
+        "Asia/Kolkata": "India", "Asia/Kuala_Lumpur": "Malaysia", "Asia/Bangkok": "Thailand", "Asia/Ho_Chi_Minh": "Vietnam",
+        "Europe/Berlin": "Germany", "Europe/London": "United Kingdom", "Europe/Paris": "France", "Europe/Amsterdam": "Netherlands",
+        "Europe/Madrid": "Spain", "Europe/Rome": "Italy", "Europe/Stockholm": "Sweden", "Europe/Zurich": "Switzerland",
+        "America/New_York": "United States", "America/Chicago": "United States", "America/Denver": "United States", "America/Los_Angeles": "United States",
+        "America/Toronto": "Canada", "America/Mexico_City": "Mexico", "America/Sao_Paulo": "Brazil", "Australia/Sydney": "Australia"
+      };
+      if (TZ[tz]) {
+        country = TZ[tz];
+      } else {
+        var loc = (navigator.language || "").split("-")[1] || (navigator.language || "").split("_")[1] || "";
+        var REGION = {
+          "US": "United States", "CN": "China", "HK": "Hong Kong, China", "TW": "Taiwan, China", "JP": "Japan",
+          "KR": "South Korea", "SG": "Singapore", "IN": "India", "MY": "Malaysia", "TH": "Thailand", "VN": "Vietnam",
+          "DE": "Germany", "GB": "United Kingdom", "FR": "France", "NL": "Netherlands", "ES": "Spain", "IT": "Italy",
+          "SE": "Sweden", "CH": "Switzerland", "CA": "Canada", "MX": "Mexico", "BR": "Brazil", "AU": "Australia", "RU": "Russia"
+        };
+        if (REGION[loc.toUpperCase()]) country = REGION[loc.toUpperCase()];
+      }
+    } catch (e) {}
+    if (country) {
+      el.value = country;
+      var csEl = document.getElementById("country_source");
+      if (csEl) csEl.value = src;
+      var hint = document.getElementById("country-auto-hint");
+      if (hint) hint.hidden = false;
     }
+  }
+
+  function prefillFromQuery() {
+    var params = new URLSearchParams(window.location.search);
+    var p = params.get("pn");
+    var m = params.get("mfr");
+    var c = params.get("cat");
+    var src = params.get("source");
+
+    var pnEl = document.getElementById("part_number");
+    if (pnEl && p) pnEl.value = p;
+
+    var mfrEl = document.getElementById("manufacturer");
+    if (mfrEl && m) mfrEl.value = m;
+
+    var catEl = document.getElementById("rfq_category");
+    if (catEl && c) catEl.value = c;
+
+    // SKU-origin RFQ: tag business type so future CRM/analytics know the source
+    var typeEl = document.getElementById("rfq_type");
+    if (typeEl) typeEl.value = (src === "product") ? "sku_quote" : typeEl.value;
+
+    if (p || m) {
+      var details = document.getElementById("rfq-sku-details");
+      if (details) {
+        var html = "";
+        if (p) html += '<p class="ctx-part"><strong>' + escapeHtml(p) + "</strong></p>";
+        if (m) html += '<p class="ctx-mfr">' + escapeHtml(m) + "</p>";
+        details.innerHTML = html;
+      }
+      var box = document.getElementById("rfq-sku-context");
+      if (box) box.hidden = false;
+      var hint = document.getElementById("rfq-autofill-hint");
+      if (hint) hint.hidden = false;
+      // SKU mode: show read-only context, hide the editable part fields until "Change Part"
+      var edit = document.getElementById("rfq-part-edit");
+      if (edit) edit.hidden = true;
+      var pnReq = document.getElementById("pn-req");
+      if (pnReq) pnReq.hidden = true;
+    }
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (ch) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch];
+    });
+  }
+
+  /* SKU mode: "Change Part" reveals the editable part/manufacturer fields + marks required */
+  function bindChangePart() {
+    var btn = document.getElementById("rfqChangePart");
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+      var banner = document.getElementById("rfq-sku-context");
+      var edit = document.getElementById("rfq-part-edit");
+      var pnReq = document.getElementById("pn-req");
+      if (banner) banner.hidden = true;
+      if (edit) edit.hidden = false;
+      if (pnReq) pnReq.hidden = false;
+      var pn = document.getElementById("part_number");
+      if (pn) pn.focus();
+    });
+  }
+
+  /* Remember contact fields locally so repeat RFQ visitors don't re-type */
+  function bindQuotePrefill() {
+    var form = document.getElementById("quote-form");
+    if (!form) return;
+    var fields = {
+      contact_name: "sz_rfq_contact",
+      company: "sz_rfq_company",
+      email: "sz_rfq_email",
+      country: "sz_rfq_country"
+    };
+    Object.keys(fields).forEach(function (id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      try {
+        var saved = localStorage.getItem(fields[id]);
+        if (saved && !el.value.trim()) el.value = saved;
+      } catch (e) {}
+      el.addEventListener("input", function () {
+        try { localStorage.setItem(fields[id], el.value); } catch (e) {}
+        if (id === "country") {
+          var s = document.getElementById("country_source");
+          if (s) s.value = el.value.trim() ? "manual" : "auto";
+        }
+      });
+    });
   }
 
   function bindQuoteForm() {
@@ -197,6 +329,56 @@
       e.preventDefault();
       clearErrors();
 
+      // 0) Trim all text inputs / textareas / selects, then fill tracking fields
+      form.querySelectorAll("input:not([type=file]), textarea, select").forEach(function (el) {
+        if (el.value) el.value = el.value.trim();
+      });
+      var srcEl = document.getElementById("source_url");
+      if (srcEl) srcEl.value = window.location.href;
+      var typeEl = document.getElementById("rfq_type");
+      if (typeEl) {
+        var fEl = form.querySelector('input[type=file]');
+        var hasBom = false;
+        if (fEl && fEl.files) {
+          for (var i = 0; i < fEl.files.length; i++) {
+            if (/\.(xls|xlsx|csv)$/i.test(fEl.files[i].name)) { hasBom = true; break; }
+          }
+        }
+        if (hasBom) typeEl.value = "bom_quote";
+      }
+
+      // 0a) System-collected tracking fields (not customer-entered)
+      var referrerEl = document.getElementById("referrer");
+      if (referrerEl) referrerEl.value = document.referrer || "";
+      var stEl = document.getElementById("submitted_at");
+      if (stEl) stEl.value = new Date().toISOString();
+      var csEl = document.getElementById("country_source");
+      if (csEl) {
+        var cEl = document.getElementById("country");
+        if (cEl && cEl.value.trim() && !csEl.value) csEl.value = "manual";
+      }
+      var rtEl = document.getElementById("requirement_type");
+      if (rtEl && typeEl) {
+        rtEl.value = (typeEl.value === "bom_quote") ? "bom"
+          : (typeEl.value === "sku_quote") ? "sku" : "general";
+      }
+
+      // 0b) Quantity must be a whole number >= 1 (only when provided — non-blocking)
+      var qtyEl = form.querySelector("#quantity");
+      if (qtyEl && qtyEl.value) {
+        var qn = Number(qtyEl.value);
+        if (!Number.isInteger(qn) || qn < 1) {
+          if (submitErr) {
+            submitErr.textContent = (getLang() === "zh")
+              ? "请输入有效的数量（正整数，不低于 1）。"
+              : "Please enter a valid quantity (whole number, at least 1).";
+            submitErr.style.display = "block";
+          }
+          if (qtyEl) qtyEl.classList.add("invalid");
+          return;
+        }
+      }
+
       // 1) Email format check
       var email = form.querySelector("#email");
       if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
@@ -206,6 +388,22 @@
         }
         email.focus();
         return;
+      }
+
+      // 1c) Part number required only for general (non-SKU) requests
+      if (typeEl && typeEl.value === "general_quote") {
+        var pnChk = document.getElementById("part_number");
+        if (pnChk && !pnChk.value.trim()) {
+          if (submitErr) {
+            submitErr.textContent = (getLang() === "zh")
+              ? "请填写料号或产品名称。"
+              : "Please enter a part number or product name.";
+            submitErr.style.display = "block";
+          }
+          if (pnChk) pnChk.classList.add("invalid");
+          if (pnChk) pnChk.focus();
+          return;
+        }
       }
 
       // 2) Required fields check
@@ -236,7 +434,7 @@
           throw new Error("bad-status");
         }
       }).catch(function () {
-        if (btn) { btn.disabled = false; btn.textContent = btn.dataset.label || "Request Quote"; }
+        if (btn) { btn.disabled = false; btn.textContent = btn.dataset.label || "Submit RFQ"; }
         if (submitErr) {
           submitErr.textContent = (getLang() === "zh")
             ? "提交失败，请稍后重试，或直接将需求发邮件至 sales@szprocure.com。"

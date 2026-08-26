@@ -1,0 +1,18 @@
+mpn,clean_mpn,manufacturer,brand,url_slug,category,subcategory,description,applications,keywords,attributes_json,availability,alternative_parts,datasheet_url,faq,image,source
+nRF24L01,,Nordic,,,RF & Wireless,Transceiver,2.4GHz transceiver,,,"{""frequency_hz"":2400000000,""voltage_v"":3.3}",In Stock,,,,,LCSC
+nRF24L01+,,Nordic,,,RF & Wireless,Transceiver,2.4GHz transceiver with PA,,,"{""frequency_hz"":2400000000,""output_power_dbm"":0}",In Stock,,,,,Mouser
+TLV320ADC3101,,TI,,,Audio,ADC,stereo audio ADC,,,"{""voltage_v"":3.3}",In Stock,,,,,LCSC
+OPA2345,,Texas Instr.,,,Amplifiers,OpAmp,dual operational amplifier,,,"{""voltage_v"":5}",In Stock,,,,,Mouser
+WEIRDCHIP-1,,SomeUnknownBrand,,,Logic,Gate,weird logic gate,,,"{""frequency_hz"":100}",In Stock,,,,,LCSC
+CC0402KRX7R7BB103,,Yageo,,,Passive,Capacitor,10nF 0402 X7R capacitor,,,"{""capacitance_pf"":100000,""voltage_v"":50}",In Stock,,,,,LCSC
+LM358,,TI,,,Amplifiers,OpAmp,dual operational amplifier,,,"{""legacy_speed"":100}",In Stock,,,,,LCSC
+BADJSON-1,,TI,,,Amplifiers,OpAmp,row with malformed attributes json,,,{not valid json,In Stock,,,,,LCSC
+F1TEXT-KEYS-1,,ST,,,Microcontrollers,ARM,F1 test: text keys without underscore,,,"{""core"":""ARM Cortex-M4"",""package"":""LQFP-48"",""interface"":""SPI"",""mounting"":""SMD"",""modulation"":""GFSK""}",In Stock,,,,,LCSC
+STM32F103C8T6,,ST,,,Microcontrollers,ARM,ARM Cortex-M3 MCU,,,"{""flash_bytes"":131072,""frequency_hz"":72000000,""voltage_v"":3.3}",In Stock,,,,,LCSC
+STM32F103C8T6,,STMicroelectronics,,,Microcontrollers,ARM,,,,"{""flash_bytes"":131072}",In Stock,,,,,Huaqiang
+,,TI,,,Amplifiers,OpAmp,empty mpn should be skipped,,,"{""voltage_v"":3.3}",In Stock,,,,,LCSC
+AMS1117-3.3,,Advanced Monolithic Systems,,,Power Management,LDO,3.3V low-dropout regulator,,,"{""voltage_out_v"":3.3,""dropout_v"":1.1}",In Stock,,,,,LCSC
+TWOSUB-A,,ST,,,Power Management,,,,,"{""voltage_v"":5}",In Stock,X1;Y2,,,,LCSC
+TWOSUB-A,,ST,,,Power Management,Regulator,,,,"{""voltage_v"":5}",In Stock,Z3,,,,Mouser
+NOSOURCE,,TI,,,Amplifiers,OpAmp,row without source,,,"{""voltage_v"":3.3}",In Stock,,,,,
+NOBRAND-1,,,,,Logic,Gate,row without manufacturer,,,"{""frequency_hz"":10}",In Stock,,,,,LCSC

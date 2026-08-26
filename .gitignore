@@ -22,3 +22,26 @@ Thumbs.db
 芯片/
 料号库/
 *.bak.csv
+
+# --- local preview / backup / helper artifacts (NOT part of site, do NOT deploy) ---
+serve.bat
+_rfq_preview/
+preview/
+*.bak-*
+
+# --- local working copies (English + Chinese local-asset mirrors, NOT deployed) ---
+local_preview/
+
+# --- production build artifact (generated from master CSV; regenerate via gen_parts.py) ---
+_prod_build/
+
+# --- QA / dry-run / test scratch (NOT part of site) ---
+_shots/
+_dryrun_audit/
+_gen_test_100/
+_gen_test_500/
+_gen_test_1000/
+_gen_test*/
+
+# --- reports / working docs (per project convention: exclude .md from commits) ---
+*.md

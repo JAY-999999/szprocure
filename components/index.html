@@ -45,93 +45,178 @@
   <div id="site-header"></div>
 
   <main>
-    <section class="page-head">
+    <!-- HERO — search-first procurement entry -->
+    <section class="comp-hero">
       <div class="container">
-        <div class="eyebrow" data-zh="元器件">Components</div>
-        <h1 data-zh="电子元器件采购">Electronic Components Sourcing</h1>
-        <p class="lead" data-zh="根据料号、规格、数量与库存情况采购电子元器件。">Source electronic components based on part number, specification, quantity and availability.</p>
-        <div class="part-head-actions">
-          <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="立即询价">Request Sourcing</a>
-          <a class="btn btn-ghost btn-lg" href="#categories" data-zh="浏览分类">Browse Categories</a>
+        <div class="eyebrow" data-zh="电子元器件采购">ELECTRONIC COMPONENTS SOURCING</div>
+        <h1 data-zh="找到别人找不到的料">Source the parts others can't</h1>
+        <p class="lead" data-zh="我们专注于难找料、停产料与小批量电子元器件，依托中国电子供应链为您匹配货源。">Hard-to-find, EOL and small-batch electronic components, sourced through China's supply ecosystem. Send us a part number and we'll match it.</p>
+        <form class="comp-search" data-part-search>
+          <input type="text" name="q" placeholder="Search by Part Number or Manufacturer (e.g. STM32F103C8T6)" data-zh-ph="按料号或厂商搜索（例如 STM32F103C8T6）" aria-label="Part number search" />
+          <button class="btn btn-primary btn-lg" type="submit" data-zh="搜索">Search</button>
+        </form>
+        <p class="comp-search-alt" data-zh="找不到您要的料号？"><span>Can't find the part? </span><a class="link-cta" href="/request-a-quote/" data-zh="获取报价 →">Request a Quote &rarr;</a></p>
+        <div class="hero-actions">
+          <a class="btn btn-outline-light btn-lg" href="#categories" data-zh="浏览分类">Browse Categories</a>
+        </div>
+        <div class="trust-bar">
+          <span><b>&#10003;</b> <span data-zh="难找料与缺货料采购支持">Hard-to-find &amp; Shortage Parts Support</span></span>
+          <span><b>&#10003;</b> <span data-zh="替代料匹配">Replacement Parts Matching</span></span>
+          <span><b>&#10003;</b> <span data-zh="小批量与 BOM">Small-batch &amp; BOM Orders</span></span>
+          <span><b>&#10003;</b> <span data-zh="快速报价响应">Fast RFQ Response</span></span>
         </div>
       </div>
     </section>
 
+    <!-- CAPABILITY STRIP — differentiation pillars -->
     <section class="section">
       <div class="container">
-        <div class="search-block">
-          <h2 data-zh="查找元器件">Find a Component</h2>
-          <p data-zh="按料号或厂商搜索。">Search by part number or manufacturer.</p>
-          <form class="search-row" data-part-search>
-            <input class="search-input" type="text" name="q" placeholder="Search by Part Number or Manufacturer (e.g. STM32F103C8T6)" data-zh-ph="按料号或厂商搜索（例如 STM32F103C8T6）" aria-label="Part number search" />
-            <button class="btn btn-primary btn-lg" type="submit" data-zh="搜索">Search</button>
-          </form>
-          <p style="margin-top:18px" data-zh="找不到您要的料号？"><span data-zh-hidden>Can't find the part you're looking for? </span><a class="link-cta" href="/request-a-quote/" style="color:#7dd3fc" data-zh="获取报价 →">Request a Quote &rarr;</a></p>
+        <div class="section-head">
+          <div class="eyebrow" data-zh="我们的能力">WHAT WE SOURCE</div>
+          <h2 data-zh="不只是库存，而是采购能力">More Than Inventory — Sourcing Capability</h2>
+          <p class="lead" data-zh="我们专注传统分销商难以提供的元器件：稀缺、停产与低产量器件，来自中国电子供应链。">We specialize in the parts traditional distributors struggle with: scarce, obsolete and low-volume components from China's electronics supply chain.</p>
+        </div>
+        <div class="cap-grid">
+          <div class="cap-card">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div>
+            <h3 data-zh="难找料">Hard-to-Find Parts</h3>
+            <p data-zh="为稀缺与长交期器件提供采购通道。">Sourcing access for scarce and long-lead-time components others can't supply.</p>
+          </div>
+          <div class="cap-card">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg></div>
+            <h3 data-zh="停产 /  obsolete">EOL / Obsolete</h3>
+            <p data-zh="为已停产器件提供采购与替代方案。">Procurement and alternative options for discontinued and end-of-life parts.</p>
+          </div>
+          <div class="cap-card">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7l9-4 9 4-9 4z"/><path d="M3 7v10l9 4 9-4V7"/><path d="M12 11v10"/></svg></div>
+            <h3 data-zh="小批量">Small-Batch</h3>
+            <p data-zh="支持小批量订单与整份 BOM 采购。">Flexible small-quantity orders and full-BOM sourcing for prototypes and runs.</p>
+          </div>
+          <div class="cap-card">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></div>
+            <h3 data-zh="中国供应链">China Supply Ecosystem</h3>
+            <p data-zh="依托中国电子供应链的广泛供应资源。">Deep supplier relationships across China's electronics supply ecosystem.</p>
+          </div>
         </div>
       </div>
     </section>
 
+    <!-- CATEGORIES — 6 L1 with icon + L3 entry chips -->
     <section class="section soft" id="categories">
       <div class="container">
-        <div class="section-head"><h2 data-zh="分类">Categories</h2><p class="lead" data-zh="按类别浏览元器件。把料号或规格发给我们，我们将帮您匹配合适的采购方案。">Browse components by category. Send us the part number or specification and we will help identify suitable sourcing options.</p></div>
-
-        <h3 style="margin:8px 0 16px" data-zh="半导体">Semiconductors</h3>
-        <div class="grid grid-4">
-          <div class="card"><h3 data-zh="集成电路">ICs</h3><p data-zh="涵盖模拟、混合信号与逻辑系列的集成电路。">Integrated circuits across analog, mixed-signal and logic families.</p><a class="link-cta" href="/components/semiconductor-components/" data-zh="查看元器件 →">View Components <span class="arrow">&rarr;</span></a></div>
-          <div class="card"><h3 data-zh="微控制器">MCUs</h3><p data-zh="面向嵌入式与工业应用的微控制器。">Microcontrollers for embedded and industrial applications.</p><a class="link-cta" href="/components/semiconductor-components/" data-zh="查看元器件 →">View Components <span class="arrow">&rarr;</span></a></div>
-          <div class="card"><h3 data-zh="应用处理器">MPUs</h3><p data-zh="面向计算密集型产品的应用处理器。">Application processors for compute-intensive products.</p><a class="link-cta" href="/components/semiconductor-components/" data-zh="查看元器件 →">View Components <span class="arrow">&rarr;</span></a></div>
-          <div class="card"><h3 data-zh="电源 IC">Power ICs</h3><p data-zh="稳压器、转换器与电源管理 IC。">Regulators, converters and power management ICs.</p><a class="link-cta" href="/components/semiconductor-components/" data-zh="查看元器件 →">View Components <span class="arrow">&rarr;</span></a></div>
-          <div class="card"><h3 data-zh="功率 MOSFET">MOSFETs</h3><p data-zh="功率 MOSFET 与分立开关器件。">Power MOSFETs and discrete switches.</p><a class="link-cta" href="/components/semiconductor-components/" data-zh="查看元器件 →">View Components <span class="arrow">&rarr;</span></a></div>
+        <div class="section-head">
+          <div class="eyebrow" data-zh="分类浏览">BROWSE CATEGORIES</div>
+          <h2 data-zh="按分类浏览元器件">Browse Components by Category</h2>
+          <p class="lead" data-zh="按分类浏览元器件，把料号或规格发给我们，我们将帮您匹配合适的采购方案。">Explore our categories and send us the part number or specification — we'll identify suitable sourcing options.</p>
         </div>
+        <div class="cat-grid">
 
-        <h3 style="margin:36px 0 16px" data-zh="传感器">Sensors</h3>
-        <div class="grid grid-4">
-          <div class="card"><h3 data-zh="运动">Motion</h3><p data-zh="加速度计、陀螺仪与 IMU。">Accelerometers, gyroscopes and IMUs.</p><a class="link-cta" href="/components/sensors/" data-zh="查看元器件 →">View Components <span class="arrow">&rarr;</span></a></div>
-          <div class="card"><h3 data-zh="光学">Optical</h3><p data-zh="图像传感器、环境光与接近传感器。">Image sensors, ambient light and proximity.</p><a class="link-cta" href="/components/sensors/" data-zh="查看元器件 →">View Components <span class="arrow">&rarr;</span></a></div>
-          <div class="card"><h3 data-zh="温度">Temperature</h3><p data-zh="热敏电阻、热电偶与数字传感器。">Thermistors, thermocouples and digital sensors.</p><a class="link-cta" href="/components/sensors/" data-zh="查看元器件 →">View Components <span class="arrow">&rarr;</span></a></div>
-          <div class="card"><h3 data-zh="压力">Pressure</h3><p data-zh="气压与差压传感器。">Barometric and differential pressure sensors.</p><a class="link-cta" href="/components/sensors/" data-zh="查看元器件 →">View Components <span class="arrow">&rarr;</span></a></div>
-          <div class="card"><h3 data-zh="MEMS">MEMS</h3><p data-zh="微机电系统器件。">Micro-electro-mechanical devices.</p><a class="link-cta" href="/components/sensors/" data-zh="查看元器件 →">View Components <span class="arrow">&rarr;</span></a></div>
-        </div>
+          <div class="cat-icon-card">
+            <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div>
+            <h3 data-zh="集成电路"><a href="/components/integrated-circuits/">Integrated Circuits</a></h3>
+            <p data-zh="MCU、存储器、逻辑与模拟 IC。">MCU, Memory, Logic and analog ICs.</p>
+            <div class="chips">
+              <a class="chip" href="/components/integrated-circuits/microcontroller/" data-zh="微控制器">Microcontrollers</a>
+              <a class="chip" href="/components/integrated-circuits/" data-zh="存储器">Memory</a>
+            </div>
+            <span class="cat-link"><span data-zh="浏览分类">Browse Category</span><svg class="cat-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
 
-        <h3 style="margin:36px 0 16px" data-zh="存储器">Memory</h3>
-        <div class="grid grid-4">
-          <div class="card"><h3 data-zh="DRAM">DRAM</h3><p data-zh="计算用易失性存储器。">Volatile memory for computing.</p><a class="link-cta" href="/components/integrated-circuits/" data-zh="查看元器件 →">View Components <span class="arrow">&rarr;</span></a></div>
-          <div class="card"><h3 data-zh="闪存">Flash</h3><p data-zh="NAND 与 NOR 闪存。">NAND and NOR flash storage.</p><a class="link-cta" href="/components/integrated-circuits/" data-zh="查看元器件 →">View Components <span class="arrow">&rarr;</span></a></div>
-          <div class="card"><h3 data-zh="EEPROM">EEPROM</h3><p data-zh="非易失配置存储器。">Non-volatile configuration memory.</p><a class="link-cta" href="/components/integrated-circuits/" data-zh="查看元器件 →">View Components <span class="arrow">&rarr;</span></a></div>
-          <div class="card"><h3 data-zh="存储">Storage</h3><p data-zh="eMMC、UFS 与嵌入式存储。">eMMC, UFS and embedded storage.</p><a class="link-cta" href="/components/integrated-circuits/" data-zh="查看元器件 →">View Components <span class="arrow">&rarr;</span></a></div>
-        </div>
+          <div class="cat-icon-card">
+            <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 7h7l4 5-4 5H7z"/><path d="M14 12h7"/></svg></div>
+            <h3 data-zh="半导体元件"><a href="/components/semiconductor-components/">Semiconductor Components</a></h3>
+            <p data-zh="MOSFET、二极管与功率器件。">MOSFETs, diodes and power devices.</p>
+            <div class="chips">
+              <a class="chip" href="/components/semiconductor-components/mosfet/" data-zh="MOSFET">MOSFETs</a>
+            </div>
+            <span class="cat-link"><span data-zh="浏览分类">Browse Category</span><svg class="cat-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
 
-        <h3 style="margin:36px 0 16px" data-zh="连接性">Connectivity</h3>
-        <div class="grid grid-4">
-          <div class="card"><h3 data-zh="Wi-Fi">Wi-Fi</h3><p data-zh="Wi-Fi 与组合模块。">Wi-Fi and combo modules.</p><a class="link-cta" href="/components/modules/" data-zh="查看元器件 →">View Components <span class="arrow">&rarr;</span></a></div>
-          <div class="card"><h3 data-zh="蓝牙">Bluetooth</h3><p data-zh="BLE 与经典蓝牙模块。">BLE and classic modules.</p><a class="link-cta" href="/components/modules/" data-zh="查看元器件 →">View Components <span class="arrow">&rarr;</span></a></div>
-          <div class="card"><h3 data-zh="射频">RF</h3><p data-zh="射频收发器与前端模块。">RF transceivers and front-ends.</p><a class="link-cta" href="/components/modules/" data-zh="查看元器件 →">View Components <span class="arrow">&rarr;</span></a></div>
-          <div class="card"><h3 data-zh="蜂窝模组">Cellular Modules</h3><p data-zh="4G/5G 与 LPWA 模组。">4G/5G and LPWA modules.</p><a class="link-cta" href="/components/modules/" data-zh="查看元器件 →">View Components <span class="arrow">&rarr;</span></a></div>
-        </div>
+          <div class="cat-icon-card">
+            <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h3l2-4 3 8 3-8 2 4h4"/></svg></div>
+            <h3 data-zh="被动元件"><a href="/components/passive-components/">Passive Components</a></h3>
+            <p data-zh="电阻、电容与电感。">Resistors, capacitors and inductors.</p>
+            <div class="chips">
+              <a class="chip" href="/components/passive-components/resistor/" data-zh="电阻">Resistors</a>
+            </div>
+            <span class="cat-link"><span data-zh="浏览分类">Browse Category</span><svg class="cat-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
 
-        <h3 style="margin:36px 0 16px" data-zh="连接器">Connectors</h3>
-        <div class="grid grid-4">
-          <div class="card"><h3 data-zh="USB">USB</h3><p data-zh="USB-C、Micro 与 Type-A 连接器。">USB-C, Micro and Type-A connectors.</p><a class="link-cta" href="/components/connectors/" data-zh="查看元器件 →">View Components <span class="arrow">&rarr;</span></a></div>
-          <div class="card"><h3 data-zh="FFC/FPC">FFC/FPC</h3><p data-zh="柔性扁平电缆连接器。">Flexible flat cable connectors.</p><a class="link-cta" href="/components/connectors/" data-zh="查看元器件 →">View Components <span class="arrow">&rarr;</span></a></div>
-          <div class="card"><h3 data-zh="板对板">Board-to-Board</h3><p data-zh="高密度板对板连接器。">High-density stack connectors.</p><a class="link-cta" href="/components/connectors/" data-zh="查看元器件 →">View Components <span class="arrow">&rarr;</span></a></div>
-          <div class="card"><h3 data-zh="线对板">Wire-to-Board</h3><p data-zh="端子与压接连接器。">Terminal and crimp connectors.</p><a class="link-cta" href="/components/connectors/" data-zh="查看元器件 →">View Components <span class="arrow">&rarr;</span></a></div>
-        </div>
+          <div class="cat-icon-card">
+            <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 4v3M12 17v3M4 12h3M17 12h3"/></svg></div>
+            <h3 data-zh="传感器与换能器"><a href="/components/sensors/">Sensors &amp; Transducers</a></h3>
+            <p data-zh="MEMS 传感器与工业传感元件。">MEMS sensors and industrial sensing parts.</p>
+            <div class="chips">
+              <a class="chip" href="/components/sensors/" data-zh="运动">Motion</a>
+              <a class="chip" href="/components/sensors/" data-zh="光学">Optical</a>
+            </div>
+            <span class="cat-link"><span data-zh="浏览分类">Browse Category</span><svg class="cat-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
 
-        <h3 style="margin:36px 0 16px" data-zh="被动元件">Passive Components</h3>
-        <div class="grid grid-4">
-          <div class="card"><h3 data-zh="电阻">Resistors</h3><p data-zh="厚膜/薄膜与精密电阻。">Thick/thin film and precision resistors.</p><a class="link-cta" href="/components/passive-components/" data-zh="查看元器件 →">View Components <span class="arrow">&rarr;</span></a></div>
-          <div class="card"><h3 data-zh="电容">Capacitors</h3><p data-zh="MLCC、电解与薄膜电容。">MLCC, electrolytic and film capacitors.</p><a class="link-cta" href="/components/passive-components/" data-zh="查看元器件 →">View Components <span class="arrow">&rarr;</span></a></div>
-          <div class="card"><h3 data-zh="电感">Inductors</h3><p data-zh="功率与射频电感、磁珠。">Power and RF inductors, chokes.</p><a class="link-cta" href="/components/passive-components/" data-zh="查看元器件 →">View Components <span class="arrow">&rarr;</span></a></div>
-          <div class="card"><h3 data-zh="LED">LEDs</h3><p data-zh="指示灯与照明 LED。">Indicators and lighting LEDs.</p><a class="link-cta" href="/components/passive-components/" data-zh="查看元器件 →">View Components <span class="arrow">&rarr;</span></a></div>
+          <div class="cat-icon-card">
+            <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="7" height="8" rx="1"/><rect x="14" y="8" width="7" height="8" rx="1"/><path d="M10 12h4"/></svg></div>
+            <h3 data-zh="连接器与机电"><a href="/components/connectors/">Connectors &amp; Electromechanical</a></h3>
+            <p data-zh="排针、连接器与接插件。">Headers, connectors and interconnect parts.</p>
+            <div class="chips">
+              <a class="chip" href="/components/connectors/" data-zh="USB">USB</a>
+            </div>
+            <span class="cat-link"><span data-zh="浏览分类">Browse Category</span><svg class="cat-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+
+          <div class="cat-icon-card">
+            <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6" rx="1"/><path d="M4 9h5M15 9h5M4 15h5M15 15h5"/></svg></div>
+            <h3 data-zh="模块"><a href="/components/modules/">Modules</a></h3>
+            <p data-zh="无线与通信模块。">Wireless and communication modules.</p>
+            <div class="chips">
+              <a class="chip" href="/components/modules/" data-zh="Wi-Fi">Wi-Fi</a>
+              <a class="chip" href="/components/modules/" data-zh="蜂窝">Cellular</a>
+            </div>
+            <span class="cat-link"><span data-zh="浏览分类">Browse Category</span><svg class="cat-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+
         </div>
       </div>
     </section>
 
+    <!-- SOURCING SHOWCASE — why source hard-to-find from SZ Procure -->
     <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow" data-zh="为何选择我们">WHY SZ PROCURE</div>
+          <h2 data-zh="为什么全球买家找我们采购难找料">Why Global Buyers Source Hard-to-Find Parts From Us</h2>
+          <p class="lead" data-zh="我们致力于成为可信赖的长期供应链伙伴，深耕中国电子供应链资源。">A trusted long-term sourcing partner with deep supplier relationships across China's electronics ecosystem.</p>
+        </div>
+        <div class="showcase-grid">
+          <div class="card">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="7" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M8 7l8 0M7 8l4 8M17 9l-4 7"/></svg></div>
+            <h3 data-zh="丰富供应资源">1000+ Verified Channels</h3>
+            <p data-zh="1000+ 供应渠道，提供可靠的稀缺料采购资源。">1000+ supplier channels providing reliable sourcing options for scarce parts.</p>
+          </div>
+          <div class="card">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5z"/><path d="M9 12l2 2 4-4"/></svg></div>
+            <h3 data-zh="难找料与停产料专家">Hard-to-Find &amp; EOL Specialists</h3>
+            <p data-zh="专注传统分销商无法提供的元器件。">We focus on the components traditional distributors can't supply.</p>
+          </div>
+          <div class="card">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 7h11l-3-3M17 17H6l3 3"/></svg></div>
+            <h3 data-zh="替代料匹配">Replacement Matching</h3>
+            <p data-zh="当原型号缺货时，我们提供合格替代与交叉参考。">When the original part is unavailable, we identify qualified alternatives.</p>
+          </div>
+          <div class="card">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg></div>
+            <h3 data-zh="快速报价响应">Fast RFQ Response</h3>
+            <p data-zh="数小时内快速响应询价，让项目更快推进。">RFQ responses within hours to keep your projects moving.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="section soft">
       <div class="container">
         <div class="cta-band">
           <div>
-            <h2 data-zh="需要采购整份 BOM？">Need a full BOM sourced?</h2>
+            <h2 data-zh="需要采购整份 BOM？">Need a Full BOM Sourced?</h2>
             <p data-zh="发送您的 BOM，我们将帮您在各品类中匹配合适的采购方案。">Send your BOM and we'll help identify suitable sourcing options across all categories.</p>
           </div>
           <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>

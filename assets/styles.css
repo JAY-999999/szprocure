@@ -23,13 +23,33 @@
   --shadow-sm: 0 1px 2px rgba(15,23,42,.06), 0 1px 3px rgba(15,23,42,.04);
   --shadow-md: 0 6px 24px rgba(15,23,42,.08);
   --shadow-lg: 0 18px 48px rgba(15,23,42,.12);
-  --container: 1180px;
+  --container: 1240px;
   --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+/* =========================================================
+   Cross-Browser Consistency Reset (Edge baseline vs Chrome)
+   Chrome renders native <button>/<input>/<select>/<textarea>
+   with its own control font (visibly larger + looser line
+   spacing) unless explicitly told to inherit the page font.
+   Forcing inheritance makes Chrome match Edge exactly.
+   ========================================================= */
+button, input, select, textarea, optgroup {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.4;
+  color: inherit;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  font-size: 100%;
+}
 
 body {
   margin: 0;
@@ -96,7 +116,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.92);
   backdrop-filter: saturate(160%) blur(10px); border-bottom: 1px solid var(--border);
 }
-.nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+.nav { display: flex; align-items: center; justify-content: space-between; height: 84px; }
 .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; color: var(--navy); font-size: 1.18rem; letter-spacing: -.02em; }
 .brand .logo-mark { width: 30px; height: 30px; flex: none; }
 .brand small { display: block; font-size: .66rem; font-weight: 600; letter-spacing: .14em; color: var(--muted-2); text-transform: uppercase; }
@@ -452,6 +472,20 @@ ul { margin: 0; padding: 0; list-style: none; }
 .breadcrumb a:hover { text-decoration: underline; }
 .breadcrumb span { color: var(--text, #1a2233); font-weight: 600; }
 
+/* ---- Phase D.4 — Category Featured Parts grid (internal linking) ---- */
+.sku-card { display: block; padding: 14px 16px; text-decoration: none; color: inherit;
+  transition: box-shadow var(--transition-normal, 300ms ease), transform var(--transition-normal, 300ms ease); }
+.sku-card:hover { box-shadow: var(--shadow-md, 0 4px 6px -1px rgb(0 0 0 / 0.1)); transform: translateY(-2px); }
+.sku-card .sku-mpn { font-weight: 600; font-size: .95rem; color: var(--text, #1a2233); }
+.sku-card .sku-mfr { color: var(--muted, #6b7280); font-size: .82rem; margin-top: 2px; }
+.sku-card:hover .sku-mpn { color: var(--accent, #0A84FF); }
+/* ---- Phase D.4 — Related Products by Category cards ---- */
+.rel-card { padding: 16px; }
+.rel-card h4 { margin: 0 0 8px; font-size: 1rem; }
+.rel-card h4 a { color: var(--accent, #0A84FF); text-decoration: none; }
+.rel-card h4 a:hover { text-decoration: underline; }
+.rel-card .bullet-list { margin: 0; }
+
 /* part / manufacturer / category index lists */
 ul.part-index { columns: 2; column-gap: 32px; }
 ul.part-index li {
@@ -620,6 +654,36 @@ ul.part-index li {
   body { padding-bottom: 66px; }
   .site-footer { padding-bottom: 92px; }
 }
+
+/* Desktop floating Quick RFQ button — hidden on mobile */
+.float-quote-btn {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 55;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 22px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  font-size: .95rem;
+  box-shadow: 0 6px 20px rgba(10,132,255,.35);
+  transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
+}
+.float-quote-btn:hover {
+  background: var(--navy);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(11,27,51,.25);
+}
+.float-quote-btn:active { transform: translateY(0); }
+@media (max-width: 860px) {
+  .float-quote-btn { display: none; }
+}
+
 /* ---- global nav search ---- */
 .nav-search {
   display: flex;
@@ -627,8 +691,8 @@ ul.part-index li {
   margin-left: 8px;
 }
 .nav-search input {
-  width: 180px;
-  max-width: 40vw;
+  width: 320px;
+  max-width: 26vw;
   padding: 8px 12px;
   border: 1px solid var(--border, #e6e9ef);
   border-radius: 999px;
@@ -689,3 +753,129 @@ ul.part-index li {
   border-color: var(--accent, #0A84FF);
   box-shadow: 0 0 0 3px rgba(37,99,235,.12);
 }
+
+/* =========================================================
+   Phase D — Components Commercial Layer (P0)
+   Unifies /components/ with the homepage design language.
+   Pure additions — no existing rule is modified.
+   ========================================================= */
+
+/* ---- Components Hero (search-first) ---- */
+.comp-hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(1100px 480px at 82% -12%, rgba(10,132,255,.22), transparent 60%),
+    linear-gradient(160deg, #0b1b33 0%, #0f2547 58%, #102a52 100%);
+  color: #e8eef8;
+  padding: 78px 0 84px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.comp-hero .eyebrow { color: #7dd3fc; }
+.comp-hero h1 { color: #fff; max-width: 18ch; }
+.comp-hero .lead { color: #b9c6db; max-width: 60ch; margin-top: 12px; }
+.comp-search { display: flex; gap: 10px; margin-top: 30px; max-width: 660px; }
+.comp-search input {
+  flex: 1; min-width: 0;
+  padding: 16px 18px; border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.06); color: #fff;
+  font-size: 1.02rem; font-family: var(--font);
+}
+.comp-search input::placeholder { color: #93a4c2; }
+.comp-search input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(10,132,255,.28); }
+.comp-search .btn { flex: none; }
+.comp-search-alt { margin: 14px 0 0; font-size: .95rem; color: #c6d2e6; }
+.comp-search-alt .link-cta { color: #7dd3fc; }
+.comp-hero .hero-actions { margin-top: 20px; }
+.comp-hero .trust-bar { margin-top: 32px; color: #c6d2e6; }
+.comp-hero .trust-bar b { color: #7dd3fc; }
+
+/* ---- Capability strip (4 differentiation pillars) ---- */
+.cap-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.cap-card {
+  background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 26px 24px; box-shadow: var(--shadow-sm);
+  transition: box-shadow .2s ease, transform .2s ease, border-color .2s ease;
+  display: flex; flex-direction: column;
+}
+.cap-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); border-color: var(--border-strong); }
+.cap-card .icon {
+  width: 48px; height: 48px; border-radius: 12px;
+  background: var(--accent-soft); color: var(--accent);
+  display: flex; align-items: center; justify-content: center; margin-bottom: 16px;
+}
+.cap-card .icon svg { width: 26px; height: 26px; }
+.cap-card h3 { font-size: 1.0625rem; margin: 0 0 8px; }
+.cap-card p { color: var(--muted); font-size: .92rem; margin: 0; }
+
+/* Phase D.2 — SKU first-screen commercial upgrade (reuses .cap-card / .trust-bar / .link-cta) */
+.sku-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--accent-soft); color: var(--accent-600);
+  font-weight: 700; font-size: .76rem; letter-spacing: .05em; text-transform: uppercase;
+  padding: 5px 13px; border-radius: 999px; margin-bottom: 14px;
+}
+.sku-badge::before { content: "\2713"; font-weight: 800; }
+.sku-trust { margin-top: 22px; }
+.sku-trust span { display: inline-flex; align-items: center; }
+.sku-why .cap-grid { grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.sku-why .section-head { margin-bottom: 26px; }
+@media (max-width: 880px) {
+  .sku-why .cap-grid { grid-template-columns: 1fr; }
+  .sku-trust { gap: 12px 18px; }
+}
+
+/* ---- Category icon cards (6 L1 categories) ---- */
+.cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.cat-icon-card {
+  display: flex; flex-direction: column;
+  background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 26px; box-shadow: var(--shadow-sm);
+  transition: box-shadow .2s ease, transform .2s ease, border-color .2s ease;
+}
+.cat-icon-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); border-color: var(--accent); }
+.cat-icon-card .cat-icon {
+  width: 52px; height: 52px; border-radius: 13px;
+  background: linear-gradient(135deg, var(--navy), var(--accent));
+  color: #fff; display: flex; align-items: center; justify-content: center; margin-bottom: 18px;
+}
+.cat-icon-card .cat-icon svg { width: 28px; height: 28px; }
+.cat-icon-card h3 { margin: 0 0 8px; font-size: 1.15rem; }
+.cat-icon-card h3 a { color: inherit; text-decoration: none; }
+.cat-icon-card h3 a:hover { color: var(--accent); }
+.cat-icon-card p { color: var(--muted); font-size: .92rem; margin: 0 0 14px; }
+.cat-icon-card .chips { margin-bottom: 16px; }
+.cat-icon-card .cat-link {
+  margin-top: auto; display: inline-flex; align-items: center; gap: 6px;
+  font-weight: 600; font-size: .9rem; color: var(--accent);
+}
+.cat-icon-card .cat-link .cat-arrow { transition: transform var(--transition-fast); }
+.cat-icon-card:hover .cat-link .cat-arrow { transform: translateX(4px); }
+.cat-icon-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-color: var(--accent); }
+
+/* ---- Sourcing showcase (reuses .card + .icon) ---- */
+.showcase-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+
+/* ---- responsive ---- */
+@media (max-width: 1024px) {
+  .cap-grid { grid-template-columns: repeat(2, 1fr); }
+  .cat-grid { grid-template-columns: repeat(2, 1fr); }
+  .showcase-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 720px) {
+  .comp-search { flex-direction: column; }
+  .comp-search .btn { width: 100%; }
+  .cap-grid, .cat-grid, .showcase-grid { grid-template-columns: 1fr; }
+}
+
+/* ---- Phase D.3 — Manufacturer Hub card (full-clickable brand entry) ---- */
+.mfr-card { display: block; text-decoration: none; color: inherit; }
+.mfr-card h3 { margin: 0 0 6px; font-size: 1.0625rem; }
+.mfr-card p { color: var(--muted); font-size: .9rem; margin: 0 0 12px; }
+.mfr-card .mfr-link { font-weight: 600; color: var(--accent); font-size: .9rem; }
+.mfr-card:hover .mfr-link { text-decoration: underline; }
+
+/* ---- Phase D.3 — Detail hero 3-tier CTA ---- */
+.hero-cta { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-top: 22px; }
+.hero-cta .link-cta { margin-left: 2px; }

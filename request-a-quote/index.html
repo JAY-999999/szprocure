@@ -44,145 +44,369 @@
 <body>
   <div id="site-header"></div>
 
+  <style>
+    /* page-scoped only — does NOT modify global tokens or the global .card rule */
+    /* v3.2 — vertical rhythm: compress Hero + shorten gap to form */
+    .page-head { padding: 28px 0 18px; }                 /* was 56/44 ≈ 60% */
+    #quote-form-section.section { padding: 28px 0 56px; } /* top 84→28, bottom kept for footer */
+    .rfq-split { display: grid; grid-template-columns: 2.4fr 1fr; gap: 28px; align-items: start; }
+    .rfq-form-col { min-width: 0; }
+    /* Higher form density — tighter internal rhythm; inputs 44-48px tappable */
+    .rfq-form-card { padding: 28px; }
+    .rfq-form-col .form-grid { gap: 10px; }
+    .rfq-form-col .field { gap: 3px; }
+    .rfq-form-col .field input,
+    .rfq-form-col .field select {
+      padding: 12px 12px; line-height: 1.25; font-size: .9rem; /* ~44-46px target, keeps 44px min touch */
+    }
+    .rfq-form-col .rfq-note { margin-bottom: 14px; }
+    .rfq-form-col .rfq-sku-context { margin-bottom: 14px; }
+    .rfq-form-col .rfq-more-body { padding-top: 12px; }
+    /* Response Time emphasis block */
+    .rfq-response {
+      display: flex; flex-direction: column; gap: 2px;
+      background: #eef4ff; border: 1px solid #cfe0ff; border-radius: 10px;
+      padding: 12px 14px; margin: 4px 0 2px;
+    }
+    .rfq-response-label { font-size: .76rem; font-weight: 600; color: #143a73; text-transform: uppercase; letter-spacing: .06em; }
+    .rfq-response-value { font-size: .92rem; font-weight: 700; color: #0b1b33; }
+
+    /* Right trust sidebar */
+    .rfq-contact {
+      background: #fff; border: 1px solid #e5e9f0; border-radius: 14px;
+      padding: 22px; box-shadow: var(--shadow-sm); position: sticky; top: 92px;
+    }
+    .rfq-contact .brand-line { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid #eef1f6; }
+    .rfq-contact .brand-line .logo-mark { width: 30px; height: 30px; flex: none; }
+    .rfq-contact .brand-line strong { display: block; font-size: .98rem; color: var(--ink); }
+    .rfq-contact .brand-line .sub { font-size: .76rem; color: var(--muted); }
+
+    .rfq-block { padding: 16px 0; border-top: 1px solid #eef1f6; }
+    .rfq-block:first-of-type { border-top: none; padding-top: 0; }
+    .rfq-block-title { margin: 0 0 12px; font-size: .95rem; font-weight: 700; color: var(--ink); letter-spacing: .2px; }
+
+    .rfq-contact ul { list-style: none; margin: 0; padding: 0; }
+    .rfq-contact li { display: flex; gap: 10px; padding: 7px 0; font-size: .88rem; }
+    .rfq-contact .k { color: var(--muted); min-width: 96px; flex: none; }
+    .rfq-contact a { color: var(--accent); text-decoration: none; }
+    .rfq-contact a:hover { text-decoration: underline; }
+
+    /* Block 2 — compact steps */
+    .rfq-steps { list-style: none; margin: 0; padding: 0; }
+    .rfq-steps li { display: flex; gap: 12px; padding: 9px 0; font-size: .86rem; line-height: 1.45; }
+    .rfq-steps .num { flex: none; width: 26px; height: 26px; border-radius: 50%; background: #eef4ff; color: #0A84FF; font-weight: 700; font-size: .78rem; display: inline-flex; align-items: center; justify-content: center; }
+    .rfq-steps .st-body { flex: 1; }
+    .rfq-steps .st-body strong { display: block; color: var(--ink); font-weight: 600; }
+    .rfq-steps .st-body span { color: var(--muted); font-size: .82rem; }
+
+    /* Block 3 — compact FAQ */
+    .rfq-faq details { border-top: 1px solid #eef1f6; }
+    .rfq-faq details:first-child { border-top: none; }
+    .rfq-faq summary {
+      cursor: pointer; padding: 11px 0; font-weight: 600; font-size: .88rem; color: var(--ink);
+      list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    }
+    .rfq-faq summary::-webkit-details-marker { display: none; }
+    .rfq-faq summary::after { content: "+"; color: var(--muted); font-size: 1.2rem; line-height: 1; }
+    .rfq-faq details[open] summary::after { content: "\2212"; }
+    .rfq-faq details p { margin: 0 0 12px; color: var(--muted); font-size: .84rem; line-height: 1.55; }
+
+    /* Form grouping */
+    .form-group-title { margin: 26px 0 14px; font-size: 1rem; font-weight: 700; color: var(--ink); }
+    .form-group-title:first-of-type { margin-top: 0; }
+    .rfq-product-hint {
+      margin: 0 0 16px; font-size: .82rem; color: var(--muted);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .rfq-product-hint::before {
+      content: ""; width: 6px; height: 6px; border-radius: 50%; background: #0A84FF; flex: none;
+    }
+
+    .rfq-note { font-size: .9rem; color: var(--muted); margin: 0 0 22px; }
+    .opt { color: var(--muted); font-weight: 400; font-size: .85em; }
+    .rfq-trust { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: 16px; font-size: .82rem; color: var(--muted); }
+    .rfq-trust span { display: inline-flex; align-items: center; gap: 6px; }
+    .rfq-trust svg { width: 14px; height: 14px; color: var(--accent); flex: none; }
+    .success-contact { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+
+    @media (max-width: 860px) {
+      .rfq-split { grid-template-columns: 1fr; }
+      .rfq-contact { position: static; }
+      /* small-screen: slightly tighter, inputs stay tappable (>=44px) */
+      .page-head { padding: 36px 0 22px; }
+      #quote-form-section.section { padding: 28px 0 44px; }
+      .rfq-form-card { padding: 20px; }
+      .rfq-form-col .form-grid { gap: 9px; }
+      .rfq-form-col .field { gap: 3px; }
+    }
+
+    /* SKU deep-link context (prefilled, editable) */
+    .rfq-sku-context {
+      display: flex; align-items: flex-start; gap: 10px;
+      background: #eef4ff; border: 1px solid #cfe0ff; color: #143a73;
+      border-radius: 10px; padding: 12px 14px; margin-bottom: 18px;
+      font-size: .9rem; line-height: 1.45;
+    }
+    .rfq-sku-context[hidden] { display: none; }
+    .rfq-sku-context > svg { width: 18px; height: 18px; flex: none; color: #0A84FF; margin-top: 1px; }
+    .rfq-sku-context .ctx-body { flex: 1; }
+    .rfq-sku-context .ctx-lead { margin: 0 0 4px; font-weight: 600; color: #143a73; }
+    .rfq-sku-context .ctx-part { margin: 0; }
+    .rfq-sku-context .ctx-part strong { color: #0b1b33; font-size: 1rem; }
+    .rfq-sku-context .ctx-mfr { margin: 2px 0 0; color: #3a507a; }
+    .field-hint {
+      margin: 6px 0 0; font-size: .8rem; color: #5a6b86;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .field-hint::before {
+      content: ""; width: 6px; height: 6px; border-radius: 50%; background: #0A84FF; flex: none;
+    }
+
+    /* v3 — SKU part-edit collapse + Change Part + collapsible supplementary */
+    #rfq-part-edit[hidden] { display: none; }
+    #rfq-part-edit { display: contents; }
+    .rfq-change-part {
+      margin-left: auto; align-self: flex-start; flex: none;
+      background: #fff; border: 1px solid #bcd2ff; color: #0A84FF;
+      font: 600 .8rem/1 inherit; padding: 6px 12px; border-radius: 999px; cursor: pointer;
+    }
+    .rfq-change-part:hover { background: #e3edff; }
+    .rfq-more { margin-top: 18px; border-top: 1px solid #eef1f6; padding-top: 14px; }
+    .rfq-more > summary {
+      cursor: pointer; list-style: none; font-weight: 600; font-size: .92rem; color: var(--ink);
+      display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    }
+    .rfq-more > summary::-webkit-details-marker { display: none; }
+    .rfq-more > summary::after { content: "+"; color: var(--muted); font-size: 1.2rem; line-height: 1; }
+    .rfq-more[open] > summary::after { content: "\2212"; }
+    .rfq-more-body { padding-top: 16px; }
+    .rfq-more-body textarea { min-height: 180px; } /* +50% vs global 120px */
+    .rfq-more-body .upload-box { padding: 18px 26px; } /* -30% vertical padding vs global 26px */
+    .field.invalid input, .field.invalid textarea, .field.invalid select { border-color: #b91c1c; }
+  </style>
+
   <main>
+    <!-- Section 1: Hero (short — this page IS the form, no CTA button) -->
     <section class="page-head">
       <div class="container">
-        <div class="eyebrow" data-zh="开始询价">Get a Quote</div>
+        <div class="eyebrow" data-zh="采购请求">Sourcing Request</div>
         <h1 data-zh="获取报价">Request a Quote</h1>
-        <p class="lead" data-zh="发送您的料号、BOM 或采购需求。我们的深圳采购团队会审阅您的需求，并提供合适的采购方案。">Send your part numbers, BOM or sourcing requirements. Our Shenzhen sourcing team will review your request and provide suitable sourcing options.</p>
+        <p class="lead" data-zh="提交您的采购需求，我们将在1个工作日内提供报价方案。">Submit your requirements and our sourcing team will provide a quotation within 1 business day.</p>
       </div>
     </section>
 
-    <section class="section">
+    <!-- Section 2: Core — form (left, ~70%) / trust sidebar (right, ~30%) -->
+    <section class="section soft" id="quote-form-section">
       <div class="container">
-        <div class="grid grid-2" style="align-items:start;gap:32px">
+        <div class="rfq-split">
+          <div class="rfq-form-col">
+            <div class="card rfq-form-card" id="quote-form-card">
+              <div class="form-success" id="formSuccess">
+                <h3 data-zh="我们已收到您的询价。">Thank you. Your RFQ has been received.</h3>
+                <p data-zh="我们的采购团队将审阅您的需求，并尽快与您联系。">Our sourcing team will review your requirements and contact you shortly.</p>
+                <div class="success-contact">
+                  <a class="btn btn-ghost" href="https://wa.me/8613530888389" target="_blank" rel="noopener" data-zh="WhatsApp 咨询">WhatsApp Us</a>
+                  <a class="btn btn-ghost" href="mailto:sales@szprocure.com" data-zh="发送邮件">Email Us</a>
+                </div>
+              </div>
 
-          <!-- LEFT: Quote form -->
-          <div class="card" style="padding:36px">
-            <div class="form-success" id="formSuccess">
-              <h3 data-zh="感谢您。">Thank you.</h3>
-              <p data-zh="我们已收到您的需求，将尽快审阅详情并与您联系。">We've received your request and will review the details and get back to you shortly.</p>
+              <form id="quote-form" action="https://formsubmit.co/sales@szprocure.com" method="POST" novalidate>
+                <input type="hidden" name="_subject" value="New RFQ Submission — SZ Procure" />
+                <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+                <!-- Auto fields (system-collected, not customer-entered) -->
+                <input type="hidden" name="category" id="rfq_category" />
+                <input type="hidden" name="source_url" id="source_url" />
+                <input type="hidden" name="rfq_type" id="rfq_type" value="general_quote" />
+                <input type="hidden" name="country_source" id="country_source" />
+                <input type="hidden" name="referrer" id="referrer" />
+                <input type="hidden" name="submitted_at" id="submitted_at" />
+                <input type="hidden" name="requirement_type" id="requirement_type" />
+
+                <p class="rfq-note" data-zh="只需提供料号与邮箱，其余交给我们。">Just share the part number and your email — we’ll take care of the rest.</p>
+
+                <div class="rfq-sku-context" id="rfq-sku-context" hidden>
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="7" width="8" height="6" rx="1.2"/><path d="M6 7V5a2 2 0 0 1 4 0v2"/></svg>
+                  <div class="ctx-body">
+                    <p class="ctx-lead" data-zh="您正在咨询以下产品：">You are requesting a quote for the following component:</p>
+                    <div class="ctx-details" id="rfq-sku-details"></div>
+                  </div>
+                  <button type="button" class="rfq-change-part" id="rfqChangePart" data-zh="修改型号">Change Part</button>
+                </div>
+
+                <!-- 2-per-row grid: Part Number | Manufacturer | Email | Contact | Quantity | Target | Country | Company -->
+                <div class="form-grid">
+                  <!-- Row 1: Part Number | Manufacturer (editable; hidden in SKU mode until "Change Part") -->
+                  <div id="rfq-part-edit">
+                    <div class="field">
+                      <label for="part_number" data-zh="料号 / 产品名称">Part Number / Product Name <span class="req" id="pn-req">*</span></label>
+                      <input id="part_number" name="part_number" type="text" placeholder="e.g. STM32F103C8T6, AI glasses" data-zh-ph="例如 STM32F103C8T6、AI 眼镜" />
+                      <p class="field-hint" id="rfq-autofill-hint" hidden data-zh="已从产品页自动填入，可修改或申请替代料。">Auto-filled from the product page. You can edit it or request an alternative.</p>
+                    </div>
+                    <div class="field">
+                      <label for="manufacturer" data-zh="品牌（选填）">Manufacturer <span class="opt">(optional)</span></label>
+                      <input id="manufacturer" name="manufacturer" type="text" placeholder="e.g. STM, TI, NVIDIA, Infineon" data-zh-ph="例如 STM、TI、NVIDIA、Infineon" />
+                    </div>
+                  </div>
+
+                  <!-- Row 2: Email (required) | Contact Name -->
+                  <div class="field">
+                    <label for="email" data-zh="企业邮箱 *">Business Email <span class="req">*</span></label>
+                    <input id="email" name="email" type="email" required />
+                    <div class="form-error" id="formError"></div>
+                  </div>
+                  <div class="field">
+                    <label for="contact_name" data-zh="联系人（选填）">Contact Name <span class="opt">(optional)</span></label>
+                    <input id="contact_name" name="contact_name" type="text" />
+                  </div>
+
+                  <!-- Row 3: Quantity | Target Delivery -->
+                  <div class="field">
+                    <label for="quantity" data-zh="数量（选填）">Quantity <span class="opt">(optional)</span></label>
+                    <input id="quantity" name="quantity" type="number" min="1" step="1" placeholder="e.g. 500" data-zh-ph="例如 500" />
+                  </div>
+                  <div class="field">
+                    <label for="target_delivery" data-zh="期望交期（选填）">Target Delivery Time <span class="opt">(optional)</span></label>
+                    <input id="target_delivery" name="target_delivery" type="text" placeholder="e.g. by Dec 2026" data-zh-ph="例如 2026 年 12 月前" />
+                  </div>
+
+                  <!-- Row 4: Country | Company -->
+                  <div class="field">
+                    <label for="country" data-zh="国家 / 地区（选填）">Country / Region <span class="opt">(optional)</span></label>
+                    <input id="country" name="country" type="text" />
+                    <p class="field-hint" id="country-auto-hint" hidden data-zh="已根据您的地区自动识别，可修改。">Auto-detected from your region. You can edit it.</p>
+                  </div>
+                  <div class="field">
+                    <label for="company" data-zh="公司（选填）">Company <span class="opt">(optional)</span></label>
+                    <input id="company" name="company" type="text" />
+                  </div>
+                </div>
+
+                <!-- Supplementary details (optional, always visible) -->
+                <div class="rfq-more-body">
+                  <div class="field full">
+                    <label for="message" data-zh="补充信息（选填）">Message <span class="opt">(optional)</span></label>
+                    <textarea id="message" name="message" placeholder="Describe your product, specification, BOM or sourcing request…" data-zh-ph="请描述您的产品、规格、BOM 或采购需求…"></textarea>
+                  </div>
+                  <div class="field full">
+                    <div class="upload-box" data-upload>
+                      <p style="margin:0 0 6px;color:var(--ink);font-weight:600" data-zh="拖拽文件到此处，或点击上传">Drag &amp; drop or click to upload</p>
+                      <button class="btn btn-ghost" data-upload-trigger data-zh="选择文件">Choose files</button>
+                      <input type="file" name="uploaded_files" accept=".xls,.xlsx,.csv,.pdf,.doc,.docx,.txt,.zip" multiple />
+                      <p class="upload-hint" data-zh="支持格式：Excel、CSV、PDF、BOM、规格书、Datasheet">Accepted: Excel, CSV, PDF, BOM, Specification, Datasheet</p>
+                    </div>
+                    <div class="file-list" data-file-list></div>
+                  </div>
+                </div>
+
+                <div class="form-error" id="formSubmitError"></div>
+                <div style="margin-top:18px;display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+                  <button class="btn btn-primary btn-lg" type="submit" data-zh="提交询价">Submit RFQ</button>
+                  <span class="form-note" data-zh="提交即表示您同意我们就您的采购需求与您联系。">By submitting, you agree to be contacted about your sourcing request.</span>
+                </div>
+                <div class="rfq-trust">
+                  <span>
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3,8 7,12 13,5"/></svg>
+                    <span data-zh="通过可靠渠道采购原装产品。">Genuine parts sourced through verified channels.</span>
+                  </span>
+                  <span>
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3,8 7,12 13,5"/></svg>
+                    <span data-zh="我们将在 1 个工作日内回复。">Response within 1 business day.</span>
+                  </span>
+                </div>
+              </form>
             </div>
-
-            <form id="quote-form" action="https://formsubmit.co/sales@szprocure.com" method="POST" novalidate>
-              <input type="hidden" name="_subject" value="New RFQ Submission — SZ Procure" />
-              <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
-              <div style="background:var(--bg-soft);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:24px">
-                <h3 style="margin:0 0 8px;font-size:1rem" data-zh="提交时请尽量包含以下信息">What to include in your request</h3>
-                <p style="margin:0 0 10px;color:var(--muted);font-size:.92rem" data-zh="信息越完整，我们越能快速给出合适方案。">The more details you provide, the faster we can return suitable sourcing options.</p>
-                <ul style="margin:0;padding-left:18px;color:var(--ink);font-size:.92rem;line-height:1.9">
-                  <li data-zh="料号（如 STM32F103C8T6, LM358DR）"><strong>Part Number</strong> — e.g. STM32F103C8T6, LM358DR</li>
-                  <li data-zh="BOM 物料清单（可上传文件）"><strong>BOM</strong> — bill of materials (upload via the file box below)</li>
-                  <li data-zh="数量或预估用量"><strong>Quantity</strong> — required or estimated volume</li>
-                  <li data-zh="规格、参数或应用场景"><strong>Specification</strong> — parameters, package, application or notes</li>
-                </ul>
-              </div>
-              <h3 style="margin:0 0 14px" data-zh="联系信息">Contact Information</h3>
-              <div class="form-grid">
-                <div class="field">
-                  <label for="customer_name" data-zh="姓名 *">Name <span class="req">*</span></label>
-                  <input id="customer_name" name="customer_name" type="text" required />
-                </div>
-                <div class="field">
-                  <label for="company" data-zh="公司">Company</label>
-                  <input id="company" name="company" type="text" />
-                </div>
-                <div class="field">
-                  <label for="email" data-zh="邮箱 *">Email <span class="req">*</span></label>
-                  <input id="email" name="email" type="email" required />
-                  <div class="form-error" id="formError"></div>
-                </div>
-                <div class="field">
-                  <label for="phone" data-zh="WhatsApp">WhatsApp</label>
-                  <input id="phone" name="phone" type="text" />
-                </div>
-                <div class="field full">
-                  <label for="country" data-zh="国家 / 地区">Country / Region</label>
-                  <input id="country" name="country" type="text" />
-                </div>
-              </div>
-
-              <h3 style="margin:28px 0 14px" data-zh="需求详情">Requirement Details</h3>
-              <div class="form-grid">
-                <div class="field">
-                  <label for="part_number" data-zh="料号">Part Number(s)</label>
-                  <input id="part_number" name="part_number" type="text" placeholder="e.g. STM32F103C8T6, LM358DR" data-zh-ph="例如 STM32F103C8T6, LM358DR" />
-                </div>
-                <div class="field">
-                  <label for="quantity" data-zh="数量">Quantity</label>
-                  <input id="quantity" name="quantity" type="text" />
-                </div>
-                <div class="field">
-                  <label for="target_application" data-zh="目标应用">Target Application</label>
-                  <input id="target_application" name="target_application" type="text" placeholder="e.g. Industrial control, medical device" data-zh-ph="例如 工控、医疗设备" />
-                </div>
-                <div class="field">
-                  <label for="required_date" data-zh="要求日期">Required Date</label>
-                  <input id="required_date" name="required_date" type="text" placeholder="e.g. 2026-10-01" data-zh-ph="例如 2026-10-01" />
-                </div>
-                <div class="field full">
-                  <label for="requirements" data-zh="附加说明">Additional Notes</label>
-                  <textarea id="requirements" name="requirements" placeholder="Describe your product, specification, BOM or sourcing request…" data-zh-ph="请描述您的产品、规格、BOM 或采购需求…"></textarea>
-                </div>
-              </div>
-
-              <h3 style="margin:28px 0 14px" data-zh="文件上传">File Upload</h3>
-              <div class="field full">
-                <label data-zh="上传 BOM / 数据手册">Upload BOM / Datasheet</label>
-                <div class="upload-box" data-upload>
-                  <p style="margin:0 0 6px;color:var(--ink);font-weight:600" data-zh="拖拽文件到此处，或点击上传">Drag &amp; drop or click to upload</p>
-                  <button class="btn btn-ghost" data-upload-trigger data-zh="选择文件">Choose files</button>
-                  <input type="file" name="uploaded_files" accept=".pdf,.xls,.xlsx,.csv" multiple />
-                  <p class="upload-hint" data-zh="支持格式：PDF、Excel、CSV">Accepted: PDF, Excel, CSV</p>
-                </div>
-                <div class="file-list" data-file-list></div>
-                <p class="form-note" data-zh="提交时文件大小有限制。请勿上传敏感个人信息。">File size is limited on submission. Do not upload sensitive personal data.</p>
-              </div>
-
-              <div class="form-error" id="formSubmitError"></div>
-              <div style="margin-top:24px;display:flex;gap:14px;align-items:center;flex-wrap:wrap">
-                <button class="btn btn-primary btn-lg" type="submit" data-zh="提交需求">Request Quote</button>
-                <span class="form-note" data-zh="提交即表示您同意我们就您的采购需求与您联系。">By submitting, you agree to be contacted about your sourcing request.</span>
-              </div>
-            </form>
           </div>
 
-          <!-- RIGHT: Trust Card -->
-          <aside>
-            <div class="card" style="padding:28px;background:var(--bg-soft);position:sticky;top:24px">
-              <h3 data-zh="为什么买家联系 SZ Procure" style="margin-top:0">Why Buyers Contact SZ Procure</h3>
-              <div style="margin-top:18px">
-                <h4 data-zh="深圳供应链接入" style="font-size:1rem;margin:0 0 6px">Shenzhen Supply Chain Access</h4>
-                <p data-zh="对接本地电子供应商与采购渠道。" style="color:var(--muted);margin:0 0 18px;font-size:.92rem">Connect with local electronics suppliers and sourcing channels.</p>
-                <h4 data-zh="灵活的采购支持" style="font-size:1rem;margin:0 0 6px">Flexible Sourcing Support</h4>
-                <p data-zh="从单个元器件到 BOM 需求。" style="color:var(--muted);margin:0 0 18px;font-size:.92rem">From individual components to BOM requirements.</p>
-                <h4 data-zh="以买家为中心的服务" style="font-size:1rem;margin:0 0 6px">Buyer-focused Service</h4>
-                <p data-zh="支持报价审核、供应商沟通与采购协调。" style="color:var(--muted);margin:0;font-size:.92rem">Support quotation review, supplier communication and procurement coordination.</p>
+          <!-- Right trust sidebar (信任辅助，非独立营销模块) -->
+          <aside class="rfq-contact" aria-label="Contact and process information">
+            <!-- 1. 公司介绍（简短） -->
+            <div class="brand-line">
+              <svg class="logo-mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="3" y="3" width="26" height="26" rx="7" fill="#0b1b33"/>
+                <rect x="9" y="9" width="14" height="14" rx="3" fill="#0A84FF"/>
+                <path d="M16 3v5M16 24v5M3 16h5M24 16h5" stroke="#0A84FF" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="16" cy="16" r="2.4" fill="#fff"/>
+              </svg>
+              <div>
+                <strong>SZ Procure</strong>
+                <span class="sub" data-zh="全球电子元器件合作伙伴">Global Electronic Components Partner</span>
               </div>
-              <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border)">
-                <p style="margin:0 0 6px;font-size:.9rem;color:var(--muted)" data-zh="直接联系">Reach us directly</p>
-                <p style="margin:0 0 4px"><a href="mailto:sales@szprocure.com">sales@szprocure.com</a></p>
-                <p style="margin:0;font-size:.9rem;color:var(--muted)">WhatsApp: +86 13530888389</p>
+            </div>
+
+            <!-- 2. 联系方式 -->
+            <div class="rfq-block">
+              <h3 class="rfq-block-title" data-zh="需要帮助？">Need Help?</h3>
+              <ul>
+                <li><span class="k" data-zh="邮箱">Email</span><a href="mailto:sales@szprocure.com">sales@szprocure.com</a></li>
+                <li><span class="k" data-zh="WhatsApp">WhatsApp</span><a href="https://wa.me/8613530888389" target="_blank" rel="noopener">+86 135 3088 8389</a></li>
+              </ul>
+            </div>
+
+            <!-- 3. Response Time (强调) -->
+            <div class="rfq-response">
+              <span class="rfq-response-label" data-zh="响应时间">Response Time</span>
+              <span class="rfq-response-value" data-zh="1 个工作日内">Within 1 Business Day</span>
+            </div>
+
+            <!-- 4. 提交后流程 / What Happens Next -->
+            <div class="rfq-block">
+              <h3 class="rfq-block-title" data-zh="提交后流程">What Happens Next</h3>
+              <ol class="rfq-steps">
+                <li>
+                  <span class="num">01</span>
+                  <span class="st-body">
+                    <strong data-zh="需求审阅">Review Requirements</strong>
+                    <span data-zh="审核您的采购需求。">Review your procurement requirements.</span>
+                  </span>
+                </li>
+                <li>
+                  <span class="num">02</span>
+                  <span class="st-body">
+                    <strong data-zh="供应匹配">Source Matching</strong>
+                    <span data-zh="匹配合适供应渠道。">Match suitable supply channels.</span>
+                  </span>
+                </li>
+                <li>
+                  <span class="num">03</span>
+                  <span class="st-body">
+                    <strong data-zh="报价确认">Quotation Confirmation</strong>
+                    <span data-zh="确认报价与交期。">Confirm quotation and lead time.</span>
+                  </span>
+                </li>
+                <li>
+                  <span class="num">04</span>
+                  <span class="st-body">
+                    <strong data-zh="交付支持">Delivery Support</strong>
+                    <span data-zh="协助交付跟进。">Assist with delivery follow-up.</span>
+                  </span>
+                </li>
+              </ol>
+            </div>
+
+            <!-- 5. FAQ -->
+            <div class="rfq-block">
+              <h3 class="rfq-block-title" data-zh="常见问题">FAQ</h3>
+              <div class="rfq-faq">
+                <details>
+                  <summary>How fast will I get a quotation?</summary>
+                  <p data-zh="我们的采购团队通常会在 1 个工作日内回复。通过 WhatsApp 查询单个料号通常当天即可回复。">Our sourcing team typically responds within 1 business day. Single part-number checks via WhatsApp are often answered the same day.</p>
+                </details>
+                <details>
+                  <summary>Is there a minimum order quantity?</summary>
+                  <p data-zh="没有。我们支持从样品数量到批量生产的各种需求。">No. We support everything from prototype quantities to volume production runs.</p>
+                </details>
+                <details>
+                  <summary>How do you ensure parts are genuine?</summary>
+                  <p data-zh="我们通过经过验证的渠道采购，并可应要求提供可追溯性与原厂文档。">We source through verified channels and can provide traceability and original manufacturer documentation on request.</p>
+                </details>
+                <details>
+                  <summary>What files can I attach?</summary>
+                  <p data-zh="BOM、Excel、CSV、PDF、规格书与数据手册。大文件可通过链接分享。">BOM, Excel, CSV, PDF, specifications and datasheets. Larger files can be shared via a link.</p>
+                </details>
               </div>
             </div>
           </aside>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- HOW IT WORKS (RFQ) -->
-    <section class="section soft">
-      <div class="container">
-        <div class="section-head">
-          <div class="eyebrow" data-zh="流程">How It Works</div>
-          <h2 data-zh="询价流程">How It Works</h2>
-        </div>
-        <div class="grid grid-4">
-          <div class="step"><div class="num">01</div><h3 data-zh="提交需求">Submit Requirement</h3><p data-zh="发送料号、BOM 或采购需求。">Send part numbers, BOM or sourcing requirements.</p></div>
-          <div class="step"><div class="num">02</div><h3 data-zh="采购与比对">Source &amp; Compare</h3><p data-zh="我们的深圳团队寻找供应商并比对方案。">Our Shenzhen team sources and compares options.</p></div>
-          <div class="step"><div class="num">03</div><h3 data-zh="确认方案">Confirm Solution</h3><p data-zh="确认价格、货期与采购方案。">Confirm pricing, lead time and sourcing plan.</p></div>
-          <div class="step"><div class="num">04</div><h3 data-zh="采购支持">Procurement Support</h3><p data-zh="协助沟通、订单协调与交付。">Assist with communication, order coordination and delivery.</p></div>
         </div>
       </div>
     </section>
