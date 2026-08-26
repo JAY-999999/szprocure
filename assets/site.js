@@ -24,7 +24,17 @@
     + '<path d="M16 3v5M16 24v5M3 16h5M24 16h5" stroke="#0A84FF" stroke-width="2" stroke-linecap="round"/>'
     + '<circle cx="16" cy="16" r="2.4" fill="#fff"/></svg>';
 
-  var LANG_SWITCH = ''; // production: language toggle disabled (English-only)
+  function isLocalHost() {
+    var h = location.hostname;
+    return h === '127.0.0.1' || h === 'localhost';
+  }
+  var LANG_SWITCH = (isLocalHost() ? (
+    '<div class="lang-switch" role="group" aria-label="Language">'
+    + '<button type="button" class="lang-btn" data-lang="en">EN</button>'
+    + '<span class="lang-sep">|</span>'
+    + '<button type="button" class="lang-btn" data-lang="zh">中文</button>'
+    + '</div>'
+  ) : ''); // English-only on production host; bilingual toggle on local dev (127.0.0.1/localhost)
 
   var NAV = ''
     + '<header class="site-header"><div class="container nav">'
@@ -94,6 +104,7 @@
 
   /* ---------- i18n ---------- */
   function getLang() {
+    if (isLocalHost()) { return localStorage.getItem("sz_lang") || "en"; }
     return "en"; // production: force English; i18n switch disabled
   }
   function applyLang(lang) {

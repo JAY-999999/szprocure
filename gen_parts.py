@@ -593,17 +593,12 @@ def gen_part_page(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
 
     # ---- render blocks ----
     # 3. Technical Specifications table (Item | Value) — for Google entity
-    # understanding. Guarantee at least 8 core fields by backfilling standard
-    # semiconductor attributes (we never invent values — unknown → "See datasheet").
+    # understanding. Render ONLY real structured attributes from the source
+    # master; never backfill with placeholder "See datasheet" rows (P1-3 cleanup).
     # This block lives BELOW the fold (section 3), never in the first screen.
-    STANDARD_FIELDS = [
-        "Package", "Mounting Type", "Operating Temperature",
-        "Supply Voltage", "Operating Current", "Pin Count",
-        "RoHS", "Status",
-    ]
     if not spec_pairs:
         # No structured attributes from source — show an honest empty-state
-        # note instead of 8 placeholder "See datasheet" rows (P1-3).
+        # note instead of placeholder rows.
         specs_html = (
             '<div class="spec-empty">'
             '<p>Detailed specifications and the official datasheet are available on request. '
@@ -611,10 +606,8 @@ def gen_part_page(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
             '</div>'
         )
     else:
-        filled_keys = {k for k, _ in spec_pairs}
-        backfill = [(k, "See datasheet") for k in STANDARD_FIELDS if k not in filled_keys]
-        all_spec_pairs = spec_pairs + backfill
-        all_spec_pairs = all_spec_pairs[:12]  # cap, real specs first
+        # Real attributes only — capped, never invented/placeholder values.
+        all_spec_pairs = spec_pairs[:12]
         specs_table = "".join(
             f"<tr><th>{esc(k)}</th><td>{esc(v)}</td></tr>" for k, v in all_spec_pairs
         )
@@ -785,7 +778,7 @@ def gen_part_page(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
           <p class="lead-sub">{esc(mfr)} {esc(subcat or cat)}</p>
           <p class="lead">Source {esc(pn)} — we help global buyers access this part through verified suppliers with flexible quantity and competitive pricing.</p>
           <div class="part-head-actions">
-            <a class="btn btn-primary btn-lg" href="/request-a-quote/?pn={esc(pn)}&mfr={esc(mfr)}&cat={esc(cat)}&source=product&rfq_type=sku_quote" data-zh="获取报价">Request a Quote</a>
+            <a class="btn btn-primary btn-lg" href="/request-a-quote/?pn={urlquote(pn)}&mfr={urlquote(mfr)}&cat={urlquote(cat)}&source=product&rfq_type=sku_quote" data-zh="获取报价">Request a Quote</a>
             <a class="btn btn-outline" href="https://wa.me/8613530888389?text=Hi%20SZ%20Procure,%20I%20need%20{esc(pn)}">WhatsApp</a>
             <a class="link-cta" href="mailto:sales@szprocure.com?subject=Quote%20for%20{esc(pn)}">Email</a>
           </div>
@@ -840,7 +833,7 @@ def gen_part_page(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
         <div class="card sticky-card">
           <h3>Need this component?</h3>
           <p>Send the part number and quantity.</p>
-          <a class="btn btn-primary btn-block" href="/request-a-quote/?pn={esc(pn)}&mfr={esc(mfr)}&cat={esc(cat)}&source=product&rfq_type=sku_quote" data-zh="获取报价">Request a Quote</a>
+          <a class="btn btn-primary btn-block" href="/request-a-quote/?pn={urlquote(pn)}&mfr={urlquote(mfr)}&cat={urlquote(cat)}&source=product&rfq_type=sku_quote" data-zh="获取报价">Request a Quote</a>
           {datasheet_html}
           <p class="muted small">sales@szprocure.com · WhatsApp</p>
         </div>
@@ -882,7 +875,7 @@ def gen_part_page(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
           <div class="card sticky-card desk-sticky">
             <h3>Need this component?</h3>
             <p>Send the part number and quantity.</p>
-            <a class="btn btn-primary btn-block" href="/request-a-quote/?pn={esc(pn)}&mfr={esc(mfr)}&cat={esc(cat)}&source=product&rfq_type=sku_quote" data-zh="获取报价">Request a Quote</a>
+            <a class="btn btn-primary btn-block" href="/request-a-quote/?pn={urlquote(pn)}&mfr={urlquote(mfr)}&cat={urlquote(cat)}&source=product&rfq_type=sku_quote" data-zh="获取报价">Request a Quote</a>
             {datasheet_html}
             <p class="muted small">sales@szprocure.com<br/>WhatsApp</p>
           </div>
@@ -904,7 +897,7 @@ def gen_part_page(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
       <div class="container">
         <h2>Request a Quote for {esc(pn)}</h2>
         <p>Send your quantity and target price — our sourcing team will check availability, pricing and lead time.</p>
-        <a class="btn btn-primary btn-lg" href="/request-a-quote/?pn={esc(pn)}&mfr={esc(mfr)}&cat={esc(cat)}&source=product&rfq_type=sku_quote" data-zh="获取报价">Request a Quote</a>
+        <a class="btn btn-primary btn-lg" href="/request-a-quote/?pn={urlquote(pn)}&mfr={urlquote(mfr)}&cat={urlquote(cat)}&source=product&rfq_type=sku_quote" data-zh="获取报价">Request a Quote</a>
       </div>
     </section>
   </main>
@@ -1796,7 +1789,7 @@ def build_merged_groups(rows, mfr_map, attr_allow, review):
 
 def main():
     ap = argparse.ArgumentParser()
-    default_csv = os.path.join(ROOT, "data", "sample_parts.csv")
+    default_csv = os.path.join(ROOT, "data", "production", "master_parts_v1.1.csv")  # PHASE E.3.1: production master solidified into repo data/production/ (relative path, no external D: dependency)
     ap.add_argument("--csv", default=default_csv)
     ap.add_argument("--out", default=ROOT)
     ap.add_argument("--strict", action="store_true",
@@ -2071,11 +2064,11 @@ def main():
 
 def main():
     ap = argparse.ArgumentParser()
-    default_csv = os.path.join(ROOT, "data", "sample_parts.csv")
+    default_csv = os.path.join(ROOT, "data", "production", "master_parts_v1.1.csv")  # PHASE E.3.1: production master solidified into repo data/production/ (relative path, no external D: dependency)
     ap.add_argument("--csv", default=default_csv)
     ap.add_argument("--out", default=ROOT)
-    ap.add_argument("--mfr-map", default=os.path.join(ROOT, "data", "mfr_canonical.csv"))
-    ap.add_argument("--attr-dict", default=os.path.join(ROOT, "data", "attributes_dictionary.md"))
+    ap.add_argument("--mfr-map", default=os.path.join(ROOT, "data", "production", "mfr_canonical.csv"))  # PHASE E.3.2: production self-contained
+    ap.add_argument("--attr-dict", default=os.path.join(ROOT, "data", "production", "attributes_dictionary.md"))  # PHASE E.3.2: production self-contained
     ap.add_argument("--dry-run", action="store_true",
                     help="Process + validate + report only. Writes test_p0_processed.csv and "
                          "review_queue.csv under --out, but does NOT generate HTML/sitemap/search.")
