@@ -193,11 +193,11 @@ MFR_OFFICIAL = {
 }
 
 # ---- Popular Components map (display PN -> real product slug) -----------------
-# The hub page (components/index.html) hard-codes a few "Popular Components"
-# cards. Their displayed model numbers do NOT always equal the generated slug
-# (e.g. "LM358" -> slug "lm358dr", "AMS1117-3.3" -> "ams111733"). This map is
-# the single source of truth so we never guess the slug from the model string.
-# A model with no entry (or whose slug is not generated yet) falls back to
+# The GENERATED component hub (generate_components_hub) renders a few "Popular
+# Components" links from this map. Displayed model numbers do NOT always equal
+# the generated slug (e.g. "LM358" -> slug "lm358dr"). This map is the single
+# source of truth so we never guess the slug from the model string. A model
+# with no entry (or whose slug is not generated yet) falls back to
 # /request-a-quote/ — never a 404.
 POPULAR_SKU_MAP = {
     "STM32F103C8T6": "stm32f103c8t6",
@@ -434,6 +434,123 @@ def gen_manufacturers_hub(by_mfr):
           <div>
             <h2 data-zh="需要特定品牌的料号？">Need a Part From a Specific Manufacturer?</h2>
             <p data-zh="发送准确的料号与制造商，我们将核对库存并报价。">Send us the exact part number and manufacturer — we'll check availability and quote.</p>
+          </div>
+          <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+  <script src="/assets/site.js" defer></script>
+{ga4_script()}
+</body>
+</html>"""
+
+
+# ==============================================================================
+# COMPONENT HUB — GENERATED (P0-1). Never hand-built again.
+# Every /components/<slug>/ page links "up" to this hub via its breadcrumb, so
+# the hub MUST be emitted by the generator — otherwise every regen orphans it
+# (the old bug: hand-built components/index.html vanished on each rebuild).
+# ==============================================================================
+COMPONENT_HUB_BLURB = {
+    "integrated-circuits":      "Microcontrollers, memory, power-management and interface ICs.",
+    "semiconductor-components": "MOSFETs, diodes, transistors and discrete power devices.",
+    "passive-components":       "Resistors, capacitors, inductors and crystal oscillators.",
+    "sensors":                  "Temperature, pressure, motion and optical sensors & transducers.",
+    "connectors":               "Pin headers, USB, FFC/FPC and board-to-board connectors.",
+    "modules":                  "WiFi, Bluetooth, GNSS and cellular communication modules.",
+}
+
+def generate_components_hub(generated_slugs=None):
+    url = f"{DOMAIN}/components/"
+    # FROZEN SEO head strings — locked by Phase D.3 freeze layer. Do not change.
+    title = "Electronic Components — Source from Shenzhen, China | SZ Procure"
+    desc = ("Browse electronic component categories we source from Shenzhen: "
+            "integrated circuits, semiconductors, passives, sensors, connectors and "
+            "modules. Request a quote for any part number.")
+    # category cards (data-driven from TOP_CATEGORIES)
+    cards = []
+    for slug, name in TOP_CATEGORIES.items():
+        blurb = COMPONENT_HUB_BLURB.get(slug, "")
+        cards.append(f'''        <a class="card cat-card" href="/components/{slug}/">
+          <h3>{esc(name)}</h3>
+          <p>{esc(blurb)}</p>
+          <span class="mfr-link">Browse {esc(name)} &rarr;</span>
+        </a>''')
+    cards_html = "\n".join(cards)
+    # popular components (real, data-driven via POPULAR_SKU_MAP; falls back to RFQ)
+    pop_items = "\n          ".join(
+        f'<li><a href="{popular_href(model, generated_slugs)}">{esc(model)}</a></li>'
+        for model in POPULAR_SKU_MAP
+    )
+    crumb = breadcrumb_jsonld([("Home", f"{DOMAIN}/"), ("Components", url)])
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+{seo_head(title, desc, url)}
+  <link rel="stylesheet" href="/assets/styles.css" />
+{crumb}
+{org_jsonld()}
+</head>
+<body>
+  <div id="site-header"></div>
+  <main>
+    <!-- HERO Type B (navy commercial hero) -->
+    <section class="comp-hero">
+      <div class="container">
+        <div class="eyebrow" data-zh="元器件类别">ELECTRONIC COMPONENT CATEGORIES</div>
+        <h1 data-zh="我们采购的元器件类别">Component Categories We Source From Shenzhen</h1>
+        <p class="lead" data-zh="从已验证的深圳供应渠道，为全球买家采购各类原装元器件。浏览类别或发送料号获取报价。">We source original electronic components from verified Shenzhen supply channels for global buyers. Browse a category or send a part number to request a quote.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
+          <a class="btn btn-outline-light btn-lg" href="#categories" data-zh="浏览类别">Browse Categories</a>
+        </div>
+        <div class="trust-bar">
+          <span><b>&#10003;</b> <span data-zh="已验证供应渠道">Verified Supply Channels</span></span>
+          <span><b>&#10003;</b> <span data-zh="原装元器件">Original Components</span></span>
+          <span><b>&#10003;</b> <span data-zh="全球买家支持">Global Buyer Support</span></span>
+          <span><b>&#10003;</b> <span data-zh="快速报价响应">Fast RFQ Response</span></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CATEGORY GRID -->
+    <section class="section" id="categories">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow" data-zh="按类别浏览">BROWSE BY CATEGORY</div>
+          <h2 data-zh="元器件类别">Component Categories</h2>
+          <p class="lead" data-zh="点击任意类别，查看我们采购的元器件并发起询价。">Click any category to view sourced components and request a quote.</p>
+        </div>
+        <div class="grid grid-3">
+{cards_html}
+        </div>
+      </div>
+    </section>
+
+    <!-- POPULAR COMPONENTS -->
+    <section class="section soft">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow" data-zh="热门料号">POPULAR COMPONENTS</div>
+          <h2 data-zh="常用料号">Popular Part Numbers</h2>
+        </div>
+        <ul class="bullet-list part-index">
+          {pop_items}
+        </ul>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="section soft">
+      <div class="container">
+        <div class="cta-band">
+          <div>
+            <h2 data-zh="找不到需要的料号？">Can't Find the Part You Need?</h2>
+            <p data-zh="发送准确的料号、制造商与数量，我们将核对库存并报价。">Send us the exact part number, manufacturer and quantity — we'll check availability and quote.</p>
           </div>
           <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
         </div>
@@ -1789,7 +1906,7 @@ def build_merged_groups(rows, mfr_map, attr_allow, review):
 
 def main():
     ap = argparse.ArgumentParser()
-    default_csv = os.path.join(ROOT, "data", "production", "master_parts_v1.1.csv")  # PHASE E.3.1: production master solidified into repo data/production/ (relative path, no external D: dependency)
+    default_csv = os.path.join(ROOT, "data", "production", "master_parts_v2.0.csv")  # P0-2: only a v2+ production Master may feed the build; v1.x test masters are forbidden
     ap.add_argument("--csv", default=default_csv)
     ap.add_argument("--out", default=ROOT)
     ap.add_argument("--strict", action="store_true",
@@ -2062,9 +2179,92 @@ def main():
     print(f"Total indexed URLs this run: {len(urls)}")
     print(f"At 200k scale: ~{(200000+SITEMAP_BATCH-1)//SITEMAP_BATCH} sitemap files, all auto-split.")
 
+# ==============================================================================
+# PRODUCTION SOURCE GUARDS (P0-2) — make fake-data rebuilds impossible
+# ==============================================================================
+# These guards are the permanent backstop. Even if a synthetic-data generator
+# (human- or AI-authored) is ever invoked, the build refuses to publish it.
+SYNTHETIC_MPN_PATTERNS = [
+    re.compile(r'^(MCU|MOS|RES|CAP|IND|DIO|CON|XTAL|MEM|WIFI|MOD|REG|AMP|OP|LED|PWR|IC)\d{6}', re.I),
+    re.compile(r'100000\d{3}'),                 # the MCU100000xxx / MOS100000xxx family
+    re.compile(r'^\d{6,}$'),                    # pure long numeric placeholder
+    re.compile(r'PLACEHOLDER', re.I),
+    re.compile(r'XXX$', re.I),
+    re.compile(r'_(TEST|SAMPLE|MOCK)$', re.I),
+]
+FAKE_BRAND_TOKENS = re.compile(
+    r'(Acme|Nova|Placeholder|Synthetic|Mock|Fake|TestCorp|DemoSemi|Injected)', re.I)
+
+def _abort_build(reason_lines):
+    print("\n" + "=" * 72)
+    print("ERROR:")
+    for line in reason_lines:
+        print(line)
+    print("=" * 72)
+    sys.exit(2)
+
+def validate_production_source(csv_path):
+    """P0-2: only a v2+ Master under data/production/ may feed the build.
+    Rejects sample/scale/test/pilot/founder sources and the deprecated v1.x
+    test masters, so a future operator (human OR AI) can never rebuild the
+    site from synthetic data."""
+    low = csv_path.lower().replace("\\", "/")
+    base = os.path.basename(low)
+    if "data/production/" not in low:
+        _abort_build([
+            f"Source {csv_path} is not under data/production/.",
+            "Only data/production/master_parts_*.csv may feed the production build.",
+            "Production build aborted.",
+        ])
+    if not re.search(r'master_parts_[a-z0-9._-]+\.csv$', base):
+        _abort_build([
+            f"Source filename '{os.path.basename(csv_path)}' is not a master_parts_*.csv.",
+            "Production build aborted.",
+        ])
+    if "v1" in base:
+        _abort_build([
+            "Old v1.x test master is forbidden (it contains synthetic SKUs).",
+            "Use master_parts_v2.x.csv or later.",
+            "Production build aborted.",
+        ])
+    for b in ("sample", "scale", "test", "deprecated", "mock", "fake", "_pilot", "founder"):
+        if b in base:
+            _abort_build([
+                f"Blocked keyword '{b}' in source filename '{os.path.basename(csv_path)}'.",
+                "Synthetic/sample sources are not allowed in production.",
+                "Production build aborted.",
+            ])
+    return True
+
+def detect_synthetic_mpn(rows):
+    """P0-2: hard-stop if ANY row looks like a synthetic/test MPN or brand.
+    Last line of defense — the build refuses to publish fake data even if a
+    generator produced it."""
+    bad = []
+    for i, r in enumerate(rows, 1):
+        mpn = (r.get("mpn") or "").strip()
+        mfr = (r.get("manufacturer") or "").strip()
+        hit = None
+        for pat in SYNTHETIC_MPN_PATTERNS:
+            if pat.search(mpn):
+                hit = f"synthetic MPN pattern '{pat.pattern}'"
+                break
+        if hit is None and FAKE_BRAND_TOKENS.search(mfr):
+            hit = f"synthetic brand '{mfr}'"
+        if hit:
+            bad.append((i, mpn or "(no mpn)", hit))
+    if bad:
+        lines = ["Synthetic MPN detected.", "Production build aborted."]
+        for i, mpn, why in bad[:25]:
+            lines.append(f"  row {i}: {mpn}  ({why})")
+        if len(bad) > 25:
+            lines.append(f"  ... and {len(bad) - 25} more")
+        _abort_build(lines)
+    return True
+
 def main():
     ap = argparse.ArgumentParser()
-    default_csv = os.path.join(ROOT, "data", "production", "master_parts_v1.1.csv")  # PHASE E.3.1: production master solidified into repo data/production/ (relative path, no external D: dependency)
+    default_csv = os.path.join(ROOT, "data", "production", "master_parts_v2.0.csv")  # P0-2: only a v2+ production Master may feed the build; v1.x test masters are forbidden
     ap.add_argument("--csv", default=default_csv)
     ap.add_argument("--out", default=ROOT)
     ap.add_argument("--mfr-map", default=os.path.join(ROOT, "data", "production", "mfr_canonical.csv"))  # PHASE E.3.2: production self-contained
@@ -2083,6 +2283,9 @@ def main():
     if not os.path.exists(csv_path):
         print("CSV not found:", csv_path); sys.exit(1)
 
+    # ---- P0-2: reject synthetic / non-production sources BEFORE any work ----
+    validate_production_source(csv_path)
+
     # ---- load reference dictionaries (Phase 2.1) ----
     mfr_map = load_mfr_canonical(args.mfr_map)
     attr_allow = load_attr_allowlist(args.attr_dict)
@@ -2093,6 +2296,9 @@ def main():
         rows = [r for r in csv.DictReader(f) if r.get("mpn", "").strip()]
 
     print(f"Loaded {len(rows)} parts from {csv_path}")
+
+    # ---- P0-2: hard-stop on any synthetic/test MPN or fake brand ----
+    detect_synthetic_mpn(rows)
 
     # ---- P0-4 + P0-2 + P0-3 : merge / canonicalize / validate ----
     review = []   # (mpn, canonical_brand, reason, detail)
@@ -2237,6 +2443,13 @@ def main():
             with open(os.path.join(d, "index.html"), "w", encoding="utf-8") as f:
                 f.write(page)
             urls.append(f"{DOMAIN}/components/{cslug}/{l3_slug}/")
+
+    # ---- component hub (GENERATED — P0-1; never hand-built, never orphaned) ----
+    hub_dir = os.path.join(out_root, "components")
+    os.makedirs(hub_dir, exist_ok=True)
+    with open(os.path.join(hub_dir, "index.html"), "w", encoding="utf-8") as f:
+        f.write(generate_components_hub(generated_slugs))
+    urls.append(f"{DOMAIN}/components/")
 
     # ---- split sitemap (all generated URLs) ----
     n_batches = (len(urls) + SITEMAP_BATCH - 1) // SITEMAP_BATCH

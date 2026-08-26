@@ -1,11 +1,19 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Harvest 100 REAL LCSC SKUs from brand pages (JSON-LD, no captcha) across
-diverse component categories. Output: data/raw/lcsc_pilot_100.csv
-Columns match clean_factory.py input: supplier,supplier_sku,mpn,manufacturer,
-title,category,description,attributes,datasheet_url,stock,price
+"""Harvest REAL LCSC SKUs from brand pages (JSON-LD, no captcha) across
+diverse component categories.
+
+PIPELINE STAGE 01_RAW — output:
+    data/raw/lcsc_YYYYMMDD.csv      (per-run date-stamped raw harvest)
+
+This is the ONLY entry point that produces raw sourcing data. Its columns
+match clean_factory.py input:
+    supplier,supplier_sku,mpn,manufacturer,title,category,description,
+    attributes,datasheet_url,stock,price
+See tools/PIPELINE.md for the full four-stage flow.
 """
 import re, json, csv, os, sys
+from datetime import datetime
 from playwright.sync_api import sync_playwright
 
 EDGE = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
@@ -13,7 +21,9 @@ UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/124.0 Safari/537.36")
 ROOT = r"C:/Users/Administrator.SC-202105071542/Desktop/szprocure-site"
 BRANDS_JSON = os.path.join(ROOT, "tools", "_lcsc_brands.json")
-OUT = os.path.join(ROOT, "data", "raw", "lcsc_pilot_100.csv")
+# P0-3: output is date-stamped and lives under data/raw/ (the 01_RAW layer).
+# Stage 02_CLEAN (clean_factory.py) consumes this file and writes 03_MASTER.
+OUT = os.path.join(ROOT, "data", "raw", f"lcsc_{datetime.now():%Y%m%d}.csv")
 SAMPLE = os.path.join(ROOT, "data", "raw", "lcsc_sample.csv")
 
 # Curated (brand search substring -> canonical manufacturer, target fine-category)
