@@ -1,7 +1,7 @@
 /* =========================================================
    SZ Procure — shared front-end logic
    - injects nav + footer (root-relative links)
-   - EN / 中文 language switcher (data-zh / data-zh-ph)
+   - EN / 中文 language switcher (data-zh / data-zh-ph) — DISABLED in production (English-only)
    - mobile menu toggle
    - part-number search -> request-a-quote prefill
    - quote form: client validation + success state
@@ -24,11 +24,7 @@
     + '<path d="M16 3v5M16 24v5M3 16h5M24 16h5" stroke="#0A84FF" stroke-width="2" stroke-linecap="round"/>'
     + '<circle cx="16" cy="16" r="2.4" fill="#fff"/></svg>';
 
-  var LANG_SWITCH = '<div class="lang-switch" role="group" aria-label="Language">'
-    + '<button type="button" class="lang-btn" data-lang="en">EN</button>'
-    + '<span class="lang-sep">|</span>'
-    + '<button type="button" class="lang-btn" data-lang="zh">中文</button>'
-    + '</div>';
+  var LANG_SWITCH = ''; // production: language toggle disabled (English-only)
 
   var NAV = ''
     + '<header class="site-header"><div class="container nav">'
@@ -98,8 +94,7 @@
 
   /* ---------- i18n ---------- */
   function getLang() {
-    try { return localStorage.getItem("sz_lang") || "en"; }
-    catch (e) { return "en"; }
+    return "en"; // production: force English; i18n switch disabled
   }
   function applyLang(lang) {
     document.documentElement.lang = (lang === "zh") ? "zh-CN" : "en";
