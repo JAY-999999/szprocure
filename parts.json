@@ -350,7 +350,7 @@
       "tolerance": "±1%",
       "power_rating_w": 0.0625,
       "voltage_rating_v": 50,
-      "temperature_coeff": "±100ppm/℃",
+      "temperature_coeff": "±100ppm/°C",
       "package": "0402"
     },
     "sources": [],
@@ -494,10 +494,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "放大器数": "单路",
-      "共模抑制比(CMRR)": "80dB",
-      "输入偏置电流(Ib)": "25nA",
-      "轨到轨": "轨到轨输出"
+      "Number of Amplifiers": "Single",
+      "Common-Mode Rejection Ratio (CMRR)": "80dB",
+      "Input Bias Current (Ib)": "25nA",
+      "Rail-to-Rail": "Rail-to-Rail Output"
     },
     "sources": [],
     "needs_review": true,
@@ -518,9 +518,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "CPU内核": "ARM Cortex-M3",
-      "CPU位数": "32 Bit",
-      "CPU最大主频": "72MHz"
+      "CPU Core": "ARM Cortex-M3",
+      "CPU Bit Width": "32 Bit",
+      "CPU Maximum Clock Speed": "72MHz"
     },
     "sources": [],
     "needs_review": true,
@@ -541,9 +541,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "CPU内核": "ARM Cortex-M4",
-      "CPU位数": "32 Bit",
-      "CPU最大主频": "168MHz"
+      "CPU Core": "ARM Cortex-M4",
+      "CPU Bit Width": "32 Bit",
+      "CPU Maximum Clock Speed": "168MHz"
     },
     "sources": [],
     "needs_review": true,
@@ -602,10 +602,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "功能类型": "降压型",
-      "输出类型": "可调",
-      "输出电压": "800mV~25V",
-      "输出电流": "3A"
+      "Function Type": "Step-Down",
+      "Output Type": "Adjustable",
+      "Output Voltage": "800mV~25V",
+      "Output Current": "3A"
     },
     "sources": [],
     "needs_review": true,
@@ -626,9 +626,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "CPU内核": "ARM Cortex-M3",
-      "CPU位数": "32 Bit",
-      "CPU最大主频": "72MHz"
+      "CPU Core": "ARM Cortex-M3",
+      "CPU Bit Width": "32 Bit",
+      "CPU Maximum Clock Speed": "72MHz"
     },
     "sources": [],
     "needs_review": true,
@@ -689,10 +689,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "10uF",
-      "精度": "±10%",
-      "额定电压": "50V",
-      "温度系数": "X5R"
+      "Capacitance": "10uF",
+      "Accuracy": "±10%",
+      "Rated Voltage": "50V",
+      "Temperature Coefficient": "X5R"
     },
     "sources": [],
     "needs_review": true,
@@ -734,9 +734,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "类型": "CAN收发器",
-      "工作电压": "3V~3.6V",
-      "数据速率": "1Mbps"
+      "Type": "CAN Transceiver",
+      "Operating Voltage": "3V~3.6V",
+      "Data Rate": "1Mbps"
     },
     "sources": [],
     "needs_review": true,
@@ -757,10 +757,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出电压": "1.215V~80V",
-      "功能类型": "降压型",
-      "输出类型": "可调",
-      "通道数": "1"
+      "Output Voltage": "1.215V~80V",
+      "Function Type": "Step-Down",
+      "Output Type": "Adjustable",
+      "Number of Channels": "1"
     },
     "sources": [],
     "needs_review": true,
@@ -781,10 +781,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "10uF",
-      "精度": "±10%",
-      "额定电压": "25V",
-      "温度系数": "X7R"
+      "Capacitance": "10uF",
+      "Accuracy": "±10%",
+      "Rated Voltage": "25V",
+      "Temperature Coefficient": "X7R"
     },
     "sources": [],
     "needs_review": true,
@@ -805,10 +805,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "通道数": "七路",
-      "晶体管类型": "BJT",
-      "集射极击穿电压(Vceo)": "50V",
-      "集电极电流(Ic)": "500mA"
+      "Number of Channels": "Seven-Channel",
+      "Transistor Type": "BJT",
+      "Collector-Emitter Breakdown Voltage (Vceo)": "50V",
+      "Collector Current (Ic)": "500mA"
     },
     "sources": [],
     "needs_review": true,
@@ -829,10 +829,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "功能类型": "降压型",
-      "输出类型": "可调",
-      "输出电压": "1.221V~32.04V",
-      "输出电流": "3A"
+      "Function Type": "Step-Down",
+      "Output Type": "Adjustable",
+      "Output Voltage": "1.221V~32.04V",
+      "Output Current": "3A"
     },
     "sources": [],
     "needs_review": true,
@@ -853,8 +853,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "接口类型": "I2C",
-      "工作电压": "2V~5.5V"
+      "Interface Type": "I2C",
+      "Operating Voltage": "2V~5.5V"
     },
     "sources": [],
     "needs_review": true,
@@ -875,8 +875,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "接口类型": "I2C",
-      "线性范围": "200cm"
+      "Interface Type": "I2C",
+      "Linear Range": "200cm"
     },
     "sources": [],
     "needs_review": true,
@@ -897,8 +897,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "接口类型": "I2C",
-      "线性范围": "4m"
+      "Interface Type": "I2C",
+      "Linear Range": "4m"
     },
     "sources": [],
     "needs_review": true,
@@ -938,8 +938,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "接口类型": "SPI",
-      "工作电压": "2.3V~5.5V"
+      "Interface Type": "SPI",
+      "Operating Voltage": "2.3V~5.5V"
     },
     "sources": [],
     "needs_review": true,
@@ -979,8 +979,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "接口类型": "I2C",
-      "线性范围": "0cm~130cm"
+      "Interface Type": "I2C",
+      "Linear Range": "0cm~130cm"
     },
     "sources": [],
     "needs_review": true,
@@ -1020,10 +1020,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "10uF",
-      "精度": "±10%",
-      "额定电压": "100V",
-      "温度系数": "X7S"
+      "Capacitance": "10uF",
+      "Accuracy": "±10%",
+      "Rated Voltage": "100V",
+      "Temperature Coefficient": "X7S"
     },
     "sources": [],
     "needs_review": true,
@@ -1044,7 +1044,7 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "节点数": "256"
+      "Number of Nodes": "256"
     },
     "sources": [],
     "needs_review": true,
@@ -1065,9 +1065,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "CPU内核": "ARM Cortex-M7",
-      "CPU位数": "32 Bit",
-      "CPU最大主频": "480MHz"
+      "CPU Core": "ARM Cortex-M7",
+      "CPU Bit Width": "32 Bit",
+      "CPU Maximum Clock Speed": "480MHz"
     },
     "sources": [],
     "needs_review": true,
@@ -1088,10 +1088,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出类型": "固定",
-      "工作电压": "3.35V~5.5V",
-      "输出电压": "3.3V",
-      "输出电流": "25mA"
+      "Output Type": "Fixed",
+      "Operating Voltage": "3.35V~5.5V",
+      "Output Voltage": "3.3V",
+      "Output Current": "25mA"
     },
     "sources": [],
     "needs_review": true,
@@ -1112,10 +1112,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "22uF",
-      "精度": "±20%",
-      "额定电压": "10V",
-      "温度系数": "X7R"
+      "Capacitance": "22uF",
+      "Accuracy": "±20%",
+      "Rated Voltage": "10V",
+      "Temperature Coefficient": "X7R"
     },
     "sources": [],
     "needs_review": true,
@@ -1136,9 +1136,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "CPU内核": "ARM Cortex-M0",
-      "CPU位数": "32 Bit",
-      "CPU最大主频": "48MHz"
+      "CPU Core": "ARM Cortex-M0",
+      "CPU Bit Width": "32 Bit",
+      "CPU Maximum Clock Speed": "48MHz"
     },
     "sources": [],
     "needs_review": true,
@@ -1178,10 +1178,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "4.7uF",
-      "精度": "±10%",
-      "额定电压": "100V",
-      "温度系数": "X7S"
+      "Capacitance": "4.7uF",
+      "Accuracy": "±10%",
+      "Rated Voltage": "100V",
+      "Temperature Coefficient": "X7S"
     },
     "sources": [],
     "needs_review": true,
@@ -1202,10 +1202,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "22uF",
-      "精度": "±10%",
-      "额定电压": "25V",
-      "温度系数": "X7R"
+      "Capacitance": "22uF",
+      "Accuracy": "±10%",
+      "Rated Voltage": "25V",
+      "Temperature Coefficient": "X7R"
     },
     "sources": [],
     "needs_review": true,
@@ -1226,9 +1226,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "CPU内核": "ARM Cortex-M4",
-      "CPU位数": "32 Bit",
-      "CPU最大主频": "168MHz"
+      "CPU Core": "ARM Cortex-M4",
+      "CPU Bit Width": "32 Bit",
+      "CPU Maximum Clock Speed": "168MHz"
     },
     "sources": [],
     "needs_review": true,
@@ -1249,10 +1249,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "功能类型": "降压型",
-      "输出类型": "可调",
-      "输出电压": "800mV~58.8V",
-      "输出电流": "5A"
+      "Function Type": "Step-Down",
+      "Output Type": "Adjustable",
+      "Output Voltage": "800mV~58.8V",
+      "Output Current": "5A"
     },
     "sources": [],
     "needs_review": true,
@@ -1273,9 +1273,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "CPU内核": "ARM Cortex-M0",
-      "CPU位数": "32 Bit",
-      "CPU最大主频": "48MHz"
+      "CPU Core": "ARM Cortex-M0",
+      "CPU Bit Width": "32 Bit",
+      "CPU Maximum Clock Speed": "48MHz"
     },
     "sources": [],
     "needs_review": true,
@@ -1336,8 +1336,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "接口类型": "SPI",
-      "工作电压": "3V~5.25V"
+      "Interface Type": "SPI",
+      "Operating Voltage": "3V~5.25V"
     },
     "sources": [],
     "needs_review": true,
@@ -1377,9 +1377,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "CPU内核": "ARM Cortex-M4F",
-      "CPU位数": "32 Bit",
-      "CPU最大主频": "170MHz"
+      "CPU Core": "ARM Cortex-M4F",
+      "CPU Bit Width": "32 Bit",
+      "CPU Maximum Clock Speed": "170MHz"
     },
     "sources": [],
     "needs_review": true,
@@ -1421,10 +1421,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "功能类型": "降压型",
-      "输出类型": "可调",
-      "输出电压": "800mV~58.8V",
-      "输出电流": "3.5A"
+      "Function Type": "Step-Down",
+      "Output Type": "Adjustable",
+      "Output Voltage": "800mV~58.8V",
+      "Output Current": "3.5A"
     },
     "sources": [],
     "needs_review": true,
@@ -1445,10 +1445,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "47uF",
-      "精度": "±20%",
-      "额定电压": "25V",
-      "温度系数": "X5R"
+      "Capacitance": "47uF",
+      "Accuracy": "±20%",
+      "Rated Voltage": "25V",
+      "Temperature Coefficient": "X5R"
     },
     "sources": [],
     "needs_review": true,
@@ -1469,9 +1469,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出类型": "固定",
-      "输出电压": "3.3V",
-      "输出极性": "正极"
+      "Output Type": "Fixed",
+      "Output Voltage": "3.3V",
+      "Output Polarity": "Positive"
     },
     "sources": [],
     "needs_review": true,
@@ -1492,10 +1492,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "放大器数": "单路",
-      "共模抑制比(CMRR)": "100dB",
-      "增益带宽积(GBW)": "10MHz",
-      "输入偏置电流(Ib)": "0.2pA"
+      "Number of Amplifiers": "Single",
+      "Common-Mode Rejection Ratio (CMRR)": "100dB",
+      "Gain Bandwidth Product (GBW)": "10MHz",
+      "Input Bias Current (Ib)": "0.2pA"
     },
     "sources": [],
     "needs_review": true,
@@ -1516,10 +1516,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "47uF",
-      "精度": "±10%",
-      "额定电压": "16V",
-      "温度系数": "X5R"
+      "Capacitance": "47uF",
+      "Accuracy": "±10%",
+      "Rated Voltage": "16V",
+      "Temperature Coefficient": "X5R"
     },
     "sources": [],
     "needs_review": true,
@@ -1540,9 +1540,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "共模电压": "0V~36V",
-      "输入失调电压(Vos)": "2.5uV",
-      "输入偏置电流(Ib)": "100pA"
+      "Common-Mode Voltage": "0V~36V",
+      "Input Offset Voltage (Vos)": "2.5uV",
+      "Input Bias Current (Ib)": "100pA"
     },
     "sources": [],
     "needs_review": true,
@@ -1563,7 +1563,7 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "是否可编程": "否"
+      "Programmable": "No"
     },
     "sources": [],
     "needs_review": true,
@@ -1584,9 +1584,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出类型": "可调",
-      "输出电压": "0V~15V",
-      "输出极性": "正极"
+      "Output Type": "Adjustable",
+      "Output Voltage": "0V~15V",
+      "Output Polarity": "Positive"
     },
     "sources": [],
     "needs_review": true,
@@ -1607,9 +1607,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "类型": "收发器",
-      "工作电压": "4.75V~5.25V",
-      "数据速率": "10Mbps"
+      "Type": "Transceiver",
+      "Operating Voltage": "4.75V~5.25V",
+      "Data Rate": "10Mbps"
     },
     "sources": [],
     "needs_review": true,
@@ -1689,8 +1689,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出电压": "5V",
-      "输出极性": "正极"
+      "Output Voltage": "5V",
+      "Output Polarity": "Positive"
     },
     "sources": [],
     "needs_review": true,
@@ -1711,9 +1711,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "CPU内核": "ARM Cortex-M7",
-      "CPU位数": "32 Bit",
-      "CPU最大主频": "480MHz"
+      "CPU Core": "ARM Cortex-M7",
+      "CPU Bit Width": "32 Bit",
+      "CPU Maximum Clock Speed": "480MHz"
     },
     "sources": [],
     "needs_review": true,
@@ -1734,9 +1734,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "扬声器通道数": "双声道",
-      "工作电压": "-2.25V~18V",
-      "静态电流(Iq)": "3.6mA"
+      "Speaker Channels": "Stereo",
+      "Operating Voltage": "-2.25V~18V",
+      "Quiescent Current (Iq)": "3.6mA"
     },
     "sources": [],
     "needs_review": true,
@@ -1757,10 +1757,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "47uF",
-      "精度": "±20%",
-      "额定电压": "6.3V",
-      "温度系数": "X5R"
+      "Capacitance": "47uF",
+      "Accuracy": "±20%",
+      "Rated Voltage": "6.3V",
+      "Temperature Coefficient": "X5R"
     },
     "sources": [],
     "needs_review": true,
@@ -1781,10 +1781,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "4.7uF",
-      "精度": "±10%",
-      "额定电压": "50V",
-      "温度系数": "X7R"
+      "Capacitance": "4.7uF",
+      "Accuracy": "±10%",
+      "Rated Voltage": "50V",
+      "Temperature Coefficient": "X7R"
     },
     "sources": [],
     "needs_review": true,
@@ -1826,9 +1826,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出类型": "固定",
-      "输出电压": "3.3V",
-      "输出极性": "正极"
+      "Output Type": "Fixed",
+      "Output Voltage": "3.3V",
+      "Output Polarity": "Positive"
     },
     "sources": [],
     "needs_review": true,
@@ -1849,10 +1849,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "4.7uF",
-      "精度": "±20%",
-      "额定电压": "6.3V",
-      "温度系数": "X5R"
+      "Capacitance": "4.7uF",
+      "Accuracy": "±20%",
+      "Rated Voltage": "6.3V",
+      "Temperature Coefficient": "X5R"
     },
     "sources": [],
     "needs_review": true,
@@ -1873,10 +1873,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "100uF",
-      "精度": "±20%",
-      "额定电压": "10V",
-      "温度系数": "X5R"
+      "Capacitance": "100uF",
+      "Accuracy": "±20%",
+      "Rated Voltage": "10V",
+      "Temperature Coefficient": "X5R"
     },
     "sources": [],
     "needs_review": true,
@@ -1916,10 +1916,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "功能类型": "降压型",
-      "输出类型": "可调",
-      "输出电流": "2A",
-      "开关频率": "500kHz"
+      "Function Type": "Step-Down",
+      "Output Type": "Adjustable",
+      "Output Current": "2A",
+      "Switching Frequency": "500kHz"
     },
     "sources": [],
     "needs_review": true,
@@ -1940,9 +1940,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "类型": "PHY收发器",
-      "工作电压": "1.6V~3.6V",
-      "接口类型": "RMII"
+      "Type": "PHYTransceiver",
+      "Operating Voltage": "1.6V~3.6V",
+      "Interface Type": "RMII"
     },
     "sources": [],
     "needs_review": true,
@@ -1963,9 +1963,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "放大器数": "双路",
-      "输入失调电压(Vos)": "2mV",
-      "静态电流(Iq)": "400uA"
+      "Number of Amplifiers": "Dual",
+      "Input Offset Voltage (Vos)": "2mV",
+      "Quiescent Current (Iq)": "400uA"
     },
     "sources": [],
     "needs_review": true,
@@ -1986,10 +1986,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "放大器数": "单路",
-      "共模抑制比(CMRR)": "100dB",
-      "输入偏置电流(Ib)": "200pA",
-      "轨到轨": "轨到轨输出"
+      "Number of Amplifiers": "Single",
+      "Common-Mode Rejection Ratio (CMRR)": "100dB",
+      "Input Bias Current (Ib)": "200pA",
+      "Rail-to-Rail": "Rail-to-Rail Output"
     },
     "sources": [],
     "needs_review": true,
@@ -2010,9 +2010,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "CPU内核": "ARM Cortex-M7",
-      "CPU位数": "32 Bit",
-      "CPU最大主频": "216MHz"
+      "CPU Core": "ARM Cortex-M7",
+      "CPU Bit Width": "32 Bit",
+      "CPU Maximum Clock Speed": "216MHz"
     },
     "sources": [],
     "needs_review": true,
@@ -2052,10 +2052,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输入类型": "施密特触发器",
-      "工作电压": "2V~6V",
-      "静态电流(Iq)": "2uA",
-      "通道数": "6"
+      "Input Type": "Schmitt Trigger",
+      "Operating Voltage": "2V~6V",
+      "Quiescent Current (Iq)": "2uA",
+      "Number of Channels": "6"
     },
     "sources": [],
     "needs_review": true,
@@ -2076,10 +2076,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "类型": "收发器",
-      "工作电压": "3V~3.6V",
-      "数据速率": "20Mbps",
-      "节点数": "213"
+      "Type": "Transceiver",
+      "Operating Voltage": "3V~3.6V",
+      "Data Rate": "20Mbps",
+      "Number of Nodes": "213"
     },
     "sources": [],
     "needs_review": true,
@@ -2100,9 +2100,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出类型": "固定",
-      "输出电压": "5V",
-      "输出极性": "正极"
+      "Output Type": "Fixed",
+      "Output Voltage": "5V",
+      "Output Polarity": "Positive"
     },
     "sources": [],
     "needs_review": true,
@@ -2123,8 +2123,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出电流": "2.5A",
-      "输出电压": "0V~5.5V"
+      "Output Current": "2.5A",
+      "Output Voltage": "0V~5.5V"
     },
     "sources": [],
     "needs_review": true,
@@ -2145,10 +2145,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "功能类型": "降压型",
-      "输出类型": "可调",
-      "输出电流": "1A",
-      "开关频率": "1MHz"
+      "Function Type": "Step-Down",
+      "Output Type": "Adjustable",
+      "Output Current": "1A",
+      "Switching Frequency": "1MHz"
     },
     "sources": [],
     "needs_review": true,
@@ -2169,10 +2169,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "功能": "串行至串行或并行",
-      "工作电压": "2V~6V",
-      "元件数": "1",
-      "传播延迟(tpd)": "26ns@6V,50pF"
+      "Function": "Serial-to-Serial or Parallel",
+      "Operating Voltage": "2V~6V",
+      "Number of Elements": "1",
+      "Propagation Delay (tpd)": "26ns@6V,50pF"
     },
     "sources": [],
     "needs_review": true,
@@ -2193,10 +2193,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "功能类型": "升降压型",
-      "输出类型": "可调",
-      "输出电压": "1.2V~5.3V",
-      "输出电流": "2A"
+      "Function Type": "Buck-Boost",
+      "Output Type": "Adjustable",
+      "Output Voltage": "1.2V~5.3V",
+      "Output Current": "2A"
     },
     "sources": [],
     "needs_review": true,
@@ -2217,10 +2217,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "功能类型": "降压型",
-      "输出类型": "可调",
-      "输出电压": "600mV~5.5V",
-      "输出电流": "2A"
+      "Function Type": "Step-Down",
+      "Output Type": "Adjustable",
+      "Output Voltage": "600mV~5.5V",
+      "Output Current": "2A"
     },
     "sources": [],
     "needs_review": true,
@@ -2241,10 +2241,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "放大器数": "1",
-      "共模抑制比(CMRR)": "76dB",
-      "增益带宽积(GBW)": "1MHz",
-      "输入偏置电流(Ib)": "1pA"
+      "Number of Amplifiers": "1",
+      "Common-Mode Rejection Ratio (CMRR)": "76dB",
+      "Gain Bandwidth Product (GBW)": "1MHz",
+      "Input Bias Current (Ib)": "1pA"
     },
     "sources": [],
     "needs_review": true,
@@ -2265,9 +2265,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "数据速率": "100Mbps",
-      "元件数": "1",
-      "每个电路通道数": "8"
+      "Data Rate": "100Mbps",
+      "Number of Elements": "1",
+      "Channels per Circuit": "8"
     },
     "sources": [],
     "needs_review": true,
@@ -2288,9 +2288,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "22uF",
-      "精度": "±20%",
-      "额定电压": "25V"
+      "Capacitance": "22uF",
+      "Accuracy": "±20%",
+      "Rated Voltage": "25V"
     },
     "sources": [],
     "needs_review": true,
@@ -2311,9 +2311,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "CPU内核": "ARM Cortex-M0+",
-      "CPU位数": "32 Bit",
-      "CPU最大主频": "64MHz"
+      "CPU Core": "ARM Cortex-M0+",
+      "CPU Bit Width": "32 Bit",
+      "CPU Maximum Clock Speed": "64MHz"
     },
     "sources": [],
     "needs_review": true,
@@ -2334,10 +2334,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "极性": "双向",
-      "钳位电压": "14V",
-      "峰值脉冲功率(Ppp)": "90W@8/20us",
-      "反向截止电压(Vrwm)": "5.5V"
+      "Polarity": "Bidirectional",
+      "Clamping Voltage": "14V",
+      "Peak Pulse Power (Ppp)": "90W@8/20us",
+      "Reverse Standoff Voltage (Vrwm)": "5.5V"
     },
     "sources": [],
     "needs_review": true,
@@ -2358,10 +2358,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "功能类型": "降压型",
-      "输出类型": "可调",
-      "输出电压": "1.8V~3.3V",
-      "输出电流": "750mA"
+      "Function Type": "Step-Down",
+      "Output Type": "Adjustable",
+      "Output Voltage": "1.8V~3.3V",
+      "Output Current": "750mA"
     },
     "sources": [],
     "needs_review": true,
@@ -2382,9 +2382,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "数据速率": "60Mbps",
-      "元件数": "1",
-      "每个电路通道数": "8"
+      "Data Rate": "60Mbps",
+      "Number of Elements": "1",
+      "Channels per Circuit": "8"
     },
     "sources": [],
     "needs_review": true,
@@ -2405,8 +2405,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "类型": "CAN-FD收发器",
-      "数据速率": "5Mbps"
+      "Type": "CAN-FDTransceiver",
+      "Data Rate": "5Mbps"
     },
     "sources": [],
     "needs_review": true,
@@ -2427,10 +2427,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "10uF",
-      "精度": "±10%",
-      "额定电压": "25V",
-      "温度系数": "X7R"
+      "Capacitance": "10uF",
+      "Accuracy": "±10%",
+      "Rated Voltage": "25V",
+      "Temperature Coefficient": "X7R"
     },
     "sources": [],
     "needs_review": true,
@@ -2451,10 +2451,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "阻值": "10kΩ",
-      "B值(25℃/50℃)": "3380K",
-      "电阻精度": "±1%",
-      "功率": "100mW"
+      "Resistance": "10kΩ",
+      "B-Value (25°C/50°C)": "3380K",
+      "Resistance Tolerance": "±1%",
+      "Power": "100mW"
     },
     "sources": [],
     "needs_review": true,
@@ -2475,10 +2475,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "100nF",
-      "精度": "±10%",
-      "额定电压": "50V",
-      "温度系数": "X7R"
+      "Capacitance": "100nF",
+      "Accuracy": "±10%",
+      "Rated Voltage": "50V",
+      "Temperature Coefficient": "X7R"
     },
     "sources": [],
     "needs_review": true,
@@ -2499,10 +2499,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "通道数": "七路",
-      "晶体管类型": "BJT",
-      "集射极击穿电压(Vceo)": "50V",
-      "集电极电流(Ic)": "500mA"
+      "Number of Channels": "Seven-Channel",
+      "Transistor Type": "BJT",
+      "Collector-Emitter Breakdown Voltage (Vceo)": "50V",
+      "Collector Current (Ic)": "500mA"
     },
     "sources": [],
     "needs_review": true,
@@ -2523,10 +2523,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出类型": "固定",
-      "工作电压": "3.05V~5.5V",
-      "输出电压": "3V",
-      "输出电流": "25mA"
+      "Output Type": "Fixed",
+      "Operating Voltage": "3.05V~5.5V",
+      "Output Voltage": "3V",
+      "Output Current": "25mA"
     },
     "sources": [],
     "needs_review": true,
@@ -2547,9 +2547,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "数据速率": "420Mbps",
-      "元件数": "1",
-      "每个电路通道数": "1"
+      "Data Rate": "420Mbps",
+      "Number of Elements": "1",
+      "Channels per Circuit": "1"
     },
     "sources": [],
     "needs_review": true,
@@ -2570,8 +2570,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "元件数": "1",
-      "门电路数量": "8"
+      "Number of Elements": "1",
+      "Number of Gates": "8"
     },
     "sources": [],
     "needs_review": true,
@@ -2592,9 +2592,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "数据速率": "24Mbps",
-      "元件数": "1",
-      "每个电路通道数": "4"
+      "Data Rate": "24Mbps",
+      "Number of Elements": "1",
+      "Channels per Circuit": "4"
     },
     "sources": [],
     "needs_review": true,
@@ -2615,9 +2615,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "CPU内核": "ARM Cortex-M4F",
-      "CPU位数": "32 Bit",
-      "CPU最大主频": "170MHz"
+      "CPU Core": "ARM Cortex-M4F",
+      "CPU Bit Width": "32 Bit",
+      "CPU Maximum Clock Speed": "170MHz"
     },
     "sources": [],
     "needs_review": true,
@@ -2638,9 +2638,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "检测温度": "-40℃~+125℃",
-      "接口类型": "I2C",
-      "精度": "±0.5℃"
+      "Detection Temperature": "-40°C~+125°C",
+      "Interface Type": "I2C",
+      "Accuracy": "±0.5°C"
     },
     "sources": [],
     "needs_review": true,
@@ -2661,9 +2661,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "类型": "CAN收发器",
-      "工作电压": "3.3V",
-      "数据速率": "1Mbps"
+      "Type": "CAN Transceiver",
+      "Operating Voltage": "3.3V",
+      "Data Rate": "1Mbps"
     },
     "sources": [],
     "needs_review": true,
@@ -2684,10 +2684,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "功能类型": "升降压型",
-      "输出类型": "可调",
-      "输出电压": "1.8V~5.2V",
-      "输出电流": "2A"
+      "Function Type": "Buck-Boost",
+      "Output Type": "Adjustable",
+      "Output Voltage": "1.8V~5.2V",
+      "Output Current": "2A"
     },
     "sources": [],
     "needs_review": true,
@@ -2708,9 +2708,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出类型": "可调",
-      "输出电压": "1.4V~20.5V",
-      "输出极性": "正极"
+      "Output Type": "Adjustable",
+      "Output Voltage": "1.4V~20.5V",
+      "Output Polarity": "Positive"
     },
     "sources": [],
     "needs_review": true,
@@ -2731,10 +2731,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "功能类型": "升降压型",
-      "输出类型": "可调",
-      "输出电压": "2.5V~9V",
-      "输出电流": "2A"
+      "Function Type": "Buck-Boost",
+      "Output Type": "Adjustable",
+      "Output Voltage": "2.5V~9V",
+      "Output Current": "2A"
     },
     "sources": [],
     "needs_review": true,
@@ -2755,10 +2755,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "工作电压": "4.35V~6.4V",
-      "最大充电电流": "1.5A",
-      "电池类型": "锂电池",
-      "电池节数": "1"
+      "Operating Voltage": "4.35V~6.4V",
+      "Maximum Charge Current": "1.5A",
+      "Battery Type": "Li-ion",
+      "Number of Battery Cells": "1"
     },
     "sources": [],
     "needs_review": true,
@@ -2779,10 +2779,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "功能类型": "降压型",
-      "输出类型": "可调",
-      "输出电压": "800mV~22V",
-      "输出电流": "3A"
+      "Function Type": "Step-Down",
+      "Output Type": "Adjustable",
+      "Output Voltage": "800mV~22V",
+      "Output Current": "3A"
     },
     "sources": [],
     "needs_review": true,
@@ -2803,10 +2803,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "22uF",
-      "精度": "±20%",
-      "额定电压": "10V",
-      "温度系数": "X5R"
+      "Capacitance": "22uF",
+      "Accuracy": "±20%",
+      "Rated Voltage": "10V",
+      "Temperature Coefficient": "X5R"
     },
     "sources": [],
     "needs_review": true,
@@ -2827,9 +2827,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出类型": "固定",
-      "输出电压": "3.3V",
-      "输出极性": "正极"
+      "Output Type": "Fixed",
+      "Output Voltage": "3.3V",
+      "Output Polarity": "Positive"
     },
     "sources": [],
     "needs_review": true,
@@ -2850,8 +2850,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "接口类型": "I2C",
-      "工作电压": "2V~5.5V"
+      "Interface Type": "I2C",
+      "Operating Voltage": "2V~5.5V"
     },
     "sources": [],
     "needs_review": true,
@@ -2872,9 +2872,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "类型": "收发器",
-      "工作电压": "3V~5.5V",
-      "数据速率": "250Kbps"
+      "Type": "Transceiver",
+      "Operating Voltage": "3V~5.5V",
+      "Data Rate": "250Kbps"
     },
     "sources": [],
     "needs_review": true,
@@ -2914,9 +2914,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出类型": "固定",
-      "输出电压": "5V",
-      "输出极性": "正极"
+      "Output Type": "Fixed",
+      "Output Voltage": "5V",
+      "Output Polarity": "Positive"
     },
     "sources": [],
     "needs_review": true,
@@ -2937,10 +2937,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "阻值": "10kΩ",
-      "B值(25℃/50℃)": "3380K",
-      "电阻精度": "±1%",
-      "功率": "100mW"
+      "Resistance": "10kΩ",
+      "B-Value (25°C/50°C)": "3380K",
+      "Resistance Tolerance": "±1%",
+      "Power": "100mW"
     },
     "sources": [],
     "needs_review": true,
@@ -2961,10 +2961,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "100nF",
-      "精度": "±10%",
-      "额定电压": "50V",
-      "温度系数": "X7R"
+      "Capacitance": "100nF",
+      "Accuracy": "±10%",
+      "Rated Voltage": "50V",
+      "Temperature Coefficient": "X7R"
     },
     "sources": [],
     "needs_review": true,
@@ -2985,10 +2985,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "10uF",
-      "精度": "±10%",
-      "额定电压": "10V",
-      "温度系数": "X5R"
+      "Capacitance": "10uF",
+      "Accuracy": "±10%",
+      "Rated Voltage": "10V",
+      "Temperature Coefficient": "X5R"
     },
     "sources": [],
     "needs_review": true,
@@ -3009,10 +3009,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "功能类型": "升降压型",
-      "输出类型": "可调",
-      "输出电压": "1.2V~5.5V",
-      "输出电流": "3A"
+      "Function Type": "Buck-Boost",
+      "Output Type": "Adjustable",
+      "Output Voltage": "1.2V~5.5V",
+      "Output Current": "3A"
     },
     "sources": [],
     "needs_review": true,
@@ -3033,10 +3033,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出类型": "可调",
-      "输出电压": "2.495V~36V",
-      "输出电流": "100mA",
-      "精度": "±1%"
+      "Output Type": "Adjustable",
+      "Output Voltage": "2.495V~36V",
+      "Output Current": "100mA",
+      "Accuracy": "±1%"
     },
     "sources": [],
     "needs_review": true,
@@ -3057,9 +3057,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "数据速率": "400Kbps",
-      "功能": "上电/复位配置",
-      "工作电压": "1.65V~5.5V"
+      "Data Rate": "400Kbps",
+      "Function": "Power-On / Reset Config",
+      "Operating Voltage": "1.65V~5.5V"
     },
     "sources": [],
     "needs_review": true,
@@ -3080,10 +3080,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "放大器数": "2",
-      "共模抑制比(CMRR)": "76dB",
-      "增益带宽积(GBW)": "1MHz",
-      "输入偏置电流(Ib)": "1pA"
+      "Number of Amplifiers": "2",
+      "Common-Mode Rejection Ratio (CMRR)": "76dB",
+      "Gain Bandwidth Product (GBW)": "1MHz",
+      "Input Bias Current (Ib)": "1pA"
     },
     "sources": [],
     "needs_review": true,
@@ -3104,10 +3104,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "10uF",
-      "精度": "±10%",
-      "额定电压": "25V",
-      "温度系数": "X5R"
+      "Capacitance": "10uF",
+      "Accuracy": "±10%",
+      "Rated Voltage": "25V",
+      "Temperature Coefficient": "X5R"
     },
     "sources": [],
     "needs_review": true,
@@ -3128,10 +3128,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "功能类型": "降压型",
-      "输出类型": "固定",
-      "输出电压": "5V",
-      "输出电流": "3A"
+      "Function Type": "Step-Down",
+      "Output Type": "Fixed",
+      "Output Voltage": "5V",
+      "Output Current": "3A"
     },
     "sources": [],
     "needs_review": true,
@@ -3152,10 +3152,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "放大器数": "1",
-      "共模电压": "-200mV~26V",
-      "共模抑制比(CMRR)": "100dB",
-      "输入偏置电流(Ib)": "100nA"
+      "Number of Amplifiers": "1",
+      "Common-Mode Voltage": "-200mV~26V",
+      "Common-Mode Rejection Ratio (CMRR)": "100dB",
+      "Input Bias Current (Ib)": "100nA"
     },
     "sources": [],
     "needs_review": true,
@@ -3176,9 +3176,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "类型": "CAN收发器",
-      "工作电压": "3.3V",
-      "数据速率": "1Mbps"
+      "Type": "CAN Transceiver",
+      "Operating Voltage": "3.3V",
+      "Data Rate": "1Mbps"
     },
     "sources": [],
     "needs_review": true,
@@ -3199,10 +3199,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "放大器数": "1",
-      "共模电压": "-200mV~26V",
-      "共模抑制比(CMRR)": "100dB",
-      "输入偏置电流(Ib)": "100nA"
+      "Number of Amplifiers": "1",
+      "Common-Mode Voltage": "-200mV~26V",
+      "Common-Mode Rejection Ratio (CMRR)": "100dB",
+      "Input Bias Current (Ib)": "100nA"
     },
     "sources": [],
     "needs_review": true,
@@ -3223,10 +3223,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "10pF",
-      "精度": "±5%",
-      "额定电压": "50V",
-      "温度系数": "C0G"
+      "Capacitance": "10pF",
+      "Accuracy": "±5%",
+      "Rated Voltage": "50V",
+      "Temperature Coefficient": "C0G"
     },
     "sources": [],
     "needs_review": true,
@@ -3247,10 +3247,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "类型": "收发器",
-      "工作电压": "3V~5.5V",
-      "数据速率": "50Mbps",
-      "节点数": "256"
+      "Type": "Transceiver",
+      "Operating Voltage": "3V~5.5V",
+      "Data Rate": "50Mbps",
+      "Number of Nodes": "256"
     },
     "sources": [],
     "needs_review": true,
@@ -3271,9 +3271,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "类型": "PHY收发器",
-      "工作电压": "1.6V~3.6V",
-      "接口类型": "RMII"
+      "Type": "PHYTransceiver",
+      "Operating Voltage": "1.6V~3.6V",
+      "Interface Type": "RMII"
     },
     "sources": [],
     "needs_review": true,
@@ -3294,9 +3294,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出类型": "固定",
-      "输出电压": "3.3V",
-      "输出极性": "正极"
+      "Output Type": "Fixed",
+      "Output Voltage": "3.3V",
+      "Output Polarity": "Positive"
     },
     "sources": [],
     "needs_review": true,
@@ -3317,10 +3317,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "放大器数": "2",
-      "共模抑制比(CMRR)": "99dB",
-      "增益带宽积(GBW)": "700kHz",
-      "输入偏置电流(Ib)": "20nA"
+      "Number of Amplifiers": "2",
+      "Common-Mode Rejection Ratio (CMRR)": "99dB",
+      "Gain Bandwidth Product (GBW)": "700kHz",
+      "Input Bias Current (Ib)": "20nA"
     },
     "sources": [],
     "needs_review": true,
@@ -3341,10 +3341,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "10uF",
-      "精度": "±10%",
-      "额定电压": "25V",
-      "温度系数": "X5R"
+      "Capacitance": "10uF",
+      "Accuracy": "±10%",
+      "Rated Voltage": "25V",
+      "Temperature Coefficient": "X5R"
     },
     "sources": [],
     "needs_review": true,
@@ -3365,10 +3365,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "10uF",
-      "精度": "±20%",
-      "额定电压": "35V",
-      "温度系数": "X5R"
+      "Capacitance": "10uF",
+      "Accuracy": "±20%",
+      "Rated Voltage": "35V",
+      "Temperature Coefficient": "X5R"
     },
     "sources": [],
     "needs_review": true,
@@ -3389,10 +3389,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "放大器数": "单路",
-      "输入失调电压(Vos)": "1mV",
-      "静态电流(Iq)": "40uA",
-      "轨到轨": "轨到轨输入"
+      "Number of Amplifiers": "Single",
+      "Input Offset Voltage (Vos)": "1mV",
+      "Quiescent Current (Iq)": "40uA",
+      "Rail-to-Rail": "Rail-to-Rail Input"
     },
     "sources": [],
     "needs_review": true,
@@ -3432,10 +3432,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "工作电压": "3.6V~24V",
-      "最大充电电流": "5A",
-      "电池类型": "锂电池",
-      "电池节数": "1~4"
+      "Operating Voltage": "3.6V~24V",
+      "Maximum Charge Current": "5A",
+      "Battery Type": "Li-ion",
+      "Number of Battery Cells": "1~4"
     },
     "sources": [],
     "needs_review": true,
@@ -3456,10 +3456,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输入类型": "施密特触发器",
-      "工作电压": "1.65V~5.5V",
-      "静态电流(Iq)": "10uA",
-      "通道数": "1"
+      "Input Type": "Schmitt Trigger",
+      "Operating Voltage": "1.65V~5.5V",
+      "Quiescent Current (Iq)": "10uA",
+      "Number of Channels": "1"
     },
     "sources": [],
     "needs_review": true,
@@ -3480,10 +3480,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "100uF",
-      "精度": "±20%",
-      "额定电压": "6.3V",
-      "温度系数": "X5R"
+      "Capacitance": "100uF",
+      "Accuracy": "±20%",
+      "Rated Voltage": "6.3V",
+      "Temperature Coefficient": "X5R"
     },
     "sources": [],
     "needs_review": true,
@@ -3504,9 +3504,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "类型": "CAN收发器",
-      "工作电压": "5V",
-      "数据速率": "1Mbps"
+      "Type": "CAN Transceiver",
+      "Operating Voltage": "5V",
+      "Data Rate": "1Mbps"
     },
     "sources": [],
     "needs_review": true,
@@ -3527,9 +3527,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出类型": "固定",
-      "输出电压": "3.3V",
-      "输出极性": "正极"
+      "Output Type": "Fixed",
+      "Output Voltage": "3.3V",
+      "Output Polarity": "Positive"
     },
     "sources": [],
     "needs_review": true,
@@ -3550,8 +3550,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "检测温度": "-55℃~+150℃",
-      "精度": "±0.1℃"
+      "Detection Temperature": "-55°C~+150°C",
+      "Accuracy": "±0.1°C"
     },
     "sources": [],
     "needs_review": true,
@@ -3572,9 +3572,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "CPU内核": "AVR",
-      "CPU位数": "8 Bit",
-      "CPU最大主频": "16MHz"
+      "CPU Core": "AVR",
+      "CPU Bit Width": "8 Bit",
+      "CPU Maximum Clock Speed": "16MHz"
     },
     "sources": [],
     "needs_review": true,
@@ -3595,9 +3595,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出类型": "固定",
-      "输出电压": "3.3V",
-      "输出极性": "正极"
+      "Output Type": "Fixed",
+      "Output Voltage": "3.3V",
+      "Output Polarity": "Positive"
     },
     "sources": [],
     "needs_review": true,
@@ -3618,9 +3618,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出类型": "固定",
-      "输出电压": "3.3V",
-      "输出极性": "正极"
+      "Output Type": "Fixed",
+      "Output Voltage": "3.3V",
+      "Output Polarity": "Positive"
     },
     "sources": [],
     "needs_review": true,
@@ -3641,10 +3641,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "线路数": "1",
-      "阻抗@频率": "120Ω@100MHz",
-      "误差": "±25%",
-      "直流电阻(DCR)": "90mΩ"
+      "Number of Lines": "1",
+      "Impedance @ Frequency": "120Ω@100MHz",
+      "Tolerance": "±25%",
+      "DC Resistance (DCR)": "90mΩ"
     },
     "sources": [],
     "needs_review": true,
@@ -3665,8 +3665,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "串口通道数": "4",
-      "数据速率": "480Mbps"
+      "UART Channels": "4",
+      "Data Rate": "480Mbps"
     },
     "sources": [],
     "needs_review": true,
@@ -3687,9 +3687,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "类型": "以太网收发器",
-      "工作电压": "1.8V~3.3V",
-      "接口类型": "RMII"
+      "Type": "Ethernet Transceiver",
+      "Operating Voltage": "1.8V~3.3V",
+      "Interface Type": "RMII"
     },
     "sources": [],
     "needs_review": true,
@@ -3710,9 +3710,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "数据速率": "24Mbps",
-      "元件数": "1",
-      "每个电路通道数": "2"
+      "Data Rate": "24Mbps",
+      "Number of Elements": "1",
+      "Channels per Circuit": "2"
     },
     "sources": [],
     "needs_review": true,
@@ -3733,10 +3733,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "极性": "单向",
-      "钳位电压": "17V",
-      "反向截止电压(Vrwm)": "5.25V",
-      "击穿电压(VBR)": "6V"
+      "Polarity": "Unidirectional",
+      "Clamping Voltage": "17V",
+      "Reverse Standoff Voltage (Vrwm)": "5.25V",
+      "Breakdown Voltage (VBR)": "6V"
     },
     "sources": [],
     "needs_review": true,
@@ -3757,9 +3757,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "数据速率": "100Mbps",
-      "元件数": "1",
-      "每个电路通道数": "2"
+      "Data Rate": "100Mbps",
+      "Number of Elements": "1",
+      "Channels per Circuit": "2"
     },
     "sources": [],
     "needs_review": true,
@@ -3780,10 +3780,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "工作电压": "1.8V~3.3V",
-      "灌电流(IOL)": "12mA",
-      "拉电流(IOH)": "12mA",
-      "输入类型": "施密特触发器"
+      "Operating Voltage": "1.8V~3.3V",
+      "Sink Current (IOL)": "12mA",
+      "Source Current (IOH)": "12mA",
+      "Input Type": "Schmitt Trigger"
     },
     "sources": [],
     "needs_review": true,
@@ -3804,9 +3804,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出类型": "固定",
-      "输出电压": "3.3V",
-      "输出极性": "正极"
+      "Output Type": "Fixed",
+      "Output Voltage": "3.3V",
+      "Output Polarity": "Positive"
     },
     "sources": [],
     "needs_review": true,
@@ -3827,9 +3827,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "数据速率": "24Mbps",
-      "元件数": "1",
-      "每个电路通道数": "2"
+      "Data Rate": "24Mbps",
+      "Number of Elements": "1",
+      "Channels per Circuit": "2"
     },
     "sources": [],
     "needs_review": true,
@@ -3850,10 +3850,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "功能类型": "升降压型",
-      "输出类型": "可调",
-      "输出电压": "1.8V~5V",
-      "输出电流": "400mA"
+      "Function Type": "Buck-Boost",
+      "Output Type": "Adjustable",
+      "Output Voltage": "1.8V~5V",
+      "Output Current": "400mA"
     },
     "sources": [],
     "needs_review": true,
@@ -3874,10 +3874,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "100pF",
-      "精度": "±5%",
-      "额定电压": "50V",
-      "温度系数": "C0G"
+      "Capacitance": "100pF",
+      "Accuracy": "±5%",
+      "Rated Voltage": "50V",
+      "Temperature Coefficient": "C0G"
     },
     "sources": [],
     "needs_review": true,
@@ -3898,9 +3898,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "工作电压": "1.8V~3.3V",
-      "通道数": "2",
-      "接口类型": "I2S"
+      "Operating Voltage": "1.8V~3.3V",
+      "Number of Channels": "2",
+      "Interface Type": "I2S"
     },
     "sources": [],
     "needs_review": true,
@@ -3921,10 +3921,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "10uF",
-      "精度": "±10%",
-      "额定电压": "50V",
-      "温度系数": "X7R"
+      "Capacitance": "10uF",
+      "Accuracy": "±10%",
+      "Rated Voltage": "50V",
+      "Temperature Coefficient": "X7R"
     },
     "sources": [],
     "needs_review": true,
@@ -3945,9 +3945,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "类型": "缓冲器",
-      "输入类型": "2线式总线",
-      "通道数": "2"
+      "Type": "Buffer",
+      "Input Type": "2-Wire Bus",
+      "Number of Channels": "2"
     },
     "sources": [],
     "needs_review": true,
@@ -3968,10 +3968,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "线路数": "1",
-      "阻抗@频率": "120Ω@100MHz",
-      "误差": "±25%",
-      "直流电阻(DCR)": "50mΩ"
+      "Number of Lines": "1",
+      "Impedance @ Frequency": "120Ω@100MHz",
+      "Tolerance": "±25%",
+      "DC Resistance (DCR)": "50mΩ"
     },
     "sources": [],
     "needs_review": true,
@@ -3992,10 +3992,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "功能类型": "降压型",
-      "输出类型": "可调",
-      "输出电压": "1.235V~35V",
-      "输出电流": "2.5A"
+      "Function Type": "Step-Down",
+      "Output Type": "Adjustable",
+      "Output Voltage": "1.235V~35V",
+      "Output Current": "2.5A"
     },
     "sources": [],
     "needs_review": true,
@@ -4016,10 +4016,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "类型": "负载开关",
-      "通道数": "1",
-      "输入控制逻辑": "高电平有效",
-      "最大连续电流": "3A"
+      "Type": "Load Switch",
+      "Number of Channels": "1",
+      "Input Control Logic": "Active High",
+      "Maximum Continuous Current": "3A"
     },
     "sources": [],
     "needs_review": true,
@@ -4040,8 +4040,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "类型": "PHY收发器",
-      "工作电压": "3.3V"
+      "Type": "PHYTransceiver",
+      "Operating Voltage": "3.3V"
     },
     "sources": [],
     "needs_review": true,
@@ -4062,9 +4062,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出类型": "可调",
-      "输出电流": "1.5A",
-      "开关频率": "100kHz"
+      "Output Type": "Adjustable",
+      "Output Current": "1.5A",
+      "Switching Frequency": "100kHz"
     },
     "sources": [],
     "needs_review": true,
@@ -4085,9 +4085,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出类型": "可调",
-      "输出电压": "1.2V~37V",
-      "输出极性": "正极"
+      "Output Type": "Adjustable",
+      "Output Voltage": "1.2V~37V",
+      "Output Polarity": "Positive"
     },
     "sources": [],
     "needs_review": true,
@@ -4108,10 +4108,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "放大器数": "1",
-      "共模抑制比(CMRR)": "63dB",
-      "增益带宽积(GBW)": "1MHz",
-      "输入偏置电流(Ib)": "11nA"
+      "Number of Amplifiers": "1",
+      "Common-Mode Rejection Ratio (CMRR)": "63dB",
+      "Gain Bandwidth Product (GBW)": "1MHz",
+      "Input Bias Current (Ib)": "11nA"
     },
     "sources": [],
     "needs_review": true,
@@ -4132,10 +4132,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "线路数": "1",
-      "阻抗@频率": "120Ω@100MHz",
-      "误差": "±25%",
-      "直流电阻(DCR)": "20mΩ"
+      "Number of Lines": "1",
+      "Impedance @ Frequency": "120Ω@100MHz",
+      "Tolerance": "±25%",
+      "DC Resistance (DCR)": "20mΩ"
     },
     "sources": [],
     "needs_review": true,
@@ -4156,10 +4156,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "线路数": "1",
-      "阻抗@频率": "600Ω@100MHz",
-      "误差": "±25%",
-      "直流电阻(DCR)": "150mΩ"
+      "Number of Lines": "1",
+      "Impedance @ Frequency": "600Ω@100MHz",
+      "Tolerance": "±25%",
+      "DC Resistance (DCR)": "150mΩ"
     },
     "sources": [],
     "needs_review": true,
@@ -4180,10 +4180,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "放大器数": "3",
-      "共模电压": "-300mV~26V",
-      "输入失调电压(Vos)": "500nV",
-      "输入偏置电流(Ib)": "10uA"
+      "Number of Amplifiers": "3",
+      "Common-Mode Voltage": "-300mV~26V",
+      "Input Offset Voltage (Vos)": "500nV",
+      "Input Bias Current (Ib)": "10uA"
     },
     "sources": [],
     "needs_review": true,
@@ -4204,9 +4204,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "CPU内核": "ARM Cortex-M7",
-      "CPU位数": "32 Bit",
-      "CPU最大主频": "550MHz"
+      "CPU Core": "ARM Cortex-M7",
+      "CPU Bit Width": "32 Bit",
+      "CPU Maximum Clock Speed": "550MHz"
     },
     "sources": [],
     "needs_review": true,
@@ -4227,10 +4227,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "10uF",
-      "精度": "±10%",
-      "额定电压": "10V",
-      "温度系数": "X7R"
+      "Capacitance": "10uF",
+      "Accuracy": "±10%",
+      "Rated Voltage": "10V",
+      "Temperature Coefficient": "X7R"
     },
     "sources": [],
     "needs_review": true,
@@ -4251,10 +4251,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "线路数": "1",
-      "阻抗@频率": "600Ω@100MHz",
-      "误差": "±25%",
-      "直流电阻(DCR)": "380mΩ"
+      "Number of Lines": "1",
+      "Impedance @ Frequency": "600Ω@100MHz",
+      "Tolerance": "±25%",
+      "DC Resistance (DCR)": "380mΩ"
     },
     "sources": [],
     "needs_review": true,
@@ -4275,9 +4275,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "工作电压": "1.65V~5.5V",
-      "静态电流(Iq)": "10uA",
-      "元件数": "2"
+      "Operating Voltage": "1.65V~5.5V",
+      "Quiescent Current (Iq)": "10uA",
+      "Number of Elements": "2"
     },
     "sources": [],
     "needs_review": true,
@@ -4298,10 +4298,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "放大器数": "2",
-      "共模抑制比(CMRR)": "100dB",
-      "增益带宽积(GBW)": "10MHz",
-      "输入偏置电流(Ib)": "1uA"
+      "Number of Amplifiers": "2",
+      "Common-Mode Rejection Ratio (CMRR)": "100dB",
+      "Gain Bandwidth Product (GBW)": "10MHz",
+      "Input Bias Current (Ib)": "1uA"
     },
     "sources": [],
     "needs_review": true,
@@ -4322,10 +4322,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "放大器数": "四路",
-      "输入失调电压(Vos)": "2mV",
-      "静态电流(Iq)": "800uA",
-      "轨到轨": "轨到轨输入,轨到轨输出"
+      "Number of Amplifiers": "Quad",
+      "Input Offset Voltage (Vos)": "2mV",
+      "Quiescent Current (Iq)": "800uA",
+      "Rail-to-Rail": "Rail-to-Rail Input, Rail-to-Rail Output"
     },
     "sources": [],
     "needs_review": true,
@@ -4346,10 +4346,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "线路数": "1",
-      "阻抗@频率": "600Ω@100MHz",
-      "误差": "±25%",
-      "直流电阻(DCR)": "520mΩ"
+      "Number of Lines": "1",
+      "Impedance @ Frequency": "600Ω@100MHz",
+      "Tolerance": "±25%",
+      "DC Resistance (DCR)": "520mΩ"
     },
     "sources": [],
     "needs_review": true,
@@ -4370,10 +4370,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "线路数": "1",
-      "阻抗@频率": "120Ω@100MHz",
-      "误差": "±25%",
-      "直流电阻(DCR)": "30mΩ"
+      "Number of Lines": "1",
+      "Impedance @ Frequency": "120Ω@100MHz",
+      "Tolerance": "±25%",
+      "DC Resistance (DCR)": "30mΩ"
     },
     "sources": [],
     "needs_review": true,
@@ -4394,9 +4394,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出类型": "可调",
-      "输出电压": "1.25V~37V",
-      "输出极性": "正极"
+      "Output Type": "Adjustable",
+      "Output Voltage": "1.25V~37V",
+      "Output Polarity": "Positive"
     },
     "sources": [],
     "needs_review": true,
@@ -4417,10 +4417,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "线路数": "1",
-      "阻抗@频率": "1kΩ@100MHz",
-      "误差": "±25%",
-      "直流电阻(DCR)": "500mΩ"
+      "Number of Lines": "1",
+      "Impedance @ Frequency": "1kΩ@100MHz",
+      "Tolerance": "±25%",
+      "DC Resistance (DCR)": "500mΩ"
     },
     "sources": [],
     "needs_review": true,
@@ -4441,9 +4441,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "类型": "收发器",
-      "工作电压": "3.3V~5.5V",
-      "数据速率": "250Kbps"
+      "Type": "Transceiver",
+      "Operating Voltage": "3.3V~5.5V",
+      "Data Rate": "250Kbps"
     },
     "sources": [],
     "needs_review": true,
@@ -4464,10 +4464,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输入类型": "施密特触发器",
-      "工作电压": "1.65V~5.5V",
-      "元件数": "1",
-      "每个元件位数": "1"
+      "Input Type": "Schmitt Trigger",
+      "Operating Voltage": "1.65V~5.5V",
+      "Number of Elements": "1",
+      "Bits per Element": "1"
     },
     "sources": [],
     "needs_review": true,
@@ -4488,10 +4488,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "1uF",
-      "精度": "±10%",
-      "额定电压": "50V",
-      "温度系数": "X7R"
+      "Capacitance": "1uF",
+      "Accuracy": "±10%",
+      "Rated Voltage": "50V",
+      "Temperature Coefficient": "X7R"
     },
     "sources": [],
     "needs_review": true,
@@ -4533,10 +4533,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "功能类型": "升压型",
-      "输出类型": "可调",
-      "输出电压": "2.2V~5.5V",
-      "输出电流": "3A"
+      "Function Type": "Step-Up",
+      "Output Type": "Adjustable",
+      "Output Voltage": "2.2V~5.5V",
+      "Output Current": "3A"
     },
     "sources": [],
     "needs_review": true,
@@ -4576,9 +4576,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出类型": "固定",
-      "输出电压": "3.3V",
-      "输出极性": "正极"
+      "Output Type": "Fixed",
+      "Output Voltage": "3.3V",
+      "Output Polarity": "Positive"
     },
     "sources": [],
     "needs_review": true,
@@ -4599,9 +4599,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "通道数": "1",
-      "工作电压": "1.65V~5.5V",
-      "导通电阻(Ron)": "6Ω"
+      "Number of Channels": "1",
+      "Operating Voltage": "1.65V~5.5V",
+      "On-Resistance (Ron)": "6Ω"
     },
     "sources": [],
     "needs_review": true,
@@ -4622,10 +4622,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输入类型": "施密特触发器",
-      "工作电压": "1.65V~5.5V",
-      "元件数": "2",
-      "每个元件位数": "1"
+      "Input Type": "Schmitt Trigger",
+      "Operating Voltage": "1.65V~5.5V",
+      "Number of Elements": "2",
+      "Bits per Element": "1"
     },
     "sources": [],
     "needs_review": true,
@@ -4646,9 +4646,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出类型": "固定",
-      "输出电压": "3.3V",
-      "输出极性": "正极"
+      "Output Type": "Fixed",
+      "Output Voltage": "3.3V",
+      "Output Polarity": "Positive"
     },
     "sources": [],
     "needs_review": true,
@@ -4669,9 +4669,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "CPU内核": "ARM Cortex-M4",
-      "CPU位数": "32 Bit",
-      "CPU最大主频": "180MHz"
+      "CPU Core": "ARM Cortex-M4",
+      "CPU Bit Width": "32 Bit",
+      "CPU Maximum Clock Speed": "180MHz"
     },
     "sources": [],
     "needs_review": true,
@@ -4692,10 +4692,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "功能类型": "降压型",
-      "输出类型": "可调",
-      "输出电流": "3A",
-      "开关频率": "400kHz"
+      "Function Type": "Step-Down",
+      "Output Type": "Adjustable",
+      "Output Current": "3A",
+      "Switching Frequency": "400kHz"
     },
     "sources": [],
     "needs_review": true,
@@ -4716,10 +4716,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "100nF",
-      "精度": "±5%",
-      "额定电压": "50V",
-      "温度系数": "C0G"
+      "Capacitance": "100nF",
+      "Accuracy": "±5%",
+      "Rated Voltage": "50V",
+      "Temperature Coefficient": "C0G"
     },
     "sources": [],
     "needs_review": true,
@@ -4759,9 +4759,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "工作电压": "1.65V~5.5V",
-      "静态电流(Iq)": "10uA",
-      "传播延迟(tpd)": "4ns@5V,50pF"
+      "Operating Voltage": "1.65V~5.5V",
+      "Quiescent Current (Iq)": "10uA",
+      "Propagation Delay (tpd)": "4ns@5V,50pF"
     },
     "sources": [],
     "needs_review": true,
@@ -4782,10 +4782,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "47uF",
-      "精度": "±20%",
-      "额定电压": "10V",
-      "温度系数": "X5R"
+      "Capacitance": "47uF",
+      "Accuracy": "±20%",
+      "Rated Voltage": "10V",
+      "Temperature Coefficient": "X5R"
     },
     "sources": [],
     "needs_review": true,
@@ -4806,10 +4806,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "放大器数": "双路",
-      "共模抑制比(CMRR)": "80dB",
-      "增益带宽积(GBW)": "3MHz",
-      "输入偏置电流(Ib)": "65pA"
+      "Number of Amplifiers": "Dual",
+      "Common-Mode Rejection Ratio (CMRR)": "80dB",
+      "Gain Bandwidth Product (GBW)": "3MHz",
+      "Input Bias Current (Ib)": "65pA"
     },
     "sources": [],
     "needs_review": true,
@@ -4830,10 +4830,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "线路数": "1",
-      "阻抗@频率": "220Ω@100MHz",
-      "误差": "±25%",
-      "直流电阻(DCR)": "50mΩ"
+      "Number of Lines": "1",
+      "Impedance @ Frequency": "220Ω@100MHz",
+      "Tolerance": "±25%",
+      "DC Resistance (DCR)": "50mΩ"
     },
     "sources": [],
     "needs_review": true,
@@ -4854,10 +4854,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "工作电压": "2V~5.2V"
+      "Operating Voltage": "2V~5.2V"
     },
     "sources": [],
-    "needs_review": true,
+    "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
     "datasheet_url": "",
@@ -4875,10 +4875,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电感值": "1uH",
-      "饱和电流(Isat)": "4.7A",
-      "精度": "±20%",
-      "额定电流": "3.3A"
+      "Inductance": "1uH",
+      "Saturation Current (Isat)": "4.7A",
+      "Accuracy": "±20%",
+      "Rated Current": "3.3A"
     },
     "sources": [],
     "needs_review": true,
@@ -4899,10 +4899,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "22uF",
-      "精度": "±20%",
-      "额定电压": "6.3V",
-      "温度系数": "X5R"
+      "Capacitance": "22uF",
+      "Accuracy": "±20%",
+      "Rated Voltage": "6.3V",
+      "Temperature Coefficient": "X5R"
     },
     "sources": [],
     "needs_review": true,
@@ -4923,10 +4923,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "类型": "负载开关",
-      "通道数": "1",
-      "输入控制逻辑": "高电平有效",
-      "最大连续电流": "2A"
+      "Type": "Load Switch",
+      "Number of Channels": "1",
+      "Input Control Logic": "Active High",
+      "Maximum Continuous Current": "2A"
     },
     "sources": [],
     "needs_review": true,
@@ -4947,10 +4947,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "线路数": "1",
-      "阻抗@频率": "330Ω@100MHz",
-      "误差": "±25%",
-      "直流电阻(DCR)": "70mΩ"
+      "Number of Lines": "1",
+      "Impedance @ Frequency": "330Ω@100MHz",
+      "Tolerance": "±25%",
+      "DC Resistance (DCR)": "70mΩ"
     },
     "sources": [],
     "needs_review": true,
@@ -4971,8 +4971,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "元件数": "1",
-      "每个电路通道数": "2"
+      "Number of Elements": "1",
+      "Channels per Circuit": "2"
     },
     "sources": [],
     "needs_review": true,
@@ -4993,9 +4993,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出类型": "固定",
-      "输出电压": "5V",
-      "输出极性": "正极"
+      "Output Type": "Fixed",
+      "Output Voltage": "5V",
+      "Output Polarity": "Positive"
     },
     "sources": [],
     "needs_review": true,
@@ -5035,10 +5035,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "极性": "单向",
-      "钳位电压": "14V",
-      "峰值脉冲功率(Ppp)": "40W@8/20us",
-      "反向截止电压(Vrwm)": "5.5V"
+      "Polarity": "Unidirectional",
+      "Clamping Voltage": "14V",
+      "Peak Pulse Power (Ppp)": "40W@8/20us",
+      "Reverse Standoff Voltage (Vrwm)": "5.5V"
     },
     "sources": [],
     "needs_review": true,
@@ -5059,10 +5059,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "线路数": "1",
-      "阻抗@频率": "120Ω@100MHz",
-      "误差": "±25%",
-      "直流电阻(DCR)": "25mΩ"
+      "Number of Lines": "1",
+      "Impedance @ Frequency": "120Ω@100MHz",
+      "Tolerance": "±25%",
+      "DC Resistance (DCR)": "25mΩ"
     },
     "sources": [],
     "needs_review": true,
@@ -5083,10 +5083,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "线路数": "1",
-      "阻抗@频率": "120Ω@100MHz",
-      "误差": "±25%",
-      "直流电阻(DCR)": "55mΩ"
+      "Number of Lines": "1",
+      "Impedance @ Frequency": "120Ω@100MHz",
+      "Tolerance": "±25%",
+      "DC Resistance (DCR)": "55mΩ"
     },
     "sources": [],
     "needs_review": true,
@@ -5107,10 +5107,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "10nF",
-      "精度": "±5%",
-      "额定电压": "50V",
-      "温度系数": "C0G"
+      "Capacitance": "10nF",
+      "Accuracy": "±5%",
+      "Rated Voltage": "50V",
+      "Temperature Coefficient": "C0G"
     },
     "sources": [],
     "needs_review": true,
@@ -5131,10 +5131,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "线路数": "1",
-      "阻抗@频率": "470Ω@100MHz",
-      "误差": "±25%",
-      "直流电阻(DCR)": "200mΩ"
+      "Number of Lines": "1",
+      "Impedance @ Frequency": "470Ω@100MHz",
+      "Tolerance": "±25%",
+      "DC Resistance (DCR)": "200mΩ"
     },
     "sources": [],
     "needs_review": true,
@@ -5155,9 +5155,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出类型": "固定",
-      "输出电压": "3.3V",
-      "输出极性": "正极"
+      "Output Type": "Fixed",
+      "Output Voltage": "3.3V",
+      "Output Polarity": "Positive"
     },
     "sources": [],
     "needs_review": true,
@@ -5178,10 +5178,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "100nF",
-      "精度": "±10%",
-      "额定电压": "50V",
-      "温度系数": "X7R"
+      "Capacitance": "100nF",
+      "Accuracy": "±10%",
+      "Rated Voltage": "50V",
+      "Temperature Coefficient": "X7R"
     },
     "sources": [],
     "needs_review": true,
@@ -5202,10 +5202,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "4.7uF",
-      "精度": "±10%",
-      "额定电压": "25V",
-      "温度系数": "X5R"
+      "Capacitance": "4.7uF",
+      "Accuracy": "±10%",
+      "Rated Voltage": "25V",
+      "Temperature Coefficient": "X5R"
     },
     "sources": [],
     "needs_review": true,
@@ -5226,10 +5226,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "线路数": "1",
-      "阻抗@频率": "600Ω@100MHz",
-      "误差": "±25%",
-      "直流电阻(DCR)": "80mΩ"
+      "Number of Lines": "1",
+      "Impedance @ Frequency": "600Ω@100MHz",
+      "Tolerance": "±25%",
+      "DC Resistance (DCR)": "80mΩ"
     },
     "sources": [],
     "needs_review": true,
@@ -5250,10 +5250,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "线路数": "1",
-      "阻抗@频率": "220Ω@100MHz",
-      "误差": "±25%",
-      "直流电阻(DCR)": "45mΩ"
+      "Number of Lines": "1",
+      "Impedance @ Frequency": "220Ω@100MHz",
+      "Tolerance": "±25%",
+      "DC Resistance (DCR)": "45mΩ"
     },
     "sources": [],
     "needs_review": true,
@@ -5274,9 +5274,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "共模电压": "300mV~26V",
-      "输入失调电压(Vos)": "10uV",
-      "输入偏置电流(Ib)": "20uA"
+      "Common-Mode Voltage": "300mV~26V",
+      "Input Offset Voltage (Vos)": "10uV",
+      "Input Bias Current (Ib)": "20uA"
     },
     "sources": [],
     "needs_review": true,
@@ -5297,10 +5297,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "1nF",
-      "精度": "±5%",
-      "额定电压": "50V",
-      "温度系数": "C0G"
+      "Capacitance": "1nF",
+      "Accuracy": "±5%",
+      "Rated Voltage": "50V",
+      "Temperature Coefficient": "C0G"
     },
     "sources": [],
     "needs_review": true,
@@ -5321,10 +5321,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "10uF",
-      "精度": "±10%",
-      "额定电压": "35V",
-      "温度系数": "X5R"
+      "Capacitance": "10uF",
+      "Accuracy": "±10%",
+      "Rated Voltage": "35V",
+      "Temperature Coefficient": "X5R"
     },
     "sources": [],
     "needs_review": true,
@@ -5345,10 +5345,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "放大器数": "2",
-      "共模抑制比(CMRR)": "110dB",
-      "输入偏置电流(Ib)": "400nA",
-      "输出电流": "20mA"
+      "Number of Amplifiers": "2",
+      "Common-Mode Rejection Ratio (CMRR)": "110dB",
+      "Input Bias Current (Ib)": "400nA",
+      "Output Current": "20mA"
     },
     "sources": [],
     "needs_review": true,
@@ -5369,10 +5369,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "1uF",
-      "精度": "±10%",
-      "额定电压": "10V",
-      "温度系数": "X7R"
+      "Capacitance": "1uF",
+      "Accuracy": "±10%",
+      "Rated Voltage": "10V",
+      "Temperature Coefficient": "X7R"
     },
     "sources": [],
     "needs_review": true,
@@ -5393,10 +5393,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "工作电压": "3.75V~6V",
-      "最大充电电流": "550mA",
-      "电池类型": "锂电池",
-      "电池节数": "1"
+      "Operating Voltage": "3.75V~6V",
+      "Maximum Charge Current": "550mA",
+      "Battery Type": "Li-ion",
+      "Number of Battery Cells": "1"
     },
     "sources": [],
     "needs_review": true,
@@ -5417,8 +5417,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "检测温度": "-40℃~+125℃",
-      "精度": "±2℃"
+      "Detection Temperature": "-40°C~+125°C",
+      "Accuracy": "±2°C"
     },
     "sources": [],
     "needs_review": true,
@@ -5439,10 +5439,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "1uF",
-      "精度": "±10%",
-      "额定电压": "25V",
-      "温度系数": "X5R"
+      "Capacitance": "1uF",
+      "Accuracy": "±10%",
+      "Rated Voltage": "25V",
+      "Temperature Coefficient": "X5R"
     },
     "sources": [],
     "needs_review": true,
@@ -5482,10 +5482,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "极性": "单向",
-      "钳位电压": "17V",
-      "峰值脉冲功率(Ppp)": "130W@8/20us",
-      "反向截止电压(Vrwm)": "5.25V"
+      "Polarity": "Unidirectional",
+      "Clamping Voltage": "17V",
+      "Peak Pulse Power (Ppp)": "130W@8/20us",
+      "Reverse Standoff Voltage (Vrwm)": "5.25V"
     },
     "sources": [],
     "needs_review": true,
@@ -5506,10 +5506,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "线路数": "1",
-      "阻抗@频率": "120Ω@100MHz",
-      "误差": "±25%",
-      "直流电阻(DCR)": "30mΩ"
+      "Number of Lines": "1",
+      "Impedance @ Frequency": "120Ω@100MHz",
+      "Tolerance": "±25%",
+      "DC Resistance (DCR)": "30mΩ"
     },
     "sources": [],
     "needs_review": true,
@@ -5530,10 +5530,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "放大器数": "2",
-      "共模抑制比(CMRR)": "120dB",
-      "增益带宽积(GBW)": "53MHz",
-      "输入偏置电流(Ib)": "20pA"
+      "Number of Amplifiers": "2",
+      "Common-Mode Rejection Ratio (CMRR)": "120dB",
+      "Gain Bandwidth Product (GBW)": "53MHz",
+      "Input Bias Current (Ib)": "20pA"
     },
     "sources": [],
     "needs_review": true,
@@ -5554,8 +5554,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "检测温度": "0℃~+100℃",
-      "精度": "±1.5℃"
+      "Detection Temperature": "0°C~+100°C",
+      "Accuracy": "±1.5°C"
     },
     "sources": [],
     "needs_review": true,
@@ -5576,10 +5576,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "类型": "负载开关",
-      "通道数": "1",
-      "输入控制逻辑": "高电平有效",
-      "最大连续电流": "2A"
+      "Type": "Load Switch",
+      "Number of Channels": "1",
+      "Input Control Logic": "Active High",
+      "Maximum Continuous Current": "2A"
     },
     "sources": [],
     "needs_review": true,
@@ -5600,10 +5600,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "放大器数": "1",
-      "共模电压": "0V~26V",
-      "输入失调电压(Vos)": "10uV",
-      "输入偏置电流(Ib)": "20nA"
+      "Number of Amplifiers": "1",
+      "Common-Mode Voltage": "0V~26V",
+      "Input Offset Voltage (Vos)": "10uV",
+      "Input Bias Current (Ib)": "20nA"
     },
     "sources": [],
     "needs_review": true,
@@ -5624,10 +5624,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "极性": "单向",
-      "钳位电压": "8V",
-      "峰值脉冲功率(Ppp)": "45W@8/20us",
-      "反向截止电压(Vrwm)": "5.5V"
+      "Polarity": "Unidirectional",
+      "Clamping Voltage": "8V",
+      "Peak Pulse Power (Ppp)": "45W@8/20us",
+      "Reverse Standoff Voltage (Vrwm)": "5.5V"
     },
     "sources": [],
     "needs_review": true,
@@ -5648,9 +5648,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "类型": "BJT",
-      "通道数": "八路",
-      "集电极电流(Ic)": "500mA"
+      "Type": "BJT",
+      "Number of Channels": "Octal",
+      "Collector Current (Ic)": "500mA"
     },
     "sources": [],
     "needs_review": true,
@@ -5671,9 +5671,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "CPU内核": "AVR",
-      "CPU位数": "8 Bit",
-      "CPU最大主频": "20MHz"
+      "CPU Core": "AVR",
+      "CPU Bit Width": "8 Bit",
+      "CPU Maximum Clock Speed": "20MHz"
     },
     "sources": [],
     "needs_review": true,
@@ -5694,10 +5694,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "10nF",
-      "精度": "±10%",
-      "额定电压": "50V",
-      "温度系数": "X7R"
+      "Capacitance": "10nF",
+      "Accuracy": "±10%",
+      "Rated Voltage": "50V",
+      "Temperature Coefficient": "X7R"
     },
     "sources": [],
     "needs_review": true,
@@ -5718,10 +5718,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "1uF",
-      "精度": "±10%",
-      "额定电压": "25V",
-      "温度系数": "X7R"
+      "Capacitance": "1uF",
+      "Accuracy": "±10%",
+      "Rated Voltage": "25V",
+      "Temperature Coefficient": "X7R"
     },
     "sources": [],
     "needs_review": true,
@@ -5742,10 +5742,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "极性": "单向",
-      "钳位电压": "17V",
-      "反向截止电压(Vrwm)": "5.25V",
-      "击穿电压(VBR)": "6V"
+      "Polarity": "Unidirectional",
+      "Clamping Voltage": "17V",
+      "Reverse Standoff Voltage (Vrwm)": "5.25V",
+      "Breakdown Voltage (VBR)": "6V"
     },
     "sources": [],
     "needs_review": true,
@@ -5766,10 +5766,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "容值": "1uF",
-      "精度": "±10%",
-      "额定电压": "50V",
-      "温度系数": "X5R"
+      "Capacitance": "1uF",
+      "Accuracy": "±10%",
+      "Rated Voltage": "50V",
+      "Temperature Coefficient": "X5R"
     },
     "sources": [],
     "needs_review": true,
@@ -5790,8 +5790,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "接口类型": "I2C",
-      "工作电压": "2V~5.5V"
+      "Interface Type": "I2C",
+      "Operating Voltage": "2V~5.5V"
     },
     "sources": [],
     "needs_review": true,
@@ -5812,10 +5812,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "线路数": "1",
-      "阻抗@频率": "30Ω@100MHz",
-      "误差": "±25%",
-      "直流电阻(DCR)": "14mΩ"
+      "Number of Lines": "1",
+      "Impedance @ Frequency": "30Ω@100MHz",
+      "Tolerance": "±25%",
+      "DC Resistance (DCR)": "14mΩ"
     },
     "sources": [],
     "needs_review": true,
@@ -5836,10 +5836,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "放大器数": "2",
-      "共模抑制比(CMRR)": "85dB",
-      "增益带宽积(GBW)": "1.1MHz",
-      "输入偏置电流(Ib)": "200nA"
+      "Number of Amplifiers": "2",
+      "Common-Mode Rejection Ratio (CMRR)": "85dB",
+      "Gain Bandwidth Product (GBW)": "1.1MHz",
+      "Input Bias Current (Ib)": "200nA"
     },
     "sources": [],
     "needs_review": true,
@@ -5860,10 +5860,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "线路数": "1",
-      "阻抗@频率": "1kΩ@100MHz",
-      "误差": "±25%",
-      "直流电阻(DCR)": "280mΩ"
+      "Number of Lines": "1",
+      "Impedance @ Frequency": "1kΩ@100MHz",
+      "Tolerance": "±25%",
+      "DC Resistance (DCR)": "280mΩ"
     },
     "sources": [],
     "needs_review": true,
@@ -5884,9 +5884,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "CPU内核": "AVR",
-      "CPU位数": "8 Bit",
-      "CPU最大主频": "20MHz"
+      "CPU Core": "AVR",
+      "CPU Bit Width": "8 Bit",
+      "CPU Maximum Clock Speed": "20MHz"
     },
     "sources": [],
     "needs_review": true,
@@ -5907,9 +5907,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "功能类型": "降压型",
-      "输出类型": "可调",
-      "工作电压": "3.1V~20V"
+      "Function Type": "Step-Down",
+      "Output Type": "Adjustable",
+      "Operating Voltage": "3.1V~20V"
     },
     "sources": [],
     "needs_review": true,
@@ -5930,9 +5930,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出类型": "固定",
-      "输出电压": "3.3V",
-      "输出极性": "正极"
+      "Output Type": "Fixed",
+      "Output Voltage": "3.3V",
+      "Output Polarity": "Positive"
     },
     "sources": [],
     "needs_review": true,
@@ -5953,10 +5953,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "类型": "负载开关",
-      "通道数": "1",
-      "输入控制逻辑": "高电平有效",
-      "最大连续电流": "1.5A"
+      "Type": "Load Switch",
+      "Number of Channels": "1",
+      "Input Control Logic": "Active High",
+      "Maximum Continuous Current": "1.5A"
     },
     "sources": [],
     "needs_review": true,
@@ -5977,9 +5977,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出类型": "固定",
-      "输出电压": "3.3V",
-      "输出极性": "正极"
+      "Output Type": "Fixed",
+      "Output Voltage": "3.3V",
+      "Output Polarity": "Positive"
     },
     "sources": [],
     "needs_review": true,
@@ -6000,10 +6000,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电感值": "1uH",
-      "饱和电流(Isat)": "4.3A",
-      "精度": "±20%",
-      "额定电流": "4.3A"
+      "Inductance": "1uH",
+      "Saturation Current (Isat)": "4.3A",
+      "Accuracy": "±20%",
+      "Rated Current": "4.3A"
     },
     "sources": [],
     "needs_review": true,
@@ -6043,9 +6043,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "工作电压": "3V~18V",
-      "最大充电电流": "1A",
-      "电池节数": "1"
+      "Operating Voltage": "3V~18V",
+      "Maximum Charge Current": "1A",
+      "Number of Battery Cells": "1"
     },
     "sources": [],
     "needs_review": true,
@@ -6085,10 +6085,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "工作电压": "2.7V~5.5V",
-      "接口类型": "I2C",
-      "建立时间": "6us",
-      "积分非线性": "2LSB"
+      "Operating Voltage": "2.7V~5.5V",
+      "Interface Type": "I2C",
+      "Settling Time": "6us",
+      "Integral Nonlinearity": "2LSB"
     },
     "sources": [],
     "needs_review": true,
@@ -6128,9 +6128,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "CPU内核": "ARM Cortex-M4",
-      "CPU位数": "32 Bit",
-      "CPU最大主频": "168MHz"
+      "CPU Core": "ARM Cortex-M4",
+      "CPU Bit Width": "32 Bit",
+      "CPU Maximum Clock Speed": "168MHz"
     },
     "sources": [],
     "needs_review": true,
@@ -6151,9 +6151,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "通道数": "1",
-      "工作电压": "1.8V~5.5V",
-      "导通电阻(Ron)": "4Ω"
+      "Number of Channels": "1",
+      "Operating Voltage": "1.8V~5.5V",
+      "On-Resistance (Ron)": "4Ω"
     },
     "sources": [],
     "needs_review": true,
@@ -6174,10 +6174,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "二极管配置": "1对串联式",
-      "正向压降(Vf)": "1.25V@150mA",
-      "整流电流": "215mA",
-      "直流反向耐压(Vr)": "100V"
+      "Diode Configuration": "1 Pair, Series",
+      "Forward Voltage (Vf)": "1.25V@150mA",
+      "Rectified Current": "215mA",
+      "DC Reverse Voltage (Vr)": "100V"
     },
     "sources": [],
     "needs_review": true,
@@ -6198,10 +6198,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "二极管配置": "1个独立式",
-      "直流反向耐压（Vr）": "100V",
-      "整流电流": "250mA",
-      "正向压降(Vf)": "850mV@250mA"
+      "Diode Configuration": "1 Independent",
+      "DC Reverse Voltage (Vr)": "100V",
+      "Rectified Current": "250mA",
+      "Forward Voltage (Vf)": "850mV@250mA"
     },
     "sources": [],
     "needs_review": true,
@@ -6222,10 +6222,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "接口类型": "SPI",
-      "工作电压": "2.7V~3.6V",
-      "存储容量": "64Mbit",
-      "时钟频率(fc)": "133MHz"
+      "Interface Type": "SPI",
+      "Operating Voltage": "2.7V~3.6V",
+      "Memory Size": "64Mbit",
+      "Clock Frequency (fc)": "133MHz"
     },
     "sources": [],
     "needs_review": true,
@@ -6246,10 +6246,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "二极管配置": "1个独立式",
-      "直流反向耐压（Vr）": "60V",
-      "整流电流": "1A",
-      "正向压降(Vf)": "660mV@1A"
+      "Diode Configuration": "1 Independent",
+      "DC Reverse Voltage (Vr)": "60V",
+      "Rectified Current": "1A",
+      "Forward Voltage (Vf)": "660mV@1A"
     },
     "sources": [],
     "needs_review": true,
@@ -6270,10 +6270,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电阻类型": "厚膜电阻",
-      "阻值": "10kΩ",
-      "精度": "±1%",
-      "最大工作电压": "75V"
+      "Resistor Type": "Thick Film",
+      "Resistance": "10kΩ",
+      "Accuracy": "±1%",
+      "Maximum Operating Voltage": "75V"
     },
     "sources": [],
     "needs_review": true,
@@ -6294,10 +6294,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电阻类型": "厚膜电阻",
-      "阻值": "1kΩ",
-      "精度": "±1%",
-      "最大工作电压": "75V"
+      "Resistor Type": "Thick Film",
+      "Resistance": "1kΩ",
+      "Accuracy": "±1%",
+      "Maximum Operating Voltage": "75V"
     },
     "sources": [],
     "needs_review": true,
@@ -6318,10 +6318,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "二极管配置": "1个独立式",
-      "直流反向耐压（Vr）": "60V",
-      "整流电流": "1A",
-      "正向压降(Vf)": "660mV@1A"
+      "Diode Configuration": "1 Independent",
+      "DC Reverse Voltage (Vr)": "60V",
+      "Rectified Current": "1A",
+      "Forward Voltage (Vf)": "660mV@1A"
     },
     "sources": [],
     "needs_review": true,
@@ -6342,10 +6342,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电阻类型": "厚膜电阻",
-      "阻值": "10kΩ",
-      "精度": "±1%",
-      "最大工作电压": "75V"
+      "Resistor Type": "Thick Film",
+      "Resistance": "10kΩ",
+      "Accuracy": "±1%",
+      "Maximum Operating Voltage": "75V"
     },
     "sources": [],
     "needs_review": true,
@@ -6366,10 +6366,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "数量": "1个N沟道",
-      "类型": "N沟道",
-      "漏源电压(Vdss)": "60V",
-      "连续漏极电流(Id)": "300mA"
+      "Quantity": "1 N-Channel",
+      "Type": "N-Channel",
+      "Drain-Source Voltage (Vdss)": "60V",
+      "Continuous Drain Current (Id)": "300mA"
     },
     "sources": [],
     "needs_review": true,
@@ -6390,10 +6390,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "安装方式": "卧贴",
-      "工作温度": "-25℃~+85℃",
-      "端口数量": "1",
-      "触点数量": "16P"
+      "Mounting Type": "Horizontal SMT",
+      "Operating Temperature": "-25°C~+85°C",
+      "Number of Ports": "1",
+      "Number of Contacts": "16P"
     },
     "sources": [],
     "needs_review": true,
@@ -6414,10 +6414,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电阻类型": "厚膜电阻",
-      "阻值": "100kΩ",
-      "精度": "±1%",
-      "最大工作电压": "50V"
+      "Resistor Type": "Thick Film",
+      "Resistance": "100kΩ",
+      "Accuracy": "±1%",
+      "Maximum Operating Voltage": "50V"
     },
     "sources": [],
     "needs_review": true,
@@ -6438,10 +6438,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "直流反向耐压（Vr）": "100V",
-      "二极管配置": "独立式",
-      "整流电流": "300mA",
-      "反向恢复时间（trr）": "4ns"
+      "DC Reverse Voltage (Vr)": "100V",
+      "Diode Configuration": "Independent",
+      "Rectified Current": "300mA",
+      "Reverse Recovery Time (trr)": "4ns"
     },
     "sources": [],
     "needs_review": true,
@@ -6462,8 +6462,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "应用功能": "USB转UART",
-      "数据速率": "3Mbps"
+      "Application Function": "USB to UART",
+      "Data Rate": "3Mbps"
     },
     "sources": [],
     "needs_review": true,
@@ -6484,10 +6484,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "功能": "串行至串行或并行",
-      "工作电压": "2V~6V",
-      "元件数": "1",
-      "传播延迟(tpd)": "19ns@4.5V,50pF"
+      "Function": "Serial-to-Serial or Parallel",
+      "Operating Voltage": "2V~6V",
+      "Number of Elements": "1",
+      "Propagation Delay (tpd)": "19ns@4.5V,50pF"
     },
     "sources": [],
     "needs_review": true,
@@ -6508,10 +6508,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电阻类型": "厚膜电阻",
-      "阻值": "10kΩ",
-      "精度": "±1%",
-      "最大工作电压": "150V"
+      "Resistor Type": "Thick Film",
+      "Resistance": "10kΩ",
+      "Accuracy": "±1%",
+      "Maximum Operating Voltage": "150V"
     },
     "sources": [],
     "needs_review": true,
@@ -6532,10 +6532,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电阻类型": "厚膜电阻",
-      "阻值": "100kΩ",
-      "精度": "±1%",
-      "最大工作电压": "75V"
+      "Resistor Type": "Thick Film",
+      "Resistance": "100kΩ",
+      "Accuracy": "±1%",
+      "Maximum Operating Voltage": "75V"
     },
     "sources": [],
     "needs_review": true,
@@ -6556,8 +6556,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "接口类型": "I2C",
-      "电池类型": "锂电池"
+      "Interface Type": "I2C",
+      "Battery Type": "Li-ion"
     },
     "sources": [],
     "needs_review": true,
@@ -6578,10 +6578,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电阻类型": "厚膜电阻",
-      "阻值": "4.7kΩ",
-      "精度": "±1%",
-      "最大工作电压": "75V"
+      "Resistor Type": "Thick Film",
+      "Resistance": "4.7kΩ",
+      "Accuracy": "±1%",
+      "Maximum Operating Voltage": "75V"
     },
     "sources": [],
     "needs_review": true,
@@ -6602,10 +6602,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "灯头类型": "1.6mmx0.8mm方形灯头",
-      "接收角度": "120°",
-      "峰值波长": "625nm",
-      "正向压降(Vf)": "2.3V"
+      "Lamp Header Type": "1.6mmx0.8mmSquare Header",
+      "Receiving Angle": "120°",
+      "Peak Wavelength": "625nm",
+      "Forward Voltage (Vf)": "2.3V"
     },
     "sources": [],
     "needs_review": true,
@@ -6626,10 +6626,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "功能类型": "降压型",
-      "输出类型": "固定",
-      "输出电压": "5V",
-      "输出电流": "2A"
+      "Function Type": "Step-Down",
+      "Output Type": "Fixed",
+      "Output Voltage": "5V",
+      "Output Current": "2A"
     },
     "sources": [],
     "needs_review": true,
@@ -6650,10 +6650,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电阻类型": "厚膜电阻",
-      "阻值": "100kΩ",
-      "精度": "±1%",
-      "最大工作电压": "75V"
+      "Resistor Type": "Thick Film",
+      "Resistance": "100kΩ",
+      "Accuracy": "±1%",
+      "Maximum Operating Voltage": "75V"
     },
     "sources": [],
     "needs_review": true,
@@ -6674,10 +6674,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "间距": "2.5mm",
-      "颜色": "白色",
-      "安装方式": "直插",
-      "插针结构": "1x2P"
+      "Pitch": "2.5mm",
+      "Color": "White",
+      "Mounting Type": "Through-Hole",
+      "Pin Configuration": "1x2P"
     },
     "sources": [],
     "needs_review": true,
@@ -6698,10 +6698,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电路结构": "单刀单掷",
-      "按钮形状": "圆形按钮",
-      "开关长度": "3.9mm",
-      "开关宽度": "3mm"
+      "Circuit Configuration": "SPST",
+      "Button Shape": "Round Button",
+      "Switch Length": "3.9mm",
+      "Switch Width": "3mm"
     },
     "sources": [],
     "needs_review": true,
@@ -6722,10 +6722,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "连接器类型": "板端",
-      "接口类型": "内针",
-      "工作温度": "-40℃~+90℃",
-      "频率": "6GHz"
+      "Connector Type": "Board-Side",
+      "Interface Type": "Inner Pin",
+      "Operating Temperature": "-40°C~+90°C",
+      "Frequency": "6GHz"
     },
     "sources": [],
     "needs_review": true,
@@ -6746,10 +6746,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电阻类型": "厚膜电阻",
-      "阻值": "1kΩ",
-      "精度": "±1%",
-      "最大工作电压": "75V"
+      "Resistor Type": "Thick Film",
+      "Resistance": "1kΩ",
+      "Accuracy": "±1%",
+      "Maximum Operating Voltage": "75V"
     },
     "sources": [],
     "needs_review": true,
@@ -6770,10 +6770,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "二极管配置": "1个独立式",
-      "直流反向耐压（Vr）": "30V",
-      "整流电流": "200mA",
-      "正向压降(Vf)": "800mV@100mA"
+      "Diode Configuration": "1 Independent",
+      "DC Reverse Voltage (Vr)": "30V",
+      "Rectified Current": "200mA",
+      "Forward Voltage (Vf)": "800mV@100mA"
     },
     "sources": [],
     "needs_review": true,
@@ -6794,10 +6794,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电阻类型": "厚膜电阻",
-      "阻值": "0Ω",
-      "精度": "±5%",
-      "最大工作电压": "75V"
+      "Resistor Type": "Thick Film",
+      "Resistance": "0Ω",
+      "Accuracy": "±5%",
+      "Maximum Operating Voltage": "75V"
     },
     "sources": [],
     "needs_review": true,
@@ -6818,10 +6818,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "二极管配置": "1对串联式",
-      "正向压降(Vf)": "800mV@100mA",
-      "整流电流": "200mA",
-      "直流反向耐压(Vr)": "30V"
+      "Diode Configuration": "1 Pair, Series",
+      "Forward Voltage (Vf)": "800mV@100mA",
+      "Rectified Current": "200mA",
+      "DC Reverse Voltage (Vr)": "30V"
     },
     "sources": [],
     "needs_review": true,
@@ -6842,9 +6842,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "应用功能": "USB转UART",
-      "数据速率": "3Mbps",
-      "USB协议版本": "USB 2.0"
+      "Application Function": "USB to UART",
+      "Data Rate": "3Mbps",
+      "USB Protocol Version": "USB 2.0"
     },
     "sources": [],
     "needs_review": true,
@@ -6865,10 +6865,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "二极管配置": "1个独立式",
-      "直流反向耐压（Vr）": "40V",
-      "整流电流": "1A",
-      "正向压降(Vf)": "600mV@1A"
+      "Diode Configuration": "1 Independent",
+      "DC Reverse Voltage (Vr)": "40V",
+      "Rectified Current": "1A",
+      "Forward Voltage (Vf)": "600mV@1A"
     },
     "sources": [],
     "needs_review": true,
@@ -6889,10 +6889,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电阻类型": "厚膜电阻",
-      "阻值": "5.1kΩ",
-      "精度": "±1%",
-      "最大工作电压": "75V"
+      "Resistor Type": "Thick Film",
+      "Resistance": "5.1kΩ",
+      "Accuracy": "±1%",
+      "Maximum Operating Voltage": "75V"
     },
     "sources": [],
     "needs_review": true,
@@ -6913,10 +6913,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "二极管配置": "1对共阴极",
-      "正向压降(Vf)": "800mV@100mA",
-      "整流电流": "200mA",
-      "直流反向耐压(Vr)": "30V"
+      "Diode Configuration": "1 Pair, Common-Cathode",
+      "Forward Voltage (Vf)": "800mV@100mA",
+      "Rectified Current": "200mA",
+      "DC Reverse Voltage (Vr)": "30V"
     },
     "sources": [],
     "needs_review": true,
@@ -6937,10 +6937,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "间距": "2.5mm",
-      "颜色": "白色",
-      "安装方式": "直插",
-      "插针结构": "1x4P"
+      "Pitch": "2.5mm",
+      "Color": "White",
+      "Mounting Type": "Through-Hole",
+      "Pin Configuration": "1x4P"
     },
     "sources": [],
     "needs_review": true,
@@ -6961,10 +6961,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电阻类型": "厚膜电阻",
-      "阻值": "1kΩ",
-      "精度": "±1%",
-      "最大工作电压": "50V"
+      "Resistor Type": "Thick Film",
+      "Resistance": "1kΩ",
+      "Accuracy": "±1%",
+      "Maximum Operating Voltage": "50V"
     },
     "sources": [],
     "needs_review": true,
@@ -6985,10 +6985,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "直流反向耐压（Vr）": "100V",
-      "二极管配置": "独立式",
-      "整流电流": "300mA",
-      "反向恢复时间（trr）": "8ns"
+      "DC Reverse Voltage (Vr)": "100V",
+      "Diode Configuration": "Independent",
+      "Rectified Current": "300mA",
+      "Reverse Recovery Time (trr)": "8ns"
     },
     "sources": [],
     "needs_review": true,
@@ -7009,9 +7009,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "极性": "单向",
-      "反向截止电压(Vrwm)": "5.5V",
-      "击穿电压(VBR)": "6V"
+      "Polarity": "Unidirectional",
+      "Reverse Standoff Voltage (Vrwm)": "5.5V",
+      "Breakdown Voltage (VBR)": "6V"
     },
     "sources": [],
     "needs_review": true,
@@ -7032,10 +7032,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电阻类型": "厚膜电阻",
-      "阻值": "0Ω",
-      "功率": "100mW",
-      "温度系数": "-100ppm/℃~+600ppm/℃"
+      "Resistor Type": "Thick Film",
+      "Resistance": "0Ω",
+      "Power": "100mW",
+      "Temperature Coefficient": "-100ppm/°C~+600ppm/°C"
     },
     "sources": [],
     "needs_review": true,
@@ -7056,10 +7056,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电阻类型": "厚膜电阻",
-      "阻值": "1kΩ",
-      "精度": "±1%",
-      "最大工作电压": "150V"
+      "Resistor Type": "Thick Film",
+      "Resistance": "1kΩ",
+      "Accuracy": "±1%",
+      "Maximum Operating Voltage": "150V"
     },
     "sources": [],
     "needs_review": true,
@@ -7080,10 +7080,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "极性": "双向",
-      "钳位电压": "44V",
-      "峰值脉冲功率(Ppp)": "350W@8/20us",
-      "反向截止电压(Vrwm)": "24V"
+      "Polarity": "Bidirectional",
+      "Clamping Voltage": "44V",
+      "Peak Pulse Power (Ppp)": "350W@8/20us",
+      "Reverse Standoff Voltage (Vrwm)": "24V"
     },
     "sources": [],
     "needs_review": true,
@@ -7104,9 +7104,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出类型": "固定",
-      "输出电压": "3.3V",
-      "输出极性": "正极"
+      "Output Type": "Fixed",
+      "Output Voltage": "3.3V",
+      "Output Polarity": "Positive"
     },
     "sources": [],
     "needs_review": true,
@@ -7127,10 +7127,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "功放类型": "D类功放",
-      "输出功率": "3.2Wx1@4Ω",
-      "工作电压": "2.5V~5.5V",
-      "静态电流(Iq)": "2.4mA"
+      "Amplifier Class": "Class-D Amplifier",
+      "Output Power": "3.2Wx1@4Ω",
+      "Operating Voltage": "2.5V~5.5V",
+      "Quiescent Current (Iq)": "2.4mA"
     },
     "sources": [],
     "needs_review": true,
@@ -7151,10 +7151,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "间距": "2mm",
-      "颜色": "白色",
-      "安装方式": "直插",
-      "插针结构": "1x2P"
+      "Pitch": "2mm",
+      "Color": "White",
+      "Mounting Type": "Through-Hole",
+      "Pin Configuration": "1x2P"
     },
     "sources": [],
     "needs_review": true,
@@ -7175,10 +7175,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "二极管配置": "1对串联式",
-      "直流反向耐压（Vr）": "30V",
-      "整流电流": "200mA",
-      "正向压降(Vf)": "800mV@100mA"
+      "Diode Configuration": "1 Pair, Series",
+      "DC Reverse Voltage (Vr)": "30V",
+      "Rectified Current": "200mA",
+      "Forward Voltage (Vf)": "800mV@100mA"
     },
     "sources": [],
     "needs_review": true,
@@ -7199,9 +7199,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "极性": "双向",
-      "钳位电压": "40V",
-      "反向截止电压(Vrwm)": "14V"
+      "Polarity": "Bidirectional",
+      "Clamping Voltage": "40V",
+      "Reverse Standoff Voltage (Vrwm)": "14V"
     },
     "sources": [],
     "needs_review": true,
@@ -7222,10 +7222,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "数量": "1个N沟道",
-      "漏源电压(Vdss)": "50V",
-      "连续漏极电流(Id)": "200mA",
-      "耗散功率(Pd)": "225mW"
+      "Quantity": "1 N-Channel",
+      "Drain-Source Voltage (Vdss)": "50V",
+      "Continuous Drain Current (Id)": "200mA",
+      "Power Dissipation (Pd)": "225mW"
     },
     "sources": [],
     "needs_review": true,
@@ -7246,7 +7246,7 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "接口类型": "SPI"
+      "Interface Type": "SPI"
     },
     "sources": [],
     "needs_review": true,
@@ -7267,10 +7267,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "安装方式": "卧贴",
-      "协议标准": "USB 2.0",
-      "工作温度": "-40℃~+85℃",
-      "端口数量": "1"
+      "Mounting Type": "Horizontal SMT",
+      "Protocol Standard": "USB 2.0",
+      "Operating Temperature": "-40°C~+85°C",
+      "Number of Ports": "1"
     },
     "sources": [],
     "needs_review": true,
@@ -7310,10 +7310,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "数量": "1个N沟道",
-      "类型": "N沟道",
-      "漏源电压(Vdss)": "100V",
-      "连续漏极电流(Id)": "33A"
+      "Quantity": "1 N-Channel",
+      "Type": "N-Channel",
+      "Drain-Source Voltage (Vdss)": "100V",
+      "Continuous Drain Current (Id)": "33A"
     },
     "sources": [],
     "needs_review": true,
@@ -7334,8 +7334,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "工作电压": "4.5V~5.5V",
-      "输出电压": "5V"
+      "Operating Voltage": "4.5V~5.5V",
+      "Output Voltage": "5V"
     },
     "sources": [],
     "needs_review": true,
@@ -7356,10 +7356,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "极性": "单向",
-      "钳位电压": "20V",
-      "峰值脉冲功率(Ppp)": "330W@8/20us",
-      "反向截止电压(Vrwm)": "3.3V"
+      "Polarity": "Unidirectional",
+      "Clamping Voltage": "20V",
+      "Peak Pulse Power (Ppp)": "330W@8/20us",
+      "Reverse Standoff Voltage (Vrwm)": "3.3V"
     },
     "sources": [],
     "needs_review": true,
@@ -7380,8 +7380,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "工作电压": "3V~3.6V",
-      "接口类型": "SPI"
+      "Operating Voltage": "3V~3.6V",
+      "Interface Type": "SPI"
     },
     "sources": [],
     "needs_review": true,
@@ -7402,10 +7402,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "连接器类型": "板端",
-      "接口类型": "内针",
-      "工作温度": "-40℃~+90℃",
-      "频率": "6GHz"
+      "Connector Type": "Board-Side",
+      "Interface Type": "Inner Pin",
+      "Operating Temperature": "-40°C~+90°C",
+      "Frequency": "6GHz"
     },
     "sources": [],
     "needs_review": true,
@@ -7445,10 +7445,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电阻类型": "厚膜电阻",
-      "阻值": "10kΩ",
-      "精度": "±1%",
-      "最大工作电压": "75V"
+      "Resistor Type": "Thick Film",
+      "Resistance": "10kΩ",
+      "Accuracy": "±1%",
+      "Maximum Operating Voltage": "75V"
     },
     "sources": [],
     "needs_review": true,
@@ -7469,8 +7469,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "常温频差": "±20ppm",
-      "负载电容": "12.5pF"
+      "Frequency Tolerance": "±20ppm",
+      "Load Capacitance": "12.5pF"
     },
     "sources": [],
     "needs_review": true,
@@ -7491,10 +7491,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "二极管配置": "1个独立式",
-      "直流反向耐压（Vr）": "40V",
-      "整流电流": "1A",
-      "正向压降(Vf)": "450mV@1A"
+      "Diode Configuration": "1 Independent",
+      "DC Reverse Voltage (Vr)": "40V",
+      "Rectified Current": "1A",
+      "Forward Voltage (Vf)": "450mV@1A"
     },
     "sources": [],
     "needs_review": true,
@@ -7515,10 +7515,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电阻类型": "厚膜电阻",
-      "阻值": "10kΩ",
-      "精度": "±1%",
-      "最大工作电压": "50V"
+      "Resistor Type": "Thick Film",
+      "Resistance": "10kΩ",
+      "Accuracy": "±1%",
+      "Maximum Operating Voltage": "50V"
     },
     "sources": [],
     "needs_review": true,
@@ -7539,10 +7539,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "极性": "单向",
-      "钳位电压": "14.1V",
-      "峰值脉冲功率(Ppp)": "158W@8/20us",
-      "反向截止电压(Vrwm)": "3.3V"
+      "Polarity": "Unidirectional",
+      "Clamping Voltage": "14.1V",
+      "Peak Pulse Power (Ppp)": "158W@8/20us",
+      "Reverse Standoff Voltage (Vrwm)": "3.3V"
     },
     "sources": [],
     "needs_review": true,
@@ -7563,9 +7563,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "检测温度": "-55℃~+125℃",
-      "接口类型": "单总线",
-      "精度": "±0.5℃"
+      "Detection Temperature": "-55°C~+125°C",
+      "Interface Type": "Single-Wire Bus",
+      "Accuracy": "±0.5°C"
     },
     "sources": [],
     "needs_review": true,
@@ -7586,10 +7586,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "间距": "2mm",
-      "颜色": "白色",
-      "安装方式": "直插",
-      "插针结构": "1x4P"
+      "Pitch": "2mm",
+      "Color": "White",
+      "Mounting Type": "Through-Hole",
+      "Pin Configuration": "1x4P"
     },
     "sources": [],
     "needs_review": true,
@@ -7610,10 +7610,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电阻类型": "厚膜电阻",
-      "阻值": "47kΩ",
-      "精度": "±1%",
-      "最大工作电压": "75V"
+      "Resistor Type": "Thick Film",
+      "Resistance": "47kΩ",
+      "Accuracy": "±1%",
+      "Maximum Operating Voltage": "75V"
     },
     "sources": [],
     "needs_review": true,
@@ -7634,10 +7634,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "卡连接方式": "自弹式",
-      "卡类型": "MicroSD卡(TF卡)",
-      "连接器类型": "卡座",
-      "本体最大高度": "2mm"
+      "Card Connector Type": "Self-Eject",
+      "Card Type": "MicroSD (TF) Card",
+      "Connector Type": "Card Holder",
+      "Maximum Body Height": "2mm"
     },
     "sources": [],
     "needs_review": true,
@@ -7658,10 +7658,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电阻类型": "厚膜电阻",
-      "阻值": "4.7kΩ",
-      "精度": "±1%",
-      "最大工作电压": "75V"
+      "Resistor Type": "Thick Film",
+      "Resistance": "4.7kΩ",
+      "Accuracy": "±1%",
+      "Maximum Operating Voltage": "75V"
     },
     "sources": [],
     "needs_review": true,
@@ -7682,10 +7682,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电阻类型": "厚膜电阻",
-      "阻值": "0Ω",
-      "精度": "±1%",
-      "最大工作电压": "50V"
+      "Resistor Type": "Thick Film",
+      "Resistance": "0Ω",
+      "Accuracy": "±1%",
+      "Maximum Operating Voltage": "50V"
     },
     "sources": [],
     "needs_review": true,
@@ -7706,10 +7706,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电阻类型": "厚膜电阻",
-      "阻值": "0Ω",
-      "最大工作电压": "100V",
-      "功率": "100mW"
+      "Resistor Type": "Thick Film",
+      "Resistance": "0Ω",
+      "Maximum Operating Voltage": "100V",
+      "Power": "100mW"
     },
     "sources": [],
     "needs_review": true,
@@ -7730,10 +7730,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电路结构": "单刀单掷",
-      "按钮形状": "圆形按钮",
-      "开关长度": "5.1mm",
-      "开关宽度": "5.1mm"
+      "Circuit Configuration": "SPST",
+      "Button Shape": "Round Button",
+      "Switch Length": "5.1mm",
+      "Switch Width": "5.1mm"
     },
     "sources": [],
     "needs_review": true,
@@ -7754,10 +7754,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电阻类型": "厚膜电阻",
-      "阻值": "0Ω",
-      "精度": "±1%",
-      "最大工作电压": "75V"
+      "Resistor Type": "Thick Film",
+      "Resistance": "0Ω",
+      "Accuracy": "±1%",
+      "Maximum Operating Voltage": "75V"
     },
     "sources": [],
     "needs_review": true,
@@ -7778,10 +7778,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电阻类型": "厚膜电阻",
-      "阻值": "100Ω",
-      "精度": "±1%",
-      "最大工作电压": "75V"
+      "Resistor Type": "Thick Film",
+      "Resistance": "100Ω",
+      "Accuracy": "±1%",
+      "Maximum Operating Voltage": "75V"
     },
     "sources": [],
     "needs_review": true,
@@ -7802,10 +7802,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "直流反向耐压（Vr）": "75V",
-      "二极管配置": "1个独立式",
-      "整流电流": "300mA",
-      "反向恢复时间（trr）": "8ns"
+      "DC Reverse Voltage (Vr)": "75V",
+      "Diode Configuration": "1 Independent",
+      "Rectified Current": "300mA",
+      "Reverse Recovery Time (trr)": "8ns"
     },
     "sources": [],
     "needs_review": true,
@@ -7826,10 +7826,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电阻类型": "厚膜电阻",
-      "阻值": "10kΩ",
-      "精度": "±1%",
-      "最大工作电压": "50V"
+      "Resistor Type": "Thick Film",
+      "Resistance": "10kΩ",
+      "Accuracy": "±1%",
+      "Maximum Operating Voltage": "50V"
     },
     "sources": [],
     "needs_review": true,
@@ -7850,10 +7850,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "灯头类型": "2mmx1.2mm方形灯头",
-      "接收角度": "120°",
-      "峰值波长": "620nm",
-      "正向压降(Vf)": "2.3V"
+      "Lamp Header Type": "2mmx1.2mmSquare Header",
+      "Receiving Angle": "120°",
+      "Peak Wavelength": "620nm",
+      "Forward Voltage (Vf)": "2.3V"
     },
     "sources": [],
     "needs_review": true,
@@ -7874,10 +7874,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "二极管配置": "独立式",
-      "直流反向耐压（Vr）": "40V",
-      "整流电流": "5A",
-      "正向压降(Vf)": "550mV@5A"
+      "Diode Configuration": "Independent",
+      "DC Reverse Voltage (Vr)": "40V",
+      "Rectified Current": "5A",
+      "Forward Voltage (Vf)": "550mV@5A"
     },
     "sources": [],
     "needs_review": true,
@@ -7898,10 +7898,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电阻类型": "厚膜电阻",
-      "阻值": "1kΩ",
-      "精度": "±5%",
-      "最大工作电压": "75V"
+      "Resistor Type": "Thick Film",
+      "Resistance": "1kΩ",
+      "Accuracy": "±5%",
+      "Maximum Operating Voltage": "75V"
     },
     "sources": [],
     "needs_review": true,
@@ -7922,10 +7922,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "直流反向耐压（Vr）": "40V",
-      "二极管配置": "独立式",
-      "整流电流": "1A",
-      "正向压降(Vf)": "550mV@1A"
+      "DC Reverse Voltage (Vr)": "40V",
+      "Diode Configuration": "Independent",
+      "Rectified Current": "1A",
+      "Forward Voltage (Vf)": "550mV@1A"
     },
     "sources": [],
     "needs_review": true,
@@ -7946,10 +7946,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输入类型": "施密特触发器",
-      "工作电压": "2V~6V",
-      "静态电流(Iq)": "2uA",
-      "通道数": "6"
+      "Input Type": "Schmitt Trigger",
+      "Operating Voltage": "2V~6V",
+      "Quiescent Current (Iq)": "2uA",
+      "Number of Channels": "6"
     },
     "sources": [],
     "needs_review": true,
@@ -7970,10 +7970,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "间距": "2.5mm",
-      "颜色": "白色",
-      "安装方式": "直插",
-      "插针结构": "1x3P"
+      "Pitch": "2.5mm",
+      "Color": "White",
+      "Mounting Type": "Through-Hole",
+      "Pin Configuration": "1x3P"
     },
     "sources": [],
     "needs_review": true,
@@ -8013,10 +8013,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "数量": "1个P沟道",
-      "类型": "P沟道",
-      "漏源电压(Vdss)": "20V",
-      "连续漏极电流(Id)": "3.7A"
+      "Quantity": "1 P-Channel",
+      "Type": "P-Channel",
+      "Drain-Source Voltage (Vdss)": "20V",
+      "Continuous Drain Current (Id)": "3.7A"
     },
     "sources": [],
     "needs_review": true,
@@ -8037,10 +8037,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "功能": "并行或串行至串行",
-      "工作电压": "2V~6V",
-      "元件数": "1",
-      "传播延迟(tpd)": "28ns@6V,50pF"
+      "Function": "Parallel or Serial-to-Serial",
+      "Operating Voltage": "2V~6V",
+      "Number of Elements": "1",
+      "Propagation Delay (tpd)": "28ns@6V,50pF"
     },
     "sources": [],
     "needs_review": true,
@@ -8061,10 +8061,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "极性": "单向",
-      "钳位电压": "18V",
-      "峰值脉冲功率(Ppp)": "260W@8/20us",
-      "反向截止电压(Vrwm)": "3.3V"
+      "Polarity": "Unidirectional",
+      "Clamping Voltage": "18V",
+      "Peak Pulse Power (Ppp)": "260W@8/20us",
+      "Reverse Standoff Voltage (Vrwm)": "3.3V"
     },
     "sources": [],
     "needs_review": true,
@@ -8104,10 +8104,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电阻类型": "厚膜电阻",
-      "阻值": "1kΩ",
-      "精度": "±1%",
-      "最大工作电压": "150V"
+      "Resistor Type": "Thick Film",
+      "Resistance": "1kΩ",
+      "Accuracy": "±1%",
+      "Maximum Operating Voltage": "150V"
     },
     "sources": [],
     "needs_review": true,
@@ -8128,10 +8128,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "二极管配置": "1个独立式",
-      "直流反向耐压（Vr）": "40V",
-      "整流电流": "500mA",
-      "正向压降(Vf)": "510mV@500mA"
+      "Diode Configuration": "1 Independent",
+      "DC Reverse Voltage (Vr)": "40V",
+      "Rectified Current": "500mA",
+      "Forward Voltage (Vf)": "510mV@500mA"
     },
     "sources": [],
     "needs_review": true,
@@ -8152,10 +8152,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "数量": "1个N沟道",
-      "类型": "N沟道",
-      "漏源电压(Vdss)": "100V",
-      "连续漏极电流(Id)": "180A"
+      "Quantity": "1 N-Channel",
+      "Type": "N-Channel",
+      "Drain-Source Voltage (Vdss)": "100V",
+      "Continuous Drain Current (Id)": "180A"
     },
     "sources": [],
     "needs_review": true,
@@ -8176,9 +8176,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "应用功能": "收发器",
-      "数据速率": "2Mbps",
-      "USB协议版本": "USB 2.0"
+      "Application Function": "Transceiver",
+      "Data Rate": "2Mbps",
+      "USB Protocol Version": "USB 2.0"
     },
     "sources": [],
     "needs_review": true,
@@ -8199,10 +8199,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "灯头类型": "1.6mmx0.8mm方形灯头",
-      "接收角度": "120°",
-      "峰值波长": "470nm",
-      "正向压降(Vf)": "3.3V"
+      "Lamp Header Type": "1.6mmx0.8mmSquare Header",
+      "Receiving Angle": "120°",
+      "Peak Wavelength": "470nm",
+      "Forward Voltage (Vf)": "3.3V"
     },
     "sources": [],
     "needs_review": true,
@@ -8223,10 +8223,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "极性": "双向",
-      "钳位电压": "70V",
-      "峰值脉冲功率(Ppp)": "200W@8/20us",
-      "反向截止电压(Vrwm)": "24V"
+      "Polarity": "Bidirectional",
+      "Clamping Voltage": "70V",
+      "Peak Pulse Power (Ppp)": "200W@8/20us",
+      "Reverse Standoff Voltage (Vrwm)": "24V"
     },
     "sources": [],
     "needs_review": true,
@@ -8266,10 +8266,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "灯头类型": "1.6mmx0.8mm方形灯头",
-      "接收角度": "120°",
-      "峰值波长": "645nm",
-      "正向压降(Vf)": "1.8V~2.4V"
+      "Lamp Header Type": "1.6mmx0.8mmSquare Header",
+      "Receiving Angle": "120°",
+      "Peak Wavelength": "645nm",
+      "Forward Voltage (Vf)": "1.8V~2.4V"
     },
     "sources": [],
     "needs_review": true,
@@ -8290,7 +8290,7 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "应用功能": "USB转UART"
+      "Application Function": "USB to UART"
     },
     "sources": [],
     "needs_review": true,
@@ -8311,8 +8311,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "应用功能": "收发器",
-      "数据速率": "1Mbps"
+      "Application Function": "Transceiver",
+      "Data Rate": "1Mbps"
     },
     "sources": [],
     "needs_review": true,
@@ -8333,10 +8333,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "核心芯片": "ESP32-S3R8",
-      "频率范围": "2.4GHz",
-      "天线形式": "板载PCB天线",
-      "灵敏度": "-103.5dBm"
+      "Core Chip": "ESP32-S3R8",
+      "Frequency Range": "2.4GHz",
+      "Antenna Type": "On-board PCB Antenna",
+      "Sensitivity": "-103.5dBm"
     },
     "sources": [],
     "needs_review": true,
@@ -8357,10 +8357,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "直流反向耐压（Vr）": "100V",
-      "二极管配置": "独立式",
-      "整流电流": "250mA",
-      "反向恢复时间（trr）": "4ns"
+      "DC Reverse Voltage (Vr)": "100V",
+      "Diode Configuration": "Independent",
+      "Rectified Current": "250mA",
+      "Reverse Recovery Time (trr)": "4ns"
     },
     "sources": [],
     "needs_review": true,
@@ -8381,10 +8381,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电阻类型": "厚膜电阻",
-      "阻值": "4.7kΩ",
-      "精度": "±1%",
-      "最大工作电压": "50V"
+      "Resistor Type": "Thick Film",
+      "Resistance": "4.7kΩ",
+      "Accuracy": "±1%",
+      "Maximum Operating Voltage": "50V"
     },
     "sources": [],
     "needs_review": true,
@@ -8405,10 +8405,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "二极管配置": "独立式",
-      "直流反向耐压（Vr）": "1kV",
-      "整流电流": "1A",
-      "正向压降(Vf)": "1.1V@1A"
+      "Diode Configuration": "Independent",
+      "DC Reverse Voltage (Vr)": "1kV",
+      "Rectified Current": "1A",
+      "Forward Voltage (Vf)": "1.1V@1A"
     },
     "sources": [],
     "needs_review": true,
@@ -8429,10 +8429,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "数量": "1个N沟道",
-      "漏源电压(Vdss)": "50V",
-      "连续漏极电流(Id)": "220mA",
-      "耗散功率(Pd)": "360mW"
+      "Quantity": "1 N-Channel",
+      "Drain-Source Voltage (Vdss)": "50V",
+      "Continuous Drain Current (Id)": "220mA",
+      "Power Dissipation (Pd)": "360mW"
     },
     "sources": [],
     "needs_review": true,
@@ -8453,10 +8453,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "间距": "2mm",
-      "颜色": "白色",
-      "安装方式": "直插",
-      "插针结构": "1x3P"
+      "Pitch": "2mm",
+      "Color": "White",
+      "Mounting Type": "Through-Hole",
+      "Pin Configuration": "1x3P"
     },
     "sources": [],
     "needs_review": true,
@@ -8496,10 +8496,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "数量": "1个N沟道",
-      "漏源电压(Vdss)": "55V",
-      "连续漏极电流(Id)": "49A",
-      "耗散功率(Pd)": "94W"
+      "Quantity": "1 N-Channel",
+      "Drain-Source Voltage (Vdss)": "55V",
+      "Continuous Drain Current (Id)": "49A",
+      "Power Dissipation (Pd)": "94W"
     },
     "sources": [],
     "needs_review": true,
@@ -8520,10 +8520,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "二极管配置": "1个独立式",
-      "直流反向耐压（Vr）": "60V",
-      "整流电流": "5A",
-      "正向压降(Vf)": "700mV@5A"
+      "Diode Configuration": "1 Independent",
+      "DC Reverse Voltage (Vr)": "60V",
+      "Rectified Current": "5A",
+      "Forward Voltage (Vf)": "700mV@5A"
     },
     "sources": [],
     "needs_review": true,
@@ -8544,8 +8544,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "工作电压": "10.8V~13.2V",
-      "输出电压": "12V"
+      "Operating Voltage": "10.8V~13.2V",
+      "Output Voltage": "12V"
     },
     "sources": [],
     "needs_review": true,
@@ -8566,10 +8566,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "二极管配置": "1个独立式",
-      "直流反向耐压（Vr）": "40V",
-      "整流电流": "3A",
-      "正向压降(Vf)": "500mV@3A"
+      "Diode Configuration": "1 Independent",
+      "DC Reverse Voltage (Vr)": "40V",
+      "Rectified Current": "3A",
+      "Forward Voltage (Vf)": "500mV@3A"
     },
     "sources": [],
     "needs_review": true,
@@ -8590,10 +8590,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电阻类型": "厚膜电阻",
-      "阻值": "20kΩ",
-      "精度": "±1%",
-      "最大工作电压": "75V"
+      "Resistor Type": "Thick Film",
+      "Resistance": "20kΩ",
+      "Accuracy": "±1%",
+      "Maximum Operating Voltage": "75V"
     },
     "sources": [],
     "needs_review": true,
@@ -8614,10 +8614,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "二极管配置": "1个独立式",
-      "直流反向耐压（Vr）": "20V",
-      "整流电流": "500mA",
-      "正向压降(Vf)": "385mV@500mA"
+      "Diode Configuration": "1 Independent",
+      "DC Reverse Voltage (Vr)": "20V",
+      "Rectified Current": "500mA",
+      "Forward Voltage (Vf)": "385mV@500mA"
     },
     "sources": [],
     "needs_review": true,
@@ -8638,10 +8638,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "间距": "2.54mm",
-      "颜色": "黑色",
-      "安装方式": "直插",
-      "插针结构": "1x2P"
+      "Pitch": "2.54mm",
+      "Color": "Black",
+      "Mounting Type": "Through-Hole",
+      "Pin Configuration": "1x2P"
     },
     "sources": [],
     "needs_review": true,
@@ -8662,10 +8662,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电阻类型": "厚膜电阻",
-      "阻值": "10kΩ",
-      "精度": "±5%",
-      "最大工作电压": "75V"
+      "Resistor Type": "Thick Film",
+      "Resistance": "10kΩ",
+      "Accuracy": "±5%",
+      "Maximum Operating Voltage": "75V"
     },
     "sources": [],
     "needs_review": true,
@@ -8686,7 +8686,7 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出类型": "SPI"
+      "Output Type": "SPI"
     },
     "sources": [],
     "needs_review": true,
@@ -8707,10 +8707,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电阻类型": "厚膜电阻",
-      "阻值": "330Ω",
-      "精度": "±1%",
-      "最大工作电压": "75V"
+      "Resistor Type": "Thick Film",
+      "Resistance": "330Ω",
+      "Accuracy": "±1%",
+      "Maximum Operating Voltage": "75V"
     },
     "sources": [],
     "needs_review": true,
@@ -8731,10 +8731,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电阻类型": "厚膜电阻",
-      "阻值": "4.7kΩ",
-      "精度": "±1%",
-      "最大工作电压": "150V"
+      "Resistor Type": "Thick Film",
+      "Resistance": "4.7kΩ",
+      "Accuracy": "±1%",
+      "Maximum Operating Voltage": "150V"
     },
     "sources": [],
     "needs_review": true,
@@ -8755,10 +8755,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电阻类型": "厚膜电阻",
-      "阻值": "100kΩ",
-      "精度": "±1%",
-      "最大工作电压": "50V"
+      "Resistor Type": "Thick Film",
+      "Resistance": "100kΩ",
+      "Accuracy": "±1%",
+      "Maximum Operating Voltage": "50V"
     },
     "sources": [],
     "needs_review": true,
@@ -8779,9 +8779,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "线圈电压": "5V",
-      "触点形式": "一组常开:1A(单刀单掷-常开)",
-      "最大切换电流": "5A"
+      "Coil Voltage": "5V",
+      "Contact Form": "1 Form A (SPST, NO)",
+      "Maximum Switching Current": "5A"
     },
     "sources": [],
     "needs_review": true,
@@ -8802,10 +8802,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "二极管配置": "1个独立式",
-      "直流反向耐压（Vr）": "40V",
-      "整流电流": "3A",
-      "正向压降(Vf)": "450mV@3A"
+      "Diode Configuration": "1 Independent",
+      "DC Reverse Voltage (Vr)": "40V",
+      "Rectified Current": "3A",
+      "Forward Voltage (Vf)": "450mV@3A"
     },
     "sources": [],
     "needs_review": true,
@@ -8826,10 +8826,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "极性": "单向",
-      "钳位电压": "17.5V",
-      "峰值脉冲功率(Ppp)": "300W@8/20us",
-      "反向截止电压(Vrwm)": "5V"
+      "Polarity": "Unidirectional",
+      "Clamping Voltage": "17.5V",
+      "Peak Pulse Power (Ppp)": "300W@8/20us",
+      "Reverse Standoff Voltage (Vrwm)": "5V"
     },
     "sources": [],
     "needs_review": true,
@@ -8850,10 +8850,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "数量": "1个N沟道",
-      "类型": "N沟道",
-      "漏源电压(Vdss)": "25V",
-      "连续漏极电流(Id)": "220mA"
+      "Quantity": "1 N-Channel",
+      "Type": "N-Channel",
+      "Drain-Source Voltage (Vdss)": "25V",
+      "Continuous Drain Current (Id)": "220mA"
     },
     "sources": [],
     "needs_review": true,
@@ -8874,10 +8874,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "极性": "单向",
-      "钳位电压": "18.6V",
-      "峰值脉冲功率(Ppp)": "174W",
-      "反向截止电压(Vrwm)": "5V"
+      "Polarity": "Unidirectional",
+      "Clamping Voltage": "18.6V",
+      "Peak Pulse Power (Ppp)": "174W",
+      "Reverse Standoff Voltage (Vrwm)": "5V"
     },
     "sources": [],
     "needs_review": true,
@@ -8898,10 +8898,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "间距": "2.5mm",
-      "颜色": "白色",
-      "安装方式": "直插",
-      "插针结构": "1x6P"
+      "Pitch": "2.5mm",
+      "Color": "White",
+      "Mounting Type": "Through-Hole",
+      "Pin Configuration": "1x6P"
     },
     "sources": [],
     "needs_review": true,
@@ -8922,8 +8922,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "工作电压": "3V~3.6V",
-      "接口类型": "SPI"
+      "Operating Voltage": "3V~3.6V",
+      "Interface Type": "SPI"
     },
     "sources": [],
     "needs_review": true,
@@ -8944,10 +8944,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "数量": "1个N沟道",
-      "类型": "N沟道",
-      "漏源电压(Vdss)": "20V",
-      "连续漏极电流(Id)": "2.9A"
+      "Quantity": "1 N-Channel",
+      "Type": "N-Channel",
+      "Drain-Source Voltage (Vdss)": "20V",
+      "Continuous Drain Current (Id)": "2.9A"
     },
     "sources": [],
     "needs_review": true,
@@ -8968,10 +8968,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "间距": "3.96mm",
-      "颜色": "白色",
-      "安装方式": "直插",
-      "插针结构": "1x2P"
+      "Pitch": "3.96mm",
+      "Color": "White",
+      "Mounting Type": "Through-Hole",
+      "Pin Configuration": "1x2P"
     },
     "sources": [],
     "needs_review": true,
@@ -8992,10 +8992,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电阻类型": "厚膜电阻",
-      "阻值": "1MΩ",
-      "精度": "±1%",
-      "最大工作电压": "75V"
+      "Resistor Type": "Thick Film",
+      "Resistance": "1MΩ",
+      "Accuracy": "±1%",
+      "Maximum Operating Voltage": "75V"
     },
     "sources": [],
     "needs_review": true,
@@ -9016,10 +9016,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电阻类型": "薄膜电阻",
-      "阻值": "10kΩ",
-      "精度": "±0.1%",
-      "最大工作电压": "75V"
+      "Resistor Type": "Thin Film",
+      "Resistance": "10kΩ",
+      "Accuracy": "±0.1%",
+      "Maximum Operating Voltage": "75V"
     },
     "sources": [],
     "needs_review": true,
@@ -9040,10 +9040,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "核心芯片": "SSD1315芯片",
-      "接口类型": "I2C",
-      "尺寸(inch)": "0.96",
-      "像素分辨率": "128x64"
+      "Core Chip": "SSD1315 Chip",
+      "Interface Type": "I2C",
+      "Size (inch)": "0.96",
+      "Pixel Resolution": "128x64"
     },
     "sources": [],
     "needs_review": true,
@@ -9064,10 +9064,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "直流反向耐压（Vr）": "100V",
-      "二极管配置": "独立式",
-      "整流电流": "250mA",
-      "反向恢复时间（trr）": "4ns"
+      "DC Reverse Voltage (Vr)": "100V",
+      "Diode Configuration": "Independent",
+      "Rectified Current": "250mA",
+      "Reverse Recovery Time (trr)": "4ns"
     },
     "sources": [],
     "needs_review": true,
@@ -9107,8 +9107,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "分辨率(位)": "19",
-      "接口类型": "SPI"
+      "Resolution (bits)": "19",
+      "Interface Type": "SPI"
     },
     "sources": [],
     "needs_review": true,
@@ -9129,10 +9129,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "间距": "2.5mm",
-      "颜色": "白色",
-      "安装方式": "直插",
-      "插针结构": "1x5P"
+      "Pitch": "2.5mm",
+      "Color": "White",
+      "Mounting Type": "Through-Hole",
+      "Pin Configuration": "1x5P"
     },
     "sources": [],
     "needs_review": true,
@@ -9153,10 +9153,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "极性": "单向",
-      "钳位电压": "9.2V",
-      "峰值脉冲功率(Ppp)": "400W@10/1000us",
-      "反向截止电压(Vrwm)": "5V"
+      "Polarity": "Unidirectional",
+      "Clamping Voltage": "9.2V",
+      "Peak Pulse Power (Ppp)": "400W@10/1000us",
+      "Reverse Standoff Voltage (Vrwm)": "5V"
     },
     "sources": [],
     "needs_review": true,
@@ -9177,9 +9177,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出类型": "固定",
-      "输出电压": "3.3V",
-      "输出极性": "正极"
+      "Output Type": "Fixed",
+      "Output Voltage": "3.3V",
+      "Output Polarity": "Positive"
     },
     "sources": [],
     "needs_review": true,
@@ -9200,10 +9200,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "安装方式": "卧贴",
-      "工作温度": "-30℃~+80℃",
-      "端口数量": "1",
-      "触点数量": "16P"
+      "Mounting Type": "Horizontal SMT",
+      "Operating Temperature": "-30°C~+80°C",
+      "Number of Ports": "1",
+      "Number of Contacts": "16P"
     },
     "sources": [],
     "needs_review": true,
@@ -9224,10 +9224,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "功能类型": "降压型",
-      "输出类型": "固定",
-      "输出电压": "3.3V",
-      "输出电流": "2A"
+      "Function Type": "Step-Down",
+      "Output Type": "Fixed",
+      "Output Voltage": "3.3V",
+      "Output Current": "2A"
     },
     "sources": [],
     "needs_review": true,
@@ -9248,9 +9248,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "拉电流(IOH)": "1.5A",
-      "工作电压": "8V~20V",
-      "灌电流(IOL)": "1.8A"
+      "Source Current (IOH)": "1.5A",
+      "Operating Voltage": "8V~20V",
+      "Sink Current (IOL)": "1.8A"
     },
     "sources": [],
     "needs_review": true,
@@ -9271,10 +9271,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "直流反向耐压（Vr）": "100V",
-      "二极管配置": "独立式",
-      "整流电流": "250mA",
-      "反向恢复时间（trr）": "4ns"
+      "DC Reverse Voltage (Vr)": "100V",
+      "Diode Configuration": "Independent",
+      "Rectified Current": "250mA",
+      "Reverse Recovery Time (trr)": "4ns"
     },
     "sources": [],
     "needs_review": true,
@@ -9295,10 +9295,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "数量": "1个P沟道",
-      "类型": "P沟道",
-      "漏源电压(Vdss)": "30V",
-      "连续漏极电流(Id)": "4.3A"
+      "Quantity": "1 P-Channel",
+      "Type": "P-Channel",
+      "Drain-Source Voltage (Vdss)": "30V",
+      "Continuous Drain Current (Id)": "4.3A"
     },
     "sources": [],
     "needs_review": true,
@@ -9319,10 +9319,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "间距": "2mm",
-      "颜色": "白色",
-      "安装方式": "直插",
-      "插针结构": "1x6P"
+      "Pitch": "2mm",
+      "Color": "White",
+      "Mounting Type": "Through-Hole",
+      "Pin Configuration": "1x6P"
     },
     "sources": [],
     "needs_review": true,
@@ -9362,10 +9362,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "数量": "1个N沟道",
-      "漏源电压(Vdss)": "50V",
-      "连续漏极电流(Id)": "200mA",
-      "耗散功率(Pd)": "300mW"
+      "Quantity": "1 N-Channel",
+      "Drain-Source Voltage (Vdss)": "50V",
+      "Continuous Drain Current (Id)": "200mA",
+      "Power Dissipation (Pd)": "300mW"
     },
     "sources": [],
     "needs_review": true,
@@ -9386,10 +9386,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "接收角度": "120°",
-      "正向压降(Vf)": "2.6V~3.2V",
-      "发光颜色": "蓝色",
-      "波长": "460nm~475nm"
+      "Receiving Angle": "120°",
+      "Forward Voltage (Vf)": "2.6V~3.2V",
+      "Emission Color": "Blue",
+      "Wavelength": "460nm~475nm"
     },
     "sources": [],
     "needs_review": true,
@@ -9410,10 +9410,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "间距": "2.54mm",
-      "颜色": "黑色",
-      "安装方式": "直插",
-      "插针结构": "1x4P"
+      "Pitch": "2.54mm",
+      "Color": "Black",
+      "Mounting Type": "Through-Hole",
+      "Pin Configuration": "1x4P"
     },
     "sources": [],
     "needs_review": true,
@@ -9434,10 +9434,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "数量": "1个N沟道",
-      "漏源电压(Vdss)": "60V",
-      "连续漏极电流(Id)": "300mA",
-      "耗散功率(Pd)": "350mW"
+      "Quantity": "1 N-Channel",
+      "Drain-Source Voltage (Vdss)": "60V",
+      "Continuous Drain Current (Id)": "300mA",
+      "Power Dissipation (Pd)": "350mW"
     },
     "sources": [],
     "needs_review": true,
@@ -9458,10 +9458,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "数量": "1个N沟道",
-      "类型": "N沟道",
-      "漏源电压(Vdss)": "60V",
-      "连续漏极电流(Id)": "115mA"
+      "Quantity": "1 N-Channel",
+      "Type": "N-Channel",
+      "Drain-Source Voltage (Vdss)": "60V",
+      "Continuous Drain Current (Id)": "115mA"
     },
     "sources": [],
     "needs_review": true,
@@ -9482,10 +9482,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "极性": "双向",
-      "钳位电压": "41V",
-      "峰值脉冲功率(Ppp)": "230W@8/20us",
-      "反向截止电压(Vrwm)": "24V"
+      "Polarity": "Bidirectional",
+      "Clamping Voltage": "41V",
+      "Peak Pulse Power (Ppp)": "230W@8/20us",
+      "Reverse Standoff Voltage (Vrwm)": "24V"
     },
     "sources": [],
     "needs_review": true,
@@ -9506,10 +9506,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "二极管配置": "1对串联式",
-      "正向压降(Vf)": "1.25V@150mA",
-      "整流电流": "215mA",
-      "直流反向耐压(Vr)": "100V"
+      "Diode Configuration": "1 Pair, Series",
+      "Forward Voltage (Vf)": "1.25V@150mA",
+      "Rectified Current": "215mA",
+      "DC Reverse Voltage (Vr)": "100V"
     },
     "sources": [],
     "needs_review": true,
@@ -9530,10 +9530,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "间距": "1mm",
-      "颜色": "白色",
-      "安装方式": "卧贴",
-      "插针结构": "1x6P"
+      "Pitch": "1mm",
+      "Color": "White",
+      "Mounting Type": "Horizontal SMT",
+      "Pin Configuration": "1x6P"
     },
     "sources": [],
     "needs_review": true,
@@ -9554,10 +9554,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "二极管配置": "1对共阴极",
-      "正向压降(Vf)": "1.25V@150mA",
-      "整流电流": "215mA",
-      "直流反向耐压(Vr)": "100V"
+      "Diode Configuration": "1 Pair, Common-Cathode",
+      "Forward Voltage (Vf)": "1.25V@150mA",
+      "Rectified Current": "215mA",
+      "DC Reverse Voltage (Vr)": "100V"
     },
     "sources": [],
     "needs_review": true,
@@ -9578,10 +9578,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "线圈电压": "12V",
-      "触点形式": "一组转换:1C(单刀双掷-转换)",
-      "最大切换电压": "250V@AC",
-      "最大切换电流": "15A"
+      "Coil Voltage": "12V",
+      "Contact Form": "1 Form C (SPDT)",
+      "Maximum Switching Voltage": "250V@AC",
+      "Maximum Switching Current": "15A"
     },
     "sources": [],
     "needs_review": true,
@@ -9602,8 +9602,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "最大充电电流": "1A",
-      "电池类型": "锂电池"
+      "Maximum Charge Current": "1A",
+      "Battery Type": "Li-ion"
     },
     "sources": [],
     "needs_review": true,
@@ -9624,9 +9624,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出类型": "固定",
-      "输出电压": "3.3V",
-      "输出极性": "正极"
+      "Output Type": "Fixed",
+      "Output Voltage": "3.3V",
+      "Output Polarity": "Positive"
     },
     "sources": [],
     "needs_review": true,
@@ -9647,10 +9647,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "安装方式": "卧贴",
-      "工作温度": "-25℃~+85℃",
-      "端口数量": "1",
-      "触点数量": "6P"
+      "Mounting Type": "Horizontal SMT",
+      "Operating Temperature": "-25°C~+85°C",
+      "Number of Ports": "1",
+      "Number of Contacts": "6P"
     },
     "sources": [],
     "needs_review": true,
@@ -9671,10 +9671,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "极性": "单向",
-      "钳位电压": "9.8V",
-      "反向截止电压(Vrwm)": "5V",
-      "击穿电压(VBR)": "5.4V"
+      "Polarity": "Unidirectional",
+      "Clamping Voltage": "9.8V",
+      "Reverse Standoff Voltage (Vrwm)": "5V",
+      "Breakdown Voltage (VBR)": "5.4V"
     },
     "sources": [],
     "needs_review": true,
@@ -9695,8 +9695,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "应用功能": "USB转UART",
-      "数据速率": "3Mbps"
+      "Application Function": "USB to UART",
+      "Data Rate": "3Mbps"
     },
     "sources": [],
     "needs_review": true,
@@ -9717,7 +9717,7 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出类型": "I2C"
+      "Output Type": "I2C"
     },
     "sources": [],
     "needs_review": true,
@@ -9738,10 +9738,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "接收角度": "120°",
-      "正向压降(Vf)": "1.8V~2.4V",
-      "发光颜色": "红色",
-      "波长": "620nm~625nm"
+      "Receiving Angle": "120°",
+      "Forward Voltage (Vf)": "1.8V~2.4V",
+      "Emission Color": "Red",
+      "Wavelength": "620nm~625nm"
     },
     "sources": [],
     "needs_review": true,
@@ -9762,10 +9762,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "线圈电压": "5V",
-      "触点形式": "一组转换:1C(单刀双掷-转换)",
-      "最大切换电压": "250V@AC",
-      "最大切换电流": "15A"
+      "Coil Voltage": "5V",
+      "Contact Form": "1 Form C (SPDT)",
+      "Maximum Switching Voltage": "250V@AC",
+      "Maximum Switching Current": "15A"
     },
     "sources": [],
     "needs_review": true,
@@ -9786,10 +9786,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "功能类型": "升压型",
-      "输出类型": "可调",
-      "输出电压": "600mV~28V",
-      "输出电流": "2A"
+      "Function Type": "Step-Up",
+      "Output Type": "Adjustable",
+      "Output Voltage": "600mV~28V",
+      "Output Current": "2A"
     },
     "sources": [],
     "needs_review": true,
@@ -9810,10 +9810,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "间距": "1mm",
-      "颜色": "白色",
-      "安装方式": "卧贴",
-      "插针结构": "1x2P"
+      "Pitch": "1mm",
+      "Color": "White",
+      "Mounting Type": "Horizontal SMT",
+      "Pin Configuration": "1x2P"
     },
     "sources": [],
     "needs_review": true,
@@ -9834,9 +9834,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "极性": "双向",
-      "峰值脉冲功率(Ppp)": "600W@8/20us",
-      "峰值脉冲电流(Ipp)": "19A@8/20us"
+      "Polarity": "Bidirectional",
+      "Peak Pulse Power (Ppp)": "600W@8/20us",
+      "Peak Pulse Current (Ipp)": "19A@8/20us"
     },
     "sources": [],
     "needs_review": true,
@@ -9857,10 +9857,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "间距": "2.54mm",
-      "颜色": "黑色",
-      "安装方式": "直插",
-      "插针结构": "1x16P"
+      "Pitch": "2.54mm",
+      "Color": "Black",
+      "Mounting Type": "Through-Hole",
+      "Pin Configuration": "1x16P"
     },
     "sources": [],
     "needs_review": true,
@@ -9881,10 +9881,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "间距": "1mm",
-      "颜色": "白色",
-      "安装方式": "卧贴",
-      "插针结构": "1x8P"
+      "Pitch": "1mm",
+      "Color": "White",
+      "Mounting Type": "Horizontal SMT",
+      "Pin Configuration": "1x8P"
     },
     "sources": [],
     "needs_review": true,
@@ -9905,10 +9905,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "数量": "1个P沟道",
-      "类型": "P沟道",
-      "漏源电压(Vdss)": "55V",
-      "连续漏极电流(Id)": "31A"
+      "Quantity": "1 P-Channel",
+      "Type": "P-Channel",
+      "Drain-Source Voltage (Vdss)": "55V",
+      "Continuous Drain Current (Id)": "31A"
     },
     "sources": [],
     "needs_review": true,
@@ -9929,10 +9929,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "放大器数": "2",
-      "共模抑制比(CMRR)": "70dB",
-      "输入偏置电流(Ib)": "45nA",
-      "输出电流": "40mA"
+      "Number of Amplifiers": "2",
+      "Common-Mode Rejection Ratio (CMRR)": "70dB",
+      "Input Bias Current (Ib)": "45nA",
+      "Output Current": "40mA"
     },
     "sources": [],
     "needs_review": true,
@@ -9953,10 +9953,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "灯头类型": "2.0mmx1.2mm方形灯头",
-      "接收角度": "120°",
-      "峰值波长": "525nm",
-      "正向压降(Vf)": "3.2V"
+      "Lamp Header Type": "2.0mmx1.2mmSquare Header",
+      "Receiving Angle": "120°",
+      "Peak Wavelength": "525nm",
+      "Forward Voltage (Vf)": "3.2V"
     },
     "sources": [],
     "needs_review": true,
@@ -9977,10 +9977,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "连接器类型": "板端",
-      "接口类型": "内孔",
-      "接口直径": "6.2mm",
-      "阻抗": "50Ω"
+      "Connector Type": "Board-Side",
+      "Interface Type": "Inner Hole",
+      "Interface Diameter": "6.2mm",
+      "Impedance": "50Ω"
     },
     "sources": [],
     "needs_review": true,
@@ -10001,10 +10001,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "数量": "1个P沟道",
-      "类型": "P沟道",
-      "漏源电压(Vdss)": "50V",
-      "连续漏极电流(Id)": "130mA"
+      "Quantity": "1 P-Channel",
+      "Type": "P-Channel",
+      "Drain-Source Voltage (Vdss)": "50V",
+      "Continuous Drain Current (Id)": "130mA"
     },
     "sources": [],
     "needs_review": true,
@@ -10025,9 +10025,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "应用功能": "USB转UART",
-      "串口通道数": "1",
-      "数据速率": "3Mbps"
+      "Application Function": "USB to UART",
+      "UART Channels": "1",
+      "Data Rate": "3Mbps"
     },
     "sources": [],
     "needs_review": true,
@@ -10067,10 +10067,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "间距": "1mm",
-      "颜色": "白色",
-      "安装方式": "立贴",
-      "插针结构": "1x4P"
+      "Pitch": "1mm",
+      "Color": "White",
+      "Mounting Type": "Vertical SMT",
+      "Pin Configuration": "1x4P"
     },
     "sources": [],
     "needs_review": true,
@@ -10091,10 +10091,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "数量": "1个P沟道",
-      "类型": "P沟道",
-      "漏源电压(Vdss)": "20V",
-      "连续漏极电流(Id)": "3.1A"
+      "Quantity": "1 P-Channel",
+      "Type": "P-Channel",
+      "Drain-Source Voltage (Vdss)": "20V",
+      "Continuous Drain Current (Id)": "3.1A"
     },
     "sources": [],
     "needs_review": true,
@@ -10115,10 +10115,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "间距": "2.54mm",
-      "颜色": "黑色",
-      "安装方式": "直插",
-      "插针结构": "1x3P"
+      "Pitch": "2.54mm",
+      "Color": "Black",
+      "Mounting Type": "Through-Hole",
+      "Pin Configuration": "1x3P"
     },
     "sources": [],
     "needs_review": true,
@@ -10139,10 +10139,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "数量": "1个N沟道",
-      "类型": "N沟道",
-      "漏源电压(Vdss)": "55V",
-      "连续漏极电流(Id)": "110A"
+      "Quantity": "1 N-Channel",
+      "Type": "N-Channel",
+      "Drain-Source Voltage (Vdss)": "55V",
+      "Continuous Drain Current (Id)": "110A"
     },
     "sources": [],
     "needs_review": true,
@@ -10163,10 +10163,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "间距": "2.5mm",
-      "颜色": "白色",
-      "安装方式": "弯插",
-      "插针结构": "1x4P"
+      "Pitch": "2.5mm",
+      "Color": "White",
+      "Mounting Type": "Through-Hole (Right-Angle)",
+      "Pin Configuration": "1x4P"
     },
     "sources": [],
     "needs_review": true,
@@ -10187,10 +10187,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "灯头类型": "1.6mmx0.8mm方形灯头",
-      "接收角度": "120°",
-      "峰值波长": "525nm",
-      "正向压降(Vf)": "3.3V"
+      "Lamp Header Type": "1.6mmx0.8mmSquare Header",
+      "Receiving Angle": "120°",
+      "Peak Wavelength": "525nm",
+      "Forward Voltage (Vf)": "3.3V"
     },
     "sources": [],
     "needs_review": true,
@@ -10211,9 +10211,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "工作电压": "2V~3.6V",
-      "频率": "2.4GHz~2.5GHz",
-      "应用领域": "ZigBee"
+      "Operating Voltage": "2V~3.6V",
+      "Frequency": "2.4GHz~2.5GHz",
+      "Application Field": "ZigBee"
     },
     "sources": [],
     "needs_review": true,
@@ -10234,10 +10234,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "连接器类型": "板端",
-      "接口类型": "内针",
-      "频率": "6GHz",
-      "接口直径": "2mm"
+      "Connector Type": "Board-Side",
+      "Interface Type": "Inner Pin",
+      "Frequency": "6GHz",
+      "Interface Diameter": "2mm"
     },
     "sources": [],
     "needs_review": true,
@@ -10258,10 +10258,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "接口类型": "SPI",
-      "工作电压": "2.7V~3.6V",
-      "存储容量": "16Mbit",
-      "时钟频率(fc)": "133MHz"
+      "Interface Type": "SPI",
+      "Operating Voltage": "2.7V~3.6V",
+      "Memory Size": "16Mbit",
+      "Clock Frequency (fc)": "133MHz"
     },
     "sources": [],
     "needs_review": true,
@@ -10282,7 +10282,7 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "压力范围": "30Kpa~1.2bar"
+      "Pressure Range": "30Kpa~1.2bar"
     },
     "sources": [],
     "needs_review": true,
@@ -10303,10 +10303,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "接收角度": "120°",
-      "正向压降(Vf)": "2.6V~3.2V",
-      "发光颜色": "翠绿色",
-      "波长": "510nm~531nm"
+      "Receiving Angle": "120°",
+      "Forward Voltage (Vf)": "2.6V~3.2V",
+      "Emission Color": "Emerald Green",
+      "Wavelength": "510nm~531nm"
     },
     "sources": [],
     "needs_review": true,
@@ -10327,10 +10327,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "间距": "1mm",
-      "颜色": "米色",
-      "安装方式": "卧贴",
-      "插针结构": "1x4P"
+      "Pitch": "1mm",
+      "Color": "Beige",
+      "Mounting Type": "Horizontal SMT",
+      "Pin Configuration": "1x4P"
     },
     "sources": [],
     "needs_review": true,
@@ -10370,10 +10370,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "功能类型": "升压型",
-      "输出类型": "可调",
-      "输出电压": "1.25V~29V",
-      "输出电流": "500mA"
+      "Function Type": "Step-Up",
+      "Output Type": "Adjustable",
+      "Output Voltage": "1.25V~29V",
+      "Output Current": "500mA"
     },
     "sources": [],
     "needs_review": true,
@@ -10394,10 +10394,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "间距": "2.54mm",
-      "颜色": "黑色",
-      "安装方式": "直插",
-      "插针结构": "1x40P"
+      "Pitch": "2.54mm",
+      "Color": "Black",
+      "Mounting Type": "Through-Hole",
+      "Pin Configuration": "1x40P"
     },
     "sources": [],
     "needs_review": true,
@@ -10418,9 +10418,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出类型": "固定",
-      "输出电压": "3.3V",
-      "输出极性": "正极"
+      "Output Type": "Fixed",
+      "Output Voltage": "3.3V",
+      "Output Polarity": "Positive"
     },
     "sources": [],
     "needs_review": true,
@@ -10441,9 +10441,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "频率稳定度": "±20ppm",
-      "常温频差": "±10ppm",
-      "负载电容": "9pF"
+      "Frequency Stability": "±20ppm",
+      "Frequency Tolerance": "±10ppm",
+      "Load Capacitance": "9pF"
     },
     "sources": [],
     "needs_review": true,
@@ -10464,9 +10464,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "频率稳定度": "±20ppm",
-      "常温频差": "±10ppm",
-      "负载电容": "12pF"
+      "Frequency Stability": "±20ppm",
+      "Frequency Tolerance": "±10ppm",
+      "Load Capacitance": "12pF"
     },
     "sources": [],
     "needs_review": true,
@@ -10487,10 +10487,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "接收角度": "130°",
-      "正向压降(Vf)": "1.6V~2.6V",
-      "峰值波长": "630nm",
-      "发光颜色": "红色"
+      "Receiving Angle": "130°",
+      "Forward Voltage (Vf)": "1.6V~2.6V",
+      "Peak Wavelength": "630nm",
+      "Emission Color": "Red"
     },
     "sources": [],
     "needs_review": true,
@@ -10511,10 +10511,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "接收角度": "130°",
-      "正向压降(Vf)": "2.5V~3.6V",
-      "峰值波长": "520nm",
-      "发光颜色": "绿色"
+      "Receiving Angle": "130°",
+      "Forward Voltage (Vf)": "2.5V~3.6V",
+      "Peak Wavelength": "520nm",
+      "Emission Color": "Green"
     },
     "sources": [],
     "needs_review": true,
@@ -10535,10 +10535,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "数量": "2个N沟道",
-      "漏源电压(Vdss)": "20V",
-      "连续漏极电流(Id)": "6A",
-      "耗散功率(Pd)": "1.5W"
+      "Quantity": "2 N-Channel",
+      "Drain-Source Voltage (Vdss)": "20V",
+      "Continuous Drain Current (Id)": "6A",
+      "Power Dissipation (Pd)": "1.5W"
     },
     "sources": [],
     "needs_review": true,
@@ -10559,10 +10559,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "核心芯片": "ESP32-DOWD-V3",
-      "频率范围": "2.4GHz",
-      "天线形式": "板载PCB天线",
-      "灵敏度": "-98dBm"
+      "Core Chip": "ESP32-DOWD-V3",
+      "Frequency Range": "2.4GHz",
+      "Antenna Type": "On-board PCB Antenna",
+      "Sensitivity": "-98dBm"
     },
     "sources": [],
     "needs_review": true,
@@ -10583,9 +10583,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "检测温度": "-55℃~+125℃",
-      "接口类型": "单总线",
-      "精度": "±0.4℃"
+      "Detection Temperature": "-55°C~+125°C",
+      "Interface Type": "Single-Wire Bus",
+      "Accuracy": "±0.4°C"
     },
     "sources": [],
     "needs_review": true,
@@ -10606,10 +10606,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "数量": "1个N沟道",
-      "漏源电压(Vdss)": "100V",
-      "连续漏极电流(Id)": "170mA",
-      "耗散功率(Pd)": "360mW"
+      "Quantity": "1 N-Channel",
+      "Drain-Source Voltage (Vdss)": "100V",
+      "Continuous Drain Current (Id)": "170mA",
+      "Power Dissipation (Pd)": "360mW"
     },
     "sources": [],
     "needs_review": true,
@@ -10630,9 +10630,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "核心芯片": "ESP32-S3R8",
-      "频率范围": "2.4GHz",
-      "灵敏度": "-103.5dBm"
+      "Core Chip": "ESP32-S3R8",
+      "Frequency Range": "2.4GHz",
+      "Sensitivity": "-103.5dBm"
     },
     "sources": [],
     "needs_review": true,
@@ -10653,8 +10653,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "常温频差": "±20ppm",
-      "负载电容": "12.5pF"
+      "Frequency Tolerance": "±20ppm",
+      "Load Capacitance": "12.5pF"
     },
     "sources": [],
     "needs_review": true,
@@ -10675,9 +10675,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "频率范围": "2.4GHz",
-      "天线形式": "板载PCB天线",
-      "灵敏度": "-98dBm"
+      "Frequency Range": "2.4GHz",
+      "Antenna Type": "On-board PCB Antenna",
+      "Sensitivity": "-98dBm"
     },
     "sources": [],
     "needs_review": true,
@@ -10698,10 +10698,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "接口类型": "SPI",
-      "工作电压": "2.7V~3.6V",
-      "存储容量": "16Mbit",
-      "时钟频率(fc)": "133MHz"
+      "Interface Type": "SPI",
+      "Operating Voltage": "2.7V~3.6V",
+      "Memory Size": "16Mbit",
+      "Clock Frequency (fc)": "133MHz"
     },
     "sources": [],
     "needs_review": true,
@@ -10722,9 +10722,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "温度范围": "-40℃~+85℃",
-      "湿度范围": "0%RH~100%RH",
-      "湿度精度": "±3%RH"
+      "Temperature Range": "-40°C~+85°C",
+      "Humidity Range": "0%RH~100%RH",
+      "Humidity Accuracy": "±3%RH"
     },
     "sources": [],
     "needs_review": true,
@@ -10745,10 +10745,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "接口类型": "SPI",
-      "工作电压": "2.7V~3.6V",
-      "存储容量": "32Mbit",
-      "时钟频率(fc)": "133MHz"
+      "Interface Type": "SPI",
+      "Operating Voltage": "2.7V~3.6V",
+      "Memory Size": "32Mbit",
+      "Clock Frequency (fc)": "133MHz"
     },
     "sources": [],
     "needs_review": true,
@@ -10769,8 +10769,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "接口类型": "SPI",
-      "工作电压": "2.6V~5.5V"
+      "Interface Type": "SPI",
+      "Operating Voltage": "2.6V~5.5V"
     },
     "sources": [],
     "needs_review": true,
@@ -10791,10 +10791,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "数量": "1个N沟道",
-      "漏源电压(Vdss)": "30V",
-      "连续漏极电流(Id)": "5A",
-      "耗散功率(Pd)": "1.3W"
+      "Quantity": "1 N-Channel",
+      "Drain-Source Voltage (Vdss)": "30V",
+      "Continuous Drain Current (Id)": "5A",
+      "Power Dissipation (Pd)": "1.3W"
     },
     "sources": [],
     "needs_review": true,
@@ -10815,9 +10815,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电流测量范围": "20A",
-      "工作电压": "5V",
-      "灵敏度": "100mV/A"
+      "Current Measurement Range": "20A",
+      "Operating Voltage": "5V",
+      "Sensitivity": "100mV/A"
     },
     "sources": [],
     "needs_review": true,
@@ -10838,9 +10838,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出类型": "固定",
-      "输出电压": "5V",
-      "输出极性": "正极"
+      "Output Type": "Fixed",
+      "Output Voltage": "5V",
+      "Output Polarity": "Positive"
     },
     "sources": [],
     "needs_review": true,
@@ -10861,10 +10861,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "核心芯片": "ESP32-DOWD-V3",
-      "频率范围": "2.4GHz",
-      "天线形式": "板载PCB天线",
-      "灵敏度": "-98dBm"
+      "Core Chip": "ESP32-DOWD-V3",
+      "Frequency Range": "2.4GHz",
+      "Antenna Type": "On-board PCB Antenna",
+      "Sensitivity": "-98dBm"
     },
     "sources": [],
     "needs_review": true,
@@ -10885,9 +10885,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "输出类型": "固定",
-      "输出电压": "3.3V",
-      "输出极性": "正极"
+      "Output Type": "Fixed",
+      "Output Voltage": "3.3V",
+      "Output Polarity": "Positive"
     },
     "sources": [],
     "needs_review": true,
@@ -10908,8 +10908,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "协议": "ISO 14443A,MIFARE",
-      "接口类型": "I2C,SPI,UART"
+      "Protocol": "ISO 14443A,MIFARE",
+      "Interface Type": "I2C,SPI,UART"
     },
     "sources": [],
     "needs_review": true,
@@ -10930,10 +10930,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "核心芯片": "ESP32-DOWD",
-      "频率范围": "2.4GHz",
-      "天线形式": "板载PCB天线",
-      "灵敏度": "-98dBm"
+      "Core Chip": "ESP32-DOWD",
+      "Frequency Range": "2.4GHz",
+      "Antenna Type": "On-board PCB Antenna",
+      "Sensitivity": "-98dBm"
     },
     "sources": [],
     "needs_review": true,
@@ -10954,7 +10954,7 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "电池类型": "锂电池"
+      "Battery Type": "Li-ion"
     },
     "sources": [],
     "needs_review": true,
@@ -10975,9 +10975,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "频率稳定度": "±20ppm",
-      "常温频差": "±10ppm",
-      "负载电容": "12pF"
+      "Frequency Stability": "±20ppm",
+      "Frequency Tolerance": "±10ppm",
+      "Load Capacitance": "12pF"
     },
     "sources": [],
     "needs_review": true,
@@ -10998,10 +10998,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "卡连接方式": "自弹式",
-      "卡类型": "MicroSD卡(TF卡)",
-      "连接器类型": "卡座",
-      "本体最大高度": "1.68mm"
+      "Card Connector Type": "Self-Eject",
+      "Card Type": "MicroSD (TF) Card",
+      "Connector Type": "Card Holder",
+      "Maximum Body Height": "1.68mm"
     },
     "sources": [],
     "needs_review": true,
@@ -11022,10 +11022,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "核心芯片": "ESP32-S3R8",
-      "频率范围": "2.4GHz",
-      "天线形式": "板载PCB天线",
-      "灵敏度": "-104.5dBm"
+      "Core Chip": "ESP32-S3R8",
+      "Frequency Range": "2.4GHz",
+      "Antenna Type": "On-board PCB Antenna",
+      "Sensitivity": "-104.5dBm"
     },
     "sources": [],
     "needs_review": true,
@@ -11046,8 +11046,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "频率": "800MHz~2.1GHz",
-      "插入损耗": "0.8dB"
+      "Frequency": "800MHz~2.1GHz",
+      "Insertion Loss": "0.8dB"
     },
     "sources": [],
     "needs_review": true,
@@ -11068,9 +11068,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "放大器数": "双路",
-      "输入失调电压(Vos)": "5mV",
-      "静态电流(Iq)": "400uA"
+      "Number of Amplifiers": "Dual",
+      "Input Offset Voltage (Vos)": "5mV",
+      "Quiescent Current (Iq)": "400uA"
     },
     "sources": [],
     "needs_review": true,
@@ -11091,10 +11091,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "接口类型": "SPI",
-      "工作电压": "2.7V~3.6V",
-      "存储容量": "8Mbit",
-      "时钟频率(fc)": "104MHz"
+      "Interface Type": "SPI",
+      "Operating Voltage": "2.7V~3.6V",
+      "Memory Size": "8Mbit",
+      "Clock Frequency (fc)": "104MHz"
     },
     "sources": [],
     "needs_review": true,
@@ -11115,10 +11115,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "数量": "1个P沟道",
-      "类型": "P沟道",
-      "漏源电压(Vdss)": "100V",
-      "连续漏极电流(Id)": "23A"
+      "Quantity": "1 P-Channel",
+      "Type": "P-Channel",
+      "Drain-Source Voltage (Vdss)": "100V",
+      "Continuous Drain Current (Id)": "23A"
     },
     "sources": [],
     "needs_review": true,
@@ -11139,10 +11139,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "工作电压": "15V~30V",
-      "正向压降(Vf)": "1.6V",
-      "输出电流": "2.5A",
-      "直流反向耐压(Vr)": "5V"
+      "Operating Voltage": "15V~30V",
+      "Forward Voltage (Vf)": "1.6V",
+      "Output Current": "2.5A",
+      "DC Reverse Voltage (Vr)": "5V"
     },
     "sources": [],
     "needs_review": true,
@@ -11163,9 +11163,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "频率稳定度": "±20ppm",
-      "常温频差": "±10ppm",
-      "负载电容": "20pF"
+      "Frequency Stability": "±20ppm",
+      "Frequency Tolerance": "±10ppm",
+      "Load Capacitance": "20pF"
     },
     "sources": [],
     "needs_review": true,
@@ -11186,10 +11186,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "接口类型": "SPI",
-      "工作电压": "2.7V~3.6V",
-      "存储容量": "64Mbit",
-      "时钟频率(fc)": "133MHz"
+      "Interface Type": "SPI",
+      "Operating Voltage": "2.7V~3.6V",
+      "Memory Size": "64Mbit",
+      "Clock Frequency (fc)": "133MHz"
     },
     "sources": [],
     "needs_review": true,
@@ -11210,10 +11210,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "数量": "1个P沟道",
-      "类型": "P沟道",
-      "漏源电压(Vdss)": "30V",
-      "连续漏极电流(Id)": "12A"
+      "Quantity": "1 P-Channel",
+      "Type": "P-Channel",
+      "Drain-Source Voltage (Vdss)": "30V",
+      "Continuous Drain Current (Id)": "12A"
     },
     "sources": [],
     "needs_review": true,
@@ -11234,9 +11234,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "CPU内核": "ARM Cortex-M3",
-      "CPU位数": "32 Bit",
-      "CPU最大主频": "100MHz"
+      "CPU Core": "ARM Cortex-M3",
+      "CPU Bit Width": "32 Bit",
+      "CPU Maximum Clock Speed": "100MHz"
     },
     "sources": [],
     "needs_review": true,
@@ -11257,7 +11257,7 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "接口类型": "SPI"
+      "Interface Type": "SPI"
     },
     "sources": [],
     "needs_review": true,
@@ -11278,9 +11278,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "工作电压": "1.76V~3.6V",
-      "灵敏度": "-167dBm",
-      "水平位置精确度": "1.5m"
+      "Operating Voltage": "1.76V~3.6V",
+      "Sensitivity": "-167dBm",
+      "Horizontal Position Accuracy": "1.5m"
     },
     "sources": [],
     "needs_review": true,
@@ -11301,8 +11301,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "频率范围": "2.4GHz",
-      "灵敏度": "-98dBm"
+      "Frequency Range": "2.4GHz",
+      "Sensitivity": "-98dBm"
     },
     "sources": [],
     "needs_review": true,
@@ -11342,10 +11342,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "间距": "2.54mm",
-      "颜色": "黑色",
-      "安装方式": "直插",
-      "插针结构": "1x6P"
+      "Pitch": "2.54mm",
+      "Color": "Black",
+      "Mounting Type": "Through-Hole",
+      "Pin Configuration": "1x6P"
     },
     "sources": [],
     "needs_review": true,
@@ -11366,10 +11366,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "插孔结构": "1x4P",
-      "间距": "2.54mm",
-      "总PIN数": "4P",
-      "额定电流": "3A"
+      "Jack Configuration": "1x4P",
+      "Pitch": "2.54mm",
+      "Total Pins": "4P",
+      "Rated Current": "3A"
     },
     "sources": [],
     "needs_review": true,
@@ -11390,10 +11390,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "接口类型": "SPI",
-      "工作电压": "2.7V~3.6V",
-      "存储容量": "128Mbit",
-      "时钟频率(fc)": "133MHz"
+      "Interface Type": "SPI",
+      "Operating Voltage": "2.7V~3.6V",
+      "Memory Size": "128Mbit",
+      "Clock Frequency (fc)": "133MHz"
     },
     "sources": [],
     "needs_review": true,
@@ -11414,10 +11414,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "接口类型": "SPI",
-      "工作电压": "2.7V~3.6V",
-      "存储容量": "128Mbit",
-      "时钟频率(fc)": "133MHz"
+      "Interface Type": "SPI",
+      "Operating Voltage": "2.7V~3.6V",
+      "Memory Size": "128Mbit",
+      "Clock Frequency (fc)": "133MHz"
     },
     "sources": [],
     "needs_review": true,
@@ -11438,10 +11438,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "核心芯片": "ESP8266芯片",
-      "频率范围": "2.4GHz",
-      "天线形式": "板载PCB天线",
-      "灵敏度": "-90dBm"
+      "Core Chip": "ESP8266 Chip",
+      "Frequency Range": "2.4GHz",
+      "Antenna Type": "On-board PCB Antenna",
+      "Sensitivity": "-90dBm"
     },
     "sources": [],
     "needs_review": true,
@@ -11462,10 +11462,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "接口类型": "SPI",
-      "工作电压": "2.7V~3.6V",
-      "存储容量": "2Gbit",
-      "时钟频率(fc)": "104MHz"
+      "Interface Type": "SPI",
+      "Operating Voltage": "2.7V~3.6V",
+      "Memory Size": "2Gbit",
+      "Clock Frequency (fc)": "104MHz"
     },
     "sources": [],
     "needs_review": true,
@@ -11486,10 +11486,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "IGBT类型": "FS(场截止)",
-      "耗散功率(Pd)": "235W",
-      "集射极击穿电压(Vces)": "650V",
-      "集电极电流(Ic)": "100A"
+      "IGBT Type": "FS (Field-Stop)",
+      "Power Dissipation (Pd)": "235W",
+      "Collector-Emitter Breakdown Voltage (Vces)": "650V",
+      "Collector Current (Ic)": "100A"
     },
     "sources": [],
     "needs_review": true,
@@ -11510,9 +11510,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "模式": "收发",
-      "天线形式": "板载PCB天线",
-      "灵敏度": "-98dBm"
+      "Mode": "Transceiver",
+      "Antenna Type": "On-board PCB Antenna",
+      "Sensitivity": "-98dBm"
     },
     "sources": [],
     "needs_review": true,
@@ -11533,10 +11533,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "核心芯片": "ESP32-S3芯片",
-      "频率范围": "2.4GHz",
-      "天线形式": "板载PCB天线",
-      "灵敏度": "-98.2dBm"
+      "Core Chip": "ESP32-S3 Chip",
+      "Frequency Range": "2.4GHz",
+      "Antenna Type": "On-board PCB Antenna",
+      "Sensitivity": "-98.2dBm"
     },
     "sources": [],
     "needs_review": true,
@@ -11557,10 +11557,10 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "温度范围": "-40℃~+120℃",
-      "湿度范围": "0%RH~100%RH",
-      "接口类型": "I2C",
-      "湿度精度": "±2%RH"
+      "Temperature Range": "-40°C~+120°C",
+      "Humidity Range": "0%RH~100%RH",
+      "Interface Type": "I2C",
+      "Humidity Accuracy": "±2%RH"
     },
     "sources": [],
     "needs_review": true,
@@ -11581,8 +11581,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "频率": "1MHz~4GHz",
-      "衰减值": "31.5dB"
+      "Frequency": "1MHz~4GHz",
+      "Attenuation": "31.5dB"
     },
     "sources": [],
     "needs_review": true,
@@ -11603,8 +11603,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "转换类型": "AC-DC",
-      "工作电压(DC)": "85VAC~265VAC"
+      "Conversion Type": "AC-DC",
+      "Operating Voltage (DC)": "85VAC~265VAC"
     },
     "sources": [],
     "needs_review": true,

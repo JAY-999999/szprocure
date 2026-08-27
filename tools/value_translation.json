@@ -1,0 +1,397 @@
+{
+  "meta": {
+    "version": "1.0",
+    "generated": "2026-08-27",
+    "value_map_note": "Substring replacement, longest-first (composites win). Pure classifiers 个/对 map to space and collapse.",
+    "unit_map_note": "Symbol/unit normalization. ℃ is NOT in CJK range but normalized to ascii °C. Full-width ASCII chars are also folded to half-width by the normalizer.",
+    "fallback": "For residual CJK values, publish_normalizer falls back to LCSC paramValueEn (ascii-only, never Chinese passthrough)."
+  },
+  "value_map": [
+    {
+      "zh": "一组转换:1C(单刀双掷-转换)",
+      "en": "1 Form C (SPDT)"
+    },
+    {
+      "zh": "一组常开:1A(单刀单掷-常开)",
+      "en": "1 Form A (SPST, NO)"
+    },
+    {
+      "zh": "MicroSD卡(TF卡)",
+      "en": "MicroSD (TF) Card"
+    },
+    {
+      "zh": "ESP32-S3芯片",
+      "en": "ESP32-S3 Chip"
+    },
+    {
+      "zh": "ESP8266芯片",
+      "en": "ESP8266 Chip"
+    },
+    {
+      "zh": "SSD1315芯片",
+      "en": "SSD1315 Chip"
+    },
+    {
+      "zh": "板载PCB天线",
+      "en": "On-board PCB Antenna"
+    },
+    {
+      "zh": "轨到轨输入,轨到轨输出",
+      "en": "Rail-to-Rail Input, Rail-to-Rail Output"
+    },
+    {
+      "zh": "上电/复位配置",
+      "en": "Power-On / Reset Config"
+    },
+    {
+      "zh": "串行至串行或并行",
+      "en": "Serial-to-Serial or Parallel"
+    },
+    {
+      "zh": "并行或串行至串行",
+      "en": "Parallel or Serial-to-Serial"
+    },
+    {
+      "zh": "2线式总线",
+      "en": "2-Wire Bus"
+    },
+    {
+      "zh": "单总线",
+      "en": "Single-Wire Bus"
+    },
+    {
+      "zh": "USB转UART",
+      "en": "USB to UART"
+    },
+    {
+      "zh": "CAN收发器",
+      "en": "CAN Transceiver"
+    },
+    {
+      "zh": "以太网收发器",
+      "en": "Ethernet Transceiver"
+    },
+    {
+      "zh": "施密特触发器",
+      "en": "Schmitt Trigger"
+    },
+    {
+      "zh": "D类功放",
+      "en": "Class-D Amplifier"
+    },
+    {
+      "zh": "方形灯头",
+      "en": "Square Header"
+    },
+    {
+      "zh": "圆形按钮",
+      "en": "Round Button"
+    },
+    {
+      "zh": "自弹式",
+      "en": "Self-Eject"
+    },
+    {
+      "zh": "FS(场截止)",
+      "en": "FS (Field-Stop)"
+    },
+    {
+      "zh": "弯插",
+      "en": "Through-Hole (Right-Angle)"
+    },
+    {
+      "zh": "内针",
+      "en": "Inner Pin"
+    },
+    {
+      "zh": "内孔",
+      "en": "Inner Hole"
+    },
+    {
+      "zh": "1对串联式",
+      "en": "1 Pair, Series"
+    },
+    {
+      "zh": "1对共阴极",
+      "en": "1 Pair, Common-Cathode"
+    },
+    {
+      "zh": "1个独立式",
+      "en": "1 Independent"
+    },
+    {
+      "zh": "个N沟道",
+      "en": " N-Channel"
+    },
+    {
+      "zh": "N沟道",
+      "en": "N-Channel"
+    },
+    {
+      "zh": "P沟道",
+      "en": "P-Channel"
+    },
+    {
+      "zh": "厚膜电阻",
+      "en": "Thick Film"
+    },
+    {
+      "zh": "薄膜电阻",
+      "en": "Thin Film"
+    },
+    {
+      "zh": "可调",
+      "en": "Adjustable"
+    },
+    {
+      "zh": "固定",
+      "en": "Fixed"
+    },
+    {
+      "zh": "正极",
+      "en": "Positive"
+    },
+    {
+      "zh": "降压型",
+      "en": "Step-Down"
+    },
+    {
+      "zh": "升压型",
+      "en": "Step-Up"
+    },
+    {
+      "zh": "升降压型",
+      "en": "Buck-Boost"
+    },
+    {
+      "zh": "直插",
+      "en": "Through-Hole"
+    },
+    {
+      "zh": "卧贴",
+      "en": "Horizontal SMT"
+    },
+    {
+      "zh": "立贴",
+      "en": "Vertical SMT"
+    },
+    {
+      "zh": "收发器",
+      "en": "Transceiver"
+    },
+    {
+      "zh": "白色",
+      "en": "White"
+    },
+    {
+      "zh": "单向",
+      "en": "Unidirectional"
+    },
+    {
+      "zh": "独立式",
+      "en": "Independent"
+    },
+    {
+      "zh": "双向",
+      "en": "Bidirectional"
+    },
+    {
+      "zh": "锂电池",
+      "en": "Li-ion"
+    },
+    {
+      "zh": "黑色",
+      "en": "Black"
+    },
+    {
+      "zh": "天线",
+      "en": "Antenna"
+    },
+    {
+      "zh": "板载",
+      "en": "On-board"
+    },
+    {
+      "zh": "高电平有效",
+      "en": "Active High"
+    },
+    {
+      "zh": "板端",
+      "en": "Board-Side"
+    },
+    {
+      "zh": "卡座",
+      "en": "Card Holder"
+    },
+    {
+      "zh": "卡",
+      "en": "Card"
+    },
+    {
+      "zh": "缓冲器",
+      "en": "Buffer"
+    },
+    {
+      "zh": "负载开关",
+      "en": "Load Switch"
+    },
+    {
+      "zh": "单路",
+      "en": "Single"
+    },
+    {
+      "zh": "双路",
+      "en": "Dual"
+    },
+    {
+      "zh": "四路",
+      "en": "Quad"
+    },
+    {
+      "zh": "七路",
+      "en": "Seven-Channel"
+    },
+    {
+      "zh": "八路",
+      "en": "Octal"
+    },
+    {
+      "zh": "轨到轨输入",
+      "en": "Rail-to-Rail Input"
+    },
+    {
+      "zh": "轨到轨输出",
+      "en": "Rail-to-Rail Output"
+    },
+    {
+      "zh": "轨到轨",
+      "en": "Rail-to-Rail"
+    },
+    {
+      "zh": "芯片",
+      "en": "Chip"
+    },
+    {
+      "zh": "单刀单掷",
+      "en": "SPST"
+    },
+    {
+      "zh": "单刀双掷",
+      "en": "SPDT"
+    },
+    {
+      "zh": "常开",
+      "en": "Normally Open"
+    },
+    {
+      "zh": "转换",
+      "en": "Convert"
+    },
+    {
+      "zh": "红色",
+      "en": "Red"
+    },
+    {
+      "zh": "翠绿色",
+      "en": "Emerald Green"
+    },
+    {
+      "zh": "蓝色",
+      "en": "Blue"
+    },
+    {
+      "zh": "绿色",
+      "en": "Green"
+    },
+    {
+      "zh": "米色",
+      "en": "Beige"
+    },
+    {
+      "zh": "否",
+      "en": "No"
+    },
+    {
+      "zh": "双声道",
+      "en": "Stereo"
+    },
+    {
+      "zh": "收发",
+      "en": "Transceiver"
+    },
+    {
+      "zh": "线式总线",
+      "en": "Wire Bus"
+    },
+    {
+      "zh": "场截止",
+      "en": "Field-Stop"
+    },
+    {
+      "zh": "复位配置",
+      "en": "Reset Config"
+    },
+    {
+      "zh": "上电",
+      "en": "Power-On"
+    },
+    {
+      "zh": "沟道",
+      "en": "Channel"
+    },
+    {
+      "zh": "个",
+      "en": " "
+    },
+    {
+      "zh": "对",
+      "en": " "
+    }
+  ],
+  "unit_map": [
+    {
+      "zh": "℃",
+      "en": "°C"
+    },
+    {
+      "zh": "°C",
+      "en": "°C"
+    },
+    {
+      "zh": "％",
+      "en": "%"
+    },
+    {
+      "zh": "（",
+      "en": "("
+    },
+    {
+      "zh": "）",
+      "en": ")"
+    },
+    {
+      "zh": "　",
+      "en": " "
+    },
+    {
+      "zh": "～",
+      "en": "-"
+    },
+    {
+      "zh": "＋",
+      "en": "+"
+    },
+    {
+      "zh": "×",
+      "en": "x"
+    },
+    {
+      "zh": "∅",
+      "en": ""
+    },
+    {
+      "zh": "μ",
+      "en": "µ"
+    }
+  ]
+}

@@ -31,10 +31,8 @@
   var LANG_SWITCH = (isLocalHost() ? (
     '<div class="lang-switch" role="group" aria-label="Language">'
     + '<button type="button" class="lang-btn" data-lang="en">EN</button>'
-    + '<span class="lang-sep">|</span>'
-    + '<button type="button" class="lang-btn" data-lang="zh">中文</button>'
     + '</div>'
-  ) : ''); // English-only on production host; bilingual toggle on local dev (127.0.0.1/localhost)
+  ) : ''); // English-only on production host; underlying data-zh multilingual capability retained (masked in EN view)
 
   var NAV = ''
     + '<header class="site-header"><div class="container nav">'
