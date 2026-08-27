@@ -1,7 +1,0 @@
-mpn,brand,reason,detail
-USBA-F-CUI,CUI,unknown_manufacturer,
-ATGM336H,MysterySemi,unknown_manufacturer,
-TEST-EMPTY-MFR,,missing_manufacturer,
-TEST-UNK-BRAND,ZZZFakeChipCorp,unknown_manufacturer,
-TEST-UNK-ATTR,STMicroelectronics,unknown_attribute_key=Weird Quantum Metric,
-TEST-MALFORMED,Yageo,malformed_attributes,

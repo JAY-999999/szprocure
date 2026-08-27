@@ -19,9 +19,7 @@
       "voltage_v": 3.3,
       "package": "LQFP-48"
     },
-    "sources": [
-      "https://www.lcsc.com/product-detail/C8734.html"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
@@ -48,9 +46,7 @@
       "voltage_v": 3.3,
       "package": "UFQFPN-48"
     },
-    "sources": [
-      "https://www.lcsc.com/product-detail/C79861.html"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
@@ -77,9 +73,7 @@
       "voltage_v": 3.3,
       "package": "LQFP-48"
     },
-    "sources": [
-      "https://www.lcsc.com/product-detail/C2764428.html"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
@@ -106,9 +100,7 @@
       "voltage_v": 5.0,
       "package": "TQFP-32"
     },
-    "sources": [
-      "https://www.lcsc.com/product-detail/C14877.html"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
@@ -134,9 +126,7 @@
       "voltage_v": 3.3,
       "package": "QFN-56"
     },
-    "sources": [
-      "https://www.lcsc.com/product-detail/C2040.html"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
@@ -162,9 +152,7 @@
       "voltage_v": 3.3,
       "package": "SMD-38"
     },
-    "sources": [
-      "https://www.lcsc.com/product-detail/C6191510.html"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
@@ -189,9 +177,7 @@
       "organization": "x4",
       "package": "SOIC-8"
     },
-    "sources": [
-      "https://www.lcsc.com/product-detail/C97521.html"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
@@ -216,9 +202,7 @@
       "organization": "x8",
       "package": "SOIC-8"
     },
-    "sources": [
-      "https://www.lcsc.com/product-detail/C6203.html"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
@@ -244,9 +228,7 @@
       "qg_nc": 7,
       "package": "SOT-23"
     },
-    "sources": [
-      "https://www.lcsc.com/product-detail/C20917.html"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
@@ -272,9 +254,7 @@
       "qg_nc": 14,
       "package": "SOT-23"
     },
-    "sources": [
-      "https://www.lcsc.com/product-detail/C15127.html"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
@@ -299,9 +279,7 @@
       "vgs_th_v": 2.5,
       "package": "SOT-23"
     },
-    "sources": [
-      "https://www.lcsc.com/product-detail/C124475.html"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
@@ -325,9 +303,7 @@
       "vf_v": 1.0,
       "package": "SOD-323"
     },
-    "sources": [
-      "https://www.diodes.com/part/view/1N4148WS"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
@@ -351,9 +327,7 @@
       "vf_v": 0.55,
       "package": "SMA (DO-214AC)"
     },
-    "sources": [
-      "https://www.diodes.com/part/view/SS34"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
@@ -379,9 +353,7 @@
       "temperature_coeff": "±100ppm/℃",
       "package": "0402"
     },
-    "sources": [
-      "https://www.lcsc.com/product-detail/C60490.html"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
@@ -406,9 +378,7 @@
       "temperature_coeff": "X7R",
       "package": "0603"
     },
-    "sources": [
-      "https://www.lcsc.com/product-detail/C1591.html"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
@@ -431,9 +401,7 @@
       "current_rating_a": 1.5,
       "package": "SMD 4030"
     },
-    "sources": [
-      "https://www.lcsc.com/product-detail/C38117.html"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
@@ -458,9 +426,7 @@
       "mounting": "Through Hole",
       "package": "1x40P TH"
     },
-    "sources": [
-      "https://www.lcsc.com/product-detail/C5156621.html"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
@@ -484,9 +450,7 @@
       "mounting": "SMD",
       "package": "SMD3225-4P"
     },
-    "sources": [
-      "https://www.lcsc.com/product-detail/C70562.html"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
@@ -511,9 +475,7 @@
       "mounting": "SMD",
       "package": "SMD Type-C 16P"
     },
-    "sources": [
-      "https://www.lcsc.com/product-detail/C165948.html"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
@@ -537,13 +499,11 @@
       "输入偏置电流(Ib)": "25nA",
       "轨到轨": "轨到轨输出"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C9676.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ad623arzr7/"
   },
   {
@@ -562,13 +522,11 @@
       "CPU位数": "32 Bit",
       "CPU最大主频": "72MHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C8304.pdf",
+    "datasheet_url": "",
     "product_url": "/products/stm32f103cbt6/"
   },
   {
@@ -587,13 +545,11 @@
       "CPU位数": "32 Bit",
       "CPU最大主频": "168MHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C28730.pdf",
+    "datasheet_url": "",
     "product_url": "/products/stm32f407vet6/"
   },
   {
@@ -608,13 +564,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C9667.pdf",
+    "datasheet_url": "",
     "product_url": "/products/adxl345bcczrl7/"
   },
   {
@@ -629,13 +583,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C967633.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lsm6ds3trc/"
   },
   {
@@ -655,13 +607,11 @@
       "输出电压": "800mV~25V",
       "输出电流": "3A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C9865.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tps54331dr/"
   },
   {
@@ -680,13 +630,11 @@
       "CPU位数": "32 Bit",
       "CPU最大主频": "72MHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C8323.pdf",
+    "datasheet_url": "",
     "product_url": "/products/stm32f103rct6/"
   },
   {
@@ -701,13 +649,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C126672.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lsm6dsltr/"
   },
   {
@@ -724,13 +670,11 @@
     "attributes": {
       "CMTI(kV/us)": "25kV/us"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C9669.pdf",
+    "datasheet_url": "",
     "product_url": "/products/adum1201arzrl7/"
   },
   {
@@ -750,13 +694,11 @@
       "额定电压": "50V",
       "温度系数": "X5R"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C440198.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm21br61h106ke43l/"
   },
   {
@@ -773,13 +715,11 @@
     "attributes": {
       "CMTI(kV/us)": "25kV/us"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C12081.pdf",
+    "datasheet_url": "",
     "product_url": "/products/adm2587ebrwzreel7/"
   },
   {
@@ -798,13 +738,11 @@
       "工作电压": "3V~3.6V",
       "数据速率": "1Mbps"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C12084.pdf",
+    "datasheet_url": "",
     "product_url": "/products/sn65hvd230dr/"
   },
   {
@@ -824,13 +762,11 @@
       "输出类型": "可调",
       "通道数": "1"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C13755.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lm5116mhxnopb/"
   },
   {
@@ -850,13 +786,11 @@
       "额定电压": "25V",
       "温度系数": "X7R"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C77093.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm31cr71e106ka12l/"
   },
   {
@@ -876,13 +810,11 @@
       "集射极击穿电压(Vceo)": "50V",
       "集电极电流(Ic)": "500mA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C7512.pdf",
+    "datasheet_url": "",
     "product_url": "/products/uln2003adr/"
   },
   {
@@ -902,13 +834,11 @@
       "输出电压": "1.221V~32.04V",
       "输出电流": "3A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C9864.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tps5430ddar/"
   },
   {
@@ -926,13 +856,11 @@
       "接口类型": "I2C",
       "工作电压": "2V~5.5V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C37593.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ads1115idgsr/"
   },
   {
@@ -950,13 +878,11 @@
       "接口类型": "I2C",
       "线性范围": "200cm"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C91199.pdf",
+    "datasheet_url": "",
     "product_url": "/products/vl53l0cxv0dh1/"
   },
   {
@@ -974,13 +900,11 @@
       "接口类型": "I2C",
       "线性范围": "4m"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C190004.pdf",
+    "datasheet_url": "",
     "product_url": "/products/vl53l1cxv0fy1/"
   },
   {
@@ -995,13 +919,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C126671.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lsm303agrtr/"
   },
   {
@@ -1019,13 +941,11 @@
       "接口类型": "SPI",
       "工作电压": "2.3V~5.5V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C48263.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ads1220ipwr/"
   },
   {
@@ -1040,13 +960,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C189624.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lis2dw12tr/"
   },
   {
@@ -1064,13 +982,11 @@
       "接口类型": "I2C",
       "线性范围": "0cm~130cm"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C3178291.pdf",
+    "datasheet_url": "",
     "product_url": "/products/vl53l4cdv0dh1/"
   },
   {
@@ -1085,13 +1001,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C16428.pdf",
+    "datasheet_url": "",
     "product_url": "/products/iso1050dubr/"
   },
   {
@@ -1111,13 +1025,11 @@
       "额定电压": "100V",
       "温度系数": "X7S"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C576517.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm32ec72a106ke05l/"
   },
   {
@@ -1134,13 +1046,11 @@
     "attributes": {
       "节点数": "256"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C21710.pdf",
+    "datasheet_url": "",
     "product_url": "/products/iso3082dwr/"
   },
   {
@@ -1159,13 +1069,11 @@
       "CPU位数": "32 Bit",
       "CPU最大主频": "480MHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C964146.pdf",
+    "datasheet_url": "",
     "product_url": "/products/stm32h743vih6/"
   },
   {
@@ -1185,13 +1093,11 @@
       "输出电压": "3.3V",
       "输出电流": "25mA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C36658.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ref3033aidbzr/"
   },
   {
@@ -1211,13 +1117,11 @@
       "额定电压": "10V",
       "温度系数": "X7R"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C907991.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm21bz71a226me15l/"
   },
   {
@@ -1236,13 +1140,11 @@
       "CPU位数": "32 Bit",
       "CPU最大主频": "48MHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C23922.pdf",
+    "datasheet_url": "",
     "product_url": "/products/stm32f030c8t6/"
   },
   {
@@ -1257,13 +1159,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C284149.pdf",
+    "datasheet_url": "",
     "product_url": "/products/adum3160brwzrl/"
   },
   {
@@ -1283,13 +1183,11 @@
       "额定电压": "100V",
       "温度系数": "X7S"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C237304.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm31cc72a475ke11l/"
   },
   {
@@ -1309,13 +1207,11 @@
       "额定电压": "25V",
       "温度系数": "X7R"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C21397.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm32er71e226ke15l/"
   },
   {
@@ -1334,13 +1230,11 @@
       "CPU位数": "32 Bit",
       "CPU最大主频": "168MHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C15742.pdf",
+    "datasheet_url": "",
     "product_url": "/products/stm32f405rgt6/"
   },
   {
@@ -1360,13 +1254,11 @@
       "输出电压": "800mV~58.8V",
       "输出电流": "5A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C31966.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tps54560ddar/"
   },
   {
@@ -1385,13 +1277,11 @@
       "CPU位数": "32 Bit",
       "CPU最大主频": "48MHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C89040.pdf",
+    "datasheet_url": "",
     "product_url": "/products/stm32f030f4p6tr/"
   },
   {
@@ -1408,13 +1298,11 @@
     "attributes": {
       "CMTI(kV/us)": "25kV/us"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C39494.pdf",
+    "datasheet_url": "",
     "product_url": "/products/adm2582ebrwzreel7/"
   },
   {
@@ -1429,13 +1317,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C57791.pdf",
+    "datasheet_url": "",
     "product_url": "/products/adum4160brwzrl/"
   },
   {
@@ -1453,13 +1339,11 @@
       "接口类型": "SPI",
       "工作电压": "3V~5.25V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C392902.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ad7192bruzreel/"
   },
   {
@@ -1474,13 +1358,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C478483.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lis3mdltr/"
   },
   {
@@ -1499,13 +1381,11 @@
       "CPU位数": "32 Bit",
       "CPU最大主频": "170MHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C529355.pdf",
+    "datasheet_url": "",
     "product_url": "/products/stm32g431cbt6/"
   },
   {
@@ -1522,13 +1402,11 @@
     "attributes": {
       "CMTI(kV/us)": "25kV/us"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C87626.pdf",
+    "datasheet_url": "",
     "product_url": "/products/adum1201brzrl7/"
   },
   {
@@ -1548,13 +1426,11 @@
       "输出电压": "800mV~58.8V",
       "输出电流": "3.5A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C44377.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tps54360ddar/"
   },
   {
@@ -1574,13 +1450,11 @@
       "额定电压": "25V",
       "温度系数": "X5R"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C403725.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm31cr61e476me44l/"
   },
   {
@@ -1599,13 +1473,11 @@
       "输出电压": "3.3V",
       "输出极性": "正极"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C95414.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lp298533dbvr/"
   },
   {
@@ -1625,13 +1497,11 @@
       "增益带宽积(GBW)": "10MHz",
       "输入偏置电流(Ib)": "0.2pA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C9641.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ad8605artzreel7/"
   },
   {
@@ -1651,13 +1521,11 @@
       "额定电压": "16V",
       "温度系数": "X5R"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C77101.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm32er61c476ke15l/"
   },
   {
@@ -1676,13 +1544,11 @@
       "输入失调电压(Vos)": "2.5uV",
       "输入偏置电流(Ib)": "100pA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C49851.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ina226aidgsr/"
   },
   {
@@ -1699,13 +1565,11 @@
     "attributes": {
       "是否可编程": "否"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C473912.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tpl5010ddcr/"
   },
   {
@@ -1724,13 +1588,11 @@
       "输出电压": "0V~15V",
       "输出极性": "正极"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C514420.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lt3045eddtrpbf/"
   },
   {
@@ -1749,13 +1611,11 @@
       "工作电压": "4.75V~5.25V",
       "数据速率": "10Mbps"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C7063.pdf",
+    "datasheet_url": "",
     "product_url": "/products/sn75176bdr/"
   },
   {
@@ -1772,13 +1632,11 @@
     "attributes": {
       "CMTI(kV/us)": "25kV/us"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C13749.pdf",
+    "datasheet_url": "",
     "product_url": "/products/adm3251earwzreel/"
   },
   {
@@ -1793,13 +1651,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C784817.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lsm6dsrtr/"
   },
   {
@@ -1814,13 +1670,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C1855818.pdf",
+    "datasheet_url": "",
     "product_url": "/products/drv8874pwpr/"
   },
   {
@@ -1838,13 +1692,11 @@
       "输出电压": "5V",
       "输出极性": "正极"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C55509.pdf",
+    "datasheet_url": "",
     "product_url": "/products/l78m05cdttr/"
   },
   {
@@ -1863,13 +1715,11 @@
       "CPU位数": "32 Bit",
       "CPU最大主频": "480MHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C114409.pdf",
+    "datasheet_url": "",
     "product_url": "/products/stm32h743vit6/"
   },
   {
@@ -1888,13 +1738,11 @@
       "工作电压": "-2.25V~18V",
       "静态电流(Iq)": "3.6mA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C94590.pdf",
+    "datasheet_url": "",
     "product_url": "/products/opa1612aidr/"
   },
   {
@@ -1914,13 +1762,11 @@
       "额定电压": "6.3V",
       "温度系数": "X5R"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C140782.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm188r60j476me15d/"
   },
   {
@@ -1940,13 +1786,11 @@
       "额定电压": "50V",
       "温度系数": "X7R"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C77096.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm31cr71h475ka12l/"
   },
   {
@@ -1963,13 +1807,11 @@
     "attributes": {
       "CMTI(kV/us)": "35kV/us"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C13839.pdf",
+    "datasheet_url": "",
     "product_url": "/products/adum1250arzrl7/"
   },
   {
@@ -1988,13 +1830,11 @@
       "输出电压": "3.3V",
       "输出极性": "正极"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2862740.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tps7a2033pdbvr/"
   },
   {
@@ -2014,13 +1854,11 @@
       "额定电压": "6.3V",
       "温度系数": "X5R"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C335103.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm035r60j475me15d/"
   },
   {
@@ -2040,13 +1878,11 @@
       "额定电压": "10V",
       "温度系数": "X5R"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C883598.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm31cr61a107mea8l/"
   },
   {
@@ -2061,13 +1897,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C7593.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ne555dr/"
   },
   {
@@ -2087,13 +1921,11 @@
       "输出电流": "2A",
       "开关频率": "500kHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C191884.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tps54202ddcr/"
   },
   {
@@ -2112,13 +1944,11 @@
       "工作电压": "1.6V~3.6V",
       "接口类型": "RMII"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C17146.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lan8720aicptr/"
   },
   {
@@ -2137,13 +1967,11 @@
       "输入失调电压(Vos)": "2mV",
       "静态电流(Iq)": "400uA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C67470.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lm393dr/"
   },
   {
@@ -2163,13 +1991,11 @@
       "输入偏置电流(Ib)": "200pA",
       "轨到轨": "轨到轨输出"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C19450.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ina333aidgkr/"
   },
   {
@@ -2188,13 +2014,11 @@
       "CPU位数": "32 Bit",
       "CPU最大主频": "216MHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C118207.pdf",
+    "datasheet_url": "",
     "product_url": "/products/stm32f722ret6/"
   },
   {
@@ -2209,13 +2033,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2655101.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ism330dhcxtr/"
   },
   {
@@ -2235,13 +2057,11 @@
       "静态电流(Iq)": "2uA",
       "通道数": "6"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C6820.pdf",
+    "datasheet_url": "",
     "product_url": "/products/sn74hc14dr/"
   },
   {
@@ -2261,13 +2081,11 @@
       "数据速率": "20Mbps",
       "节点数": "213"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C57928.pdf",
+    "datasheet_url": "",
     "product_url": "/products/sn65hvd75dr/"
   },
   {
@@ -2286,13 +2104,11 @@
       "输出电压": "5V",
       "输出极性": "正极"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C58069.pdf",
+    "datasheet_url": "",
     "product_url": "/products/l78m05abdttr/"
   },
   {
@@ -2310,13 +2126,11 @@
       "输出电流": "2.5A",
       "输出电压": "0V~5.5V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C3235557.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tps2116drlr/"
   },
   {
@@ -2336,13 +2150,11 @@
       "输出电流": "1A",
       "开关频率": "1MHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C477928.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lm5164ddar/"
   },
   {
@@ -2362,13 +2174,11 @@
       "元件数": "1",
       "传播延迟(tpd)": "26ns@6V,50pF"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C10092.pdf",
+    "datasheet_url": "",
     "product_url": "/products/sn74hc595dr/"
   },
   {
@@ -2388,13 +2198,11 @@
       "输出电压": "1.2V~5.3V",
       "输出电流": "2A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C5219190.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tps631000drlr/"
   },
   {
@@ -2414,13 +2222,11 @@
       "输出电压": "600mV~5.5V",
       "输出电流": "2A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C141836.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tlv62569dbvr/"
   },
   {
@@ -2440,13 +2246,11 @@
       "增益带宽积(GBW)": "1MHz",
       "输入偏置电流(Ib)": "1pA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C116490.pdf",
+    "datasheet_url": "",
     "product_url": "/products/mcp6001tiot/"
   },
   {
@@ -2465,13 +2269,11 @@
       "元件数": "1",
       "每个电路通道数": "8"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C53406.pdf",
+    "datasheet_url": "",
     "product_url": "/products/txb0108pwr/"
   },
   {
@@ -2490,13 +2292,11 @@
       "精度": "±20%",
       "额定电压": "25V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C29519229.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm188c61e226me01d/"
   },
   {
@@ -2515,13 +2315,11 @@
       "CPU位数": "32 Bit",
       "CPU最大主频": "64MHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C529330.pdf",
+    "datasheet_url": "",
     "product_url": "/products/stm32g030f6p6tr/"
   },
   {
@@ -2541,13 +2339,11 @@
       "峰值脉冲功率(Ppp)": "90W@8/20us",
       "反向截止电压(Vrwm)": "5.5V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C48260.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tpd1e10b06dpyr/"
   },
   {
@@ -2567,13 +2363,11 @@
       "输出电压": "1.8V~3.3V",
       "输出电流": "750mA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2071859.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tps62840dlcr/"
   },
   {
@@ -2592,13 +2386,11 @@
       "元件数": "1",
       "每个电路通道数": "8"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C17206.pdf",
+    "datasheet_url": "",
     "product_url": "/products/txs0108epwr/"
   },
   {
@@ -2616,13 +2408,11 @@
       "类型": "CAN-FD收发器",
       "数据速率": "5Mbps"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2878225.pdf",
+    "datasheet_url": "",
     "product_url": "/products/iso1044bdr/"
   },
   {
@@ -2642,13 +2432,11 @@
       "额定电压": "25V",
       "温度系数": "X7R"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C237493.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm21bz71e106ke15l/"
   },
   {
@@ -2668,13 +2456,11 @@
       "电阻精度": "±1%",
       "功率": "100mW"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C77131.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ncp15xh103f03rc/"
   },
   {
@@ -2694,13 +2480,11 @@
       "额定电压": "50V",
       "温度系数": "X7R"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C77055.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm188r71h104ka93d/"
   },
   {
@@ -2720,13 +2504,11 @@
       "集射极击穿电压(Vceo)": "50V",
       "集电极电流(Ic)": "500mA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C61273.pdf",
+    "datasheet_url": "",
     "product_url": "/products/uln2003d1013tr/"
   },
   {
@@ -2746,13 +2528,11 @@
       "输出电压": "3V",
       "输出电流": "25mA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C38423.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ref3030aidbzr/"
   },
   {
@@ -2771,13 +2551,11 @@
       "元件数": "1",
       "每个电路通道数": "1"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C7843.pdf",
+    "datasheet_url": "",
     "product_url": "/products/sn74lvc1t45dbvr/"
   },
   {
@@ -2795,13 +2573,11 @@
       "元件数": "1",
       "门电路数量": "8"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C27643.pdf",
+    "datasheet_url": "",
     "product_url": "/products/sn74lvc8t245pwr/"
   },
   {
@@ -2820,13 +2596,11 @@
       "元件数": "1",
       "每个电路通道数": "4"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C44955.pdf",
+    "datasheet_url": "",
     "product_url": "/products/txs0104epwr/"
   },
   {
@@ -2845,13 +2619,11 @@
       "CPU位数": "32 Bit",
       "CPU最大主频": "170MHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C521608.pdf",
+    "datasheet_url": "",
     "product_url": "/products/stm32g474ret6/"
   },
   {
@@ -2870,13 +2642,11 @@
       "接口类型": "I2C",
       "精度": "±0.5℃"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C99269.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tmp102aidrlr/"
   },
   {
@@ -2895,13 +2665,11 @@
       "工作电压": "3.3V",
       "数据速率": "1Mbps"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C30530.pdf",
+    "datasheet_url": "",
     "product_url": "/products/sn65hvd232dr/"
   },
   {
@@ -2921,13 +2689,11 @@
       "输出电压": "1.8V~5.2V",
       "输出电流": "2A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2845237.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tps63802dlar/"
   },
   {
@@ -2946,13 +2712,11 @@
       "输出电压": "1.4V~20.5V",
       "输出极性": "正极"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C114839.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tps7a4700rgwr/"
   },
   {
@@ -2972,13 +2736,11 @@
       "输出电压": "2.5V~9V",
       "输出电流": "2A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C109322.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tps63070rnmr/"
   },
   {
@@ -2998,13 +2760,11 @@
       "电池类型": "锂电池",
       "电池节数": "1"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C15464.pdf",
+    "datasheet_url": "",
     "product_url": "/products/bq24075rgtr/"
   },
   {
@@ -3024,13 +2784,11 @@
       "输出电压": "800mV~22V",
       "输出电流": "3A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C3200405.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tps62933drlr/"
   },
   {
@@ -3050,13 +2808,11 @@
       "额定电压": "10V",
       "温度系数": "X5R"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C84419.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm188r61a226me15d/"
   },
   {
@@ -3075,13 +2831,11 @@
       "输出电压": "3.3V",
       "输出极性": "正极"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C23984.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lm1117impx33nopb/"
   },
   {
@@ -3099,13 +2853,11 @@
       "接口类型": "I2C",
       "工作电压": "2V~5.5V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C193969.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ads1015idgsr/"
   },
   {
@@ -3124,13 +2876,11 @@
       "工作电压": "3V~5.5V",
       "数据速率": "250Kbps"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C406863.pdf",
+    "datasheet_url": "",
     "product_url": "/products/max3232eipwr/"
   },
   {
@@ -3145,13 +2895,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C481766.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lsm6dsoxtr/"
   },
   {
@@ -3170,13 +2918,11 @@
       "输出电压": "5V",
       "输出极性": "正极"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C42738.pdf",
+    "datasheet_url": "",
     "product_url": "/products/l78l05abutr/"
   },
   {
@@ -3196,13 +2942,11 @@
       "电阻精度": "±1%",
       "功率": "100mW"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C13564.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ncp18xh103f03rb/"
   },
   {
@@ -3222,13 +2966,11 @@
       "额定电压": "50V",
       "温度系数": "X7R"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C77020.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm155r71h104ke14d/"
   },
   {
@@ -3248,13 +2990,11 @@
       "额定电压": "10V",
       "温度系数": "X5R"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C77044.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm188r61a106ke69d/"
   },
   {
@@ -3274,13 +3014,11 @@
       "输出电压": "1.2V~5.5V",
       "输出电流": "3A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C15483.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tps63020dsjr/"
   },
   {
@@ -3300,13 +3038,11 @@
       "输出电流": "100mA",
       "精度": "±1%"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C23892.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tl431aidbzr/"
   },
   {
@@ -3325,13 +3061,11 @@
       "功能": "上电/复位配置",
       "工作电压": "1.65V~5.5V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C130026.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tca9548apwr/"
   },
   {
@@ -3351,13 +3085,11 @@
       "增益带宽积(GBW)": "1MHz",
       "输入偏置电流(Ib)": "1pA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C7377.pdf",
+    "datasheet_url": "",
     "product_url": "/products/mcp6002tisn/"
   },
   {
@@ -3377,13 +3109,11 @@
       "额定电压": "25V",
       "温度系数": "X5R"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C84416.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm21br61e106ka73l/"
   },
   {
@@ -3403,13 +3133,11 @@
       "输出电压": "5V",
       "输出电流": "3A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C10002.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lm2596sx50nopb/"
   },
   {
@@ -3429,13 +3157,11 @@
       "共模抑制比(CMRR)": "100dB",
       "输入偏置电流(Ib)": "100nA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C122228.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ina180a1idbvr/"
   },
   {
@@ -3454,13 +3180,11 @@
       "工作电压": "3.3V",
       "数据速率": "1Mbps"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C61643.pdf",
+    "datasheet_url": "",
     "product_url": "/products/sn65hvd233dr/"
   },
   {
@@ -3480,13 +3204,11 @@
       "共模抑制比(CMRR)": "100dB",
       "输入偏置电流(Ib)": "100nA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C192764.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ina180a2idbvr/"
   },
   {
@@ -3506,13 +3228,11 @@
       "额定电压": "50V",
       "温度系数": "C0G"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C76946.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm1555c1h100ja01d/"
   },
   {
@@ -3532,13 +3252,11 @@
       "数据速率": "50Mbps",
       "节点数": "256"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2671361.pdf",
+    "datasheet_url": "",
     "product_url": "/products/thvd1450dr/"
   },
   {
@@ -3557,13 +3275,11 @@
       "工作电压": "1.6V~3.6V",
       "接口类型": "RMII"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C45223.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lan8720acptr/"
   },
   {
@@ -3582,13 +3298,11 @@
       "输出电压": "3.3V",
       "输出极性": "正极"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C9662.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lm1117mpx33nopb/"
   },
   {
@@ -3608,13 +3322,11 @@
       "增益带宽积(GBW)": "700kHz",
       "输入偏置电流(Ib)": "20nA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C5423.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lm358dr/"
   },
   {
@@ -3634,13 +3346,11 @@
       "额定电压": "25V",
       "温度系数": "X5R"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C344022.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm188r61e106ka73d/"
   },
   {
@@ -3660,13 +3370,11 @@
       "额定电压": "35V",
       "温度系数": "X5R"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C194427.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm188r6ya106ma73d/"
   },
   {
@@ -3686,13 +3394,11 @@
       "静态电流(Iq)": "40uA",
       "轨到轨": "轨到轨输入"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C105188.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tlv3201aidbvr/"
   },
   {
@@ -3707,13 +3413,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C5267399.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lsm6dsvtr/"
   },
   {
@@ -3733,13 +3437,11 @@
       "电池类型": "锂电池",
       "电池节数": "1~4"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2876593.pdf",
+    "datasheet_url": "",
     "product_url": "/products/bq25798rqmr/"
   },
   {
@@ -3759,13 +3461,11 @@
       "静态电流(Iq)": "10uA",
       "通道数": "1"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C7835.pdf",
+    "datasheet_url": "",
     "product_url": "/products/sn74lvc1g14dbvr/"
   },
   {
@@ -3785,13 +3485,11 @@
       "额定电压": "6.3V",
       "温度系数": "X5R"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C141660.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm21br60j107me15l/"
   },
   {
@@ -3810,13 +3508,11 @@
       "工作电压": "5V",
       "数据速率": "1Mbps"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C7376.pdf",
+    "datasheet_url": "",
     "product_url": "/products/mcp2551isn/"
   },
   {
@@ -3835,13 +3531,11 @@
       "输出电压": "3.3V",
       "输出极性": "正极"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C35879.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ld1117s33ctr/"
   },
   {
@@ -3859,13 +3553,11 @@
       "检测温度": "-55℃~+150℃",
       "精度": "±0.1℃"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C699536.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tmp117aidrvr/"
   },
   {
@@ -3884,13 +3576,11 @@
       "CPU位数": "8 Bit",
       "CPU最大主频": "16MHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C22460.pdf",
+    "datasheet_url": "",
     "product_url": "/products/atmega256016au/"
   },
   {
@@ -3909,13 +3599,11 @@
       "输出电压": "3.3V",
       "输出极性": "正极"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C435835.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ldl1117s33r/"
   },
   {
@@ -3934,13 +3622,11 @@
       "输出电压": "3.3V",
       "输出极性": "正极"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C485517.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tlv75733pdbvr/"
   },
   {
@@ -3960,13 +3646,11 @@
       "误差": "±25%",
       "直流电阻(DCR)": "90mΩ"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C76891.pdf",
+    "datasheet_url": "",
     "product_url": "/products/blm15pd121sn1d/"
   },
   {
@@ -3984,13 +3668,11 @@
       "串口通道数": "4",
       "数据速率": "480Mbps"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C58940.pdf",
+    "datasheet_url": "",
     "product_url": "/products/usb2514biaezgtr/"
   },
   {
@@ -4009,13 +3691,11 @@
       "工作电压": "1.8V~3.3V",
       "接口类型": "RMII"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C621424.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lan8742acztr/"
   },
   {
@@ -4034,13 +3714,11 @@
       "元件数": "1",
       "每个电路通道数": "2"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C53434.pdf",
+    "datasheet_url": "",
     "product_url": "/products/txs0102dcur/"
   },
   {
@@ -4060,13 +3738,11 @@
       "反向截止电压(Vrwm)": "5.25V",
       "击穿电压(VBR)": "6V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C7519.pdf",
+    "datasheet_url": "",
     "product_url": "/products/usblc62sc6/"
   },
   {
@@ -4085,13 +3761,11 @@
       "元件数": "1",
       "每个电路通道数": "2"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C60709.pdf",
+    "datasheet_url": "",
     "product_url": "/products/txb0102dcur/"
   },
   {
@@ -4111,13 +3785,11 @@
       "拉电流(IOH)": "12mA",
       "输入类型": "施密特触发器"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C621425.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lan8742aicztr/"
   },
   {
@@ -4136,13 +3808,11 @@
       "输出电压": "3.3V",
       "输出极性": "正极"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C404027.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tlv75533pdbvr/"
   },
   {
@@ -4161,13 +3831,11 @@
       "元件数": "1",
       "每个电路通道数": "2"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C324082.pdf",
+    "datasheet_url": "",
     "product_url": "/products/txs0102dctr/"
   },
   {
@@ -4187,13 +3855,11 @@
       "输出电压": "1.8V~5V",
       "输出电流": "400mA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C1518762.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tps63900dskr/"
   },
   {
@@ -4213,13 +3879,11 @@
       "额定电压": "50V",
       "温度系数": "C0G"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C77177.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm1555c1h101ja01d/"
   },
   {
@@ -4238,13 +3902,11 @@
       "通道数": "2",
       "接口类型": "I2S"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C107671.pdf",
+    "datasheet_url": "",
     "product_url": "/products/pcm5102apwr/"
   },
   {
@@ -4264,13 +3926,11 @@
       "额定电压": "50V",
       "温度系数": "X7R"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C77102.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm32er71h106ka12l/"
   },
   {
@@ -4289,13 +3949,11 @@
       "输入类型": "2线式总线",
       "通道数": "2"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2649394.pdf",
+    "datasheet_url": "",
     "product_url": "/products/p82b715dr/"
   },
   {
@@ -4315,13 +3973,11 @@
       "误差": "±25%",
       "直流电阻(DCR)": "50mΩ"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C14709.pdf",
+    "datasheet_url": "",
     "product_url": "/products/blm18pg121sn1d/"
   },
   {
@@ -4341,13 +3997,11 @@
       "输出电压": "1.235V~35V",
       "输出电流": "2.5A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C54619.pdf",
+    "datasheet_url": "",
     "product_url": "/products/l5973d013tr/"
   },
   {
@@ -4367,13 +4021,11 @@
       "输入控制逻辑": "高电平有效",
       "最大连续电流": "3A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C527679.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tps22810drvr/"
   },
   {
@@ -4391,13 +4043,11 @@
       "类型": "PHY收发器",
       "工作电压": "3.3V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C12082.pdf",
+    "datasheet_url": "",
     "product_url": "/products/dp83848ivvxnopb/"
   },
   {
@@ -4416,13 +4066,11 @@
       "输出电流": "1.5A",
       "开关频率": "100kHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C127837.pdf",
+    "datasheet_url": "",
     "product_url": "/products/mc33063adr/"
   },
   {
@@ -4441,13 +4089,11 @@
       "输出电压": "1.2V~37V",
       "输出极性": "正极"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C68136.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lm317mdttr/"
   },
   {
@@ -4467,13 +4113,11 @@
       "增益带宽积(GBW)": "1MHz",
       "输入偏置电流(Ib)": "11nA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C7972.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lmv321idbvr/"
   },
   {
@@ -4493,13 +4137,11 @@
       "误差": "±25%",
       "直流电阻(DCR)": "20mΩ"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C85841.pdf",
+    "datasheet_url": "",
     "product_url": "/products/blm31pg121sn1l/"
   },
   {
@@ -4519,13 +4161,11 @@
       "误差": "±25%",
       "直流电阻(DCR)": "150mΩ"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C85833.pdf",
+    "datasheet_url": "",
     "product_url": "/products/blm18kg601sn1d/"
   },
   {
@@ -4545,13 +4185,11 @@
       "输入失调电压(Vos)": "500nV",
       "输入偏置电流(Ib)": "10uA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C181255.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ina3221airgvr/"
   },
   {
@@ -4570,13 +4208,11 @@
       "CPU位数": "32 Bit",
       "CPU最大主频": "550MHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C730142.pdf",
+    "datasheet_url": "",
     "product_url": "/products/stm32h723vgt6/"
   },
   {
@@ -4596,13 +4232,11 @@
       "额定电压": "10V",
       "温度系数": "X7R"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2959727.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm188z71a106ka73d/"
   },
   {
@@ -4622,13 +4256,11 @@
       "误差": "±25%",
       "直流电阻(DCR)": "380mΩ"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C19330.pdf",
+    "datasheet_url": "",
     "product_url": "/products/blm18ag601sn1d/"
   },
   {
@@ -4647,13 +4279,11 @@
       "静态电流(Iq)": "10uA",
       "元件数": "2"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C15741.pdf",
+    "datasheet_url": "",
     "product_url": "/products/sn74lvc2t45dcur/"
   },
   {
@@ -4673,13 +4303,11 @@
       "增益带宽积(GBW)": "10MHz",
       "输入偏置电流(Ib)": "1uA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C7426.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ne5532dr/"
   },
   {
@@ -4699,13 +4327,11 @@
       "静态电流(Iq)": "800uA",
       "轨到轨": "轨到轨输入,轨到轨输出"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C7948.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lm339dr/"
   },
   {
@@ -4725,13 +4351,11 @@
       "误差": "±25%",
       "直流电阻(DCR)": "520mΩ"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C76884.pdf",
+    "datasheet_url": "",
     "product_url": "/products/blm15ag601sn1d/"
   },
   {
@@ -4751,13 +4375,11 @@
       "误差": "±25%",
       "直流电阻(DCR)": "30mΩ"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C85831.pdf",
+    "datasheet_url": "",
     "product_url": "/products/blm18kg121tn1d/"
   },
   {
@@ -4776,13 +4398,11 @@
       "输出电压": "1.25V~37V",
       "输出极性": "正极"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C68487.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lm317aempxnopb/"
   },
   {
@@ -4802,13 +4422,11 @@
       "误差": "±25%",
       "直流电阻(DCR)": "500mΩ"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C85824.pdf",
+    "datasheet_url": "",
     "product_url": "/products/blm18ag102sn1d/"
   },
   {
@@ -4827,13 +4445,11 @@
       "工作电压": "3.3V~5.5V",
       "数据速率": "250Kbps"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C45843.pdf",
+    "datasheet_url": "",
     "product_url": "/products/max3232cdr/"
   },
   {
@@ -4853,13 +4469,11 @@
       "元件数": "1",
       "每个元件位数": "1"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C10425.pdf",
+    "datasheet_url": "",
     "product_url": "/products/sn74lvc1g17dckr/"
   },
   {
@@ -4879,13 +4493,11 @@
       "额定电压": "50V",
       "温度系数": "X7R"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C77083.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm21br71h105ka12l/"
   },
   {
@@ -4902,13 +4514,11 @@
     "attributes": {
       "CMTI(kV/us)": "50kV/us"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C179739.pdf",
+    "datasheet_url": "",
     "product_url": "/products/iso1540dr/"
   },
   {
@@ -4928,13 +4538,11 @@
       "输出电压": "2.2V~5.5V",
       "输出电流": "3A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C919459.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tps61023drlr/"
   },
   {
@@ -4949,13 +4557,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C5267406.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lsm6dsv16xtr/"
   },
   {
@@ -4974,13 +4580,11 @@
       "输出电压": "3.3V",
       "输出极性": "正极"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C89347.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tps70933dbvr/"
   },
   {
@@ -4999,13 +4603,11 @@
       "工作电压": "1.65V~5.5V",
       "导通电阻(Ron)": "6Ω"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C38663.pdf",
+    "datasheet_url": "",
     "product_url": "/products/sn74lvc1g3157dckr/"
   },
   {
@@ -5025,13 +4627,11 @@
       "元件数": "2",
       "每个元件位数": "1"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C50714.pdf",
+    "datasheet_url": "",
     "product_url": "/products/sn74lvc2g17dckr/"
   },
   {
@@ -5050,13 +4650,11 @@
       "输出电压": "3.3V",
       "输出极性": "正极"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2848334.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tlv76733drvr/"
   },
   {
@@ -5075,13 +4673,11 @@
       "CPU位数": "32 Bit",
       "CPU最大主频": "180MHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C69336.pdf",
+    "datasheet_url": "",
     "product_url": "/products/stm32f446ret6/"
   },
   {
@@ -5101,13 +4697,11 @@
       "输出电流": "3A",
       "开关频率": "400kHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C311983.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tps54302ddcr/"
   },
   {
@@ -5127,13 +4721,11 @@
       "额定电压": "50V",
       "温度系数": "C0G"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C97946.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm31c5c1h104ja01l/"
   },
   {
@@ -5148,13 +4740,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C6986.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tlc555cdr/"
   },
   {
@@ -5173,13 +4763,11 @@
       "静态电流(Iq)": "10uA",
       "传播延迟(tpd)": "4ns@5V,50pF"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C7666.pdf",
+    "datasheet_url": "",
     "product_url": "/products/sn74lvc1g08dbvr/"
   },
   {
@@ -5199,13 +4787,11 @@
       "额定电压": "10V",
       "温度系数": "X5R"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C124129.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm21br61a476me15l/"
   },
   {
@@ -5225,13 +4811,11 @@
       "增益带宽积(GBW)": "3MHz",
       "输入偏置电流(Ib)": "65pA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C67473.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tl072cdr/"
   },
   {
@@ -5251,13 +4835,11 @@
       "误差": "±25%",
       "直流电阻(DCR)": "50mΩ"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C85827.pdf",
+    "datasheet_url": "",
     "product_url": "/products/blm18eg221sn1d/"
   },
   {
@@ -5274,13 +4856,11 @@
     "attributes": {
       "工作电压": "2V~5.2V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C527464.pdf",
+    "datasheet_url": "",
     "product_url": "/products/drv2605ldgsr/"
   },
   {
@@ -5300,13 +4880,11 @@
       "精度": "±20%",
       "额定电流": "3.3A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C435392.pdf",
+    "datasheet_url": "",
     "product_url": "/products/dfe252012f1r0mp2/"
   },
   {
@@ -5326,13 +4904,11 @@
       "额定电压": "6.3V",
       "温度系数": "X5R"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C415703.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm155r60j226me11d/"
   },
   {
@@ -5352,13 +4928,11 @@
       "输入控制逻辑": "高电平有效",
       "最大连续电流": "2A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2681320.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tps22917dbvr/"
   },
   {
@@ -5378,13 +4952,11 @@
       "误差": "±25%",
       "直流电阻(DCR)": "70mΩ"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C74764.pdf",
+    "datasheet_url": "",
     "product_url": "/products/blm21pg331sn1d/"
   },
   {
@@ -5402,13 +4974,11 @@
       "元件数": "1",
       "每个电路通道数": "2"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C123752.pdf",
+    "datasheet_url": "",
     "product_url": "/products/pca9306dctr/"
   },
   {
@@ -5427,13 +4997,11 @@
       "输出电压": "5V",
       "输出极性": "正极"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C111887.pdf",
+    "datasheet_url": "",
     "product_url": "/products/l7805cv/"
   },
   {
@@ -5448,13 +5016,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C50506.pdf",
+    "datasheet_url": "",
     "product_url": "/products/drv8833pwpr/"
   },
   {
@@ -5474,13 +5040,11 @@
       "峰值脉冲功率(Ppp)": "40W@8/20us",
       "反向截止电压(Vrwm)": "5.5V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C138714.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tpd4e05u06dqar/"
   },
   {
@@ -5500,13 +5064,11 @@
       "误差": "±25%",
       "直流电阻(DCR)": "25mΩ"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C113030.pdf",
+    "datasheet_url": "",
     "product_url": "/products/blm18sg121tn1d/"
   },
   {
@@ -5526,13 +5088,11 @@
       "误差": "±25%",
       "直流电阻(DCR)": "55mΩ"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C88970.pdf",
+    "datasheet_url": "",
     "product_url": "/products/blm15px121sn1d/"
   },
   {
@@ -5552,13 +5112,11 @@
       "额定电压": "50V",
       "温度系数": "C0G"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C85973.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm1885c1h103ja01d/"
   },
   {
@@ -5578,13 +5136,11 @@
       "误差": "±25%",
       "直流电阻(DCR)": "200mΩ"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C97853.pdf",
+    "datasheet_url": "",
     "product_url": "/products/blm18pg471sn1d/"
   },
   {
@@ -5603,13 +5159,11 @@
       "输出电压": "3.3V",
       "输出极性": "正极"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C86781.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ld1117s33tr/"
   },
   {
@@ -5629,13 +5183,11 @@
       "额定电压": "50V",
       "温度系数": "X7R"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C85858.pdf",
+    "datasheet_url": "",
     "product_url": "/products/gcm155r71h104ke02d/"
   },
   {
@@ -5655,13 +5207,11 @@
       "额定电压": "25V",
       "温度系数": "X5R"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C90057.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm188r61e475ke11d/"
   },
   {
@@ -5681,13 +5231,11 @@
       "误差": "±25%",
       "直流电阻(DCR)": "80mΩ"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C16902.pdf",
+    "datasheet_url": "",
     "product_url": "/products/blm31pg601sn1l/"
   },
   {
@@ -5707,13 +5255,11 @@
       "误差": "±25%",
       "直流电阻(DCR)": "45mΩ"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C85840.pdf",
+    "datasheet_url": "",
     "product_url": "/products/blm21pg221sn1d/"
   },
   {
@@ -5732,13 +5278,11 @@
       "输入失调电压(Vos)": "10uV",
       "输入偏置电流(Ib)": "20uA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C87469.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ina219aidcnr/"
   },
   {
@@ -5758,13 +5302,11 @@
       "额定电压": "50V",
       "温度系数": "C0G"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C76947.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm1555c1h102ja01d/"
   },
   {
@@ -5784,13 +5326,11 @@
       "额定电压": "35V",
       "温度系数": "X5R"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C162422.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm21br6ya106ke43l/"
   },
   {
@@ -5810,13 +5350,11 @@
       "输入偏置电流(Ib)": "400nA",
       "输出电流": "20mA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C174050.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lm13700mxnopb/"
   },
   {
@@ -5836,13 +5374,11 @@
       "额定电压": "10V",
       "温度系数": "X7R"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C528974.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm155z71a105ke01d/"
   },
   {
@@ -5862,13 +5398,11 @@
       "电池类型": "锂电池",
       "电池节数": "1"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C424093.pdf",
+    "datasheet_url": "",
     "product_url": "/products/mcp73831t2aciot/"
   },
   {
@@ -5886,13 +5420,11 @@
       "检测温度": "-40℃~+125℃",
       "精度": "±2℃"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C127949.pdf",
+    "datasheet_url": "",
     "product_url": "/products/mcp9700atett/"
   },
   {
@@ -5912,13 +5444,11 @@
       "额定电压": "25V",
       "温度系数": "X5R"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C77009.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm155r61e105ka12d/"
   },
   {
@@ -5933,13 +5463,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C46749.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ne555p/"
   },
   {
@@ -5959,13 +5487,11 @@
       "峰值脉冲功率(Ppp)": "130W@8/20us",
       "反向截止电压(Vrwm)": "5.25V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C111212.pdf",
+    "datasheet_url": "",
     "product_url": "/products/usblc64sc6/"
   },
   {
@@ -5985,13 +5511,11 @@
       "误差": "±25%",
       "直流电阻(DCR)": "30mΩ"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C79382.pdf",
+    "datasheet_url": "",
     "product_url": "/products/blm21pg121sn1d/"
   },
   {
@@ -6011,13 +5535,11 @@
       "增益带宽积(GBW)": "53MHz",
       "输入偏置电流(Ib)": "20pA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C1849431.pdf",
+    "datasheet_url": "",
     "product_url": "/products/opa1656idr/"
   },
   {
@@ -6035,13 +5557,11 @@
       "检测温度": "0℃~+100℃",
       "精度": "±1.5℃"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C12165.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lm35dznopb/"
   },
   {
@@ -6061,13 +5581,11 @@
       "输入控制逻辑": "高电平有效",
       "最大连续电流": "2A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C131941.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tps22918dbvr/"
   },
   {
@@ -6087,13 +5605,11 @@
       "输入失调电压(Vos)": "10uV",
       "输入偏置电流(Ib)": "20nA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C138706.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ina219aidr/"
   },
   {
@@ -6113,13 +5629,11 @@
       "峰值脉冲功率(Ppp)": "45W@8/20us",
       "反向截止电压(Vrwm)": "5.5V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C90627.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tpd4eusb30dqar/"
   },
   {
@@ -6138,13 +5652,11 @@
       "通道数": "八路",
       "集电极电流(Ic)": "500mA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C7494313.pdf",
+    "datasheet_url": "",
     "product_url": "/products/uln2803cdwr/"
   },
   {
@@ -6163,13 +5675,11 @@
       "CPU位数": "8 Bit",
       "CPU最大主频": "20MHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C507118.pdf",
+    "datasheet_url": "",
     "product_url": "/products/attiny1616mnr/"
   },
   {
@@ -6189,13 +5699,11 @@
       "额定电压": "50V",
       "温度系数": "X7R"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C77019.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm155r71h103ka88d/"
   },
   {
@@ -6215,13 +5723,11 @@
       "额定电压": "25V",
       "温度系数": "X7R"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C85862.pdf",
+    "datasheet_url": "",
     "product_url": "/products/gcm188r71e105ka64d/"
   },
   {
@@ -6241,13 +5747,11 @@
       "反向截止电压(Vrwm)": "5.25V",
       "击穿电压(VBR)": "6V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C15999.pdf",
+    "datasheet_url": "",
     "product_url": "/products/usblc62p6/"
   },
   {
@@ -6267,13 +5771,11 @@
       "额定电压": "50V",
       "温度系数": "X5R"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C1518208.pdf",
+    "datasheet_url": "",
     "product_url": "/products/grm155r61h105ke05d/"
   },
   {
@@ -6291,13 +5793,11 @@
       "接口类型": "I2C",
       "工作电压": "2V~5.5V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C468683.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ads1115idgst/"
   },
   {
@@ -6317,13 +5817,11 @@
       "误差": "±25%",
       "直流电阻(DCR)": "14mΩ"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C16903.pdf",
+    "datasheet_url": "",
     "product_url": "/products/blm21pg300sn1d/"
   },
   {
@@ -6343,13 +5841,11 @@
       "增益带宽积(GBW)": "1.1MHz",
       "输入偏置电流(Ib)": "200nA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C9418.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lm358dt/"
   },
   {
@@ -6369,13 +5865,11 @@
       "误差": "±25%",
       "直流电阻(DCR)": "280mΩ"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C85835.pdf",
+    "datasheet_url": "",
     "product_url": "/products/blm21ag102sn1d/"
   },
   {
@@ -6394,13 +5888,11 @@
       "CPU位数": "8 Bit",
       "CPU最大主频": "20MHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C33901.pdf",
+    "datasheet_url": "",
     "product_url": "/products/atmega328ppu/"
   },
   {
@@ -6419,13 +5911,11 @@
       "输出类型": "可调",
       "工作电压": "3.1V~20V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C690600.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ltm4671eypbf/"
   },
   {
@@ -6444,13 +5934,11 @@
       "输出电压": "3.3V",
       "输出极性": "正极"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C80670.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lp5907mfx33nopb/"
   },
   {
@@ -6470,13 +5958,11 @@
       "输入控制逻辑": "高电平有效",
       "最大连续电流": "1.5A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2149796.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tps22919dckr/"
   },
   {
@@ -6495,13 +5981,11 @@
       "输出电压": "3.3V",
       "输出极性": "正极"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C39051.pdf",
+    "datasheet_url": "",
     "product_url": "/products/mcp1700t3302ett/"
   },
   {
@@ -6521,13 +6005,11 @@
       "精度": "±20%",
       "额定电流": "4.3A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C882955.pdf",
+    "datasheet_url": "",
     "product_url": "/products/dfe252012p1r0mp2/"
   },
   {
@@ -6542,13 +6024,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C689572.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ltc6811ig13zztrpbf/"
   },
   {
@@ -6567,13 +6047,11 @@
       "最大充电电流": "1A",
       "电池节数": "1"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C19725033.pdf",
+    "datasheet_url": "",
     "product_url": "/products/bq25185dlhr/"
   },
   {
@@ -6588,13 +6066,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C110926.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lis2dh12tr/"
   },
   {
@@ -6614,13 +6090,11 @@
       "建立时间": "6us",
       "积分非线性": "2LSB"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C144198.pdf",
+    "datasheet_url": "",
     "product_url": "/products/mcp4725a0tech/"
   },
   {
@@ -6635,13 +6109,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C15134.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lis3dhtr/"
   },
   {
@@ -6660,13 +6132,11 @@
       "CPU位数": "32 Bit",
       "CPU最大主频": "168MHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C12345.pdf",
+    "datasheet_url": "",
     "product_url": "/products/stm32f407vgt6/"
   },
   {
@@ -6685,13 +6155,11 @@
       "工作电压": "1.8V~5.5V",
       "导通电阻(Ron)": "4Ω"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C61383.pdf",
+    "datasheet_url": "",
     "product_url": "/products/adg719brtzreel7/"
   },
   {
@@ -6711,13 +6179,11 @@
       "整流电流": "215mA",
       "直流反向耐压(Vr)": "100V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2500.pdf",
+    "datasheet_url": "",
     "product_url": "/products/bav99215/"
   },
   {
@@ -6737,13 +6203,11 @@
       "整流电流": "250mA",
       "正向压降(Vf)": "850mV@250mA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C114696.pdf",
+    "datasheet_url": "",
     "product_url": "/products/bat46wj115/"
   },
   {
@@ -6763,13 +6227,11 @@
       "存储容量": "64Mbit",
       "时钟频率(fc)": "133MHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C179171.pdf",
+    "datasheet_url": "",
     "product_url": "/products/w25q64jvssiq/"
   },
   {
@@ -6789,13 +6251,11 @@
       "整流电流": "1A",
       "正向压降(Vf)": "660mV@1A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C406049.pdf",
+    "datasheet_url": "",
     "product_url": "/products/pmeg6010cej115/"
   },
   {
@@ -6815,13 +6275,11 @@
       "精度": "±1%",
       "最大工作电压": "75V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C98220.pdf",
+    "datasheet_url": "",
     "product_url": "/products/rc0603fr0710kl/"
   },
   {
@@ -6841,13 +6299,11 @@
       "精度": "±1%",
       "最大工作电压": "75V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2907002.pdf",
+    "datasheet_url": "",
     "product_url": "/products/frc0603f1001ts/"
   },
   {
@@ -6867,13 +6323,11 @@
       "整流电流": "1A",
       "正向压降(Vf)": "660mV@1A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C110797.pdf",
+    "datasheet_url": "",
     "product_url": "/products/pmeg6010ceh115/"
   },
   {
@@ -6893,13 +6347,11 @@
       "精度": "±1%",
       "最大工作电压": "75V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2906982.pdf",
+    "datasheet_url": "",
     "product_url": "/products/frc0603f1002ts/"
   },
   {
@@ -6919,13 +6371,11 @@
       "漏源电压(Vdss)": "60V",
       "连续漏极电流(Id)": "300mA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C65189.pdf",
+    "datasheet_url": "",
     "product_url": "/products/2n7002215/"
   },
   {
@@ -6945,13 +6395,11 @@
       "端口数量": "1",
       "触点数量": "16P"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2765186.pdf",
+    "datasheet_url": "",
     "product_url": "/products/typec16pin2md073/"
   },
   {
@@ -6971,13 +6419,11 @@
       "精度": "±1%",
       "最大工作电压": "50V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C60491.pdf",
+    "datasheet_url": "",
     "product_url": "/products/rc0402fr07100kl/"
   },
   {
@@ -6997,13 +6443,11 @@
       "整流电流": "300mA",
       "反向恢复时间（trr）": "4ns"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C83528.pdf",
+    "datasheet_url": "",
     "product_url": "/products/1n4148w7f/"
   },
   {
@@ -7021,13 +6465,11 @@
       "应用功能": "USB转UART",
       "数据速率": "3Mbps"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C132158.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ft234xdr/"
   },
   {
@@ -7047,13 +6489,11 @@
       "元件数": "1",
       "传播延迟(tpd)": "19ns@4.5V,50pF"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C5947.pdf",
+    "datasheet_url": "",
     "product_url": "/products/74hc595d118/"
   },
   {
@@ -7073,13 +6513,11 @@
       "精度": "±1%",
       "最大工作电压": "150V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2907219.pdf",
+    "datasheet_url": "",
     "product_url": "/products/frc0805f1002ts/"
   },
   {
@@ -7099,13 +6537,11 @@
       "精度": "±1%",
       "最大工作电压": "75V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C14675.pdf",
+    "datasheet_url": "",
     "product_url": "/products/rc0603fr07100kl/"
   },
   {
@@ -7123,13 +6559,11 @@
       "接口类型": "I2C",
       "电池类型": "锂电池"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2682616.pdf",
+    "datasheet_url": "",
     "product_url": "/products/max17048gt10/"
   },
   {
@@ -7149,13 +6583,11 @@
       "精度": "±1%",
       "最大工作电压": "75V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C99782.pdf",
+    "datasheet_url": "",
     "product_url": "/products/rc0603fr074k7l/"
   },
   {
@@ -7175,13 +6607,11 @@
       "峰值波长": "625nm",
       "正向压降(Vf)": "2.3V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C965799.pdf",
+    "datasheet_url": "",
     "product_url": "/products/xl1608surc06/"
   },
   {
@@ -7201,13 +6631,11 @@
       "输出电压": "5V",
       "输出电流": "2A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2071056.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ap63205wu7/"
   },
   {
@@ -7227,13 +6655,11 @@
       "精度": "±1%",
       "最大工作电压": "75V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2906980.pdf",
+    "datasheet_url": "",
     "product_url": "/products/frc0603f1003ts/"
   },
   {
@@ -7253,13 +6679,11 @@
       "安装方式": "直插",
       "插针结构": "1x2P"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C158012.pdf",
+    "datasheet_url": "",
     "product_url": "/products/b2bxhalfsn/"
   },
   {
@@ -7279,13 +6703,11 @@
       "开关长度": "3.9mm",
       "开关宽度": "3mm"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C720477.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ts1088ar02016/"
   },
   {
@@ -7305,13 +6727,11 @@
       "工作温度": "-40℃~+90℃",
       "频率": "6GHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C88374.pdf",
+    "datasheet_url": "",
     "product_url": "/products/uflrsmt180/"
   },
   {
@@ -7331,13 +6751,11 @@
       "精度": "±1%",
       "最大工作电压": "75V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C22548.pdf",
+    "datasheet_url": "",
     "product_url": "/products/rc0603fr071kl/"
   },
   {
@@ -7357,13 +6775,11 @@
       "整流电流": "200mA",
       "正向压降(Vf)": "800mV@100mA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C85084.pdf",
+    "datasheet_url": "",
     "product_url": "/products/bat54215/"
   },
   {
@@ -7383,13 +6799,11 @@
       "精度": "±5%",
       "最大工作电压": "75V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C95177.pdf",
+    "datasheet_url": "",
     "product_url": "/products/rc0603jr070rl/"
   },
   {
@@ -7409,13 +6823,11 @@
       "整流电流": "200mA",
       "直流反向耐压(Vr)": "30V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C19726.pdf",
+    "datasheet_url": "",
     "product_url": "/products/bat54slt1g/"
   },
   {
@@ -7434,13 +6846,11 @@
       "数据速率": "3Mbps",
       "USB协议版本": "USB 2.0"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C8690.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ft232rlreel/"
   },
   {
@@ -7460,13 +6870,11 @@
       "整流电流": "1A",
       "正向压降(Vf)": "600mV@1A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C191023.pdf",
+    "datasheet_url": "",
     "product_url": "/products/1n5819ws/"
   },
   {
@@ -7486,13 +6894,11 @@
       "精度": "±1%",
       "最大工作电压": "75V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2907044.pdf",
+    "datasheet_url": "",
     "product_url": "/products/frc0603f5101ts/"
   },
   {
@@ -7512,13 +6918,11 @@
       "整流电流": "200mA",
       "直流反向耐压(Vr)": "30V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C37704.pdf",
+    "datasheet_url": "",
     "product_url": "/products/bat54c215/"
   },
   {
@@ -7538,13 +6942,11 @@
       "安装方式": "直插",
       "插针结构": "1x4P"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C144395.pdf",
+    "datasheet_url": "",
     "product_url": "/products/b4bxhalfsn/"
   },
   {
@@ -7564,13 +6966,11 @@
       "精度": "±1%",
       "最大工作电压": "50V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C106235.pdf",
+    "datasheet_url": "",
     "product_url": "/products/rc0402fr071kl/"
   },
   {
@@ -7590,13 +6990,11 @@
       "整流电流": "300mA",
       "反向恢复时间（trr）": "8ns"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C917030.pdf",
+    "datasheet_url": "",
     "product_url": "/products/1n4148w/"
   },
   {
@@ -7615,13 +7013,11 @@
       "反向截止电压(Vrwm)": "5.5V",
       "击穿电压(VBR)": "6V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C478118.pdf",
+    "datasheet_url": "",
     "product_url": "/products/prtr5v0u2f115/"
   },
   {
@@ -7641,13 +7037,11 @@
       "功率": "100mW",
       "温度系数": "-100ppm/℃~+600ppm/℃"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C242160.pdf",
+    "datasheet_url": "",
     "product_url": "/products/erj2ge0r00x/"
   },
   {
@@ -7667,13 +7061,11 @@
       "精度": "±1%",
       "最大工作电压": "150V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2907232.pdf",
+    "datasheet_url": "",
     "product_url": "/products/frc0805f1001ts/"
   },
   {
@@ -7693,13 +7085,11 @@
       "峰值脉冲功率(Ppp)": "350W@8/20us",
       "反向截止电压(Vrwm)": "24V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C14486.pdf",
+    "datasheet_url": "",
     "product_url": "/products/nup2105lt1g/"
   },
   {
@@ -7718,13 +7108,11 @@
       "输出电压": "3.3V",
       "输出极性": "正极"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C6186.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ams111733/"
   },
   {
@@ -7744,13 +7132,11 @@
       "工作电压": "2.5V~5.5V",
       "静态电流(Iq)": "2.4mA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C910544.pdf",
+    "datasheet_url": "",
     "product_url": "/products/max98357aetet/"
   },
   {
@@ -7770,13 +7156,11 @@
       "安装方式": "直插",
       "插针结构": "1x2P"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C131337.pdf",
+    "datasheet_url": "",
     "product_url": "/products/b2bphkslfsn/"
   },
   {
@@ -7796,13 +7180,11 @@
       "整流电流": "200mA",
       "正向压降(Vf)": "800mV@100mA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C916425.pdf",
+    "datasheet_url": "",
     "product_url": "/products/bat54s/"
   },
   {
@@ -7821,13 +7203,11 @@
       "钳位电压": "40V",
       "反向截止电压(Vrwm)": "14V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C10662.pdf",
+    "datasheet_url": "",
     "product_url": "/products/pesd0402140/"
   },
   {
@@ -7847,13 +7227,11 @@
       "连续漏极电流(Id)": "200mA",
       "耗散功率(Pd)": "225mW"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C82045.pdf",
+    "datasheet_url": "",
     "product_url": "/products/bss138lt1g/"
   },
   {
@@ -7870,13 +7248,11 @@
     "attributes": {
       "接口类型": "SPI"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C16030.pdf",
+    "datasheet_url": "",
     "product_url": "/products/max6675isat/"
   },
   {
@@ -7896,13 +7272,11 @@
       "工作温度": "-40℃~+85℃",
       "端口数量": "1"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2988369.pdf",
+    "datasheet_url": "",
     "product_url": "/products/gtusb7010asv/"
   },
   {
@@ -7917,13 +7291,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C32843.pdf",
+    "datasheet_url": "",
     "product_url": "/products/w5500/"
   },
   {
@@ -7943,13 +7315,11 @@
       "漏源电压(Vdss)": "100V",
       "连续漏极电流(Id)": "33A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2566.pdf",
+    "datasheet_url": "",
     "product_url": "/products/irf540npbf/"
   },
   {
@@ -7967,13 +7337,11 @@
       "工作电压": "4.5V~5.5V",
       "输出电压": "5V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C7465178.pdf",
+    "datasheet_url": "",
     "product_url": "/products/b0505s1wr3/"
   },
   {
@@ -7993,13 +7361,11 @@
       "峰值脉冲功率(Ppp)": "330W@8/20us",
       "反向截止电压(Vrwm)": "3.3V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C84276.pdf",
+    "datasheet_url": "",
     "product_url": "/products/pesd3v3s2ut215/"
   },
   {
@@ -8017,13 +7383,11 @@
       "工作电压": "3V~3.6V",
       "接口类型": "SPI"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C118474.pdf",
+    "datasheet_url": "",
     "product_url": "/products/max31865atpt/"
   },
   {
@@ -8043,13 +7407,11 @@
       "工作温度": "-40℃~+90℃",
       "频率": "6GHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C88373.pdf",
+    "datasheet_url": "",
     "product_url": "/products/uflrsmt110/"
   },
   {
@@ -8064,13 +7426,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2836813.pdf",
+    "datasheet_url": "",
     "product_url": "/products/bmi270/"
   },
   {
@@ -8090,13 +7450,11 @@
       "精度": "±1%",
       "最大工作电压": "75V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C844918.pdf",
+    "datasheet_url": "",
     "product_url": "/products/crcw060310k0fkea/"
   },
   {
@@ -8114,13 +7472,11 @@
       "常温频差": "±20ppm",
       "负载电容": "12.5pF"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C32346.pdf",
+    "datasheet_url": "",
     "product_url": "/products/q13fc13500004/"
   },
   {
@@ -8140,13 +7496,11 @@
       "整流电流": "1A",
       "正向压降(Vf)": "450mV@1A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C82544.pdf",
+    "datasheet_url": "",
     "product_url": "/products/1n5819hw7f/"
   },
   {
@@ -8166,13 +7520,11 @@
       "精度": "±1%",
       "最大工作电压": "50V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2906861.pdf",
+    "datasheet_url": "",
     "product_url": "/products/frc0402f1002ts/"
   },
   {
@@ -8192,13 +7544,11 @@
       "峰值脉冲功率(Ppp)": "158W@8/20us",
       "反向截止电压(Vrwm)": "3.3V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C61148.pdf",
+    "datasheet_url": "",
     "product_url": "/products/esd5z33t1g/"
   },
   {
@@ -8217,13 +7567,11 @@
       "接口类型": "单总线",
       "精度": "±0.5℃"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C9753.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ds18b20/"
   },
   {
@@ -8243,13 +7591,11 @@
       "安装方式": "直插",
       "插针结构": "1x4P"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C131334.pdf",
+    "datasheet_url": "",
     "product_url": "/products/b4bphkslfsn/"
   },
   {
@@ -8269,13 +7615,11 @@
       "精度": "±1%",
       "最大工作电压": "75V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2907042.pdf",
+    "datasheet_url": "",
     "product_url": "/products/frc0603f4702ts/"
   },
   {
@@ -8295,13 +7639,11 @@
       "连接器类型": "卡座",
       "本体最大高度": "2mm"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C393941.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tfpush/"
   },
   {
@@ -8321,13 +7663,11 @@
       "精度": "±1%",
       "最大工作电压": "75V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2907034.pdf",
+    "datasheet_url": "",
     "product_url": "/products/frc0603f4701ts/"
   },
   {
@@ -8347,13 +7687,11 @@
       "精度": "±1%",
       "最大工作电压": "50V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C106231.pdf",
+    "datasheet_url": "",
     "product_url": "/products/rc0402fr070rl/"
   },
   {
@@ -8373,13 +7711,11 @@
       "最大工作电压": "100V",
       "功率": "100mW"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C844915.pdf",
+    "datasheet_url": "",
     "product_url": "/products/crcw06030000z0ea/"
   },
   {
@@ -8399,13 +7735,11 @@
       "开关长度": "5.1mm",
       "开关宽度": "5.1mm"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C318884.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ts1187abab/"
   },
   {
@@ -8425,13 +7759,11 @@
       "精度": "±1%",
       "最大工作电压": "75V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2906974.pdf",
+    "datasheet_url": "",
     "product_url": "/products/frc0603f0000ts/"
   },
   {
@@ -8451,13 +7783,11 @@
       "精度": "±1%",
       "最大工作电压": "75V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2906981.pdf",
+    "datasheet_url": "",
     "product_url": "/products/frc0603f1000ts/"
   },
   {
@@ -8477,13 +7807,11 @@
       "整流电流": "300mA",
       "反向恢复时间（trr）": "8ns"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C68883.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ll4148gs08/"
   },
   {
@@ -8503,13 +7831,11 @@
       "精度": "±1%",
       "最大工作电压": "50V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C71617.pdf",
+    "datasheet_url": "",
     "product_url": "/products/crcw040210k0fked/"
   },
   {
@@ -8529,13 +7855,11 @@
       "峰值波长": "620nm",
       "正向压降(Vf)": "2.3V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C965812.pdf",
+    "datasheet_url": "",
     "product_url": "/products/xl2012surc/"
   },
   {
@@ -8555,13 +7879,11 @@
       "整流电流": "5A",
       "正向压降(Vf)": "550mV@5A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C22452.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ss54/"
   },
   {
@@ -8581,13 +7903,11 @@
       "精度": "±5%",
       "最大工作电压": "75V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2907113.pdf",
+    "datasheet_url": "",
     "product_url": "/products/frc0603j102ts/"
   },
   {
@@ -8607,13 +7927,11 @@
       "整流电流": "1A",
       "正向压降(Vf)": "550mV@1A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2480.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ss14/"
   },
   {
@@ -8633,13 +7951,11 @@
       "静态电流(Iq)": "2uA",
       "通道数": "6"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C5605.pdf",
+    "datasheet_url": "",
     "product_url": "/products/74hc14d653/"
   },
   {
@@ -8659,13 +7975,11 @@
       "安装方式": "直插",
       "插针结构": "1x3P"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C144394.pdf",
+    "datasheet_url": "",
     "product_url": "/products/b3bxhalfsn/"
   },
   {
@@ -8680,13 +7994,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C82351.pdf",
+    "datasheet_url": "",
     "product_url": "/products/at7456e/"
   },
   {
@@ -8706,13 +8018,11 @@
       "漏源电压(Vdss)": "20V",
       "连续漏极电流(Id)": "3.7A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2593.pdf",
+    "datasheet_url": "",
     "product_url": "/products/irlml6402trpbf/"
   },
   {
@@ -8732,13 +8042,11 @@
       "元件数": "1",
       "传播延迟(tpd)": "28ns@6V,50pF"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C5613.pdf",
+    "datasheet_url": "",
     "product_url": "/products/74hc165d653/"
   },
   {
@@ -8758,13 +8066,11 @@
       "峰值脉冲功率(Ppp)": "260W@8/20us",
       "反向截止电压(Vrwm)": "3.3V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C182940.pdf",
+    "datasheet_url": "",
     "product_url": "/products/pesd5z33115/"
   },
   {
@@ -8779,13 +8085,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C961490.pdf",
+    "datasheet_url": "",
     "product_url": "/products/clrc66303hny/"
   },
   {
@@ -8805,13 +8109,11 @@
       "精度": "±1%",
       "最大工作电压": "150V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C95781.pdf",
+    "datasheet_url": "",
     "product_url": "/products/rc0805fr071kl/"
   },
   {
@@ -8831,13 +8133,11 @@
       "整流电流": "500mA",
       "正向压降(Vf)": "510mV@500mA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C21353.pdf",
+    "datasheet_url": "",
     "product_url": "/products/mbr0540t1g/"
   },
   {
@@ -8857,13 +8157,11 @@
       "漏源电压(Vdss)": "100V",
       "连续漏极电流(Id)": "180A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2650.pdf",
+    "datasheet_url": "",
     "product_url": "/products/irfb4110pbf/"
   },
   {
@@ -8882,13 +8180,11 @@
       "数据速率": "2Mbps",
       "USB协议版本": "USB 2.0"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C84681.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ch340c/"
   },
   {
@@ -8908,13 +8204,11 @@
       "峰值波长": "470nm",
       "正向压降(Vf)": "3.3V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C965807.pdf",
+    "datasheet_url": "",
     "product_url": "/products/xl1608ubc04/"
   },
   {
@@ -8934,13 +8228,11 @@
       "峰值脉冲功率(Ppp)": "200W@8/20us",
       "反向截止电压(Vrwm)": "24V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C15771.pdf",
+    "datasheet_url": "",
     "product_url": "/products/pesd1can215/"
   },
   {
@@ -8955,13 +8247,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2150710.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tmc2209lat/"
   },
   {
@@ -8981,13 +8271,11 @@
       "峰值波长": "645nm",
       "正向压降(Vf)": "1.8V~2.4V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2286.pdf",
+    "datasheet_url": "",
     "product_url": "/products/kt0603r/"
   },
   {
@@ -9004,13 +8292,11 @@
     "attributes": {
       "应用功能": "USB转UART"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C964632.pdf",
+    "datasheet_url": "",
     "product_url": "/products/cp2102na02gqfn28r/"
   },
   {
@@ -9028,13 +8314,11 @@
       "应用功能": "收发器",
       "数据速率": "1Mbps"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C6568.pdf",
+    "datasheet_url": "",
     "product_url": "/products/cp2102gmr/"
   },
   {
@@ -9054,13 +8338,11 @@
       "天线形式": "板载PCB天线",
       "灵敏度": "-103.5dBm"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2913202.pdf",
+    "datasheet_url": "",
     "product_url": "/products/esp32s3wroom1n16r8/"
   },
   {
@@ -9080,13 +8362,11 @@
       "整流电流": "250mA",
       "反向恢复时间（trr）": "4ns"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C10037.pdf",
+    "datasheet_url": "",
     "product_url": "/products/bas516115/"
   },
   {
@@ -9106,13 +8386,11 @@
       "精度": "±1%",
       "最大工作电压": "50V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C105871.pdf",
+    "datasheet_url": "",
     "product_url": "/products/rc0402fr074k7l/"
   },
   {
@@ -9132,13 +8410,11 @@
       "整流电流": "1A",
       "正向压降(Vf)": "1.1V@1A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C64898.pdf",
+    "datasheet_url": "",
     "product_url": "/products/sm4007pl/"
   },
   {
@@ -9158,13 +8434,11 @@
       "连续漏极电流(Id)": "220mA",
       "耗散功率(Pd)": "360mW"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C52895.pdf",
+    "datasheet_url": "",
     "product_url": "/products/bss138/"
   },
   {
@@ -9184,13 +8458,11 @@
       "安装方式": "直插",
       "插针结构": "1x3P"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C131339.pdf",
+    "datasheet_url": "",
     "product_url": "/products/b3bphkslfsn/"
   },
   {
@@ -9205,13 +8477,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C516354.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tmc5160atat/"
   },
   {
@@ -9231,13 +8501,11 @@
       "连续漏极电流(Id)": "49A",
       "耗散功率(Pd)": "94W"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2586.pdf",
+    "datasheet_url": "",
     "product_url": "/products/irfz44npbf/"
   },
   {
@@ -9257,13 +8525,11 @@
       "整流电流": "5A",
       "正向压降(Vf)": "700mV@5A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C85100.pdf",
+    "datasheet_url": "",
     "product_url": "/products/b560c13f/"
   },
   {
@@ -9281,13 +8547,11 @@
       "工作电压": "10.8V~13.2V",
       "输出电压": "12V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C3031174.pdf",
+    "datasheet_url": "",
     "product_url": "/products/b1212s1wr3/"
   },
   {
@@ -9307,13 +8571,11 @@
       "整流电流": "3A",
       "正向压降(Vf)": "500mV@3A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C85098.pdf",
+    "datasheet_url": "",
     "product_url": "/products/b340a13f/"
   },
   {
@@ -9333,13 +8595,11 @@
       "精度": "±1%",
       "最大工作电压": "75V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2907011.pdf",
+    "datasheet_url": "",
     "product_url": "/products/frc0603f2002ts/"
   },
   {
@@ -9359,13 +8619,11 @@
       "整流电流": "500mA",
       "正向压降(Vf)": "385mV@500mA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C23848.pdf",
+    "datasheet_url": "",
     "product_url": "/products/mbr0520lt1g/"
   },
   {
@@ -9385,13 +8643,11 @@
       "安装方式": "直插",
       "插针结构": "1x2P"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C492401.pdf",
+    "datasheet_url": "",
     "product_url": "/products/pz254v1102p/"
   },
   {
@@ -9411,13 +8667,11 @@
       "精度": "±5%",
       "最大工作电压": "75V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2930027.pdf",
+    "datasheet_url": "",
     "product_url": "/products/frc0603j103ts/"
   },
   {
@@ -9434,13 +8688,11 @@
     "attributes": {
       "输出类型": "SPI"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C962063.pdf",
+    "datasheet_url": "",
     "product_url": "/products/as5047patsm/"
   },
   {
@@ -9460,13 +8712,11 @@
       "精度": "±1%",
       "最大工作电压": "75V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C105881.pdf",
+    "datasheet_url": "",
     "product_url": "/products/rc0603fr07330rl/"
   },
   {
@@ -9486,13 +8736,11 @@
       "精度": "±1%",
       "最大工作电压": "150V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2907264.pdf",
+    "datasheet_url": "",
     "product_url": "/products/frc0805f4701ts/"
   },
   {
@@ -9512,13 +8760,11 @@
       "精度": "±1%",
       "最大工作电压": "50V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C481918.pdf",
+    "datasheet_url": "",
     "product_url": "/products/crcw0402100kfked/"
   },
   {
@@ -9537,13 +8783,11 @@
       "触点形式": "一组常开:1A(单刀单掷-常开)",
       "最大切换电流": "5A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C48746.pdf",
+    "datasheet_url": "",
     "product_url": "/products/g5nb1aedc5v/"
   },
   {
@@ -9563,13 +8807,11 @@
       "整流电流": "3A",
       "正向压降(Vf)": "450mV@3A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C26178.pdf",
+    "datasheet_url": "",
     "product_url": "/products/mbra340t3g/"
   },
   {
@@ -9589,13 +8831,11 @@
       "峰值脉冲功率(Ppp)": "300W@8/20us",
       "反向截止电压(Vrwm)": "5V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C13612.pdf",
+    "datasheet_url": "",
     "product_url": "/products/srv054tct/"
   },
   {
@@ -9615,13 +8855,11 @@
       "漏源电压(Vdss)": "25V",
       "连续漏极电流(Id)": "220mA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C15310.pdf",
+    "datasheet_url": "",
     "product_url": "/products/fdv301n/"
   },
   {
@@ -9641,13 +8879,11 @@
       "峰值脉冲功率(Ppp)": "174W",
       "反向截止电压(Vrwm)": "5V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C82044.pdf",
+    "datasheet_url": "",
     "product_url": "/products/esd5z50t1g/"
   },
   {
@@ -9667,13 +8903,11 @@
       "安装方式": "直插",
       "插针结构": "1x6P"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C144397.pdf",
+    "datasheet_url": "",
     "product_url": "/products/b6bxhalfsn/"
   },
   {
@@ -9691,13 +8925,11 @@
       "工作电压": "3V~3.6V",
       "接口类型": "SPI"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C779509.pdf",
+    "datasheet_url": "",
     "product_url": "/products/max31865aapt/"
   },
   {
@@ -9717,13 +8949,11 @@
       "漏源电压(Vdss)": "20V",
       "连续漏极电流(Id)": "2.9A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C10488.pdf",
+    "datasheet_url": "",
     "product_url": "/products/si2302cdst1ge3/"
   },
   {
@@ -9743,13 +8973,11 @@
       "安装方式": "直插",
       "插针结构": "1x2P"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C160315.pdf",
+    "datasheet_url": "",
     "product_url": "/products/b2pvhlfsn/"
   },
   {
@@ -9769,13 +8997,11 @@
       "精度": "±1%",
       "最大工作电压": "75V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2907003.pdf",
+    "datasheet_url": "",
     "product_url": "/products/frc0603f1004ts/"
   },
   {
@@ -9795,13 +9021,11 @@
       "精度": "±0.1%",
       "最大工作电压": "75V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C95204.pdf",
+    "datasheet_url": "",
     "product_url": "/products/rt0603brd0710kl/"
   },
   {
@@ -9821,13 +9045,11 @@
       "尺寸(inch)": "0.96",
       "像素分辨率": "128x64"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C5248080.pdf",
+    "datasheet_url": "",
     "product_url": "/products/hs96l03w2c03/"
   },
   {
@@ -9847,13 +9069,11 @@
       "整流电流": "250mA",
       "反向恢复时间（trr）": "4ns"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C282360.pdf",
+    "datasheet_url": "",
     "product_url": "/products/bas16j115/"
   },
   {
@@ -9868,13 +9088,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C5149201.pdf",
+    "datasheet_url": "",
     "product_url": "/products/sk6812minie/"
   },
   {
@@ -9892,13 +9110,11 @@
       "分辨率(位)": "19",
       "接口类型": "SPI"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2653162.pdf",
+    "datasheet_url": "",
     "product_url": "/products/max31856mudt/"
   },
   {
@@ -9918,13 +9134,11 @@
       "安装方式": "直插",
       "插针结构": "1x5P"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C157991.pdf",
+    "datasheet_url": "",
     "product_url": "/products/b5bxhalfsn/"
   },
   {
@@ -9944,13 +9158,11 @@
       "峰值脉冲功率(Ppp)": "400W@10/1000us",
       "反向截止电压(Vrwm)": "5V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C83329.pdf",
+    "datasheet_url": "",
     "product_url": "/products/smaj50a/"
   },
   {
@@ -9969,13 +9181,11 @@
       "输出电压": "3.3V",
       "输出极性": "正极"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C51118.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ap2112k33trg1/"
   },
   {
@@ -9995,13 +9205,11 @@
       "端口数量": "1",
       "触点数量": "16P"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2760486.pdf",
+    "datasheet_url": "",
     "product_url": "/products/typec31m31/"
   },
   {
@@ -10021,13 +9229,11 @@
       "输出电压": "3.3V",
       "输出电流": "2A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C780769.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ap63203wu7/"
   },
   {
@@ -10046,13 +9252,11 @@
       "工作电压": "8V~20V",
       "灌电流(IOL)": "1.8A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C19077370.pdf",
+    "datasheet_url": "",
     "product_url": "/products/jsm6288q/"
   },
   {
@@ -10072,13 +9276,11 @@
       "整流电流": "250mA",
       "反向恢复时间（trr）": "4ns"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C109218.pdf",
+    "datasheet_url": "",
     "product_url": "/products/bas316115/"
   },
   {
@@ -10098,13 +9300,11 @@
       "漏源电压(Vdss)": "30V",
       "连续漏极电流(Id)": "4.3A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C15155.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ao3407a/"
   },
   {
@@ -10124,13 +9324,11 @@
       "安装方式": "直插",
       "插针结构": "1x6P"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C131342.pdf",
+    "datasheet_url": "",
     "product_url": "/products/b6bphkslfsn/"
   },
   {
@@ -10145,13 +9343,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C114586.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ws2812bbw/"
   },
   {
@@ -10171,13 +9367,11 @@
       "连续漏极电流(Id)": "200mA",
       "耗散功率(Pd)": "300mW"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C40912.pdf",
+    "datasheet_url": "",
     "product_url": "/products/bss1387f/"
   },
   {
@@ -10197,13 +9391,11 @@
       "发光颜色": "蓝色",
       "波长": "460nm~475nm"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C19171394.pdf",
+    "datasheet_url": "",
     "product_url": "/products/yled0603b/"
   },
   {
@@ -10223,13 +9415,11 @@
       "安装方式": "直插",
       "插针结构": "1x4P"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2691448.pdf",
+    "datasheet_url": "",
     "product_url": "/products/pz254v1104p/"
   },
   {
@@ -10249,13 +9439,11 @@
       "连续漏极电流(Id)": "300mA",
       "耗散功率(Pd)": "350mW"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C81445.pdf",
+    "datasheet_url": "",
     "product_url": "/products/2n7002kt1ge3/"
   },
   {
@@ -10275,13 +9463,11 @@
       "漏源电压(Vdss)": "60V",
       "连续漏极电流(Id)": "115mA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C16338.pdf",
+    "datasheet_url": "",
     "product_url": "/products/2n7002lt1g/"
   },
   {
@@ -10301,13 +9487,11 @@
       "峰值脉冲功率(Ppp)": "230W@8/20us",
       "反向截止电压(Vrwm)": "24V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C75176.pdf",
+    "datasheet_url": "",
     "product_url": "/products/pesd2can215/"
   },
   {
@@ -10327,13 +9511,11 @@
       "整流电流": "215mA",
       "直流反向耐压(Vr)": "100V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C82480.pdf",
+    "datasheet_url": "",
     "product_url": "/products/bav99lt1g/"
   },
   {
@@ -10353,13 +9535,11 @@
       "安装方式": "卧贴",
       "插针结构": "1x6P"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C160405.pdf",
+    "datasheet_url": "",
     "product_url": "/products/sm06bsrsstblfsn/"
   },
   {
@@ -10379,13 +9559,11 @@
       "整流电流": "215mA",
       "直流反向耐压(Vr)": "100V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2501.pdf",
+    "datasheet_url": "",
     "product_url": "/products/bav70215/"
   },
   {
@@ -10405,13 +9583,11 @@
       "最大切换电压": "250V@AC",
       "最大切换电流": "15A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C30431.pdf",
+    "datasheet_url": "",
     "product_url": "/products/srd12vdcslc/"
   },
   {
@@ -10429,13 +9605,11 @@
       "最大充电电流": "1A",
       "电池类型": "锂电池"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C16581.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tp405642esop8/"
   },
   {
@@ -10454,13 +9628,11 @@
       "输出电压": "3.3V",
       "输出极性": "正极"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C26537.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ncp1117st33t3g/"
   },
   {
@@ -10480,13 +9652,11 @@
       "端口数量": "1",
       "触点数量": "6P"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C668623.pdf",
+    "datasheet_url": "",
     "product_url": "/products/typec6p073/"
   },
   {
@@ -10506,13 +9676,11 @@
       "反向截止电压(Vrwm)": "5V",
       "击穿电压(VBR)": "5.4V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C82326.pdf",
+    "datasheet_url": "",
     "product_url": "/products/esd9l50st5g/"
   },
   {
@@ -10530,13 +9698,11 @@
       "应用功能": "USB转UART",
       "数据速率": "3Mbps"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C969913.pdf",
+    "datasheet_url": "",
     "product_url": "/products/cp2102na02gqfn20r/"
   },
   {
@@ -10553,13 +9719,11 @@
     "attributes": {
       "输出类型": "I2C"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C499458.pdf",
+    "datasheet_url": "",
     "product_url": "/products/as5600asot/"
   },
   {
@@ -10579,13 +9743,11 @@
       "发光颜色": "红色",
       "波长": "620nm~625nm"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C19171390.pdf",
+    "datasheet_url": "",
     "product_url": "/products/yled0603r/"
   },
   {
@@ -10605,13 +9767,11 @@
       "最大切换电压": "250V@AC",
       "最大切换电流": "15A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C35449.pdf",
+    "datasheet_url": "",
     "product_url": "/products/srd05vdcslc/"
   },
   {
@@ -10631,13 +9791,11 @@
       "输出电压": "600mV~28V",
       "输出电流": "2A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C84817.pdf",
+    "datasheet_url": "",
     "product_url": "/products/mt3608/"
   },
   {
@@ -10657,13 +9815,11 @@
       "安装方式": "卧贴",
       "插针结构": "1x2P"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C160402.pdf",
+    "datasheet_url": "",
     "product_url": "/products/sm02bsrsstblfsn/"
   },
   {
@@ -10682,13 +9838,11 @@
       "峰值脉冲功率(Ppp)": "600W@8/20us",
       "峰值脉冲电流(Ipp)": "19A@8/20us"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C172881.pdf",
+    "datasheet_url": "",
     "product_url": "/products/sm71202htg/"
   },
   {
@@ -10708,13 +9862,11 @@
       "安装方式": "直插",
       "插针结构": "1x16P"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C7501270.pdf",
+    "datasheet_url": "",
     "product_url": "/products/zxpz254116pzz/"
   },
   {
@@ -10734,13 +9886,11 @@
       "安装方式": "卧贴",
       "插针结构": "1x8P"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C160407.pdf",
+    "datasheet_url": "",
     "product_url": "/products/sm08bsrsstblfsn/"
   },
   {
@@ -10760,13 +9910,11 @@
       "漏源电压(Vdss)": "55V",
       "连续漏极电流(Id)": "31A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2624.pdf",
+    "datasheet_url": "",
     "product_url": "/products/irfr5305trpbf/"
   },
   {
@@ -10786,13 +9934,11 @@
       "输入偏置电流(Ib)": "45nA",
       "输出电流": "40mA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C7950.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lm358dr2g/"
   },
   {
@@ -10812,13 +9958,11 @@
       "峰值波长": "525nm",
       "正向压降(Vf)": "3.2V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C965815.pdf",
+    "datasheet_url": "",
     "product_url": "/products/xl2012ugc/"
   },
   {
@@ -10838,13 +9982,11 @@
       "接口直径": "6.2mm",
       "阻抗": "50Ω"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C496551.pdf",
+    "datasheet_url": "",
     "product_url": "/products/bwsmakwez001/"
   },
   {
@@ -10864,13 +10006,11 @@
       "漏源电压(Vdss)": "50V",
       "连续漏极电流(Id)": "130mA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C82079.pdf",
+    "datasheet_url": "",
     "product_url": "/products/bss84lt1g/"
   },
   {
@@ -10889,13 +10029,11 @@
       "串口通道数": "1",
       "数据速率": "3Mbps"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C5441431.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ft232rnqreel/"
   },
   {
@@ -10910,13 +10048,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C315909.pdf",
+    "datasheet_url": "",
     "product_url": "/products/591701s00d/"
   },
   {
@@ -10936,13 +10072,11 @@
       "安装方式": "立贴",
       "插针结构": "1x4P"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C160390.pdf",
+    "datasheet_url": "",
     "product_url": "/products/bm04bsrsstblfsn/"
   },
   {
@@ -10962,13 +10096,11 @@
       "漏源电压(Vdss)": "20V",
       "连续漏极电流(Id)": "3.1A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C10487.pdf",
+    "datasheet_url": "",
     "product_url": "/products/si2301cdst1ge3/"
   },
   {
@@ -10988,13 +10120,11 @@
       "安装方式": "直插",
       "插针结构": "1x3P"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2937625.pdf",
+    "datasheet_url": "",
     "product_url": "/products/pz254v1103p/"
   },
   {
@@ -11014,13 +10144,11 @@
       "漏源电压(Vdss)": "55V",
       "连续漏极电流(Id)": "110A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2561.pdf",
+    "datasheet_url": "",
     "product_url": "/products/irf3205pbf/"
   },
   {
@@ -11040,13 +10168,11 @@
       "安装方式": "弯插",
       "插针结构": "1x4P"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C157925.pdf",
+    "datasheet_url": "",
     "product_url": "/products/s4bxhalfsn/"
   },
   {
@@ -11066,13 +10192,11 @@
       "峰值波长": "525nm",
       "正向压降(Vf)": "3.3V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C965804.pdf",
+    "datasheet_url": "",
     "product_url": "/products/xl1608ugc04/"
   },
   {
@@ -11091,13 +10215,11 @@
       "频率": "2.4GHz~2.5GHz",
       "应用领域": "ZigBee"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C19213.pdf",
+    "datasheet_url": "",
     "product_url": "/products/rfx2401c/"
   },
   {
@@ -11117,13 +10239,11 @@
       "频率": "6GHz",
       "接口直径": "2mm"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C392444.pdf",
+    "datasheet_url": "",
     "product_url": "/products/19097631/"
   },
   {
@@ -11143,13 +10263,11 @@
       "存储容量": "16Mbit",
       "时钟频率(fc)": "133MHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2456211.pdf",
+    "datasheet_url": "",
     "product_url": "/products/w25q16jvsniq/"
   },
   {
@@ -11166,13 +10284,11 @@
     "attributes": {
       "压力范围": "30Kpa~1.2bar"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C3232508.pdf",
+    "datasheet_url": "",
     "product_url": "/products/dps368xtsa1/"
   },
   {
@@ -11192,13 +10308,11 @@
       "发光颜色": "翠绿色",
       "波长": "510nm~531nm"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C19273151.pdf",
+    "datasheet_url": "",
     "product_url": "/products/yled0603g/"
   },
   {
@@ -11218,13 +10332,11 @@
       "安装方式": "卧贴",
       "插针结构": "1x4P"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2905006.pdf",
+    "datasheet_url": "",
     "product_url": "/products/104pwb/"
   },
   {
@@ -11239,13 +10351,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2874885.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ws2812bv5w/"
   },
   {
@@ -11265,13 +10375,11 @@
       "输出电压": "1.25V~29V",
       "输出电流": "500mA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C102618.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ap3012ktrg1/"
   },
   {
@@ -11291,13 +10399,11 @@
       "安装方式": "直插",
       "插针结构": "1x40P"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2337.pdf",
+    "datasheet_url": "",
     "product_url": "/products/254140p/"
   },
   {
@@ -11316,13 +10422,11 @@
       "输出电压": "3.3V",
       "输出极性": "正极"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C5446.pdf",
+    "datasheet_url": "",
     "product_url": "/products/xc6206p332mrg/"
   },
   {
@@ -11341,13 +10445,11 @@
       "常温频差": "±10ppm",
       "负载电容": "9pF"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C13738.pdf",
+    "datasheet_url": "",
     "product_url": "/products/x322516mlb4si/"
   },
   {
@@ -11366,13 +10468,11 @@
       "常温频差": "±10ppm",
       "负载电容": "12pF"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2682775.pdf",
+    "datasheet_url": "",
     "product_url": "/products/x32258mob4si/"
   },
   {
@@ -11392,13 +10492,11 @@
       "峰值波长": "630nm",
       "发光颜色": "红色"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C84256.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ncd0805r1/"
   },
   {
@@ -11418,13 +10516,11 @@
       "峰值波长": "520nm",
       "发光颜色": "绿色"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C84260.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ncd0805g1/"
   },
   {
@@ -11444,13 +10540,11 @@
       "连续漏极电流(Id)": "6A",
       "耗散功率(Pd)": "1.5W"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2830320.pdf",
+    "datasheet_url": "",
     "product_url": "/products/fs8205a/"
   },
   {
@@ -11470,13 +10564,11 @@
       "天线形式": "板载PCB天线",
       "灵敏度": "-98dBm"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C701343.pdf",
+    "datasheet_url": "",
     "product_url": "/products/esp32wroom32en16/"
   },
   {
@@ -11495,13 +10587,11 @@
       "接口类型": "单总线",
       "精度": "±0.4℃"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C695836.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ds18b20uumw/"
   },
   {
@@ -11521,13 +10611,11 @@
       "连续漏极电流(Id)": "170mA",
       "耗散功率(Pd)": "360mW"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C513249.pdf",
+    "datasheet_url": "",
     "product_url": "/products/bss123/"
   },
   {
@@ -11546,13 +10634,11 @@
       "频率范围": "2.4GHz",
       "灵敏度": "-103.5dBm"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C3013946.pdf",
+    "datasheet_url": "",
     "product_url": "/products/esp32s3wroom1un16r8/"
   },
   {
@@ -11570,13 +10656,11 @@
       "常温频差": "±20ppm",
       "负载电容": "12.5pF"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C97606.pdf",
+    "datasheet_url": "",
     "product_url": "/products/sc32s32768khz20ppm125pf/"
   },
   {
@@ -11595,13 +10679,11 @@
       "天线形式": "板载PCB天线",
       "灵敏度": "-98dBm"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C701341.pdf",
+    "datasheet_url": "",
     "product_url": "/products/esp32wroom32en4/"
   },
   {
@@ -11621,13 +10703,11 @@
       "存储容量": "16Mbit",
       "时钟频率(fc)": "133MHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C131025.pdf",
+    "datasheet_url": "",
     "product_url": "/products/w25q16jvssiq/"
   },
   {
@@ -11646,13 +10726,11 @@
       "湿度范围": "0%RH~100%RH",
       "湿度精度": "±3%RH"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C92489.pdf",
+    "datasheet_url": "",
     "product_url": "/products/bme280/"
   },
   {
@@ -11672,13 +10750,11 @@
       "存储容量": "32Mbit",
       "时钟频率(fc)": "133MHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C179173.pdf",
+    "datasheet_url": "",
     "product_url": "/products/w25q32jvssiq/"
   },
   {
@@ -11696,13 +10772,11 @@
       "接口类型": "SPI",
       "工作电压": "2.6V~5.5V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C6705483.pdf",
+    "datasheet_url": "",
     "product_url": "/products/hx711/"
   },
   {
@@ -11722,13 +10796,11 @@
       "连续漏极电流(Id)": "5A",
       "耗散功率(Pd)": "1.3W"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C53550.pdf",
+    "datasheet_url": "",
     "product_url": "/products/irlml6344trpbf/"
   },
   {
@@ -11747,13 +10819,11 @@
       "工作电压": "5V",
       "灵敏度": "100mV/A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C10681.pdf",
+    "datasheet_url": "",
     "product_url": "/products/acs712elctr20at/"
   },
   {
@@ -11772,13 +10842,11 @@
       "输出电压": "5V",
       "输出极性": "正极"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C6187.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ams111750/"
   },
   {
@@ -11798,13 +10866,11 @@
       "天线形式": "板载PCB天线",
       "灵敏度": "-98dBm"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C701342.pdf",
+    "datasheet_url": "",
     "product_url": "/products/esp32wroom32en8/"
   },
   {
@@ -11823,13 +10889,11 @@
       "输出电压": "3.3V",
       "输出极性": "正极"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C9055.pdf",
+    "datasheet_url": "",
     "product_url": "/products/spx3819m5l33tr/"
   },
   {
@@ -11847,13 +10911,11 @@
       "协议": "ISO 14443A,MIFARE",
       "接口类型": "I2C,SPI,UART"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C11322.pdf",
+    "datasheet_url": "",
     "product_url": "/products/mfrc52202hn1151/"
   },
   {
@@ -11873,13 +10935,11 @@
       "天线形式": "板载PCB天线",
       "灵敏度": "-98dBm"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C473012.pdf",
+    "datasheet_url": "",
     "product_url": "/products/esp32wroom32dn4/"
   },
   {
@@ -11896,13 +10956,11 @@
     "attributes": {
       "电池类型": "锂电池"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C351410.pdf",
+    "datasheet_url": "",
     "product_url": "/products/dw01a/"
   },
   {
@@ -11921,13 +10979,11 @@
       "常温频差": "±10ppm",
       "负载电容": "12pF"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C9006.pdf",
+    "datasheet_url": "",
     "product_url": "/products/x322525mob4si/"
   },
   {
@@ -11947,13 +11003,11 @@
       "连接器类型": "卡座",
       "本体最大高度": "1.68mm"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C114218.pdf",
+    "datasheet_url": "",
     "product_url": "/products/dm3atsfpejm5/"
   },
   {
@@ -11973,13 +11027,11 @@
       "天线形式": "板载PCB天线",
       "灵敏度": "-104.5dBm"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2913201.pdf",
+    "datasheet_url": "",
     "product_url": "/products/esp32s3wroom1n8r8/"
   },
   {
@@ -11997,13 +11049,11 @@
       "频率": "800MHz~2.1GHz",
       "插入损耗": "0.8dB"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C3155018.pdf",
+    "datasheet_url": "",
     "product_url": "/products/gp2s/"
   },
   {
@@ -12022,13 +11072,11 @@
       "输入失调电压(Vos)": "5mV",
       "静态电流(Iq)": "400uA"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C7955.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lm393dr2g/"
   },
   {
@@ -12048,13 +11096,11 @@
       "存储容量": "8Mbit",
       "时钟频率(fc)": "104MHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C401655.pdf",
+    "datasheet_url": "",
     "product_url": "/products/w25q80dvsnigtr/"
   },
   {
@@ -12074,13 +11120,11 @@
       "漏源电压(Vdss)": "100V",
       "连续漏极电流(Id)": "23A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2575.pdf",
+    "datasheet_url": "",
     "product_url": "/products/irf9540npbf/"
   },
   {
@@ -12100,13 +11144,11 @@
       "输出电流": "2.5A",
       "直流反向耐压(Vr)": "5V"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C5003.pdf",
+    "datasheet_url": "",
     "product_url": "/products/tlp350tp1f/"
   },
   {
@@ -12125,13 +11167,11 @@
       "常温频差": "±10ppm",
       "负载电容": "20pF"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C9002.pdf",
+    "datasheet_url": "",
     "product_url": "/products/x322512msb4si/"
   },
   {
@@ -12151,13 +11191,11 @@
       "存储容量": "64Mbit",
       "时钟频率(fc)": "133MHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2831359.pdf",
+    "datasheet_url": "",
     "product_url": "/products/gd25q64esigr/"
   },
   {
@@ -12177,13 +11215,11 @@
       "漏源电压(Vdss)": "30V",
       "连续漏极电流(Id)": "12A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C16072.pdf",
+    "datasheet_url": "",
     "product_url": "/products/ao4407a/"
   },
   {
@@ -12202,13 +11238,11 @@
       "CPU位数": "32 Bit",
       "CPU最大主频": "100MHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C843788.pdf",
+    "datasheet_url": "",
     "product_url": "/products/lpc1768fbd100k/"
   },
   {
@@ -12225,13 +11259,11 @@
     "attributes": {
       "接口类型": "SPI"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C52028.pdf",
+    "datasheet_url": "",
     "product_url": "/products/max31855kasat/"
   },
   {
@@ -12250,13 +11282,11 @@
       "灵敏度": "-167dBm",
       "水平位置精确度": "1.5m"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C4153167.pdf",
+    "datasheet_url": "",
     "product_url": "/products/maxm10s00b/"
   },
   {
@@ -12274,13 +11304,11 @@
       "频率范围": "2.4GHz",
       "灵敏度": "-98dBm"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C701346.pdf",
+    "datasheet_url": "",
     "product_url": "/products/esp32wroom32uen16/"
   },
   {
@@ -12295,13 +11323,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C194919.pdf",
+    "datasheet_url": "",
     "product_url": "/products/bmi088/"
   },
   {
@@ -12321,13 +11347,11 @@
       "安装方式": "直插",
       "插针结构": "1x6P"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C37208.pdf",
+    "datasheet_url": "",
     "product_url": "/products/2541x6p/"
   },
   {
@@ -12347,13 +11371,11 @@
       "总PIN数": "4P",
       "额定电流": "3A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2718488.pdf",
+    "datasheet_url": "",
     "product_url": "/products/25414p/"
   },
   {
@@ -12373,13 +11395,11 @@
       "存储容量": "128Mbit",
       "时钟频率(fc)": "133MHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2456297.pdf",
+    "datasheet_url": "",
     "product_url": "/products/w25q128jveiqtr/"
   },
   {
@@ -12399,13 +11419,11 @@
       "存储容量": "128Mbit",
       "时钟频率(fc)": "133MHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2441427.pdf",
+    "datasheet_url": "",
     "product_url": "/products/w25q128jvpimtr/"
   },
   {
@@ -12425,13 +11443,11 @@
       "天线形式": "板载PCB天线",
       "灵敏度": "-90dBm"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C82891.pdf",
+    "datasheet_url": "",
     "product_url": "/products/esp12fesp8266mod/"
   },
   {
@@ -12451,13 +11467,11 @@
       "存储容量": "2Gbit",
       "时钟频率(fc)": "104MHz"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C3010298.pdf",
+    "datasheet_url": "",
     "product_url": "/products/w25n02kvzeir/"
   },
   {
@@ -12477,13 +11491,11 @@
       "集射极击穿电压(Vces)": "650V",
       "集电极电流(Ic)": "100A"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2761787.pdf",
+    "datasheet_url": "",
     "product_url": "/products/sgt50t65fd1pn/"
   },
   {
@@ -12502,13 +11514,11 @@
       "天线形式": "板载PCB天线",
       "灵敏度": "-98dBm"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2838502.pdf",
+    "datasheet_url": "",
     "product_url": "/products/esp32c3mini1n4/"
   },
   {
@@ -12528,13 +11538,11 @@
       "天线形式": "板载PCB天线",
       "灵敏度": "-98.2dBm"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2913198.pdf",
+    "datasheet_url": "",
     "product_url": "/products/esp32s3wroom1n8/"
   },
   {
@@ -12554,13 +11562,11 @@
       "接口类型": "I2C",
       "湿度精度": "±2%RH"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C2757850.pdf",
+    "datasheet_url": "",
     "product_url": "/products/aht20/"
   },
   {
@@ -12578,13 +11584,11 @@
       "频率": "1MHz~4GHz",
       "衰减值": "31.5dB"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C500480.pdf",
+    "datasheet_url": "",
     "product_url": "/products/pe4312cz/"
   },
   {
@@ -12602,13 +11606,11 @@
       "转换类型": "AC-DC",
       "工作电压(DC)": "85VAC~265VAC"
     },
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C209903.pdf",
+    "datasheet_url": "",
     "product_url": "/products/hlkpm01/"
   },
   {
@@ -12623,13 +11625,11 @@
     "applications": "",
     "keywords": "",
     "attributes": {},
-    "sources": [
-      "LCSC"
-    ],
+    "sources": [],
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "https://www.lcsc.com/datasheet/C128662.pdf",
+    "datasheet_url": "",
     "product_url": "/products/hr4988e/"
   }
 ]

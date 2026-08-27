@@ -35,6 +35,16 @@ local_preview/
 # --- production build artifact (generated from master CSV; regenerate via gen_parts.py) ---
 _prod_build/
 
+# --- RAW harvest + CLEAN traceability (contain supplier source URLs / lcsc
+#     identifiers; kept OUT of the deployed bundle. Authoritative archive lives
+#     at D:/SZ Procure/01_RAW and 02_CLEAN) ---
+# ALL of /data/ is a LOCAL build input only (masters, dictionaries, pilot
+# reports, RAW/CLEAN traceability — many carry supplier source_url / LCSC
+# references forbidden on the live domain). The site is pre-generated static
+# and needs none of it at runtime. Keep everything on disk for gen_parts.py;
+# never deploy it.
+data/
+
 # --- QA / dry-run / test scratch (NOT part of site) ---
 _shots/
 _dryrun_audit/
@@ -45,3 +55,6 @@ _gen_test*/
 
 # --- reports / working docs (per project convention: exclude .md from commits) ---
 *.md
+
+# --- local asset archive is NOT deployed (parked in D:////SZ Procure\01_RAW\ASSET) ---
+assets/parts/

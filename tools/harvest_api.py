@@ -1,31 +1,42 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Harvest 500 REAL, popular LCSC component SKUs via LCSC's internal listing API
-and build data/production/master_parts_v2.1.csv (17 cols, committed).
+Stage 1 (RAW capture) — Harvest the FULL popularity-ranked LCSC component list
+via LCSC's internal listing API and emit a RAW archive CSV + JSON.
 
-DATA SOURCE (discovered this session):
+DESIGN (3-layer pipeline: RAW -> CLEAN -> MASTER -> BUILD):
+  This script is RAW-ONLY. It does NOT curate, clean, or write the master.
+  It captures the *entire* ranked list (up to 5000) so the downstream CLEAN
+  layer (clean_factory.py) can curate any N (500 / 5000 / 50000) deterministically
+  and self-host every asset with full traceability.
+
+DATA SOURCE (discovered earlier):
   LCSC SSR search/category pages are JS-rendered shells that always return the
-  same static "hot 16". The REAL data comes from an internal endpoint called
-  by the browser:
+  same static "hot 16". The REAL data comes from an internal endpoint called by
+  the browser:
       POST https://wmsc.lcsc.com/ftps/wm/home/discount/product/search/list
   Body: {"currentPage":N, "pageSize":100, "isHot":0}
   -> returns a popularity-ranked list of 5000 products (keyword/catalogId are
      ignored by the API, so we just page through the global ranking).
-  Each list item already contains EVERYTHING we need:
+  Each list item already contains EVERYTHING we need, including:
      productModel(MPN), productCode(C-number), brandNameEn, encapStandard(pkg),
-     paramVOList(params), productPriceList(price), pdfUrl(datasheet),
+     paramVOList(params), productPriceList(price),
+     pdfUrl(REAL datasheet PDF — datasheet.lcsc.com/...pdf),
      catalogName, catalogId, productImages/imgUrl(images), stockNumber,
      productNameEn(description).
-  No per-detail-page fetch required -> fast & robust.
 
-"Popular" definition: LCSC's own popularity ranking (top of the 5000 list).
-Curation: greedy by rank, per-category caps to balance the catalog toward the
-site's 6 L1 families and the user's B2B industrial/auto/power strength.
-Preserves the existing 19 SKUs in master_parts_v2.0.csv.
+OUTPUT:
+  data/raw/lcsc_api_FULL_<DATE>.csv   (working copy, git-untracked)
+  data/raw/lcsc_api_FULL_<DATE>.json  (full item dump for traceability)
+  D:/SZ Procure/01_RAW/lcsc_api_FULL_<DATE>.csv (+.json)  (asset-root archive)
+  Both archived files get a SHA256 written to D:/SZ Procure/01_RAW/
+
+IMPORTANT — provenance vs. branding:
+  The RAW captures *source* URLs (assets.lcsc.com images, datasheet.lcsc.com
+  PDFs). These are NEVER rendered on the site. The CLEAN layer downloads them
+  into local /assets/parts/ paths so the built site has ZERO lcsc identifiers.
 """
-import os, re, json, csv, sys, random, argparse, datetime
-from playwright.sync_api import sync_playwright
+import os, re, json, csv, sys, random, argparse, datetime, hashlib, shutil
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -36,35 +47,26 @@ EDGE = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/124.0 Safari/537.36")
 API = "https://wmsc.lcsc.com/ftps/wm/home/discount/product/search/list"
-RAW_OUT = os.path.join(ROOT, "data", "raw", f"lcsc_api_{datetime.datetime.now():%Y%m%d}.csv")
-MASTER_OUT = os.path.join(ROOT, "data", "production", "master_parts_v2.1.csv")
-BASE_CSV = os.path.join(ROOT, "data", "production", "master_parts_v2.0.csv")
-
-MASTER_HEADER = ["mpn", "clean_mpn", "manufacturer", "brand", "url_slug",
-                 "category", "subcategory", "description", "applications",
-                 "keywords", "attributes_json", "availability",
-                 "alternative_parts", "datasheet_url", "faq", "image", "source"]
-
-GLOBAL_CAP = 500
 PAGE_SIZE = 100
+DATE = f"{datetime.datetime.now():%Y%m%d}"
 
-# Per fine-category caps (max count in the final 500). Sum >> 500 so greedy fill
-# reaches 500; caps prevent any single family from dominating. Tuned toward the
-# user's B2B industrial / auto / power / connector strength + natural demand.
-CAPS = {
-    "Microcontroller": 60, "Memory IC": 25, "Power Management IC": 20,
-    "Voltage Regulator": 55, "Analog IC": 15, "Operational Amplifier": 35,
-    "Interface IC": 40, "Logic IC": 25,
-    "MOSFET": 55, "Diode": 45, "Transistor": 25,
-    "Resistor": 35, "Capacitor": 40, "Inductor": 20, "Crystal Oscillator": 15,
-    "LED Components": 15, "Sensors": 35,
-    "Pin Header": 12, "USB Connectors": 12, "Connectors": 20, "Switches": 12,
-    "WiFi Modules": 10, "Bluetooth Modules": 6, "Cellular Modules": 6,
-    "GNSS Modules": 6, "RF Modules": 6, "Modules": 12,
-}
-DEFAULT_CAP = 15
+RAW_OUT = os.path.join(ROOT, "data", "raw", f"lcsc_api_FULL_{DATE}.csv")
+RAW_JSON = os.path.join(ROOT, "data", "raw", f"lcsc_api_FULL_{DATE}.json")
 
-# LCSC catalogName (keyword) -> site fine category (must be a CATEGORY_MAP key)
+# Asset-root archive (D). Mirrors the working copy; this is the source of truth
+# for audits. If D is unavailable we still keep the working copy under data/raw/.
+ARCHIVE_DIR = r"D:\SZ Procure\01_RAW"
+ARCHIVE_CSV = os.path.join(ARCHIVE_DIR, f"lcsc_api_FULL_{DATE}.csv")
+ARCHIVE_JSON = os.path.join(ARCHIVE_DIR, f"lcsc_api_FULL_{DATE}.json")
+
+# RAW schema — flat, source-faithful. CLEAN layer maps/derives from these.
+RAW_HEADER = ["rank", "supplier", "supplier_sku", "mpn", "manufacturer_raw",
+              "catalogName", "category", "description", "attributes_json",
+              "source_image_url", "source_datasheet_url", "stock", "source"]
+
+# LCSC catalogName (keyword) -> site fine category. Used only to RECORD the
+# mapped fine category in RAW for faster downstream curation. Same map as the
+# original curation logic.
 CAT_KEYWORDS = [
     ("microcontroller", "Microcontroller"), ("mcu", "Microcontroller"),
     ("memory", "Memory IC"), ("flash", "Memory IC"), ("eeprom", "Memory IC"),
@@ -99,7 +101,6 @@ CAT_KEYWORDS = [
     ("gnss", "GNSS Modules"), ("gps", "GNSS Modules"),
     ("rf", "RF Modules"), ("radio", "RF Modules"),
     ("module", "Modules"), ("ethernet", "Modules"),
-    # extended popular families (were unmapped)
     ("analog to digital", "Analog IC"), ("adc", "Analog IC"), ("dac", "Analog IC"),
     ("converter", "Analog IC"), ("timer", "Logic IC"), ("counter", "Logic IC"),
     ("shift register", "Logic IC"), ("inverter", "Logic IC"), ("gate ", "Logic IC"),
@@ -112,14 +113,15 @@ CAT_KEYWORDS = [
     ("relay", "Switches"),
 ]
 
+
 def map_cat(lcsc_cat):
     if not lcsc_cat:
-        return None
+        return ""
     low = lcsc_cat.lower()
     for kw, fine in CAT_KEYWORDS:
         if kw in low:
             return fine
-    return None
+    return ""
 
 
 def parse_params(param_vo_list):
@@ -146,27 +148,27 @@ def first_image(it):
     return ""
 
 
+def sha256_file(path):
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(1 << 20), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--cap", type=int, default=GLOBAL_CAP)
-    ap.add_argument("--pages", type=int, default=60, help="max API pages to fetch (5000/100)")
+    ap.add_argument("--pages", type=int, default=60, help="max API pages (5000/100)")
+    ap.add_argument("--no-archive", action="store_true",
+                    help="skip copying to D:/SZ Procure/01_RAW")
     args = ap.parse_args()
-    cap = args.cap
 
-    # load base (existing) SKUs
-    base = {}
-    if os.path.exists(BASE_CSV):
-        with open(BASE_CSV, encoding="utf-8") as f:
-            for row in csv.DictReader(f):
-                base[row["mpn"].strip().upper()] = row
-    print(f"[base] loaded {len(base)} existing SKUs from v2.0")
-
-    # fetch ranked list
-    seen = set(base.keys())
+    # fetch ranked list (full popularity ranking)
     ranked = []
+    from playwright.sync_api import sync_playwright
     with sync_playwright() as p:
         b = p.chromium.launch(executable_path=EDGE, headless=True)
-        ctx = b.new_context(user_agent=UA, locale="en-US", viewport={"width":1366,"height":900})
+        ctx = b.new_context(user_agent=UA, locale="en-US", viewport={"width": 1366, "height": 900})
         pg = ctx.new_page()
         pg.goto("https://www.lcsc.com/", wait_until="domcontentloaded", timeout=60000)
         pg.wait_for_timeout(2500)
@@ -192,96 +194,50 @@ def main():
         b.close()
     print(f"[fetch] total raw items: {len(ranked)}")
 
-    # curate 500 with per-category caps, greedy by popularity rank
-    counts = {k: 0 for k in CAPS}
-    selected = []
-    unmapped = []
-    for it in ranked:
-        mpn = (it.get("productModel") or "").strip()
-        if not mpn:
-            continue
-        key = mpn.upper()
-        if key in seen:
-            continue
-        # skip synthetic/test MPNs (gen_parts guard hard-aborts on these)
-        if any(p.search(mpn) for p in gp.SYNTHETIC_MPN_PATTERNS):
-            continue
-        fine = map_cat(it.get("catalogName"))
-        if fine is None:
-            unmapped.append((mpn, it.get("catalogName")))
-            continue
-        if counts.get(fine, 0) >= CAPS.get(fine, DEFAULT_CAP):
-            continue
-        # build row
-        code = (it.get("productCode") or "").strip()
-        brand_raw = (it.get("brandNameEn") or "").strip()
-        canon, _ = gp.canonicalize_brand(brand_raw, gp.load_mfr_canonical(os.path.join(ROOT, "data", "mfr_canonical.csv")))
-        if gp.FAKE_BRAND_TOKENS.search(canon):
-            continue
-        attrs = parse_params(it.get("paramVOList"))
-        attrs_json = json.dumps(attrs, ensure_ascii=False)
-        img = first_image(it)
-        ds = f"https://www.lcsc.com/datasheet/{code}.pdf" if code else ""
-        if not ds and it.get("pdfUrl"):
-            ds = str(it["pdfUrl"]).split("?")[0]
-        stock = it.get("stockNumber")
-        row = {
-            "mpn": mpn,
-            "clean_mpn": re.sub(r"[^A-Z0-9]", "", mpn.upper()),
-            "manufacturer": canon,
-            "brand": canon,
-            "url_slug": gp.slugify(mpn),
-            "category": fine,
-            "subcategory": fine,
-            "description": (it.get("productNameEn") or "").strip(),
-            "applications": "",
-            "keywords": "",
-            "attributes_json": attrs_json,
-            "availability": "active" if (stock is None or stock > 0) else "active",
-            "alternative_parts": "",
-            "datasheet_url": ds,
-            "faq": "",
-            "image": img,
-            "source": "LCSC",
-        }
-        selected.append(row)
-        seen.add(key)
-        counts[fine] = counts.get(fine, 0) + 1
-        if len(selected) >= (cap - len(base)):
-            break
-
-    final = list(base.values()) + selected
-    final = final[:cap]
-    print(f"[curate] selected {len(selected)} new + {len(base)} base = {len(final)} final")
-    print("[curate] category distribution:")
-    from collections import Counter
-    for k, v in Counter(r["category"] for r in final).most_common():
-        print(f"    {k:22} {v}")
-
-    # write RAW (archive, not committed)
+    # write RAW (flat, source-faithful)
     os.makedirs(os.path.dirname(RAW_OUT), exist_ok=True)
     with open(RAW_OUT, "w", encoding="utf-8", newline="") as f:
         w = csv.writer(f)
-        w.writerow(["supplier", "supplier_sku", "mpn", "manufacturer", "title",
-                    "category", "description", "attributes", "datasheet_url", "stock", "source"])
-        for r in final:
-            w.writerow(["LCSC", r["clean_mpn"], r["mpn"], r["brand"], r["mpn"],
-                        r["category"], r["description"], r["attributes_json"],
-                        r["datasheet_url"], "", "LCSC"])
-    # write MASTER v2.1
-    os.makedirs(os.path.dirname(MASTER_OUT), exist_ok=True)
-    with open(MASTER_OUT, "w", encoding="utf-8", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=MASTER_HEADER)
-        w.writeheader()
-        for row in final:
-            w.writerow({c: row.get(c, "") for c in MASTER_HEADER})
-    print(f"\n>> RAW    -> {RAW_OUT}")
-    print(f">> MASTER -> {MASTER_OUT} ({len(final)} rows)")
+        w.writerow(RAW_HEADER)
+        for rank, it in enumerate(ranked, 1):
+            mpn = (it.get("productModel") or "").strip()
+            code = (it.get("productCode") or "").strip()
+            brand_raw = (it.get("brandNameEn") or "").strip()
+            cat = (it.get("catalogName") or "").strip()
+            fine = map_cat(cat)
+            desc = (it.get("productNameEn") or "").strip()
+            attrs = parse_params(it.get("paramVOList"))
+            img = first_image(it)
+            pdf = (it.get("pdfUrl") or "").strip()
+            pdf = pdf.split("?")[0] if pdf else ""   # REAL PDF url (datasheet.lcsc.com)
+            stock = it.get("stockNumber")
+            w.writerow([rank, "LCSC", code, mpn, brand_raw, cat, fine, desc,
+                        json.dumps(attrs, ensure_ascii=False), img, pdf,
+                        stock if stock is not None else "", "LCSC"])
+    # JSON full dump (traceability)
+    with open(RAW_JSON, "w", encoding="utf-8") as f:
+        json.dump(ranked, f, ensure_ascii=False)
 
-    if unmapped:
-        print(f">> UNMAPPED catalogNames ({len(unmapped)}):")
-        for mpn, c in unmapped[:30]:
-            print(f"     {mpn}: {c}")
+    print(f"\n>> RAW CSV  -> {RAW_OUT}  ({len(ranked)} rows)")
+    print(f">> RAW JSON -> {RAW_JSON}")
+
+    # archive to D asset root + SHA256
+    if not args.no_archive:
+        try:
+            os.makedirs(ARCHIVE_DIR, exist_ok=True)
+            shutil.copy2(RAW_OUT, ARCHIVE_CSV)
+            shutil.copy2(RAW_JSON, ARCHIVE_JSON)
+            csv_sha = sha256_file(ARCHIVE_CSV)
+            json_sha = sha256_file(ARCHIVE_JSON)
+            print(f">> ARCHIVE  -> {ARCHIVE_CSV}")
+            print(f">> ARCHIVE  -> {ARCHIVE_JSON}")
+            print(f">> SHA256 CSV  : {csv_sha}")
+            print(f">> SHA256 JSON : {json_sha}")
+            with open(os.path.join(ARCHIVE_DIR, f"lcsc_api_FULL_{DATE}.sha256"), "w") as f:
+                f.write(f"{csv_sha}  lcsc_api_FULL_{DATE}.csv\n")
+                f.write(f"{json_sha}  lcsc_api_FULL_{DATE}.json\n")
+        except Exception as e:
+            print(f"[warn] archive to D failed: {e}")
 
 
 if __name__ == "__main__":
