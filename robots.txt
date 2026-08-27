@@ -1,9 +1,7 @@
 User-agent: *
 Allow: /
 
-# Sitemaps
-# - sitemap.xml: the 9 core site pages
-# - sitemap_parts_index.xml: index covering all generated product/manufacturer/category pages
-#   (auto-splits into sitemap_parts_1.xml ... _N.xml at 200k scale)
-Sitemap: https://www.szprocure.com/sitemap.xml
+# Sitemap index — covers all core pages + generated product/manufacturer/category
+# pages. (gen_parts.py generates sitemap_parts.xml + sitemap_parts_index.xml; the index
+# is the canonical entry point for crawlers and for Google Search Console submission.)
 Sitemap: https://www.szprocure.com/sitemap_parts_index.xml
