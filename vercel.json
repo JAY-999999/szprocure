@@ -23,5 +23,8 @@
         { "key": "Content-Type", "value": "application/xml" }
       ]
     }
+  ],
+  "redirects": [
+    { "source": "/sourcing-service(/?.*)", "destination": "/sourcing/", "permanent": true }
   ]
 }
