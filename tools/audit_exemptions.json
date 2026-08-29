@@ -1,0 +1,12 @@
+{
+  "policy": "Precise false-positive exemptions for the Pre-Deploy Audit. Each entry exempts ONE specific (mpn, field, value) triple that is a REAL product specification, NOT test/synthetic/mock data. This file is auditable: every exemption must record reason + source. The audit only applies an exemption when ALL of (exact value, field name in match context, product identity) match. Adding a broad rule here (e.g. exempting a whole field/value family) is forbidden and will be rejected in review.",
+  "exemptions": [
+    {
+      "mpn": "STM32F412RET6",
+      "field": "frequency_hz",
+      "value": "100000000",
+      "reason": "REAL_PRODUCT_SPECIFICATION",
+      "source": "LCSC/ST"
+    }
+  ]
+}

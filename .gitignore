@@ -58,3 +58,22 @@ _gen_test*/
 
 # --- local asset archive is NOT deployed (parked in D:////SZ Procure\01_RAW\ASSET) ---
 assets/parts/
+
+# --- Datasheet / binary assets: NEVER enter git or the Vercel deploy package ---
+# PDFs (and other binary datasheets) live in Cloudflare R2 (object storage).
+# Only the HTTPS URL is committed (in the generated HTML / master datasheet_url
+# column). A second gate in tools/pre_deploy_audit.py blocks any binary from the
+# deploy bundle even if someone force-adds with `git add -f`.
+*.pdf
+*.PDF
+*.dat
+*.bin
+*.doc
+*.docx
+*.xls
+*.xlsx
+*.zip
+*.rar
+*.7z
+
+.vercel

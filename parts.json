@@ -23,7 +23,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/stm32f103c8t6.pdf",
     "product_url": "/products/stm32f103c8t6/"
   },
   {
@@ -104,7 +104,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/atmega328p-au.pdf",
     "product_url": "/products/atmega328pau/"
   },
   {
@@ -130,7 +130,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/rp2040.pdf",
     "product_url": "/products/rp2040/"
   },
   {
@@ -181,7 +181,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/w25q128jvsiq.pdf",
     "product_url": "/products/w25q128jvsiq/"
   },
   {
@@ -232,7 +232,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ao3400a.pdf",
     "product_url": "/products/ao3400a/"
   },
   {
@@ -258,7 +258,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ao3401a.pdf",
     "product_url": "/products/ao3401a/"
   },
   {
@@ -283,7 +283,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/2n7002.pdf",
     "product_url": "/products/2n7002/"
   },
   {
@@ -307,7 +307,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/1n4148ws.pdf",
     "product_url": "/products/1n4148ws/"
   },
   {
@@ -331,7 +331,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ss34.pdf",
     "product_url": "/products/ss34/"
   },
   {
@@ -357,7 +357,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/rc0402fr-0710kl.pdf",
     "product_url": "/products/rc0402fr0710kl/"
   },
   {
@@ -382,7 +382,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/cl10b104kb8nnnc.pdf",
     "product_url": "/products/cl10b104kb8nnnc/"
   },
   {
@@ -479,7 +479,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/type-c-31-m-12.pdf",
     "product_url": "/products/typec31m12/"
   },
   {
@@ -503,7 +503,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ad623arz-r7.pdf",
     "product_url": "/products/ad623arzr7/"
   },
   {
@@ -526,7 +526,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/stm32f103cbt6.pdf",
     "product_url": "/products/stm32f103cbt6/"
   },
   {
@@ -549,7 +549,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/stm32f407vet6.pdf",
     "product_url": "/products/stm32f407vet6/"
   },
   {
@@ -568,7 +568,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/adxl345bccz-rl7.pdf",
     "product_url": "/products/adxl345bcczrl7/"
   },
   {
@@ -587,7 +587,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lsm6ds3tr-c.pdf",
     "product_url": "/products/lsm6ds3trc/"
   },
   {
@@ -611,7 +611,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tps54331dr.pdf",
     "product_url": "/products/tps54331dr/"
   },
   {
@@ -634,7 +634,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/stm32f103rct6.pdf",
     "product_url": "/products/stm32f103rct6/"
   },
   {
@@ -653,7 +653,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lsm6dsltr.pdf",
     "product_url": "/products/lsm6dsltr/"
   },
   {
@@ -674,7 +674,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/adum1201arz-rl7.pdf",
     "product_url": "/products/adum1201arzrl7/"
   },
   {
@@ -698,7 +698,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm21br61h106ke43l.pdf",
     "product_url": "/products/grm21br61h106ke43l/"
   },
   {
@@ -719,7 +719,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/adm2587ebrwz-reel7.pdf",
     "product_url": "/products/adm2587ebrwzreel7/"
   },
   {
@@ -742,7 +742,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/sn65hvd230dr.pdf",
     "product_url": "/products/sn65hvd230dr/"
   },
   {
@@ -766,7 +766,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lm5116mhx-nopb.pdf",
     "product_url": "/products/lm5116mhxnopb/"
   },
   {
@@ -790,7 +790,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm31cr71e106ka12l.pdf",
     "product_url": "/products/grm31cr71e106ka12l/"
   },
   {
@@ -814,7 +814,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/uln2003adr.pdf",
     "product_url": "/products/uln2003adr/"
   },
   {
@@ -838,7 +838,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tps5430ddar.pdf",
     "product_url": "/products/tps5430ddar/"
   },
   {
@@ -860,7 +860,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ads1115idgsr.pdf",
     "product_url": "/products/ads1115idgsr/"
   },
   {
@@ -882,7 +882,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/vl53l0cxv0dh-1.pdf",
     "product_url": "/products/vl53l0cxv0dh1/"
   },
   {
@@ -904,7 +904,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/vl53l1cxv0fy-1.pdf",
     "product_url": "/products/vl53l1cxv0fy1/"
   },
   {
@@ -923,7 +923,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lsm303agrtr.pdf",
     "product_url": "/products/lsm303agrtr/"
   },
   {
@@ -945,7 +945,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ads1220ipwr.pdf",
     "product_url": "/products/ads1220ipwr/"
   },
   {
@@ -964,7 +964,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lis2dw12tr.pdf",
     "product_url": "/products/lis2dw12tr/"
   },
   {
@@ -986,7 +986,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/vl53l4cdv0dh-1.pdf",
     "product_url": "/products/vl53l4cdv0dh1/"
   },
   {
@@ -1005,7 +1005,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/iso1050dubr.pdf",
     "product_url": "/products/iso1050dubr/"
   },
   {
@@ -1029,7 +1029,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm32ec72a106ke05l.pdf",
     "product_url": "/products/grm32ec72a106ke05l/"
   },
   {
@@ -1050,7 +1050,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/iso3082dwr.pdf",
     "product_url": "/products/iso3082dwr/"
   },
   {
@@ -1073,7 +1073,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/stm32h743vih6.pdf",
     "product_url": "/products/stm32h743vih6/"
   },
   {
@@ -1097,7 +1097,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ref3033aidbzr.pdf",
     "product_url": "/products/ref3033aidbzr/"
   },
   {
@@ -1121,7 +1121,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm21bz71a226me15l.pdf",
     "product_url": "/products/grm21bz71a226me15l/"
   },
   {
@@ -1144,7 +1144,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/stm32f030c8t6.pdf",
     "product_url": "/products/stm32f030c8t6/"
   },
   {
@@ -1163,7 +1163,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/adum3160brwz-rl.pdf",
     "product_url": "/products/adum3160brwzrl/"
   },
   {
@@ -1187,7 +1187,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm31cc72a475ke11l.pdf",
     "product_url": "/products/grm31cc72a475ke11l/"
   },
   {
@@ -1211,7 +1211,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm32er71e226ke15l.pdf",
     "product_url": "/products/grm32er71e226ke15l/"
   },
   {
@@ -1234,7 +1234,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/stm32f405rgt6.pdf",
     "product_url": "/products/stm32f405rgt6/"
   },
   {
@@ -1258,7 +1258,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tps54560ddar.pdf",
     "product_url": "/products/tps54560ddar/"
   },
   {
@@ -1281,7 +1281,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/stm32f030f4p6tr.pdf",
     "product_url": "/products/stm32f030f4p6tr/"
   },
   {
@@ -1302,7 +1302,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/adm2582ebrwz-reel7.pdf",
     "product_url": "/products/adm2582ebrwzreel7/"
   },
   {
@@ -1321,7 +1321,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/adum4160brwz-rl.pdf",
     "product_url": "/products/adum4160brwzrl/"
   },
   {
@@ -1343,7 +1343,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ad7192bruz-reel.pdf",
     "product_url": "/products/ad7192bruzreel/"
   },
   {
@@ -1362,7 +1362,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lis3mdltr.pdf",
     "product_url": "/products/lis3mdltr/"
   },
   {
@@ -1385,7 +1385,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/stm32g431cbt6.pdf",
     "product_url": "/products/stm32g431cbt6/"
   },
   {
@@ -1406,7 +1406,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/adum1201brz-rl7.pdf",
     "product_url": "/products/adum1201brzrl7/"
   },
   {
@@ -1430,7 +1430,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tps54360ddar.pdf",
     "product_url": "/products/tps54360ddar/"
   },
   {
@@ -1454,7 +1454,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm31cr61e476me44l.pdf",
     "product_url": "/products/grm31cr61e476me44l/"
   },
   {
@@ -1477,7 +1477,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lp2985-33dbvr.pdf",
     "product_url": "/products/lp298533dbvr/"
   },
   {
@@ -1501,7 +1501,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ad8605artz-reel7.pdf",
     "product_url": "/products/ad8605artzreel7/"
   },
   {
@@ -1525,7 +1525,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm32er61c476ke15l.pdf",
     "product_url": "/products/grm32er61c476ke15l/"
   },
   {
@@ -1548,7 +1548,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ina226aidgsr.pdf",
     "product_url": "/products/ina226aidgsr/"
   },
   {
@@ -1569,7 +1569,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tpl5010ddcr.pdf",
     "product_url": "/products/tpl5010ddcr/"
   },
   {
@@ -1592,7 +1592,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lt3045edd-trpbf.pdf",
     "product_url": "/products/lt3045eddtrpbf/"
   },
   {
@@ -1615,7 +1615,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/sn75176bdr.pdf",
     "product_url": "/products/sn75176bdr/"
   },
   {
@@ -1636,7 +1636,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/adm3251earwz-reel.pdf",
     "product_url": "/products/adm3251earwzreel/"
   },
   {
@@ -1655,7 +1655,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lsm6dsrtr.pdf",
     "product_url": "/products/lsm6dsrtr/"
   },
   {
@@ -1674,7 +1674,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/drv8874pwpr.pdf",
     "product_url": "/products/drv8874pwpr/"
   },
   {
@@ -1696,7 +1696,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/l78m05cdt-tr.pdf",
     "product_url": "/products/l78m05cdttr/"
   },
   {
@@ -1719,7 +1719,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/stm32h743vit6.pdf",
     "product_url": "/products/stm32h743vit6/"
   },
   {
@@ -1742,7 +1742,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/opa1612aidr.pdf",
     "product_url": "/products/opa1612aidr/"
   },
   {
@@ -1766,7 +1766,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm188r60j476me15d.pdf",
     "product_url": "/products/grm188r60j476me15d/"
   },
   {
@@ -1790,7 +1790,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm31cr71h475ka12l.pdf",
     "product_url": "/products/grm31cr71h475ka12l/"
   },
   {
@@ -1811,7 +1811,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/adum1250arz-rl7.pdf",
     "product_url": "/products/adum1250arzrl7/"
   },
   {
@@ -1834,7 +1834,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tps7a2033pdbvr.pdf",
     "product_url": "/products/tps7a2033pdbvr/"
   },
   {
@@ -1858,7 +1858,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm035r60j475me15d.pdf",
     "product_url": "/products/grm035r60j475me15d/"
   },
   {
@@ -1882,7 +1882,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm31cr61a107mea8l.pdf",
     "product_url": "/products/grm31cr61a107mea8l/"
   },
   {
@@ -1901,7 +1901,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ne555dr.pdf",
     "product_url": "/products/ne555dr/"
   },
   {
@@ -1925,7 +1925,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tps54202ddcr.pdf",
     "product_url": "/products/tps54202ddcr/"
   },
   {
@@ -1948,7 +1948,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lan8720ai-cp-tr.pdf",
     "product_url": "/products/lan8720aicptr/"
   },
   {
@@ -1971,7 +1971,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lm393dr.pdf",
     "product_url": "/products/lm393dr/"
   },
   {
@@ -1995,7 +1995,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ina333aidgkr.pdf",
     "product_url": "/products/ina333aidgkr/"
   },
   {
@@ -2018,7 +2018,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/stm32f722ret6.pdf",
     "product_url": "/products/stm32f722ret6/"
   },
   {
@@ -2037,7 +2037,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ism330dhcxtr.pdf",
     "product_url": "/products/ism330dhcxtr/"
   },
   {
@@ -2061,7 +2061,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/sn74hc14dr.pdf",
     "product_url": "/products/sn74hc14dr/"
   },
   {
@@ -2085,7 +2085,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/sn65hvd75dr.pdf",
     "product_url": "/products/sn65hvd75dr/"
   },
   {
@@ -2108,7 +2108,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/l78m05abdt-tr.pdf",
     "product_url": "/products/l78m05abdttr/"
   },
   {
@@ -2130,7 +2130,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tps2116drlr.pdf",
     "product_url": "/products/tps2116drlr/"
   },
   {
@@ -2154,7 +2154,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lm5164ddar.pdf",
     "product_url": "/products/lm5164ddar/"
   },
   {
@@ -2178,7 +2178,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/sn74hc595dr.pdf",
     "product_url": "/products/sn74hc595dr/"
   },
   {
@@ -2202,7 +2202,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tps631000drlr.pdf",
     "product_url": "/products/tps631000drlr/"
   },
   {
@@ -2226,7 +2226,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tlv62569dbvr.pdf",
     "product_url": "/products/tlv62569dbvr/"
   },
   {
@@ -2250,7 +2250,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/mcp6001t-i-ot.pdf",
     "product_url": "/products/mcp6001tiot/"
   },
   {
@@ -2273,7 +2273,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/txb0108pwr.pdf",
     "product_url": "/products/txb0108pwr/"
   },
   {
@@ -2296,7 +2296,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm188c61e226me01d.pdf",
     "product_url": "/products/grm188c61e226me01d/"
   },
   {
@@ -2319,7 +2319,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/stm32g030f6p6tr.pdf",
     "product_url": "/products/stm32g030f6p6tr/"
   },
   {
@@ -2343,7 +2343,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tpd1e10b06dpyr.pdf",
     "product_url": "/products/tpd1e10b06dpyr/"
   },
   {
@@ -2367,7 +2367,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tps62840dlcr.pdf",
     "product_url": "/products/tps62840dlcr/"
   },
   {
@@ -2390,7 +2390,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/txs0108epwr.pdf",
     "product_url": "/products/txs0108epwr/"
   },
   {
@@ -2412,7 +2412,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/iso1044bdr.pdf",
     "product_url": "/products/iso1044bdr/"
   },
   {
@@ -2436,7 +2436,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm21bz71e106ke15l.pdf",
     "product_url": "/products/grm21bz71e106ke15l/"
   },
   {
@@ -2460,7 +2460,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ncp15xh103f03rc.pdf",
     "product_url": "/products/ncp15xh103f03rc/"
   },
   {
@@ -2484,7 +2484,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm188r71h104ka93d.pdf",
     "product_url": "/products/grm188r71h104ka93d/"
   },
   {
@@ -2508,7 +2508,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/uln2003d1013tr.pdf",
     "product_url": "/products/uln2003d1013tr/"
   },
   {
@@ -2532,7 +2532,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ref3030aidbzr.pdf",
     "product_url": "/products/ref3030aidbzr/"
   },
   {
@@ -2555,7 +2555,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/sn74lvc1t45dbvr.pdf",
     "product_url": "/products/sn74lvc1t45dbvr/"
   },
   {
@@ -2577,7 +2577,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/sn74lvc8t245pwr.pdf",
     "product_url": "/products/sn74lvc8t245pwr/"
   },
   {
@@ -2600,7 +2600,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/txs0104epwr.pdf",
     "product_url": "/products/txs0104epwr/"
   },
   {
@@ -2623,7 +2623,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/stm32g474ret6.pdf",
     "product_url": "/products/stm32g474ret6/"
   },
   {
@@ -2646,7 +2646,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tmp102aidrlr.pdf",
     "product_url": "/products/tmp102aidrlr/"
   },
   {
@@ -2669,7 +2669,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/sn65hvd232dr.pdf",
     "product_url": "/products/sn65hvd232dr/"
   },
   {
@@ -2693,7 +2693,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tps63802dlar.pdf",
     "product_url": "/products/tps63802dlar/"
   },
   {
@@ -2716,7 +2716,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tps7a4700rgwr.pdf",
     "product_url": "/products/tps7a4700rgwr/"
   },
   {
@@ -2740,7 +2740,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tps63070rnmr.pdf",
     "product_url": "/products/tps63070rnmr/"
   },
   {
@@ -2764,7 +2764,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/bq24075rgtr.pdf",
     "product_url": "/products/bq24075rgtr/"
   },
   {
@@ -2788,7 +2788,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tps62933drlr.pdf",
     "product_url": "/products/tps62933drlr/"
   },
   {
@@ -2812,7 +2812,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm188r61a226me15d.pdf",
     "product_url": "/products/grm188r61a226me15d/"
   },
   {
@@ -2835,7 +2835,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lm1117impx-3.3-nopb.pdf",
     "product_url": "/products/lm1117impx33nopb/"
   },
   {
@@ -2857,7 +2857,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ads1015idgsr.pdf",
     "product_url": "/products/ads1015idgsr/"
   },
   {
@@ -2880,7 +2880,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/max3232eipwr.pdf",
     "product_url": "/products/max3232eipwr/"
   },
   {
@@ -2899,7 +2899,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lsm6dsoxtr.pdf",
     "product_url": "/products/lsm6dsoxtr/"
   },
   {
@@ -2922,7 +2922,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/l78l05abutr.pdf",
     "product_url": "/products/l78l05abutr/"
   },
   {
@@ -2946,7 +2946,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ncp18xh103f03rb.pdf",
     "product_url": "/products/ncp18xh103f03rb/"
   },
   {
@@ -2970,7 +2970,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm155r71h104ke14d.pdf",
     "product_url": "/products/grm155r71h104ke14d/"
   },
   {
@@ -2994,7 +2994,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm188r61a106ke69d.pdf",
     "product_url": "/products/grm188r61a106ke69d/"
   },
   {
@@ -3018,7 +3018,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tps63020dsjr.pdf",
     "product_url": "/products/tps63020dsjr/"
   },
   {
@@ -3042,7 +3042,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tl431aidbzr.pdf",
     "product_url": "/products/tl431aidbzr/"
   },
   {
@@ -3065,7 +3065,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tca9548apwr.pdf",
     "product_url": "/products/tca9548apwr/"
   },
   {
@@ -3089,7 +3089,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/mcp6002t-i-sn.pdf",
     "product_url": "/products/mcp6002tisn/"
   },
   {
@@ -3113,7 +3113,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm21br61e106ka73l.pdf",
     "product_url": "/products/grm21br61e106ka73l/"
   },
   {
@@ -3137,7 +3137,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lm2596sx-5.0-nopb.pdf",
     "product_url": "/products/lm2596sx50nopb/"
   },
   {
@@ -3161,7 +3161,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ina180a1idbvr.pdf",
     "product_url": "/products/ina180a1idbvr/"
   },
   {
@@ -3184,7 +3184,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/sn65hvd233dr.pdf",
     "product_url": "/products/sn65hvd233dr/"
   },
   {
@@ -3208,7 +3208,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ina180a2idbvr.pdf",
     "product_url": "/products/ina180a2idbvr/"
   },
   {
@@ -3232,7 +3232,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm1555c1h100ja01d.pdf",
     "product_url": "/products/grm1555c1h100ja01d/"
   },
   {
@@ -3256,7 +3256,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/thvd1450dr.pdf",
     "product_url": "/products/thvd1450dr/"
   },
   {
@@ -3279,7 +3279,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lan8720a-cp-tr.pdf",
     "product_url": "/products/lan8720acptr/"
   },
   {
@@ -3302,7 +3302,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lm1117mpx-3.3-nopb.pdf",
     "product_url": "/products/lm1117mpx33nopb/"
   },
   {
@@ -3326,7 +3326,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lm358dr.pdf",
     "product_url": "/products/lm358dr/"
   },
   {
@@ -3350,7 +3350,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm188r61e106ka73d.pdf",
     "product_url": "/products/grm188r61e106ka73d/"
   },
   {
@@ -3374,7 +3374,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm188r6ya106ma73d.pdf",
     "product_url": "/products/grm188r6ya106ma73d/"
   },
   {
@@ -3398,7 +3398,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tlv3201aidbvr.pdf",
     "product_url": "/products/tlv3201aidbvr/"
   },
   {
@@ -3417,7 +3417,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lsm6dsvtr.pdf",
     "product_url": "/products/lsm6dsvtr/"
   },
   {
@@ -3441,7 +3441,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/bq25798rqmr.pdf",
     "product_url": "/products/bq25798rqmr/"
   },
   {
@@ -3465,7 +3465,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/sn74lvc1g14dbvr.pdf",
     "product_url": "/products/sn74lvc1g14dbvr/"
   },
   {
@@ -3489,7 +3489,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm21br60j107me15l.pdf",
     "product_url": "/products/grm21br60j107me15l/"
   },
   {
@@ -3512,7 +3512,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/mcp2551-i-sn.pdf",
     "product_url": "/products/mcp2551isn/"
   },
   {
@@ -3535,7 +3535,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ld1117s33ctr.pdf",
     "product_url": "/products/ld1117s33ctr/"
   },
   {
@@ -3557,7 +3557,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tmp117aidrvr.pdf",
     "product_url": "/products/tmp117aidrvr/"
   },
   {
@@ -3580,7 +3580,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/atmega2560-16au.pdf",
     "product_url": "/products/atmega256016au/"
   },
   {
@@ -3603,7 +3603,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ldl1117s33r.pdf",
     "product_url": "/products/ldl1117s33r/"
   },
   {
@@ -3626,7 +3626,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tlv75733pdbvr.pdf",
     "product_url": "/products/tlv75733pdbvr/"
   },
   {
@@ -3650,7 +3650,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/blm15pd121sn1d.pdf",
     "product_url": "/products/blm15pd121sn1d/"
   },
   {
@@ -3672,7 +3672,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/usb2514bi-aezg-tr.pdf",
     "product_url": "/products/usb2514biaezgtr/"
   },
   {
@@ -3695,7 +3695,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lan8742a-cz-tr.pdf",
     "product_url": "/products/lan8742acztr/"
   },
   {
@@ -3718,7 +3718,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/txs0102dcur.pdf",
     "product_url": "/products/txs0102dcur/"
   },
   {
@@ -3742,7 +3742,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/usblc6-2sc6.pdf",
     "product_url": "/products/usblc62sc6/"
   },
   {
@@ -3765,7 +3765,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/txb0102dcur.pdf",
     "product_url": "/products/txb0102dcur/"
   },
   {
@@ -3789,7 +3789,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lan8742ai-cz-tr.pdf",
     "product_url": "/products/lan8742aicztr/"
   },
   {
@@ -3812,7 +3812,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tlv75533pdbvr.pdf",
     "product_url": "/products/tlv75533pdbvr/"
   },
   {
@@ -3835,7 +3835,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/txs0102dctr.pdf",
     "product_url": "/products/txs0102dctr/"
   },
   {
@@ -3859,7 +3859,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tps63900dskr.pdf",
     "product_url": "/products/tps63900dskr/"
   },
   {
@@ -3883,7 +3883,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm1555c1h101ja01d.pdf",
     "product_url": "/products/grm1555c1h101ja01d/"
   },
   {
@@ -3906,7 +3906,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/pcm5102apwr.pdf",
     "product_url": "/products/pcm5102apwr/"
   },
   {
@@ -3930,7 +3930,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm32er71h106ka12l.pdf",
     "product_url": "/products/grm32er71h106ka12l/"
   },
   {
@@ -3953,7 +3953,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/p82b715dr.pdf",
     "product_url": "/products/p82b715dr/"
   },
   {
@@ -3977,7 +3977,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/blm18pg121sn1d.pdf",
     "product_url": "/products/blm18pg121sn1d/"
   },
   {
@@ -4001,7 +4001,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/l5973d013tr.pdf",
     "product_url": "/products/l5973d013tr/"
   },
   {
@@ -4025,7 +4025,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tps22810drvr.pdf",
     "product_url": "/products/tps22810drvr/"
   },
   {
@@ -4047,7 +4047,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/dp83848ivvx-nopb.pdf",
     "product_url": "/products/dp83848ivvxnopb/"
   },
   {
@@ -4070,7 +4070,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/mc33063adr.pdf",
     "product_url": "/products/mc33063adr/"
   },
   {
@@ -4093,7 +4093,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lm317mdt-tr.pdf",
     "product_url": "/products/lm317mdttr/"
   },
   {
@@ -4117,7 +4117,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lmv321idbvr.pdf",
     "product_url": "/products/lmv321idbvr/"
   },
   {
@@ -4141,7 +4141,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/blm31pg121sn1l.pdf",
     "product_url": "/products/blm31pg121sn1l/"
   },
   {
@@ -4165,7 +4165,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/blm18kg601sn1d.pdf",
     "product_url": "/products/blm18kg601sn1d/"
   },
   {
@@ -4189,7 +4189,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ina3221airgvr.pdf",
     "product_url": "/products/ina3221airgvr/"
   },
   {
@@ -4212,7 +4212,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/stm32h723vgt6.pdf",
     "product_url": "/products/stm32h723vgt6/"
   },
   {
@@ -4236,7 +4236,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm188z71a106ka73d.pdf",
     "product_url": "/products/grm188z71a106ka73d/"
   },
   {
@@ -4260,7 +4260,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/blm18ag601sn1d.pdf",
     "product_url": "/products/blm18ag601sn1d/"
   },
   {
@@ -4283,7 +4283,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/sn74lvc2t45dcur.pdf",
     "product_url": "/products/sn74lvc2t45dcur/"
   },
   {
@@ -4307,7 +4307,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ne5532dr.pdf",
     "product_url": "/products/ne5532dr/"
   },
   {
@@ -4331,7 +4331,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lm339dr.pdf",
     "product_url": "/products/lm339dr/"
   },
   {
@@ -4355,7 +4355,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/blm15ag601sn1d.pdf",
     "product_url": "/products/blm15ag601sn1d/"
   },
   {
@@ -4379,7 +4379,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/blm18kg121tn1d.pdf",
     "product_url": "/products/blm18kg121tn1d/"
   },
   {
@@ -4402,7 +4402,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lm317aempx-nopb.pdf",
     "product_url": "/products/lm317aempxnopb/"
   },
   {
@@ -4426,7 +4426,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/blm18ag102sn1d.pdf",
     "product_url": "/products/blm18ag102sn1d/"
   },
   {
@@ -4449,7 +4449,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/max3232cdr.pdf",
     "product_url": "/products/max3232cdr/"
   },
   {
@@ -4473,7 +4473,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/sn74lvc1g17dckr.pdf",
     "product_url": "/products/sn74lvc1g17dckr/"
   },
   {
@@ -4497,7 +4497,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm21br71h105ka12l.pdf",
     "product_url": "/products/grm21br71h105ka12l/"
   },
   {
@@ -4518,7 +4518,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/iso1540dr.pdf",
     "product_url": "/products/iso1540dr/"
   },
   {
@@ -4542,7 +4542,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tps61023drlr.pdf",
     "product_url": "/products/tps61023drlr/"
   },
   {
@@ -4561,7 +4561,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lsm6dsv16xtr.pdf",
     "product_url": "/products/lsm6dsv16xtr/"
   },
   {
@@ -4584,7 +4584,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tps70933dbvr.pdf",
     "product_url": "/products/tps70933dbvr/"
   },
   {
@@ -4607,7 +4607,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/sn74lvc1g3157dckr.pdf",
     "product_url": "/products/sn74lvc1g3157dckr/"
   },
   {
@@ -4631,7 +4631,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/sn74lvc2g17dckr.pdf",
     "product_url": "/products/sn74lvc2g17dckr/"
   },
   {
@@ -4654,7 +4654,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tlv76733drvr.pdf",
     "product_url": "/products/tlv76733drvr/"
   },
   {
@@ -4677,7 +4677,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/stm32f446ret6.pdf",
     "product_url": "/products/stm32f446ret6/"
   },
   {
@@ -4701,7 +4701,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tps54302ddcr.pdf",
     "product_url": "/products/tps54302ddcr/"
   },
   {
@@ -4725,7 +4725,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm31c5c1h104ja01l.pdf",
     "product_url": "/products/grm31c5c1h104ja01l/"
   },
   {
@@ -4744,7 +4744,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tlc555cdr.pdf",
     "product_url": "/products/tlc555cdr/"
   },
   {
@@ -4767,7 +4767,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/sn74lvc1g08dbvr.pdf",
     "product_url": "/products/sn74lvc1g08dbvr/"
   },
   {
@@ -4791,7 +4791,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm21br61a476me15l.pdf",
     "product_url": "/products/grm21br61a476me15l/"
   },
   {
@@ -4815,7 +4815,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tl072cdr.pdf",
     "product_url": "/products/tl072cdr/"
   },
   {
@@ -4839,7 +4839,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/blm18eg221sn1d.pdf",
     "product_url": "/products/blm18eg221sn1d/"
   },
   {
@@ -4860,7 +4860,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/drv2605ldgsr.pdf",
     "product_url": "/products/drv2605ldgsr/"
   },
   {
@@ -4884,7 +4884,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/dfe252012f-1r0m-p2.pdf",
     "product_url": "/products/dfe252012f1r0mp2/"
   },
   {
@@ -4908,7 +4908,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm155r60j226me11d.pdf",
     "product_url": "/products/grm155r60j226me11d/"
   },
   {
@@ -4932,7 +4932,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tps22917dbvr.pdf",
     "product_url": "/products/tps22917dbvr/"
   },
   {
@@ -4956,7 +4956,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/blm21pg331sn1d.pdf",
     "product_url": "/products/blm21pg331sn1d/"
   },
   {
@@ -4978,7 +4978,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/pca9306dctr.pdf",
     "product_url": "/products/pca9306dctr/"
   },
   {
@@ -5001,7 +5001,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/l7805cv.pdf",
     "product_url": "/products/l7805cv/"
   },
   {
@@ -5020,7 +5020,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/drv8833pwpr.pdf",
     "product_url": "/products/drv8833pwpr/"
   },
   {
@@ -5044,7 +5044,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tpd4e05u06dqar.pdf",
     "product_url": "/products/tpd4e05u06dqar/"
   },
   {
@@ -5068,7 +5068,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/blm18sg121tn1d.pdf",
     "product_url": "/products/blm18sg121tn1d/"
   },
   {
@@ -5092,7 +5092,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/blm15px121sn1d.pdf",
     "product_url": "/products/blm15px121sn1d/"
   },
   {
@@ -5116,7 +5116,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm1885c1h103ja01d.pdf",
     "product_url": "/products/grm1885c1h103ja01d/"
   },
   {
@@ -5140,7 +5140,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/blm18pg471sn1d.pdf",
     "product_url": "/products/blm18pg471sn1d/"
   },
   {
@@ -5163,7 +5163,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ld1117s33tr.pdf",
     "product_url": "/products/ld1117s33tr/"
   },
   {
@@ -5187,7 +5187,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/gcm155r71h104ke02d.pdf",
     "product_url": "/products/gcm155r71h104ke02d/"
   },
   {
@@ -5211,7 +5211,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm188r61e475ke11d.pdf",
     "product_url": "/products/grm188r61e475ke11d/"
   },
   {
@@ -5235,7 +5235,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/blm31pg601sn1l.pdf",
     "product_url": "/products/blm31pg601sn1l/"
   },
   {
@@ -5259,7 +5259,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/blm21pg221sn1d.pdf",
     "product_url": "/products/blm21pg221sn1d/"
   },
   {
@@ -5282,7 +5282,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ina219aidcnr.pdf",
     "product_url": "/products/ina219aidcnr/"
   },
   {
@@ -5306,7 +5306,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm1555c1h102ja01d.pdf",
     "product_url": "/products/grm1555c1h102ja01d/"
   },
   {
@@ -5330,7 +5330,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm21br6ya106ke43l.pdf",
     "product_url": "/products/grm21br6ya106ke43l/"
   },
   {
@@ -5354,7 +5354,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lm13700mx-nopb.pdf",
     "product_url": "/products/lm13700mxnopb/"
   },
   {
@@ -5378,7 +5378,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm155z71a105ke01d.pdf",
     "product_url": "/products/grm155z71a105ke01d/"
   },
   {
@@ -5402,7 +5402,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/mcp73831t-2aci-ot.pdf",
     "product_url": "/products/mcp73831t2aciot/"
   },
   {
@@ -5424,7 +5424,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/mcp9700at-e-tt.pdf",
     "product_url": "/products/mcp9700atett/"
   },
   {
@@ -5448,7 +5448,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm155r61e105ka12d.pdf",
     "product_url": "/products/grm155r61e105ka12d/"
   },
   {
@@ -5467,7 +5467,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ne555p.pdf",
     "product_url": "/products/ne555p/"
   },
   {
@@ -5491,7 +5491,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/usblc6-4sc6.pdf",
     "product_url": "/products/usblc64sc6/"
   },
   {
@@ -5515,7 +5515,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/blm21pg121sn1d.pdf",
     "product_url": "/products/blm21pg121sn1d/"
   },
   {
@@ -5539,7 +5539,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/opa1656idr.pdf",
     "product_url": "/products/opa1656idr/"
   },
   {
@@ -5561,7 +5561,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lm35dz-nopb.pdf",
     "product_url": "/products/lm35dznopb/"
   },
   {
@@ -5585,7 +5585,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tps22918dbvr.pdf",
     "product_url": "/products/tps22918dbvr/"
   },
   {
@@ -5609,7 +5609,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ina219aidr.pdf",
     "product_url": "/products/ina219aidr/"
   },
   {
@@ -5633,7 +5633,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tpd4eusb30dqar.pdf",
     "product_url": "/products/tpd4eusb30dqar/"
   },
   {
@@ -5656,7 +5656,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/uln2803cdwr.pdf",
     "product_url": "/products/uln2803cdwr/"
   },
   {
@@ -5679,7 +5679,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/attiny1616-mnr.pdf",
     "product_url": "/products/attiny1616mnr/"
   },
   {
@@ -5703,7 +5703,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm155r71h103ka88d.pdf",
     "product_url": "/products/grm155r71h103ka88d/"
   },
   {
@@ -5727,7 +5727,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/gcm188r71e105ka64d.pdf",
     "product_url": "/products/gcm188r71e105ka64d/"
   },
   {
@@ -5751,7 +5751,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/usblc6-2p6.pdf",
     "product_url": "/products/usblc62p6/"
   },
   {
@@ -5775,7 +5775,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/grm155r61h105ke05d.pdf",
     "product_url": "/products/grm155r61h105ke05d/"
   },
   {
@@ -5797,7 +5797,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ads1115idgst.pdf",
     "product_url": "/products/ads1115idgst/"
   },
   {
@@ -5821,7 +5821,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/blm21pg300sn1d.pdf",
     "product_url": "/products/blm21pg300sn1d/"
   },
   {
@@ -5845,7 +5845,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lm358dt.pdf",
     "product_url": "/products/lm358dt/"
   },
   {
@@ -5869,7 +5869,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/blm21ag102sn1d.pdf",
     "product_url": "/products/blm21ag102sn1d/"
   },
   {
@@ -5892,7 +5892,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/atmega328p-pu.pdf",
     "product_url": "/products/atmega328ppu/"
   },
   {
@@ -5915,7 +5915,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ltm4671ey-pbf.pdf",
     "product_url": "/products/ltm4671eypbf/"
   },
   {
@@ -5938,7 +5938,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lp5907mfx-3.3-nopb.pdf",
     "product_url": "/products/lp5907mfx33nopb/"
   },
   {
@@ -5962,7 +5962,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tps22919dckr.pdf",
     "product_url": "/products/tps22919dckr/"
   },
   {
@@ -5985,7 +5985,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/mcp1700t-3302e-tt.pdf",
     "product_url": "/products/mcp1700t3302ett/"
   },
   {
@@ -6009,7 +6009,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/dfe252012p-1r0m-p2.pdf",
     "product_url": "/products/dfe252012p1r0mp2/"
   },
   {
@@ -6028,7 +6028,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ltc6811ig-1-3zztrpbf.pdf",
     "product_url": "/products/ltc6811ig13zztrpbf/"
   },
   {
@@ -6051,7 +6051,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/bq25185dlhr.pdf",
     "product_url": "/products/bq25185dlhr/"
   },
   {
@@ -6070,7 +6070,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lis2dh12tr.pdf",
     "product_url": "/products/lis2dh12tr/"
   },
   {
@@ -6094,7 +6094,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/mcp4725a0t-e-ch.pdf",
     "product_url": "/products/mcp4725a0tech/"
   },
   {
@@ -6113,7 +6113,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lis3dhtr.pdf",
     "product_url": "/products/lis3dhtr/"
   },
   {
@@ -6136,7 +6136,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/stm32f407vgt6.pdf",
     "product_url": "/products/stm32f407vgt6/"
   },
   {
@@ -6159,7 +6159,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/adg719brtz-reel7.pdf",
     "product_url": "/products/adg719brtzreel7/"
   },
   {
@@ -6183,7 +6183,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/bav99-215.pdf",
     "product_url": "/products/bav99215/"
   },
   {
@@ -6207,7 +6207,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/bat46wj-115.pdf",
     "product_url": "/products/bat46wj115/"
   },
   {
@@ -6231,7 +6231,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/w25q64jvssiq.pdf",
     "product_url": "/products/w25q64jvssiq/"
   },
   {
@@ -6255,7 +6255,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/pmeg6010cej-115.pdf",
     "product_url": "/products/pmeg6010cej115/"
   },
   {
@@ -6279,7 +6279,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/rc0603fr-0710kl.pdf",
     "product_url": "/products/rc0603fr0710kl/"
   },
   {
@@ -6303,7 +6303,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/frc0603f1001ts.pdf",
     "product_url": "/products/frc0603f1001ts/"
   },
   {
@@ -6327,7 +6327,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/pmeg6010ceh-115.pdf",
     "product_url": "/products/pmeg6010ceh115/"
   },
   {
@@ -6351,7 +6351,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/frc0603f1002ts.pdf",
     "product_url": "/products/frc0603f1002ts/"
   },
   {
@@ -6375,7 +6375,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/2n7002-215.pdf",
     "product_url": "/products/2n7002215/"
   },
   {
@@ -6399,7 +6399,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/type-c-16pin-2md-073-.pdf",
     "product_url": "/products/typec16pin2md073/"
   },
   {
@@ -6423,7 +6423,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/rc0402fr-07100kl.pdf",
     "product_url": "/products/rc0402fr07100kl/"
   },
   {
@@ -6447,7 +6447,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/1n4148w-7-f.pdf",
     "product_url": "/products/1n4148w7f/"
   },
   {
@@ -6469,7 +6469,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ft234xd-r.pdf",
     "product_url": "/products/ft234xdr/"
   },
   {
@@ -6493,7 +6493,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/74hc595d-118.pdf",
     "product_url": "/products/74hc595d118/"
   },
   {
@@ -6517,7 +6517,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/frc0805f1002ts.pdf",
     "product_url": "/products/frc0805f1002ts/"
   },
   {
@@ -6541,7 +6541,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/rc0603fr-07100kl.pdf",
     "product_url": "/products/rc0603fr07100kl/"
   },
   {
@@ -6563,7 +6563,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/max17048g-t10.pdf",
     "product_url": "/products/max17048gt10/"
   },
   {
@@ -6587,7 +6587,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/rc0603fr-074k7l.pdf",
     "product_url": "/products/rc0603fr074k7l/"
   },
   {
@@ -6611,7 +6611,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/xl-1608surc-06.pdf",
     "product_url": "/products/xl1608surc06/"
   },
   {
@@ -6635,7 +6635,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ap63205wu-7.pdf",
     "product_url": "/products/ap63205wu7/"
   },
   {
@@ -6659,7 +6659,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/frc0603f1003ts.pdf",
     "product_url": "/products/frc0603f1003ts/"
   },
   {
@@ -6683,7 +6683,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/b2b-xh-a-lf--sn-.pdf",
     "product_url": "/products/b2bxhalfsn/"
   },
   {
@@ -6707,7 +6707,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ts-1088-ar02016.pdf",
     "product_url": "/products/ts1088ar02016/"
   },
   {
@@ -6731,7 +6731,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/u.fl-r-smt-1-80-.pdf",
     "product_url": "/products/uflrsmt180/"
   },
   {
@@ -6755,7 +6755,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/rc0603fr-071kl.pdf",
     "product_url": "/products/rc0603fr071kl/"
   },
   {
@@ -6779,7 +6779,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/bat54-215.pdf",
     "product_url": "/products/bat54215/"
   },
   {
@@ -6803,7 +6803,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/rc0603jr-070rl.pdf",
     "product_url": "/products/rc0603jr070rl/"
   },
   {
@@ -6827,7 +6827,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/bat54slt1g.pdf",
     "product_url": "/products/bat54slt1g/"
   },
   {
@@ -6850,7 +6850,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ft232rl-reel.pdf",
     "product_url": "/products/ft232rlreel/"
   },
   {
@@ -6874,7 +6874,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/1n5819ws.pdf",
     "product_url": "/products/1n5819ws/"
   },
   {
@@ -6898,7 +6898,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/frc0603f5101ts.pdf",
     "product_url": "/products/frc0603f5101ts/"
   },
   {
@@ -6922,7 +6922,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/bat54c-215.pdf",
     "product_url": "/products/bat54c215/"
   },
   {
@@ -6946,7 +6946,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/b4b-xh-a-lf--sn-.pdf",
     "product_url": "/products/b4bxhalfsn/"
   },
   {
@@ -6970,7 +6970,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/rc0402fr-071kl.pdf",
     "product_url": "/products/rc0402fr071kl/"
   },
   {
@@ -6994,7 +6994,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/1n4148w.pdf",
     "product_url": "/products/1n4148w/"
   },
   {
@@ -7017,7 +7017,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/prtr5v0u2f-115.pdf",
     "product_url": "/products/prtr5v0u2f115/"
   },
   {
@@ -7041,7 +7041,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/erj2ge0r00x.pdf",
     "product_url": "/products/erj2ge0r00x/"
   },
   {
@@ -7065,7 +7065,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/frc0805f1001ts.pdf",
     "product_url": "/products/frc0805f1001ts/"
   },
   {
@@ -7089,7 +7089,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/nup2105lt1g.pdf",
     "product_url": "/products/nup2105lt1g/"
   },
   {
@@ -7112,7 +7112,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ams1117-3.3.pdf",
     "product_url": "/products/ams111733/"
   },
   {
@@ -7136,7 +7136,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/max98357aete-t.pdf",
     "product_url": "/products/max98357aetet/"
   },
   {
@@ -7160,7 +7160,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/b2b-ph-k-s-lf--sn-.pdf",
     "product_url": "/products/b2bphkslfsn/"
   },
   {
@@ -7184,7 +7184,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/bat54s.pdf",
     "product_url": "/products/bat54s/"
   },
   {
@@ -7207,7 +7207,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/pesd0402-140.pdf",
     "product_url": "/products/pesd0402140/"
   },
   {
@@ -7231,7 +7231,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/bss138lt1g.pdf",
     "product_url": "/products/bss138lt1g/"
   },
   {
@@ -7252,7 +7252,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/max6675isa-t.pdf",
     "product_url": "/products/max6675isat/"
   },
   {
@@ -7276,7 +7276,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/gt-usb-7010asv.pdf",
     "product_url": "/products/gtusb7010asv/"
   },
   {
@@ -7295,7 +7295,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/w5500.pdf",
     "product_url": "/products/w5500/"
   },
   {
@@ -7319,7 +7319,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/irf540npbf.pdf",
     "product_url": "/products/irf540npbf/"
   },
   {
@@ -7341,7 +7341,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/b0505s-1wr3.pdf",
     "product_url": "/products/b0505s1wr3/"
   },
   {
@@ -7365,7 +7365,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/pesd3v3s2ut-215.pdf",
     "product_url": "/products/pesd3v3s2ut215/"
   },
   {
@@ -7387,7 +7387,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/max31865atp-t.pdf",
     "product_url": "/products/max31865atpt/"
   },
   {
@@ -7411,7 +7411,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/u.fl-r-smt-1-10-.pdf",
     "product_url": "/products/uflrsmt110/"
   },
   {
@@ -7430,7 +7430,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/bmi270.pdf",
     "product_url": "/products/bmi270/"
   },
   {
@@ -7454,7 +7454,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/crcw060310k0fkea.pdf",
     "product_url": "/products/crcw060310k0fkea/"
   },
   {
@@ -7476,7 +7476,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/q13fc13500004.pdf",
     "product_url": "/products/q13fc13500004/"
   },
   {
@@ -7500,7 +7500,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/1n5819hw-7-f.pdf",
     "product_url": "/products/1n5819hw7f/"
   },
   {
@@ -7524,7 +7524,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/frc0402f1002ts.pdf",
     "product_url": "/products/frc0402f1002ts/"
   },
   {
@@ -7548,7 +7548,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/esd5z3.3t1g.pdf",
     "product_url": "/products/esd5z33t1g/"
   },
   {
@@ -7571,7 +7571,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ds18b20-.pdf",
     "product_url": "/products/ds18b20/"
   },
   {
@@ -7595,7 +7595,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/b4b-ph-k-s-lf--sn-.pdf",
     "product_url": "/products/b4bphkslfsn/"
   },
   {
@@ -7619,7 +7619,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/frc0603f4702ts.pdf",
     "product_url": "/products/frc0603f4702ts/"
   },
   {
@@ -7643,7 +7643,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tf-push.pdf",
     "product_url": "/products/tfpush/"
   },
   {
@@ -7667,7 +7667,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/frc0603f4701ts.pdf",
     "product_url": "/products/frc0603f4701ts/"
   },
   {
@@ -7691,7 +7691,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/rc0402fr-070rl.pdf",
     "product_url": "/products/rc0402fr070rl/"
   },
   {
@@ -7715,7 +7715,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/crcw06030000z0ea.pdf",
     "product_url": "/products/crcw06030000z0ea/"
   },
   {
@@ -7739,7 +7739,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ts-1187a-b-a-b.pdf",
     "product_url": "/products/ts1187abab/"
   },
   {
@@ -7763,7 +7763,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/frc0603f0000ts.pdf",
     "product_url": "/products/frc0603f0000ts/"
   },
   {
@@ -7787,7 +7787,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/frc0603f1000ts.pdf",
     "product_url": "/products/frc0603f1000ts/"
   },
   {
@@ -7811,7 +7811,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ll4148-gs08.pdf",
     "product_url": "/products/ll4148gs08/"
   },
   {
@@ -7835,7 +7835,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/crcw040210k0fked.pdf",
     "product_url": "/products/crcw040210k0fked/"
   },
   {
@@ -7859,7 +7859,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/xl-2012surc.pdf",
     "product_url": "/products/xl2012surc/"
   },
   {
@@ -7883,7 +7883,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ss54.pdf",
     "product_url": "/products/ss54/"
   },
   {
@@ -7907,7 +7907,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/frc0603j102-ts.pdf",
     "product_url": "/products/frc0603j102ts/"
   },
   {
@@ -7931,7 +7931,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ss14.pdf",
     "product_url": "/products/ss14/"
   },
   {
@@ -7955,7 +7955,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/74hc14d-653.pdf",
     "product_url": "/products/74hc14d653/"
   },
   {
@@ -7979,7 +7979,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/b3b-xh-a-lf--sn-.pdf",
     "product_url": "/products/b3bxhalfsn/"
   },
   {
@@ -7998,7 +7998,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/at7456e.pdf",
     "product_url": "/products/at7456e/"
   },
   {
@@ -8022,7 +8022,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/irlml6402trpbf.pdf",
     "product_url": "/products/irlml6402trpbf/"
   },
   {
@@ -8046,7 +8046,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/74hc165d-653.pdf",
     "product_url": "/products/74hc165d653/"
   },
   {
@@ -8070,7 +8070,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/pesd5z3.3-115.pdf",
     "product_url": "/products/pesd5z33115/"
   },
   {
@@ -8089,7 +8089,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/clrc66303hny.pdf",
     "product_url": "/products/clrc66303hny/"
   },
   {
@@ -8113,7 +8113,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/rc0805fr-071kl.pdf",
     "product_url": "/products/rc0805fr071kl/"
   },
   {
@@ -8137,7 +8137,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/mbr0540t1g.pdf",
     "product_url": "/products/mbr0540t1g/"
   },
   {
@@ -8161,7 +8161,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/irfb4110pbf.pdf",
     "product_url": "/products/irfb4110pbf/"
   },
   {
@@ -8184,7 +8184,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ch340c.pdf",
     "product_url": "/products/ch340c/"
   },
   {
@@ -8208,7 +8208,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/xl-1608ubc-04.pdf",
     "product_url": "/products/xl1608ubc04/"
   },
   {
@@ -8232,7 +8232,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/pesd1can-215.pdf",
     "product_url": "/products/pesd1can215/"
   },
   {
@@ -8251,7 +8251,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tmc2209-la-t.pdf",
     "product_url": "/products/tmc2209lat/"
   },
   {
@@ -8275,7 +8275,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/kt-0603r.pdf",
     "product_url": "/products/kt0603r/"
   },
   {
@@ -8296,7 +8296,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/cp2102n-a02-gqfn28r.pdf",
     "product_url": "/products/cp2102na02gqfn28r/"
   },
   {
@@ -8318,7 +8318,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/cp2102-gmr.pdf",
     "product_url": "/products/cp2102gmr/"
   },
   {
@@ -8342,7 +8342,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/esp32-s3-wroom-1-n16r8.pdf",
     "product_url": "/products/esp32s3wroom1n16r8/"
   },
   {
@@ -8390,7 +8390,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/rc0402fr-074k7l.pdf",
     "product_url": "/products/rc0402fr074k7l/"
   },
   {
@@ -8414,7 +8414,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/sm4007pl.pdf",
     "product_url": "/products/sm4007pl/"
   },
   {
@@ -8438,7 +8438,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/bss138.pdf",
     "product_url": "/products/bss138/"
   },
   {
@@ -8462,7 +8462,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/b3b-ph-k-s-lf--sn-.pdf",
     "product_url": "/products/b3bphkslfsn/"
   },
   {
@@ -8481,7 +8481,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tmc5160a-ta-t.pdf",
     "product_url": "/products/tmc5160atat/"
   },
   {
@@ -8505,7 +8505,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/irfz44npbf.pdf",
     "product_url": "/products/irfz44npbf/"
   },
   {
@@ -8529,7 +8529,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/b560c-13-f.pdf",
     "product_url": "/products/b560c13f/"
   },
   {
@@ -8551,7 +8551,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/b1212s-1wr3.pdf",
     "product_url": "/products/b1212s1wr3/"
   },
   {
@@ -8575,7 +8575,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/b340a-13-f.pdf",
     "product_url": "/products/b340a13f/"
   },
   {
@@ -8599,7 +8599,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/frc0603f2002ts.pdf",
     "product_url": "/products/frc0603f2002ts/"
   },
   {
@@ -8623,7 +8623,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/mbr0520lt1g.pdf",
     "product_url": "/products/mbr0520lt1g/"
   },
   {
@@ -8647,7 +8647,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/pz254v-11-02p.pdf",
     "product_url": "/products/pz254v1102p/"
   },
   {
@@ -8671,7 +8671,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/frc0603j103-ts.pdf",
     "product_url": "/products/frc0603j103ts/"
   },
   {
@@ -8692,7 +8692,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/as5047p-atsm.pdf",
     "product_url": "/products/as5047patsm/"
   },
   {
@@ -8716,7 +8716,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/rc0603fr-07330rl.pdf",
     "product_url": "/products/rc0603fr07330rl/"
   },
   {
@@ -8740,7 +8740,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/frc0805f4701ts.pdf",
     "product_url": "/products/frc0805f4701ts/"
   },
   {
@@ -8764,7 +8764,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/crcw0402100kfked.pdf",
     "product_url": "/products/crcw0402100kfked/"
   },
   {
@@ -8787,7 +8787,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/g5nb-1a-e-dc5v.pdf",
     "product_url": "/products/g5nb1aedc5v/"
   },
   {
@@ -8811,7 +8811,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/mbra340t3g.pdf",
     "product_url": "/products/mbra340t3g/"
   },
   {
@@ -8835,7 +8835,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/srv05-4.tct.pdf",
     "product_url": "/products/srv054tct/"
   },
   {
@@ -8859,7 +8859,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/fdv301n.pdf",
     "product_url": "/products/fdv301n/"
   },
   {
@@ -8883,7 +8883,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/esd5z5.0t1g.pdf",
     "product_url": "/products/esd5z50t1g/"
   },
   {
@@ -8907,7 +8907,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/b6b-xh-a-lf--sn-.pdf",
     "product_url": "/products/b6bxhalfsn/"
   },
   {
@@ -8929,7 +8929,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/max31865aap-t.pdf",
     "product_url": "/products/max31865aapt/"
   },
   {
@@ -8953,7 +8953,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/si2302cds-t1-ge3.pdf",
     "product_url": "/products/si2302cdst1ge3/"
   },
   {
@@ -8977,7 +8977,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/b2p-vh-lf--sn-.pdf",
     "product_url": "/products/b2pvhlfsn/"
   },
   {
@@ -9001,7 +9001,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/frc0603f1004ts.pdf",
     "product_url": "/products/frc0603f1004ts/"
   },
   {
@@ -9025,7 +9025,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/rt0603brd0710kl.pdf",
     "product_url": "/products/rt0603brd0710kl/"
   },
   {
@@ -9049,7 +9049,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/hs96l03w2c03.pdf",
     "product_url": "/products/hs96l03w2c03/"
   },
   {
@@ -9073,7 +9073,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/bas16j-115.pdf",
     "product_url": "/products/bas16j115/"
   },
   {
@@ -9092,7 +9092,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/sk6812mini-e.pdf",
     "product_url": "/products/sk6812minie/"
   },
   {
@@ -9114,7 +9114,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/max31856mud-t.pdf",
     "product_url": "/products/max31856mudt/"
   },
   {
@@ -9138,7 +9138,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/b5b-xh-a-lf--sn-.pdf",
     "product_url": "/products/b5bxhalfsn/"
   },
   {
@@ -9162,7 +9162,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/smaj5.0a.pdf",
     "product_url": "/products/smaj50a/"
   },
   {
@@ -9185,7 +9185,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ap2112k-3.3trg1.pdf",
     "product_url": "/products/ap2112k33trg1/"
   },
   {
@@ -9209,7 +9209,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/type-c-31-m-31.pdf",
     "product_url": "/products/typec31m31/"
   },
   {
@@ -9233,7 +9233,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ap63203wu-7.pdf",
     "product_url": "/products/ap63203wu7/"
   },
   {
@@ -9256,7 +9256,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/jsm6288q.pdf",
     "product_url": "/products/jsm6288q/"
   },
   {
@@ -9280,7 +9280,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/bas316-115.pdf",
     "product_url": "/products/bas316115/"
   },
   {
@@ -9304,7 +9304,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ao3407a.pdf",
     "product_url": "/products/ao3407a/"
   },
   {
@@ -9328,7 +9328,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/b6b-ph-k-s-lf--sn-.pdf",
     "product_url": "/products/b6bphkslfsn/"
   },
   {
@@ -9347,7 +9347,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ws2812b-b-w.pdf",
     "product_url": "/products/ws2812bbw/"
   },
   {
@@ -9371,7 +9371,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/bss138-7-f.pdf",
     "product_url": "/products/bss1387f/"
   },
   {
@@ -9395,7 +9395,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/yled0603b.pdf",
     "product_url": "/products/yled0603b/"
   },
   {
@@ -9419,7 +9419,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/pz254v-11-04p.pdf",
     "product_url": "/products/pz254v1104p/"
   },
   {
@@ -9443,7 +9443,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/2n7002k-t1-ge3.pdf",
     "product_url": "/products/2n7002kt1ge3/"
   },
   {
@@ -9467,7 +9467,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/2n7002lt1g.pdf",
     "product_url": "/products/2n7002lt1g/"
   },
   {
@@ -9491,7 +9491,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/pesd2can-215.pdf",
     "product_url": "/products/pesd2can215/"
   },
   {
@@ -9515,7 +9515,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/bav99lt1g.pdf",
     "product_url": "/products/bav99lt1g/"
   },
   {
@@ -9539,7 +9539,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/sm06b-srss-tb-lf--sn-.pdf",
     "product_url": "/products/sm06bsrsstblfsn/"
   },
   {
@@ -9563,7 +9563,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/bav70-215.pdf",
     "product_url": "/products/bav70215/"
   },
   {
@@ -9587,7 +9587,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/srd-12vdc-sl-c.pdf",
     "product_url": "/products/srd12vdcslc/"
   },
   {
@@ -9609,7 +9609,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tp4056-42-esop8.pdf",
     "product_url": "/products/tp405642esop8/"
   },
   {
@@ -9632,7 +9632,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ncp1117st33t3g.pdf",
     "product_url": "/products/ncp1117st33t3g/"
   },
   {
@@ -9656,7 +9656,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/type-c-6p-073-.pdf",
     "product_url": "/products/typec6p073/"
   },
   {
@@ -9680,7 +9680,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/esd9l5.0st5g.pdf",
     "product_url": "/products/esd9l50st5g/"
   },
   {
@@ -9702,7 +9702,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/cp2102n-a02-gqfn20r.pdf",
     "product_url": "/products/cp2102na02gqfn20r/"
   },
   {
@@ -9723,7 +9723,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/as5600-asot.pdf",
     "product_url": "/products/as5600asot/"
   },
   {
@@ -9747,7 +9747,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/yled0603r.pdf",
     "product_url": "/products/yled0603r/"
   },
   {
@@ -9771,7 +9771,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/srd-05vdc-sl-c.pdf",
     "product_url": "/products/srd05vdcslc/"
   },
   {
@@ -9795,7 +9795,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/mt3608.pdf",
     "product_url": "/products/mt3608/"
   },
   {
@@ -9819,7 +9819,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/sm02b-srss-tb-lf--sn-.pdf",
     "product_url": "/products/sm02bsrsstblfsn/"
   },
   {
@@ -9842,7 +9842,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/sm712-02htg.pdf",
     "product_url": "/products/sm71202htg/"
   },
   {
@@ -9866,7 +9866,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/zx-pz2.54-1-16pzz.pdf",
     "product_url": "/products/zxpz254116pzz/"
   },
   {
@@ -9890,7 +9890,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/sm08b-srss-tb-lf--sn-.pdf",
     "product_url": "/products/sm08bsrsstblfsn/"
   },
   {
@@ -9914,7 +9914,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/irfr5305trpbf.pdf",
     "product_url": "/products/irfr5305trpbf/"
   },
   {
@@ -9938,7 +9938,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lm358dr2g.pdf",
     "product_url": "/products/lm358dr2g/"
   },
   {
@@ -9962,7 +9962,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/xl-2012ugc.pdf",
     "product_url": "/products/xl2012ugc/"
   },
   {
@@ -9986,7 +9986,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/bwsma-kwe-z001.pdf",
     "product_url": "/products/bwsmakwez001/"
   },
   {
@@ -10010,7 +10010,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/bss84lt1g.pdf",
     "product_url": "/products/bss84lt1g/"
   },
   {
@@ -10033,7 +10033,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ft232rnq-reel.pdf",
     "product_url": "/products/ft232rnqreel/"
   },
   {
@@ -10052,7 +10052,7 @@
     "needs_review": false,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/59170-1-s-00-d.pdf",
     "product_url": "/products/591701s00d/"
   },
   {
@@ -10076,7 +10076,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/bm04b-srss-tb-lf--sn-.pdf",
     "product_url": "/products/bm04bsrsstblfsn/"
   },
   {
@@ -10100,7 +10100,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/si2301cds-t1-ge3.pdf",
     "product_url": "/products/si2301cdst1ge3/"
   },
   {
@@ -10124,7 +10124,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/pz254v-11-03p.pdf",
     "product_url": "/products/pz254v1103p/"
   },
   {
@@ -10148,7 +10148,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/irf3205pbf.pdf",
     "product_url": "/products/irf3205pbf/"
   },
   {
@@ -10172,7 +10172,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/s4b-xh-a-lf--sn-.pdf",
     "product_url": "/products/s4bxhalfsn/"
   },
   {
@@ -10196,7 +10196,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/xl-1608ugc-04.pdf",
     "product_url": "/products/xl1608ugc04/"
   },
   {
@@ -10219,7 +10219,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/rfx2401c.pdf",
     "product_url": "/products/rfx2401c/"
   },
   {
@@ -10243,7 +10243,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/1909763-1.pdf",
     "product_url": "/products/19097631/"
   },
   {
@@ -10267,7 +10267,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/w25q16jvsniq.pdf",
     "product_url": "/products/w25q16jvsniq/"
   },
   {
@@ -10288,7 +10288,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/dps368xtsa1.pdf",
     "product_url": "/products/dps368xtsa1/"
   },
   {
@@ -10312,7 +10312,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/yled0603g.pdf",
     "product_url": "/products/yled0603g/"
   },
   {
@@ -10336,7 +10336,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/1.0-4pwb.pdf",
     "product_url": "/products/104pwb/"
   },
   {
@@ -10355,7 +10355,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ws2812b-v5-w.pdf",
     "product_url": "/products/ws2812bv5w/"
   },
   {
@@ -10379,7 +10379,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ap3012ktr-g1.pdf",
     "product_url": "/products/ap3012ktrg1/"
   },
   {
@@ -10403,7 +10403,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/2.54-1-40p.pdf",
     "product_url": "/products/254140p/"
   },
   {
@@ -10426,7 +10426,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/xc6206p332mr-g.pdf",
     "product_url": "/products/xc6206p332mrg/"
   },
   {
@@ -10449,7 +10449,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/x322516mlb4si.pdf",
     "product_url": "/products/x322516mlb4si/"
   },
   {
@@ -10472,7 +10472,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/x32258mob4si.pdf",
     "product_url": "/products/x32258mob4si/"
   },
   {
@@ -10496,7 +10496,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ncd0805r1.pdf",
     "product_url": "/products/ncd0805r1/"
   },
   {
@@ -10520,7 +10520,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ncd0805g1.pdf",
     "product_url": "/products/ncd0805g1/"
   },
   {
@@ -10544,7 +10544,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/fs8205a.pdf",
     "product_url": "/products/fs8205a/"
   },
   {
@@ -10568,7 +10568,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/esp32-wroom-32e-n16.pdf",
     "product_url": "/products/esp32wroom32en16/"
   },
   {
@@ -10591,7 +10591,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ds18b20u-umw-.pdf",
     "product_url": "/products/ds18b20uumw/"
   },
   {
@@ -10615,7 +10615,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/bss123.pdf",
     "product_url": "/products/bss123/"
   },
   {
@@ -10638,7 +10638,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/esp32-s3-wroom-1u-n16r8.pdf",
     "product_url": "/products/esp32s3wroom1un16r8/"
   },
   {
@@ -10660,7 +10660,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/sc-32s32.768khz20ppm12.5pf.pdf",
     "product_url": "/products/sc32s32768khz20ppm125pf/"
   },
   {
@@ -10683,7 +10683,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/esp32-wroom-32e-n4.pdf",
     "product_url": "/products/esp32wroom32en4/"
   },
   {
@@ -10707,7 +10707,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/w25q16jvssiq.pdf",
     "product_url": "/products/w25q16jvssiq/"
   },
   {
@@ -10730,7 +10730,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/bme280.pdf",
     "product_url": "/products/bme280/"
   },
   {
@@ -10754,7 +10754,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/w25q32jvssiq.pdf",
     "product_url": "/products/w25q32jvssiq/"
   },
   {
@@ -10776,7 +10776,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/hx711.pdf",
     "product_url": "/products/hx711/"
   },
   {
@@ -10800,7 +10800,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/irlml6344trpbf.pdf",
     "product_url": "/products/irlml6344trpbf/"
   },
   {
@@ -10823,7 +10823,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/acs712elctr-20a-t.pdf",
     "product_url": "/products/acs712elctr20at/"
   },
   {
@@ -10846,7 +10846,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ams1117-5.0.pdf",
     "product_url": "/products/ams111750/"
   },
   {
@@ -10870,7 +10870,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/esp32-wroom-32e-n8.pdf",
     "product_url": "/products/esp32wroom32en8/"
   },
   {
@@ -10893,7 +10893,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/spx3819m5-l-3-3-tr.pdf",
     "product_url": "/products/spx3819m5l33tr/"
   },
   {
@@ -10939,7 +10939,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/esp32-wroom-32d-n4.pdf",
     "product_url": "/products/esp32wroom32dn4/"
   },
   {
@@ -10960,7 +10960,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/dw01a.pdf",
     "product_url": "/products/dw01a/"
   },
   {
@@ -10983,7 +10983,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/x322525mob4si.pdf",
     "product_url": "/products/x322525mob4si/"
   },
   {
@@ -11007,7 +11007,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/dm3at-sf-pejm5.pdf",
     "product_url": "/products/dm3atsfpejm5/"
   },
   {
@@ -11031,7 +11031,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/esp32-s3-wroom-1-n8r8.pdf",
     "product_url": "/products/esp32s3wroom1n8r8/"
   },
   {
@@ -11053,7 +11053,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/gp2s-.pdf",
     "product_url": "/products/gp2s/"
   },
   {
@@ -11100,7 +11100,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/w25q80dvsnig-tr.pdf",
     "product_url": "/products/w25q80dvsnigtr/"
   },
   {
@@ -11124,7 +11124,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/irf9540npbf.pdf",
     "product_url": "/products/irf9540npbf/"
   },
   {
@@ -11148,7 +11148,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tlp350-tp1-f-.pdf",
     "product_url": "/products/tlp350tp1f/"
   },
   {
@@ -11171,7 +11171,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/x322512msb4si.pdf",
     "product_url": "/products/x322512msb4si/"
   },
   {
@@ -11195,7 +11195,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/gd25q64esigr.pdf",
     "product_url": "/products/gd25q64esigr/"
   },
   {
@@ -11219,7 +11219,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ao4407a.pdf",
     "product_url": "/products/ao4407a/"
   },
   {
@@ -11263,7 +11263,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/max31855kasa-t.pdf",
     "product_url": "/products/max31855kasat/"
   },
   {
@@ -11286,7 +11286,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/max-m10s-00b.pdf",
     "product_url": "/products/maxm10s00b/"
   },
   {
@@ -11308,7 +11308,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/esp32-wroom-32ue-n16.pdf",
     "product_url": "/products/esp32wroom32uen16/"
   },
   {
@@ -11327,7 +11327,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/bmi088.pdf",
     "product_url": "/products/bmi088/"
   },
   {
@@ -11351,7 +11351,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/2.54-1x6p.pdf",
     "product_url": "/products/2541x6p/"
   },
   {
@@ -11375,7 +11375,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/2.54-1-4p.pdf",
     "product_url": "/products/25414p/"
   },
   {
@@ -11399,7 +11399,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/w25q128jveiq-tr.pdf",
     "product_url": "/products/w25q128jveiqtr/"
   },
   {
@@ -11423,7 +11423,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/w25q128jvpim-tr.pdf",
     "product_url": "/products/w25q128jvpimtr/"
   },
   {
@@ -11447,7 +11447,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/esp-12f-esp8266mod-.pdf",
     "product_url": "/products/esp12fesp8266mod/"
   },
   {
@@ -11471,7 +11471,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/w25n02kvzeir.pdf",
     "product_url": "/products/w25n02kvzeir/"
   },
   {
@@ -11495,7 +11495,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/sgt50t65fd1pn.pdf",
     "product_url": "/products/sgt50t65fd1pn/"
   },
   {
@@ -11518,7 +11518,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/esp32-c3-mini-1-n4.pdf",
     "product_url": "/products/esp32c3mini1n4/"
   },
   {
@@ -11542,7 +11542,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/esp32-s3-wroom-1-n8.pdf",
     "product_url": "/products/esp32s3wroom1n8/"
   },
   {
@@ -11566,7 +11566,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/aht20.pdf",
     "product_url": "/products/aht20/"
   },
   {
@@ -11588,7 +11588,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/pe4312c-z.pdf",
     "product_url": "/products/pe4312cz/"
   },
   {
@@ -11610,7 +11610,7 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/hlk-pm01.pdf",
     "product_url": "/products/hlkpm01/"
   },
   {
@@ -11629,7 +11629,452 @@
     "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
-    "datasheet_url": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/hr4988e.pdf",
     "product_url": "/products/hr4988e/"
+  },
+  {
+    "mpn": "ATMEGA328PB-AU",
+    "clean_mpn": "ATMEGA328PBAU",
+    "manufacturer": "Microchip Technology",
+    "brand": "Microchip Technology",
+    "url_slug": "atmega328pbau",
+    "category": "Microcontroller",
+    "subcategory": "8-bit AVR MCU",
+    "description": "Microchip Technology ATMEGA328PB-AU - AVR - 20 MHz.",
+    "applications": "Embedded control; IoT devices; Industrial automation; Consumer electronics; Motor control",
+    "keywords": "ATMEGA328PB-AU; AVR; 8-bit MCU; microcontroller",
+    "attributes": {
+      "core": "AVR",
+      "frequency_hz": 20000000
+    },
+    "sources": [],
+    "needs_review": false,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/atmega328pb-au.pdf",
+    "product_url": "/products/atmega328pbau/"
+  },
+  {
+    "mpn": "ATMEGA32A-AU",
+    "clean_mpn": "ATMEGA32AAU",
+    "manufacturer": "Microchip Technology",
+    "brand": "Microchip Technology",
+    "url_slug": "atmega32aau",
+    "category": "Microcontroller",
+    "subcategory": "8-bit AVR MCU",
+    "description": "Microchip Technology ATMEGA32A-AU - AVR - 16 MHz.",
+    "applications": "Embedded control; IoT devices; Industrial automation; Consumer electronics; Motor control",
+    "keywords": "ATMEGA32A-AU; AVR; 8-bit MCU; microcontroller",
+    "attributes": {
+      "core": "AVR",
+      "frequency_hz": 16000000
+    },
+    "sources": [],
+    "needs_review": false,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/atmega32a-au.pdf",
+    "product_url": "/products/atmega32aau/"
+  },
+  {
+    "mpn": "ATMEGA128A-AU",
+    "clean_mpn": "ATMEGA128AAU",
+    "manufacturer": "Microchip Technology",
+    "brand": "Microchip Technology",
+    "url_slug": "atmega128aau",
+    "category": "Microcontroller",
+    "subcategory": "8-bit AVR MCU",
+    "description": "Microchip Technology ATMEGA128A-AU - AVR - 16 MHz.",
+    "applications": "Embedded control; IoT devices; Industrial automation; Consumer electronics; Motor control",
+    "keywords": "ATMEGA128A-AU; AVR; 8-bit MCU; microcontroller",
+    "attributes": {
+      "core": "AVR",
+      "frequency_hz": 16000000
+    },
+    "sources": [],
+    "needs_review": false,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/atmega128a-au.pdf",
+    "product_url": "/products/atmega128aau/"
+  },
+  {
+    "mpn": "ATMEGA88PA-AU",
+    "clean_mpn": "ATMEGA88PAAU",
+    "manufacturer": "Microchip Technology",
+    "brand": "Microchip Technology",
+    "url_slug": "atmega88paau",
+    "category": "Microcontroller",
+    "subcategory": "8-bit AVR MCU",
+    "description": "Microchip Technology ATMEGA88PA-AU - AVR - 20 MHz.",
+    "applications": "Embedded control; IoT devices; Industrial automation; Consumer electronics; Motor control",
+    "keywords": "ATMEGA88PA-AU; AVR; 8-bit MCU; microcontroller",
+    "attributes": {
+      "core": "AVR",
+      "frequency_hz": 20000000
+    },
+    "sources": [],
+    "needs_review": false,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/atmega88pa-au.pdf",
+    "product_url": "/products/atmega88paau/"
+  },
+  {
+    "mpn": "ATMEGA1284P-AU",
+    "clean_mpn": "ATMEGA1284PAU",
+    "manufacturer": "Microchip Technology",
+    "brand": "Microchip Technology",
+    "url_slug": "atmega1284pau",
+    "category": "Microcontroller",
+    "subcategory": "8-bit AVR MCU",
+    "description": "Microchip Technology ATMEGA1284P-AU - AVR - 20 MHz.",
+    "applications": "Embedded control; IoT devices; Industrial automation; Consumer electronics; Motor control",
+    "keywords": "ATMEGA1284P-AU; AVR; 8-bit MCU; microcontroller",
+    "attributes": {
+      "core": "AVR",
+      "frequency_hz": 20000000
+    },
+    "sources": [],
+    "needs_review": false,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/atmega1284p-au.pdf",
+    "product_url": "/products/atmega1284pau/"
+  },
+  {
+    "mpn": "ATXMEGA64A3U-AU",
+    "clean_mpn": "ATXMEGA64A3UAU",
+    "manufacturer": "Microchip Technology",
+    "brand": "Microchip Technology",
+    "url_slug": "atxmega64a3uau",
+    "category": "Microcontroller",
+    "subcategory": "8-bit AVR MCU",
+    "description": "Microchip Technology ATXMEGA64A3U-AU - AVR - 32 MHz.",
+    "applications": "Embedded control; IoT devices; Industrial automation; Consumer electronics; Motor control",
+    "keywords": "ATXMEGA64A3U-AU; AVR; 8-bit MCU; microcontroller",
+    "attributes": {
+      "core": "AVR",
+      "frequency_hz": 32000000
+    },
+    "sources": [],
+    "needs_review": false,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/atxmega64a3u-au.pdf",
+    "product_url": "/products/atxmega64a3uau/"
+  },
+  {
+    "mpn": "STM8S003F3P6TR",
+    "clean_mpn": "STM8S003F3P6TR",
+    "manufacturer": "STMicroelectronics",
+    "brand": "STMicroelectronics",
+    "url_slug": "stm8s003f3p6tr",
+    "category": "Microcontroller",
+    "subcategory": "8-bit STM8 MCU",
+    "description": "STMicroelectronics STM8S003F3P6TR - STM8 - 16 MHz.",
+    "applications": "Embedded control; IoT devices; Industrial automation; Consumer electronics; Motor control",
+    "keywords": "STM8S003F3P6TR; STM8; 8-bit MCU; microcontroller",
+    "attributes": {
+      "core": "STM8",
+      "frequency_hz": 16000000
+    },
+    "sources": [],
+    "needs_review": false,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/stm8s003f3p6tr.pdf",
+    "product_url": "/products/stm8s003f3p6tr/"
+  },
+  {
+    "mpn": "STM8S103K3T6CTR",
+    "clean_mpn": "STM8S103K3T6CTR",
+    "manufacturer": "STMicroelectronics",
+    "brand": "STMicroelectronics",
+    "url_slug": "stm8s103k3t6ctr",
+    "category": "Microcontroller",
+    "subcategory": "8-bit STM8 MCU",
+    "description": "STMicroelectronics STM8S103K3T6CTR - STM8 - 16 MHz.",
+    "applications": "Embedded control; IoT devices; Industrial automation; Consumer electronics; Motor control",
+    "keywords": "STM8S103K3T6CTR; STM8; 8-bit MCU; microcontroller",
+    "attributes": {
+      "core": "STM8",
+      "frequency_hz": 16000000
+    },
+    "sources": [],
+    "needs_review": false,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/stm8s103k3t6ctr.pdf",
+    "product_url": "/products/stm8s103k3t6ctr/"
+  },
+  {
+    "mpn": "STM32F446RCT6",
+    "clean_mpn": "STM32F446RCT6",
+    "manufacturer": "STMicroelectronics",
+    "brand": "STMicroelectronics",
+    "url_slug": "stm32f446rct6",
+    "category": "Microcontroller",
+    "subcategory": "32-bit ARM Cortex-M4 MCU",
+    "description": "STMicroelectronics STM32F446RCT6 - ARM Cortex-M4 - 180 MHz.",
+    "applications": "Embedded control; IoT devices; Industrial automation; Consumer electronics; Motor control",
+    "keywords": "STM32F446RCT6; ARM Cortex-M4; 32-bit MCU; microcontroller",
+    "attributes": {
+      "core": "ARM Cortex-M4",
+      "frequency_hz": 180000000
+    },
+    "sources": [],
+    "needs_review": false,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/stm32f446rct6.pdf",
+    "product_url": "/products/stm32f446rct6/"
+  },
+  {
+    "mpn": "STM32F412RET6",
+    "clean_mpn": "STM32F412RET6",
+    "manufacturer": "STMicroelectronics",
+    "brand": "STMicroelectronics",
+    "url_slug": "stm32f412ret6",
+    "category": "Microcontroller",
+    "subcategory": "32-bit ARM Cortex-M4 MCU",
+    "description": "STMicroelectronics STM32F412RET6 - ARM Cortex-M4 - 100 MHz - 256 KB SRAM.",
+    "applications": "Embedded control; IoT devices; Industrial automation; Consumer electronics; Motor control",
+    "keywords": "STM32F412RET6; ARM Cortex-M4; 32-bit MCU; microcontroller",
+    "attributes": {
+      "core": "ARM Cortex-M4",
+      "frequency_hz": 100000000,
+      "ram_bytes": 262144
+    },
+    "sources": [],
+    "needs_review": false,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/stm32f412ret6.pdf",
+    "product_url": "/products/stm32f412ret6/"
+  },
+  {
+    "mpn": "STM32G0B1CBT6",
+    "clean_mpn": "STM32G0B1CBT6",
+    "manufacturer": "STMicroelectronics",
+    "brand": "STMicroelectronics",
+    "url_slug": "stm32g0b1cbt6",
+    "category": "Microcontroller",
+    "subcategory": "32-bit ARM Cortex-M0+ MCU",
+    "description": "STMicroelectronics STM32G0B1CBT6 - ARM Cortex-M0+ - 64 MHz.",
+    "applications": "Embedded control; IoT devices; Industrial automation; Consumer electronics; Motor control",
+    "keywords": "STM32G0B1CBT6; ARM Cortex-M0+; 32-bit MCU; microcontroller",
+    "attributes": {
+      "core": "ARM Cortex-M0+",
+      "frequency_hz": 64000000
+    },
+    "sources": [],
+    "needs_review": false,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/stm32g0b1cbt6.pdf",
+    "product_url": "/products/stm32g0b1cbt6/"
+  },
+  {
+    "mpn": "STM32F030K6T6",
+    "clean_mpn": "STM32F030K6T6",
+    "manufacturer": "STMicroelectronics",
+    "brand": "STMicroelectronics",
+    "url_slug": "stm32f030k6t6",
+    "category": "Microcontroller",
+    "subcategory": "32-bit ARM Cortex-M0+ MCU",
+    "description": "STMicroelectronics STM32F030K6T6 - ARM Cortex-M0 - 48 MHz - operating voltage 2.4-3.6 V.",
+    "applications": "Embedded control; IoT devices; Industrial automation; Consumer electronics; Motor control",
+    "keywords": "STM32F030K6T6; ARM Cortex-M0; 32-bit MCU; microcontroller",
+    "attributes": {
+      "core": "ARM Cortex-M0",
+      "frequency_hz": 48000000,
+      "voltage_v": 3.0
+    },
+    "sources": [],
+    "needs_review": false,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/stm32f030k6t6.pdf",
+    "product_url": "/products/stm32f030k6t6/"
+  },
+  {
+    "mpn": "STM32H723ZGT6",
+    "clean_mpn": "STM32H723ZGT6",
+    "manufacturer": "STMicroelectronics",
+    "brand": "STMicroelectronics",
+    "url_slug": "stm32h723zgt6",
+    "category": "Microcontroller",
+    "subcategory": "32-bit ARM Cortex-M7 MCU",
+    "description": "STMicroelectronics STM32H723ZGT6 - ARM Cortex-M7 - 550 MHz - 564 KB SRAM.",
+    "applications": "Embedded control; IoT devices; Industrial automation; Consumer electronics; Motor control",
+    "keywords": "STM32H723ZGT6; ARM Cortex-M7; 32-bit MCU; microcontroller",
+    "attributes": {
+      "core": "ARM Cortex-M7",
+      "frequency_hz": 550000000,
+      "ram_bytes": 577536
+    },
+    "sources": [],
+    "needs_review": false,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/stm32h723zgt6.pdf",
+    "product_url": "/products/stm32h723zgt6/"
+  },
+  {
+    "mpn": "STM32F103RET6",
+    "clean_mpn": "STM32F103RET6",
+    "manufacturer": "STMicroelectronics",
+    "brand": "STMicroelectronics",
+    "url_slug": "stm32f103ret6",
+    "category": "Microcontroller",
+    "subcategory": "32-bit ARM Cortex-M3 MCU",
+    "description": "STMicroelectronics STM32F103RET6 - ARM Cortex-M3 - 72 MHz - 512 KB Flash.",
+    "applications": "Embedded control; IoT devices; Industrial automation; Consumer electronics; Motor control",
+    "keywords": "STM32F103RET6; ARM Cortex-M3; 32-bit MCU; microcontroller",
+    "attributes": {
+      "core": "ARM Cortex-M3",
+      "frequency_hz": 72000000,
+      "flash_bytes": 524288
+    },
+    "sources": [],
+    "needs_review": false,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/stm32f103ret6.pdf",
+    "product_url": "/products/stm32f103ret6/"
+  },
+  {
+    "mpn": "STM32F407ZGT6",
+    "clean_mpn": "STM32F407ZGT6",
+    "manufacturer": "STMicroelectronics",
+    "brand": "STMicroelectronics",
+    "url_slug": "stm32f407zgt6",
+    "category": "Microcontroller",
+    "subcategory": "32-bit ARM Cortex-M4 MCU",
+    "description": "STMicroelectronics STM32F407ZGT6 - ARM Cortex-M4 - 168 MHz - 192 KB SRAM.",
+    "applications": "Embedded control; IoT devices; Industrial automation; Consumer electronics; Motor control",
+    "keywords": "STM32F407ZGT6; ARM Cortex-M4; 32-bit MCU; microcontroller",
+    "attributes": {
+      "core": "ARM Cortex-M4",
+      "frequency_hz": 168000000,
+      "ram_bytes": 196608
+    },
+    "sources": [],
+    "needs_review": false,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/stm32f407zgt6.pdf",
+    "product_url": "/products/stm32f407zgt6/"
+  },
+  {
+    "mpn": "STM32H750VBT6",
+    "clean_mpn": "STM32H750VBT6",
+    "manufacturer": "STMicroelectronics",
+    "brand": "STMicroelectronics",
+    "url_slug": "stm32h750vbt6",
+    "category": "Microcontroller",
+    "subcategory": "32-bit ARM Cortex-M7 MCU",
+    "description": "STMicroelectronics STM32H750VBT6 - ARM Cortex-M7 - 480 MHz.",
+    "applications": "Embedded control; IoT devices; Industrial automation; Consumer electronics; Motor control",
+    "keywords": "STM32H750VBT6; ARM Cortex-M7; 32-bit MCU; microcontroller",
+    "attributes": {
+      "core": "ARM Cortex-M7",
+      "frequency_hz": 480000000
+    },
+    "sources": [],
+    "needs_review": false,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/stm32h750vbt6.pdf",
+    "product_url": "/products/stm32h750vbt6/"
+  },
+  {
+    "mpn": "MSP430F149IPMR",
+    "clean_mpn": "MSP430F149IPMR",
+    "manufacturer": "Texas Instruments",
+    "brand": "Texas Instruments",
+    "url_slug": "msp430f149ipmr",
+    "category": "Microcontroller",
+    "subcategory": "16-bit MSP430 MCU",
+    "description": "Texas Instruments MSP430F149IPMR - MSP430 CPU16 - 8 MHz.",
+    "applications": "Embedded control; IoT devices; Industrial automation; Consumer electronics; Motor control",
+    "keywords": "MSP430F149IPMR; MSP430 CPU16; 16-bit MCU; microcontroller",
+    "attributes": {
+      "core": "MSP430 CPU16",
+      "frequency_hz": 8000000
+    },
+    "sources": [],
+    "needs_review": false,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/msp430f149ipmr.pdf",
+    "product_url": "/products/msp430f149ipmr/"
+  },
+  {
+    "mpn": "TMS320F28335PGFA",
+    "clean_mpn": "TMS320F28335PGFA",
+    "manufacturer": "Texas Instruments",
+    "brand": "Texas Instruments",
+    "url_slug": "tms320f28335pgfa",
+    "category": "Microcontroller",
+    "subcategory": "32-bit C28x DSC",
+    "description": "Texas Instruments TMS320F28335PGFA - C28x - 150 MHz.",
+    "applications": "Embedded control; IoT devices; Industrial automation; Consumer electronics; Motor control",
+    "keywords": "TMS320F28335PGFA; C28x; 32-bit MCU; microcontroller",
+    "attributes": {
+      "core": "C28x",
+      "frequency_hz": 150000000
+    },
+    "sources": [],
+    "needs_review": false,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tms320f28335pgfa.pdf",
+    "product_url": "/products/tms320f28335pgfa/"
+  },
+  {
+    "mpn": "TMS320F28035PAGT",
+    "clean_mpn": "TMS320F28035PAGT",
+    "manufacturer": "Texas Instruments",
+    "brand": "Texas Instruments",
+    "url_slug": "tms320f28035pagt",
+    "category": "Microcontroller",
+    "subcategory": "32-bit C28x DSC",
+    "description": "Texas Instruments TMS320F28035PAGT - C28x - 60 MHz.",
+    "applications": "Embedded control; IoT devices; Industrial automation; Consumer electronics; Motor control",
+    "keywords": "TMS320F28035PAGT; C28x; 32-bit MCU; microcontroller",
+    "attributes": {
+      "core": "C28x",
+      "frequency_hz": 60000000
+    },
+    "sources": [],
+    "needs_review": false,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tms320f28035pagt.pdf",
+    "product_url": "/products/tms320f28035pagt/"
+  },
+  {
+    "mpn": "STM32L010F4P6",
+    "clean_mpn": "STM32L010F4P6",
+    "manufacturer": "STMicroelectronics",
+    "brand": "STMicroelectronics",
+    "url_slug": "stm32l010f4p6",
+    "category": "Microcontroller",
+    "subcategory": "32-bit ARM Cortex-M0+ MCU",
+    "description": "STMicroelectronics STM32L010F4P6 - ARM Cortex-M0+ - 32 MHz.",
+    "applications": "Embedded control; IoT devices; Industrial automation; Consumer electronics; Motor control",
+    "keywords": "STM32L010F4P6; ARM Cortex-M0+; 32-bit MCU; microcontroller",
+    "attributes": {
+      "core": "ARM Cortex-M0+",
+      "frequency_hz": 32000000
+    },
+    "sources": [],
+    "needs_review": false,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/stm32l010f4p6.pdf",
+    "product_url": "/products/stm32l010f4p6/"
   }
 ]

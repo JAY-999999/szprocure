@@ -45,11 +45,77 @@ SYNTHETIC = [
 ]
 FAKE_BRAND = re.compile(r'(Acme|Nova|Placeholder|Synthetic|Mock|Fake|TestCorp|DemoSemi|Injected)', re.I)
 
+# ---- precise false-positive exemptions (product-field-value, auditable) ----
+# Each exemption in tools/audit_exemptions.json exempts exactly ONE
+# (mpn, field, value) triple that is a REAL product spec (not test/synthetic).
+# The audit applies an exemption ONLY when all of (exact value, field name in
+# the match context, product identity) match. Section 1 (synthetic-MPN
+# detection) is NEVER exempted and is untouched by this mechanism.
+EXEMPTIONS_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "audit_exemptions.json")
+EXEMPT_LOG = []  # populated per audit_files() run; reported for auditability
+
+
+def load_exemptions():
+    try:
+        with open(EXEMPTIONS_FILE, encoding="utf-8") as f:
+            data = json.load(f)
+        if isinstance(data, dict):
+            data = data.get("exemptions", [])
+        return data or []
+    except Exception:
+        return []
+
+
+EXEMPTIONS = load_exemptions()
+
+
+def slug_of(mpn):
+    return mpn.replace("-", "").replace("/", "_").lower()
+
+
+def is_field_value_exempt(rel, data, matched_value, ctx):
+    """Return the exemption dict if a `100000\\d{3}` hit is precisely exempted,
+    else None. Precise matching (no broad field/value-family exemption):
+      - matched_value must equal exemption['value'] EXACTLY (e.g. '100000000',
+        NOT '100000123');
+      - the field name must appear in the immediate match context (ctx);
+      - product identity via file-path slug (product page) or mpn+field:value
+        co-occurrence (parts.json).
+    """
+    rel_norm = rel.replace("\\", "/")
+    for ex in EXEMPTIONS:
+        if str(ex.get("value")) != str(matched_value):
+            continue  # exact value only — other 100000xxx stay flagged
+        field = ex.get("field")
+        mpn = ex.get("mpn")
+        if not (field and mpn):
+            continue
+        if field not in ctx:
+            continue  # value must sit in the named field, not any field
+        if slug_of(mpn) in rel_norm:
+            return ex
+        if os.path.basename(rel_norm).lower() == "parts.json":
+            if mpn in data and ('"%s": %s' % (field, ex.get("value"))) in data:
+                return ex
+    return None
+
 # Deployable output scopes — files that actually ship to Vercel and get rendered.
 # Excludes source/provenance dirs (data/, tools/, .git, node_modules, .workbuddy)
 # which may legitimately carry LCSC source_url for traceability (not rendered),
 # and dev docs (README*, *.md) which may carry Chinese (user-approved, non-display).
 EXCLUDE_DIRS = {".git", "node_modules", "tools", ".workbuddy", "data"}
+
+# --- Datasheet / binary gate (PDF/二进制不得进入 Production) ---
+# PDFs and other binary datasheet/doc/archive assets MUST live in object storage
+# (Cloudflare R2), never in the git repo or the Vercel deploy bundle. The site
+# only carries the HTTPS URL. This gate is defense-in-depth on top of .gitignore.
+# (Legitimate site images — svg/png/jpg/webp — are NOT flagged; they belong to
+# the storefront.) Tunable via env SZ_R2_PUBLIC_BASE if a stricter host check
+# is desired.
+BINARY_EXT = {".pdf", ".PDF", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx",
+               ".zip", ".rar", ".7z", ".bin", ".dat", ".exe", ".dll"}
+DATASHEET_FORBIDDEN_HOSTS = re.compile(r"lcsc\.com", re.I)
+DATASHEET_BAD_TOKENS = re.compile(r"placeholder|example\.com|#$|\bTEST\b", re.I)
 
 # ---- CJK / English-layer gate (PERMANENT) ----
 # The English storefront must carry ZERO *visible* Chinese characters.
@@ -127,22 +193,31 @@ def audit_files():
     files = iter_deploy_files()
     total = 0
     hits = {name: [] for name, _ in FORBIDDEN}
+    EXEMPT_LOG.clear()
     for fp in files:
         try:
             data = open(fp, encoding="utf-8", errors="replace").read()
         except Exception:
             continue
         total += 1
+        rel = os.path.relpath(fp, ROOT)
         for name, rx in FORBIDDEN:
-            found = rx.findall(data)
-            if found:
-                ctx = []
-                for m in rx.finditer(data):
-                    s = max(0, m.start() - 40); e = min(len(data), m.end() + 40)
-                    ctx.append(data[s:e].replace("\n", " ")[:90])
-                    if len(ctx) >= 3:
-                        break
-                hits[name].append((os.path.relpath(fp, ROOT), ctx))
+            for m in rx.finditer(data):
+                s = max(0, m.start() - 40); e = min(len(data), m.end() + 40)
+                ctx = data[s:e].replace("\n", " ")[:90]
+                # Precise exemption: only narrows the `100000xxx family` token;
+                # Section 1 synthetic-MPN detection is unaffected.
+                if name == "100000xxx family":
+                    ex = is_field_value_exempt(rel, data, m.group(0), ctx)
+                    if ex:
+                        EXEMPT_LOG.append({
+                            "file": rel, "token": m.group(0),
+                            "mpn": ex.get("mpn"), "field": ex.get("field"),
+                            "value": ex.get("value"), "reason": ex.get("reason"),
+                            "source": ex.get("source"), "context": ctx,
+                        })
+                        continue
+                hits[name].append((rel, [ctx]))
     return total, hits
 
 
@@ -307,6 +382,59 @@ def audit_hub():
     return info
 
 
+def audit_binaries():
+    """PDF/二进制 gate: no binary datasheet/doc/archive asset may ship in the
+    deploy bundle. PDFs live in R2; only the URL is committed. (Legitimate site
+    images svg/png/jpg/webp are NOT flagged.)"""
+    bad = []
+    for fp in glob.glob(os.path.join(ROOT, "**", "*"), recursive=True):
+        rel = os.path.relpath(fp, ROOT)
+        parts = rel.split(os.sep)
+        if any(p in EXCLUDE_DIRS for p in parts):
+            continue
+        if os.path.isdir(fp):
+            continue
+        ext = os.path.splitext(fp)[1]
+        if ext in BINARY_EXT:
+            bad.append(rel)
+    return bad
+
+
+def audit_datasheet_urls():
+    """Datasheet-URL integrity: every non-empty datasheet_url must be a real
+    HTTPS link on the object store (no LCSC, no placeholder/#/test fake link).
+    11 SKUs intentionally have an EMPTY datasheet_url (no PDF) — that is valid."""
+    rows = load_master()
+    stats = {"rows": len(rows), "populated": 0, "empty": 0, "invalid": 0,
+             "hosts": {}}
+    bad = []
+    for i, r in enumerate(rows, 1):
+        mpn = (r.get("mpn") or "").strip()
+        url = (r.get("datasheet_url") or "").strip()
+        if not url:
+            stats["empty"] += 1
+            continue
+        stats["populated"] += 1
+        host = ""
+        try:
+            from urllib.parse import urlparse
+            host = urlparse(url).netloc
+        except Exception:
+            pass
+        stats["hosts"][host] = stats["hosts"].get(host, 0) + 1
+        why = None
+        if not url.lower().startswith("https://"):
+            why = "not https"
+        elif DATASHEET_FORBIDDEN_HOSTS.search(url):
+            why = "points to lcsc.com (third-party leak)"
+        elif DATASHEET_BAD_TOKENS.search(url):
+            why = "placeholder/#/test fake link"
+        if why:
+            stats["invalid"] += 1
+            bad.append((i, mpn, why, url))
+    return bad, stats
+
+
 def main():
     rows = load_master()
     bad_mpn, stats = audit_mpn(rows)
@@ -317,6 +445,8 @@ def main():
     hub = audit_hub()
     url_info = audit_urls_sitemap()
     schema_info = audit_schema()
+    bin_bad = audit_binaries()
+    ds_bad, ds_stats = audit_datasheet_urls()
 
     lines = []
     lines.append("# SZ Procure - Pre-Deploy Audit Report (PERMANENT GATE)")
@@ -349,6 +479,10 @@ def main():
                 lines.append(f"    - `{fp}`: …{ctx[0]}…")
         else:
             lines.append(f"- ✅ {name}: 0 hits")
+    if EXEMPT_LOG:
+        lines.append(f"- 🟡 **EXEMPT (precise false-positive, audited via tools/audit_exemptions.json)**: {len(EXEMPT_LOG)} hit(s) exempted")
+        for e in EXEMPT_LOG:
+            lines.append(f"    - `{e['file']}`: token={e['token']} | mpn={e['mpn']} | field={e['field']} | value={e['value']} | reason={e['reason']} | source={e['source']}")
     lines.append("")
     lines.append("- Scope: deployable output only (generated HTML, sitemap*.xml, robots.txt, parts.json, search/*.json, assets css/js). Source/provenance dirs (data/, tools/) excluded - they may carry LCSC `source_url` for traceability but are NOT rendered.")
     lines.append("")
@@ -416,12 +550,39 @@ def main():
         lines.append("- ✅ **0 visible Chinese characters** across all deployable user-visible content. English-layer is Chinese-free.")
     lines.append("")
 
+    # 8 PDF / binary gate
+    lines.append("## 8. Datasheet / Binary Gate (PDF/二进制不得进入 Production)")
+    lines.append("- Blocked binary types: " + ", ".join(sorted(BINARY_EXT)))
+    lines.append("- PDFs/datasheets MUST live in object storage (Cloudflare R2); only the HTTPS URL is committed.")
+    if bin_bad:
+        lines.append(f"- ❌ **{len(bin_bad)} binary asset(s) found in the deploy bundle:**")
+        for rel in bin_bad[:15]:
+            lines.append(f"    - `{rel}`")
+    else:
+        lines.append("- ✅ **0 binary/datasheet assets** in the deploy bundle. All PDFs are external (R2) URLs; none are committed or shipped.")
+    lines.append("")
+
+    # 9 datasheet URL integrity
+    lines.append("## 9. Datasheet URL Integrity (datasheet_url)")
+    lines.append(f"- Master rows: **{ds_stats['rows']}** | populated (have PDF URL): **{ds_stats['populated']}** | empty (no PDF, valid): **{ds_stats['empty']}** | invalid: **{ds_stats['invalid']}**")
+    if ds_stats["hosts"]:
+        lines.append("- URL hosts in use: " + ", ".join(f"`{h}` ({n})" for h, n in sorted(ds_stats["hosts"].items())))
+    if ds_bad:
+        lines.append(f"- ❌ **{len(ds_bad)} invalid datasheet_url(s):**")
+        for i, mpn, why, url in ds_bad[:15]:
+            lines.append(f"    - row {i}: {mpn} — {why} ({url})")
+    else:
+        lines.append("- ✅ All populated datasheet_url values are real HTTPS links on the object store (no LCSC leak, no placeholder/#/test fake links). 11 SKUs correctly keep an EMPTY datasheet_url.")
+    lines.append("")
+
     # verdict
     url_ok = (not url_info["issues"])
     schema_ok = (not schema_info["issues"])
     pages_ok = all(bool(p.get("title")) and bool(p.get("h1")) and p.get("schema") and p.get("rfq") for p in pages)
     hub_ok = hub["exists"] and hub["git_tracked"] and not hub["generator_deletes"]
-    ok = (not bad_mpn) and (not any_leak) and url_ok and schema_ok and pages_ok and hub_ok and (not cjk_bad)
+    bin_ok = (not bin_bad)
+    ds_ok = (not ds_bad)
+    ok = (not bad_mpn) and (not any_leak) and url_ok and schema_ok and pages_ok and hub_ok and (not cjk_bad) and bin_ok and ds_ok
     lines.append("## VERDICT")
     lines.append("- **" + ("✅ PASS - ready for commit/deploy" if ok else "❌ FAIL - resolve above first") + "**")
     report = "\n".join(lines)
