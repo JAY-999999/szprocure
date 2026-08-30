@@ -52,6 +52,7 @@ _gen_test_100/
 _gen_test_500/
 _gen_test_1000/
 _gen_test*/
+szbuild_verify/
 
 # --- reports / working docs (per project convention: exclude .md from commits) ---
 *.md
