@@ -13,11 +13,17 @@ The Factory instead stages everything locally FIRST:
 
 Pool layout (root = D:\\SZ Procure\\03_MASTER\\pool)
 ----------------------------------------------------
-    raw/<batch_id>.jsonl         one JSON object per line (streaming, crash-safe)
-    candidates/<batch_id>.json   cleaned + deduped rows
-    ready/<batch_id>.json        rows with assets resolved (P1-B/C)
-    assets/pdf/<safe_key>.pdf    local datasheet pool (P1-B)
-    INDEX.json                   cross-batch index for cheap querying
+    products/raw/<batch_id>.jsonl         verbatim intake, one JSON per line
+    products/candidates/<batch_id>.json   cleaned + de-duplicated rows
+    products/ready/<batch_id>.json        rows with assets resolved (P1-C)
+    datasheets/pdf/<aa>/<sha256>.pdf      CONTENT-ADDRESSED physical PDFs (P1-B)
+    datasheets/index/<batch_id>.json      per-batch asset ledger (P1-B)
+    reports/<batch_id>/                   incremental JSONL + summary (P1-B)
+    content/<slug>.json                   RESERVED for the future Content Factory
+    INDEX.json                            cross-batch index
+
+Physical PDFs are stored by SHA256, so two MPNs sharing one datasheet occupy a
+single file while both keep their own ledger entry: MPN dedup != PDF dedup.
 
 Durability rules
 ----------------
@@ -36,11 +42,17 @@ from datetime import datetime
 
 DEFAULT_POOL_ROOT = r"D:\SZ Procure\03_MASTER\pool"
 
-RAW = "raw"
-CANDIDATES = "candidates"
-READY = "ready"
-ASSETS = "assets"
-SUBDIRS = (RAW, CANDIDATES, READY, ASSETS)
+RAW = "products/raw"
+CANDIDATES = "products/candidates"
+READY = "products/ready"
+DATASHEETS = "datasheets"
+PDF = "datasheets/pdf"
+DS_INDEX = "datasheets/index"
+REPORTS = "reports"
+# RESERVED: the future Content Factory writes content/<slug>.json side-cars.
+# Nothing in P1-A/P1-B reads or writes it; it exists so the path stays stable.
+CONTENT = "content"
+SUBDIRS = (RAW, CANDIDATES, READY, PDF, DS_INDEX, REPORTS, CONTENT)
 
 
 class PoolError(Exception):
@@ -77,6 +89,47 @@ def asset_dir(root=None, kind="pdf"):
 
 def index_path(root=None):
     return os.path.join(pool_root(root), "INDEX.json")
+
+
+# --------------------------------------------------- datasheets / reports --
+def pdf_path(sha256_hex, root=None):
+    """Content-addressed physical PDF path: pdf/<first 2 hex>/<sha256>.pdf."""
+    h = (sha256_hex or "").lower()
+    return os.path.join(pool_root(root), PDF, h[:2], f"{h}.pdf")
+
+
+def datasheet_index_path(batch_id, root=None):
+    return os.path.join(pool_root(root), DS_INDEX, f"{batch_id}.json")
+
+
+def report_dir(batch_id, root=None):
+    return os.path.join(pool_root(root), REPORTS, batch_id)
+
+
+def download_report_path(batch_id, root=None):
+    """Incremental JSONL — appended after every single task completes."""
+    return os.path.join(report_dir(batch_id, root),
+                        "datasheet_download_report.jsonl")
+
+
+def summary_path(batch_id, root=None):
+    """Final batch summary, written atomically at the end."""
+    return os.path.join(report_dir(batch_id, root), "datasheet_batch_summary.json")
+
+
+def content_dir(root=None):
+    """RESERVED for the future Content Factory (side-car, never a blocker)."""
+    return os.path.join(pool_root(root), CONTENT)
+
+
+def content_path(slug, root=None):
+    return os.path.join(content_dir(root), f"{slug}.json")
+
+
+def ensure_report_dir(batch_id, root=None):
+    d = report_dir(batch_id, root)
+    os.makedirs(d, exist_ok=True)
+    return d
 
 
 # ------------------------------------------------------------ atomic json --
