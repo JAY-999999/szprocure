@@ -6,14 +6,14 @@ pollution, data corruption, mass anomalies and critical gate failures STOP.
 Mapping (from the approved Implementation Plan §I):
 
   AUTO SKIP   DUPLICATE_SKIP, DATASHEET_404, DATASHEET_INVALID,
-              DATASHEET_TIMEOUT
+              DATASHEET_TIMEOUT, SYNTHETIC_MPN, SOURCE_MISSING
   AUTO PASS   R2_OBJECT_EXISTS
   WARNING     BRAND_UNMAPPED, SPEC_THIN, ATTR_UNKNOWN, EXEMPT_100MHZ,
               RELATED_DRIFT, DATASHEET_THIN
   STOP        NO_BACKUP, BACKUP_VERIFY_FAIL, DUPLICATE_ABORT,
               BATCH_SELF_DUPLICATE, MASS_DUPLICATE, MASTER_CORRUPT,
               CJK_LEAK, LCSC_LEAK, BUILD_COUNT_MISMATCH, R2_MASS_FAIL,
-              AUDIT_FAIL, MANIFEST_ERROR
+              POOL_WRITE_FAIL, AUDIT_FAIL, MANIFEST_ERROR
 """
 from datetime import datetime
 
@@ -32,6 +32,16 @@ DATASHEET_TIMEOUT = "DATASHEET_TIMEOUT"
 DATASHEET_THIN = "DATASHEET_THIN"
 
 R2_OBJECT_EXISTS = "R2_OBJECT_EXISTS"
+
+# --- P1-A Product Data -----------------------------------------------------
+# A candidate that looks machine-generated is dropped from the batch
+# (AUTO_SKIP) rather than aborting it, because one bad source row is not
+# evidence that the whole harvest is broken.
+SYNTHETIC_MPN = "SYNTHETIC_MPN"
+SOURCE_MISSING = "SOURCE_MISSING"
+# The local pool is the Factory's warehouse. Losing writes there corrupts the
+# inventory silently -> STOP.
+POOL_WRITE_FAIL = "POOL_WRITE_FAIL"
 
 BRAND_UNMAPPED = "BRAND_UNMAPPED"
 SPEC_THIN = "SPEC_THIN"
@@ -60,6 +70,9 @@ CODE_SEVERITY = {
 
     R2_OBJECT_EXISTS: AUTO_PASS,
 
+    SYNTHETIC_MPN: AUTO_SKIP,
+    SOURCE_MISSING: AUTO_SKIP,
+
     BRAND_UNMAPPED: WARNING,
     SPEC_THIN: WARNING,
     ATTR_UNKNOWN: WARNING,
@@ -77,6 +90,7 @@ CODE_SEVERITY = {
     LCSC_LEAK: STOP,
     BUILD_COUNT_MISMATCH: STOP,
     R2_MASS_FAIL: STOP,
+    POOL_WRITE_FAIL: STOP,
     AUDIT_FAIL: STOP,
     MANIFEST_ERROR: STOP,
 }
