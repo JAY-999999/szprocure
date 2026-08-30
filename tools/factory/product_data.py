@@ -25,7 +25,8 @@ import re
 from datetime import datetime
 
 from . import MASTER_COLS, REQUIRED_FIELDS
-from . import dedup, gate, pool
+from . import dedup, gate, pool, category
+from .category import UNKNOWN_CATEGORY
 
 # RAW attribute keys (source CSV is Chinese-keyed)
 ATTR_CORE = "CPU内核"
@@ -55,6 +56,8 @@ DEFAULT_MFR_MAP = (r"C:\Users\Administrator.SC-202105071542\Desktop"
 F_DATASHEET_SRC = "_source_datasheet_url"
 F_ASSET_KEY = "_asset_key"
 F_SPEC_KEYS = "_spec_key_count"
+F_NEEDS_REVIEW = "_needs_review"
+F_DETECT = "_detect_signals"
 
 
 class ProductDataError(Exception):
@@ -156,11 +159,11 @@ def load_brand_map(path=None):
 # =====================================================================
 # row construction
 # =====================================================================
-def build_row(record, mpn, brand, mfr_map=None):
-    """Build one MASTER-shaped row from a RAW record.
+def build_mcu_fields(record, mpn, brand):
+    """MCU category fields — verbatim from the validated 540-row logic.
 
-    Returns (row, meta). `row` contains exactly MASTER_COLS plus the pool-only
-    fields consumed by the Datasheet stage (P1-B).
+    Kept byte-identical to the pre-P1-E build_row MCU branch so the 540
+    production MCUs behave exactly as before. Called by the MCU adapter.
     """
     e = extract(record, mpn)
     aj = {}
@@ -178,7 +181,6 @@ def build_row(record, mpn, brand, mfr_map=None):
         aj["voltage_v"] = e["voltage"]
     if e["package"]:
         aj["package"] = e["package"]
-    # hard CJK guard on every attribute value
     aj = {k: v for k, v in aj.items()
           if not (isinstance(v, str) and any(ord(ch) > 127 for ch in v))}
 
@@ -210,22 +212,50 @@ def build_row(record, mpn, brand, mfr_map=None):
         faq = f"Q: What core does {mpn} use?A: {mpn} is based on a {e['core']} core."
     else:
         faq = ""
-
-    row = {
-        "mpn": mpn, "clean_mpn": "", "manufacturer": brand, "brand": brand,
-        "url_slug": "", "category": "Microcontroller", "subcategory": sub,
+    return {
+        "category": "Microcontroller", "subcategory": sub,
         "description": description,
         "applications": ("Embedded control; IoT devices; Industrial automation; "
                          "Consumer electronics; Motor control"),
         "keywords": kw, "attributes_json": json.dumps(aj, ensure_ascii=False),
+        "faq": faq,
+    }
+
+
+def build_row(record, mpn, brand, mfr_map=None):
+    """Build one MASTER-shaped row from a RAW record.
+
+    Category-aware since P1-E: delegates the 7 category-shaped fields to
+    ``category.build_category_row`` (which runs the detection pipeline and the
+    right per-family adapter). Retains the CJK guard, asset key and pool-only
+    fields. Returns (row, meta) where ``meta`` is category detection metadata
+    (carries it instead of the old extract result).
+    """
+    fields, meta = category.build_category_row(record, mpn, brand)
+    row = {
+        "mpn": mpn, "clean_mpn": "", "manufacturer": brand, "brand": brand,
+        "url_slug": "",
+        "category": fields["category"],
+        "subcategory": fields["subcategory"],
+        "description": fields["description"],
+        "applications": fields["applications"],
+        "keywords": fields["keywords"],
+        "attributes_json": fields["attributes_json"],
         "availability": "active", "alternative_parts": "", "datasheet_url": "",
-        "faq": faq, "image": "", "source": "", "source_url": "LCSC",
+        "faq": fields["faq"], "image": "", "source": "", "source_url": "LCSC",
         "supplier_reference": (record.get("supplier_sku") or "").strip(),
     }
+    # final CJK guard on attribute values (defence in depth)
+    aj = json.loads(fields["attributes_json"] or "{}")
+    aj = {k: v for k, v in aj.items()
+          if not (isinstance(v, str) and any(ord(ch) > 127 for ch in v))}
+    row["attributes_json"] = json.dumps(aj, ensure_ascii=False)
     row[F_DATASHEET_SRC] = (record.get("source_datasheet_url") or "").strip()
     row[F_ASSET_KEY] = asset_key(mpn)
     row[F_SPEC_KEYS] = len(aj)
-    return row, e
+    row[F_NEEDS_REVIEW] = bool(meta.get("needs_review", False))
+    row[F_DETECT] = json.dumps(meta.get("signals", {}), ensure_ascii=False)
+    return row, meta
 
 
 # =====================================================================
@@ -263,14 +293,24 @@ def qualify(row, mfr_map=None):
     if has_cjk(row):
         # A leak here means the normaliser is broken -> data pollution.
         return ("reject", gate.CJK_LEAK, "non-ASCII survived normalisation")
+    # P1-E: unmapped category -> review, never auto-release.
+    if row.get("category") == UNKNOWN_CATEGORY or row.get(F_NEEDS_REVIEW):
+        return ("warn", gate.UNMAPPED_CATEGORY,
+                f"category '{row.get('category')}' not mapped to an adapter; "
+                f"held for review")
+    # P1-E: per-adapter minimum spec threshold (replaces the global SPEC_THIN<2).
+    cat_name = row.get("category", "")
+    adapter = category.REGISTRY.get(cat_name)
+    min_specs = adapter.min_specs if adapter else 2
+    if (row.get(F_SPEC_KEYS) or 0) < min_specs:
+        return ("warn", gate.SPEC_THIN,
+                f"only {row.get(F_SPEC_KEYS) or 0} structured specs "
+                f"(min {min_specs}) for {cat_name}")
     if mfr_map is not None:
         raw_brand = (row.get("manufacturer") or "").strip()
         if raw_brand.lower() not in mfr_map:
             return ("warn", gate.BRAND_UNMAPPED,
                     f"brand '{raw_brand}' not in mfr_canonical.csv")
-    if (row.get(F_SPEC_KEYS) or 0) < 2:
-        return ("warn", gate.SPEC_THIN,
-                f"only {row.get(F_SPEC_KEYS) or 0} structured specs extracted")
     return ("ok", None, "")
 
 
@@ -338,6 +378,7 @@ def intake(batch_id, source_kind="lcsc_api_csv", source_path=None,
                 yield {
                     "mpn": mpn,
                     "manufacturer_raw": (r.get("manufacturer_raw") or "").strip(),
+                    "catalogName": (r.get("catalogName") or "").strip(),
                     "category": (r.get("category") or "").strip(),
                     "description": r.get("description") or "",
                     "attributes_json": r.get("attributes_json") or "",
