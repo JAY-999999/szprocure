@@ -6,14 +6,17 @@ pollution, data corruption, mass anomalies and critical gate failures STOP.
 Mapping (from the approved Implementation Plan §I):
 
   AUTO SKIP   DUPLICATE_SKIP, DATASHEET_404, DATASHEET_INVALID,
-              DATASHEET_TIMEOUT, SYNTHETIC_MPN, SOURCE_MISSING
+              DATASHEET_TIMEOUT, SYNTHETIC_MPN, SOURCE_MISSING,
+              R2_UPLOAD_ERROR, R2_TIMEOUT, R2_NETWORK
   AUTO PASS   R2_OBJECT_EXISTS
   WARNING     BRAND_UNMAPPED, SPEC_THIN, ATTR_UNKNOWN, EXEMPT_100MHZ,
               RELATED_DRIFT, DATASHEET_THIN
   STOP        NO_BACKUP, BACKUP_VERIFY_FAIL, DUPLICATE_ABORT,
               BATCH_SELF_DUPLICATE, MASS_DUPLICATE, MASTER_CORRUPT,
               CJK_LEAK, LCSC_LEAK, BUILD_COUNT_MISMATCH, R2_MASS_FAIL,
-              POOL_WRITE_FAIL, AUDIT_FAIL, MANIFEST_ERROR
+              R2_AUTH_FAILED, LOCAL_HASH_UNSTABLE, REMOTE_HASH_MISMATCH,
+              REMOTE_VERIFY_FAILED, POOL_WRITE_FAIL, AUDIT_FAIL,
+              MANIFEST_ERROR
 """
 from datetime import datetime
 
@@ -42,6 +45,19 @@ SOURCE_MISSING = "SOURCE_MISSING"
 # The local pool is the Factory's warehouse. Losing writes there corrupts the
 # inventory silently -> STOP.
 POOL_WRITE_FAIL = "POOL_WRITE_FAIL"
+
+# --- P1-C R2 Asset ---------------------------------------------------------
+# Per-object upload problems are isolated (AUTO_SKIP); the batch-level
+# R2_MASS_FAIL gate is what turns a systemic failure into a STOP.
+R2_UPLOAD_ERROR = "R2_UPLOAD_ERROR"
+R2_TIMEOUT = "R2_TIMEOUT"
+R2_NETWORK = "R2_NETWORK"
+# Integrity / authentication problems are always STOP: they mean we cannot
+# prove what is in the bucket, or we must not touch it at all.
+R2_AUTH_FAILED = "R2_AUTH_FAILED"
+LOCAL_HASH_UNSTABLE = "LOCAL_HASH_UNSTABLE"
+REMOTE_HASH_MISMATCH = "REMOTE_HASH_MISMATCH"
+REMOTE_VERIFY_FAILED = "REMOTE_VERIFY_FAILED"
 
 BRAND_UNMAPPED = "BRAND_UNMAPPED"
 SPEC_THIN = "SPEC_THIN"
@@ -72,6 +88,14 @@ CODE_SEVERITY = {
 
     SYNTHETIC_MPN: AUTO_SKIP,
     SOURCE_MISSING: AUTO_SKIP,
+    R2_UPLOAD_ERROR: AUTO_SKIP,
+    R2_TIMEOUT: AUTO_SKIP,
+    R2_NETWORK: AUTO_SKIP,
+
+    R2_AUTH_FAILED: STOP,
+    LOCAL_HASH_UNSTABLE: STOP,
+    REMOTE_HASH_MISMATCH: STOP,
+    REMOTE_VERIFY_FAILED: STOP,
 
     BRAND_UNMAPPED: WARNING,
     SPEC_THIN: WARNING,
