@@ -520,6 +520,26 @@
   <url><loc>https://www.szprocure.com/products/tms320f28335pgfa/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/products/tms320f28035pagt/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/products/stm32l010f4p6/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/products/esp32c3fh4/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/products/stm32g070rbt6/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/products/stm32f072cbt6/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/products/stm32h743zit6/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/products/stm32g031g8u6/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/products/stm32h723vgh6/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/products/stm32f429igt6/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/products/stm32g431kbu6/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/products/stm8s003k3t6ctr/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/products/atmega64aau/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/products/atmega328pmu/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/products/atsamd21g18aau/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/products/pic16f1933iss/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/products/msp430f247tpmr/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/products/tms320f28069pzt/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/products/lpc1765fbd100k/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/products/mkl17z64vfm4/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/products/lpc824m201jhi33y/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/products/gd32f303rct6/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/products/at32f415cbt7/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/manufacturers/stmicroelectronics/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/manufacturers/wch/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/manufacturers/microchip-technology/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
@@ -603,6 +623,7 @@
   <url><loc>https://www.szprocure.com/manufacturers/psemi/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/manufacturers/hi-link/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/manufacturers/jiaxing-heroic-elec-tech/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/manufacturers/artery/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/manufacturers/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/integrated-circuits/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/semiconductor-components/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>

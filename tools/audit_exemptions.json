@@ -7,6 +7,13 @@
       "value": "100000000",
       "reason": "REAL_PRODUCT_SPECIFICATION",
       "source": "LCSC/ST"
+    },
+    {
+      "mpn": "LPC1765FBD100K",
+      "field": "frequency_hz",
+      "value": "100000000",
+      "reason": "REAL_PRODUCT_SPECIFICATION",
+      "source": "LCSC/NXP"
     }
   ]
 }
