@@ -14,6 +14,13 @@
       "value": "100000000",
       "reason": "REAL_PRODUCT_SPECIFICATION",
       "source": "LCSC/NXP"
+    },
+    {
+      "mpn": "TXB0104PWR",
+      "field": "data_rate",
+      "value": "100000000",
+      "reason": "REAL_PRODUCT_SPECIFICATION",
+      "source": "Texas Instruments TXB0104PWR real 100 Mbps 4-bit bidirectional level-shifting translator (LCSC/TI C60708)"
     }
   ]
 }

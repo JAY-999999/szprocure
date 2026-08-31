@@ -713,8 +713,12 @@ def gen_part_page(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
     # understanding. Render ONLY real structured attributes from the source
     # master; never backfill with placeholder "See datasheet" rows (P1-3 cleanup).
     # This block lives BELOW the fold (section 3), never in the first screen.
-    if not spec_pairs:
-        # No structured attributes from source — show an honest empty-state
+    # Translate raw (often Chinese) attribute keys/values to English for the
+    # public storefront. Unmappable CJK values are dropped (kept in MASTER);
+    # the visible layer stays Chinese-free (permanent CJK gate).
+    spec_pairs_en = translate_spec_pairs(spec_pairs)
+    if not spec_pairs_en:
+        # No English-renderable attributes from source — show an honest empty-state
         # note instead of placeholder rows.
         specs_html = (
             '<div class="spec-empty">'
@@ -723,8 +727,8 @@ def gen_part_page(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
             '</div>'
         )
     else:
-        # Real attributes only — capped, never invented/placeholder values.
-        all_spec_pairs = spec_pairs[:12]
+        # Real attributes only (English) — capped, never invented/placeholder values.
+        all_spec_pairs = spec_pairs_en[:12]
         specs_table = "".join(
             f"<tr><th>{esc(k)}</th><td>{esc(v)}</td></tr>" for k, v in all_spec_pairs
         )
@@ -736,8 +740,8 @@ def gen_part_page(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
     qi_rows.append(("Category", f'<a href="/components/{cat_slug}/">{esc(cat_top)}</a>'))
     if subcat and subcat.lower() != cat.lower():
         qi_rows.append(("Type", esc(subcat)))
-    for k, v in spec_pairs:
-        if k in ("Package", "Core"):
+    for k, v in spec_pairs_en:
+        if k.lower() in ("package", "core"):
             qi_rows.append((k, esc(v)))
     # Supply field uses procurement language, never "stock"
     qi_rows.append(("Sourcing Availability", "Verified supplier network"))
@@ -1737,6 +1741,122 @@ def validate_attributes(attrs_obj, allow):
 
 
 # ---------------------------------------------------------------------------
+# Attribute key/value translation for the ENGLISH VISIBLE LAYER (CJK gate fix)
+# ---------------------------------------------------------------------------
+# The public storefront must render ZERO visible Chinese (permanent CJK gate).
+# MASTER attributes_json may legitimately retain original (incl. Chinese) data;
+# we translate to English ONLY at render time and NEVER mutate MASTER.
+# Source lexicons (curated, machine-readable — same ones publish_normalizer
+# uses):
+#   - tools/attribute_dictionary.json  -> keys: raw attr KEY   -> English term
+#   - tools/value_translation.json     -> value_map: raw VALUE -> English value
+# gen_parts now also consults them so the generated EN storefront is Chinese-
+# free. Unmappable CJK *values* are DROPPED from the visible layer (retained in
+# MASTER) and logged as warnings — the gate is never lowered for them.
+_ATTR_KEY_TRANS = {}   # raw key (any lang) -> english key
+_VAL_TRANS = {}        # raw value (any lang) -> english value
+
+def load_attr_key_translation(path):
+    """Load raw-attr-key -> English term map from attribute_dictionary.json."""
+    d = {}
+    if not os.path.exists(path):
+        print(f"  [WARN] attribute_dictionary.json missing: {path} — key translation off")
+        return d
+    try:
+        obj = json.load(open(path, encoding="utf-8"))
+    except Exception as e:
+        print(f"  [WARN] attribute_dictionary.json parse error: {e}")
+        return d
+    keys = obj.get("keys", {})
+    if isinstance(keys, dict):
+        d.update({str(k).strip(): str(v).strip() for k, v in keys.items()})
+    return d
+
+def load_value_translation(path):
+    """Load raw-attr-value -> English value map from value_translation.json."""
+    d = {}
+    if not os.path.exists(path):
+        print(f"  [WARN] value_translation.json missing: {path} — value translation off")
+        return d
+    try:
+        obj = json.load(open(path, encoding="utf-8"))
+    except Exception as e:
+        print(f"  [WARN] value_translation.json parse error: {e}")
+        return d
+    for x in (obj.get("value_map", []) or []):
+        if isinstance(x, dict) and "zh" in x and "en" in x:
+            d[str(x["zh"]).strip()] = str(x["en"]).strip()
+    return d
+
+def has_cjk(s):
+    return bool(re.search(r"[\u4e00-\u9fff]", s))
+
+def translate_attr_key(k):
+    """Raw attr key -> English. Pure-ASCII keys pass through unchanged."""
+    k = (k or "").strip()
+    if not k:
+        return k
+    return _ATTR_KEY_TRANS.get(k, k)
+
+def translate_attr_value(v):
+    """English value, or None if it carries unmappable Chinese (-> drop).
+
+    Numeric values are preserved as native JSON numbers (NOT stringified) so the
+    deployable parts.json keeps its audited format (e.g. "data_rate": 100000000)
+    and the precise field-value exemptions in tools/audit_exemptions.json keep
+    matching. This restores the pre-CJK-fix parts.json value contract.
+    """
+    if v is None:
+        return None
+    if isinstance(v, bool):
+        return v
+    if isinstance(v, (int, float)):
+        return v  # keep native numeric type (audit exemption + HEAD format)
+    vs = str(v).strip()
+    if not vs:
+        return vs
+    if not has_cjk(vs):
+        return vs
+    return _VAL_TRANS.get(vs, None)
+
+def translate_spec_pairs(pairs):
+    """Map raw (k,v) spec pairs to English for the visible layer.
+    Drops pairs whose value is unmappable Chinese (kept in MASTER)."""
+    out = []
+    for k, v in pairs:
+        ek = translate_attr_key(k)
+        if has_cjk(ek):
+            continue  # key still Chinese & unmapped -> skip (defensive)
+        ev = translate_attr_value(v)
+        if ev is None:
+            continue
+        out.append([ek, ev])
+    return out
+
+def build_en_attrs(raw):
+    """Parse a raw attributes_json string and return an English-keyed/valued
+    dict for the deployable parts.json. Unmappable CJK pairs are dropped
+    (kept in MASTER). Returns {} on empty/invalid input."""
+    if not raw:
+        return {}
+    try:
+        obj = json.loads(raw)
+    except Exception:
+        return {}
+    if not isinstance(obj, dict):
+        return {}
+    out = {}
+    for k, v in obj.items():
+        ek = translate_attr_key(k)
+        if has_cjk(ek):
+            continue
+        ev = translate_attr_value(v)
+        if ev is None:
+            continue
+        out[ek] = ev
+    return out
+
+# ---------------------------------------------------------------------------
 # Legacy attribute alias map (Phase 2.1.5) — mirrors §2 of
 # attributes_dictionary.md ("禁止的同概念多字段 -> canonical key"). Raw/old
 # attribute keys found in scraped data are auto-normalized to the canonical key
@@ -2140,13 +2260,8 @@ def main():
             continue
         clean = (r.get("clean_mpn") or "").strip() or re.sub(r"[^A-Z0-9]", "", mpn.upper())
         uslug = (r.get("url_slug") or "").strip() or slugify(mpn)
-        attrs = {}
         raw = (r.get("attributes_json") or "").strip()
-        if raw:
-            try:
-                attrs = json.loads(raw)
-            except Exception:
-                attrs = {}
+        attrs = build_en_attrs(raw)  # English visible-layer (CJK gate fix)
         parts_json.append({
             "mpn": mpn,
             "clean_mpn": clean,
@@ -2269,6 +2384,10 @@ def main():
     ap.add_argument("--out", default=ROOT)
     ap.add_argument("--mfr-map", default=os.path.join(ROOT, "data", "production", "mfr_canonical.csv"))  # PHASE E.3.2: production self-contained
     ap.add_argument("--attr-dict", default=os.path.join(ROOT, "data", "production", "attributes_dictionary.md"))  # PHASE E.3.2: production self-contained
+    ap.add_argument("--attr-json", default=os.path.join(ROOT, "tools", "attribute_dictionary.json"),
+                    help="Curated raw-attr-key -> English map (CJK gate fix).")
+    ap.add_argument("--val-json", default=os.path.join(ROOT, "tools", "value_translation.json"),
+                    help="Curated raw-attr-value -> English map (CJK gate fix).")
     ap.add_argument("--dry-run", action="store_true",
                     help="Process + validate + report only. Writes test_p0_processed.csv and "
                          "review_queue.csv under --out, but does NOT generate HTML/sitemap/search.")
@@ -2291,6 +2410,12 @@ def main():
     attr_allow = load_attr_allowlist(args.attr_dict)
     print(f"Loaded mfr_canonical ({len(mfr_map)} aliases) + attributes allowlist "
           f"({len(attr_allow)} keys)")
+    # ---- English visible-layer translation (CJK gate fix): load curated lexicons ----
+    global _ATTR_KEY_TRANS, _VAL_TRANS
+    _ATTR_KEY_TRANS = load_attr_key_translation(args.attr_json)
+    _VAL_TRANS = load_value_translation(args.val_json)
+    print(f"Loaded attr key-translation ({len(_ATTR_KEY_TRANS)} keys) + "
+          f"value-translation ({len(_VAL_TRANS)} values) for EN storefront")
 
     with open(csv_path, encoding="utf-8") as f:
         rows = [r for r in csv.DictReader(f) if r.get("mpn", "").strip()]
@@ -2526,13 +2651,8 @@ def main():
             continue
         clean = (g.get("clean_mpn") or "").strip() or re.sub(r"[^A-Z0-9]", "", mpn.upper())
         uslug = g["url_slug"]
-        attrs = {}
         raw = (g.get("attributes_json") or "").strip()
-        if raw:
-            try:
-                attrs = json.loads(raw)
-            except Exception:
-                attrs = {}
+        attrs = build_en_attrs(raw)  # English visible-layer (CJK gate fix)
         parts_json.append({
             "mpn": mpn,
             "clean_mpn": clean,

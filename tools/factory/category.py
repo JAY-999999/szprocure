@@ -415,6 +415,13 @@ class InterfaceICAdapter(CategoryAdapter):
         it = _enum(_g(a, "输入类型"))
         if it:
             specs["input_type"] = it
+        # I/O expanders etc. carry interface type + pin count under these keys
+        itype = _enum(_g(a, "接口类型"))
+        if itype:
+            specs["interface"] = itype
+        ioc = _num_first(_g(a, "I/O 数量"))
+        if ioc is not None:
+            specs["io_count"] = int(ioc)
         iq = _norm_current(_g(a, "静态电流(Iq)"))
         if iq is not None:
             specs["iq_a"] = round(iq, 7)
@@ -464,6 +471,22 @@ class OpAmpAdapter(CategoryAdapter):
         iq = _norm_current(_g(a, "静态电流(Iq)"))
         if iq is not None:
             specs["iq_a"] = round(iq, 7)
+        # LNA / current-sense / generic amplifiers expose these under raw CN keys
+        gain = _num_first(_g(a, "增益"))
+        if gain is not None:
+            specs["gain_db"] = gain
+        freq = _norm_freq(_g(a, "频率"))
+        if freq is not None:
+            specs["frequency_hz"] = int(freq)
+        sv = _norm_voltage(_g(a, "工作电压"))
+        if sv is not None:
+            specs["supply_v"] = round(sv, 4)
+        icur = _norm_current(_g(a, "工作电流"))
+        if icur is not None:
+            specs["current_a"] = round(icur, 6)
+        ocur = _norm_current(_g(a, "输出电流"))
+        if ocur is not None:
+            specs["output_current_a"] = round(ocur, 6)
         r2r = _enum(_g(a, "轨到轨"))
         if r2r:
             specs["rail_to_rail"] = r2r
@@ -657,6 +680,13 @@ class InductorAdapter(CategoryAdapter):
         rc = _norm_current(_g(a, "额定电流"))
         if rc is not None:
             specs["rated_current_a"] = round(rc, 4)
+        # Common-mode / EMI filters expose impedance + line count, not L
+        z = _norm_resistance(_g(a, "阻抗@频率"))
+        if z is not None:
+            specs["impedance_ohm"] = round(z, 3)
+        lines = _num_first(_g(a, "线路数"))
+        if lines is not None:
+            specs["lines"] = int(lines)
         isat = _norm_current(_g(a, "饱和电流(Isat)"))
         if isat is not None:
             specs["isat_a"] = round(isat, 4)

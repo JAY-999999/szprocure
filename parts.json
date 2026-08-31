@@ -350,7 +350,7 @@
       "tolerance": "±1%",
       "power_rating_w": 0.0625,
       "voltage_rating_v": 50,
-      "temperature_coeff": "±100ppm/°C",
+      "temperature_coeff": "±100ppm/℃",
       "package": "0402"
     },
     "sources": [],
@@ -1940,7 +1940,6 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Type": "PHYTransceiver",
       "Operating Voltage": "1.6V~3.6V",
       "Interface Type": "RMII"
     },
@@ -2405,7 +2404,6 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Type": "CAN-FDTransceiver",
       "Data Rate": "5Mbps"
     },
     "sources": [],
@@ -2638,9 +2636,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Detection Temperature": "-40°C~+125°C",
+      "Detection Temperature": "-40℃~+125℃",
       "Interface Type": "I2C",
-      "Accuracy": "±0.5°C"
+      "Accuracy": "±0.5℃"
     },
     "sources": [],
     "needs_review": true,
@@ -3271,7 +3269,6 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Type": "PHYTransceiver",
       "Operating Voltage": "1.6V~3.6V",
       "Interface Type": "RMII"
     },
@@ -3550,8 +3547,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Detection Temperature": "-55°C~+150°C",
-      "Accuracy": "±0.1°C"
+      "Detection Temperature": "-55℃~+150℃",
+      "Accuracy": "±0.1℃"
     },
     "sources": [],
     "needs_review": true,
@@ -4040,7 +4037,6 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Type": "PHYTransceiver",
       "Operating Voltage": "3.3V"
     },
     "sources": [],
@@ -4857,7 +4853,7 @@
       "Operating Voltage": "2V~5.2V"
     },
     "sources": [],
-    "needs_review": false,
+    "needs_review": true,
     "availability": "active",
     "alternative_parts": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/drv2605ldgsr.pdf",
@@ -5417,8 +5413,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Detection Temperature": "-40°C~+125°C",
-      "Accuracy": "±2°C"
+      "Detection Temperature": "-40℃~+125℃",
+      "Accuracy": "±2℃"
     },
     "sources": [],
     "needs_review": true,
@@ -5554,8 +5550,8 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Detection Temperature": "0°C~+100°C",
-      "Accuracy": "±1.5°C"
+      "Detection Temperature": "0℃~+100℃",
+      "Accuracy": "±1.5℃"
     },
     "sources": [],
     "needs_review": true,
@@ -6366,7 +6362,6 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Quantity": "1 N-Channel",
       "Type": "N-Channel",
       "Drain-Source Voltage (Vdss)": "60V",
       "Continuous Drain Current (Id)": "300mA"
@@ -6391,7 +6386,7 @@
     "keywords": "",
     "attributes": {
       "Mounting Type": "Horizontal SMT",
-      "Operating Temperature": "-25°C~+85°C",
+      "Operating Temperature": "-25℃~+85℃",
       "Number of Ports": "1",
       "Number of Contacts": "16P"
     },
@@ -6602,7 +6597,6 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Lamp Header Type": "1.6mmx0.8mmSquare Header",
       "Receiving Angle": "120°",
       "Peak Wavelength": "625nm",
       "Forward Voltage (Vf)": "2.3V"
@@ -6724,7 +6718,7 @@
     "attributes": {
       "Connector Type": "Board-Side",
       "Interface Type": "Inner Pin",
-      "Operating Temperature": "-40°C~+90°C",
+      "Operating Temperature": "-40℃~+90℃",
       "Frequency": "6GHz"
     },
     "sources": [],
@@ -7035,7 +7029,7 @@
       "Resistor Type": "Thick Film",
       "Resistance": "0Ω",
       "Power": "100mW",
-      "Temperature Coefficient": "-100ppm/°C~+600ppm/°C"
+      "Temperature Coefficient": "-100ppm/℃~+600ppm/℃"
     },
     "sources": [],
     "needs_review": true,
@@ -7222,7 +7216,6 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Quantity": "1 N-Channel",
       "Drain-Source Voltage (Vdss)": "50V",
       "Continuous Drain Current (Id)": "200mA",
       "Power Dissipation (Pd)": "225mW"
@@ -7269,7 +7262,7 @@
     "attributes": {
       "Mounting Type": "Horizontal SMT",
       "Protocol Standard": "USB 2.0",
-      "Operating Temperature": "-40°C~+85°C",
+      "Operating Temperature": "-40℃~+85℃",
       "Number of Ports": "1"
     },
     "sources": [],
@@ -7310,7 +7303,6 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Quantity": "1 N-Channel",
       "Type": "N-Channel",
       "Drain-Source Voltage (Vdss)": "100V",
       "Continuous Drain Current (Id)": "33A"
@@ -7404,7 +7396,7 @@
     "attributes": {
       "Connector Type": "Board-Side",
       "Interface Type": "Inner Pin",
-      "Operating Temperature": "-40°C~+90°C",
+      "Operating Temperature": "-40℃~+90℃",
       "Frequency": "6GHz"
     },
     "sources": [],
@@ -7563,9 +7555,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Detection Temperature": "-55°C~+125°C",
+      "Detection Temperature": "-55℃~+125℃",
       "Interface Type": "Single-Wire Bus",
-      "Accuracy": "±0.5°C"
+      "Accuracy": "±0.5℃"
     },
     "sources": [],
     "needs_review": true,
@@ -7850,7 +7842,6 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Lamp Header Type": "2mmx1.2mmSquare Header",
       "Receiving Angle": "120°",
       "Peak Wavelength": "620nm",
       "Forward Voltage (Vf)": "2.3V"
@@ -8013,7 +8004,6 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Quantity": "1 P-Channel",
       "Type": "P-Channel",
       "Drain-Source Voltage (Vdss)": "20V",
       "Continuous Drain Current (Id)": "3.7A"
@@ -8152,7 +8142,6 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Quantity": "1 N-Channel",
       "Type": "N-Channel",
       "Drain-Source Voltage (Vdss)": "100V",
       "Continuous Drain Current (Id)": "180A"
@@ -8199,7 +8188,6 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Lamp Header Type": "1.6mmx0.8mmSquare Header",
       "Receiving Angle": "120°",
       "Peak Wavelength": "470nm",
       "Forward Voltage (Vf)": "3.3V"
@@ -8266,7 +8254,6 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Lamp Header Type": "1.6mmx0.8mmSquare Header",
       "Receiving Angle": "120°",
       "Peak Wavelength": "645nm",
       "Forward Voltage (Vf)": "1.8V~2.4V"
@@ -8429,7 +8416,6 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Quantity": "1 N-Channel",
       "Drain-Source Voltage (Vdss)": "50V",
       "Continuous Drain Current (Id)": "220mA",
       "Power Dissipation (Pd)": "360mW"
@@ -8496,7 +8482,6 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Quantity": "1 N-Channel",
       "Drain-Source Voltage (Vdss)": "55V",
       "Continuous Drain Current (Id)": "49A",
       "Power Dissipation (Pd)": "94W"
@@ -8850,7 +8835,6 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Quantity": "1 N-Channel",
       "Type": "N-Channel",
       "Drain-Source Voltage (Vdss)": "25V",
       "Continuous Drain Current (Id)": "220mA"
@@ -8944,7 +8928,6 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Quantity": "1 N-Channel",
       "Type": "N-Channel",
       "Drain-Source Voltage (Vdss)": "20V",
       "Continuous Drain Current (Id)": "2.9A"
@@ -9201,7 +9184,7 @@
     "keywords": "",
     "attributes": {
       "Mounting Type": "Horizontal SMT",
-      "Operating Temperature": "-30°C~+80°C",
+      "Operating Temperature": "-30℃~+80℃",
       "Number of Ports": "1",
       "Number of Contacts": "16P"
     },
@@ -9295,7 +9278,6 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Quantity": "1 P-Channel",
       "Type": "P-Channel",
       "Drain-Source Voltage (Vdss)": "30V",
       "Continuous Drain Current (Id)": "4.3A"
@@ -9362,7 +9344,6 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Quantity": "1 N-Channel",
       "Drain-Source Voltage (Vdss)": "50V",
       "Continuous Drain Current (Id)": "200mA",
       "Power Dissipation (Pd)": "300mW"
@@ -9434,7 +9415,6 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Quantity": "1 N-Channel",
       "Drain-Source Voltage (Vdss)": "60V",
       "Continuous Drain Current (Id)": "300mA",
       "Power Dissipation (Pd)": "350mW"
@@ -9458,7 +9438,6 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Quantity": "1 N-Channel",
       "Type": "N-Channel",
       "Drain-Source Voltage (Vdss)": "60V",
       "Continuous Drain Current (Id)": "115mA"
@@ -9648,7 +9627,7 @@
     "keywords": "",
     "attributes": {
       "Mounting Type": "Horizontal SMT",
-      "Operating Temperature": "-25°C~+85°C",
+      "Operating Temperature": "-25℃~+85℃",
       "Number of Ports": "1",
       "Number of Contacts": "6P"
     },
@@ -9905,7 +9884,6 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Quantity": "1 P-Channel",
       "Type": "P-Channel",
       "Drain-Source Voltage (Vdss)": "55V",
       "Continuous Drain Current (Id)": "31A"
@@ -9953,7 +9931,6 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Lamp Header Type": "2.0mmx1.2mmSquare Header",
       "Receiving Angle": "120°",
       "Peak Wavelength": "525nm",
       "Forward Voltage (Vf)": "3.2V"
@@ -10001,7 +9978,6 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Quantity": "1 P-Channel",
       "Type": "P-Channel",
       "Drain-Source Voltage (Vdss)": "50V",
       "Continuous Drain Current (Id)": "130mA"
@@ -10091,7 +10067,6 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Quantity": "1 P-Channel",
       "Type": "P-Channel",
       "Drain-Source Voltage (Vdss)": "20V",
       "Continuous Drain Current (Id)": "3.1A"
@@ -10139,7 +10114,6 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Quantity": "1 N-Channel",
       "Type": "N-Channel",
       "Drain-Source Voltage (Vdss)": "55V",
       "Continuous Drain Current (Id)": "110A"
@@ -10187,7 +10161,6 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Lamp Header Type": "1.6mmx0.8mmSquare Header",
       "Receiving Angle": "120°",
       "Peak Wavelength": "525nm",
       "Forward Voltage (Vf)": "3.3V"
@@ -10535,7 +10508,6 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Quantity": "2 N-Channel",
       "Drain-Source Voltage (Vdss)": "20V",
       "Continuous Drain Current (Id)": "6A",
       "Power Dissipation (Pd)": "1.5W"
@@ -10583,9 +10555,9 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Detection Temperature": "-55°C~+125°C",
+      "Detection Temperature": "-55℃~+125℃",
       "Interface Type": "Single-Wire Bus",
-      "Accuracy": "±0.4°C"
+      "Accuracy": "±0.4℃"
     },
     "sources": [],
     "needs_review": true,
@@ -10606,7 +10578,6 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Quantity": "1 N-Channel",
       "Drain-Source Voltage (Vdss)": "100V",
       "Continuous Drain Current (Id)": "170mA",
       "Power Dissipation (Pd)": "360mW"
@@ -10722,7 +10693,7 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Temperature Range": "-40°C~+85°C",
+      "Temperature Range": "-40℃~+85℃",
       "Humidity Range": "0%RH~100%RH",
       "Humidity Accuracy": "±3%RH"
     },
@@ -10791,7 +10762,6 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Quantity": "1 N-Channel",
       "Drain-Source Voltage (Vdss)": "30V",
       "Continuous Drain Current (Id)": "5A",
       "Power Dissipation (Pd)": "1.3W"
@@ -11115,7 +11085,6 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Quantity": "1 P-Channel",
       "Type": "P-Channel",
       "Drain-Source Voltage (Vdss)": "100V",
       "Continuous Drain Current (Id)": "23A"
@@ -11210,7 +11179,6 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Quantity": "1 P-Channel",
       "Type": "P-Channel",
       "Drain-Source Voltage (Vdss)": "30V",
       "Continuous Drain Current (Id)": "12A"
@@ -11557,7 +11525,7 @@
     "applications": "",
     "keywords": "",
     "attributes": {
-      "Temperature Range": "-40°C~+120°C",
+      "Temperature Range": "-40℃~+120℃",
       "Humidity Range": "0%RH~100%RH",
       "Interface Type": "I2C",
       "Humidity Accuracy": "±2%RH"
@@ -12531,5 +12499,236 @@
     "alternative_parts": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/at32f415cbt7.pdf",
     "product_url": "/products/at32f415cbt7/"
+  },
+  {
+    "mpn": "TXB0104PWR",
+    "clean_mpn": "TXB0104PWR",
+    "manufacturer": "Texas Instruments",
+    "brand": "Texas Instruments",
+    "url_slug": "txb0104pwr",
+    "category": "Interface IC",
+    "subcategory": "Interface IC",
+    "description": "Texas Instruments TXB0104PWR - 100 Mbps 4-bit bidirectional level-shifting translator",
+    "applications": "Signal translation; Bus interfacing; Level shifting; Industrial communication; Embedded I/O",
+    "keywords": "TXB0104PWR; Interface IC; Interface IC",
+    "attributes": {
+      "data_rate": 100000000,
+      "elem_count": 1
+    },
+    "sources": [],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4a7c9cbf10d74caaaade.r2.dev/datasheets/pdf/76/767349328f431d52c4417fc27e4d4cc6670992e9b2861249c7c2f506bf9cb45d.pdf",
+    "product_url": "/products/txb0104pwr/"
+  },
+  {
+    "mpn": "GCM21BR72A104KA37L",
+    "clean_mpn": "GCM21BR72A104KA37L",
+    "manufacturer": "Murata Manufacturing",
+    "brand": "Murata Manufacturing",
+    "url_slug": "gcm21br72a104ka37l",
+    "category": "Capacitor",
+    "subcategory": "X7R Capacitor",
+    "description": "Murata Manufacturing GCM21BR72A104KA37L - 1.0000000000000001e-07 F - 100.0 V - X7R",
+    "applications": "Decoupling; Filtering; Energy storage; Timing; Signal conditioning",
+    "keywords": "GCM21BR72A104KA37L; X7R Capacitor; Capacitor",
+    "attributes": {
+      "capacitance": 1.0000000000000001e-07,
+      "tolerance": 10.0,
+      "rated_voltage_v": 100.0,
+      "temp_coef": "X7R"
+    },
+    "sources": [],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4a7c9cbf10d74caaaade.r2.dev/datasheets/pdf/a1/a1fc7be28f1f936c5aa3a6145f90f565941d1d6e97ef50f656605e807dca9400.pdf",
+    "product_url": "/products/gcm21br72a104ka37l/"
+  },
+  {
+    "mpn": "DLW21HN900SQ2L",
+    "clean_mpn": "DLW21HN900SQ2L",
+    "manufacturer": "Murata Manufacturing",
+    "brand": "Murata Manufacturing",
+    "url_slug": "dlw21hn900sq2l",
+    "category": "Inductor",
+    "subcategory": "Power Inductor",
+    "description": "Murata Manufacturing DLW21HN900SQ2L",
+    "applications": "Power filtering; Energy storage; EMI suppression; DC-DC; RF chokes",
+    "keywords": "DLW21HN900SQ2L; Power Inductor; Inductor",
+    "attributes": {
+      "impedance_ohm": 90.0,
+      "lines": 2,
+      "dcr_ohm": 0.35
+    },
+    "sources": [],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4a7c9cbf10d74caaaade.r2.dev/datasheets/pdf/94/94ee05540e3b6764b987fb37927639688755d76157324279a6bb221cca54b7aa.pdf",
+    "product_url": "/products/dlw21hn900sq2l/"
+  },
+  {
+    "mpn": "BC817-40,215",
+    "clean_mpn": "BC81740215",
+    "manufacturer": "Nexperia",
+    "brand": "Nexperia",
+    "url_slug": "bc81740215",
+    "category": "Transistor",
+    "subcategory": "NPN Transistor",
+    "description": "Nexperia BC817-40,215 - NPN - 45.0 V - 0.50 A",
+    "applications": "Amplification; Switching; Signal buffering; Linear regulation; Driver stages",
+    "keywords": "BC817-40,215; NPN Transistor; Transistor",
+    "attributes": {
+      "ic_a": 0.5,
+      "tran_type": "NPN",
+      "vceo_v": 45.0
+    },
+    "sources": [],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4a7c9cbf10d74caaaade.r2.dev/datasheets/pdf/db/dbbbeafcbf13eb3d579ef03061a955c32d5ed3fa39470935ff826b4eb513b70e.pdf",
+    "product_url": "/products/bc81740215/"
+  },
+  {
+    "mpn": "RC0402FR-075K1L",
+    "clean_mpn": "RC0402FR075K1L",
+    "manufacturer": "Yageo",
+    "brand": "Yageo",
+    "url_slug": "rc0402fr075k1l",
+    "category": "Resistor",
+    "subcategory": "Chip Resistor",
+    "description": "Yageo RC0402FR-075K1L - 5100.0   - 50.0 V",
+    "applications": "Current limiting; Voltage division; Pull-up/down; Termination; Sensing",
+    "keywords": "RC0402FR-075K1L; Chip Resistor; Resistor",
+    "attributes": {
+      "resistance_ohm": 5100.0,
+      "tolerance": 1.0,
+      "max_voltage_v": 50.0
+    },
+    "sources": [],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4a7c9cbf10d74caaaade.r2.dev/datasheets/pdf/e7/e7dbabb0611925227ccfc429c14c8833a7b1f2c755684444124446f20b22a229.pdf",
+    "product_url": "/products/rc0402fr075k1l/"
+  },
+  {
+    "mpn": "CUS10S30,H3F",
+    "clean_mpn": "CUS10S30H3F",
+    "manufacturer": "Toshiba",
+    "brand": "Toshiba",
+    "url_slug": "cus10s30h3f",
+    "category": "Diode",
+    "subcategory": "Diode",
+    "description": "Toshiba CUS10S30,H3F - 0.23 V Vf",
+    "applications": "Reverse protection; Rectification; Voltage clamping; ESD suppression; Power supplies",
+    "keywords": "CUS10S30,H3F; Diode; Diode",
+    "attributes": {
+      "forward_current_a": 1.0,
+      "vf_v": 0.23,
+      "vreverse_v": 30.0
+    },
+    "sources": [],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4a7c9cbf10d74caaaade.r2.dev/datasheets/pdf/b1/b1644d3829b7afc2a8cad93e318109b5b52f47b65d118471da4f7150a1b741a5.pdf",
+    "product_url": "/products/cus10s30h3f/"
+  },
+  {
+    "mpn": "AP64350SP-13",
+    "clean_mpn": "AP64350SP13",
+    "manufacturer": "Diodes Incorporated",
+    "brand": "Diodes Incorporated",
+    "url_slug": "ap64350sp13",
+    "category": "Voltage Regulator",
+    "subcategory": "Voltage Regulator",
+    "description": "Diodes Incorporated AP64350SP-13 - 19.90 V - 3.500 A",
+    "applications": "Power management; DC-DC conversion; LDO regulation; Battery-powered devices; Embedded systems",
+    "keywords": "AP64350SP-13; Voltage Regulator; Voltage Regulator",
+    "attributes": {
+      "output_voltage_v": 19.9,
+      "output_current_a": 3.5
+    },
+    "sources": [],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4a7c9cbf10d74caaaade.r2.dev/datasheets/pdf/bb/bb9aa134375fc5b87433141e477aff20aee1a8766d922c6d9b9ace1f56539f48.pdf",
+    "product_url": "/products/ap64350sp13/"
+  },
+  {
+    "mpn": "OPA197IDBVR",
+    "clean_mpn": "OPA197IDBVR",
+    "manufacturer": "Texas Instruments",
+    "brand": "Texas Instruments",
+    "url_slug": "opa197idbvr",
+    "category": "Operational Amplifier",
+    "subcategory": "1-Channel Op Amp",
+    "description": "Texas Instruments OPA197IDBVR - 1-channel - GBW 10000000.0 Hz",
+    "applications": "Signal conditioning; Sensor amplification; Active filtering; Instrumentation; Control loops",
+    "keywords": "OPA197IDBVR; 1-Channel Op Amp; Operational Amplifier",
+    "attributes": {
+      "num_amps": 1,
+      "ibias_a": 0.0,
+      "cmrr_db": 140.0,
+      "gbw_hz": 10000000
+    },
+    "sources": [],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4a7c9cbf10d74caaaade.r2.dev/datasheets/pdf/83/8331b5f781021e5881e7d96fb11493d597457825599046c59de1c197e38f0bf7.pdf",
+    "product_url": "/products/opa197idbvr/"
+  },
+  {
+    "mpn": "STM32G070CBT6",
+    "clean_mpn": "STM32G070CBT6",
+    "manufacturer": "STMicroelectronics",
+    "brand": "STMicroelectronics",
+    "url_slug": "stm32g070cbt6",
+    "category": "Microcontroller",
+    "subcategory": "32-bit ARM Cortex-M0+ MCU",
+    "description": "STMicroelectronics STM32G070CBT6 - ARM Cortex-M0+ - 64 MHz - 128 KB Flash - 36 KB SRAM - operating voltage 2.0-3.6 V.",
+    "applications": "Embedded control; IoT devices; Industrial automation; Consumer electronics; Motor control",
+    "keywords": "STM32G070CBT6; ARM Cortex-M0+; 32-bit MCU; microcontroller",
+    "attributes": {
+      "core": "ARM Cortex-M0+",
+      "frequency_hz": 64000000,
+      "flash_bytes": 131072,
+      "ram_bytes": 36864,
+      "voltage_v": 2.8
+    },
+    "sources": [],
+    "needs_review": false,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4a7c9cbf10d74caaaade.r2.dev/datasheets/pdf/29/29c4b367c493f973db28a8d46d2cbd9d267382e1f29e369f8edaade058bb4611.pdf",
+    "product_url": "/products/stm32g070cbt6/"
+  },
+  {
+    "mpn": "CSD25402Q3A",
+    "clean_mpn": "CSD25402Q3A",
+    "manufacturer": "Texas Instruments",
+    "brand": "Texas Instruments",
+    "url_slug": "csd25402q3a",
+    "category": "MOSFET",
+    "subcategory": "MOS MOSFET",
+    "description": "Texas Instruments CSD25402Q3A - 20.0 V - 72.00 A",
+    "applications": "Power switching; Motor drive; DC-DC; Load switching; Power management",
+    "keywords": "CSD25402Q3A; MOS MOSFET; MOSFET",
+    "attributes": {
+      "vdss_v": 20.0,
+      "id_a": 72.0
+    },
+    "sources": [],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4a7c9cbf10d74caaaade.r2.dev/datasheets/pdf/f5/f54490ac9ba3e42c8f5ffb6be00fb003874d4924df7bad24a81b8c8daee0d71a.pdf",
+    "product_url": "/products/csd25402q3a/"
   }
 ]

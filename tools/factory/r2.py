@@ -296,6 +296,60 @@ class UploadResult:
         }
 
 
+# =====================================================================
+# metric invariants — prevent double-counting / distortion at scale
+# =====================================================================
+def validate_r2_counts(c):
+    """Return None if the R2 outcome counts are self-consistent, else a
+    human-readable violation string.
+
+    Every record ends in exactly one terminal outcome, so:
+
+      * uploaded == new_objects + already_exists
+        (all non-failed records become UPLOADED; ``already_exists`` is the
+         idempotent skip, ``new_objects`` the fresh PUT — they are mutually
+         exclusive and together exhaust the non-failed set)
+      * total    == new_objects + already_exists + failed
+        (no other terminal outcome exists)
+
+    These invariants make it impossible for ``uploaded`` (the all-UPLOADED
+    total) to be reported as "new" — the exact distortion that hit the
+    P1-D-C smoke batch when a re-run's idempotent 44/44 was mislabeled.
+    """
+    up = c.get("uploaded", 0)
+    new = c.get("new_objects", 0)
+    ae = c.get("already_exists", 0)
+    tot = c.get("total", 0)
+    fl = c.get("failed", 0)
+    if up != new + ae:
+        return (f"uploaded({up}) must equal new_objects({new}) "
+                f"+ already_exists({ae})")
+    if tot != new + ae + fl:
+        return (f"total({tot}) must equal new_objects({new}) "
+                f"+ already_exists({ae}) + failed({fl})")
+    return None
+
+
+def summarize_r2_counts(c):
+    """Return a metrics-friendly, non-overlapping view of R2 counts.
+
+    ``uploaded_total`` is the count of records that ended UPLOADED
+    (= new_objects + already_exists). ``new_objects`` is the only "new"
+    figure and is what ``r2_uploaded_new`` in the batch metrics must use.
+    """
+    inv = validate_r2_counts(c)
+    return {
+        "total": c.get("total", 0),
+        "uploaded_total": c.get("uploaded", 0),
+        "new_objects": c.get("new_objects", 0),
+        "already_exists": c.get("already_exists", 0),
+        "failed": c.get("failed", 0),
+        "bytes_uploaded": c.get("bytes_uploaded", 0),
+        "invariant_ok": inv is None,
+        "invariant_violation": inv,
+    }
+
+
 def upload_one(rec, client, bucket, retries=DEFAULT_RETRIES,
                timeout=DEFAULT_TIMEOUT, backoff=DEFAULT_BACKOFF,
                key_locks=None, key_locks_guard=None):
