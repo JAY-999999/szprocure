@@ -25,6 +25,18 @@
     }
   ],
   "redirects": [
+    { "source": "/categories/", "destination": "/components/", "permanent": true },
+    { "source": "/categories/crystal-oscillator/", "destination": "/components/passive-components/crystal-oscillator/", "permanent": true },
+    { "source": "/categories/electrolytic-capacitor/", "destination": "/components/passive-components/capacitor/", "permanent": true },
+    { "source": "/categories/mems-sensor/", "destination": "/components/sensors/sensors/", "permanent": true },
+    { "source": "/categories/microcontroller/", "destination": "/components/integrated-circuits/microcontroller/", "permanent": true },
+    { "source": "/categories/operational-amplifier/", "destination": "/components/integrated-circuits/operational-amplifier/", "permanent": true },
+    { "source": "/categories/pin-header/", "destination": "/components/connectors/pin-header/", "permanent": true },
+    { "source": "/categories/power-mosfet/", "destination": "/components/semiconductor-components/mosfet/", "permanent": true },
+    { "source": "/categories/rectifier-diode/", "destination": "/components/semiconductor-components/diode/", "permanent": true },
+    { "source": "/categories/resistor/", "destination": "/components/passive-components/resistor/", "permanent": true },
+    { "source": "/categories/voltage-regulator/", "destination": "/components/integrated-circuits/voltage-regulator/", "permanent": true },
+    { "source": "/products/100uf25v/", "destination": "/components/passive-components/capacitor/", "permanent": true },
     { "source": "/sourcing-service(/?.*)", "destination": "/sourcing/", "permanent": true }
   ]
 }
