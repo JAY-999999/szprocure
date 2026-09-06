@@ -59,20 +59,24 @@
   /* Phase 2 local additions — reuse global Design System, no change to styles.css */
   .hero-sub-cn { font-size:1.12rem; font-weight:600; color:#fff; opacity:.92; margin:10px 0 0; max-width:32ch; }
   .hero-aux-cn { font-size:1rem; line-height:1.6; color:#c9d3e0; margin:12px 0 0; max-width:64ch; }
-  .search-layout { display:grid; grid-template-columns:1fr 300px; gap:36px; align-items:start; }
+  .search-layout { display:block; max-width:720px; margin:0 auto; }
   .search-main { max-width:none; }
-  .quick-rfq { background:#fff; border:1px solid #ececf0; border-radius:14px; padding:24px; box-shadow:0 1px 3px rgba(0,0,0,.04); align-self:start; position:sticky; top:24px; }
-  .quick-rfq .eyebrow { color:var(--accent); }
-  .quick-rfq h3 { font-size:1.05rem; margin:8px 0 10px; color:#1d1d1f; }
-  .quick-rfq p { font-size:.92rem; color:#475569; margin:0 0 16px; }
+  .search-layout .section-head { text-align:center; max-width:none; margin-left:auto; margin-right:auto; }
+  .search-layout .section-head .lead { margin-left:auto; margin-right:auto; }
+  .search-layout .eyebrow { text-align:center; }
+  .search-layout h2 { font-size: clamp(1.4rem, 2.2vw, 1.85rem); line-height:1.25; }
+  .comp-search { margin:0 auto; }
   .bom-cta { background:transparent; border-radius:0; padding:0; }
+  /* UI micro-adjust (scope-limited to Components Hub): lighten H1 weight, widen hero text region */
+  .comp-hero h1 { max-width:24ch; font-size:clamp(1.9rem, 3.2vw, 2.55rem); line-height:1.18; letter-spacing:-.01em; margin:0 0 .45em; }
+  .comp-hero .hero-sub-cn { margin-top:8px; }
+  .comp-hero .lead { margin-top:10px; }
   @media (max-width: 720px) {
     .catalog-layout { grid-template-columns:1fr; gap:18px; }
     .catalog-nav { display:none; }
     .catalog-section { padding:18px 20px; }
     .catalog-subs { grid-template-columns:1fr; }
-    .search-layout { grid-template-columns:1fr; gap:18px; }
-    .quick-rfq { position:static; }
+    .search-layout { max-width:100%; }
   }
   </style>
 
@@ -106,7 +110,7 @@
     <section class="comp-hero">
       <div class="container">
         <div class="eyebrow" data-zh="元器件采购 · 中国深圳">ELECTRONIC COMPONENTS SOURCING · SHENZHEN, CHINA</div>
-        <h1 data-zh="从深圳采购原装电子元器件">Find Original Electronic Components from Shenzhen</h1>
+        <h1>Find Original Electronic Components from Shenzhen</h1>
         <p class="hero-sub-cn" data-zh="从深圳采购原装电子元器件">从深圳采购原装电子元器件</p>
         <p class="lead" data-zh="从已验证的深圳供应渠道，为全球买家采购各类原装元器件。浏览类别或发送料号获取报价。">We source original electronic components from verified Shenzhen supply channels for global buyers. Browse a category or send a part number to request a quote.</p>
         <p class="hero-aux-cn" data-zh="覆盖集成电路、半导体、被动元件、传感器、连接器与模组，支持小批量采购与长期稳定供货。">Covering integrated circuits, semiconductors, passives, sensors, connectors and modules — with low-volume buying and stable long-term supply.</p>
@@ -137,12 +141,6 @@
           </form>
           <div id="searchResults" class="search-results" hidden></div>
         </div>
-        <aside class="quick-rfq">
-          <div class="eyebrow" data-zh="快速询价">QUICK RFQ</div>
-          <h3 data-zh="需要定制报价？">Need a Custom Quote?</h3>
-          <p data-zh="发送你的 BOM 或料号清单，我们将快速核对并报价。">Send us your BOM or part list and we'll check availability and quote fast.</p>
-          <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="快速询价">Quick RFQ</a>
-        </aside>
       </div>
     </section>
 
