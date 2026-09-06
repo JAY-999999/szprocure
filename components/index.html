@@ -15,6 +15,66 @@
   <meta property="og:url" content="https://www.szprocure.com/components/" />
   <meta property="og:image" content="https://www.szprocure.com/assets/img/hero.svg" />
   <link rel="stylesheet" href="/assets/styles.css" />
+  <style>
+  /* Components Hub V2.4 — local styles only (global styles.css untouched) */
+  .catalog-layout { display:grid; grid-template-columns: 260px 1fr; gap:32px; align-items:start; }
+  .catalog-nav { position:sticky; top:24px; align-self:start; padding-right:24px; border-right:1px solid #ececf0; }
+  .catalog-nav-title { font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#86868b; margin:0 0 8px 4px; font-weight:700; }
+  .catalog-nav-item { display:flex; align-items:center; justify-content:space-between; width:100%; text-align:left; background:transparent; border:none; border-left:3px solid transparent;
+    padding:11px 14px; margin:0; font-size:14px; font-weight:600; color:#1d1d1f; cursor:pointer; transition:all .15s; }
+  .catalog-nav-item:hover { background:#e8f1ff; color:#0a84ff; }
+  .catalog-nav-item:hover .cat-nav-count { background:#cfe5ff; color:#0a84ff; }
+  .catalog-nav-item.active { background:#0a84ff; color:#fff; border-left-color:#0a84ff; }
+  .cat-nav-count { font-size:12px; font-weight:700; color:#86868b; background:#f5f5f7; border-radius:20px; padding:2px 8px; margin-left:8px; }
+  .catalog-nav-item.active .cat-nav-count { background:rgba(255,255,255,.25); color:#fff; }
+  .catalog-section { background:#fff; border:1px solid #ececf0; border-radius:12px; box-shadow:0 1px 3px rgba(0,0,0,.04); padding:22px 24px; margin:0 0 20px 0; }
+  .catalog-section:last-child { margin-bottom:0; }
+  .catalog-section-head { display:flex; align-items:center; justify-content:space-between; gap:16px; margin:0 0 18px 0; }
+  .catalog-section-head h3 { margin:0; font-size:20px; font-weight:700; display:flex; align-items:center; gap:10px; }
+  .catalog-section-head h3 a { color:#1d1d1f; text-decoration:none; }
+  .catalog-section-head h3 a:hover { color:#0a84ff; }
+  .cat-count { font-size:12px; font-weight:700; color:#86868b; background:#f5f5f7; border-radius:20px; padding:3px 10px; }
+  .catalog-toggle { background:none; border:1px solid #e2e2e7; border-radius:8px; width:34px; height:34px; font-size:14px; color:#1d1d1f; cursor:pointer; transition:all .15s; flex:0 0 auto; }
+  .catalog-toggle:hover { background:#f5f5f7; border-color:#0a84ff; color:#0a84ff; }
+  .catalog-subs { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:14px 18px; }
+  .catalog-subs.collapsed { display:none; }
+  .cat-sub { display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:#1d1d1f; background:none; font-size:14px; font-weight:500; transition:all .15s; }
+  .cat-sub:hover { color:#0a84ff; }
+  .cat-sub-count { font-size:12px; font-weight:700; color:#86868b; background:#f5f5f7; border-radius:20px; padding:2px 8px; }
+  .cat-sub:hover .cat-sub-count { color:#0a84ff; background:#e8f1ff; }
+  .comp-search { display:flex; gap:10px; max-width:640px; }
+  .comp-search input { flex:1; padding:13px 16px; font-size:15px; border:1px solid #d2d2d7; border-radius:10px; background:#fff; }
+  .comp-search input:focus { outline:none; border-color:#0a84ff; box-shadow:0 0 0 3px rgba(10,132,255,.15); }
+  .search-results { margin-top:18px; }
+  .search-results[hidden] { display:none; }
+  .sr-group { margin-bottom:18px; }
+  .sr-group-head { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:#86868b; margin-bottom:8px; }
+  .sr-item { display:flex; align-items:center; gap:10px; padding:11px 14px; border:1px solid #ececf0; border-radius:10px; text-decoration:none; color:#1d1d1f; margin-bottom:6px; background:#fff; }
+  .sr-item:hover { border-color:#0a84ff; background:#f0f7ff; }
+  .sr-label { font-weight:600; }
+  .sr-sub { color:#86868b; font-size:13px; }
+  .sr-go { margin-left:auto; color:#0a84ff; }
+  .sr-empty { padding:14px 16px; border:1px dashed #d2d2d7; border-radius:10px; color:#1d1d1f; background:#fafafa; }
+  .sr-empty a { color:#0a84ff; font-weight:600; }
+  /* Phase 2 local additions — reuse global Design System, no change to styles.css */
+  .hero-sub-cn { font-size:1.12rem; font-weight:600; color:#fff; opacity:.92; margin:10px 0 0; max-width:32ch; }
+  .hero-aux-cn { font-size:1rem; line-height:1.6; color:#c9d3e0; margin:12px 0 0; max-width:64ch; }
+  .search-layout { display:grid; grid-template-columns:1fr 300px; gap:36px; align-items:start; }
+  .search-main { max-width:none; }
+  .quick-rfq { background:#fff; border:1px solid #ececf0; border-radius:14px; padding:24px; box-shadow:0 1px 3px rgba(0,0,0,.04); align-self:start; position:sticky; top:24px; }
+  .quick-rfq .eyebrow { color:var(--accent); }
+  .quick-rfq h3 { font-size:1.05rem; margin:8px 0 10px; color:#1d1d1f; }
+  .quick-rfq p { font-size:.92rem; color:#475569; margin:0 0 16px; }
+  .bom-cta { background:transparent; border-radius:0; padding:0; }
+  @media (max-width: 720px) {
+    .catalog-layout { grid-template-columns:1fr; gap:18px; }
+    .catalog-nav { display:none; }
+    .catalog-section { padding:18px 20px; }
+    .catalog-subs { grid-template-columns:1fr; }
+    .search-layout { grid-template-columns:1fr; gap:18px; }
+    .quick-rfq { position:static; }
+  }
+  </style>
 
   <script type="application/ld+json">
   {
@@ -45,88 +105,185 @@
     <!-- HERO Type B (navy commercial hero) -->
     <section class="comp-hero">
       <div class="container">
-        <div class="eyebrow" data-zh="元器件类别">ELECTRONIC COMPONENT CATEGORIES</div>
-        <h1 data-zh="我们采购的元器件类别">Component Categories We Source From Shenzhen</h1>
+        <div class="eyebrow" data-zh="元器件采购 · 中国深圳">ELECTRONIC COMPONENTS SOURCING · SHENZHEN, CHINA</div>
+        <h1 data-zh="从深圳采购原装电子元器件">Find Original Electronic Components from Shenzhen</h1>
+        <p class="hero-sub-cn" data-zh="从深圳采购原装电子元器件">从深圳采购原装电子元器件</p>
         <p class="lead" data-zh="从已验证的深圳供应渠道，为全球买家采购各类原装元器件。浏览类别或发送料号获取报价。">We source original electronic components from verified Shenzhen supply channels for global buyers. Browse a category or send a part number to request a quote.</p>
+        <p class="hero-aux-cn" data-zh="覆盖集成电路、半导体、被动元件、传感器、连接器与模组，支持小批量采购与长期稳定供货。">Covering integrated circuits, semiconductors, passives, sensors, connectors and modules — with low-volume buying and stable long-term supply.</p>
         <div class="hero-actions">
           <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
-          <a class="btn btn-outline-light btn-lg" href="#categories" data-zh="浏览类别">Browse Categories</a>
         </div>
         <div class="trust-bar">
           <span><b>&#10003;</b> <span data-zh="已验证供应渠道">Verified Supply Channels</span></span>
           <span><b>&#10003;</b> <span data-zh="原装元器件">Original Components</span></span>
           <span><b>&#10003;</b> <span data-zh="全球买家支持">Global Buyer Support</span></span>
-          <span><b>&#10003;</b> <span data-zh="快速报价响应">Fast RFQ Response</span></span>
+          <span><b>&#10003;</b> <span data-zh="响应式报价处理">Responsive RFQ Handling</span></span>
         </div>
       </div>
     </section>
 
-    <!-- CATEGORY GRID -->
-    <section class="section" id="categories">
+    <!-- SEARCH (hub.js search core: #compSearch / #compSearchInput / #searchResults) -->
+    <section class="section" id="search">
+      <div class="container search-layout">
+        <div class="search-main">
+          <div class="section-head">
+            <div class="eyebrow" data-zh="搜索元器件">SEARCH COMPONENTS</div>
+            <h2 data-zh="搜索元器件、制造商与分类">Search Components, Manufacturers &amp; Categories</h2>
+            <p class="lead" data-zh="按料号、制造商或类别搜索，快速定位深圳可采购的元器件。">Search by part number, manufacturer or category to quickly locate components sourced from Shenzhen.</p>
+          </div>
+          <form id="compSearch" class="comp-search" role="search">
+            <input id="compSearchInput" type="search" placeholder="Search STM32, Texas Instruments, Voltage Regulator…" autocomplete="off" />
+            <button type="submit" class="btn btn-primary btn-lg">Search</button>
+          </form>
+          <div id="searchResults" class="search-results" hidden></div>
+        </div>
+        <aside class="quick-rfq">
+          <div class="eyebrow" data-zh="快速询价">QUICK RFQ</div>
+          <h3 data-zh="需要定制报价？">Need a Custom Quote?</h3>
+          <p data-zh="发送你的 BOM 或料号清单，我们将快速核对并报价。">Send us your BOM or part list and we'll check availability and quote fast.</p>
+          <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="快速询价">Quick RFQ</a>
+        </aside>
+      </div>
+    </section>
+
+    <!-- BROWSE: V2.4 left nav + right sections -->
+    <section class="section soft" id="categories">
       <div class="container">
         <div class="section-head">
-          <div class="eyebrow" data-zh="按类别浏览">BROWSE BY CATEGORY</div>
-          <h2 data-zh="元器件类别">Component Categories</h2>
-          <p class="lead" data-zh="点击任意类别，查看我们采购的元器件并发起询价。">Click any category to view sourced components and request a quote.</p>
+          <div class="eyebrow" data-zh="按类别浏览元器件">BROWSE COMPONENTS</div>
+          <h2 data-zh="按类别浏览元器件">Browse Components</h2>
+          <p class="lead" data-zh="点击左侧类别跳转到对应分区，或展开下方任意分区查看子分类。">Click a category on the left to jump to its section, or expand any section below to view subcategories.</p>
         </div>
-        <div class="grid grid-3">
-        <a class="card cat-card" href="/components/integrated-circuits/">
-          <h3>Integrated Circuits</h3>
-          <p>Microcontrollers, memory, power-management and interface ICs.</p>
-          <span class="mfr-link">Browse Integrated Circuits &rarr;</span>
-        </a>
-        <a class="card cat-card" href="/components/semiconductor-components/">
-          <h3>Semiconductor Components</h3>
-          <p>MOSFETs, diodes, transistors and discrete power devices.</p>
-          <span class="mfr-link">Browse Semiconductor Components &rarr;</span>
-        </a>
-        <a class="card cat-card" href="/components/passive-components/">
-          <h3>Passive Components</h3>
-          <p>Resistors, capacitors, inductors and crystal oscillators.</p>
-          <span class="mfr-link">Browse Passive Components &rarr;</span>
-        </a>
-        <a class="card cat-card" href="/components/sensors/">
-          <h3>Sensors &amp; Transducers</h3>
-          <p>Temperature, pressure, motion and optical sensors &amp; transducers.</p>
-          <span class="mfr-link">Browse Sensors &amp; Transducers &rarr;</span>
-        </a>
-        <a class="card cat-card" href="/components/connectors/">
-          <h3>Connectors &amp; Electromechanical</h3>
-          <p>Pin headers, USB, FFC/FPC and board-to-board connectors.</p>
-          <span class="mfr-link">Browse Connectors &amp; Electromechanical &rarr;</span>
-        </a>
-        <a class="card cat-card" href="/components/modules/">
-          <h3>Modules &amp; Communication Modules</h3>
-          <p>WiFi, Bluetooth, GNSS and cellular communication modules.</p>
-          <span class="mfr-link">Browse Modules &amp; Communication Modules &rarr;</span>
-        </a>
+        <div id="catBrowse" class="catalog-layout">
+          <aside class="catalog-nav">
+            <div class="catalog-nav-title">Categories</div>
+          <button type="button" class="catalog-nav-item" data-category="connectors">Connectors &amp; Electromechanical<span class="cat-nav-count">53</span></button>
+          <button type="button" class="catalog-nav-item" data-category="integrated-circuits">Integrated Circuits<span class="cat-nav-count">243</span></button>
+          <button type="button" class="catalog-nav-item" data-category="modules">Modules &amp; Communication Modules<span class="cat-nav-count">22</span></button>
+          <button type="button" class="catalog-nav-item" data-category="passive-components">Passive Components<span class="cat-nav-count">123</span></button>
+          <button type="button" class="catalog-nav-item" data-category="semiconductor-components">Semiconductor Components<span class="cat-nav-count">79</span></button>
+          <button type="button" class="catalog-nav-item" data-category="sensors">Sensors &amp; Transducers<span class="cat-nav-count">30</span></button>
+          </aside>
+          <div class="catalog-content">
+        <section class="catalog-section" data-category="connectors">
+          <header class="catalog-section-head">
+            <h3><a href="/components/connectors/">Connectors &amp; Electromechanical</a> <span class="cat-count">53</span></h3>
+            <button type="button" class="catalog-toggle" aria-expanded="true" aria-label="Toggle Connectors &amp; Electromechanical subcategories">&#9662;</button>
+          </header>
+          <div class="catalog-subs">
+                <a class="cat-sub" href="/components/connectors/connectors/">Connectors<span class="cat-sub-count">20</span></a>
+                <a class="cat-sub" href="/components/connectors/pin-header/">Pin Header<span class="cat-sub-count">8</span></a>
+                <a class="cat-sub" href="/components/connectors/switches/">Switches<span class="cat-sub-count">12</span></a>
+                <a class="cat-sub" href="/components/connectors/usb-connectors/">USB Connectors<span class="cat-sub-count">13</span></a>
+          </div>
+        </section>
+        <section class="catalog-section" data-category="integrated-circuits">
+          <header class="catalog-section-head">
+            <h3><a href="/components/integrated-circuits/">Integrated Circuits</a> <span class="cat-count">243</span></h3>
+            <button type="button" class="catalog-toggle" aria-expanded="true" aria-label="Toggle Integrated Circuits subcategories">&#9662;</button>
+          </header>
+          <div class="catalog-subs">
+                <a class="cat-sub" href="/components/integrated-circuits/analog-ic/">Analog IC<span class="cat-sub-count">13</span></a>
+                <a class="cat-sub" href="/components/integrated-circuits/interface-ic/">Interface IC<span class="cat-sub-count">41</span></a>
+                <a class="cat-sub" href="/components/integrated-circuits/logic-ic/">Logic IC<span class="cat-sub-count">13</span></a>
+                <a class="cat-sub" href="/components/integrated-circuits/memory/">Memory<span class="cat-sub-count">2</span></a>
+                <a class="cat-sub" href="/components/integrated-circuits/memory-ic/">Memory IC<span class="cat-sub-count">11</span></a>
+                <a class="cat-sub" href="/components/integrated-circuits/microcontroller/">Microcontroller<span class="cat-sub-count">66</span></a>
+                <a class="cat-sub" href="/components/integrated-circuits/operational-amplifier/">Operational Amplifier<span class="cat-sub-count">26</span></a>
+                <a class="cat-sub" href="/components/integrated-circuits/power-management-ic/">Power Management IC<span class="cat-sub-count">15</span></a>
+                <a class="cat-sub" href="/components/integrated-circuits/voltage-regulator/">Voltage Regulator<span class="cat-sub-count">56</span></a>
+          </div>
+        </section>
+        <section class="catalog-section" data-category="modules">
+          <header class="catalog-section-head">
+            <h3><a href="/components/modules/">Modules &amp; Communication Modules</a> <span class="cat-count">22</span></h3>
+            <button type="button" class="catalog-toggle" aria-expanded="true" aria-label="Toggle Modules &amp; Communication Modules subcategories">&#9662;</button>
+          </header>
+          <div class="catalog-subs">
+                <a class="cat-sub" href="/components/modules/gnss-modules/">GNSS Modules<span class="cat-sub-count">1</span></a>
+                <a class="cat-sub" href="/components/modules/modules/">Modules<span class="cat-sub-count">4</span></a>
+                <a class="cat-sub" href="/components/modules/rf-modules/">RF Modules<span class="cat-sub-count">6</span></a>
+                <a class="cat-sub" href="/components/modules/wifi-modules/">WiFi Modules<span class="cat-sub-count">11</span></a>
+          </div>
+        </section>
+        <section class="catalog-section" data-category="passive-components">
+          <header class="catalog-section-head">
+            <h3><a href="/components/passive-components/">Passive Components</a> <span class="cat-count">123</span></h3>
+            <button type="button" class="catalog-toggle" aria-expanded="true" aria-label="Toggle Passive Components subcategories">&#9662;</button>
+          </header>
+          <div class="catalog-subs">
+                <a class="cat-sub" href="/components/passive-components/capacitor/">Capacitor<span class="cat-sub-count">42</span></a>
+                <a class="cat-sub" href="/components/passive-components/crystal-oscillator/">Crystal Oscillator<span class="cat-sub-count">7</span></a>
+                <a class="cat-sub" href="/components/passive-components/inductor/">Inductor<span class="cat-sub-count">22</span></a>
+                <a class="cat-sub" href="/components/passive-components/led-components/">LED Components<span class="cat-sub-count">15</span></a>
+                <a class="cat-sub" href="/components/passive-components/resistor/">Resistor<span class="cat-sub-count">37</span></a>
+          </div>
+        </section>
+        <section class="catalog-section" data-category="semiconductor-components">
+          <header class="catalog-section-head">
+            <h3><a href="/components/semiconductor-components/">Semiconductor Components</a> <span class="cat-count">79</span></h3>
+            <button type="button" class="catalog-toggle" aria-expanded="true" aria-label="Toggle Semiconductor Components subcategories">&#9662;</button>
+          </header>
+          <div class="catalog-subs">
+                <a class="cat-sub" href="/components/semiconductor-components/diode/">Diode<span class="cat-sub-count">48</span></a>
+                <a class="cat-sub" href="/components/semiconductor-components/mosfet/">MOSFET<span class="cat-sub-count">27</span></a>
+                <a class="cat-sub" href="/components/semiconductor-components/transistor/">Transistor<span class="cat-sub-count">4</span></a>
+          </div>
+        </section>
+        <section class="catalog-section" data-category="sensors">
+          <header class="catalog-section-head">
+            <h3><a href="/components/sensors/">Sensors &amp; Transducers</a> <span class="cat-count">30</span></h3>
+            <button type="button" class="catalog-toggle" aria-expanded="true" aria-label="Toggle Sensors &amp; Transducers subcategories">&#9662;</button>
+          </header>
+          <div class="catalog-subs">
+                <a class="cat-sub" href="/components/sensors/sensors/">Sensors<span class="cat-sub-count">30</span></a>
+          </div>
+        </section>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- POPULAR COMPONENTS -->
-    <section class="section soft">
+    <!-- WHAT WE CAN DO FOR YOU -->
+    <section class="section">
       <div class="container">
         <div class="section-head">
-          <div class="eyebrow" data-zh="热门料号">POPULAR COMPONENTS</div>
-          <h2 data-zh="常用料号">Popular Part Numbers</h2>
+          <div class="eyebrow" data-zh="我们能为你做什么">WHAT WE CAN DO FOR YOU</div>
+          <h2 data-zh="真实的采购能力，不止是报价">Real sourcing capabilities beyond a quote</h2>
+          <p class="lead" data-zh="从难寻料号到整份 BOM，我们提供端到端的深圳采购支持。">From hard-to-find parts to full BOMs, we provide end-to-end Shenzhen sourcing support.</p>
         </div>
-        <ul class="bullet-list part-index">
-          <li><a href="/products/stm32f103c8t6/">STM32F103C8T6</a></li>
-          <li><a href="/products/lm358dr/">LM358</a></li>
-          <li><a href="/products/ams111733/">AMS1117-3.3</a></li>
-          <li><a href="/request-a-quote/">LM2596</a></li>
-        </ul>
+        <div class="cap-grid">
+          <div class="cap-card">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><path d="M8 11h6"/></svg></div>
+            <h3 data-zh="难寻与停产料号">Hard-to-Find &amp; Obsolete</h3>
+            <p data-zh="帮你定位停产、长交期与冷门元器件，核实渠道与批次。">Locate obsolete, long-lead and rare components with verified channels and batches.</p>
+          </div>
+          <div class="cap-card">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v18"/><path d="M16 3v18"/><path d="M8 8h8"/><path d="M8 14h8"/><path d="M3 8h5"/><path d="M16 8h5"/><path d="M3 14h5"/><path d="M16 14h5"/></svg></div>
+            <h3 data-zh="替代交叉参考">Alternative Cross-Reference</h3>
+            <p data-zh="提供引脚兼容、参数相当的替代料号，缓解缺货与涨价风险。">Pin-compatible, spec-equivalent alternatives to ease shortages and cost spikes.</p>
+          </div>
+          <div class="cap-card">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v4H4z"/><path d="M4 12h16v8H4z"/><path d="M8 16h.01"/><path d="M12 16h.01"/><path d="M16 16h.01"/></svg></div>
+            <h3 data-zh="BOM 采购与配单">BOM Sourcing &amp; Kitting</h3>
+            <p data-zh="整份 BOM 统一询价、配单与齐套出货，减少多家对接成本。">One quote for the whole BOM, with kitting and consolidated shipment.</p>
+          </div>
+          <div class="cap-card">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l3-3 3 3 5-6"/></svg></div>
+            <h3 data-zh="供应商对比">Supplier Comparison</h3>
+            <p data-zh="对比多家供应商的价格、交期与品质，给出最优采购建议。">Compare suppliers on price, lead time and quality for the best buy.</p>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- FINAL CTA -->
-    <section class="section soft">
+    <section class="section navy">
       <div class="container">
-        <div class="cta-band">
+        <div class="cta-band bom-cta">
           <div>
-            <h2 data-zh="找不到需要的料号？">Can't Find the Part You Need?</h2>
-            <p data-zh="发送准确的料号、制造商与数量，我们将核对库存并报价。">Send us the exact part number, manufacturer and quantity — we'll check availability and quote.</p>
+            <h2 data-zh="需要采购整份 BOM？">Have a BOM to Source?</h2>
+            <p data-zh="把整份 BOM 或料号清单发给我们，我们将核对库存、比价并给出报价。">Send us your full BOM or part list — we'll check stock, compare suppliers and quote.</p>
           </div>
           <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
         </div>
@@ -134,6 +291,8 @@
     </section>
   </main>
   <div id="site-footer"></div>
+  <script src="/components/components-data.js"></script>
+  <script src="/components/hub.js"></script>
   <script src="/assets/site.js" defer></script>
   <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZLJH3Q2KF"></script>
