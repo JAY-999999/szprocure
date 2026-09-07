@@ -114,3 +114,27 @@
   .sku-v3 .id-row{flex-direction:column;gap:2px}
   .sku-v3 .id-label{width:auto}
 }
+
+/* RoHS compliance badge — simple green TEXT badge (NO official logo image).
+   Rendered by the V3 template ONLY when authoritative LCSC provenance confirms
+   compliant + evidence. Sits inline with the MPN inside <h1 class="mpn">; the
+   span is aria-hidden so the H1 accessible name stays the bare MPN. */
+.sku-v3 .rohs-badge{
+  display:inline-block;
+  margin-left:.5rem;
+  padding:.12rem .5rem;
+  font-family:var(--font);
+  font-size:.7rem;
+  font-weight:600;
+  line-height:1.1;
+  color:#1C7C3C;
+  background:#eafaf0;
+  border:1px solid #c7ebd2;
+  border-radius:.35rem;
+  vertical-align:middle;
+  letter-spacing:.02em;
+  white-space:nowrap;
+}
+@media (max-width:640px){
+  .sku-v3 .rohs-badge{font-size:.66rem;margin-left:.35rem;vertical-align:baseline}
+}
