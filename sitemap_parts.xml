@@ -550,6 +550,7 @@
   <url><loc>https://www.szprocure.com/products/opa197idbvr/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/products/stm32g070cbt6/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/products/csd25402q3a/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/products/mcp23017tess/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/manufacturers/stmicroelectronics/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/manufacturers/wch/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/manufacturers/microchip-technology/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
@@ -636,12 +637,8 @@
   <url><loc>https://www.szprocure.com/manufacturers/artery/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/manufacturers/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/integrated-circuits/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/components/semiconductor-components/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/components/passive-components/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/components/sensors/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/components/connectors/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/components/modules/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/integrated-circuits/analog-ic/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/components/integrated-circuits/i-o-expanders/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/integrated-circuits/interface-ic/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/integrated-circuits/logic-ic/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/integrated-circuits/memory/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
@@ -650,29 +647,27 @@
   <url><loc>https://www.szprocure.com/components/integrated-circuits/operational-amplifier/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/integrated-circuits/power-management-ic/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/integrated-circuits/voltage-regulator/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/components/semiconductor-components/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/semiconductor-components/diode/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/semiconductor-components/mosfet/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/semiconductor-components/transistor/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/components/passive-components/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/passive-components/capacitor/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/passive-components/crystal-oscillator/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/passive-components/inductor/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/passive-components/led-components/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/passive-components/resistor/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/components/sensors/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/sensors/sensors/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/components/connectors/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/connectors/connectors/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/connectors/pin-header/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/connectors/switches/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/connectors/usb-connectors/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/components/modules/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/modules/gnss-modules/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/modules/modules/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/modules/rf-modules/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/modules/wifi-modules/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/about/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/sourcing-services/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/how-it-works/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/request-a-quote/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/contact/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/ai-hardware/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
 </urlset>

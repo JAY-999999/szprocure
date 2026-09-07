@@ -12730,5 +12730,27 @@
     "alternative_parts": "",
     "datasheet_url": "https://pub-fd1103d4a7c9cbf10d74caaaade.r2.dev/datasheets/pdf/f5/f54490ac9ba3e42c8f5ffb6be00fb003874d4924df7bad24a81b8c8daee0d71a.pdf",
     "product_url": "/products/csd25402q3a/"
+  },
+  {
+    "mpn": "MCP23017T-E/SS",
+    "clean_mpn": "MCP23017TESS",
+    "manufacturer": "Microchip Technology",
+    "brand": "Microchip Technology",
+    "url_slug": "mcp23017tess",
+    "category": "I/O Expanders",
+    "subcategory": "I/O Expanders",
+    "description": "Microchip Technology MCP23017T-E/SS - 16-bit I/O expander with serial interface",
+    "applications": "",
+    "keywords": "",
+    "attributes": {
+      "interface": "I2C",
+      "io_count": 16
+    },
+    "sources": [],
+    "needs_review": false,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "",
+    "product_url": "/products/mcp23017tess/"
   }
 ]
