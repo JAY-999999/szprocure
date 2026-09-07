@@ -1,0 +1,116 @@
+/* =============================================================================
+   SZ Procure — SKU V3 scoped styles
+   ALL rules are scoped under `.sku-v3` only. This file NEVER touches the global
+   styles.css and never affects non-SKU pages. Visual skeleton mirrors the
+   approved V3 prototype (left main column + right sticky RFQ + sticky tabs).
+   Sticky offsets account for the global sticky header (height 84px).
+   ========================================================================== */
+.sku-v3{
+  --bg:#f7f8fa; --surface:#ffffff; --text:#111827; --text-2:#4b5563; --text-3:#6b7280;
+  --border:#e5e7eb; --border-2:#d1d5db; --accent:#0A84FF; --accent-2:#0071e3;
+  --radius:10px; --maxw:1280px;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:"SF Mono",Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+  background:var(--bg);
+}
+.sku-v3 *{box-sizing:border-box}
+.sku-v3 a{color:var(--accent);text-decoration:none}
+.sku-v3 a:hover{text-decoration:underline}
+
+.sku-v3 .container{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+.sku-v3 .breadcrumb{padding:14px 0;font-size:13px;color:var(--text-3)}
+.sku-v3 .breadcrumb a{color:var(--text-3)}
+.sku-v3 .breadcrumb a:hover{color:var(--accent)}
+.sku-v3 .breadcrumb span{margin:0 6px}
+
+.sku-v3 .page-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:24px;align-items:start;padding:28px 0 36px}
+.sku-v3 .hero-left{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px 32px;grid-column:1}
+.sku-v3 .mfr{font-size:13px;font-weight:600;color:var(--text-3);letter-spacing:.04em;text-transform:uppercase;margin:0 0 10px}
+.sku-v3 .mfr a{color:var(--text-2)}
+.sku-v3 .mpn{font-family:var(--mono);font-size:38px;font-weight:700;letter-spacing:-.02em;line-height:1.05;margin:0 0 12px;word-break:break-all;color:var(--text)}
+.sku-v3 .type{font-size:17px;color:var(--text-2);margin:0 0 22px}
+.sku-v3 .id-list{border-top:1px solid var(--border);padding-top:18px}
+.sku-v3 .id-row{display:flex;align-items:baseline;padding:8px 0;border-bottom:1px solid #f3f4f6;gap:12px}
+.sku-v3 .id-row:last-child{border-bottom:none}
+.sku-v3 .id-label{width:130px;flex-shrink:0;font-size:13px;color:var(--text-3);text-transform:capitalize}
+.sku-v3 .id-value{font-size:14px;color:var(--text);font-weight:500}
+.sku-v3 .id-value a{font-weight:500}
+.sku-v3 .id-value a::after{content:" ↧";font-size:12px}
+.sku-v3 .hero-desc{margin:18px 0 0;font-size:14px;color:var(--text-2);line-height:1.55}
+
+.sku-v3 .rfq-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px;grid-column:2;grid-row:1 / span 3;position:sticky;top:100px;align-self:start}
+.sku-v3 .rfq-card h3{font-size:16px;font-weight:700;margin:0 0 4px;color:var(--text)}
+.sku-v3 .rfq-card p{font-size:13px;color:var(--text-3);margin:0 0 16px}
+.sku-v3 .rfq-form{margin:0}
+.sku-v3 .rfq-field{margin-bottom:12px}
+.sku-v3 .rfq-field label{display:block;font-size:12px;color:var(--text-3);margin-bottom:4px}
+.sku-v3 .rfq-field input,.sku-v3 .rfq-field textarea{width:100%;padding:9px 11px;border:1px solid var(--border);border-radius:6px;font-size:14px;font-family:inherit;background:#fff;color:var(--text)}
+.sku-v3 .rfq-field textarea{min-height:60px;resize:vertical}
+.sku-v3 .rfq-btn{width:100%;padding:12px;border:none;border-radius:8px;background:var(--accent);color:#fff;font-size:15px;font-weight:600;cursor:pointer;margin-top:4px}
+.sku-v3 .rfq-btn:hover{background:var(--accent-2)}
+
+.sku-v3 .tab-wrap{grid-column:1;margin-top:0}
+.sku-v3 .tab-nav{display:flex;gap:8px;background:var(--surface);padding:0 24px;border:1px solid var(--border);border-radius:var(--radius);overflow-x:auto;position:sticky;top:84px;z-index:10;box-shadow:0 1px 0 rgba(0,0,0,.04)}
+.sku-v3 .tab-btn{display:inline-block;padding:14px 18px;font-size:14px;font-weight:600;color:var(--text-3);background:transparent;border:none;text-decoration:none;white-space:nowrap;cursor:pointer}
+.sku-v3 .tab-btn:hover{color:var(--accent);text-decoration:none}
+.sku-v3 .tab-btn.active{color:var(--accent);background:rgba(10,132,255,.1);border-radius:999px}
+.sku-v3 .tab-panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px 28px 28px;margin-top:16px;scroll-margin-top:150px}
+
+.sku-v3 .section-title{font-size:18px;font-weight:700;margin:0 0 18px;color:var(--text)}
+.sku-v3 .spec-group{margin-bottom:22px}
+.sku-v3 .spec-group-title{font-size:12px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em;margin:0 0 8px;padding-bottom:6px;border-bottom:1px solid #f3f4f6}
+.sku-v3 .spec-table{width:100%;border-collapse:collapse;font-size:14px}
+.sku-v3 .spec-table tr{border-bottom:1px solid #f3f4f6}
+.sku-v3 .spec-table th,.sku-v3 .spec-table td{padding:10px 8px;text-align:left;vertical-align:top}
+.sku-v3 .spec-table th{width:240px;font-weight:500;color:var(--text-3);padding-left:0}
+.sku-v3 .spec-table td{font-weight:600;color:var(--text);font-family:var(--mono);padding-right:0;word-break:break-word}
+.sku-v3 .spec-table td span.unit{font-weight:400;color:var(--text-2);margin-left:3px;font-family:var(--font)}
+
+.sku-v3 .faq-item{padding:14px 0;border-bottom:1px solid #f3f4f6}
+.sku-v3 .faq-item:last-child{border-bottom:none}
+.sku-v3 .faq-q{font-weight:600;font-size:14px;margin:0 0 4px;color:var(--text)}
+.sku-v3 .faq-a{font-size:14px;color:var(--text-2);margin:0;line-height:1.55}
+.sku-v3 .app-list{margin:0;padding-left:20px}
+.sku-v3 .app-list li{font-size:14px;color:var(--text-2);padding:5px 0}
+
+.sku-v3 .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.sku-v3 .related-card{border:1px solid var(--border);border-radius:8px;padding:14px}
+.sku-v3 .related-card a{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--text)}
+.sku-v3 .related-card .meta{font-size:12px;color:var(--text-3);margin-top:4px}
+
+.sku-v3 .sourcing{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px 28px;grid-column:1;margin-top:0}
+.sku-v3 .sourcing h2{font-size:18px;font-weight:700;margin:0 0 10px;color:var(--text)}
+.sku-v3 .sourcing p{font-size:14px;color:var(--text-2);margin:0;line-height:1.65}
+
+.sku-v3 .doc-acc{border:1px solid var(--border);border-radius:8px;margin-bottom:12px;overflow:hidden}
+.sku-v3 .doc-acc:last-child{margin-bottom:0}
+.sku-v3 .doc-acc summary{list-style:none;cursor:pointer;padding:14px 16px;font-size:14px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px;background:#fafbfc}
+.sku-v3 .doc-acc summary::-webkit-details-marker{display:none}
+.sku-v3 .doc-acc summary .doc-tag{margin-left:auto;font-size:11px;font-weight:600;color:var(--accent);background:rgba(10,132,255,.1);padding:2px 8px;border-radius:999px}
+.sku-v3 .doc-acc summary .doc-ico{font-size:15px}
+.sku-v3 .doc-acc-body{padding:16px;border-top:1px solid var(--border)}
+.sku-v3 .doc-visual{flex:1;border:1px dashed var(--border-2);border-radius:8px;min-height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--text-3);text-align:center}
+.sku-v3 .doc-visual .pkg{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--text);margin-top:12px}
+.sku-v3 .doc-visual .pkg-sub{font-size:12px;margin-top:4px}
+.sku-v3 .doc-dl{display:inline-block;margin-top:14px;padding:10px 16px;border-radius:8px;background:var(--accent);color:#fff;font-size:14px;font-weight:600}
+.sku-v3 .doc-dl:hover{background:var(--accent-2);text-decoration:none}
+.sku-v3 .doc-note{margin:0;font-size:13px;color:var(--text-3)}
+
+@media (max-width:900px){
+  .sku-v3 .page-grid{grid-template-columns:1fr}
+  .sku-v3 .rfq-card{position:static;grid-row:auto;grid-column:auto;align-self:auto;top:auto}
+  .sku-v3 .sourcing{margin-top:18px}
+}
+@media (max-width:760px){
+  .sku-v3 .tab-nav{overflow-x:auto;white-space:nowrap}
+}
+@media (max-width:640px){
+  .sku-v3 .container{padding:0 16px}
+  .sku-v3 .mpn{font-size:30px}
+  .sku-v3 .hero-left,.sku-v3 .rfq-card,.sku-v3 .tab-panel{padding:20px}
+  .sku-v3 .spec-table th{display:block;width:auto;padding:6px 0 2px;color:var(--text-3)}
+  .sku-v3 .spec-table td{display:block;padding:0 0 10px;font-family:var(--font);word-break:break-word}
+  .sku-v3 .id-row{flex-direction:column;gap:2px}
+  .sku-v3 .id-label{width:auto}
+}
