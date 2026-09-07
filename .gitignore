@@ -78,3 +78,7 @@ assets/parts/
 *.7z
 
 .vercel
+
+# --- Phase 3.1 derived read-only slug map (regenerable from parts.json via
+#     _phase3_1_apply_test/derive_slug_map.py; NOT hand-edited, NOT deployed) ---
+enrich_slug_map.json
