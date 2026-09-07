@@ -1262,22 +1262,93 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
         f"electronics supply chain — send your quantity and target price for a quotation.</p>"
     )
 
-    # RFQ card (business logic -> /request-a-quote/; no Buy Now / Add to Cart)
-    rfq_href = (f"/request-a-quote/?pn={urlquote(pn)}&mfr={urlquote(mfr)}"
-                f"&cat={urlquote(cat)}&source=product&rfq_type=sku_quote")
-    rfq_card = f"""
+    # RFQ card — SKU Inline RFQ Standard v1 (form -> FormSubmit.co; optional attachment <=10MB)
+    # No Buy Now / Add to Cart. Standalone /request-a-quote/ retained for BOM / multi-part sourcing.
+    # Aligned with products/stm32f103c8t6/index.html (reference implementation, validated 72/72).
+    rfq_standalone_href = (f"/request-a-quote/?pn={urlquote(pn)}&mfr={urlquote(mfr)}"
+                           f"&cat={urlquote(cat)}&source=product&rfq_type=sku_quote")
+    rfq_card = """
       <aside class="rfq-card" id="rfq-card">
         <h3>Request a Quote</h3>
         <p>Tell us your quantity, target price, and delivery requirements. We source from Shenzhen and reply within 1 business day.</p>
-        <div class="rfq-form">
-          <div class="rfq-field"><label>Part Number</label><input type="text" value="{esc(pn)}" readonly></div>
-          <div class="rfq-field"><label>Quantity</label><input type="text" placeholder="e.g. 1,000"></div>
-          <div class="rfq-field"><label>Target Price</label><input type="text" placeholder="USD / piece"></div>
-          <div class="rfq-field"><label>Email</label><input type="email" placeholder="your@email.com"></div>
-          <div class="rfq-field"><label>Requirements</label><textarea placeholder="e.g. Original/New, EOL, specific package, certification requirements"></textarea></div>
+
+        <div class="form-success" id="formSuccess">
+          <h3>Thank you. Your RFQ has been received.</h3>
+          <p>Our sourcing team will review your requirements and contact you shortly.</p>
         </div>
-        <a class="rfq-btn" href="{rfq_href}" data-zh="获取报价">Request a Quote</a>
+
+        <form id="quote-form" action="https://formsubmit.co/sales@szprocure.com" method="POST" enctype="multipart/form-data" novalidate>
+          <input type="hidden" name="_subject" value="New SKU RFQ — SZ Procure" />
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <input type="hidden" name="category" id="rfq_category" value="[[CAT]]" />
+          <input type="hidden" name="source_url" id="source_url" />
+          <input type="hidden" name="rfq_type" id="rfq_type" value="sku_quote" />
+          <input type="hidden" name="manufacturer" id="rfq_manufacturer" value="[[MFR]]" />
+          <input type="hidden" name="country_source" id="country_source" />
+          <input type="hidden" name="referrer" id="referrer" />
+          <input type="hidden" name="submitted_at" id="submitted_at" />
+          <input type="hidden" name="requirement_type" id="requirement_type" />
+
+          <div class="rfq-form">
+            <div class="rfq-field"><label for="part_number">Part Number</label><input id="part_number" name="part_number" type="text" value="[[PN]]" readonly></div>
+            <div class="rfq-field"><label for="quantity">Quantity <span class="req">*</span></label><input id="quantity" name="quantity" type="number" min="1" step="1" required placeholder="e.g. 1,000"></div>
+            <div class="rfq-field"><label for="target_price">Target Price</label><input id="target_price" name="target_price" type="text" placeholder="USD / piece"></div>
+            <div class="rfq-field"><label for="email">Business Email <span class="req">*</span></label><input id="email" name="email" type="email" required placeholder="your@email.com"><div class="form-error" id="formError"></div></div>
+            <div class="rfq-field"><label for="requirements">Requirements</label><textarea id="requirements" name="requirements" placeholder="e.g. Original/New, EOL, specific package, certification requirements"></textarea></div>
+            <div class="rfq-field"><label for="attachment">Attachment <span style="font-weight:400;color:#6b7280">(optional)</span></label><input id="attachment" name="attachment" type="file" accept=".pdf,.xls,.xlsx,.csv,.jpg,.jpeg,.png,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv,image/jpeg,image/png"><p style="font-size:.8rem;color:#6b7280;margin:.3rem 0 0">PDF, Excel, CSV, JPG, PNG &mdash; max 10MB</p><div class="form-error" id="formFileError"></div></div>
+          </div>
+
+          <div class="form-error" id="formSubmitError"></div>
+          <button class="rfq-btn" type="submit">Request a Quote</button>
+        </form>
+
+        <p class="rfq-more"><a href="[[STANDALONE]]">Need to quote multiple parts or upload a BOM? &rarr;</a></p>
+      <script>
+      (function(){
+        var form = document.getElementById("quote-form");
+        if(!form) return;
+        var fileInput = form.querySelector('input[type="file"][name="attachment"]');
+        var fileErr = document.getElementById("formFileError");
+        if(!fileInput || !fileErr) return;
+        var MAX = 10 * 1024 * 1024;
+        var ALLOWED_EXT = ["pdf","xls","xlsx","csv","jpg","jpeg","png"];
+        var ALLOWED_MIME = ["application/pdf","application/vnd.ms-excel","application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","text/csv","image/jpeg","image/png"];
+        function fileValid(){
+          fileErr.style.display = "none";
+          fileErr.textContent = "";
+          if(!fileInput.files || !fileInput.files.length) return true;
+          var f = fileInput.files[0];
+          var ext = (f.name.split(".").pop() || "").toLowerCase();
+          var okType = (ALLOWED_EXT.indexOf(ext) !== -1) || (f.type && ALLOWED_MIME.indexOf(f.type) !== -1);
+          if(!okType){
+            fileErr.textContent = "Unsupported file type. Allowed: PDF, Excel, CSV, JPG, PNG (max 10MB).";
+            fileErr.style.display = "block";
+            return false;
+          }
+          if(f.size > MAX){
+            fileErr.textContent = "File is too large. Maximum size is 10MB.";
+            fileErr.style.display = "block";
+            return false;
+          }
+          return true;
+        }
+        fileInput.addEventListener("change", fileValid);
+        form.addEventListener("submit", function(e){
+          if(!fileValid()){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            if(fileInput) fileInput.focus();
+          }
+        }, true);
+      })();
+      </script>
       </aside>"""
+    rfq_card = (rfq_card
+                .replace("[[CAT]]", esc(cat))
+                .replace("[[MFR]]", esc(mfr))
+                .replace("[[PN]]", esc(pn))
+                .replace("[[STANDALONE]]", rfq_standalone_href))
 
     # breadcrumb (same items as V2)
     fine_slug = slugify_name(cat) if cat else ""

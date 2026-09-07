@@ -348,7 +348,7 @@
             if (/\.(xls|xlsx|csv)$/i.test(fEl.files[i].name)) { hasBom = true; break; }
           }
         }
-        if (hasBom) typeEl.value = "bom_quote";
+        if (hasBom && typeEl.value !== "sku_quote") typeEl.value = "bom_quote";
       }
 
       // 0a) System-collected tracking fields (not customer-entered)
@@ -427,6 +427,12 @@
       // 3) Submit to third-party endpoint (Formsubmit.co → sales@szprocure.com)
       if (btn) { btn.disabled = true; btn.dataset.label = btn.textContent; btn.textContent = (getLang() === "zh") ? "提交中…" : "Submitting…"; }
       var data = new FormData(form);
+      // Drop empty file inputs so they aren't transmitted as empty attachments
+      var _drop = [];
+      for (var _pair of data.entries()) {
+        if (_pair[1] && typeof _pair[1] === "object" && _pair[1].size === 0) _drop.push(_pair[0]);
+      }
+      _drop.forEach(function (k) { data.delete(k); });
       fetch(form.getAttribute("action"), {
         method: "POST",
         body: data,
