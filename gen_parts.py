@@ -1265,8 +1265,6 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
     # RFQ card — SKU Inline RFQ Standard v1 (form -> FormSubmit.co; optional attachment <=10MB)
     # No Buy Now / Add to Cart. Standalone /request-a-quote/ retained for BOM / multi-part sourcing.
     # Aligned with products/stm32f103c8t6/index.html (reference implementation, validated 72/72).
-    rfq_standalone_href = (f"/request-a-quote/?pn={urlquote(pn)}&mfr={urlquote(mfr)}"
-                           f"&cat={urlquote(cat)}&source=product&rfq_type=sku_quote")
     rfq_card = """
       <aside class="rfq-card" id="rfq-card">
         <h3>Request a Quote</h3>
@@ -1292,18 +1290,17 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
 
           <div class="rfq-form">
             <div class="rfq-field"><label for="part_number">Part Number</label><input id="part_number" name="part_number" type="text" value="[[PN]]" readonly></div>
-            <div class="rfq-field"><label for="quantity">Quantity <span class="req">*</span></label><input id="quantity" name="quantity" type="number" min="1" step="1" required placeholder="e.g. 1,000"></div>
+            <div class="rfq-field"><label for="quantity">Quantity</label><input id="quantity" name="quantity" type="number" min="1" step="1" placeholder="e.g. 1,000"></div>
             <div class="rfq-field"><label for="target_price">Target Price</label><input id="target_price" name="target_price" type="text" placeholder="USD / piece"></div>
-            <div class="rfq-field"><label for="email">Business Email <span class="req">*</span></label><input id="email" name="email" type="email" required placeholder="your@email.com"><div class="form-error" id="formError"></div></div>
+            <div class="rfq-field"><label for="email">Email <span class="req">*</span></label><input id="email" name="email" type="email" required placeholder="your@email.com"><div class="form-error" id="formError"></div></div>
             <div class="rfq-field"><label for="requirements">Requirements</label><textarea id="requirements" name="requirements" placeholder="e.g. Original/New, EOL, specific package, certification requirements"></textarea></div>
-            <div class="rfq-field"><label for="attachment">Attachment <span style="font-weight:400;color:#6b7280">(optional)</span></label><input id="attachment" name="attachment" type="file" accept=".pdf,.xls,.xlsx,.csv,.jpg,.jpeg,.png,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv,image/jpeg,image/png"><p style="font-size:.8rem;color:#6b7280;margin:.3rem 0 0">PDF, Excel, CSV, JPG, PNG &mdash; max 10MB</p><div class="form-error" id="formFileError"></div></div>
+            <div class="rfq-field"><label for="attachment">Attachment <span style="font-weight:400;color:#6b7280">(optional)</span></label><span class="file-pick" style="display:inline-block;margin:.2rem 0"><label for="attachment" class="rfq-file-btn" style="display:inline-block;padding:.45rem .9rem;border:1px solid #c7cdd6;border-radius:8px;background:#f3f4f6;color:#1f2937;cursor:pointer;font-size:.9rem">Choose File</label><span id="attachment-name" style="margin-left:.5rem;color:#6b7280;font-size:.85rem">No file chosen</span></span><input id="attachment" name="attachment" type="file" accept=".pdf,.xls,.xlsx,.csv,.jpg,.jpeg,.png,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv,image/jpeg,image/png" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0"><p style="font-size:.8rem;color:#6b7280;margin:.3rem 0 0">PDF, Excel, CSV, JPG, PNG &mdash; max 10MB</p><div class="form-error" id="formFileError"></div></div>
           </div>
 
           <div class="form-error" id="formSubmitError"></div>
           <button class="rfq-btn" type="submit">Request a Quote</button>
         </form>
 
-        <p class="rfq-more"><a href="[[STANDALONE]]">Need to quote multiple parts or upload a BOM? &rarr;</a></p>
       <script>
       (function(){
         var form = document.getElementById("quote-form");
@@ -1333,7 +1330,11 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
           }
           return true;
         }
-        fileInput.addEventListener("change", fileValid);
+        fileInput.addEventListener("change", function(){
+          var nm = document.getElementById("attachment-name");
+          if (nm) nm.textContent = (fileInput.files && fileInput.files.length) ? fileInput.files[0].name : "No file chosen";
+          fileValid();
+        });
         form.addEventListener("submit", function(e){
           if(!fileValid()){
             e.preventDefault();
@@ -1347,8 +1348,7 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
     rfq_card = (rfq_card
                 .replace("[[CAT]]", esc(cat))
                 .replace("[[MFR]]", esc(mfr))
-                .replace("[[PN]]", esc(pn))
-                .replace("[[STANDALONE]]", rfq_standalone_href))
+                .replace("[[PN]]", esc(pn)))
 
     # breadcrumb (same items as V2)
     fine_slug = slugify_name(cat) if cat else ""
