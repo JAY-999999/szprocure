@@ -1430,7 +1430,7 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
 </head>
 <body>
   <div id="site-header"></div>
-  <main class="sku-v3">
+  <main class="sku-v3"{main_attrs}>
     <nav class="breadcrumb"><div class="container">
       <a href="/">Home</a> ›
       <a href="/components/">Components</a> ›
