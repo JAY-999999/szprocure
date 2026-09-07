@@ -62,7 +62,7 @@
       "name": "What is AO3400A used for",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "AO3400A is an N-channel MOSFET (30 V, 5.7 A, 48 m\u03a9 RDS(on)) in SOT-23, commonly used for load switching and DC-DC conversion."
+        "text": "AO3400A is an N-channel MOSFET (30 V, 5.8 A, 17 typ / 27 max m\u03a9 RDS(on) @ VGS=10V) in SOT-23, commonly used for load switching and DC-DC conversion."
       }
     },
     {
@@ -124,7 +124,7 @@
         <div class="id-list">
 <div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/alpha-omega-semiconductor/">Alpha &amp; Omega Semiconductor</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/semiconductor-components/">N-Channel MOSFET</a></div></div><div class="id-row"><div class="id-label">Package / Case</div><div class="id-value">SOT-23</div></div>
         </div>
-        <p class="hero-desc">Alpha &amp; Omega Semiconductor AO3400A - N-channel MOSFET, 30 V, 5.7 A, 48 mΩ RDS(on), SOT-23.</p>
+        <p class="hero-desc">Alpha &amp; Omega Semiconductor AO3400A - N-channel MOSFET, 30 V, 5.8 A, 17 typ / 27 max mΩ RDS(on) @ VGS=10V, SOT-23.</p>
       </div>
 
       
@@ -159,9 +159,11 @@
 
         <section id="specifications" class="tab-panel">
           <h2 class="section-title">Technical Specifications</h2>
-          <table class="spec-table">
+          
+  <!-- Specs override (PDF-verified, sha256:ccbfdb29368f...): Continuous Drain Current, RDS(on), Gate Threshold Voltage, Gate Charge; +Continuous Drain Current @ 70°C. Base=MASTER, Override=PDF. Source: _spec_override/AO3400A.override.json -->
+<table class="spec-table">
 <tbody>
-<tr><th>Drain-Source Voltage</th><td>30 V</td></tr><tr><th>Continuous Drain Current</th><td>5.7 A</td></tr><tr><th>RDS(on)</th><td>48 mΩ</td></tr><tr><th>Gate Threshold Voltage</th><td>1.45 V</td></tr><tr><th>Gate Charge</th><td>7</td></tr><tr><th>Package / Case</th><td>SOT-23</td></tr>          <tr><th>Gate-Source Voltage (VGS)</th><td>+/- 12</td></tr>
+<tr><th>Drain-Source Voltage</th><td>30 V</td></tr><tr><th>Continuous Drain Current</th><td>5.8 A @ 25°C</td></tr><tr><th>Continuous Drain Current @ 70°C</th><td>4.9 A</td></tr><tr><th>RDS(on)</th><td>17 typ / 27 max mΩ @ VGS=10V</td></tr><tr><th>Gate Threshold Voltage</th><td>0.7–1.4 V</td></tr><tr><th>Gate Charge</th><td>9.7 typ / 12 max nC</td></tr><tr><th>Package / Case</th><td>SOT-23</td></tr>          <tr><th>Gate-Source Voltage (VGS)</th><td>+/- 12</td></tr>
           <tr><th>Power Dissipation (PD)</th><td>1.4 at TA=25C; 1 at TA=70C</td></tr>
 </tbody>
 </table>
@@ -190,7 +192,7 @@
 
         <section id="faq" class="tab-panel">
   <h2 class="section-title">Frequently Asked Questions</h2>
-  <div class="faq-item"><h3>What is AO3400A used for</h3><p>AO3400A is an N-channel MOSFET (30 V, 5.7 A, 48 mΩ RDS(on)) in SOT-23, commonly used for load switching and DC-DC conversion.</p></div>
+  <div class="faq-item"><h3>What is AO3400A used for</h3><p>AO3400A is an N-channel MOSFET (30 V, 5.8 A, 17 typ / 27 max mΩ RDS(on) @ VGS=10V) in SOT-23, commonly used for load switching and DC-DC conversion.</p></div>
           <div class="faq-item"><h3>What is the maximum continuous drain current of the AO3400A?</h3><p>5.8 A at 25 degC ambient (4.9 A at 70 degC), per the Absolute Maximum Ratings table.</p></div>
           <div class="faq-item"><h3>What gate drive voltage is required to turn it on?</h3><p>It can operate with gate voltage as low as 2.5 V; RDS(ON) is rated at VGS = 4.5 V and 10 V. Gate threshold is 0.7-1.4 V.</p></div>
           <div class="faq-item"><h3>What package does the AO3400A come in?</h3><p>SOT-23 (order code &#x27;UMW AO3400A&#x27;, 3000 pcs tape-and-reel).</p></div>
