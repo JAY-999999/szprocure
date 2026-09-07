@@ -252,18 +252,13 @@ def parse_faq(raw, pn=""):
                 q_part, a_part = chunk.split("?", 1)
                 a_part = a_part.split("A:", 1)[1] if "A:" in a_part else a_part
                 pairs.append((q_part.strip(), a_part.strip()))
-    if not pairs:
-        pn_disp = pn or "this part"
-        pairs = [
-            (f"Where can I buy {pn_disp} from China?",
-             f"SZ Procure helps overseas buyers source {pn_disp} from Shenzhen electronics suppliers. Send the part number and quantity for a quote."),
-            (f"Can SZ Procure supply hard-to-find {pn_disp}?",
-             f"Yes. We support shortage and end-of-life components through our Shenzhen supplier network. Tell us your requirement."),
-        ]
+    # P1-2: show ONLY real SKU-specific FAQ. No generic fallback. Hide section if none.
     return pairs
 
 def render_faq(pairs, pn):
-    """Return (html_block, FAQ JSON-LD script)."""
+    """Return (html_block, FAQ JSON-LD script). Empty when no real FAQ pairs."""
+    if not pairs:
+        return "", ""
     items_html = ""
     ld_items = []
     for i, (q, a) in enumerate(pairs, 1):
@@ -730,22 +725,21 @@ def gen_part_page(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
         # Real attributes only (English) — capped, never invented/placeholder values.
         all_spec_pairs = spec_pairs_en[:12]
         specs_table = "".join(
-            f"<tr><th>{esc(k)}</th><td>{esc(v)}</td></tr>" for k, v in all_spec_pairs
+            f"<tr><th>{esc(human_attr_label(k))}</th><td>{esc(format_attr_value(k, v))}</td></tr>"
+            for k, v in all_spec_pairs
         )
         specs_html = f'<table class="spec-table">\n<tbody>\n{specs_table}</tbody>\n</table>'
 
     # 1. Key Information table — lean, no stock/inventory wording
     qi_rows = []
     qi_rows.append(("Manufacturer", f'<a href="/manufacturers/{mfr_slug}/">{esc(mfr)}</a> <span class="muted small">Verified sourcing partner</span>'))
-    qi_rows.append(("Category", f'<a href="/components/{cat_slug}/">{esc(cat_top)}</a>'))
-    if subcat and subcat.lower() != cat.lower():
-        qi_rows.append(("Type", esc(subcat)))
+    qi_rows.append(("Part Number", esc(pn)))
+    qi_rows.append(("Product Type", f'<a href="/components/{cat_slug}/">{esc(subcat or cat_top)}</a>'))
     for k, v in spec_pairs_en:
         if k.lower() in ("package", "core"):
-            qi_rows.append((k, esc(v)))
-    # Supply field uses procurement language, never "stock"
-    qi_rows.append(("Sourcing Availability", "Verified supplier network"))
-    qi_rows.append(("Procurement Support", "Quote by quantity &amp; target price"))
+            qi_rows.append((human_attr_label(k), esc(format_attr_value(k, v))))
+    if dsheet:
+        qi_rows.append(("Datasheet", f'<a href="{esc(dsheet)}" target="_blank" rel="nofollow noopener">{esc(pn)} Datasheet (PDF) ↧</a>'))
     quick_info = "".join(f"<tr><th>{esc(k)}</th><td>{v}</td></tr>" for k, v in qi_rows)
 
     # Alternative Parts links: point to the real SKU page when it exists,
@@ -760,23 +754,49 @@ def gen_part_page(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
             alts_html_items.append(
                 f'<li><a href="/request-a-quote/?pn={esc(a)}" class="alt-link">{esc(a)} '
                 f'<span class="muted">(request quote)</span></a></li>')
-    alts_html = "".join(alts_html_items) or \
-        "<li>No direct alternates listed — contact us for cross-reference.</li>"
+    alts_html = "".join(alts_html_items)
+    if alts_html:
+        NL = chr(10)
+        alt_section_html = (
+            "<h2>Alternative Parts</h2>" + NL +
+            f"<p>Common <strong>{esc(pn)} alternatives</strong> overseas buyers search for:</p>" + NL +
+            f'<ul class="alt-list">{alts_html}</ul>' + NL +
+            f'<p class="muted small">Looking for "{esc(pn)} alternative"? Tell us your requirement in the quote form.</p>'
+        )
+    else:
+        alt_section_html = ""
     apps_html = "".join(f"<li>{esc(x)}</li>" for x in apps_list) or "<li>—</li>"
+    # P0-3: Common Applications block — render ONLY when REAL applications data
+    # exists in the source master. PDF/CSV has it -> show it; has nothing -> show
+    # nothing (honest degradation, never a placeholder "—" / "N/A" block).
+    if apps_list:
+        apps_items = "".join(f"<li>{esc(x)}</li>" for x in apps_list)
+        apps_section = (
+            '<section class="section apps-section">\n'
+            '  <div class="container">\n'
+            '    <h2>Common Applications</h2>\n'
+            f'    <ul class="alt-list">{apps_items}</ul>\n'
+            '  </div>\n'
+            '</section>'
+        )
+    else:
+        apps_section = ""
 
-    # 4. Sourcing Information — FIXED template (our sourcing moat, no Shenzhen drift)
-    sourcing_html = f"""<p>SZ Procure is a sourcing partner for <strong>{esc(pn)}</strong> — not a stock catalog. We help global buyers access China's electronics supply chain for original components.</p>
-      <dl class="sourcing-facts">
-        <div><dt>Availability</dt><dd>Sourced through our verified supply network</dd></div>
-        <div><dt>MOQ</dt><dd>Flexible MOQ depending on part availability</dd></div>
-        <div><dt>Lead Time</dt><dd>Typical 3-15 working days</dd></div>
-        <div><dt>Authenticity</dt><dd>Original components from verified supply channels</dd></div>
-        <div><dt>Support</dt><dd>Global procurement and shipping support</dd></div>
-      </dl>
-      <p>Send your quantity and target price for a quotation.</p>"""
+    # 4. Sourcing Information — minimal, restrained service note (P0-4).
+    # No long marketing copy; no invented stock / availability / authorized-agent /
+    # lowest-price claims. PDF/CSV drives everything; nothing is fabricated.
+    sourcing_html = (
+        f"<p>SZ Procure is a sourcing partner for <strong>{esc(pn)}</strong>, not a stock "
+        f"catalog. We help international buyers source original components from the China "
+        f"electronics supply chain — send your quantity and target price for a quotation.</p>"
+    )
 
     # FAQ block + FAQ schema
     faq_html, faq_jsonld = render_faq(faq_pairs, pn)
+    if faq_html:
+        faq_section_html = "<h2>Frequently Asked Questions</h2>" + chr(10) + faq_html
+    else:
+        faq_section_html = ""
 
     # Related Products (same top-category) — internal links form a product web.
     if related:
@@ -860,8 +880,9 @@ def gen_part_page(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
     "@type": "Product",
     "name": "{esc(pn)}",
     "model": "{esc(pn)}",
+    "mpn": "{esc(pn)}",
     "category": "{esc(cat_top)}",
-    "brand": {{ "@type": "Brand", "name": "{esc(mfr)}" }},
+    "brand": {{ "@type": "Brand", "name": "{esc(mfr)}", "@id": "https://www.szprocure.com/#szprocure-org" }},
     "description": "{esc(schema_overview)}",
     "url": "{url}"{(", \"alternatePart\": [" + alt_ld + "]") if alt_ld else ""}
   }}
@@ -903,12 +924,6 @@ def gen_part_page(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
             <a class="btn btn-outline" href="https://wa.me/8613530888389?text=Hi%20SZ%20Procure,%20I%20need%20{esc(pn)}">WhatsApp</a>
             <a class="link-cta" href="mailto:sales@szprocure.com?subject=Quote%20for%20{esc(pn)}">Email</a>
           </div>
-          <div class="trust-bar sku-trust">
-            <span><b>✓</b> Verified sourcing network</span>
-            <span><b>✓</b> Hard-to-find &amp; EOL support</span>
-            <span><b>✓</b> Small-batch sourcing</span>
-            <span><b>✓</b> China supply ecosystem</span>
-          </div>
         </div>
         <aside class="part-head-aside">
           <div class="card key-info">
@@ -918,33 +933,6 @@ def gen_part_page(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
             </tbody></table>
           </div>
         </aside>
-      </div>
-    </section>
-
-    <!-- Why source from SZ Procure (above the fold, procurement-first) -->
-    <section class="section sku-why">
-      <div class="container">
-        <div class="section-head">
-          <div class="eyebrow">Why source from SZ Procure</div>
-          <h2>More than a parts catalog</h2>
-        </div>
-        <div class="cap-grid">
-          <div class="cap-card">
-            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div>
-            <h3>Hard-to-Find &amp; EOL</h3>
-            <p>Obsolete and hard-to-source parts other distributors can't supply — sourced through China's electronics ecosystem.</p>
-          </div>
-          <div class="cap-card">
-            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg></div>
-            <h3>Flexible MOQ</h3>
-            <p>Small-batch and prototype quantities supported, not just volume orders.</p>
-          </div>
-          <div class="cap-card">
-            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
-            <h3>Verified Network</h3>
-            <p>Original components from verified supply channels, with documentation on request.</p>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -972,22 +960,18 @@ def gen_part_page(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
           <h2>Technical Specifications</h2>
           {specs_html}
 
+          {apps_section}
+
           <!-- 4. Sourcing Information (the moat) -->
           <h2>Sourcing Information</h2>
           {sourcing_html}
 
-          <!-- 5. Alternative Parts (SEO long-tail) -->
-          <h2>Alternative Parts</h2>
-          <p>Common <strong>{esc(pn)} alternatives</strong> overseas buyers search for:</p>
-          <ul class="alt-list">{alts_html}</ul>
-          <p class="muted small">Looking for "{esc(pn)} alternative"? Tell us your requirement in the quote form.</p>
+          {alt_section_html}
 
           <!-- 5b. Related Products (same-category spider-web) -->
           {related_html}
 
-          <!-- 6. FAQ (SEO + conversion) -->
-          <h2>Frequently Asked Questions</h2>
-          {faq_html}
+          {faq_section_html}
           {ref_block}
         </div>
 
@@ -1028,8 +1012,371 @@ def gen_part_page(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
 </body>
 </html>"""
 
+
 # ==============================================================================
-# MANUFACTURER PAGE
+# PART PAGE — V3 (ADDITIVE renderer; visual-only change, data/SEO unchanged)
+# ==============================================================================
+# V3 is an ADDITIVE renderer that reuses the SAME SEO head, schema, breadcrumb,
+# global header/footer shell and RFQ business logic as V2 (gen_part_page). Only
+# the SKU content area + layout differ (left hero + right sticky RFQ + sticky
+# scroll-spy tabs). It renders ONLY real MASTER data — no fabricated/inferred
+# specs, no price/stock/lead-time, no N/A. Route: any MPN in V3_MPNS renders via
+# this function; every other SKU keeps the V2 renderer. V2 is NEVER deleted.
+# V3 styles come from assets/sku-v3.css (scoped to .sku-v3), linked externally.
+V3_MPNS = {"1.0-4PWB", "1909763-1", "1N4148W", "1N4148W-7-F", "1N4148WS", "1N5819HW-7-F", "1N5819WS", "2.54-1*40L=15MM", "2.54-1*40P", "2.54-1*4P", "2.54-1X6P", "2N7002", "2N7002,215", "2N7002K-T1-GE3", "2N7002LT1G", "59170-1-S-00-D", "74HC14D,653", "74HC165D,653", "74HC595D,118", "ACS712ELCTR-20A-T", "AD623ARZ-R7", "AD7192BRUZ-REEL", "AD8605ARTZ-REEL7", "ADG719BRTZ-REEL7", "ADM2582EBRWZ-REEL7", "ADM2587EBRWZ-REEL7", "ADM3251EARWZ-REEL", "ADS1015IDGSR", "ADS1115IDGSR", "ADS1115IDGST", "ADS1220IPWR", "ADUM1201ARZ-RL7", "ADUM1201BRZ-RL7", "ADUM1250ARZ-RL7", "ADUM3160BRWZ-RL", "ADUM4160BRWZ-RL", "ADXL345BCCZ-RL7", "AHT20", "AMS1117-3.3", "AMS1117-5.0", "AO3400A", "AO3401A", "AO3407A", "AO4407A", "AP2112K-3.3TRG1", "AP3012KTR-G1", "AP63203WU-7", "AP63205WU-7", "AP64350SP-13", "AS5047P-ATSM", "AS5600-ASOT", "AT24C02C-SSHM-T", "AT32F415CBT7", "AT7456E", "ATMEGA1284P-AU", "ATMEGA128A-AU", "ATMEGA2560-16AU", "ATMEGA328P-AU", "ATMEGA328P-MU", "ATMEGA328P-PU", "ATMEGA328PB-AU", "ATMEGA32A-AU", "ATMEGA64A-AU", "ATMEGA88PA-AU", "ATSAMD21G18A-AU", "ATTINY1616-MNR", "ATXMEGA64A3U-AU", "B0505S-1WR3", "B1212S-1WR3", "B2B-PH-K-S(LF)(SN)", "B2B-XH-A(LF)(SN)", "B2P-VH(LF)(SN)", "B340A-13-F", "B3B-PH-K-S(LF)(SN)", "B3B-XH-A(LF)(SN)", "B4B-PH-K-S(LF)(SN)", "B4B-XH-A(LF)(SN)", "B560C-13-F", "B5B-XH-A(LF)(SN)", "B6B-PH-K-S(LF)(SN)", "B6B-XH-A(LF)(SN)", "BAS16J,115", "BAS316,115", "BAS516,115", "BAT46WJ,115", "BAT54,215", "BAT54C,215", "BAT54S", "BAT54SLT1G", "BAV70,215", "BAV99,215", "BAV99LT1G", "BC817-40,215", "BLM15AG601SN1D", "BLM15PD121SN1D", "BLM15PX121SN1D", "BLM18AG102SN1D", "BLM18AG601SN1D", "BLM18EG221SN1D", "BLM18KG121TN1D", "BLM18KG601SN1D", "BLM18PG121SN1D", "BLM18PG471SN1D", "BLM18SG121TN1D", "BLM21AG102SN1D", "BLM21PG121SN1D", "BLM21PG221SN1D", "BLM21PG300SN1D", "BLM21PG331SN1D", "BLM31PG121SN1L", "BLM31PG601SN1L", "BM04B-SRSS-TB(LF)(SN)", "BME280", "BMI088", "BMI270", "BQ24075RGTR", "BQ25185DLHR", "BQ25798RQMR", "BSS123", "BSS138", "BSS138-7-F", "BSS138LT1G", "BSS84LT1G", "BWSMA-KWE-Z001", "CH32V103C8T6", "CH340C", "CL10B104KB8NNNC", "CLRC66303HNY", "CP2102-GMR", "CP2102N-A02-GQFN20R", "CP2102N-A02-GQFN28R", "CRCW0402100KFKED", "CRCW040210K0FKED", "CRCW06030000Z0EA", "CRCW060310K0FKEA", "CSD25402Q3A", "CUS10S30,H3F", "DFE252012F-1R0M=P2", "DFE252012P-1R0M=P2", "DLW21HN900SQ2L", "DM3AT-SF-PEJM5", "DP83848IVVX/NOPB", "DPS368XTSA1", "DRV2605LDGSR", "DRV8833PWPR", "DRV8874PWPR", "DS18B20+", "DS18B20U(UMW)", "DW01A", "ERJ2GE0R00X", "ESD5Z3.3T1G", "ESD5Z5.0T1G", "ESD9L5.0ST5G", "ESP-12F(ESP8266MOD)", "ESP32-C3-MINI-1-N4", "ESP32-C3FH4", "ESP32-S3-WROOM-1-N16R8", "ESP32-S3-WROOM-1-N8", "ESP32-S3-WROOM-1-N8R8", "ESP32-S3-WROOM-1U-N16R8", "ESP32-WROOM-32D-N4", "ESP32-WROOM-32E", "ESP32-WROOM-32E-N16", "ESP32-WROOM-32E-N4", "ESP32-WROOM-32E-N8", "ESP32-WROOM-32UE-N16", "FDV301N", "FRC0402F1002TS", "FRC0603F0000TS", "FRC0603F1000TS", "FRC0603F1001TS", "FRC0603F1002TS", "FRC0603F1003TS", "FRC0603F1004TS", "FRC0603F2002TS", "FRC0603F4701TS", "FRC0603F4702TS", "FRC0603F5101TS", "FRC0603J102 TS", "FRC0603J103 TS", "FRC0805F1001TS", "FRC0805F1002TS", "FRC0805F4701TS", "FS8205A", "FT232RL-REEL", "FT232RNQ-REEL", "FT234XD-R", "G5NB-1A-E-DC5V", "GCM155R71H104KE02D", "GCM188R71E105KA64D", "GCM21BR72A104KA37L", "GD25Q64ESIGR", "GD32F303RCT6", "GP2S+", "GRM035R60J475ME15D", "GRM1555C1H100JA01D", "GRM1555C1H101JA01D", "GRM1555C1H102JA01D", "GRM155R60J226ME11D", "GRM155R61E105KA12D", "GRM155R61H105KE05D", "GRM155R71H103KA88D", "GRM155R71H104KE14D", "GRM155Z71A105KE01D", "GRM1885C1H103JA01D", "GRM188C61E226ME01D", "GRM188R60J476ME15D", "GRM188R61A106KE69D", "GRM188R61A226ME15D", "GRM188R61E106KA73D", "GRM188R61E475KE11D", "GRM188R6YA106MA73D", "GRM188R71H104KA93D", "GRM188Z71A106KA73D", "GRM21BR60J107ME15L", "GRM21BR61A476ME15L", "GRM21BR61E106KA73L", "GRM21BR61H106KE43L", "GRM21BR6YA106KE43L", "GRM21BR71H105KA12L", "GRM21BZ71A226ME15L", "GRM21BZ71E106KE15L", "GRM31C5C1H104JA01L", "GRM31CC72A475KE11L", "GRM31CR61A107MEA8L", "GRM31CR61E476ME44L", "GRM31CR71E106KA12L", "GRM31CR71H475KA12L", "GRM32EC72A106KE05L", "GRM32ER61C476KE15L", "GRM32ER71E226KE15L", "GRM32ER71H106KA12L", "GT-USB-7010ASV", "HLK-PM01", "HR4988E", "HS96L03W2C03", "HX711", "INA180A1IDBVR", "INA180A2IDBVR", "INA219AIDCNR", "INA219AIDR", "INA226AIDGSR", "INA3221AIRGVR", "INA333AIDGKR", "IRF3205PBF", "IRF540NPBF", "IRF9540NPBF", "IRFB4110PBF", "IRFR5305TRPBF", "IRFZ44NPBF", "IRLML6344TRPBF", "IRLML6402TRPBF", "ISM330DHCXTR", "ISO1044BDR", "ISO1050DUBR", "ISO1540DR", "ISO3082DWR", "JSM6288Q", "KT-0603R", "L5973D013TR", "L7805CV", "L78L05ABUTR", "L78M05ABDT-TR", "L78M05CDT-TR", "LAN8720A-CP-TR", "LAN8720AI-CP-TR", "LAN8742A-CZ-TR", "LAN8742AI-CZ-TR", "LD1117S33CTR", "LD1117S33TR", "LDL1117S33R", "LIS2DH12TR", "LIS2DW12TR", "LIS3DHTR", "LIS3MDLTR", "LL4148-GS08", "LM1117IMPX-3.3/NOPB", "LM1117MPX-3.3/NOPB", "LM13700MX/NOPB", "LM2596SX-5.0/NOPB", "LM317AEMPX/NOPB", "LM317MDT-TR", "LM339DR", "LM358DR", "LM358DR2G", "LM358DT", "LM35DZ/NOPB", "LM393DR", "LM393DR2G", "LM5116MHX/NOPB", "LM5164DDAR", "LMV321IDBVR", "LP2985-33DBVR", "LP5907MFX-3.3/NOPB", "LPC1765FBD100K", "LPC1768FBD100K", "LPC824M201JHI33Y", "LSM303AGRTR", "LSM6DS3TR-C", "LSM6DSLTR", "LSM6DSOXTR", "LSM6DSRTR", "LSM6DSV16XTR", "LSM6DSVTR", "LT3045EDD#TRPBF", "LTC6811IG-1#3ZZTRPBF", "LTM4671EY#PBF", "MAX-M10S-00B", "MAX17048G+T10", "MAX31855KASA+T", "MAX31856MUD+T", "MAX31865AAP+T", "MAX31865ATP+T", "MAX3232CDR", "MAX3232EIPWR", "MAX6675ISA+T", "MAX98357AETE+T", "MBR0520LT1G", "MBR0540T1G", "MBRA340T3G", "MC33063ADR", "MCP1700T-3302E/TT", "MCP2551-I/SN", "MCP4725A0T-E/CH", "MCP6001T-I/OT", "MCP6002T-I/SN", "MCP73831T-2ACI/OT", "MCP9700AT-E/TT", "MFRC52202HN1,151", "MKL17Z64VFM4", "MSP430F149IPMR", "MSP430F247TPMR", "MT3608", "NCD0805G1", "NCD0805R1", "NCP1117ST33T3G", "NCP15XH103F03RC", "NCP18XH103F03RB", "NE5532DR", "NE555DR", "NE555P", "NUP2105LT1G", "OPA1612AIDR", "OPA1656IDR", "OPA197IDBVR", "P82B715DR", "PCA9306DCTR", "PCM5102APWR", "PE4312C-Z", "PESD0402-140", "PESD1CAN,215", "PESD2CAN,215", "PESD3V3S2UT,215", "PESD5Z3.3,115", "PIC16F1933-I/SS", "PMEG6010CEH,115", "PMEG6010CEJ,115", "PRTR5V0U2F,115", "PZ254V-11-02P", "PZ254V-11-03P", "PZ254V-11-04P", "Q13FC13500004", "RC0402FR-070RL", "RC0402FR-07100KL", "RC0402FR-0710KL", "RC0402FR-071KL", "RC0402FR-074K7L", "RC0402FR-075K1L", "RC0603FR-07100KL", "RC0603FR-0710KL", "RC0603FR-071KL", "RC0603FR-07330RL", "RC0603FR-074K7L", "RC0603JR-070RL", "RC0805FR-071KL", "REF3030AIDBZR", "REF3033AIDBZR", "RFX2401C", "RP2040", "RT0603BRD0710KL", "S4B-XH-A(LF)(SN)", "SC-32S32.768KHZ20PPM12.5PF", "SGT50T65FD1PN", "SI2301CDS-T1-GE3", "SI2302CDS-T1-GE3", "SK6812MINI-E", "SM02B-SRSS-TB(LF)(SN)", "SM06B-SRSS-TB(LF)(SN)", "SM08B-SRSS-TB(LF)(SN)", "SM4007PL", "SM712-02HTG", "SMAJ5.0A", "SN65HVD230DR", "SN65HVD232DR", "SN65HVD233DR", "SN65HVD75DR", "SN74HC14DR", "SN74HC595DR", "SN74LVC1G08DBVR", "SN74LVC1G14DBVR", "SN74LVC1G17DCKR", "SN74LVC1G3157DCKR", "SN74LVC1T45DBVR", "SN74LVC2G17DCKR", "SN74LVC2T45DCUR", "SN74LVC8T245PWR", "SN75176BDR", "SPX3819M5-L-3-3/TR", "SRD-05VDC-SL-C", "SRD-12VDC-SL-C", "SRV05-4.TCT", "SS14", "SS34", "SS54", "STM32F030C8T6", "STM32F030F4P6TR", "STM32F030K6T6", "STM32F072CBT6", "STM32F103C8T6", "STM32F103CBT6", "STM32F103RCT6", "STM32F103RET6", "STM32F401CCU6", "STM32F405RGT6", "STM32F407VET6", "STM32F407VGT6", "STM32F407ZGT6", "STM32F412RET6", "STM32F429IGT6", "STM32F446RCT6", "STM32F446RET6", "STM32F722RET6", "STM32G030F6P6TR", "STM32G031G8U6", "STM32G070CBT6", "STM32G070RBT6", "STM32G0B1CBT6", "STM32G431CBT6", "STM32G431KBU6", "STM32G474RET6", "STM32H723VGH6", "STM32H723VGT6", "STM32H723ZGT6", "STM32H743VIH6", "STM32H743VIT6", "STM32H743ZIT6", "STM32H750VBT6", "STM32L010F4P6", "STM8S003F3P6TR", "STM8S003K3T6CTR", "STM8S103K3T6CTR", "SWPA4030S100MT", "TCA9548APWR", "TF PUSH", "THVD1450DR", "TL072CDR", "TL431AIDBZR", "TLC555CDR", "TLP350(TP1,F)", "TLV3201AIDBVR", "TLV62569DBVR", "TLV75533PDBVR", "TLV75733PDBVR", "TLV76733DRVR", "TMC2209-LA-T", "TMC5160A-TA-T", "TMP102AIDRLR", "TMP117AIDRVR", "TMS320F28035PAGT", "TMS320F28069PZT", "TMS320F28335PGFA", "TP4056-42-ESOP8", "TPD1E10B06DPYR", "TPD4E05U06DQAR", "TPD4EUSB30DQAR", "TPL5010DDCR", "TPS2116DRLR", "TPS22810DRVR", "TPS22917DBVR", "TPS22918DBVR", "TPS22919DCKR", "TPS54202DDCR", "TPS54302DDCR", "TPS5430DDAR", "TPS54331DR", "TPS54360DDAR", "TPS54560DDAR", "TPS61023DRLR", "TPS62840DLCR", "TPS62933DRLR", "TPS63020DSJR", "TPS63070RNMR", "TPS631000DRLR", "TPS63802DLAR", "TPS63900DSKR", "TPS70933DBVR", "TPS7A2033PDBVR", "TPS7A4700RGWR", "TS-1088-AR02016", "TS-1187A-B-A-B", "TXB0102DCUR", "TXB0104PWR", "TXB0108PWR", "TXS0102DCTR", "TXS0102DCUR", "TXS0104EPWR", "TXS0108EPWR", "TYPE-C 16PIN 2MD(073)", "TYPE-C 6P(073)", "TYPE-C-31-M-12", "TYPE-C-31-M-31", "U.FL-R-SMT-1(10)", "U.FL-R-SMT-1(80)", "ULN2003ADR", "ULN2003D1013TR", "ULN2803CDWR", "USB2514BI-AEZG-TR", "USBLC6-2P6", "USBLC6-2SC6", "USBLC6-4SC6", "VL53L0CXV0DH/1", "VL53L1CXV0FY/1", "VL53L4CDV0DH/1", "W25N02KVZEIR", "W25Q128JVEIQ TR", "W25Q128JVPIM TR", "W25Q128JVSIQ", "W25Q16JVSNIQ", "W25Q16JVSSIQ", "W25Q32JVSSIQ", "W25Q64JVSSIQ", "W25Q80DVSNIG TR", "W5500", "WS2812B-B/W", "WS2812B-V5/W", "X322512MSB4SI", "X322516MLB4SI", "X322516MRB4SI", "X322525MOB4SI", "X32258MOB4SI", "XC6206P332MR-G", "XL-1608SURC-06", "XL-1608UBC-04", "XL-1608UGC-04", "XL-2012SURC", "XL-2012UGC", "YLED0603B", "YLED0603G", "YLED0603R", "ZX-PZ2.54-1-16PZZ"}
+
+
+def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
+    pn = row["mpn"].strip()
+    mfr = row["manufacturer"].strip()
+    cat = row["category"].strip()
+    subcat = (row.get("subcategory") or "").strip()
+    specs_raw = (row.get("attributes_json") or "").strip()
+    apps = (row.get("applications") or "").strip()
+    alt_raw = (row.get("alternative_parts") or "").strip()
+    faq_raw = (row.get("faq") or "").strip()
+    img = (row.get("image") or "").strip()
+    dsheet = (row.get("datasheet_url") or "").strip()
+    url_slug = (row.get("url_slug") or "").strip() or slugify(pn)
+    slug = url_slug
+    related = related or []
+    url = f"{DOMAIN}/products/{slug}/"
+    img_url = img if img else "/assets/img/hero.svg"
+    og_img = f"{DOMAIN}{img_url}" if img_url.startswith("/") else img_url
+
+    cat_slug, cat_top = resolve_cat(cat)
+
+    # ---- SEO copy: IDENTICAL formula to V2 (guarantees byte-equal SEO head/schema) ----
+    fallback_overview = (f"{esc(pn)} is a {esc(subcat or cat).lower()} from {esc(mfr)}. "
+                         f"SZ Procure helps global buyers source this part through verified suppliers, "
+                         f"with flexible quantity, hard-to-find support and competitive quotes.")
+    desc_csv = (row.get("description") or "").strip()
+    overview = esc(desc_csv) if desc_csv else fallback_overview
+    schema_overview = fallback_overview
+    title = f"{esc(pn)} {esc(mfr)} — Source from Shenzhen, China | SZ Procure"
+    desc = (f"Source {esc(pn)} ({esc(mfr)} {esc(cat).lower()}) from Shenzhen, China. "
+            f"Shenzhen supplier network, hard-to-find support and BOM procurement for global buyers.")
+
+    # ---- parse repeatable fields (same helpers as V2) ----
+    alts = [a for a in split_multi(alt_raw) if slugify(a)]
+    apps_list = split_multi(apps)
+    faq_pairs = parse_faq(faq_raw, pn)
+
+    # ---- structured attribute extraction: REAL MASTER attributes only ----
+    spec_pairs = []
+    if specs_raw:
+        try:
+            obj = json.loads(specs_raw)
+            if isinstance(obj, dict):
+                spec_pairs = [[k, str(v)] for k, v in obj.items()]
+            elif isinstance(obj, list):
+                spec_pairs = [[str((a.get("k") if isinstance(a, dict) else (a[0] if isinstance(a, (list, tuple)) else a))),
+                               str((a.get("v") if isinstance(a, dict) else (a[1] if isinstance(a, (list, tuple)) and len(a) > 1 else "")))] for a in obj]
+        except Exception:
+            for token in split_specs(specs_raw):
+                if ":" in token:
+                    k, v = token.split(":", 1)
+                    spec_pairs.append([k.strip(), v.strip()])
+                else:
+                    spec_pairs.append(["Specification", token.strip()])
+    # translate to English visible layer (CJK gate); keep ONLY real keys/values
+    spec_pairs_en = translate_spec_pairs(spec_pairs)
+
+    # V3 Specifications tab — real attributes, honest labels, NEVER invented rows.
+    if spec_pairs_en:
+        specs_rows = "".join(
+            f"<tr><th>{esc(human_attr_label(k))}</th><td>{esc(format_attr_value(k, v))}</td></tr>"
+            for k, v in spec_pairs_en
+        )
+        specs_html = f'<table class="spec-table">\n<tbody>\n{specs_rows}</tbody>\n</table>'
+    else:
+        specs_html = (
+            '<div class="spec-empty">'
+            '<p>Detailed specifications and the official datasheet are available on request. '
+            'Send the part number and our team will provide the full parameter table and documentation.</p>'
+            '</div>'
+        )
+
+    # Hero identity fields — real, key identity only (no fabrication).
+    id_rows = []
+    id_rows.append(("Manufacturer", f'<a href="/manufacturers/{mfr_slug}/">{esc(mfr)}</a> <span class="muted small">Verified sourcing partner</span>'))
+    id_rows.append(("Product Type", f'<a href="/components/{cat_slug}/">{esc(subcat or cat_top)}</a>'))
+    for k, v in spec_pairs_en:
+        if k.lower() in ("package", "core", "frequency_hz", "voltage_v"):
+            id_rows.append((human_attr_label(k), esc(format_attr_value(k, v))))
+    id_list_html = "".join(
+        f'<div class="id-row"><div class="id-label">{esc(k)}</div><div class="id-value">{v}</div></div>'
+        for k, v in id_rows
+    )
+
+    # Applications — only when real data exists
+    apps_section = ""
+    if apps_list:
+        apps_items = "".join(f"<li>{esc(x)}</li>" for x in apps_list)
+        apps_section = (
+            '<section id="applications" class="tab-panel">\n'
+            '  <h2 class="section-title">Common Applications</h2>\n'
+            f'  <ul class="app-list">{apps_items}</ul>\n'
+            '</section>'
+        )
+
+    # FAQ — only when real data exists
+    faq_html, faq_jsonld = render_faq(faq_pairs, pn)
+    faq_section = ""
+    if faq_html:
+        faq_section = (
+            '<section id="faq" class="tab-panel">\n'
+            '  <h2 class="section-title">Frequently Asked Questions</h2>\n'
+            f'  {faq_html}\n'
+            '</section>'
+        )
+
+    # Related Parts — "Other parts we source" (same top-category real SKUs; no compatible/replacement implication)
+    related_section = ""
+    if related:
+        rel_items = "".join(
+            f'<div class="related-card"><a href="/products/{oslug}/">{esc(opn)}</a></div>'
+            for opn, oslug in related
+        )
+        related_section = (
+            f'<section id="related" class="tab-panel">\n'
+            f'  <h2 class="section-title">Related {esc(cat_top)}</h2>\n'
+            f'  <p>Other {esc(cat_top).lower()} we help global buyers source:</p>\n'
+            f'  <div class="related-grid">{rel_items}</div>\n'
+            '</section>'
+        )
+
+    # Alternative Parts — HIDDEN unless real, verified alternates exist.
+    # (Site-wide alternative_parts is empty today; never inferred from series/package.)
+    alt_section = ""
+    if alts:
+        alt_items = []
+        for a in alts:
+            aslug = slugify(a)
+            if generated_slugs and aslug in generated_slugs:
+                alt_items.append(f'<li><a href="/products/{aslug}/" class="alt-link">{esc(a)}</a></li>')
+            else:
+                alt_items.append(f'<li><a href="/request-a-quote/?pn={esc(a)}" class="alt-link">{esc(a)} <span class="muted">(request quote)</span></a></li>')
+        if alt_items:
+            alt_section = (
+                '<section id="alternative" class="tab-panel">\n'
+                '  <h2 class="section-title">Alternative Parts</h2>\n'
+                f"  <p>Common <strong>{esc(pn)} alternatives</strong> overseas buyers search for:</p>\n"
+                f'  <ul class="alt-list">{"".join(alt_items)}</ul>\n'
+                '</section>'
+            )
+
+    # Documentation — real datasheet only (never a fake PDF URL)
+    if dsheet:
+        doc_section = (
+            '<section id="documentation" class="tab-panel">\n'
+            '  <h2 class="section-title">Documentation</h2>\n'
+            '  <details class="doc-acc" open>\n'
+            '    <summary><span class="doc-ico">&#128196;</span> Datasheet <span class="doc-tag">PDF</span></summary>\n'
+            '    <div class="doc-acc-body">\n'
+            f'      <a class="doc-dl" href="{esc(dsheet)}" target="_blank" rel="nofollow noopener">Download {esc(pn)} Datasheet (PDF)</a>\n'
+            '    </div>\n'
+            '  </details>\n'
+            '</section>'
+        )
+    else:
+        doc_section = (
+            '<section id="documentation" class="tab-panel">\n'
+            '  <h2 class="section-title">Documentation</h2>\n'
+            '  <p class="doc-note">Datasheet is available on request. Send the part number and our team will provide the official documentation.</p>\n'
+            '</section>'
+        )
+
+    # Sourcing Information — restrained, no stock/price/lead-time/availability claims
+    sourcing_html = (
+        f"<p>SZ Procure is a sourcing partner for <strong>{esc(pn)}</strong>, not a stock "
+        f"catalog. We help international buyers source original components from the China "
+        f"electronics supply chain — send your quantity and target price for a quotation.</p>"
+    )
+
+    # RFQ card (business logic -> /request-a-quote/; no Buy Now / Add to Cart)
+    rfq_href = (f"/request-a-quote/?pn={urlquote(pn)}&mfr={urlquote(mfr)}"
+                f"&cat={urlquote(cat)}&source=product&rfq_type=sku_quote")
+    rfq_card = f"""
+      <aside class="rfq-card" id="rfq-card">
+        <h3>Request a Quote</h3>
+        <p>Tell us your quantity, target price, and delivery requirements. We source from Shenzhen and reply within 1 business day.</p>
+        <div class="rfq-form">
+          <div class="rfq-field"><label>Part Number</label><input type="text" value="{esc(pn)}" readonly></div>
+          <div class="rfq-field"><label>Quantity</label><input type="text" placeholder="e.g. 1,000"></div>
+          <div class="rfq-field"><label>Target Price</label><input type="text" placeholder="USD / piece"></div>
+          <div class="rfq-field"><label>Email</label><input type="email" placeholder="your@email.com"></div>
+          <div class="rfq-field"><label>Requirements</label><textarea placeholder="e.g. Original/New, EOL, specific package, certification requirements"></textarea></div>
+        </div>
+        <a class="rfq-btn" href="{rfq_href}" data-zh="获取报价">Request a Quote</a>
+      </aside>"""
+
+    # breadcrumb (same items as V2)
+    fine_slug = slugify_name(cat) if cat else ""
+    sub_crumb = f'<a href="/components/{cat_slug}/{fine_slug}/">{esc(cat)}</a> › ' if cat else ""
+    crumb_items = [
+        ("Home", f"{DOMAIN}/"),
+        ("Components", f"{DOMAIN}/components/"),
+        (cat_top, f"{DOMAIN}/components/{cat_slug}/"),
+    ]
+    if cat:
+        crumb_items.append((cat, f"{DOMAIN}/components/{cat_slug}/{fine_slug}/"))
+    crumb_items.append((pn, url))
+    crumb = breadcrumb_jsonld(crumb_items)
+
+    # Product JSON-LD — same as V2 (no price/availability/offers)
+    alt_ld = ", ".join(f'"{esc(a)}"' for a in alts)
+    product_jsonld = f"""
+  <script type="application/ld+json">
+  {{
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "{esc(pn)}",
+    "model": "{esc(pn)}",
+    "mpn": "{esc(pn)}",
+    "category": "{esc(cat_top)}",
+    "brand": {{ "@type": "Brand", "name": "{esc(mfr)}", "@id": "https://www.szprocure.com/#szprocure-org" }},
+    "description": "{esc(schema_overview)}",
+    "url": "{url}"{(", \"alternatePart\": [" + alt_ld + "]") if alt_ld else ""}
+  }}
+  </script>"""
+
+    # tab nav — only real sections present
+    tabs = ['<a href="#overview" class="tab-btn active">Overview</a>',
+            '<a href="#specifications" class="tab-btn">Specifications</a>']
+    if doc_section:
+        tabs.append('<a href="#documentation" class="tab-btn">Documentation</a>')
+    if apps_section:
+        tabs.append('<a href="#applications" class="tab-btn">Applications</a>')
+    if related_section:
+        tabs.append('<a href="#related" class="tab-btn">Related Parts</a>')
+    if alt_section:
+        tabs.append('<a href="#alternative" class="tab-btn">Alternative Parts</a>')
+    if faq_section:
+        tabs.append('<a href="#faq" class="tab-btn">FAQ</a>')
+    tab_nav = "\n          ".join(tabs)
+
+    # scroll-spy group ids (presentational only)
+    spy_ids = ["overview", "specifications"]
+    if doc_section:
+        spy_ids.append("documentation")
+    if apps_section:
+        spy_ids.append("applications")
+    if related_section:
+        spy_ids.append("related")
+    if alt_section:
+        spy_ids.append("alternative")
+    if faq_section:
+        spy_ids.append("faq")
+    spy_groups = ", ".join(f"{{ id: '{i}' }}" for i in spy_ids)
+
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+{seo_head(title, desc, url, og_img)}
+  <link rel="stylesheet" href="/assets/styles.css" />
+  <link rel="stylesheet" href="/assets/sku-v3.css" />
+  <style>
+    /* Page-scoped: suppress global floating/bottom conversion UI so the page-level
+       RFQ owns conversion. Does NOT modify global site.js / styles.css. */
+    .float-quote-btn {{ display: none !important; }}
+    .mobile-cta-bar {{ display: none !important; }}
+  </style>
+{crumb}
+{product_jsonld}
+{faq_jsonld}
+{org_jsonld()}
+</head>
+<body>
+  <div id="site-header"></div>
+  <main class="sku-v3">
+    <nav class="breadcrumb"><div class="container">
+      <a href="/">Home</a> ›
+      <a href="/components/">Components</a> ›
+      <a href="/components/{cat_slug}/">{esc(cat_top)}</a> ›
+      {sub_crumb}<span>{esc(pn)}</span>
+    </div></nav>
+
+    <div class="container page-grid">
+      <!-- LEFT: Product hero + key identity (real MASTER data only) -->
+      <div class="hero-left">
+        <p class="mfr"><a href="/manufacturers/{mfr_slug}/">{esc(mfr)}</a></p>
+        <h1 class="mpn">{esc(pn)}</h1>
+        <p class="type">{esc(subcat or cat)}</p>
+        <div class="id-list">
+{id_list_html}
+        </div>
+        <p class="hero-desc">{overview}</p>
+      </div>
+
+      {rfq_card}
+
+      <!-- TABS: sticky nav + scroll-spy; all panels in DOM (SEO-friendly) -->
+      <div class="tab-wrap">
+        <nav class="tab-nav">
+          {tab_nav}
+        </nav>
+
+        <section id="overview" class="tab-panel">
+          <h2 class="section-title">Product Overview</h2>
+          <p>{overview}</p>
+        </section>
+
+        <section id="specifications" class="tab-panel">
+          <h2 class="section-title">Technical Specifications</h2>
+          {specs_html}
+        </section>
+
+        {doc_section}
+
+        {apps_section}
+
+        {related_section}
+
+        {alt_section}
+
+        {faq_section}
+      </div>
+
+      <!-- Sourcing (no stock/price/lead-time promises) -->
+      <section class="sourcing">
+        <h2>Sourcing Information</h2>
+        {sourcing_html}
+      </section>
+    </div>
+  </main>
+  <div id="site-footer"></div>
+  <script src="/assets/site.js" defer></script>
+{ga4_script()}
+  <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
+  <script>
+  (function(){{
+    var groups = [ {spy_groups} ];
+    var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
+    function onScroll(){{
+      var offset = 160;
+      var pos = window.scrollY + offset;
+      var current = groups[0].id;
+      for (var i = 0; i < groups.length; i++){{
+        var el = document.getElementById(groups[i].id);
+        if (el && el.offsetTop <= pos) current = groups[i].id;
+      }}
+      btns.forEach(function(b){{
+        if (b.getAttribute('href') === '#' + current) b.classList.add('active');
+        else b.classList.remove('active');
+      }});
+    }}
+    window.addEventListener('scroll', onScroll, {{ passive: true }});
+    window.addEventListener('resize', onScroll);
+    onScroll();
+  }})();
+  </script>
+</body>
+</html>"""
+
+
 # ==============================================================================
 def gen_manufacturer_page(mfr, parts, cat_slugs):
     mfr_slug = slugify_name(mfr)
@@ -1173,76 +1520,93 @@ def gen_manufacturer_page(mfr, parts, cat_slugs):
 def gen_component_category_page(cat_slug, cat_name, parts, all_rows=None, by_cat=None):
     url = f"{DOMAIN}/components/{cat_slug}/"
     n = len(parts)
+    cat_lower = esc(cat_name).lower()
     title = f"{esc(cat_name)} Sourcing from Shenzhen, China | SZ Procure"
     desc = (f"Source {esc(cat_name)} from Shenzhen. Browse {n} "
-            f"{esc(cat_name).lower()} we help global buyers procure — alternates, "
+            f"{cat_lower} we help global buyers procure — alternates, "
             f"lead-time and quote support.")
-    # ---- 1. Category Introduction (procurement framing) ----
-    intro = (f"<p>{esc(cat_name)} are core building blocks for electronics manufacturing. "
-             f"SZ Procure helps global buyers source {esc(cat_name).lower()} from the "
-             f"Shenzhen supply chain — covering popular families, hard-to-find versions and "
-             f"BOM consolidation with verified suppliers and competitive quotes.</p>")
-    # ---- 2. Subcategories (fine categories actually present in this top category) ----
-    # Phase 2.7 (A): data-driven from the SKUs in `parts` (not CATEGORY_MAP) and links
-    # to the precise L3 page /components/<l2>/<l3>/ — no RFQ dead-end.
-    sub_fine = sorted({p.get("category", "").strip() for p in parts if p.get("category", "").strip()})
-    sub_links = "".join(
-        f'<li><a href="/components/{esc(cat_slug)}/{esc(slugify_name(fine))}/">{esc(fine)}</a></li>'
-        for fine in sub_fine
-    ) or f'<li><a href="/request-a-quote/" data-zh="获取报价">Request a Quote</a></li>'
-    # ---- 3. Popular Components (first up to 12 SKUs in this category) ----
-    popular = sorted(parts, key=lambda x: x["mpn"])[:12]
-    pop_links = "".join(
-        f'<li><a href="/products/{p.get("url_slug") or slugify(p["mpn"])}/">{esc(p["mpn"])}</a> '
-        f'<span class="muted">— {esc(p.get("manufacturer","").strip())}</span></li>'
-        for p in popular
+
+    # ---- 1. Subcategory aggregation (real L3 pages only) ----
+    # Count by fine category; link only to subcategories that actually exist on
+    # disk (generated by gen_component_subcategory_page). Deterministic + data-driven.
+    # Category HTML grows with SUBCATEGORY count, never with SKU count.
+    sub_counts = {}
+    for p in parts:
+        fine = (p.get("category") or "").strip()
+        if fine:
+            sub_counts[fine] = sub_counts.get(fine, 0) + 1
+    sub_sorted = sorted(sub_counts.items(), key=lambda kv: (-kv[1], kv[0]))
+    # Subcat cards MUST only link L3 pages that actually exist on disk — never a
+    # fabricated URL. A fine category with SKUs but no generated L3 page (e.g. an
+    # unmapped "Comparator" defaulting into IC) is simply omitted from the nav.
+    cat_dir = os.path.join(ROOT, "components", cat_slug)
+    existing_l3 = set()
+    if os.path.isdir(cat_dir):
+        for _n in os.listdir(cat_dir):
+            if os.path.isfile(os.path.join(cat_dir, _n, "index.html")):
+                existing_l3.add(_n)
+    visible_subs = [(fine, cnt) for fine, cnt in sub_sorted if slugify_name(fine) in existing_l3]
+    if visible_subs:
+        sub_cards = "".join(
+            f'<a class="card subcat-card" href="/components/{esc(cat_slug)}/{esc(slugify_name(fine))}/">'
+            f'<div class="sku-mpn">{esc(fine)}</div>'
+            f'<div class="sku-mfr">{cnt} SKUs</div>'
+            f'<div class="muted small">Source {cnt} {esc(fine).lower()} from the Shenzhen supply chain.</div>'
+            f'</a>'
+            for fine, cnt in visible_subs
+        )
+    else:
+        sub_cards = (f'<a class="card subcat-card" href="/request-a-quote/" data-zh="获取报价">'
+                     f'<div class="sku-mpn">{esc(cat_name)}</div>'
+                     f'<div class="sku-mfr">Request a quote</div></a>')
+
+    # ---- 2. Category-specific sourcing copy (data-driven, unique per category) ----
+    # Built from REAL subcategory names + REAL top manufacturers in this category,
+    # so the six category pages never share identical boilerplate. No fabricated
+    # supplier/authorization/stock/price claims.
+    top_subs = [fine for fine, _ in sub_sorted[:4]]
+    mfr_counts = {}
+    for p in parts:
+        m = (p.get("manufacturer") or "").strip()
+        if m:
+            mfr_counts[m] = mfr_counts.get(m, 0) + 1
+    top_mfrs = [m for m, _ in sorted(mfr_counts.items(), key=lambda kv: (-kv[1], kv[0]))[:4]]
+    sub_phrase = ", ".join(top_subs)
+    mfr_phrase = ", ".join(top_mfrs)
+    intro = (
+        f"<p>Our {cat_lower} sourcing spans {esc(sub_phrase)} and more, from brands such as "
+        f"{esc(mfr_phrase)}. SZ Procure helps global buyers source these parts from the "
+        f"Shenzhen supply chain — covering popular families, hard-to-find versions and BOM "
+        f"consolidation with verified suppliers and competitive quotes.</p>"
+        f'<p class="muted small">Send the part number — our Shenzhen team cross-references '
+        f"availability and quotes, whether you need production-volume reels or a single "
+        f"hard-to-find variant.</p>"
     )
-    # ---- 4. Manufacturers in this category ----
-    mfrs = sorted({p.get("manufacturer", "").strip() for p in parts if p.get("manufacturer", "").strip()})
-    mfr_links = "".join(
-        f'<li><a href="/manufacturers/{slugify_name(m)}/">{esc(m)}</a></li>' for m in mfrs
-    ) or f'<li><a href="/request-a-quote/" data-zh="获取报价">Request a Quote</a></li>'
-    # ---- 3b. Featured Parts (Phase D.4: SKU internal-linking boost) ----
-    # Data-driven grid of up to 16 real SKUs in this category, each linking to
-    # its product page. Capped to keep pages lean at 200k scale.
-    featured = sorted(parts, key=lambda x: x["mpn"])[:16]
-    feat_cards = "".join(
+
+    # ---- 3. Representative Products (bounded 12; one per top subcategory) ----
+    # V1 rule: prioritize subcats by SKU count; pick 1 deterministic rep SKU each;
+    # never take global first-N-by-MPN. Future upgrade: if a part carries a
+    # `representative` flag, prefer those (no popularity algorithm added this round).
+    rep = []
+    seen_sub = set()
+    for fine, _ in sub_sorted:
+        if fine in seen_sub:
+            continue
+        cands = [p for p in parts if (p.get("category") or "").strip() == fine]
+        if not cands:
+            continue
+        cands.sort(key=lambda x: x["mpn"])
+        rep.append(cands[0])
+        seen_sub.add(fine)
+        if len(rep) >= 12:
+            break
+    rep_cards = "".join(
         f'<a class="card sku-card" href="/products/{p.get("url_slug") or slugify(p["mpn"])}/">'
         f'<div class="sku-mpn">{esc(p["mpn"])}</div>'
         f'<div class="sku-mfr">{esc(p.get("manufacturer","").strip())}</div></a>'
-        for p in featured
+        for p in rep
     )
-    # ---- 3c. Related Products by Category (Phase D.4: cross-category linking) ----
-    # Surfaces a few SKUs from sibling top categories so products are not
-    # isolated within one category. Data-driven via by_cat (no hand-written pages).
-    rel_html = ""
-    if by_cat:
-        sibs = [(s2, n2) for s2, n2 in TOP_CATEGORIES.items() if s2 != cat_slug]
-        rel_cards = []
-        for s2, n2 in sibs:
-            sample = sorted(by_cat.get(s2, []), key=lambda x: x["mpn"])[:3]
-            if not sample:
-                continue
-            skus = "".join(
-                f'<li><a href="/products/{p.get("url_slug") or slugify(p["mpn"])}/">{esc(p["mpn"])}</a></li>'
-                for p in sample
-            )
-            rel_cards.append(
-                f'<div class="card rel-card"><h4><a href="/components/{esc(s2)}/">{esc(n2)}</a></h4>'
-                f'<ul class="bullet-list small">{skus}</ul></div>'
-            )
-        rel_html = (f'<section class="section"><div class="container">'
-                    f'<h2>Related Products by Category</h2>'
-                    f'<div class="grid grid-3">{ "".join(rel_cards) }</div>'
-                    f'</div></section>')
 
-    # ---- Full SKU list (all parts in this top category) ----
-    part_links = "".join(
-        f'<li><a href="/products/{p.get("url_slug") or slugify(p["mpn"])}/">{esc(p["mpn"])}</a> '
-        f'<span class="muted">— {esc(p.get("manufacturer","").strip())} · '
-        f'{esc(p.get("subcategory") or p.get("category","").strip())}</span></li>'
-        for p in sorted(parts, key=lambda x: x["mpn"])
-    )
     crumb = breadcrumb_jsonld([
         ("Home", f"{DOMAIN}/"),
         ("Components", f"{DOMAIN}/components/"),
@@ -1266,11 +1630,14 @@ def gen_component_category_page(cat_slug, cat_name, parts, all_rows=None, by_cat
       <a href="/components/">Components</a> ›
       <span>{esc(cat_name)}</span>
     </div></nav>
+
+    <!-- 1. Hero / Category Sourcing Intro (merged) -->
     <section class="page-head">
       <div class="container">
-        <div class="eyebrow">Component Category</div>
+        <div class="eyebrow" data-zh="元器件分类">Component Category</div>
         <h1>{esc(cat_name)}</h1>
-        <p class="lead">{n} {esc(cat_name).lower()} we help global buyers source — from Shenzhen's electronics supply chain.</p>
+        <p class="lead">{n} {cat_lower} we help global buyers source — from the Shenzhen supply chain.</p>
+        {intro}
         <div class="part-head-actions">
           <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
           <a class="btn btn-ghost" href="https://wa.me/8613530888389">WhatsApp</a>
@@ -1279,64 +1646,29 @@ def gen_component_category_page(cat_slug, cat_name, parts, all_rows=None, by_cat
       </div>
     </section>
 
-    <!-- 1. Category Introduction -->
-    <section class="section">
-      <div class="container">
-        <h2>About {esc(cat_name)} Sourcing</h2>
-        {intro}
-        <p class="muted small">Not sure which variant you need? Send the part number — our Shenzhen team cross-references and quotes.</p>
-      </div>
-    </section>
-
-    <!-- 2. Subcategories -->
-    <section class="section">
+    <!-- 2. Subcategory Navigation -->
+    <section class="section" id="subcategories">
       <div class="container">
         <h2>{esc(cat_name)} Subcategories</h2>
-        <ul class="bullet-list part-index">{sub_links}</ul>
+        <div class="grid grid-4">{sub_cards}</div>
       </div>
     </section>
 
-    <!-- 2b. Featured Parts (Phase D.4) -->
+    <!-- 3. Representative Products (bounded 12) -->
     <section class="section">
       <div class="container">
-        <h2>Featured {esc(cat_name)}</h2>
-        <div class="grid grid-4">{feat_cards}</div>
+        <h2>Representative {esc(cat_name)}</h2>
+        <div class="grid grid-4">{rep_cards}</div>
+        <p class="muted"><a href="#subcategories">Browse the full list in each subcategory →</a></p>
       </div>
     </section>
 
-    <!-- 3. Popular Components -->
-    <section class="section">
-      <div class="container two-col">
-        <div>
-          <h2>Popular {esc(cat_name)}</h2>
-          <ul class="bullet-list part-index">{pop_links}</ul>
-        </div>
-        <aside class="part-aside">
-          <div class="card sticky-card desk-sticky">
-            <h3>Need a {esc(cat_name).lower()} part?</h3>
-            <p>Send the part number and quantity for a quote.</p>
-            <a class="btn btn-primary btn-block" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
-            <p class="muted small">sales@szprocure.com<br/>WhatsApp</p>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <!-- 4. Manufacturers -->
-    <section class="section">
-      <div class="container">
-        <h2>Manufacturers in {esc(cat_name)}</h2>
-        <ul class="alt-list">{mfr_links}</ul>
-      </div>
-    </section>
-
-    {rel_html}
-
-    <!-- Full SKU index -->
-    <section class="section">
-      <div class="container">
-        <h2>All {esc(cat_name)} We Source ({n})</h2>
-        <ul class="bullet-list part-index">{part_links}</ul>
+    <!-- 4. RFQ / Sourcing CTA -->
+    <section class="section navy">
+      <div class="container" style="text-align:center">
+        <h2>Need {("an" if esc(cat_name)[:1].lower() in "aeiou" else "a")} {esc(cat_name)} part?</h2>
+        <p>Send us the part number and quantity for a quote.</p>
+        <a class="btn btn-white btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
       </div>
     </section>
   </main>
@@ -1353,6 +1685,7 @@ def gen_component_category_page(cat_slug, cat_name, parts, all_rows=None, by_cat
 # categories need NO code change. Reuses the L2 breadcrumb + Organization JSON-LD
 # (no new Schema type). No frozen layer (URL/RFQ/Schema/Data Factory) is touched.
 # ==============================================================================
+
 def gen_component_subcategory_page(l2_slug, l2_name, l3_name, l3_slug, parts, all_rows=None):
     url = f"{DOMAIN}/components/{l2_slug}/{l3_slug}/"
     n = len(parts)
@@ -1833,6 +2166,122 @@ def translate_spec_pairs(pairs):
         out.append([ek, ev])
     return out
 
+# ---- P0-1 / P0-2: human-readable labels + deterministic unit formatting ----------
+attribute_label_map = {
+    "frequency_hz": "Maximum Clock Speed",
+    "speed_hz": "Clock Speed",
+    "core": "Core Processor",
+    "package": "Package / Case",
+    "flash_bytes": "Flash Memory",
+    "ram_bytes": "SRAM",
+    "memory_bytes": "Memory Size",
+    "voltage_v": "Supply Voltage",
+    "io_count": "Number of I/O",
+    "id_a": "Continuous Drain Current",
+    "vds_v": "Drain-Source Voltage",
+    "vdss_v": "Drain-Source Voltage",
+    "rds_on_mohm": "RDS(on)",
+    "vgs_th_v": "Gate Threshold Voltage",
+    "vf_v": "Forward Voltage",
+    "voltage_rating_v": "Voltage Rating",
+    "rated_voltage_v": "Rated Voltage",
+    "max_voltage_v": "Maximum Voltage",
+    "vreverse_v": "Reverse Voltage",
+    "output_voltage_v": "Output Voltage",
+    "current_rating_a": "Current Rating",
+    "if_a": "Forward Current",
+    "forward_current_a": "Forward Current",
+    "ic_a": "Collector Current",
+    "output_current_a": "Output Current",
+    "ibias_a": "Input Bias Current",
+    "resistance_ohm": "Resistance",
+    "impedance_ohm": "Impedance",
+    "dcr_ohm": "DC Resistance (DCR)",
+    "temperature_coeff": "Temperature Coefficient",
+    "temp_coef": "Temperature Coefficient",
+    "tolerance": "Tolerance",
+    "positions": "Number of Positions",
+    "lines": "Number of Lines",
+    "elem_count": "Number of Elements",
+    "num_amps": "Number of Amplifiers",
+    "mounting": "Mounting Type",
+    "power_rating_w": "Power Rating",
+    "capacitance_pf": "Capacitance",
+    "capacitance": "Capacitance",
+    "load_capacitance_pf": "Load Capacitance",
+    "inductance_uh": "Inductance",
+    "pitch_mm": "Pitch",
+    "interface": "Interface",
+    "organization": "Memory Organization",
+    "qg_nc": "Gate Charge",
+    "vrrm_v": "Repetitive Peak Reverse Voltage",
+    "data_rate": "Data Rate",
+    "tran_type": "Transistor Type",
+    "vceo_v": "Collector-Emitter Breakdown Voltage",
+    "cmrr_db": "Common Mode Rejection Ratio",
+    "gbw_hz": "Gain Bandwidth Product",
+}
+
+def _fmt_num(x):
+    if x == int(x):
+        return str(int(x))
+    return f"{x:.3f}".rstrip("0").rstrip(".")
+
+def human_attr_label(k):
+    k = (k or "").strip()
+    if not k:
+        return k
+    if k in attribute_label_map:
+        return attribute_label_map[k]
+    if " " in k:
+        return k
+    if "_" in k:
+        return k.replace("_", " ").title()
+    return k.title()
+
+def format_attr_value(k, v):
+    if v is None:
+        return v
+    s = str(v).strip()
+    if not re.fullmatch(r"-?\d+(\.\d+)?", s):
+        return v
+    try:
+        num = float(s)
+    except ValueError:
+        return v
+    key = (k or "").lower()
+    if key.endswith("_bytes"):
+        if num >= 1_000_000:
+            return _fmt_num(num / 1_000_000) + " MB"
+        if num >= 1024:
+            return _fmt_num(num / 1024) + " KB"
+        return _fmt_num(num) + " B"
+    if key.endswith("_hz"):
+        if num >= 1_000_000_000:
+            return _fmt_num(num / 1_000_000_000) + " GHz"
+        if num >= 1_000_000:
+            return _fmt_num(num / 1_000_000) + " MHz"
+        if num >= 1000:
+            return _fmt_num(num / 1000) + " kHz"
+        return _fmt_num(num) + " Hz"
+    if key.endswith("_v") or key.endswith("_volt"):
+        return _fmt_num(num) + " V"
+    if key.endswith("_a"):
+        return _fmt_num(num) + " A"
+    if key.endswith("_mohm"):
+        return _fmt_num(num) + " mΩ"
+    if key.endswith("_ohm"):
+        return _fmt_num(num) + " Ω"
+    if key.endswith("_pf"):
+        return _fmt_num(num) + " pF"
+    if key.endswith("_uh"):
+        return _fmt_num(num) + " µH"
+    if key.endswith("_w"):
+        return _fmt_num(num) + " W"
+    if key == "tolerance":
+        return _fmt_num(num) + " %"
+    return v
+
 def build_en_attrs(raw):
     """Parse a raw attributes_json string and return an English-keyed/valued
     dict for the deployable parts.json. Unmappable CJK pairs are dropped
@@ -2109,7 +2558,7 @@ def detect_synthetic_mpn(rows):
 
 def main():
     ap = argparse.ArgumentParser()
-    default_csv = os.path.join(ROOT, "data", "production", "master_parts_v2.0.csv")  # P0-2: only a v2+ production Master may feed the build; v1.x test masters are forbidden
+    default_csv = os.path.join(ROOT, "data", "production", "master_parts_v2.1.csv")  # P0-2: only a v2+ production Master may feed the build; v1.x test masters are forbidden
     ap.add_argument("--csv", default=default_csv)
     ap.add_argument("--out", default=ROOT)
     ap.add_argument("--mfr-map", default=os.path.join(ROOT, "data", "production", "mfr_canonical.csv"))  # PHASE E.3.2: production self-contained
@@ -2124,6 +2573,9 @@ def main():
     ap.add_argument("--strict", action="store_true",
                     help="Hard gate: abort if any unknown manufacturer or unknown attribute key "
                          "is found (200k data-hygiene gate).")
+    ap.add_argument("--single", default=None,
+                    help="Generate ONLY the product page for this MPN (via V2 or V3 per route). "
+                         "Skips manufacturer/hub/category/sitemap generation. For single-SKU testing.")
     args = ap.parse_args()
 
     csv_path = os.path.abspath(args.csv)
@@ -2251,6 +2703,8 @@ def main():
     related_map = build_related_map(by_cat, k=6)
 
     # ---- generate part pages ----
+    # V3 route: elected SKUs (V3_MPNS) render via the additive gen_part_page_v3();
+    # every other SKU keeps the V2 renderer. V2 is preserved and unchanged.
     written = 0
     urls = []
     generated_slugs = {g["url_slug"] for g in groups if g.get("url_slug")}
@@ -2261,13 +2715,22 @@ def main():
             continue
         cslug, _ = resolve_cat(g["category"].strip())
         mfr_slug = slugify_name(g["manufacturer"].strip())
+        if pn.upper() in V3_MPNS:
+            page = gen_part_page_v3(g, cslug, mfr_slug, related=related_map.get(slug, []), generated_slugs=generated_slugs)
+        else:
+            page = gen_part_page(g, cslug, mfr_slug, related=related_map.get(slug, []), generated_slugs=generated_slugs)
+        # --single: skip every SKU except the target (do NOT write other pages)
+        if args.single and args.single.strip().upper() != pn.upper():
+            continue
         d = os.path.join(out_root, "products", slug)
         os.makedirs(d, exist_ok=True)
-        page = gen_part_page(g, cslug, mfr_slug, related=related_map.get(slug, []), generated_slugs=generated_slugs)
         with open(os.path.join(d, "index.html"), "w", encoding="utf-8") as f:
             f.write(page)
         urls.append(f"{DOMAIN}/products/{slug}/")
         written += 1
+        if args.single and args.single.strip().upper() == pn.upper():
+            print(f"  [--single] Generated only {pn} -> products/{slug}/index.html")
+            return  # skip manufacturer/hub/category/sitemap entirely
 
     # ---- manufacturer pages ----
     for mfr, parts in by_mfr.items():
