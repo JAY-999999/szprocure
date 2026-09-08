@@ -43,7 +43,13 @@ _prod_build/
 # references forbidden on the live domain). The site is pre-generated static
 # and needs none of it at runtime. Keep everything on disk for gen_parts.py;
 # never deploy it.
-data/
+# P1-A (2026-09-09): the externalized taxonomy is a BUILD-TIME config required by
+# gen_parts.py on Vercel, so it MUST ship in the deploy bundle. Un-ignore ONLY
+# this one file; the rest of data/ stays ignored. (Use data/** — not data/ — so
+# the negation below can actually take effect; git cannot re-include a file
+# inside an ignored directory.)
+data/**
+!data/category_taxonomy.json
 
 # --- QA / dry-run / test scratch (NOT part of site) ---
 _shots/
@@ -82,3 +88,7 @@ assets/parts/
 # --- Phase 3.1 derived read-only slug map (regenerable from parts.json via
 #     _phase3_1_apply_test/derive_slug_map.py; NOT hand-edited, NOT deployed) ---
 enrich_slug_map.json
+
+# --- PHASE 1 Incremental Publishing build state (regenerable from products/;
+#     NOT hand-edited, NOT deployed, NOT committed) ---
+build_manifest.json

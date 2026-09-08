@@ -1,0 +1,531 @@
+{
+  "version": "v1",
+  "generated_by": "P0-1 _p0_build_taxonomy.py",
+  "description": "Externalized taxonomy mapping. Replaces in-code CATEGORY_MAP + silent DEFAULT_CAT_SLUG fallback. 6 top categories + every fine category accepted by production. Unknown categories are NOT present and therefore resolve to UNMAPPED (no silent default).",
+  "top_categories": [
+    {
+      "taxonomy_id": "top-01",
+      "slug": "integrated-circuits",
+      "name": "Integrated Circuits",
+      "status": "active"
+    },
+    {
+      "taxonomy_id": "top-02",
+      "slug": "semiconductor-components",
+      "name": "Semiconductor Components",
+      "status": "active"
+    },
+    {
+      "taxonomy_id": "top-03",
+      "slug": "passive-components",
+      "name": "Passive Components",
+      "status": "active"
+    },
+    {
+      "taxonomy_id": "top-04",
+      "slug": "sensors",
+      "name": "Sensors & Transducers",
+      "status": "active"
+    },
+    {
+      "taxonomy_id": "top-05",
+      "slug": "connectors",
+      "name": "Connectors & Electromechanical",
+      "status": "active"
+    },
+    {
+      "taxonomy_id": "top-06",
+      "slug": "modules",
+      "name": "Modules & Communication Modules",
+      "status": "active"
+    }
+  ],
+  "subcategories": [
+    {
+      "name": "Board-to-Board",
+      "parent_category": "connectors",
+      "slug": "board-to-board",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-board-to-board"
+    },
+    {
+      "name": "Connectors",
+      "parent_category": "connectors",
+      "slug": "connectors",
+      "self_reference": true,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-connectors"
+    },
+    {
+      "name": "Connectors & Electromechanical",
+      "parent_category": "connectors",
+      "slug": "connectors-electromechanical",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-connectors-electromechanical"
+    },
+    {
+      "name": "FFC/FPC",
+      "parent_category": "connectors",
+      "slug": "ffc-fpc",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-ffc-fpc"
+    },
+    {
+      "name": "Pin Header",
+      "parent_category": "connectors",
+      "slug": "pin-header",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-pin-header"
+    },
+    {
+      "name": "Switches",
+      "parent_category": "connectors",
+      "slug": "switches",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-switches"
+    },
+    {
+      "name": "USB Connectors",
+      "parent_category": "connectors",
+      "slug": "usb-connectors",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-usb-connectors"
+    },
+    {
+      "name": "Wire Connectors",
+      "parent_category": "connectors",
+      "slug": "wire-connectors",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-wire-connectors"
+    },
+    {
+      "name": "Analog IC",
+      "parent_category": "integrated-circuits",
+      "slug": "analog-ic",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-analog-ic"
+    },
+    {
+      "name": "I/O Expanders",
+      "parent_category": "integrated-circuits",
+      "slug": "i-o-expanders",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-i-o-expanders"
+    },
+    {
+      "name": "Integrated Circuits",
+      "parent_category": "integrated-circuits",
+      "slug": "integrated-circuits",
+      "self_reference": true,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-integrated-circuits"
+    },
+    {
+      "name": "Interface IC",
+      "parent_category": "integrated-circuits",
+      "slug": "interface-ic",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-interface-ic"
+    },
+    {
+      "name": "Logic IC",
+      "parent_category": "integrated-circuits",
+      "slug": "logic-ic",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-logic-ic"
+    },
+    {
+      "name": "MCU",
+      "parent_category": "integrated-circuits",
+      "slug": "mcu",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-mcu"
+    },
+    {
+      "name": "Memory",
+      "parent_category": "integrated-circuits",
+      "slug": "memory",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-memory"
+    },
+    {
+      "name": "Memory IC",
+      "parent_category": "integrated-circuits",
+      "slug": "memory-ic",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-memory-ic"
+    },
+    {
+      "name": "Microcontroller",
+      "parent_category": "integrated-circuits",
+      "slug": "microcontroller",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-microcontroller"
+    },
+    {
+      "name": "Microcontrollers",
+      "parent_category": "integrated-circuits",
+      "slug": "microcontrollers",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-microcontrollers"
+    },
+    {
+      "name": "Operational Amplifier",
+      "parent_category": "integrated-circuits",
+      "slug": "operational-amplifier",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-operational-amplifier"
+    },
+    {
+      "name": "Power Management IC",
+      "parent_category": "integrated-circuits",
+      "slug": "power-management-ic",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-power-management-ic"
+    },
+    {
+      "name": "Voltage Regulator",
+      "parent_category": "integrated-circuits",
+      "slug": "voltage-regulator",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-voltage-regulator"
+    },
+    {
+      "name": "Bluetooth Modules",
+      "parent_category": "modules",
+      "slug": "bluetooth-modules",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-bluetooth-modules"
+    },
+    {
+      "name": "Cellular Modules",
+      "parent_category": "modules",
+      "slug": "cellular-modules",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-cellular-modules"
+    },
+    {
+      "name": "GNSS Modules",
+      "parent_category": "modules",
+      "slug": "gnss-modules",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-gnss-modules"
+    },
+    {
+      "name": "Modules",
+      "parent_category": "modules",
+      "slug": "modules",
+      "self_reference": true,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-modules"
+    },
+    {
+      "name": "Modules & Communication Modules",
+      "parent_category": "modules",
+      "slug": "modules-communication-modules",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-modules-communication-modules"
+    },
+    {
+      "name": "RF Modules",
+      "parent_category": "modules",
+      "slug": "rf-modules",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-rf-modules"
+    },
+    {
+      "name": "WiFi Modules",
+      "parent_category": "modules",
+      "slug": "wifi-modules",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-wifi-modules"
+    },
+    {
+      "name": "Capacitor",
+      "parent_category": "passive-components",
+      "slug": "capacitor",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-capacitor"
+    },
+    {
+      "name": "Capacitors",
+      "parent_category": "passive-components",
+      "slug": "capacitors",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-capacitors"
+    },
+    {
+      "name": "Crystal Oscillator",
+      "parent_category": "passive-components",
+      "slug": "crystal-oscillator",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-crystal-oscillator"
+    },
+    {
+      "name": "Electrolytic Capacitor",
+      "parent_category": "passive-components",
+      "slug": "electrolytic-capacitor",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-electrolytic-capacitor"
+    },
+    {
+      "name": "Inductor",
+      "parent_category": "passive-components",
+      "slug": "inductor",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-inductor"
+    },
+    {
+      "name": "Inductors",
+      "parent_category": "passive-components",
+      "slug": "inductors",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-inductors"
+    },
+    {
+      "name": "LED Components",
+      "parent_category": "passive-components",
+      "slug": "led-components",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-led-components"
+    },
+    {
+      "name": "Passive Components",
+      "parent_category": "passive-components",
+      "slug": "passive-components",
+      "self_reference": true,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-passive-components"
+    },
+    {
+      "name": "Resistor",
+      "parent_category": "passive-components",
+      "slug": "resistor",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-resistor"
+    },
+    {
+      "name": "Resistors",
+      "parent_category": "passive-components",
+      "slug": "resistors",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-resistors"
+    },
+    {
+      "name": "Diode",
+      "parent_category": "semiconductor-components",
+      "slug": "diode",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-diode"
+    },
+    {
+      "name": "IGBT",
+      "parent_category": "semiconductor-components",
+      "slug": "igbt",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-igbt"
+    },
+    {
+      "name": "MOSFET",
+      "parent_category": "semiconductor-components",
+      "slug": "mosfet",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-mosfet"
+    },
+    {
+      "name": "Power MOSFET",
+      "parent_category": "semiconductor-components",
+      "slug": "power-mosfet",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-power-mosfet"
+    },
+    {
+      "name": "Rectifier",
+      "parent_category": "semiconductor-components",
+      "slug": "rectifier",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-rectifier"
+    },
+    {
+      "name": "Rectifier Diode",
+      "parent_category": "semiconductor-components",
+      "slug": "rectifier-diode",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-rectifier-diode"
+    },
+    {
+      "name": "Semiconductor Components",
+      "parent_category": "semiconductor-components",
+      "slug": "semiconductor-components",
+      "self_reference": true,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-semiconductor-components"
+    },
+    {
+      "name": "Thyristor",
+      "parent_category": "semiconductor-components",
+      "slug": "thyristor",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-thyristor"
+    },
+    {
+      "name": "Transistor",
+      "parent_category": "semiconductor-components",
+      "slug": "transistor",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-transistor"
+    },
+    {
+      "name": "MEMS Sensor",
+      "parent_category": "sensors",
+      "slug": "mems-sensor",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-mems-sensor"
+    },
+    {
+      "name": "Motion Sensors",
+      "parent_category": "sensors",
+      "slug": "motion-sensors",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-motion-sensors"
+    },
+    {
+      "name": "Optical Sensors",
+      "parent_category": "sensors",
+      "slug": "optical-sensors",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-optical-sensors"
+    },
+    {
+      "name": "Pressure Sensors",
+      "parent_category": "sensors",
+      "slug": "pressure-sensors",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-pressure-sensors"
+    },
+    {
+      "name": "Sensors",
+      "parent_category": "sensors",
+      "slug": "sensors",
+      "self_reference": true,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-sensors"
+    },
+    {
+      "name": "Sensors & Transducers",
+      "parent_category": "sensors",
+      "slug": "sensors-transducers",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-sensors-transducers"
+    },
+    {
+      "name": "Temperature Sensors",
+      "parent_category": "sensors",
+      "slug": "temperature-sensors",
+      "self_reference": false,
+      "aliases": [],
+      "status": "active",
+      "taxonomy_id": "sub-temperature-sensors"
+    }
+  ]
+}

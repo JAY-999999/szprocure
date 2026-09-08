@@ -200,7 +200,7 @@
       return exact[0].e.url;                                   // Case B
     }
     if (parts.length >= 1) {
-      return "/components/search/?q=" + encodeURIComponent(q); // Case C / D
+      return "/search/?q=" + encodeURIComponent(q); // Case C / D
     }
     var aux = [];
     ["MANUFACTURER", "SUBCATEGORY", "CATEGORY"].forEach(function (t) {
@@ -209,7 +209,7 @@
     if (aux.length === 1) {
       return aux[0].e.url;                                     // Case E (single nav)
     }
-    return "/components/search/?q=" + encodeURIComponent(q);   // Case E (multi) / F (no results)
+    return "/search/?q=" + encodeURIComponent(q);   // Case E (multi) / F (no results)
   }
 
   /* ---------- browse: progressive enhancement only ----------

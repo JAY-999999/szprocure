@@ -77,6 +77,10 @@ STATUS_LABEL = {
 # display and SEO body copy. Breadcrumbs, internal links and category-page grouping
 # all resolve to the 6 canonical top-level categories below.
 # To add a new part later, just add its fine subcategory here — no CSV schema change.
+# DEPRECATED (P0, 2026-09-08): the taxonomy mapping has been EXTERNALIZED to
+# data/category_taxonomy.json (authoritative). Production classification now uses
+# resolve_taxonomy(); this dict is a frozen legacy mirror kept only for backward-compat
+# with historical audit scripts and MUST NOT be edited for production behavior.
 CATEGORY_MAP = {
     # Integrated Circuits
     "Microcontroller": "integrated-circuits",
@@ -146,16 +150,101 @@ TOP_CATEGORIES = {
     "connectors": "Connectors & Electromechanical",
     "modules": "Modules & Communication Modules",
 }
-DEFAULT_CAT_SLUG = "integrated-circuits"  # fallback for unmapped fine categories
+# ---------------------------------------------------------------------------
+# Taxonomy resolver (P0 — 2026-09-08)
+# The category mapping has been EXTERNALIZED to data/category_taxonomy.json, which is
+# now the single source of truth. The silent DEFAULT_CAT_SLUG fallback has been REMOVED:
+# an unknown category no longer collapses into "integrated-circuits" — it resolves to
+# UNMAPPED and is quarantined (observable, non-fatal). See resolve_taxonomy() below.
+# ---------------------------------------------------------------------------
+_TAXONOMY = None
+_TAXONOMY_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                             "data", "category_taxonomy.json")
+
+
+def load_taxonomy(force=False):
+    """Load data/category_taxonomy.json (authoritative taxonomy). Module-level cached.
+
+    Raises FileNotFoundError if the config is missing — taxonomy is the single source of
+    truth and MUST exist; there is intentionally NO code-level fallback."""
+    global _TAXONOMY
+    if _TAXONOMY is not None and not force:
+        return _TAXONOMY
+    with open(_TAXONOMY_PATH, encoding="utf-8") as _f:
+        _data = json.load(_f)
+    _by_name, _by_slug = {}, {}
+    for _s in _data.get("subcategories", []):
+        _by_name.setdefault(_s["name"], []).append(_s)
+        _by_slug.setdefault(_s["slug"], []).append(_s)
+    _tops = {_t["slug"]: _t for _t in _data.get("top_categories", [])}
+    _TAXONOMY = {"raw": _data, "by_name": _by_name, "by_slug": _by_slug, "tops": _tops}
+    return _TAXONOMY
+
+
+def resolve_taxonomy(raw_cat):
+    """Resolve a raw CSV category string against the externalized taxonomy.
+
+    Returns a dict with status in {RESOLVED, SELF_REFERENCE, UNMAPPED, COLLISION}:
+      - RESOLVED       : mapped fine category, distinct from its top (an L3 page is valid)
+      - SELF_REFERENCE : slug == top (e.g. 'Connectors' under 'connectors'); the L3 page
+                         would collapse onto the top page, so NO L3 page is generated
+      - UNMAPPED       : category absent from the taxonomy (was previously a silent DEFAULT
+                         fallback). Non-fatal: the SKU is quarantined, the batch does not die,
+                         and the gap is observable (count + raw category/subcategory values)
+      - COLLISION       : two distinct taxonomy entries share a slug (illegal). Never
+                         auto-numbered to foo-2; must be manually resolved
+
+    There is NO silent default fallback.
+    """
+    _tax = load_taxonomy()
+    _cat = (raw_cat or "").strip()
+    if not _cat:
+        return {"status": "UNMAPPED", "top": None, "slug": None, "name": _cat,
+                "self_reference": False, "reason": "empty category"}
+    _matches = _tax["by_name"].get(_cat)
+    if not _matches:
+        return {"status": "UNMAPPED", "top": None, "slug": None, "name": _cat,
+                "self_reference": False,
+                "reason": "category not present in data/category_taxonomy.json"}
+    if len(_matches) > 1:
+        return {"status": "COLLISION", "top": None, "slug": None, "name": _cat,
+                "self_reference": False,
+                "reason": "multiple taxonomy entries share name %r: %s"
+                          % (_cat, [m["taxonomy_id"] for m in _matches])}
+    _entry = _matches[0]
+    # Slug-collision guard: the same slug owned by >1 distinct entry is illegal.
+    _peers = _tax["by_slug"].get(_entry["slug"], [])
+    if len(_peers) > 1:
+        return {"status": "COLLISION", "top": None, "slug": _entry["slug"], "name": _cat,
+                "self_reference": False,
+                "reason": "slug %r shared by multiple entries: %s"
+                          % (_entry["slug"], [m["taxonomy_id"] for m in _peers])}
+    _top = _entry["parent_category"]
+    if _top not in _tax["tops"]:
+        return {"status": "UNMAPPED", "top": None, "slug": _entry["slug"], "name": _cat,
+                "self_reference": False,
+                "reason": "parent top %r not declared in top_categories" % _top}
+    if _entry.get("self_reference"):
+        return {"status": "SELF_REFERENCE", "top": _top, "slug": _entry["slug"],
+                "name": _cat, "self_reference": True, "reason": None}
+    return {"status": "RESOLVED", "top": _top, "slug": _entry["slug"], "name": _cat,
+            "self_reference": False, "reason": None}
+
 
 def resolve_cat(fine_cat):
-    """Return (top_slug, top_name) for a fine-grained CSV category.
-    Falls back to DEFAULT_CAT_SLUG with a warning so batch never dies on a new value."""
-    slug = CATEGORY_MAP.get((fine_cat or "").strip())
-    if not slug:
-        print(f"  [WARN] unmapped Category {fine_cat!r} -> default {DEFAULT_CAT_SLUG}")
-        return DEFAULT_CAT_SLUG, TOP_CATEGORIES[DEFAULT_CAT_SLUG]
-    return slug, TOP_CATEGORIES[slug]
+    """Compatibility wrapper (P0): delegate to resolve_taxonomy, preserving the legacy
+    (top_slug, top_name) signature used by the ~60 existing call sites.
+
+    Unknown categories previously fell back to DEFAULT_CAT_SLUG (silently, always IC).
+    They now resolve to a sentinel ('__UNMAPPED__', 'Unmapped') so generation can quarantine
+    them. The silent DEFAULT fallback has been REMOVED. Full migration of the 60 call sites
+    to resolve_taxonomy() (and UNMAPPED handling in generation) is scheduled for P1+ and is
+    explicitly OUT of P0 scope."""
+    _res = resolve_taxonomy(fine_cat)
+    if _res["status"] in ("RESOLVED", "SELF_REFERENCE"):
+        _top = _res["top"]
+        return _top, TOP_CATEGORIES.get(_top, _top)
+    return "__UNMAPPED__", "Unmapped"
 
 # ---- manufacturer official websites (for Reference Resources) -----------------
 # Only OFFICIAL manufacturer / vendor domains are listed here. These are used to
