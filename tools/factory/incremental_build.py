@@ -144,8 +144,12 @@ def _write_globals(out_root, groups, by_mfr, by_cat, related_map):
             urls.append(f"{DOMAIN}/components/{cslug}/{l3_slug}/")
     hub_dir = os.path.join(out_root, "components")
     os.makedirs(hub_dir, exist_ok=True)
-    with open(os.path.join(hub_dir, "index.html"), "w", encoding="utf-8") as f:
-        f.write(gp.generate_components_hub(generated_slugs))
+    # P1-B2 / M2 (2026-09-09): close the legacy 6-grid overwrite path. Inject BETWEEN
+    # the HUB-INJECT anchors in parity with gen_parts.main() so the hand-authored V2.4
+    # shell / SEO / visuals are preserved (never the deprecated generate_components_hub()).
+    # Requires base_out/components/index.html (copied above via copytree) to already
+    # carry the 4 anchors; inject_hub_anchors() asserts if any marker is absent.
+    gp.inject_hub_anchors(os.path.join(hub_dir, "index.html"), groups)
     urls.append(f"{DOMAIN}/components/")
 
     # --- split sitemap (mirror of main()) ---
