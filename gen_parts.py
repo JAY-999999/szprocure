@@ -246,6 +246,61 @@ def resolve_cat(fine_cat):
         return _top, TOP_CATEGORIES.get(_top, _top)
     return "__UNMAPPED__", "Unmapped"
 
+
+# ---------------------------------------------------------------------------
+# Generation-phase taxonomy classifier (P1-B1 — 2026-09-09)
+# Wraps resolve_taxonomy() so the SKU/category *generation* phase is explicitly
+# 4-state aware. Every generation call site that must judge category state now
+# routes through here, so UNMAPPED / COLLISION are OBSERVED (recorded + counted)
+# instead of silently collapsing, and SELF_REFERENCE is visible to the category-
+# page generator (which must NOT emit a same-named L3 page).
+#
+# Returns (status, top_slug, top_name):
+#   RESOLVED       -> (status, parent_top, display_name)   # byte-identical to legacy
+#   SELF_REFERENCE -> (status, parent_top, display_name)   # byte-identical to legacy
+#   UNMAPPED       -> (status, "__UNMAPPED__", "Unmapped") # quarantine, NO IC fallback
+#   COLLISION      -> (status, "__UNMAPPED__", "Unmapped") # quarantine, NO foo-2 auto-number
+# For RESOLVED & SELF_REFERENCE the returned top_slug/top_name are IDENTICAL to the
+# legacy resolve_cat(), so all 570 production SKUs classify unchanged (Mismatch = 0).
+# ---------------------------------------------------------------------------
+_TAXONOMY_GEN_STATS = {"RESOLVED": 0, "SELF_REFERENCE": 0, "UNMAPPED": 0, "COLLISION": 0}
+_TAXONOMY_QUARANTINE = []  # raw category strings seen as UNMAPPED/COLLISION during generation
+
+
+def reset_taxonomy_gen_state():
+    """Clear generation-time counters before a (re)generation run."""
+    global _TAXONOMY_GEN_STATS, _TAXONOMY_QUARANTINE
+    _TAXONOMY_GEN_STATS = {"RESOLVED": 0, "SELF_REFERENCE": 0, "UNMAPPED": 0, "COLLISION": 0}
+    _TAXONOMY_QUARANTINE = []
+
+
+def get_taxonomy_gen_state():
+    """Snapshot of generation-time taxonomy counters + quarantine list (for tests/reports)."""
+    return dict(_TAXONOMY_GEN_STATS), list(_TAXONOMY_QUARANTINE)
+
+
+def resolve_cat_state(raw_cat):
+    """Generation-phase 4-state classifier. Records counters + quarantine, returns
+    (status, top_slug, top_name). Never raises; UNMAPPED/COLLISION are quarantined."""
+    _res = resolve_taxonomy(raw_cat)
+    _status = _res["status"]
+    _TAXONOMY_GEN_STATS[_status] = _TAXONOMY_GEN_STATS.get(_status, 0) + 1
+    if _status in ("UNMAPPED", "COLLISION"):
+        _TAXONOMY_QUARANTINE.append(_res["name"])
+    if _status in ("RESOLVED", "SELF_REFERENCE"):
+        _top = _res["top"]
+        return _status, _top, TOP_CATEGORIES.get(_top, _top)
+    # UNMAPPED / COLLISION: explicit quarantine sentinel (NOT a fake category, never IC).
+    return _status, "__UNMAPPED__", "Unmapped"
+
+
+def l3_page_should_skip(fine_cat):
+    """P1-B1: an L3 sub-category page must be SKIPPED (never generated) when its
+    taxonomy status is SELF_REFERENCE (would collapse onto the top page), COLLISION
+    (taxonomy config error — never auto-number to foo-2), or UNMAPPED (no valid L3).
+    Pure helper so the skip decision is unit-testable without running the generator."""
+    return resolve_cat_state(fine_cat)[0] in ("SELF_REFERENCE", "COLLISION", "UNMAPPED")
+
 # ---- manufacturer official websites (for Reference Resources) -----------------
 # Only OFFICIAL manufacturer / vendor domains are listed here. These are used to
 # link buyers to the manufacturer's own datasheet / technical documentation —
@@ -678,7 +733,10 @@ def gen_part_page(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
     og_img = f"{DOMAIN}{img_url}" if img_url.startswith("/") else img_url
 
     # Resolve fine category -> 6 top-level /components/ URL (breadcrumbs & links)
-    cat_slug, cat_top = resolve_cat(cat)
+    # P1-B1: generation-phase 4-state classifier (UNMAPPED/COLLISION quarantined,
+    # recorded + counted; SELF_REFERENCE identified; RESOLVED unchanged).
+    status, cat_slug, cat_top = resolve_cat_state(cat)
+    cat_resolved = status in ("RESOLVED", "SELF_REFERENCE")
 
     # ---- SEO copy: procurement language, Shenzhen/China sourcing keywords ----
     # Lead / overview emphasizes the BUYING scenario (global procurement from
@@ -823,7 +881,10 @@ def gen_part_page(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
     qi_rows = []
     qi_rows.append(("Manufacturer", f'<a href="/manufacturers/{mfr_slug}/">{esc(mfr)}</a> <span class="muted small">Verified sourcing partner</span>'))
     qi_rows.append(("Part Number", esc(pn)))
-    qi_rows.append(("Product Type", f'<a href="/components/{cat_slug}/">{esc(subcat or cat_top)}</a>'))
+    if cat_resolved:
+        qi_rows.append(("Product Type", f'<a href="/components/{cat_slug}/">{esc(subcat or cat_top)}</a>'))
+    else:
+        qi_rows.append(("Product Type", esc(subcat or cat_top)))
     for k, v in spec_pairs_en:
         if k.lower() in ("package", "core"):
             qi_rows.append((human_attr_label(k), esc(format_attr_value(k, v))))
@@ -888,7 +949,7 @@ def gen_part_page(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
         faq_section_html = ""
 
     # Related Products (same top-category) — internal links form a product web.
-    if related:
+    if related and cat_resolved:
         rel_items = "".join(
             f'<li><a href="/products/{oslug}/" class="alt-link">{esc(opn)}</a></li>'
             for opn, oslug in related
@@ -896,6 +957,9 @@ def gen_part_page(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
         related_html = (f'<h2>Related {esc(cat_top)}</h2>'
                         f'<p>Other {esc(cat_top).lower()} we help global buyers source:</p>'
                         f'<ul class="alt-list">{rel_items}</ul>')
+    elif related:
+        # UNMAPPED/COLLISION: category is quarantined -> neutral "Related Parts" (no broken link)
+        related_html = '<h2>Related Parts</h2>'
     else:
         related_html = ""
 
@@ -949,13 +1013,15 @@ def gen_part_page(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
     # link always resolves (never a dead link). Uses `cat` (the `category` field)
     # which is the authoritative L3 key — NOT `subcat`.
     fine_slug = slugify_name(cat) if cat else ""
-    sub_crumb = f'<a href="/components/{cat_slug}/{fine_slug}/">{esc(cat)}</a> › ' if cat else ""
+    sub_crumb = (f'<a href="/components/{cat_slug}/{fine_slug}/">{esc(cat)}</a> › '
+                 if (cat and cat_resolved) else "")
     crumb_items = [
         ("Home", f"{DOMAIN}/"),
         ("Components", f"{DOMAIN}/components/"),
-        (cat_top, f"{DOMAIN}/components/{cat_slug}/"),
     ]
-    if cat:
+    if cat_resolved:
+        crumb_items.append((cat_top, f"{DOMAIN}/components/{cat_slug}/"))
+    if cat and cat_resolved:
         crumb_items.append((cat, f"{DOMAIN}/components/{cat_slug}/{fine_slug}/"))
     crumb_items.append((pn, url))
     crumb = breadcrumb_jsonld(crumb_items)
@@ -995,7 +1061,7 @@ def gen_part_page(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
     <nav class="breadcrumb"><div class="container">
       <a href="/">Home</a> ›
       <a href="/components/">Components</a> ›
-      <a href="/components/{cat_slug}/">{esc(cat_top)}</a> ›
+      {('' if not cat_resolved else f'<a href="/components/{cat_slug}/">{esc(cat_top)}</a> ›')}
       {sub_crumb}<span>{esc(pn)}</span>
     </div></nav>
 
@@ -1351,7 +1417,10 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
     img_url = img if img else "/assets/img/hero.svg"
     og_img = f"{DOMAIN}{img_url}" if img_url.startswith("/") else img_url
 
-    cat_slug, cat_top = resolve_cat(cat)
+    # P1-B1: generation-phase 4-state classifier (UNMAPPED/COLLISION quarantined,
+    # recorded + counted; SELF_REFERENCE identified; RESOLVED unchanged).
+    status, cat_slug, cat_top = resolve_cat_state(cat)
+    cat_resolved = status in ("RESOLVED", "SELF_REFERENCE")
 
     # ---- SEO copy: IDENTICAL formula to V2 (guarantees byte-equal SEO head/schema) ----
     fallback_overview = (f"{esc(pn)} is a {esc(subcat or cat).lower()} from {esc(mfr)}. "
@@ -1471,7 +1540,10 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
     # Hero identity fields — real, key identity only (no fabrication).
     id_rows = []
     id_rows.append(("Manufacturer", f'<a href="/manufacturers/{mfr_slug}/">{esc(mfr)}</a>'))
-    id_rows.append(("Product Type", f'<a href="/components/{cat_slug}/">{esc(subcat or cat_top)}</a>'))
+    if cat_resolved:
+        id_rows.append(("Product Type", f'<a href="/components/{cat_slug}/">{esc(subcat or cat_top)}</a>'))
+    else:
+        id_rows.append(("Product Type", esc(subcat or cat_top)))
     for k, v in spec_pairs_en:
         if k.lower() in ("package", "core", "frequency_hz", "voltage_v"):
             id_rows.append((human_attr_label(k), esc(format_attr_value(k, v))))
@@ -1506,7 +1578,7 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
 
     # Related Parts — "Other parts we source" (same top-category real SKUs; no compatible/replacement implication)
     related_section = ""
-    if related:
+    if related and cat_resolved:
         rel_items = "".join(
             f'<div class="related-card"><a href="/products/{oslug}/">{esc(opn)}</a></div>'
             for opn, oslug in related
@@ -1516,6 +1588,13 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
             f'  <h2 class="section-title">Related {esc(cat_top)}</h2>\n'
             f'  <p>Other {esc(cat_top).lower()} we help global buyers source:</p>\n'
             f'  <div class="related-grid">{rel_items}</div>\n'
+            '</section>'
+        )
+    elif related:
+        # UNMAPPED/COLLISION: category is quarantined -> neutral "Related Parts" (no broken link)
+        related_section = (
+            f'<section id="related" class="tab-panel">\n'
+            f'  <h2 class="section-title">Related Parts</h2>\n'
             '</section>'
         )
 
@@ -1657,13 +1736,15 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
 
     # breadcrumb (same items as V2)
     fine_slug = slugify_name(cat) if cat else ""
-    sub_crumb = f'<a href="/components/{cat_slug}/{fine_slug}/">{esc(cat)}</a> › ' if cat else ""
+    sub_crumb = (f'<a href="/components/{cat_slug}/{fine_slug}/">{esc(cat)}</a> › '
+                 if (cat and cat_resolved) else "")
     crumb_items = [
         ("Home", f"{DOMAIN}/"),
         ("Components", f"{DOMAIN}/components/"),
-        (cat_top, f"{DOMAIN}/components/{cat_slug}/"),
     ]
-    if cat:
+    if cat_resolved:
+        crumb_items.append((cat_top, f"{DOMAIN}/components/{cat_slug}/"))
+    if cat and cat_resolved:
         crumb_items.append((cat, f"{DOMAIN}/components/{cat_slug}/{fine_slug}/"))
     crumb_items.append((pn, url))
     crumb = breadcrumb_jsonld(crumb_items)
@@ -1740,7 +1821,7 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
     <nav class="breadcrumb"><div class="container">
       <a href="/">Home</a> ›
       <a href="/components/">Components</a> ›
-      <a href="/components/{cat_slug}/">{esc(cat_top)}</a> ›
+      {('' if not cat_resolved else f'<a href="/components/{cat_slug}/">{esc(cat_top)}</a> ›')}
       {sub_crumb}<span>{esc(pn)}</span>
     </div></nav>
 
@@ -4026,6 +4107,13 @@ def main():
             if fine:
                 l3_groups[fine].append(p)
         for fine, l3_parts in sorted(l3_groups.items()):
+            # P1-B1: SELF_REFERENCE -> the L3 page would collapse onto the top page,
+            # so we must NOT generate a same-named L3 page. COLLISION -> taxonomy
+            # config error, never auto-number to foo-2. UNMAPPED -> no valid L3,
+            # never emit a broken page. All three are recorded (counters +
+            # quarantine) and the batch continues; nothing is silently numbered.
+            if l3_page_should_skip(fine):
+                continue
             l3_slug = slugify_name(fine)
             d = os.path.join(out_root, "components", cslug, l3_slug)
             os.makedirs(d, exist_ok=True)
