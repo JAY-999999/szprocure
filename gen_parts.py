@@ -41,7 +41,7 @@ Usage:
   python gen_parts.py --csv "path/to/料号库.csv" --out "."
   (defaults: csv = ../芯片/料号库/料号库.csv relative to this script's dir)
 """
-import csv, os, re, argparse, html, sys, json
+import csv, os, re, argparse, html, sys, json, hashlib, tempfile
 from collections import defaultdict
 from urllib.parse import quote as urlquote
 
@@ -1027,6 +1027,15 @@ V3_MPNS = {"1.0-4PWB", "1909763-1", "1N4148W", "1N4148W-7-F", "1N4148WS", "1N581
 
 
 # ---------------------------------------------------------------------------
+# Risk #1 (2026-09-08): V3 is now the DEFAULT renderer. The historical V3_MPNS
+# elected-list above is RETAINED for reference but NO LONGER drives routing.
+# A new, empty allow-list opts specific SKUs BACK to the legacy V2 renderer only
+# when explicitly required (e.g. a future legacy exception). Empty by default =>
+# every SKU renders via gen_part_page_v3. V2 is preserved, never deleted.
+# ---------------------------------------------------------------------------
+V2_LEGACY_EXCEPTIONS = set()
+
+# ---------------------------------------------------------------------------
 # RoHS compliance badge (V3 template rule)
 # ---------------------------------------------------------------------------
 # Reads authoritative RoHS compliance + evidence from the LCSC distributor API
@@ -1092,6 +1101,149 @@ def rohs_badge_html(row):
     return '<span class="rohs-badge" aria-hidden="true">RoHS</span>'
 
 
+# ==============================================================================
+# Risk #2 (2026-09-08): PDF enrichment loaded AT GENERATION TIME.
+# This replaces the old post-hoc HTML string injection (_enrich_apply.py), so
+# enrichment can never be wiped by a page regeneration. Enrichment is ALWAYS
+# optional and NEVER a publish blocker.
+# ==============================================================================
+ENRICH_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "enrich")
+
+
+def load_enrichment(slug, mpn=None):
+    """Risk #2: read a SKU's PDF enrichment JSON at generation time.
+
+    Returns the parsed enrichment dict (with ``_file_sha256`` attached) or None.
+
+    Resolution (files are named by MPN, not slug):
+      - data/enrich/<slug>.content.json
+      - data/enrich/<SLUG>.content.json
+      - data/enrich/<mpn>.content.json
+      - data/enrich/<MPN>.content.json
+    First existing file wins.
+
+    Failure policy (explicit, never silent):
+      - file missing             -> None  (enrichment optional; publish proceeds)
+      - JSON invalid / unreadable -> logged WARNING, returns None (no fabricated content)
+      - missing schema_version    -> logged WARNING, returns None
+    """
+    candidates = []
+    for c in (slug, (slug or "").upper(), mpn, (mpn or "").upper()):
+        if c and c not in candidates:
+            candidates.append(c)
+    for name in candidates:
+        path = os.path.join(ENRICH_DIR, f"{name}.content.json")
+        if not os.path.isfile(path):
+            continue
+        try:
+            with open(path, "r", encoding="utf-8") as fh:
+                raw = fh.read()
+            data = json.loads(raw)
+        except json.JSONDecodeError as e:
+            print(f"  [enrichment] WARNING: invalid JSON in {path}: {e} -- skipped (NOT applied)")
+            return None
+        except Exception as e:
+            print(f"  [enrichment] WARNING: cannot read {path}: {e} -- skipped (NOT applied)")
+            return None
+        if not isinstance(data, dict) or "schema_version" not in data:
+            print(f"  [enrichment] WARNING: {path} missing 'schema_version' -- skipped (NOT applied)")
+            return None
+        data["_file_sha256"] = hashlib.sha256(raw.encode("utf-8")).hexdigest()
+        return data
+    return None
+
+
+# ---------------------------------------------------------------------------
+# Enrichment spec/app/faq de-duplication helpers (Risk #2).
+# Ported verbatim (semantics only) from the historical _enrich_apply.py so the
+# generation-time injection reproduces the SAME additive behavior the old
+# post-hoc injector produced: enrichment specs whose NORMALIZED concept already
+# exists in the MASTER identity spec set are skipped (no duplicate rows); apps
+# and FAQ are de-duplicated by normalized text. Keeping this logic inside the
+# generator makes enrichment a property of the generated page, never wiped by a
+# regeneration.
+# ---------------------------------------------------------------------------
+_ENRICH_SPEC_RULES = [
+    ("vds", ["drain source voltage", "drain source", "vds", "vdss"]),
+    ("vgs", ["gate source voltage", "gate source", "vgs"]),
+    ("vgsth", ["gate threshold", "threshold voltage", "vgs th", "vgs th "]),
+    ("rdson", ["rds", "on resistance", "drain source on", "on resistance rds"]),
+    ("qg", ["gate charge", "total gate charge", "qg"]),
+    ("id", ["drain current", "continuous drain", "id"]),
+    ("ifavg", ["forward current", "average forward", "if "]),
+    ("vrrm", ["reverse voltage", "vrrm", "repetitive reverse"]),
+    ("vf", ["forward voltage"]),
+    ("voltage", ["voltage", "v", "supply voltage", "operating voltage",
+                 "rated voltage", "input voltage", "output voltage",
+                 "reference voltage", "adjustable output"]),
+    ("current", ["current", "iq", "quiescent", "shutdown"]),
+    ("io", ["gpio", "number of io", "i o", "io "]),
+    ("pkg", ["package", "case"]),
+    ("flash", ["flash"]),
+    ("sram", ["sram"]),
+    ("core", ["core"]),
+    ("clockspd", ["clock speed", "clock"]),
+    ("comminterfaces", ["communication"]),
+    ("cap", ["capacitance"]),
+    ("loadcap", ["load capacitance"]),
+    ("tol", ["tolerance"]),
+    ("dielectric", ["dielectric"]),
+    ("freq", ["frequency", "nominal frequency"]),
+    ("freqtol", ["frequency tolerance"]),
+    ("op_temp", ["operating temperature", "ambient temperature",
+                 "junction temperature", "operating junction"]),
+    ("stg_temp", ["storage temperature"]),
+    ("temp", ["temperature"]),
+    ("dim", ["dimension", "overall dimension", "size code", "size"]),
+    ("mount", ["mounting", "mount"]),
+    ("iface", ["interface"]),
+    ("density", ["density"]),
+    ("eraseg", ["erase"]),
+    ("pagesz", ["page size", "page"]),
+    ("esr", ["esr", "motional resistance"]),
+    ("drive", ["level of drive", "drive level"]),
+    ("pitch", ["pitch"]),
+    ("contact", ["contact material", "contact"]),
+    ("housing", ["housing"]),
+    ("entry", ["entry type", "entry"]),
+    ("ckt", ["circuit", "positions", "number of circuits"]),
+    ("devtype", ["device type"]),
+    ("finish", ["finish"]),
+    ("uniqueid", ["unique id", "unique serial", "serial number"]),
+    ("vin", ["input voltage"]),
+    ("iout", ["output current"]),
+    ("swfreq", ["switching frequency", "switching"]),
+    ("voutadj", ["adjustable output"]),
+    ("ilim", ["current limit", "limit threshold"]),
+    ("t_sd", ["thermal shutdown"]),
+    ("fage", ["frequency aging", "aging"]),
+]
+
+
+def _enrich_concept(k):
+    s = str(k).lower()
+    s = re.sub(r"\([^)]*\)", " ", s)
+    s = re.sub(r"[^a-z0-9 ]", " ", s)
+    for label, phrases in _ENRICH_SPEC_RULES:
+        for p in phrases:
+            if p in s:
+                return label
+    return re.sub(r"\s+", " ", s).strip()
+
+
+def _enrich_norm_text(t):
+    s = str(t).lower()
+    s = re.sub(r"[^a-z0-9 ]", " ", s)
+    return re.sub(r"\s+", " ", s).strip()
+
+
+def _enrich_cosmetic(s):
+    s = str(s)
+    s = s.replace("plusminus", "+/-")
+    s = re.sub(r"degc", "degC", s, flags=re.I)
+    return s
+
+
 def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
     pn = row["mpn"].strip()
     mfr = row["manufacturer"].strip()
@@ -1148,12 +1300,76 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
     # translate to English visible layer (CJK gate); keep ONLY real keys/values
     spec_pairs_en = translate_spec_pairs(spec_pairs)
 
+    # ---- Risk #2: load PDF enrichment at generation time (optional, never blocks) ----
+    enrich = load_enrichment(slug, pn)
+    enrich_spec_pairs = []   # enrichment-only specs: supplemental, NEVER fed into id_rows identity
+    enrich_keywords = []
+    enrich_meta = ""
+    main_attrs = ""
+    if enrich is not None:
+        # short_description -> Overview tab only (MASTER hero-desc preserved; not an identity field)
+        sd = (enrich.get("short_description") or {}).get("value")
+        overview_tab = esc(sd) if sd else overview
+        # key_specifications -> append as supplemental datasheet params.
+        # Dedup by NORMALIZED concept: skip any enrichment spec whose concept already
+        # exists in the MASTER identity spec set (so no duplicate rows such as "SRAM",
+        # "Flash Memory", "Package" appear twice). Mirrors the historical _enrich_apply.py.
+        seen_concepts = set(_enrich_concept(human_attr_label(k)) for k, _ in spec_pairs_en)
+        for spec in (enrich.get("key_specifications") or []):
+            k = spec.get("key") if isinstance(spec, dict) else None
+            v = spec.get("value") if isinstance(spec, dict) else None
+            if not (k and v not in (None, "")):
+                continue
+            if _enrich_concept(k) in seen_concepts:
+                continue
+            seen_concepts.add(_enrich_concept(k))
+            enrich_spec_pairs.append([str(k), str(_enrich_cosmetic(v))])
+        # applications -> append (dedup by NORMALIZED text against MASTER apps)
+        seen_apps = set(_enrich_norm_text(a) for a in apps_list)
+        for app in (enrich.get("applications") or []):
+            val = app.get("value") if isinstance(app, dict) else app
+            if not val:
+                continue
+            if _enrich_norm_text(val) in seen_apps:
+                continue
+            seen_apps.add(_enrich_norm_text(val))
+            apps_list.append(val)
+        # faq -> append (dedup by NORMALIZED question against MASTER faq)
+        existing_q = {_enrich_norm_text(q) for q, _ in faq_pairs}
+        for f in (enrich.get("faq") or []):
+            q = f.get("question") if isinstance(f, dict) else None
+            a = f.get("answer") if isinstance(f, dict) else None
+            if not (q and a):
+                continue
+            if _enrich_norm_text(q) in existing_q:
+                continue
+            existing_q.add(_enrich_norm_text(q))
+            faq_pairs.append([q, a])
+        # keywords -> data asset ONLY (NOT injected into meta/visible SEO, per Risk #2)
+        enrich_keywords = [k.get("value") for k in (enrich.get("keywords") or [])
+                           if isinstance(k, dict) and k.get("value")]
+        # sz-enrichment marker meta: v1|mpn|content_sha256|pdf_sha256|ts
+        ts = enrich.get("extracted_at") or enrich.get("generated_at") or ""
+        enrich_meta = (f'<meta name="sz-enrichment" content="v1|{esc(pn)}|'
+                       f'{enrich.get("_file_sha256", "")}|{enrich.get("pdf_sha256", "")}|{esc(ts)}" />')
+        main_attrs = ' data-sz-enrichment="v1"'
+        if enrich_keywords:
+            main_attrs += f' data-enrichment-keywords="{esc(", ".join(enrich_keywords))}"'
+    else:
+        overview_tab = overview
+
     # V3 Specifications tab — real attributes, honest labels, NEVER invented rows.
+    # MASTER specs first; enrichment specs appended as supplemental datasheet params.
     if spec_pairs_en:
         specs_rows = "".join(
             f"<tr><th>{esc(human_attr_label(k))}</th><td>{esc(format_attr_value(k, v))}</td></tr>"
             for k, v in spec_pairs_en
         )
+    else:
+        specs_rows = ""
+    for k, v in enrich_spec_pairs:
+        specs_rows += f"<tr><th>{esc(k)}</th><td>{esc(v)}</td></tr>"
+    if specs_rows:
         specs_html = f'<table class="spec-table">\n<tbody>\n{specs_rows}</tbody>\n</table>'
     else:
         specs_html = (
@@ -1415,6 +1631,7 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 {seo_head(title, desc, url, og_img)}
+{enrich_meta}
   <link rel="stylesheet" href="/assets/styles.css" />
   <link rel="stylesheet" href="/assets/sku-v3.css" />
   <style>
@@ -1460,7 +1677,7 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
 
         <section id="overview" class="tab-panel">
           <h2 class="section-title">Product Overview</h2>
-          <p>{overview}</p>
+          <p>{overview_tab}</p>
         </section>
 
         <section id="specifications" class="tab-panel">
@@ -2695,6 +2912,763 @@ def detect_synthetic_mpn(rows):
         _abort_build(lines)
     return True
 
+# ===========================================================================
+# PHASE 1 — Incremental Publishing: Build State / Build Key / Change Detection
+# ---------------------------------------------------------------------------
+# Authorized 2026-09-08. SCOPE: BUILD STATE ONLY.
+#   * Adds build_manifest.json I/O, unified build_key(), and classify_sku().
+#   * Prints a Publishing Plan via --incremental (dry-run, no HTML written).
+#   * Bootstraps build_manifest.json from existing products/ (--bootstrap-manifest).
+# HARD BOUNDARY (per project frozen rules):
+#   * PHASE 2 write path (--incremental, non-dry) writes ONLY the CREATE/UPDATE
+#     subset of products/*.html — never a full rebuild, never MASTER, never
+#     sitemap-canonical/schema/URL-slug, never the V2/V3 renderer bodies.
+#   * SKIP pages are filtered BEFORE the renderer is called (never written).
+#   * A SCOPE GUARD aborts if any planned write is neither explicitly requested
+#     nor a legitimate dependency-induced change (unexpected > 0 -> STOP).
+#   * Global artifacts (sitemap/parts.json/search) are recomputed in a SEPARATE
+#     step after all SKU HTML writes succeed; they never re-render SKU HTML.
+#   * The existing production full-rebuild path (open(index.html,"w") + sitemap +
+#     parts.json) is untouched; --incremental / --bootstrap-manifest short-circuit
+#     and return before it. No --full-rebuild flag is implemented (anti-footgun).
+# Reuses tools/factory/master_io.row_fingerprint + sha256_of (no second algorithm).
+# ===========================================================================
+MANIFEST_PATH = os.path.join(ROOT, "build_manifest.json")
+TEMPLATE_VERSION = "2026.09.v3.phase1"   # bump when gen_part_page / gen_part_page_v3 body changes
+SCOPE_CEILING_RATIO = 0.05              # Phase 2 Scope Guard ceiling (informational in Phase 1)
+# Page-affecting MASTER columns that feed a SKU's data_fp. Deliberately EXCLUDES
+# traceability / derived cols (source, source_url, supplier_reference, url_slug,
+# clean_mpn, availability) so internal edits never spuriously rebuild a page.
+INCREMENTAL_DATA_COLS = [
+    "mpn", "manufacturer", "brand", "category", "subcategory",
+    "description", "applications", "keywords", "attributes_json",
+    "alternative_parts", "datasheet_url", "faq", "image",
+]
+
+
+class ManifestError(RuntimeError):
+    """Raised when build_manifest.json is present but corrupt (fail-safe)."""
+
+
+_master_io_cache = None
+
+
+def _get_master_io():
+    """Lazy import of tools/factory/master_io (reuses row_fingerprint / sha256_of)."""
+    global _master_io_cache
+    if _master_io_cache is not None:
+        return _master_io_cache
+    import sys
+    tools_dir = os.path.join(ROOT, "tools")
+    if tools_dir not in sys.path:
+        sys.path.insert(0, tools_dir)
+    from factory import master_io  # package import (tools/ on sys.path)
+    _master_io_cache = master_io
+    return master_io
+
+
+def _now_iso():
+    from datetime import datetime, timezone
+    return datetime.now(timezone.utc).isoformat()
+
+
+def _build_by_cat(groups):
+    by_cat = defaultdict(list)
+    for g in groups:
+        cslug, _ = resolve_cat(g["category"].strip())
+        by_cat[cslug].append(g)
+    return by_cat
+
+
+def _category_pool_fingerprint(cslug, by_cat):
+    """O(n) deterministic fingerprint of a category's Related-rotation pool.
+
+    Mirrors build_related_map's pool order (L2223): (mpn, url_slug) pairs in
+    MASTER row order within the category. Any change to the pool sequence
+    (insert / remove / rename / reorder a SKU) changes this hash -> the
+    affected category's co-members become dependency-induced UPDATE.
+    No O(n^2) global hash: Alternative coupling is handled in Phase 2 via a
+    reverse-edge index, NOT folded into this fingerprint.
+    """
+    mio = _get_master_io()
+    rows = [{"mpn": g["mpn"].strip(),
+             "slug": (g.get("url_slug") or "").strip() or slugify(g["mpn"].strip())}
+            for g in by_cat.get(cslug, []) if g.get("mpn", "").strip()]
+    return mio.row_fingerprint(rows, ["mpn", "slug"])
+
+
+def _enrich_fp_for(slug, mpn):
+    """SHA256 of the SKU's enrichment JSON, or NO_ENRICH when absent.
+
+    Resolution order mirrors load_enrichment() (files named by slug/mpn):
+    data/enrich/<slug>.content.json | <SLUG> | <mpn> | <MPN>.
+    """
+    mio = _get_master_io()
+    base = os.path.join(ROOT, "data", "enrich")
+    for name in (slug, (slug or "").upper(), mpn, (mpn or "").upper()):
+        if not name:
+            continue
+        p = os.path.join(base, f"{name}.content.json")
+        if os.path.exists(p):
+            return mio.sha256_of(p)
+    return "NO_ENRICH"
+
+
+def _asset_fp_for(renderer_v):
+    """Stable hash of the CSS assets a SKU page actually loads.
+
+    v3 page links both /assets/styles.css and /assets/sku-v3.css (L1635-1636);
+    v2 links only /assets/styles.css. Missing file -> UNKNOWN (caller marks
+    REQUIRES_REBUILD, never silently SKIPs).
+    """
+    mio = _get_master_io()
+    rels = ["assets/sku-v3.css", "assets/styles.css"] if renderer_v == "v3" else ["assets/styles.css"]
+    chunks = []
+    for rel in rels:
+        p = os.path.join(ROOT, rel)
+        if not os.path.exists(p):
+            return "UNKNOWN"
+        chunks.append(mio.sha256_of(p))
+    return hashlib.sha256("|".join(chunks).encode("utf-8")).hexdigest()
+
+
+def _renderer_v_for(pn):
+    return "v2" if pn.upper() in V2_LEGACY_EXCEPTIONS else "v3"
+
+
+def _data_fp_for(row):
+    mio = _get_master_io()
+    cols = [c for c in INCREMENTAL_DATA_COLS if c in row]
+    return mio.row_fingerprint([row], cols)
+
+
+def compute_build_key(slug, row, by_cat):
+    """Unified build_key (six components) for one SKU.
+
+    Returns a dict with slug/mpn + the six fingerprints used by classify_sku().
+    Both bootstrap and the incremental pipeline call THIS, so baseline and
+    re-runs are guaranteed consistent (a no-op incremental run yields all SKIP).
+    """
+    pn = (row.get("mpn") or "").strip()
+    renderer_v = _renderer_v_for(pn)
+    cslug, _ = resolve_cat((row.get("category") or "").strip())
+    return {
+        "slug": slug,
+        "mpn": pn,
+        "renderer_v": renderer_v,
+        "data_fp": _data_fp_for(row),
+        "enrich_fp": _enrich_fp_for(slug, pn),
+        "template_v": TEMPLATE_VERSION,
+        "asset_v": _asset_fp_for(renderer_v),
+        "dependency_fp": _category_pool_fingerprint(cslug, by_cat),
+    }
+
+
+def classify_sku(desired, recorded):
+    """CREATE / UPDATE / SKIP for one SKU.
+
+    recorded is the manifest entry dict, or None (missing -> CREATE).
+    Any change among the six fingerprints -> UPDATE; identical -> SKIP.
+    """
+    if recorded is None:
+        return "CREATE"
+    for f in ("renderer_v", "data_fp", "enrich_fp", "template_v", "asset_v", "dependency_fp"):
+        if desired.get(f) != recorded.get(f):
+            return "UPDATE"
+    return "SKIP"
+
+
+def _update_kind(desired, recorded):
+    """Classify an UPDATE as Direct vs Dependency-induced (for the plan report)."""
+    dep_only = (desired.get("dependency_fp") != recorded.get("dependency_fp")) and all(
+        desired.get(f) == recorded.get(f)
+        for f in ("renderer_v", "data_fp", "enrich_fp", "template_v", "asset_v"))
+    return "dependency-induced" if dep_only else "direct"
+
+
+def load_manifest(path=MANIFEST_PATH):
+    """Load build_manifest.json. Returns None if missing (caller treats as empty).
+
+    Raises ManifestError on corrupt JSON (fail-safe: never silently proceeds).
+    """
+    if not os.path.exists(path):
+        return None
+    try:
+        with open(path, encoding="utf-8") as f:
+            return json.load(f)
+    except (json.JSONDecodeError, ValueError) as e:
+        raise ManifestError(f"build_manifest.json at {path} is corrupt and cannot be "
+                            f"parsed ({e}). Refusing to proceed silently.")
+
+
+def save_manifest(path=MANIFEST_PATH, manifest=None, dry_run=False):
+    """Atomic write of build_manifest.json (temp + validate + os.replace).
+
+    Under dry_run, writes nothing and returns a description dict.
+    """
+    if manifest is None:
+        manifest = {}
+    if dry_run:
+        return {"written": False, "dry_run": True, "path": path, "entries": len(manifest.get("skus", {}))}
+    directory = os.path.dirname(path) or "."
+    fd, tmp = tempfile.mkstemp(dir=directory, prefix=os.path.basename(path) + ".", suffix=".tmp")
+    os.close(fd)
+    try:
+        with open(tmp, "w", encoding="utf-8") as f:
+            json.dump(manifest, f, ensure_ascii=False, indent=2, sort_keys=True)
+        with open(tmp, encoding="utf-8") as f:  # round-trip validate
+            json.load(f)
+        os.replace(tmp, path)  # atomic on same volume
+    except Exception:
+        if os.path.exists(tmp):
+            os.unlink(tmp)
+        raise
+    return {"written": True, "path": path, "entries": len(manifest.get("skus", {}))}
+
+
+def bootstrap_manifest(args, groups, out_root, manifest_path=MANIFEST_PATH):
+    """PHASE 1 baseline: scan current products/ and RECORD published state.
+
+    Does NOT regenerate HTML, does NOT edit MASTER/sitemap/global artifacts.
+    Writes build_manifest.json only when NOT --dry-run. Orphans (products pages
+    with no MASTER row) are reported separately and NEVER added to the manifest.
+    """
+    products_dir = os.path.join(out_root, "products")
+    published = set()
+    if os.path.isdir(products_dir):
+        for name in os.listdir(products_dir):
+            if os.path.isfile(os.path.join(products_dir, name, "index.html")):
+                published.add(name)
+    row_by_slug = {g["url_slug"]: g for g in groups if g.get("url_slug")}
+    by_cat = _build_by_cat(groups)
+
+    skus = {}
+    orphans = []
+    for slug in sorted(published):
+        row = row_by_slug.get(slug)
+        if row is None:
+            orphans.append(slug)  # historical orphan (e.g. lm321 / lm393dt): report, do NOT manifest
+            continue
+        bk = compute_build_key(slug, row, by_cat)
+        if "UNKNOWN" in (bk.get("asset_v"),):
+            bk["status"] = "REQUIRES_REBUILD"  # honest: do NOT mark SKIP
+        else:
+            bk["status"] = "published"
+        bk["last_written"] = "baseline"
+        skus[slug] = bk
+
+    missing = [g["url_slug"] for g in groups
+               if g.get("url_slug") and g["url_slug"] not in published]
+
+    manifest = {
+        "meta": {
+            "template_version": TEMPLATE_VERSION,
+            "bootstrapped_at": _now_iso(),
+            "sku_count": len(skus),
+            "orphan_count": len(orphans),
+            "missing_page_count": len(missing),
+        },
+        "skus": skus,
+    }
+
+    if args.dry_run:
+        print(f"  [BOOTSTRAP dry-run] Would record {len(skus)} published SKUs; "
+              f"{len(orphans)} orphan(s); {len(missing)} MASTER row(s) without a page.")
+        if orphans:
+            print(f"  [BOOTSTRAP] ORPHAN = {', '.join(orphans)}")
+        print(f"  [BOOTSTRAP dry-run] build_manifest.json NOT written (--dry-run).")
+        return {"written": False, "skus": len(skus), "orphans": orphans, "missing": missing}
+
+    res = save_manifest(path=manifest_path, manifest=manifest, dry_run=False)
+    print(f"  [BOOTSTRAP] Recorded {len(skus)} published SKUs -> {manifest_path}")
+    print(f"  [BOOTSTRAP] ORPHAN = {len(orphans)} : {', '.join(orphans) if orphans else '(none)'}")
+    if missing:
+        print(f"  [BOOTSTRAP] {len(missing)} MASTER row(s) have no products/<slug>/ page "
+              f"(would be CREATE on next incremental run).")
+    return res
+
+
+def _build_alt_reverse(groups, slug_set, slug_by_mpn):
+    """O(edges) Alternative reverse-edge index: target_slug -> set(source_slug).
+
+    Mirrors the renderer's Alternative resolution (L749/L1439: aslug = slugify(a);
+    a clickable link is emitted only when aslug is in generated_slugs). A source
+    lists the alt token `a`; the target slug is slugify(a) with an MPN fallback for
+    registry-suffixed slugs. Targets that do NOT resolve to a real SKU slug create
+    NO edge — design rule: "unparseable target -> no fabricated dependency".
+    """
+    rev = defaultdict(set)
+    for g in groups:
+        src = g.get("url_slug")
+        if not src:
+            continue
+        alt_raw = (g.get("alternative_parts") or "").strip()
+        if not alt_raw:
+            continue
+        for a in split_multi(alt_raw):
+            if not slugify(a):
+                continue
+            tgt = slugify(a)
+            if tgt not in slug_set:
+                tgt = slug_by_mpn.get(a.strip().upper(), "")
+            if tgt and tgt in slug_set:
+                rev[tgt].add(src)
+    return rev
+
+
+def _write_sku_page_atomic(args, g, cslug, mfr_slug, related, generated_slugs, out_root):
+    """Render one SKU via the production V2/V3 renderer and write it atomically.
+
+    tempfile -> validate -> os.replace on the same volume. On ANY failure the temp
+    is removed and the exception propagates; the caller aborts the whole batch and
+    leaves build_manifest.json untouched (self-heal on the next run).
+    """
+    pn = g["mpn"].strip()
+    slug = g["url_slug"]
+    if pn.upper() in V2_LEGACY_EXCEPTIONS:
+        page = gen_part_page(g, cslug, mfr_slug, related=related.get(slug, []),
+                             generated_slugs=generated_slugs)
+    else:
+        page = gen_part_page_v3(g, cslug, mfr_slug, related=related.get(slug, []),
+                                generated_slugs=generated_slugs)
+    if "<html" not in page and "<!DOCTYPE" not in page.upper():
+        raise RuntimeError(f"renderer produced no HTML for {slug} "
+                           f"(refusing to write a broken page)")
+    d = os.path.join(out_root, "products", slug)
+    os.makedirs(d, exist_ok=True)
+    fd, tmp = tempfile.mkstemp(dir=d, prefix=".index.", suffix=".tmp.html")
+    os.close(fd)
+    try:
+        with open(tmp, "w", encoding="utf-8") as f:
+            f.write(page)
+        os.replace(tmp, os.path.join(d, "index.html"))
+    except Exception:
+        if os.path.exists(tmp):
+            os.unlink(tmp)
+        raise
+    return os.path.join(d, "index.html")
+
+
+def regen_global_artifacts(args, groups, out_root, by_cat, related_map, generated_slugs):
+    """PHASE 2 global-artifact recompute — STRICTLY separated from SKU HTML.
+
+    Rewrites sitemap_parts.xml (+index), parts.json, and /search/ shards from the
+    current groups/urls. It does NOT render or touch any products/<slug>/index.html
+    (those were already handled by the incremental write loop). URLs for
+    manufacturer/category/L3/hub pages are preserved in the sitemap (those HTML
+    pages persist from the last full build and are out of incremental scope).
+    Called only after every SKU HTML write succeeded (and only when not --dry-run).
+    """
+    by_mfr = defaultdict(list)
+    for g in groups:
+        by_mfr[g["manufacturer"].strip()].append(g)
+
+    rows = []
+    try:
+        with open(args.csv, encoding="utf-8") as f:
+            rows = [r for r in csv.DictReader(f) if r.get("mpn", "").strip()]
+    except Exception:
+        rows = []
+
+    urls = [f"{DOMAIN}/products/{g['url_slug']}/" for g in groups if g.get("url_slug")]
+    for mfr in by_mfr:
+        urls.append(f"{DOMAIN}/manufacturers/{slugify_name(mfr)}/")
+    urls.append(f"{DOMAIN}/manufacturers/")
+    for cslug in TOP_CATEGORIES:
+        parts = by_cat.get(cslug, [])
+        urls.append(f"{DOMAIN}/components/{cslug}/")
+        l3_groups = defaultdict(list)
+        for p in parts:
+            fine = (p.get("category") or "").strip()
+            if fine:
+                l3_groups[fine].append(p)
+        for fine in sorted(l3_groups):
+            urls.append(f"{DOMAIN}/components/{cslug}/{slugify_name(fine)}/")
+    urls.append(f"{DOMAIN}/components/")
+
+    # ---- split sitemap (all indexed URLs) ----
+    n_batches = (len(urls) + SITEMAP_BATCH - 1) // SITEMAP_BATCH
+    sm_paths = []
+    for b in range(n_batches):
+        chunk = urls[b * SITEMAP_BATCH:(b + 1) * SITEMAP_BATCH]
+        fn = "sitemap_parts.xml" if n_batches == 1 else f"sitemap_parts_{b+1}.xml"
+        with open(os.path.join(out_root, fn), "w", encoding="utf-8") as f:
+            f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+            f.write('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
+            for u in chunk:
+                f.write(f"  <url><loc>{u}</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>\n")
+            f.write('</urlset>\n')
+        sm_paths.append(fn)
+    with open(os.path.join(out_root, "sitemap_parts_index.xml"), "w", encoding="utf-8") as f:
+        f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+        f.write('<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
+        for fn in sm_paths:
+            f.write(f"  <sitemap><loc>{DOMAIN}/{fn}</loc></sitemap>\n")
+        f.write('</sitemapindex>\n')
+
+    # ---- search index (uses final slugs) ----
+    search_entries = []
+    seen = set()
+    for g in groups:
+        pn = g["mpn"].strip()
+        mfr = g["manufacturer"].strip()
+        cat = g["category"].strip()
+        p_slug = g["url_slug"]
+        m_slug = slugify_name(mfr)
+        c_slug = slugify_name(cat)
+        key_p = ("p", pn.lower())
+        if key_p not in seen:
+            search_entries.append({"t": pn, "k": pn.lower(), "keys": pn_search_keys(pn),
+                                   "ty": "Part", "u": f"/products/{p_slug}/",
+                                   "sub": f"{mfr} \u00b7 {cat}"})
+            seen.add(key_p)
+        key_m = ("m", mfr.lower())
+        if key_m not in seen:
+            search_entries.append({"t": mfr, "k": mfr.lower(), "ty": "Manufacturer",
+                                   "u": f"/manufacturers/{m_slug}/", "sub": "View all sourced parts"})
+            seen.add(key_m)
+        key_c = ("c", cat.lower())
+        if key_c not in seen:
+            c_top = resolve_cat(cat)[0]
+            search_entries.append({"t": cat, "k": cat.lower(), "ty": "Category",
+                                   "u": f"/components/{c_top}/", "sub": "Browse category"})
+            seen.add(key_c)
+    search_entries.sort(key=lambda e: e["k"])
+    search_dir = os.path.join(out_root, "search")
+    os.makedirs(search_dir, exist_ok=True)
+    shards = []
+    shard_idx = 0
+    for i in range(0, len(search_entries), SEARCH_SHARD_SIZE):
+        chunk = search_entries[i:i + SEARCH_SHARD_SIZE]
+        shard_path = os.path.join(search_dir, f"{shard_idx}.json")
+        with open(shard_path, "w", encoding="utf-8") as f:
+            f.write('{"entries":')
+            f.write(json.dumps(chunk, ensure_ascii=False))
+            f.write('}')
+        shards.append({"file": f"/search/{shard_idx}.json", "n": len(chunk),
+                       "from": chunk[0]["k"], "to": chunk[-1]["k"]})
+        shard_idx += 1
+    manifest = {"version": 1, "shardSize": SEARCH_SHARD_SIZE,
+                "shardCount": len(shards), "total": len(search_entries), "shards": shards}
+    with open(os.path.join(search_dir, "manifest.json"), "w", encoding="utf-8") as f:
+        f.write(json.dumps(manifest, ensure_ascii=False))
+
+    # ---- parts.json (machine-readable; carries sources + needs_review) ----
+    parts_json = []
+    for g in groups:
+        mpn = g["mpn"].strip()
+        if not mpn:
+            continue
+        clean = (g.get("clean_mpn") or "").strip() or re.sub(r"[^A-Z0-9]", "", mpn.upper())
+        uslug = g["url_slug"]
+        raw = (g.get("attributes_json") or "").strip()
+        attrs = build_en_attrs(raw)  # English visible-layer (CJK gate fix)
+        parts_json.append({
+            "mpn": mpn,
+            "clean_mpn": clean,
+            "manufacturer": g["manufacturer"].strip(),
+            "brand": g.get("brand", g["manufacturer"]).strip(),
+            "url_slug": uslug,
+            "category": g.get("category", "").strip(),
+            "subcategory": g.get("subcategory", "").strip(),
+            "description": g.get("description", "").strip(),
+            "applications": g.get("applications", "").strip(),
+            "keywords": g.get("keywords", "").strip(),
+            "attributes": attrs,
+            "sources": g.get("sources", []),
+            "needs_review": bool(g.get("needs_review")),
+            "availability": g.get("availability", "").strip(),
+            "alternative_parts": g.get("alternative_parts", "").strip(),
+            "datasheet_url": g.get("datasheet_url", "").strip(),
+            "product_url": f"/products/{uslug}/",
+        })
+    with open(os.path.join(out_root, "parts.json"), "w", encoding="utf-8") as f:
+        f.write(json.dumps(parts_json, ensure_ascii=False, indent=2))
+
+    # ---- components-data.js (LIVE Components Hub search source) ----
+    # Derived from the SAME in-memory `groups` that feed parts.json/sitemap/legacy-search,
+    # so it can never drift from the published SKU set. Regenerated on every global
+    # artifact rebuild (incremental + full); never touches SKU HTML.
+    _regen_components_data(args, groups, out_root, by_cat, related_map, generated_slugs)
+
+
+def _regen_components_data(args, groups, out_root, by_cat, related_map, generated_slugs):
+    """Regenerate components/components-data.js (window.SZ_COMPONENTS) — the LIVE
+    Components Hub search source consumed by hub.js / search.js.
+
+    Derived strictly from the in-memory `groups` already used to build parts.json /
+    sitemap / legacy-search (NEVER from a stale components-data.js), guaranteeing the
+    live search index stays consistent with the published SKU set after every incremental
+    or full publish. Writes ONLY this single file — never SKU HTML.
+
+    Field contract (frontend-compatible, unchanged):
+      categories[]    : {slug, name, url, count, subcategories:[{slug,name,url,count}]}
+      manufacturers[] : {slug, name, url, count}
+      parts[]         : {mpn, mfr, subcat, cat, url, slug}
+    Display label = real MPN (mpn); click URL = real url_slug (url); client-side aliases
+    (original / cleaned / slug) are computed by hub.js partAliases(), NOT stored here.
+    """
+    by_mfr = defaultdict(list)
+    for g in groups:
+        by_mfr[g["manufacturer"].strip()].append(g)
+    manufacturers = []
+    for mfr in sorted(by_mfr, key=lambda m: m.lower()):
+        mslug = slugify_name(mfr)
+        manufacturers.append({
+            "slug": mslug,
+            "name": mfr,
+            "url": f"/manufacturers/{mslug}/",
+            "count": len(by_mfr[mfr]),
+        })
+
+    categories = []
+    for cslug, cname in TOP_CATEGORIES.items():
+        cat_parts = by_cat.get(cslug, [])
+        l3 = defaultdict(list)
+        for p in cat_parts:
+            fine = (p.get("category") or "").strip()
+            if fine:
+                l3[fine].append(p)
+        subcats = []
+        for fine in sorted(l3, key=lambda f: f.lower()):
+            fslug = slugify_name(fine)
+            subcats.append({
+                "slug": fslug,
+                "name": fine,
+                "url": f"/components/{cslug}/{fslug}/",
+                "count": len(l3[fine]),
+            })
+        categories.append({
+            "slug": cslug,
+            "name": cname,
+            "url": f"/components/{cslug}/",
+            "count": len(cat_parts),
+            "subcategories": subcats,
+        })
+
+    parts_out = []
+    for g in groups:
+        pn = g["mpn"].strip()
+        if not pn:
+            continue
+        slug = g.get("url_slug") or ""
+        if not slug:
+            continue
+        cslug, _ = resolve_cat(g["category"].strip())
+        parts_out.append({
+            "mpn": pn,
+            "mfr": g["manufacturer"].strip(),
+            "subcat": (g.get("category") or "").strip(),
+            "cat": TOP_CATEGORIES.get(cslug, cslug),
+            "url": f"/products/{slug}/",
+            "slug": slug,
+        })
+
+    payload = {
+        "generated_at": _now_iso(),
+        "categories": categories,
+        "manufacturers": manufacturers,
+        "parts": parts_out,
+    }
+    out_dir = os.path.join(out_root, "components")
+    os.makedirs(out_dir, exist_ok=True)
+    out_path = os.path.join(out_dir, "components-data.js")
+    with open(out_path, "w", encoding="utf-8") as f:
+        f.write("// AUTO-GENERATED by regen_global_artifacts (gen_parts.py) — DO NOT EDIT BY HAND.\n")
+        f.write("// Read-only derivation from the current publish-chain groups (same source as parts.json).\n")
+        f.write("window.SZ_COMPONENTS = ")
+        f.write(json.dumps(payload, ensure_ascii=False, indent=2))
+        f.write(";\n")
+    print(f"components-data.js: {len(parts_out)} parts -> {out_path}")
+
+
+def incremental_pipeline(args, groups, out_root, manifest_path=MANIFEST_PATH):
+    """PHASE 2 write path: CREATE/UPDATE/SKIP -> atomic HTML writes + manifest txn.
+
+    Under --dry-run: prints the Publishing Plan ONLY (no HTML, manifest unchanged).
+    Non-dry and authorized:
+      1. change-detect (CREATE/UPDATE/SKIP) via the six-component build_key.
+      2. dependency impact: category-pool (auto via dependency_fp) + Alternative
+         reverse-edge index (O(edges), no fabricated deps for unparseable targets).
+      3. SCOPE GUARD: unexpected = planned - (requested ∪ dependency_induced);
+         if unexpected > 0 -> STOP before any write.
+      4. atomic write CREATE+UPDATE SKU HTML (SKIP filtered BEFORE the renderer).
+      5. manifest transaction: build_manifest.json updated only AFTER all HTML
+         writes succeed; any mid-batch failure leaves the manifest untouched.
+      6. regenerate global artifacts (sitemap/parts.json/search) — separate step,
+         never re-renders SKU HTML.
+    Does NOT implement --full-rebuild; does NOT edit MASTER/sitemap-canonical/schema.
+    A missing/corrupt manifest is fail-safe (None -> treat as empty; corrupt -> abort).
+    """
+    by_cat = _build_by_cat(groups)
+    related_map = build_related_map(by_cat, k=6)
+    full = load_manifest(manifest_path)
+    if full is None:
+        print(f"  [INCREMENTAL] No build_manifest.json at {manifest_path} "
+              f"-> treated as empty baseline (every SKU = CREATE).")
+        full = {"meta": {}, "skus": {}}
+    skus = full.get("skus", {})
+
+    slug_set = {g["url_slug"] for g in groups if g.get("url_slug")}
+    slug_by_mpn = {g["mpn"].strip().upper(): g["url_slug"]
+                   for g in groups if g.get("url_slug")}
+
+    # explicit request set (from --single, comma-separated). Empty => full-sync.
+    requested_mpns = set()
+    if args.single:
+        for tok in args.single.split(","):
+            tok = tok.strip().upper()
+            if tok:
+                requested_mpns.add(tok)
+    requested_slugs = {slug_by_mpn.get(m) for m in requested_mpns if m in slug_by_mpn}
+
+    # change detection
+    plan = {}
+    for g in groups:
+        slug = g.get("url_slug")
+        if not slug:
+            continue
+        desired = compute_build_key(slug, g, by_cat)
+        recorded = skus.get(slug)
+        action = classify_sku(desired, recorded)
+        plan[slug] = {"g": g, "desired": desired, "recorded": recorded,
+                      "action": action, "kind": None}
+
+    # dependency impact: Alternative reverse-edge (upgrade SKIP -> dependency-induced)
+    alt_rev = _build_alt_reverse(groups, slug_set, slug_by_mpn)
+    write_set = {s for s, p in plan.items() if p["action"] in ("CREATE", "UPDATE")}
+    dep_from_alt = set()
+    for s in write_set:
+        for src in alt_rev.get(s, ()):
+            dep_from_alt.add(src)
+    for s, p in plan.items():
+        if p["action"] == "SKIP" and s in dep_from_alt:
+            p["action"] = "UPDATE"
+            p["kind"] = "dependency-induced"
+            write_set.add(s)
+
+    # classify remaining UPDATE kind (direct vs dependency-induced)
+    for s, p in plan.items():
+        if p["action"] == "UPDATE" and p["kind"] is None:
+            p["kind"] = _update_kind(p["desired"], p["recorded"])
+
+    dep_induced_slugs = {s for s, p in plan.items()
+                         if p["action"] == "UPDATE" and p["kind"] == "dependency-induced"}
+
+    # SCOPE GUARD: unexpected = planned - (requested ∪ dependency_induced)
+    if args.single and not requested_slugs:
+        # operator named SKUs that do not exist in MASTER -> refuse, do not full-sync
+        print("=" * 72)
+        print("  [SCOPE GUARD] ABORT: --single MPN(s) not found in MASTER: "
+              f"{', '.join(sorted(requested_mpns))}")
+        print("=" * 72)
+        return {"aborted": True, "reason": "requested_not_in_master",
+                "requested": sorted(requested_mpns)}
+    if not requested_slugs:
+        allowed = slug_set                      # full-sync: everything is requested
+    else:
+        allowed = requested_slugs | dep_induced_slugs
+    unexpected = write_set - allowed
+
+    n_create = sum(1 for p in plan.values() if p["action"] == "CREATE")
+    n_update = sum(1 for p in plan.values() if p["action"] == "UPDATE")
+    n_skip = sum(1 for p in plan.values() if p["action"] == "SKIP")
+    n_direct = sum(1 for p in plan.values()
+                   if p["action"] == "UPDATE" and p["kind"] == "direct")
+    n_dep = sum(1 for p in plan.values()
+                if p["action"] == "UPDATE" and p["kind"] == "dependency-induced")
+    total = len(groups)
+
+    # ---- dry-run: report and return (no HTML, manifest unchanged) ----
+    if args.dry_run:
+        print("=" * 72)
+        print("  INCREMENTAL PUBLISHING PLAN  (dry-run — no HTML written, manifest unchanged)")
+        print("=" * 72)
+        print(f"  CREATE : {n_create}")
+        print(f"  UPDATE : {n_update}")
+        print(f"  SKIP   : {n_skip}")
+        print(f"  FULL REBUILD: NO")
+        print(f"  Planned HTML writes : {n_create + n_update}")
+        print(f"  Direct changes            : {n_direct}")
+        print(f"  Dependency-induced changes: {n_dep}")
+        print(f"  Unexpected changes        : {len(unexpected)}")
+        if unexpected:
+            print(f"  [SCOPE GUARD] UNEXPECTED (would STOP): {', '.join(sorted(unexpected))}")
+        print("=" * 72)
+        return {"create": n_create, "update": n_update, "skip": n_skip,
+                "direct": n_direct, "dependency_induced": n_dep,
+                "unexpected": sorted(unexpected), "write_set": sorted(write_set)}
+
+    # ---- non-dry write path ----
+    if unexpected:
+        print("=" * 72)
+        print("  [SCOPE GUARD] ABORT: unexpected writes detected -> nothing published.")
+        print(f"  requested           = {sorted(requested_slugs)}")
+        print(f"  dependency_induced  = {sorted(dep_induced_slugs)}")
+        print(f"  UNEXPECTED ({len(unexpected)}) = {', '.join(sorted(unexpected))}")
+        print("  Re-run with an explicit --single request covering these SKUs, or run")
+        print("  a full sync (no --single) to publish all detected changes.")
+        print("=" * 72)
+        return {"aborted": True, "unexpected": sorted(unexpected)}
+
+    if total and (n_create + n_update) > SCOPE_CEILING_RATIO * total:
+        print(f"  [SCOPE GUARD] INFO: planned writes {n_create + n_update} exceed "
+              f"{SCOPE_CEILING_RATIO * 100:.0f}% of {total} SKUs "
+              f"(unexpected={len(unexpected)}; full-sync mode).")
+
+    # generated_slugs seed: published (manifest) ∪ CREATE ∪ UPDATE (this run).
+    # Guarantees old pages' Alternative links never degrade during a partial publish.
+    generated_slugs = set(skus.keys()) | write_set
+
+    written_paths = []
+    try:
+        for s in sorted(write_set):
+            p = plan[s]
+            g = p["g"]
+            cslug, _ = resolve_cat(g["category"].strip())
+            mfr_slug = slugify_name(g["manufacturer"].strip())
+            path = _write_sku_page_atomic(args, g, cslug, mfr_slug,
+                                          related_map, generated_slugs, out_root)
+            written_paths.append(path)
+    except Exception as e:
+        print(f"  [ATOMIC WRITE] FAILED mid-batch: {e}")
+        print(f"  {len(written_paths)} page(s) written before the failure; "
+              f"build_manifest.json is NOT updated (self-heal on next run).")
+        raise
+
+    # ---- manifest transaction: update only AFTER every SKU HTML succeeded ----
+    new_skus = dict(skus)
+    for s in write_set:
+        g = plan[s]["g"]
+        bk = compute_build_key(s, g, by_cat)
+        bk["status"] = "published"
+        bk["last_written"] = _now_iso()
+        new_skus[s] = bk
+    new_manifest = {
+        "meta": {
+            "template_version": full.get("meta", {}).get("template_version", TEMPLATE_VERSION),
+            "bootstrapped_at": full.get("meta", {}).get("bootstrapped_at"),
+            "updated_at": _now_iso(),
+            "sku_count": len(new_skus),
+            "orphan_count": full.get("meta", {}).get("orphan_count", 0),
+            "missing_page_count": 0,
+        },
+        "skus": new_skus,
+    }
+    save_manifest(path=manifest_path, manifest=new_manifest, dry_run=False)
+
+    # ---- global artifacts (separated from SKU HTML) ----
+    regen_global_artifacts(args, groups, out_root, by_cat, related_map, generated_slugs)
+
+    print("=" * 72)
+    print(f"  [INCREMENTAL] Published: CREATE={n_create} UPDATE={n_update} SKIP={n_skip}")
+    print(f"  [INCREMENTAL] Wrote {len(written_paths)} SKU HTML file(s) atomically.")
+    print(f"  [INCREMENTAL] build_manifest.json updated -> {manifest_path}")
+    print("=" * 72)
+    return {"create": n_create, "update": n_update, "skip": n_skip,
+            "written": len(written_paths), "unexpected": []}
+
+
 def main():
     ap = argparse.ArgumentParser()
     default_csv = os.path.join(ROOT, "data", "production", "master_parts_v2.1.csv")  # P0-2: only a v2+ production Master may feed the build; v1.x test masters are forbidden
@@ -2713,8 +3687,18 @@ def main():
                     help="Hard gate: abort if any unknown manufacturer or unknown attribute key "
                          "is found (200k data-hygiene gate).")
     ap.add_argument("--single", default=None,
-                    help="Generate ONLY the product page for this MPN (via V2 or V3 per route). "
-                         "Skips manufacturer/hub/category/sitemap generation. For single-SKU testing.")
+                    help="Incremental publish scope: comma-separated MPN(s) to publish "
+                         "(e.g. 'STM32F103C8T6,ESP32-WROOM-32E'). Implies a SCOPE GUARD — "
+                         "only these SKUs plus legitimate dependency-induced co-members are "
+                         "written; any other detected change aborts. Empty (no --single) = "
+                         "full incremental sync of all detected changes. Skips manufacturer/"
+                         "hub/category/sitemap generation. For targeted single/batch publishing.")
+    ap.add_argument("--incremental", action="store_true",
+                    help="PHASE 1: run change-detection and print the Publishing Plan. "
+                         "Does NOT write products/*.html and does NOT modify build_manifest.json.")
+    ap.add_argument("--bootstrap-manifest", action="store_true",
+                    help="PHASE 1: scan current products/ and record published state into "
+                         "build_manifest.json (skipped under --dry-run). No HTML/MASTER changes.")
     args = ap.parse_args()
 
     csv_path = os.path.abspath(args.csv)
@@ -2791,6 +3775,17 @@ def main():
     print(f"  [P0-2] rows with unmapped manufacturer (needs_review): {stats['brand_unmatched']}")
     print(f"  [P0-3] rows with unknown attribute key (needs_review): {stats['attr_unknown']}")
 
+    # ---- PHASE 1 (authorized 2026-09-08): incremental build state only ----
+    # Short-circuit BEFORE the existing --dry-run block and the full-rebuild loop.
+    # Neither branch writes products/*.html or edits MASTER. bootstrap writes the
+    # (gitignored) build_manifest.json only when NOT --dry-run.
+    if args.incremental or args.bootstrap_manifest:
+        if args.bootstrap_manifest:
+            bootstrap_manifest(args, groups, out_root)
+        if args.incremental:
+            incremental_pipeline(args, groups, out_root)
+        return
+
     # ---- DRY RUN: processed + review outputs, stop before HTML ----
     if args.dry_run:
         proc_path = os.path.join(out_root, "test_p0_processed.csv")
@@ -2842,8 +3837,10 @@ def main():
     related_map = build_related_map(by_cat, k=6)
 
     # ---- generate part pages ----
-    # V3 route: elected SKUs (V3_MPNS) render via the additive gen_part_page_v3();
-    # every other SKU keeps the V2 renderer. V2 is preserved and unchanged.
+    # Risk #1 (2026-09-08): V3 is the DEFAULT renderer. SKUs listed in
+    # V2_LEGACY_EXCEPTIONS (empty by default) render via the legacy gen_part_page();
+    # every other SKU renders via the additive gen_part_page_v3(). V2 is preserved,
+    # unchanged, and still used for any explicit legacy exception.
     written = 0
     urls = []
     generated_slugs = {g["url_slug"] for g in groups if g.get("url_slug")}
@@ -2854,10 +3851,10 @@ def main():
             continue
         cslug, _ = resolve_cat(g["category"].strip())
         mfr_slug = slugify_name(g["manufacturer"].strip())
-        if pn.upper() in V3_MPNS:
-            page = gen_part_page_v3(g, cslug, mfr_slug, related=related_map.get(slug, []), generated_slugs=generated_slugs)
-        else:
+        if pn.upper() in V2_LEGACY_EXCEPTIONS:
             page = gen_part_page(g, cslug, mfr_slug, related=related_map.get(slug, []), generated_slugs=generated_slugs)
+        else:
+            page = gen_part_page_v3(g, cslug, mfr_slug, related=related_map.get(slug, []), generated_slugs=generated_slugs)
         # --single: skip every SKU except the target (do NOT write other pages)
         if args.single and args.single.strip().upper() != pn.upper():
             continue
@@ -3020,6 +4017,9 @@ def main():
     with open(os.path.join(out_root, "parts.json"), "w", encoding="utf-8") as f:
         f.write(json.dumps(parts_json, ensure_ascii=False, indent=2))
     print(f"parts.json: {len(parts_json)} structured records written.")
+
+    # ---- components-data.js (LIVE Components Hub search source, see _regen_components_data) ----
+    _regen_components_data(args, groups, out_root, by_cat, related_map, generated_slugs)
 
     print(f"Generated {written} product pages under /products/")
     print(f"Manufacturer pages: {len(by_mfr)} under /manufacturers/")
