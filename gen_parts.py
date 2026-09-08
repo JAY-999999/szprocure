@@ -2997,6 +2997,28 @@ def _category_pool_fingerprint(cslug, by_cat):
     return mio.row_fingerprint(rows, ["mpn", "slug"])
 
 
+def _related_parts_fingerprint(slug, related_map):
+    """Precision page-level fingerprint of a SKU's OWN Related-Parts top-6.
+
+    Replaces the coarse category-pool hash (_category_pool_fingerprint) for the
+    actual change-decision. That coarse hash flipped for EVERY co-member whenever
+    ANY SKU in the category changed, producing hundreds of false-positive
+    Dependency UPDATEs (verified: 531 candidate -> only 30 real HTML changes).
+
+    This hashes ONLY the (mpn, slug) neighbours that build_related_map() actually
+    emits for THIS page — the identical top-6 that renders into the Related Parts
+    section. Because master_io.row_fingerprint() is order-sensitive, any shift in
+    the rendered neighbour sequence changes this hash (genuine UPDATE); an
+    unchanged neighbour set is an exact SKIP. No false positives, no leaked cats,
+    and the Alternative reverse-edge (target_slug -> source_slugs) is untouched.
+
+    related_map: slug -> list[(pn, slug)] from build_related_map(by_cat, k=6).
+    """
+    mio = _get_master_io()
+    rows = [{"mpn": pn, "slug": s} for (pn, s) in related_map.get(slug, [])]
+    return mio.row_fingerprint(rows, ["mpn", "slug"])
+
+
 def _enrich_fp_for(slug, mpn):
     """SHA256 of the SKU's enrichment JSON, or NO_ENRICH when absent.
 
@@ -3042,16 +3064,25 @@ def _data_fp_for(row):
     return mio.row_fingerprint([row], cols)
 
 
-def compute_build_key(slug, row, by_cat):
+def compute_build_key(slug, row, by_cat, related_map=None):
     """Unified build_key (six components) for one SKU.
 
     Returns a dict with slug/mpn + the six fingerprints used by classify_sku().
     Both bootstrap and the incremental pipeline call THIS, so baseline and
     re-runs are guaranteed consistent (a no-op incremental run yields all SKIP).
+
+    dependency_fp: when related_map is supplied, uses the PRECISE page-level
+    Related-Parts fingerprint (_related_parts_fingerprint) — only pages whose
+    own top-6 neighbours actually shift become Dependency UPDATE. When omitted
+    (legacy callers / coarse stress-test comparison), it falls back to the
+    category-pool fingerprint so behaviour stays well-defined.
     """
     pn = (row.get("mpn") or "").strip()
     renderer_v = _renderer_v_for(pn)
     cslug, _ = resolve_cat((row.get("category") or "").strip())
+    dependency_fp = (_related_parts_fingerprint(slug, related_map)
+                     if related_map is not None
+                     else _category_pool_fingerprint(cslug, by_cat))
     return {
         "slug": slug,
         "mpn": pn,
@@ -3060,7 +3091,7 @@ def compute_build_key(slug, row, by_cat):
         "enrich_fp": _enrich_fp_for(slug, pn),
         "template_v": TEMPLATE_VERSION,
         "asset_v": _asset_fp_for(renderer_v),
-        "dependency_fp": _category_pool_fingerprint(cslug, by_cat),
+        "dependency_fp": dependency_fp,
     }
 
 
@@ -3141,6 +3172,7 @@ def bootstrap_manifest(args, groups, out_root, manifest_path=MANIFEST_PATH):
                 published.add(name)
     row_by_slug = {g["url_slug"]: g for g in groups if g.get("url_slug")}
     by_cat = _build_by_cat(groups)
+    related_map = build_related_map(by_cat, k=6)
 
     skus = {}
     orphans = []
@@ -3149,7 +3181,7 @@ def bootstrap_manifest(args, groups, out_root, manifest_path=MANIFEST_PATH):
         if row is None:
             orphans.append(slug)  # historical orphan (e.g. lm321 / lm393dt): report, do NOT manifest
             continue
-        bk = compute_build_key(slug, row, by_cat)
+        bk = compute_build_key(slug, row, by_cat, related_map)
         if "UNKNOWN" in (bk.get("asset_v"),):
             bk["status"] = "REQUIRES_REBUILD"  # honest: do NOT mark SKIP
         else:
@@ -3488,8 +3520,10 @@ def incremental_pipeline(args, groups, out_root, manifest_path=MANIFEST_PATH):
     Under --dry-run: prints the Publishing Plan ONLY (no HTML, manifest unchanged).
     Non-dry and authorized:
       1. change-detect (CREATE/UPDATE/SKIP) via the six-component build_key.
-      2. dependency impact: category-pool (auto via dependency_fp) + Alternative
-         reverse-edge index (O(edges), no fabricated deps for unparseable targets).
+      2. dependency impact: page-level Related-Parts fingerprint (auto via
+         dependency_fp — only pages whose own top-6 neighbours shift UPDATE) +
+         Alternative reverse-edge index (O(edges), no fabricated deps for
+         unparseable targets).
       3. SCOPE GUARD: unexpected = planned - (requested ∪ dependency_induced);
          if unexpected > 0 -> STOP before any write.
       4. atomic write CREATE+UPDATE SKU HTML (SKIP filtered BEFORE the renderer).
@@ -3528,7 +3562,7 @@ def incremental_pipeline(args, groups, out_root, manifest_path=MANIFEST_PATH):
         slug = g.get("url_slug")
         if not slug:
             continue
-        desired = compute_build_key(slug, g, by_cat)
+        desired = compute_build_key(slug, g, by_cat, related_map)
         recorded = skus.get(slug)
         action = classify_sku(desired, recorded)
         plan[slug] = {"g": g, "desired": desired, "recorded": recorded,
@@ -3640,7 +3674,7 @@ def incremental_pipeline(args, groups, out_root, manifest_path=MANIFEST_PATH):
     new_skus = dict(skus)
     for s in write_set:
         g = plan[s]["g"]
-        bk = compute_build_key(s, g, by_cat)
+        bk = compute_build_key(s, g, by_cat, related_map)
         bk["status"] = "published"
         bk["last_written"] = _now_iso()
         new_skus[s] = bk
