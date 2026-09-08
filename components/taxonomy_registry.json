@@ -1,0 +1,623 @@
+{
+  "schema_version": "taxonomy-registry/1",
+  "role": "DERIVED_REGISTRY",
+  "source_of_truth": "data/category_taxonomy.json (this file is derived, not authoritative)",
+  "taxonomy_version": "v1",
+  "generated_at": "2026-09-08T19:44:49Z",
+  "repo": "szprocure-site",
+  "summary": {
+    "top_categories": 6,
+    "subcategories_total": 54,
+    "subcategories_in_use": 24,
+    "subcategories_self_reference": 6,
+    "subcategories_dormant": 30,
+    "observed_unmapped_categories": 0,
+    "observed_collision_categories": 0
+  },
+  "top_categories": [
+    {
+      "slug": "integrated-circuits",
+      "name": "Integrated Circuits",
+      "parent": null,
+      "self_reference": false,
+      "resolution_state": "ACTIVE_TOP",
+      "aliases": [],
+      "in_use": true,
+      "sku_count": 255
+    },
+    {
+      "slug": "semiconductor-components",
+      "name": "Semiconductor Components",
+      "parent": null,
+      "self_reference": false,
+      "resolution_state": "ACTIVE_TOP",
+      "aliases": [],
+      "in_use": true,
+      "sku_count": 82
+    },
+    {
+      "slug": "passive-components",
+      "name": "Passive Components",
+      "parent": null,
+      "self_reference": false,
+      "resolution_state": "ACTIVE_TOP",
+      "aliases": [],
+      "in_use": true,
+      "sku_count": 125
+    },
+    {
+      "slug": "sensors",
+      "name": "Sensors & Transducers",
+      "parent": null,
+      "self_reference": false,
+      "resolution_state": "ACTIVE_TOP",
+      "aliases": [],
+      "in_use": true,
+      "sku_count": 31
+    },
+    {
+      "slug": "connectors",
+      "name": "Connectors & Electromechanical",
+      "parent": null,
+      "self_reference": false,
+      "resolution_state": "ACTIVE_TOP",
+      "aliases": [],
+      "in_use": true,
+      "sku_count": 55
+    },
+    {
+      "slug": "modules",
+      "name": "Modules & Communication Modules",
+      "parent": null,
+      "self_reference": false,
+      "resolution_state": "ACTIVE_TOP",
+      "aliases": [],
+      "in_use": true,
+      "sku_count": 22
+    }
+  ],
+  "subcategories": [
+    {
+      "slug": "board-to-board",
+      "name": "Board-to-Board",
+      "parent": "connectors",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": false,
+      "sku_count": 0
+    },
+    {
+      "slug": "connectors",
+      "name": "Connectors",
+      "parent": "connectors",
+      "self_reference": true,
+      "resolution_state": "SELF_REFERENCE",
+      "aliases": [],
+      "in_use": false,
+      "sku_count": 0
+    },
+    {
+      "slug": "connectors-electromechanical",
+      "name": "Connectors & Electromechanical",
+      "parent": "connectors",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": false,
+      "sku_count": 0
+    },
+    {
+      "slug": "ffc-fpc",
+      "name": "FFC/FPC",
+      "parent": "connectors",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": false,
+      "sku_count": 0
+    },
+    {
+      "slug": "pin-header",
+      "name": "Pin Header",
+      "parent": "connectors",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": true,
+      "sku_count": 8
+    },
+    {
+      "slug": "switches",
+      "name": "Switches",
+      "parent": "connectors",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": true,
+      "sku_count": 13
+    },
+    {
+      "slug": "usb-connectors",
+      "name": "USB Connectors",
+      "parent": "connectors",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": true,
+      "sku_count": 13
+    },
+    {
+      "slug": "wire-connectors",
+      "name": "Wire Connectors",
+      "parent": "connectors",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": false,
+      "sku_count": 0
+    },
+    {
+      "slug": "analog-ic",
+      "name": "Analog IC",
+      "parent": "integrated-circuits",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": true,
+      "sku_count": 14
+    },
+    {
+      "slug": "i-o-expanders",
+      "name": "I/O Expanders",
+      "parent": "integrated-circuits",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": true,
+      "sku_count": 1
+    },
+    {
+      "slug": "integrated-circuits",
+      "name": "Integrated Circuits",
+      "parent": "integrated-circuits",
+      "self_reference": true,
+      "resolution_state": "SELF_REFERENCE",
+      "aliases": [],
+      "in_use": false,
+      "sku_count": 0
+    },
+    {
+      "slug": "interface-ic",
+      "name": "Interface IC",
+      "parent": "integrated-circuits",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": true,
+      "sku_count": 42
+    },
+    {
+      "slug": "logic-ic",
+      "name": "Logic IC",
+      "parent": "integrated-circuits",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": true,
+      "sku_count": 14
+    },
+    {
+      "slug": "mcu",
+      "name": "MCU",
+      "parent": "integrated-circuits",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": false,
+      "sku_count": 0
+    },
+    {
+      "slug": "memory",
+      "name": "Memory",
+      "parent": "integrated-circuits",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": true,
+      "sku_count": 2
+    },
+    {
+      "slug": "memory-ic",
+      "name": "Memory IC",
+      "parent": "integrated-circuits",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": true,
+      "sku_count": 12
+    },
+    {
+      "slug": "microcontroller",
+      "name": "Microcontroller",
+      "parent": "integrated-circuits",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": true,
+      "sku_count": 67
+    },
+    {
+      "slug": "microcontrollers",
+      "name": "Microcontrollers",
+      "parent": "integrated-circuits",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": false,
+      "sku_count": 0
+    },
+    {
+      "slug": "operational-amplifier",
+      "name": "Operational Amplifier",
+      "parent": "integrated-circuits",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": true,
+      "sku_count": 28
+    },
+    {
+      "slug": "power-management-ic",
+      "name": "Power Management IC",
+      "parent": "integrated-circuits",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": true,
+      "sku_count": 16
+    },
+    {
+      "slug": "voltage-regulator",
+      "name": "Voltage Regulator",
+      "parent": "integrated-circuits",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": true,
+      "sku_count": 57
+    },
+    {
+      "slug": "bluetooth-modules",
+      "name": "Bluetooth Modules",
+      "parent": "modules",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": false,
+      "sku_count": 0
+    },
+    {
+      "slug": "cellular-modules",
+      "name": "Cellular Modules",
+      "parent": "modules",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": false,
+      "sku_count": 0
+    },
+    {
+      "slug": "gnss-modules",
+      "name": "GNSS Modules",
+      "parent": "modules",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": true,
+      "sku_count": 1
+    },
+    {
+      "slug": "modules",
+      "name": "Modules",
+      "parent": "modules",
+      "self_reference": true,
+      "resolution_state": "SELF_REFERENCE",
+      "aliases": [],
+      "in_use": false,
+      "sku_count": 0
+    },
+    {
+      "slug": "modules-communication-modules",
+      "name": "Modules & Communication Modules",
+      "parent": "modules",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": false,
+      "sku_count": 0
+    },
+    {
+      "slug": "rf-modules",
+      "name": "RF Modules",
+      "parent": "modules",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": true,
+      "sku_count": 6
+    },
+    {
+      "slug": "wifi-modules",
+      "name": "WiFi Modules",
+      "parent": "modules",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": true,
+      "sku_count": 11
+    },
+    {
+      "slug": "capacitor",
+      "name": "Capacitor",
+      "parent": "passive-components",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": true,
+      "sku_count": 43
+    },
+    {
+      "slug": "capacitors",
+      "name": "Capacitors",
+      "parent": "passive-components",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": false,
+      "sku_count": 0
+    },
+    {
+      "slug": "crystal-oscillator",
+      "name": "Crystal Oscillator",
+      "parent": "passive-components",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": true,
+      "sku_count": 7
+    },
+    {
+      "slug": "electrolytic-capacitor",
+      "name": "Electrolytic Capacitor",
+      "parent": "passive-components",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": false,
+      "sku_count": 0
+    },
+    {
+      "slug": "inductor",
+      "name": "Inductor",
+      "parent": "passive-components",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": true,
+      "sku_count": 22
+    },
+    {
+      "slug": "inductors",
+      "name": "Inductors",
+      "parent": "passive-components",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": false,
+      "sku_count": 0
+    },
+    {
+      "slug": "led-components",
+      "name": "LED Components",
+      "parent": "passive-components",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": true,
+      "sku_count": 15
+    },
+    {
+      "slug": "passive-components",
+      "name": "Passive Components",
+      "parent": "passive-components",
+      "self_reference": true,
+      "resolution_state": "SELF_REFERENCE",
+      "aliases": [],
+      "in_use": false,
+      "sku_count": 0
+    },
+    {
+      "slug": "resistor",
+      "name": "Resistor",
+      "parent": "passive-components",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": true,
+      "sku_count": 38
+    },
+    {
+      "slug": "resistors",
+      "name": "Resistors",
+      "parent": "passive-components",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": false,
+      "sku_count": 0
+    },
+    {
+      "slug": "diode",
+      "name": "Diode",
+      "parent": "semiconductor-components",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": true,
+      "sku_count": 50
+    },
+    {
+      "slug": "igbt",
+      "name": "IGBT",
+      "parent": "semiconductor-components",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": false,
+      "sku_count": 0
+    },
+    {
+      "slug": "mosfet",
+      "name": "MOSFET",
+      "parent": "semiconductor-components",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": true,
+      "sku_count": 28
+    },
+    {
+      "slug": "power-mosfet",
+      "name": "Power MOSFET",
+      "parent": "semiconductor-components",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": false,
+      "sku_count": 0
+    },
+    {
+      "slug": "rectifier",
+      "name": "Rectifier",
+      "parent": "semiconductor-components",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": false,
+      "sku_count": 0
+    },
+    {
+      "slug": "rectifier-diode",
+      "name": "Rectifier Diode",
+      "parent": "semiconductor-components",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": false,
+      "sku_count": 0
+    },
+    {
+      "slug": "semiconductor-components",
+      "name": "Semiconductor Components",
+      "parent": "semiconductor-components",
+      "self_reference": true,
+      "resolution_state": "SELF_REFERENCE",
+      "aliases": [],
+      "in_use": false,
+      "sku_count": 0
+    },
+    {
+      "slug": "thyristor",
+      "name": "Thyristor",
+      "parent": "semiconductor-components",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": false,
+      "sku_count": 0
+    },
+    {
+      "slug": "transistor",
+      "name": "Transistor",
+      "parent": "semiconductor-components",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": true,
+      "sku_count": 4
+    },
+    {
+      "slug": "mems-sensor",
+      "name": "MEMS Sensor",
+      "parent": "sensors",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": false,
+      "sku_count": 0
+    },
+    {
+      "slug": "motion-sensors",
+      "name": "Motion Sensors",
+      "parent": "sensors",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": false,
+      "sku_count": 0
+    },
+    {
+      "slug": "optical-sensors",
+      "name": "Optical Sensors",
+      "parent": "sensors",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": false,
+      "sku_count": 0
+    },
+    {
+      "slug": "pressure-sensors",
+      "name": "Pressure Sensors",
+      "parent": "sensors",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": false,
+      "sku_count": 0
+    },
+    {
+      "slug": "sensors",
+      "name": "Sensors",
+      "parent": "sensors",
+      "self_reference": true,
+      "resolution_state": "SELF_REFERENCE",
+      "aliases": [],
+      "in_use": false,
+      "sku_count": 0
+    },
+    {
+      "slug": "sensors-transducers",
+      "name": "Sensors & Transducers",
+      "parent": "sensors",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": false,
+      "sku_count": 0
+    },
+    {
+      "slug": "temperature-sensors",
+      "name": "Temperature Sensors",
+      "parent": "sensors",
+      "self_reference": false,
+      "resolution_state": "RESOLVED",
+      "aliases": [],
+      "in_use": false,
+      "sku_count": 0
+    }
+  ],
+  "observed_unmapped": [],
+  "observed_collision": []
+}
