@@ -3874,6 +3874,39 @@ def incremental_pipeline(args, groups, out_root, manifest_path=MANIFEST_PATH):
     dep_induced_slugs = {s for s, p in plan.items()
                          if p["action"] == "UPDATE" and p["kind"] == "dependency-induced"}
 
+    # ---- affected-node computation (Plan B v2: NODE write-set) ----
+    # Each CREATE/UPDATE SKU (DIRECT or DEPENDENCY) deterministically implies its
+    # Brand / Category / Fine(L3) pages must be refreshed from CURRENT full data,
+    # so a newly published SKU appears on its Brand/Category/L3 listings immediately.
+    # UNMAPPED / COLLISION / SELF_REFERENCE nodes are SKIPped (safe — no forced
+    # resolution). Node pages are a pure function of the validated SKU write_set, so
+    # they can NEVER be "unexpected"; they are written only AFTER M4-C scope guard
+    # passes (M4-C itself is untouched — it classifies SKU slugs only).
+    # NOTE: SKU *moves* (mfr/category change) refresh only the NEW affiliation; the
+    # prior affiliation is not recoverable from the build_key, so old nodes are left
+    # untouched rather than guessed at (per spec — "don't guess").
+    by_mfr = defaultdict(list)
+    for g in groups:
+        by_mfr[g["manufacturer"].strip()].append(g)
+    l3_groups = defaultdict(lambda: defaultdict(list))
+    for cslug, _parts in by_cat.items():
+        for p in _parts:
+            fine = (p.get("category") or "").strip()
+            if fine:
+                l3_groups[cslug][fine].append(p)
+
+    affected_brands = set()   # manufacturer names
+    affected_cats = set()     # top-level category slugs
+    affected_l3 = set()       # (top_slug, fine_name, l3_slug)
+    for s in write_set:
+        g = plan[s]["g"]
+        affected_brands.add(g["manufacturer"].strip())
+        _status, _cslug, _cname = resolve_cat_state(g["category"].strip())
+        if _status in ("RESOLVED", "SELF_REFERENCE"):
+            affected_cats.add(_cslug)
+        _fine = (g.get("category") or "").strip()
+        if _fine and not l3_page_should_skip(_fine):
+            affected_l3.add((_cslug, _fine, slugify_name(_fine)))
     # SCOPE GUARD: unexpected = planned - (requested ∪ dependency_induced)
     if args.single and not requested_slugs:
         # operator named SKUs that do not exist in MASTER -> refuse, do not full-sync
@@ -3910,13 +3943,19 @@ def incremental_pipeline(args, groups, out_root, manifest_path=MANIFEST_PATH):
         print(f"  Planned HTML writes : {n_create + n_update}")
         print(f"  Direct changes            : {n_direct}")
         print(f"  Dependency-induced changes: {n_dep}")
+        print(f"  Affected Brand    pages : {len(affected_brands)}")
+        print(f"  Affected Category pages : {len(affected_cats)}")
+        print(f"  Affected Fine(L3) pages : {len(affected_l3)}")
         print(f"  Unexpected changes        : {len(unexpected)}")
         if unexpected:
             print(f"  [SCOPE GUARD] UNEXPECTED (would STOP): {', '.join(sorted(unexpected))}")
         print("=" * 72)
         return {"create": n_create, "update": n_update, "skip": n_skip,
                 "direct": n_direct, "dependency_induced": n_dep,
-                "unexpected": sorted(unexpected), "write_set": sorted(write_set)}
+                "unexpected": sorted(unexpected), "write_set": sorted(write_set),
+                "affected_brands": sorted(affected_brands),
+                "affected_cats": sorted(affected_cats),
+                "affected_l3": sorted((c, f, l) for c, f, l in affected_l3),}
 
     # ---- non-dry write path ----
     if unexpected:
@@ -3944,7 +3983,7 @@ def incremental_pipeline(args, groups, out_root, manifest_path=MANIFEST_PATH):
         for s in sorted(write_set):
             p = plan[s]
             g = p["g"]
-            cslug, _ = resolve_cat(g["category"].strip())
+            _, cslug, _ = resolve_cat_state(g["category"].strip())
             mfr_slug = slugify_name(g["manufacturer"].strip())
             path = _write_sku_page_atomic(args, g, cslug, mfr_slug,
                                           related_map, generated_slugs, out_root)
@@ -3956,6 +3995,71 @@ def incremental_pipeline(args, groups, out_root, manifest_path=MANIFEST_PATH):
         raise
 
     # ---- manifest transaction: update only AFTER every SKU HTML succeeded ----
+    # ---- NODE writes: refresh affected Brand / Category / Fine(L3) pages ----
+    # Order: L3 first (so the category page's existing_l3 scan sees them), then
+    # Category, then Brand. Each node is regenerated from CURRENT full data, so a
+    # newly published SKU appears on its Brand/Category/L3 listings at once. Unaffected
+    # nodes are never touched. A node-write failure aborts BEFORE the manifest txn
+    # (build_manifest.json stays untouched -> self-heal on the next run).
+    node_written = 0
+    node_created = set()
+    try:
+        # Fine(L3) subcategory pages
+        for (_cslug, _fine, _l3slug) in sorted(affected_l3):
+            _d = os.path.join(out_root, "components", _cslug, _l3slug)
+            _existed = os.path.isfile(os.path.join(_d, "index.html"))
+            os.makedirs(_d, exist_ok=True)
+            with open(os.path.join(_d, "index.html"), "w", encoding="utf-8") as _f:
+                _f.write(gen_component_subcategory_page(
+                    _cslug, TOP_CATEGORIES.get(_cslug, _cslug), _fine, _l3slug,
+                    l3_groups[_cslug].get(_fine, [])))
+            node_written += 1
+            if not _existed:
+                node_created.add(("l3", _cslug, _l3slug))
+        # Category (top) pages
+        for _cslug in sorted(affected_cats):
+            _d = os.path.join(out_root, "components", _cslug)
+            _existed = os.path.isfile(os.path.join(_d, "index.html"))
+            os.makedirs(_d, exist_ok=True)
+            with open(os.path.join(_d, "index.html"), "w", encoding="utf-8") as _f:
+                _f.write(gen_component_category_page(
+                    _cslug, TOP_CATEGORIES.get(_cslug, _cslug), by_cat.get(_cslug, [])))
+            node_written += 1
+            if not _existed:
+                node_created.add(("cat", _cslug))
+        # Brand (manufacturer) pages
+        for _mfr in sorted(affected_brands):
+            _mslug = slugify_name(_mfr)
+            _d = os.path.join(out_root, "manufacturers", _mslug)
+            _existed = os.path.isfile(os.path.join(_d, "index.html"))
+            os.makedirs(_d, exist_ok=True)
+            with open(os.path.join(_d, "index.html"), "w", encoding="utf-8") as _f:
+                _f.write(gen_manufacturer_page(_mfr, by_mfr.get(_mfr, []), {}))
+            node_written += 1
+            if not _existed:
+                node_created.add(("brand", _mslug))
+    except Exception as e:
+        print(f"  [ATOMIC WRITE] NODE write FAILED mid-batch: {e}")
+        print(f"  {len(written_paths)} SKU page(s) + {node_written} node page(s) written "
+              f"before failure; build_manifest.json is NOT updated (self-heal on next run).")
+        raise
+
+    # ---- Hub: rewrite ONLY when a NEW node was created (structural change) ----
+    # Spec: "Hub only if static content actually changes; never every run." A new
+    # Brand / Category / Fine(L3) page alters the hub catalog, so both hub index files
+    # are regenerated. An existing node merely gaining a SKU changes counts only -> the
+    # hub shell is left untouched (live data is already refreshed via components-data.js).
+    if node_created:
+        _hub_dir = os.path.join(out_root, "components")
+        os.makedirs(_hub_dir, exist_ok=True)
+        _hub_path = os.path.join(_hub_dir, "index.html")
+        if os.path.isfile(_hub_path):
+            inject_hub_anchors(_hub_path, groups)
+        _mhub_dir = os.path.join(out_root, "manufacturers")
+        os.makedirs(_mhub_dir, exist_ok=True)
+        with open(os.path.join(_mhub_dir, "index.html"), "w", encoding="utf-8") as _f:
+            _f.write(gen_manufacturers_hub(by_mfr))
+
     new_skus = dict(skus)
     for s in write_set:
         g = plan[s]["g"]
@@ -3981,11 +4085,18 @@ def incremental_pipeline(args, groups, out_root, manifest_path=MANIFEST_PATH):
 
     print("=" * 72)
     print(f"  [INCREMENTAL] Published: CREATE={n_create} UPDATE={n_update} SKIP={n_skip}")
-    print(f"  [INCREMENTAL] Wrote {len(written_paths)} SKU HTML file(s) atomically.")
+    print(f"  [INCREMENTAL] Wrote {len(written_paths)} SKU HTML + {node_written} node HTML file(s) atomically.")
+    print(f"  [INCREMENTAL] Affected nodes: brands={len(affected_brands)} "
+          f"cats={len(affected_cats)} L3={len(affected_l3)} (created={len(node_created)}).")
     print(f"  [INCREMENTAL] build_manifest.json updated -> {manifest_path}")
     print("=" * 72)
     return {"create": n_create, "update": n_update, "skip": n_skip,
-            "written": len(written_paths), "unexpected": []}
+            "written": len(written_paths), "node_written": node_written,
+            "affected_brands": sorted(affected_brands),
+            "affected_cats": sorted(affected_cats),
+            "affected_l3": sorted((c, f, l) for c, f, l in affected_l3),
+            "node_created": sorted(node_created),
+            "unexpected": []}
 
 
 def main():
