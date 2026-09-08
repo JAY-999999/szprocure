@@ -602,6 +602,8 @@ COMPONENT_HUB_BLURB = {
 }
 
 def generate_components_hub(generated_slugs=None):
+    # DEPRECATED (P1-B2 / M2 — 2026-09-09): replaced by inject_hub_anchors() on the
+    # normal publish path. Kept only for reference / rollback. Do NOT call from main().
     url = f"{DOMAIN}/components/"
     # FROZEN SEO head strings — locked by Phase D.3 freeze layer. Do not change.
     title = "Electronic Components — Source from Shenzhen, China | SZ Procure"
@@ -699,8 +701,121 @@ def generate_components_hub(generated_slugs=None):
   <div id="site-footer"></div>
   <script src="/assets/site.js" defer></script>
 {ga4_script()}
-</body>
+  </body>
 </html>"""
+
+# ===========================================================================
+# Hub Injector (P1-B2 / M2 — 2026-09-09)
+# Restricted, anchor-only injection into components/index.html. It NEVER rebuilds
+# the file: it only replaces the content between the explicit HUB-INJECT anchors
+# (NAV-START/END and SECTIONS-START/END). If an anchor is missing it FAILS (assert)
+# rather than overwriting — this protects the hand-authored V2.4 shell / SEO / visuals.
+#
+# Self-reference subcategories (resolve_taxonomy status SELF_REFERENCE) are rendered
+# as NON-LINK spans, so no /components/<top>/<top>/ 404 link is ever emitted.
+# generate_components_hub() above is now DEPRECATED and must NOT be called from the
+# normal publish path (main() routes to inject_hub_anchors() instead).
+# ===========================================================================
+
+def _hub_catalog_from_groups(groups):
+    """Derive the data-driven catalog (counts + subcategory lists) from SKU groups.
+
+    Only RESOLVED / SELF_REFERENCE fine categories contribute; UNMAPPED / COLLISION
+    are quarantined (skipped) — consistent with l3_page_should_skip()."""
+    load_taxonomy()
+    cats = {top: {"name": TOP_CATEGORIES[top], "count": 0, "subs": {}}
+            for top in TOP_CATEGORIES}
+    for g in groups:
+        raw = (g.get("category") or "").strip()
+        if not raw:
+            continue
+        res = resolve_taxonomy(raw)
+        if res["status"] not in ("RESOLVED", "SELF_REFERENCE"):
+            continue  # UNMAPPED / COLLISION -> quarantined, no contribution
+        top = res["top"]
+        if top not in cats:
+            continue
+        cats[top]["count"] += 1
+        sub = cats[top]["subs"].setdefault(
+            res["slug"],
+            {"slug": res["slug"], "name": res["name"], "count": 0,
+             "self_reference": bool(res.get("self_reference"))},
+        )
+        sub["count"] += 1
+    out = {}
+    for top in TOP_CATEGORIES:
+        subs = sorted(cats[top]["subs"].values(), key=lambda s: s["name"].lower())
+        out[top] = {"name": cats[top]["name"], "count": cats[top]["count"], "subs": subs}
+    return out
+
+
+def _render_hub_nav(catalog):
+    items = []
+    for top in TOP_CATEGORIES:
+        c = catalog[top]
+        items.append(
+            '          <button type="button" class="catalog-nav-item" '
+            'data-category="%s">%s<span class="cat-nav-count">%d</span></button>'
+            % (top, esc(c["name"]), c["count"])
+        )
+    return "\n".join(items)
+
+
+def _render_hub_sections(catalog):
+    sections = []
+    for top in TOP_CATEGORIES:
+        c = catalog[top]
+        subs = []
+        for s in c["subs"]:
+            label = "%s<span class=\"cat-sub-count\">%d</span>" % (esc(s["name"]), s["count"])
+            if s["self_reference"] or s["slug"] == top:
+                # Non-link span: NEVER a /components/<top>/<top>/ URL (no 404).
+                subs.append('                <span class="cat-sub">%s</span>' % label)
+            else:
+                href = "/components/%s/%s/" % (top, s["slug"])
+                subs.append('                <a class="cat-sub" href="%s">%s</a>' % (href, label))
+        subs_html = "\n".join(subs)
+        sections.append(
+            '        <section class="catalog-section" data-category="%s">\n'
+            '          <header class="catalog-section-head">\n'
+            '            <h3><a href="/components/%s/">%s</a> <span class="cat-count">%d</span></h3>\n'
+            '            <button type="button" class="catalog-toggle" aria-expanded="true" '
+            'aria-label="Toggle %s subcategories">&#9662;</button>\n'
+            '          </header>\n'
+            '          <div class="catalog-subs">\n%s\n          </div>\n'
+            '        </section>' % (top, top, esc(c["name"]), c["count"], esc(c["name"]), subs_html)
+        )
+    return "\n".join(sections)
+
+
+def _replace_hub_anchor(html, start_marker, end_marker, new_content):
+    """Replace the text strictly BETWEEN start_marker and end_marker (markers preserved).
+    Raises AssertionError if the anchor pair is absent — so a missing anchor can never
+    silently trigger a whole-file rebuild."""
+    pat = re.compile(re.escape(start_marker) + r".*?" + re.escape(end_marker), re.DOTALL)
+    if not pat.search(html):
+        raise AssertionError(
+            "Hub injection anchor missing: %r ... %r. Refusing to rebuild "
+            "components/index.html (V2.4 shell protection)." % (start_marker, end_marker)
+        )
+    return pat.sub("%s\n%s\n%s" % (start_marker, new_content, end_marker), html, count=1)
+
+
+def inject_hub_anchors(hub_path, groups):
+    """Inject the data-driven catalog into components/index.html BETWEEN the explicit
+    HUB-INJECT anchors. Never rebuilds the file; fails (assert) if anchors are absent.
+    Self-reference subcategories render as non-link spans (no /components/<top>/<top>/)."""
+    with open(hub_path, encoding="utf-8") as _f:
+        html = _f.read()
+    catalog = _hub_catalog_from_groups(groups)
+    nav = _render_hub_nav(catalog)
+    sections = _render_hub_sections(catalog)
+    html = _replace_hub_anchor(html, "<!-- HUB-INJECT:NAV-START -->",
+                               "<!-- HUB-INJECT:NAV-END -->", nav)
+    html = _replace_hub_anchor(html, "<!-- HUB-INJECT:SECTIONS-START -->",
+                               "<!-- HUB-INJECT:SECTIONS-END -->", sections)
+    with open(hub_path, "w", encoding="utf-8") as _f:
+        _f.write(html)
 
 
 def gen_part_page(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
@@ -4122,11 +4237,13 @@ def main():
                 f.write(page)
             urls.append(f"{DOMAIN}/components/{cslug}/{l3_slug}/")
 
-    # ---- component hub (GENERATED — P0-1; never hand-built, never orphaned) ----
+    # ---- component hub (P1-B2 / M2 — anchor-only injection, V2.4 shell preserved) ----
+    # DEPRECATED generate_components_hub() is no longer called here; the hub is injected
+    # between the explicit HUB-INJECT anchors so the hand-authored V2.4 shell / SEO /
+    # visuals are never overwritten. Self-reference subcategories render as non-link spans.
     hub_dir = os.path.join(out_root, "components")
     os.makedirs(hub_dir, exist_ok=True)
-    with open(os.path.join(hub_dir, "index.html"), "w", encoding="utf-8") as f:
-        f.write(generate_components_hub(generated_slugs))
+    inject_hub_anchors(os.path.join(hub_dir, "index.html"), groups)
     urls.append(f"{DOMAIN}/components/")
 
     # ---- split sitemap (all generated URLs) ----
