@@ -12752,5 +12752,495 @@
     "alternative_parts": "",
     "datasheet_url": "",
     "product_url": "/products/mcp23017tess/"
+  },
+  {
+    "mpn": "LM321",
+    "clean_mpn": "LM321",
+    "manufacturer": "Texas Instruments",
+    "brand": "Texas Instruments",
+    "url_slug": "lm321",
+    "category": "Integrated Circuits",
+    "subcategory": "Operational Amplifier",
+    "description": "Low Power Single Op Amp",
+    "applications": "",
+    "keywords": "LM321; operational amplifier; single op-amp",
+    "attributes": {
+      "Number of Amplifiers": "1",
+      "Common-Mode Rejection Ratio (CMRR)": "85dB",
+      "Gain Bandwidth Product (GBW)": "1MHz",
+      "Input Bias Current (Ib)": "500nA"
+    },
+    "sources": [
+      "LCSC"
+    ],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/26d62618204742f084c6cb342fa91d7c.pdf",
+    "product_url": "/products/lm321/"
+  },
+  {
+    "mpn": "LM393DT",
+    "clean_mpn": "LM393DT",
+    "manufacturer": "STMicroelectronics",
+    "brand": "STMicroelectronics",
+    "url_slug": "lm393dt",
+    "category": "Integrated Circuits",
+    "subcategory": "Comparator",
+    "description": "Low power dual voltage comparators",
+    "applications": "",
+    "keywords": "LM393DT; dual comparator; voltage comparator",
+    "attributes": {
+      "Number of Amplifiers": "Dual",
+      "Input Offset Voltage (Vos)": "1mV",
+      "Quiescent Current (Iq)": "450uA"
+    },
+    "sources": [
+      "LCSC"
+    ],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/d45f7359475d4d96b8149e69d4b19c85.pdf",
+    "product_url": "/products/lm393dt/"
+  },
+  {
+    "mpn": "AOZ1282CI",
+    "clean_mpn": "AOZ1282CI",
+    "manufacturer": "Alpha & Omega Semiconductor",
+    "brand": "Alpha & Omega Semiconductor",
+    "url_slug": "aoz1282ci",
+    "category": "Voltage Regulator",
+    "subcategory": "Voltage Regulator",
+    "description": "1.2A High Efficiency Buck Regulator",
+    "applications": "",
+    "keywords": "AOZ1282CI; DC-DC Converters; Alpha & Omega Semiconductor",
+    "attributes": {
+      "Function Type": "Step-Down",
+      "Output Type": "Adjustable",
+      "Output Voltage": "800mV~36V",
+      "Output Current": "1.2A"
+    },
+    "sources": [
+      "LCSC"
+    ],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/c783400be49c4fc08c41baf49f647334.pdf",
+    "product_url": "/products/aoz1282ci/"
+  },
+  {
+    "mpn": "B540C-13-F",
+    "clean_mpn": "B540C13F",
+    "manufacturer": "Diodes Incorporated",
+    "brand": "Diodes Incorporated",
+    "url_slug": "b540c13f",
+    "category": "Diode",
+    "subcategory": "Diode",
+    "description": "Voltage: 40V Current: 5A",
+    "applications": "",
+    "keywords": "B540C-13-F; Schottky Diodes; Diodes Incorporated",
+    "attributes": {
+      "Diode Configuration": "1 Independent",
+      "DC Reverse Voltage (Vr)": "40V",
+      "Rectified Current": "5A",
+      "Forward Voltage (Vf)": "550mV@5A"
+    },
+    "sources": [
+      "LCSC"
+    ],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/0b35057a5705662aaaaf16ec2990df33.pdf",
+    "product_url": "/products/b540c13f/"
+  },
+  {
+    "mpn": "SMBJ5.0A",
+    "clean_mpn": "SMBJ50A",
+    "manufacturer": "Littelfuse",
+    "brand": "Littelfuse",
+    "url_slug": "smbj50a",
+    "category": "Diode",
+    "subcategory": "Diode",
+    "description": "TVS DIODE 5VWM 9.2VC DO-214AA",
+    "applications": "",
+    "keywords": "SMBJ5.0A; ESD and Surge Protection (TVS/ESD); Littelfuse",
+    "attributes": {
+      "Polarity": "Unidirectional",
+      "Clamping Voltage": "9.2V",
+      "Peak Pulse Power (Ppp)": "600W@10/1000us",
+      "Reverse Standoff Voltage (Vrwm)": "5V"
+    },
+    "sources": [
+      "LCSC"
+    ],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/4ab84a227fae39f9eac85241b8264ead.pdf",
+    "product_url": "/products/smbj50a/"
+  },
+  {
+    "mpn": "GRM155R71H102KA01D",
+    "clean_mpn": "GRM155R71H102KA01D",
+    "manufacturer": "Murata Manufacturing",
+    "brand": "Murata Manufacturing",
+    "url_slug": "grm155r71h102ka01d",
+    "category": "Capacitor",
+    "subcategory": "Capacitor",
+    "description": "CAP CER 1nF 50V X7R 0402",
+    "applications": "",
+    "keywords": "GRM155R71H102KA01D; Multilayer Ceramic Capacitors MLCC - SMD/SMT; Murata Manufacturing",
+    "attributes": {
+      "Capacitance": "1nF",
+      "Accuracy": "±10%",
+      "Rated Voltage": "50V",
+      "Temperature Coefficient": "X7R"
+    },
+    "sources": [
+      "LCSC"
+    ],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/db44744a83e295f77ff41021ad930fc5.pdf",
+    "product_url": "/products/grm155r71h102ka01d/"
+  },
+  {
+    "mpn": "LMV358IDR",
+    "clean_mpn": "LMV358IDR",
+    "manufacturer": "Texas Instruments",
+    "brand": "Texas Instruments",
+    "url_slug": "lmv358idr",
+    "category": "Operational Amplifier",
+    "subcategory": "Operational Amplifier",
+    "description": "Low-Voltage Rail-to-Rail Output Operational Amplifiers",
+    "applications": "",
+    "keywords": "LMV358IDR; Operational Amplifier; Texas Instruments",
+    "attributes": {
+      "Number of Amplifiers": "2",
+      "Common-Mode Rejection Ratio (CMRR)": "65dB",
+      "Gain Bandwidth Product (GBW)": "1MHz",
+      "Input Bias Current (Ib)": "250nA"
+    },
+    "sources": [
+      "LCSC"
+    ],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/87d4e3156339818a414144fa450c6b73.pdf",
+    "product_url": "/products/lmv358idr/"
+  },
+  {
+    "mpn": "OP07CDR",
+    "clean_mpn": "OP07CDR",
+    "manufacturer": "Texas Instruments",
+    "brand": "Texas Instruments",
+    "url_slug": "op07cdr",
+    "category": "Operational Amplifier",
+    "subcategory": "Operational Amplifier",
+    "description": "Precision Operational Amplifiers",
+    "applications": "",
+    "keywords": "OP07CDR; Precision Op Amps; Texas Instruments",
+    "attributes": {
+      "Number of Amplifiers": "Single",
+      "Gain Bandwidth Product (GBW)": "400kHz",
+      "Common-Mode Rejection Ratio (CMRR)": "120dB",
+      "Input Bias Current (Ib)": "1.8nA"
+    },
+    "sources": [
+      "LCSC"
+    ],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/f8567628466d4d88996c772f836310a3.pdf",
+    "product_url": "/products/op07cdr/"
+  },
+  {
+    "mpn": "ST3485EBDR",
+    "clean_mpn": "ST3485EBDR",
+    "manufacturer": "STMicroelectronics",
+    "brand": "STMicroelectronics",
+    "url_slug": "st3485ebdr",
+    "category": "Interface IC",
+    "subcategory": "Interface IC",
+    "description": "3.3 V powered, ESD protected, up to 12 Mbps RS-485/RS-422 transceiver",
+    "applications": "",
+    "keywords": "ST3485EBDR; RS-485 / RS-422 ICs; STMicroelectronics",
+    "attributes": {
+      "Type": "Transceiver",
+      "Operating Voltage": "3V~3.6V",
+      "Data Rate": "12Mbps",
+      "Number of Nodes": "64"
+    },
+    "sources": [
+      "LCSC"
+    ],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/226e90b726aff0c7e0db7b3223ae03a5.pdf",
+    "product_url": "/products/st3485ebdr/"
+  },
+  {
+    "mpn": "IRF4905PBF",
+    "clean_mpn": "IRF4905PBF",
+    "manufacturer": "Infineon Technologies",
+    "brand": "Infineon Technologies",
+    "url_slug": "irf4905pbf",
+    "category": "MOSFET",
+    "subcategory": "MOSFET",
+    "description": "MOSFET P-CH 55V 74A TO-220AB",
+    "applications": "",
+    "keywords": "IRF4905PBF; MOSFETs; Infineon Technologies",
+    "attributes": {
+      "Type": "P-Channel",
+      "Drain-Source Voltage (Vdss)": "55V",
+      "Continuous Drain Current (Id)": "74A"
+    },
+    "sources": [
+      "LCSC"
+    ],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/d425166591a04605a1c3bb16ef89697a.pdf",
+    "product_url": "/products/irf4905pbf/"
+  },
+  {
+    "mpn": "SN74LVC14APWR",
+    "clean_mpn": "SN74LVC14APWR",
+    "manufacturer": "Texas Instruments",
+    "brand": "Texas Instruments",
+    "url_slug": "sn74lvc14apwr",
+    "category": "Logic IC",
+    "subcategory": "Logic IC",
+    "description": "Hex Schmitt-Trigger Inverters",
+    "applications": "",
+    "keywords": "SN74LVC14APWR; Inverters; Texas Instruments",
+    "attributes": {
+      "Input Type": "Schmitt Trigger",
+      "Operating Voltage": "1.65V~3.6V",
+      "Quiescent Current (Iq)": "1uA",
+      "Number of Channels": "6"
+    },
+    "sources": [
+      "LCSC"
+    ],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/54468abc93514a88ad3e91946edc3e16.pdf",
+    "product_url": "/products/sn74lvc14apwr/"
+  },
+  {
+    "mpn": "STM32H7B0VBT6",
+    "clean_mpn": "STM32H7B0VBT6",
+    "manufacturer": "STMicroelectronics",
+    "brand": "STMicroelectronics",
+    "url_slug": "stm32h7b0vbt6",
+    "category": "Microcontroller",
+    "subcategory": "Microcontroller",
+    "description": "32-bit Arm Cortex-M7 280 MHz MCUs, 128-Kbyte Flash memory, 1.4-Mbyte RAM, 46 com. and analog interfaces, SMPS, crypto",
+    "applications": "",
+    "keywords": "STM32H7B0VBT6; Microcontrollers (MCU/MPU/SOC); STMicroelectronics",
+    "attributes": {
+      "CPU Core": "ARM Cortex-M7",
+      "CPU Bit Width": "32 Bit",
+      "CPU Maximum Clock Speed": "280MHz"
+    },
+    "sources": [
+      "LCSC"
+    ],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/cac2fc46089cd65610ef7773cef0a175.pdf",
+    "product_url": "/products/stm32h7b0vbt6/"
+  },
+  {
+    "mpn": "B3U-1000P",
+    "clean_mpn": "B3U1000P",
+    "manufacturer": "Omron",
+    "brand": "Omron",
+    "url_slug": "b3u1000p",
+    "category": "Switches",
+    "subcategory": "Switches",
+    "description": "SWITCH TACTILE SPST 153gf SMD",
+    "applications": "",
+    "keywords": "B3U-1000P; Tactile Switches; Omron",
+    "attributes": {
+      "Circuit Configuration": "SPST",
+      "Button Shape": "Round Button",
+      "Switch Length": "3mm",
+      "Switch Width": "2.5mm"
+    },
+    "sources": [
+      "LCSC"
+    ],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/5613ec928e7c35b77f993ac0df056a32.pdf",
+    "product_url": "/products/b3u1000p/"
+  },
+  {
+    "mpn": "SM04B-SRSS-TB(LF)(SN)",
+    "clean_mpn": "SM04BSRSSTBLFSN",
+    "manufacturer": "JST",
+    "brand": "JST",
+    "url_slug": "sm04bsrsstblfsn",
+    "category": "Connectors",
+    "subcategory": "Connectors",
+    "description": "CONN HEADER SMD R/A 4POS 1mm",
+    "applications": "",
+    "keywords": "SM04B-SRSS-TB(LF)(SN); Wire To Board Connector; JST",
+    "attributes": {
+      "Pitch": "1mm",
+      "Color": "White",
+      "Mounting Type": "Horizontal SMT",
+      "Pin Configuration": "1x4P"
+    },
+    "sources": [
+      "LCSC"
+    ],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/40c649e22fa9bda892cfec952005fd51.pdf",
+    "product_url": "/products/sm04bsrsstblfsn/"
+  },
+  {
+    "mpn": "AD5791BRUZ",
+    "clean_mpn": "AD5791BRUZ",
+    "manufacturer": "Analog Devices",
+    "brand": "Analog Devices",
+    "url_slug": "ad5791bruz",
+    "category": "Analog IC",
+    "subcategory": "Analog IC",
+    "description": "20-Bit, ±1 LSB INL Voltage Output DAC",
+    "applications": "",
+    "keywords": "AD5791BRUZ; Digital to Analog Converters (DAC); Analog Devices",
+    "attributes": {
+      "Operating Voltage": "2.7V~5.5V",
+      "Settling Time": "1us",
+      "Integral Nonlinearity": "1.5LSB"
+    },
+    "sources": [
+      "LCSC"
+    ],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/fdfe146cfe691f9fd0da92ff40924fba.pdf",
+    "product_url": "/products/ad5791bruz/"
+  },
+  {
+    "mpn": "RC0603FR-0710RL",
+    "clean_mpn": "RC0603FR0710RL",
+    "manufacturer": "Yageo",
+    "brand": "Yageo",
+    "url_slug": "rc0603fr0710rl",
+    "category": "Resistor",
+    "subcategory": "Resistor",
+    "description": "RES 10Ω ±1% 100mW 0603",
+    "applications": "",
+    "keywords": "RC0603FR-0710RL; Chip Resistor - Surface Mount; Yageo",
+    "attributes": {
+      "Resistor Type": "Thick Film",
+      "Resistance": "10Ω",
+      "Accuracy": "±1%",
+      "Maximum Operating Voltage": "75V"
+    },
+    "sources": [
+      "LCSC"
+    ],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/b426be3ce22c6de3e0c3a2248e49159e.pdf",
+    "product_url": "/products/rc0603fr0710rl/"
+  },
+  {
+    "mpn": "W25Q256JVFIQ",
+    "clean_mpn": "W25Q256JVFIQ",
+    "manufacturer": "Winbond Electronics",
+    "brand": "Winbond Electronics",
+    "url_slug": "w25q256jvfiq",
+    "category": "Memory IC",
+    "subcategory": "Memory IC",
+    "description": "SPI Flash Memory with Dual/Quad SPI",
+    "applications": "",
+    "keywords": "W25Q256JVFIQ; NOR FLASH; Winbond Electronics",
+    "attributes": {
+      "Interface Type": "SPI",
+      "Operating Voltage": "2.7V~3.6V",
+      "Memory Size": "256Mbit",
+      "Clock Frequency (fc)": "133MHz"
+    },
+    "sources": [
+      "LCSC"
+    ],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/6c07a930b6c7ede0c7d02232243df776.pdf",
+    "product_url": "/products/w25q256jvfiq/"
+  },
+  {
+    "mpn": "BQ21040DBVR",
+    "clean_mpn": "BQ21040DBVR",
+    "manufacturer": "Texas Instruments",
+    "brand": "Texas Instruments",
+    "url_slug": "bq21040dbvr",
+    "category": "Power Management IC",
+    "subcategory": "Power Management IC",
+    "description": "Single-Input, Single-Cell Li-ion and Li-Pol Battery Charger",
+    "applications": "",
+    "keywords": "BQ21040DBVR; Battery Management; Texas Instruments",
+    "attributes": {
+      "Operating Voltage": "3.5V~28V",
+      "Maximum Charge Current": "800mA",
+      "Battery Type": "Li-ion",
+      "Number of Battery Cells": "1"
+    },
+    "sources": [
+      "LCSC"
+    ],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/3cc9969b42dcb2c3ffcae4f03b08d5f5.pdf",
+    "product_url": "/products/bq21040dbvr/"
+  },
+  {
+    "mpn": "HDC2010YPAR",
+    "clean_mpn": "HDC2010YPAR",
+    "manufacturer": "Texas Instruments",
+    "brand": "Texas Instruments",
+    "url_slug": "hdc2010ypar",
+    "category": "Sensors",
+    "subcategory": "Sensors",
+    "description": "Low-Power Humidity and Temperature Digital Sensors",
+    "applications": "",
+    "keywords": "HDC2010YPAR; Temperature and Humidity Sensor; Texas Instruments",
+    "attributes": {
+      "Temperature Range": "-40℃~+85℃",
+      "Humidity Range": "0%RH~100%RH",
+      "Interface Type": "I2C",
+      "Humidity Accuracy": "±2%RH"
+    },
+    "sources": [
+      "LCSC"
+    ],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/c2e8fde450e096baeb72d376805a7c7e.pdf",
+    "product_url": "/products/hdc2010ypar/"
   }
 ]
