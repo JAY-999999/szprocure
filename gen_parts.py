@@ -46,10 +46,6 @@ from collections import defaultdict
 from urllib.parse import quote as urlquote
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-# M4-C: import the pure Scope Guard classifier (lives in the same directory).
-if ROOT not in sys.path:
-    sys.path.insert(0, ROOT)
-from scope_guard import evaluate_scope  # M4-C: DIRECT/DEPENDENCY/DERIVED/UNEXPECTED
 DOMAIN = "https://www.szprocure.com"
 SITEMAP_BATCH = 45000  # urls per sitemap file (Google soft cap 50k)
 SEARCH_SHARD_SIZE = 5000  # entries per search shard (keeps each /search/N.json small)
@@ -185,59 +181,6 @@ def load_taxonomy(force=False):
     return _TAXONOMY
 
 
-# ---------------------------------------------------------------------------
-# Dynamic Fine Resolution (Plan B v2, Step 1) — RELIABLE-PARENT hook ONLY.
-# This is an EXPLICITLY-INJECTED, deterministic parent source. It is NEVER a
-# keyword heuristic and NEVER a silent Integrated-Circuits fallback. Production
-# default is None, so unregistered fines stay UNMAPPED (pre-change behavior).
-# Wiring a real data source (MASTER parent column / upstream feed) is a later
-# step that requires an actual reliable source to exist. See design doc §5/§11.
-# ---------------------------------------------------------------------------
-RELIABLE_FINE_PARENT_SOURCE = None  # optional callable(fine_cat) -> Optional[top_slug]
-
-
-def set_reliable_fine_parent_source(source):
-    """Inject a deterministic fine->top resolver (P2). Set to None to disable.
-    The source MUST return a DECLARED top slug or None; an undeclared top is
-    refused (UNMAPPED), never auto-added to TOP_CATEGORIES."""
-    global RELIABLE_FINE_PARENT_SOURCE
-    RELIABLE_FINE_PARENT_SOURCE = source
-
-
-def _try_reliable_parent(raw_cat, tax):
-    """P2-P4: resolve a NEW (unregistered) fine to a KNOWN top via the injected
-    reliable source only. Returns a resolve_taxonomy-style dict, or None when no
-    reliable source is configured / no match. NO guessing, NO silent fallback."""
-    if RELIABLE_FINE_PARENT_SOURCE is None:
-        return None
-    _cat = (raw_cat or "").strip()
-    if not _cat:
-        return None
-    _top = RELIABLE_FINE_PARENT_SOURCE(_cat)
-    if not _top:
-        return None
-    if _top not in tax["tops"]:
-        # Unknown top returned by source: never auto-create; quarantine.
-        return {"status": "UNMAPPED", "top": None, "slug": None, "name": _cat,
-                "self_reference": False,
-                "reason": "reliable source returned undeclared top %r (unknown top; not auto-created)" % _top}
-    _slug = slugify_name(_cat)
-    # Slug-collision guard vs existing taxonomy entries of a DIFFERENT fine.
-    _peers = tax["by_slug"].get(_slug, [])
-    if any(p["name"] != _cat for p in _peers):
-        return {"status": "COLLISION", "top": None, "slug": _slug, "name": _cat,
-                "self_reference": False,
-                "reason": "reliable-source slug %r collides with other fine(s): %s"
-                          % (_slug, [p["taxonomy_id"] for p in _peers])}
-    if _slug == _top:
-        return {"status": "SELF_REFERENCE", "top": _top, "slug": _slug, "name": _cat,
-                "self_reference": True,
-                "reason": "reliable-source fine slug equals its top (self-reference)"}
-    return {"status": "RESOLVED", "top": _top, "slug": _slug, "name": _cat,
-            "self_reference": False,
-            "reason": "resolved via reliable parent source (P2)", "dynamic": True}
-
-
 def resolve_taxonomy(raw_cat):
     """Resolve a raw CSV category string against the externalized taxonomy.
 
@@ -260,13 +203,6 @@ def resolve_taxonomy(raw_cat):
                 "self_reference": False, "reason": "empty category"}
     _matches = _tax["by_name"].get(_cat)
     if not _matches:
-        # P2-P4: consult an EXPLICITLY provided, deterministic reliable-parent
-        # source. NO keyword heuristic / NO silent IC fallback is ever accepted
-        # here. If no source is configured (production default), this returns
-        # None and we fall through to UNMAPPED (unchanged, safe behavior).
-        _reliable = _try_reliable_parent(_cat, _tax)
-        if _reliable is not None:
-            return _reliable
         return {"status": "UNMAPPED", "top": None, "slug": None, "name": _cat,
                 "self_reference": False,
                 "reason": "category not present in data/category_taxonomy.json"}
@@ -2097,10 +2033,8 @@ def gen_manufacturer_page(mfr, parts, cat_slugs):
     )
     # related categories for this manufacturer (resolve fine -> top slug)
     cat_links = "".join(
-        f'<li><a href="/components/{cslug}/">{esc(c)}</a></li>'
+        f'<li><a href="/components/{resolve_cat(c)[0]}/">{esc(c)}</a></li>'
         for c in sorted({p["category"] for p in parts})
-        for _status, cslug, _cname in [resolve_cat_state(c)]
-        if _status not in ("UNMAPPED", "COLLISION")
     )
     crumb = breadcrumb_jsonld([
         ("Home", f"{DOMAIN}/"),
@@ -2516,10 +2450,8 @@ def gen_hub_page(kind, title, desc, items):
                           f'<span class="muted">— {len(parts)} parts</span></li>')
     else:
         for name, parts in sorted(items.items()):
-            status, cslug, _cname = resolve_cat_state(name)
-            if status in ("UNMAPPED", "COLLISION"):
-                continue
-            rows_html += (f'<li><a href="/components/{cslug}/">{esc(name)}</a> '
+            slug = resolve_cat(name)[0]
+            rows_html += (f'<li><a href="/components/{slug}/">{esc(name)}</a> '
                           f'<span class="muted">— {len(parts)} parts</span></li>')
     crumb = breadcrumb_jsonld([("Home", f"{DOMAIN}/"), (title, url)])
     return f"""<!DOCTYPE html>
@@ -3328,9 +3260,7 @@ def _now_iso():
 def _build_by_cat(groups):
     by_cat = defaultdict(list)
     for g in groups:
-        status, cslug, _cname = resolve_cat_state(g["category"].strip())
-        if status in ("UNMAPPED", "COLLISION"):
-            continue
+        cslug, _ = resolve_cat(g["category"].strip())
         by_cat[cslug].append(g)
     return by_cat
 
@@ -3716,13 +3646,10 @@ def regen_global_artifacts(args, groups, out_root, by_cat, related_map, generate
             seen.add(key_m)
         key_c = ("c", cat.lower())
         if key_c not in seen:
-            status, c_top, _cname = resolve_cat_state(cat)
-            if status in ("UNMAPPED", "COLLISION"):
-                seen.add(key_c)
-            else:
-                search_entries.append({"t": cat, "k": cat.lower(), "ty": "Category",
-                                       "u": f"/components/{c_top}/", "sub": "Browse category"})
-                seen.add(key_c)
+            c_top = resolve_cat(cat)[0]
+            search_entries.append({"t": cat, "k": cat.lower(), "ty": "Category",
+                                   "u": f"/components/{c_top}/", "sub": "Browse category"})
+            seen.add(key_c)
     search_entries.sort(key=lambda e: e["k"])
     search_dir = os.path.join(out_root, "search")
     os.makedirs(search_dir, exist_ok=True)
@@ -3844,9 +3771,7 @@ def _regen_components_data(args, groups, out_root, by_cat, related_map, generate
         slug = g.get("url_slug") or ""
         if not slug:
             continue
-        status, cslug, _cname = resolve_cat_state(g["category"].strip())
-        if status in ("UNMAPPED", "COLLISION"):
-            continue
+        cslug, _ = resolve_cat(g["category"].strip())
         parts_out.append({
             "mpn": pn,
             "mfr": g["manufacturer"].strip(),
@@ -3982,29 +3907,28 @@ def incremental_pipeline(args, groups, out_root, manifest_path=MANIFEST_PATH):
         _fine = (g.get("category") or "").strip()
         if _fine and not l3_page_should_skip(_fine):
             affected_l3.add((_cslug, _fine, slugify_name(_fine)))
-
-    # ---- M4-C SCOPE GUARD: classify planned writes; UNEXPECTED > 0 => HARD STOP ----
-    # (1) operator named SKUs that do not exist in MASTER -> refuse, never full-sync.
+    # SCOPE GUARD: unexpected = planned - (requested ∪ dependency_induced)
     if args.single and not requested_slugs:
+        # operator named SKUs that do not exist in MASTER -> refuse, do not full-sync
         print("=" * 72)
         print("  [SCOPE GUARD] ABORT: --single MPN(s) not found in MASTER: "
               f"{', '.join(sorted(requested_mpns))}")
         print("=" * 72)
         return {"aborted": True, "reason": "requested_not_in_master",
                 "requested": sorted(requested_mpns)}
-
-    # (2) classify every planned write into DIRECT / DEPENDENCY / DERIVED / UNEXPECTED.
-    #     full_sync (no --single) => the whole MASTER is authorized, UNEXPECTED impossible.
-    full_sync = not requested_slugs
-    scope = evaluate_scope(requested_slugs, dep_induced_slugs, write_set,
-                            full_sync=full_sync)
-    unexpected = set(scope["unexpected"])
+    if not requested_slugs:
+        allowed = slug_set                      # full-sync: everything is requested
+    else:
+        allowed = requested_slugs | dep_induced_slugs
+    unexpected = write_set - allowed
 
     n_create = sum(1 for p in plan.values() if p["action"] == "CREATE")
     n_update = sum(1 for p in plan.values() if p["action"] == "UPDATE")
     n_skip = sum(1 for p in plan.values() if p["action"] == "SKIP")
-    n_direct = len(scope["direct"])
-    n_dep = len(scope["dependency"])
+    n_direct = sum(1 for p in plan.values()
+                   if p["action"] == "UPDATE" and p["kind"] == "direct")
+    n_dep = sum(1 for p in plan.values()
+                if p["action"] == "UPDATE" and p["kind"] == "dependency-induced")
     total = len(groups)
 
     # ---- dry-run: report and return (no HTML, manifest unchanged) ----
@@ -4019,7 +3943,6 @@ def incremental_pipeline(args, groups, out_root, manifest_path=MANIFEST_PATH):
         print(f"  Planned HTML writes : {n_create + n_update}")
         print(f"  Direct changes            : {n_direct}")
         print(f"  Dependency-induced changes: {n_dep}")
-        print(f"  DERIVED (global artifacts): sitemap / parts.json / search / components-data.js")
         print(f"  Affected Brand    pages : {len(affected_brands)}")
         print(f"  Affected Category pages : {len(affected_cats)}")
         print(f"  Affected Fine(L3) pages : {len(affected_l3)}")
@@ -4032,24 +3955,19 @@ def incremental_pipeline(args, groups, out_root, manifest_path=MANIFEST_PATH):
                 "unexpected": sorted(unexpected), "write_set": sorted(write_set),
                 "affected_brands": sorted(affected_brands),
                 "affected_cats": sorted(affected_cats),
-                "affected_l3": sorted((c, f, l) for c, f, l in affected_l3),
-                "aborted": scope["aborted"]}
+                "affected_l3": sorted((c, f, l) for c, f, l in affected_l3),}
 
     # ---- non-dry write path ----
     if unexpected:
         print("=" * 72)
         print("  [SCOPE GUARD] ABORT: unexpected writes detected -> nothing published.")
-        print(f"  DIRECT      = {scope['direct']}")
-        print(f"  DEPENDENCY  = {scope['dependency']}")
+        print(f"  requested           = {sorted(requested_slugs)}")
+        print(f"  dependency_induced  = {sorted(dep_induced_slugs)}")
         print(f"  UNEXPECTED ({len(unexpected)}) = {', '.join(sorted(unexpected))}")
-        print("  Each UNEXPECTED write was neither explicitly requested (--single)")
-        print("  nor a legitimate dependency-induced co-write. Nothing was written,")
-        print("  build_manifest.json is untouched, and no deploy occurred.")
         print("  Re-run with an explicit --single request covering these SKUs, or run")
         print("  a full sync (no --single) to publish all detected changes.")
         print("=" * 72)
-        return {"aborted": True, "unexpected": sorted(unexpected),
-                "direct": scope["direct"], "dependency": scope["dependency"]}
+        return {"aborted": True, "unexpected": sorted(unexpected)}
 
     if total and (n_create + n_update) > SCOPE_CEILING_RATIO * total:
         print(f"  [SCOPE GUARD] INFO: planned writes {n_create + n_update} exceed "
@@ -4076,6 +3994,7 @@ def incremental_pipeline(args, groups, out_root, manifest_path=MANIFEST_PATH):
               f"build_manifest.json is NOT updated (self-heal on next run).")
         raise
 
+    # ---- manifest transaction: update only AFTER every SKU HTML succeeded ----
     # ---- NODE writes: refresh affected Brand / Category / Fine(L3) pages ----
     # Order: L3 first (so the category page's existing_l3 scan sees them), then
     # Category, then Brand. Each node is regenerated from CURRENT full data, so a
@@ -4089,7 +4008,7 @@ def incremental_pipeline(args, groups, out_root, manifest_path=MANIFEST_PATH):
         for (_cslug, _fine, _l3slug) in sorted(affected_l3):
             _d = os.path.join(out_root, "components", _cslug, _l3slug)
             _existed = os.path.isfile(os.path.join(_d, "index.html"))
-            os.makedirs(_d, exist_ok=True)  # dir only; L3 page rendered by gen_subcategory.py --apply
+            os.makedirs(_d, exist_ok=True)  # ROOT-FIX: L3 HTML via gen_subcategory.py
             node_written += 1
             if not _existed:
                 node_created.add(("l3", _cslug, _l3slug))
@@ -4137,7 +4056,6 @@ def incremental_pipeline(args, groups, out_root, manifest_path=MANIFEST_PATH):
         with open(os.path.join(_mhub_dir, "index.html"), "w", encoding="utf-8") as _f:
             _f.write(gen_manufacturers_hub(by_mfr))
 
-    # ---- manifest transaction: update only AFTER every SKU HTML succeeded ----
     new_skus = dict(skus)
     for s in write_set:
         g = plan[s]["g"]
@@ -4161,17 +4079,15 @@ def incremental_pipeline(args, groups, out_root, manifest_path=MANIFEST_PATH):
     # ---- global artifacts (separated from SKU HTML) ----
     regen_global_artifacts(args, groups, out_root, by_cat, related_map, generated_slugs)
 
-    # L3 subcategory pages are owned by gen_subcategory.py (v2.1 design). The
-    # NODE-write above only ensures the directory exists; re-render ALL L3 pages
-    # from the just-regenerated parts.json so the v2.1 layout (ItemList schema +
-    # /page/2/ pagination + Manufacturers section) is never clobbered by gen_parts.py.
-    _gen_sub = os.path.join(ROOT, "gen_subcategory.py")
-    if os.path.exists(_gen_sub):
-        _r = subprocess.run([sys.executable, _gen_sub, "--apply"], cwd=ROOT)
+    # ---- ROOT-FIX: delegate L3 subcategory rendering to gen_subcategory.py (v2.1) ----
+    # parts.json is refreshed by regen_global_artifacts above, so L3 pages reflect the
+    # current catalog. Idempotent: re-renders all v2.1 L3 pages from current parts.json.
+    _subcat = os.path.join(ROOT, "gen_subcategory.py")
+    if os.path.exists(_subcat):
+        print("  [ROOT-FIX] Delegating L3 subcategory render to gen_subcategory.py ...")
+        _r = subprocess.run([sys.executable, _subcat, "--apply"], cwd=ROOT)
         if _r.returncode != 0:
-            print(f"  [WARN] gen_subcategory.py --apply exited {_r.returncode}")
-    else:
-        print("  [WARN] gen_subcategory.py not found; L3 pages NOT regenerated")
+            print("  [WARN] gen_subcategory.py exited non-zero; L3 pages may be stale.")
 
     print("=" * 72)
     print(f"  [INCREMENTAL] Published: CREATE={n_create} UPDATE={n_update} SKIP={n_skip}")
@@ -4187,33 +4103,6 @@ def incremental_pipeline(args, groups, out_root, manifest_path=MANIFEST_PATH):
             "affected_l3": sorted((c, f, l) for c, f, l in affected_l3),
             "node_created": sorted(node_created),
             "unexpected": []}
-
-
-def _resolve_run_mode(args, env=None):
-    """M4-E: decide which run mode main() executes. Pure + testable.
-
-    Returns one of: "refuse" | "bootstrap" | "incremental" | "dry-run" | "full-rebuild".
-
-    Safety contract (spec §五): a normal incremental publish command must NEVER
-    silently become a full rebuild. Full rebuild of all pages requires an explicit,
-    out-of-band opt-in (env SZPROCURE_PERMIT_FULL_REBUILD=1) — NOT a casual CLI flag —
-    so the legacy test_anti_full_rebuild_flag_absent guard stays honoured.
-    """
-    if env is None:
-        env = os.environ
-    single_val = getattr(args, "single", None)
-    # Empty / whitespace --single is NOT a valid scope: refuse, never degrade to full-sync.
-    if single_val is not None and not str(single_val).strip():
-        return "refuse"
-    if getattr(args, "bootstrap_manifest", False):
-        return "bootstrap"
-    if getattr(args, "incremental", False) or (single_val and str(single_val).strip()):
-        return "incremental"
-    if getattr(args, "dry_run", False):
-        return "dry-run"
-    if env.get("SZPROCURE_PERMIT_FULL_REBUILD") == "1":
-        return "full-rebuild"
-    return "refuse"
 
 
 def main():
@@ -4235,12 +4124,11 @@ def main():
                          "is found (200k data-hygiene gate).")
     ap.add_argument("--single", default=None,
                     help="Incremental publish scope: comma-separated MPN(s) to publish "
-                         "(e.g. 'STM32F103C8T6,ESP32-WROOM-32E'). Implies --incremental and a "
-                         "SCOPE GUARD — only these SKUs plus legitimate dependency-induced "
-                         "co-members are written; any other detected change aborts. An empty or "
-                         "whitespace value is REJECTED (never degrades to a full sync). Empty "
-                         "(no --single) = full incremental sync of all detected changes. Skips "
-                         "manufacturer/hub/category/sitemap generation. For targeted publishing.")
+                         "(e.g. 'STM32F103C8T6,ESP32-WROOM-32E'). Implies a SCOPE GUARD — "
+                         "only these SKUs plus legitimate dependency-induced co-members are "
+                         "written; any other detected change aborts. Empty (no --single) = "
+                         "full incremental sync of all detected changes. Skips manufacturer/"
+                         "hub/category/sitemap generation. For targeted single/batch publishing.")
     ap.add_argument("--incremental", action="store_true",
                     help="PHASE 1: run change-detection and print the Publishing Plan. "
                          "Does NOT write products/*.html and does NOT modify build_manifest.json.")
@@ -4323,30 +4211,16 @@ def main():
     print(f"  [P0-2] rows with unmapped manufacturer (needs_review): {stats['brand_unmatched']}")
     print(f"  [P0-3] rows with unknown attribute key (needs_review): {stats['attr_unknown']}")
 
-    # ---- M4-E: explicit run-mode dispatch (NO silent full rebuild) ----
-    # All production write paths are reached ONLY through an explicit mode. A bare
-    # `gen_parts.py` (no mode flag) refuses; full rebuild additionally needs the
-    # SZPROCURE_PERMIT_FULL_REBUILD=1 env opt-in.
-    mode = _resolve_run_mode(args)
-    if mode == "refuse":
-        print("\n  [M4-E] REFUSED: no explicit run mode selected.")
-        print("  Safe publishing : pass --incremental (optionally --single <MPN>).")
-        print("  Record state    : pass --bootstrap-manifest.")
-        print("  Validate only   : pass --dry-run.")
-        print("  Full regeneration of ALL pages requires explicit opt-in:")
-        print("    set SZPROCURE_PERMIT_FULL_REBUILD=1 (env) to permit a full rebuild.")
-        print("  Refusing to run a silent full rebuild.\n")
-        sys.exit(2)
-    if mode == "bootstrap":
-        bootstrap_manifest(args, groups, out_root)
+    # ---- PHASE 1 (authorized 2026-09-08): incremental build state only ----
+    # Short-circuit BEFORE the existing --dry-run block and the full-rebuild loop.
+    # Neither branch writes products/*.html or edits MASTER. bootstrap writes the
+    # (gitignored) build_manifest.json only when NOT --dry-run.
+    if args.incremental or args.bootstrap_manifest:
+        if args.bootstrap_manifest:
+            bootstrap_manifest(args, groups, out_root)
+        if args.incremental:
+            incremental_pipeline(args, groups, out_root)
         return
-    if mode == "incremental":
-        res = incremental_pipeline(args, groups, out_root)
-        if res.get("aborted"):
-            print("\n  [M4-E] incremental_pipeline aborted by SCOPE GUARD — nothing published.")
-            sys.exit(4)
-        return
-    # mode in {"dry-run", "full-rebuild"} -> fall through to the blocks below.
 
     # ---- DRY RUN: processed + review outputs, stop before HTML ----
     if args.dry_run:
@@ -4392,9 +4266,7 @@ def main():
     by_cat = defaultdict(list)
     for g in groups:
         by_mfr[g["manufacturer"].strip()].append(g)
-        status, cslug, _cname = resolve_cat_state(g["category"].strip())
-        if status in ("UNMAPPED", "COLLISION"):
-            continue
+        cslug, _ = resolve_cat(g["category"].strip())
         by_cat[cslug].append(g)
 
     # ---- P0-1 related-products pre-index (final slugs) ----
@@ -4413,7 +4285,7 @@ def main():
         slug = g["url_slug"]
         if not slug:
             continue
-        _, cslug, _ = resolve_cat_state(g["category"].strip())
+        cslug, _ = resolve_cat(g["category"].strip())
         mfr_slug = slugify_name(g["manufacturer"].strip())
         if pn.upper() in V2_LEGACY_EXCEPTIONS:
             page = gen_part_page(g, cslug, mfr_slug, related=related_map.get(slug, []), generated_slugs=generated_slugs)
@@ -4458,13 +4330,12 @@ def main():
         urls.append(f"{DOMAIN}/components/{cslug}/")
 
     # ---- component L3 subcategory pages (/components/<l2>/<l3>/) ----
-    # OWNED BY gen_subcategory.py (v2.1 design: ItemList schema + /page/2/
-    # pagination + Manufacturers section). gen_parts.py MUST NOT render the legacy
-    # template here — doing so clobbers the v2.1 pages on every rebuild. We only
-    # ensure the directory exists for any NEW fine category (so gen_subcategory.py
-    # can discover + render it), then delegate ALL L3 rendering to
-    # gen_subcategory.py --apply AFTER parts.json is regenerated (see end of this
-    # full-rebuild block). Idempotent + recurrence-proof.
+    # ROOT-FIX: L3 pages are rendered EXCLUSIVELY by gen_subcategory.py (the v2.1
+    # design: ItemList schema + /page/2/ pagination + Manufacturers section). gen_parts.py
+    # must NEVER render L3 via the legacy gen_component_subcategory_page template -- that
+    # clobbers v2.1 on every rebuild (regression on 2026-09-10). Here we only ensure the
+    # directory exists so a new fine category is discoverable; actual HTML is produced in
+    # the delegated pass AFTER parts.json is regenerated (see below).
     for cslug, cname in TOP_CATEGORIES.items():
         l3_groups = defaultdict(list)
         for p in by_cat.get(cslug, []):
@@ -4481,8 +4352,7 @@ def main():
                 continue
             l3_slug = slugify_name(fine)
             d = os.path.join(out_root, "components", cslug, l3_slug)
-            if not os.path.isdir(d):
-                os.makedirs(d, exist_ok=True)
+            os.makedirs(d, exist_ok=True)  # ROOT-FIX: directory only; HTML via gen_subcategory.py
             urls.append(f"{DOMAIN}/components/{cslug}/{l3_slug}/")
 
     # ---- component hub (P1-B2 / M2 — anchor-only injection, V2.4 shell preserved) ----
@@ -4536,13 +4406,10 @@ def main():
             seen.add(key_m)
         key_c = ("c", cat.lower())
         if key_c not in seen:
-            status, c_top, _cname = resolve_cat_state(cat)
-            if status in ("UNMAPPED", "COLLISION"):
-                seen.add(key_c)
-            else:
-                search_entries.append({"t": cat, "k": cat.lower(), "ty": "Category",
-                                       "u": f"/components/{c_top}/", "sub": "Browse category"})
-                seen.add(key_c)
+            c_top = resolve_cat(cat)[0]
+            search_entries.append({"t": cat, "k": cat.lower(), "ty": "Category",
+                                   "u": f"/components/{c_top}/", "sub": "Browse category"})
+            seen.add(key_c)
     search_entries.sort(key=lambda e: e["k"])
     search_dir = os.path.join(out_root, "search")
     os.makedirs(search_dir, exist_ok=True)
@@ -4597,18 +4464,16 @@ def main():
         f.write(json.dumps(parts_json, ensure_ascii=False, indent=2))
     print(f"parts.json: {len(parts_json)} structured records written.")
 
-    # ---- L3 subcategory pages: OWNED BY gen_subcategory.py (v2.1) ----
-    # Gen_parts.py must never render the legacy L3 template (it clobbers v2.1 on
-    # every rebuild). parts.json above is now current, so delegate L3 rendering to
-    # gen_subcategory.py --apply, which (re)generates all L3 index.html + pagination
-    # + sitemap_subcat.xml from current data. Idempotent + recurrence-proof.
-    _gen_sub = os.path.join(ROOT, "gen_subcategory.py")
-    if os.path.exists(_gen_sub):
-        _r = subprocess.run([sys.executable, _gen_sub, "--apply"], cwd=ROOT)
+    # ---- ROOT-FIX: delegate L3 subcategory rendering to gen_subcategory.py (v2.1) ----
+    # Runs AFTER parts.json above is regenerated so L3 pages reflect current SKU data.
+    _subcat = os.path.join(ROOT, "gen_subcategory.py")
+    if os.path.exists(_subcat):
+        print("  [ROOT-FIX] Delegating L3 subcategory render to gen_subcategory.py ...")
+        _r = subprocess.run([sys.executable, _subcat, "--apply"], cwd=ROOT)
         if _r.returncode != 0:
-            print(f"  [WARN] gen_subcategory.py --apply exited {_r.returncode}")
+            print("  [WARN] gen_subcategory.py exited non-zero; L3 pages may be stale.")
     else:
-        print("  [WARN] gen_subcategory.py not found; L3 pages NOT regenerated")
+        print("  [WARN] gen_subcategory.py not found; L3 pages not re-rendered.")
 
     # ---- components-data.js (LIVE Components Hub search source, see _regen_components_data) ----
     _regen_components_data(args, groups, out_root, by_cat, related_map, generated_slugs)
