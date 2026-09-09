@@ -122,19 +122,26 @@ def walk_existing_subcats():
                         break
         for l3 in sorted(os.listdir(tp)):
             lp = os.path.join(tp, l3)
+            if not os.path.isdir(lp):
+                continue
             idx = os.path.join(lp, "index.html")
-            if os.path.isdir(lp) and os.path.exists(idx):
+            # A subcat dir without index.html is a NEW subcat created by gen_parts.py
+            # (makedirs only, no legacy write). Derive a clean display name so
+            # gen_subcategory.py renders it with the v2.1 template on this run.
+            display = l3.replace("-", " ").title()
+            if os.path.exists(idx):
                 t = open(idx, encoding="utf-8").read()
                 h1 = __import__("re").search(r"<h1[^>]*>(.*?)</h1>", t, __import__("re").S)
-                display = html.unescape(h1.group(1).strip()) if h1 else l3.replace("-", " ").title()
-                found.append(
-                    {
-                        "top_slug": top,
-                        "l3_slug": l3,
-                        "display": display,
-                        "top_display": top_display,
-                    }
-                )
+                if h1:
+                    display = html.unescape(h1.group(1).strip())
+            found.append(
+                {
+                    "top_slug": top,
+                    "l3_slug": l3,
+                    "display": display,
+                    "top_display": top_display,
+                }
+            )
     return found
 
 
