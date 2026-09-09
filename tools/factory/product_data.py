@@ -45,7 +45,7 @@ SYNTHETIC_MPN_PATTERNS = [
 FAKE_BRAND_TOKENS = re.compile(
     r'(Acme|Nova|Placeholder|Synthetic|Mock|Fake|TestCorp|DemoSemi|Injected)', re.I)
 
-SOURCE_KINDS = ("lcsc_api_csv",)
+SOURCE_KINDS = ("lcsc_api_csv", "lcsc_http_json")
 
 DEFAULT_RAW_SOURCE = (r"C:\Users\Administrator.SC-202105071542\Desktop"
                       r"\szprocure-site\data\raw\lcsc_api_FULL_20260827.csv")
@@ -231,7 +231,12 @@ def build_row(record, mpn, brand, mfr_map=None):
     fields. Returns (row, meta) where ``meta`` is category detection metadata
     (carries it instead of the old extract result).
     """
-    fields, meta = category.build_category_row(record, mpn, brand)
+    if record.get("_source_kind") == "lcsc_http_json":
+        # LCSC English HTTP JSON envelope (02 LCSC HTTP RAW adapter).
+        from . import lcsc_http_adapter as ha
+        fields, meta = ha.http_build_category_row(record, mpn, brand)
+    else:
+        fields, meta = category.build_category_row(record, mpn, brand)
     row = {
         "mpn": mpn, "clean_mpn": "", "manufacturer": brand, "brand": brand,
         "url_slug": "",
@@ -241,7 +246,9 @@ def build_row(record, mpn, brand, mfr_map=None):
         "applications": fields["applications"],
         "keywords": fields["keywords"],
         "attributes_json": fields["attributes_json"],
-        "availability": "active", "alternative_parts": "", "datasheet_url": "",
+        "availability": "active",
+        "alternative_parts": (record.get("alternative_parts") or "").strip(),
+        "datasheet_url": "",
         "faq": fields["faq"], "image": "", "source": "", "source_url": "LCSC",
         "supplier_reference": (record.get("supplier_sku") or "").strip(),
     }
@@ -253,6 +260,14 @@ def build_row(record, mpn, brand, mfr_map=None):
     row[F_DATASHEET_SRC] = (record.get("source_datasheet_url") or "").strip()
     row[F_ASSET_KEY] = asset_key(mpn)
     row[F_SPEC_KEYS] = len(aj)
+    # HTTP RAW adapter pool-only extensions (NOT in MASTER 19 cols; preserved
+    # for review / future relationship network, dropped by master_row()).
+    row["_attributes_json_unmapped"] = (record.get("attributes_json_unmapped") or "")
+    row["_related_parts_raw"] = json.dumps(record.get("related_parts_raw") or [],
+                                            ensure_ascii=False)
+    # Pool-only source tag so qualify() can apply source-specific guards
+    # (e.g. LCSC HTTP pure-numeric MPNs are real products, not synthetic).
+    row["_source_kind"] = record.get("_source_kind")
     row[F_NEEDS_REVIEW] = bool(meta.get("needs_review", False))
     row[F_DETECT] = json.dumps(meta.get("signals", {}), ensure_ascii=False)
     return row, meta
@@ -261,7 +276,24 @@ def build_row(record, mpn, brand, mfr_map=None):
 # =====================================================================
 # qualification
 # =====================================================================
-def looks_synthetic(mpn, brand):
+def _lcsc_http_real_numeric(rec):
+    """A pure-numeric LCSC HTTP MPN is a REAL product when it carries genuine
+    product identity: a C-number supplier_sku, a real brand, and a real product
+    name. Pure digits alone are no longer treated as synthetic."""
+    brand = (rec.get("manufacturer_raw") or rec.get("brand")
+             or rec.get("manufacturer") or "").strip()
+    code = (rec.get("supplier_sku") or rec.get("supplier_reference") or "").strip()
+    name = (rec.get("description") or rec.get("productNameEn") or "").strip()
+    return bool(brand) and bool(code) and bool(name)
+
+
+def looks_synthetic(mpn, brand, record=None):
+    # LCSC HTTP: a pure-numeric MPN is NOT synthetic when it carries real product
+    # identity. Only reject numeric MPNs that lack genuine identity signals.
+    if record and record.get("_source_kind") == "lcsc_http_json":
+        if re.fullmatch(r"\d{6,}$", (mpn or "")):
+            if _lcsc_http_real_numeric(record):
+                return None
     for pat in SYNTHETIC_MPN_PATTERNS:
         if pat.search(mpn or ""):
             return f"synthetic MPN pattern '{pat.pattern}'"
@@ -284,7 +316,7 @@ def qualify(row, mfr_map=None):
     Rejected rows never reach the candidate pool.
     """
     mpn, brand = row.get("mpn", ""), row.get("brand", "")
-    syn = looks_synthetic(mpn, brand)
+    syn = looks_synthetic(mpn, brand, row)
     if syn:
         return ("reject", gate.SYNTHETIC_MPN, syn)
     for f in REQUIRED_FIELDS:
@@ -490,7 +522,7 @@ def normalize(batch_id, master_csv=None, mfr_csv=None, root=None, manifest=None,
     built, rejects = {}, []
     for rec in records:
         mpn = rec["mpn"]
-        syn = looks_synthetic(mpn, rec.get("manufacturer_raw", ""))
+        syn = looks_synthetic(mpn, rec.get("manufacturer_raw", ""), rec)
         if syn:
             rejects.append((mpn, gate.SYNTHETIC_MPN, syn))
             continue
@@ -575,3 +607,17 @@ def normalize(batch_id, master_csv=None, mfr_csv=None, root=None, manifest=None,
 def master_row(row):
     """Project a candidate row onto MASTER_COLS (drops pool-only fields)."""
     return {c: row.get(c, "") for c in MASTER_COLS}
+
+
+def intake_http_json(batch_id, source_path=None, selector=None, limit=None,
+                     root=None, manifest=None):
+    """Stream LCSC English HTTP JSON envelopes into the raw pool.
+
+    Thin entry point that delegates to the 02 LCSC HTTP RAW adapter. ``source_path``
+    must be the verified batch directory (e.g. ``data/raw/lcsc_http_scale500``);
+    it never falls back to the empty default ``data/raw/lcsc_http/`` directory.
+    """
+    from . import lcsc_http_adapter as ha
+    source_path = source_path or ha.DEFAULT_HTTP_RAW
+    return ha.intake_http_json(batch_id, source_path=source_path, selector=selector,
+                                limit=limit, root=root, manifest=manifest)

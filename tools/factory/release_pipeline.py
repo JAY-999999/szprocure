@@ -179,16 +179,21 @@ def collect_candidates(batch_id, root=None):
 # --------------------------------------------------------------------------
 # plan_release — build the Release Candidate (no writes)
 # --------------------------------------------------------------------------
-def plan_release(master_path, rows, subset_mpns=None, batch_id=""):
+def plan_release(master_path, rows, subset_mpns=None, batch_id="",
+                allow_uncategorized_mpns=None):
     """Validate + project candidates into a ReleasePlan.
 
     Guarantees encoded here:
       * pre-existing MASTER rows are untouched (we only ever append).
       * intra-batch duplicate MPN -> STOP (BATCH_SELF_DUPLICATE).
       * candidate already in MASTER -> idempotent AUTO_SKIP (not a stop).
-      * synthetic / CJK leak / missing required field / UNKNOWN category -> STOP.
+      * synthetic / CJK leak / missing required field / UNKNOWN category -> STOP,
+        EXCEPT for MPNs explicitly listed in ``allow_uncategorized_mpns`` (e.g. a
+        rescued pure-numeric MPN that cleared the synthetic guard but carries no
+        11-family signal). Those are released as Uncategorized with a WARNING.
       * SPEC_THIN / BRAND_UNMAPPED -> WARNING (non-blocking, per readiness review).
     """
+    allow_unc = {(m or "").strip().upper() for m in (allow_uncategorized_mpns or [])}
     cols, old_rows = master_io.read_master(master_path, MASTER_COLS)
     before_mpns = master_io.mpn_set(old_rows)
     before_count = len(old_rows)
@@ -209,7 +214,7 @@ def plan_release(master_path, rows, subset_mpns=None, batch_id=""):
     qualified = []
     for r in selected:
         mpn = r.get("mpn", "")
-        syn = product_data.looks_synthetic(mpn, r.get("brand", ""))
+        syn = product_data.looks_synthetic(mpn, r.get("brand", ""), r)
         if syn:
             plan.add_stop(gate.SYNTHETIC_MPN, syn, mpn)
             continue
@@ -227,9 +232,16 @@ def plan_release(master_path, rows, subset_mpns=None, batch_id=""):
                           f"missing required field '{bad_field}'", mpn)
             continue
         if r.get("category") == UNKNOWN_CATEGORY:
-            plan.add_stop(gate.UNMAPPED_CATEGORY,
-                          f"category not mapped to an adapter: {r.get('category')}", mpn)
-            continue
+            if (mpn.strip().upper() not in allow_unc):
+                plan.add_stop(gate.UNMAPPED_CATEGORY,
+                              f"category not mapped to an adapter: {r.get('category')}", mpn)
+                continue
+            # Explicitly approved hold-for-review record (rescued pure-numeric MPN
+            # that cleared the synthetic guard but has no 11-family signal). Released
+            # as Uncategorized, flagged for later family-expansion backlog.
+            plan.add_warning(gate.UNMAPPED_CATEGORY,
+                             "Uncategorized but explicitly approved for release "
+                             "(allow_uncategorized_mpns)", mpn)
         # non-blocking warnings
         cat_name = r.get("category", "")
         adapter = category.REGISTRY.get(cat_name)
