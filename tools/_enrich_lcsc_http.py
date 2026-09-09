@@ -60,6 +60,40 @@ HDR = {
     "Accept": "text/html,application/xhtml+xml",
 }
 
+# ---------------- CJK / mojibake 归一化 (Plan B #1616) ----------------
+# LCSC 英文页的部分 UTF-8 双字节符号 (± µ Ω °) 被当 GBK 解出, 形似中文:
+#   卤(U+5364)->±  碌(U+78C9)->µ  惟(U+60DF)->Ω  掳(U+63B3)->°
+# 这些是「乱码符号」, 必须还原为正确符号; 其余 CJK 是真实中文泄露, 需剥离。
+MOJIBAKE_MAP = {'卤': '±', '碌': 'µ', '惟': 'Ω', '掳': '°', '：': ':'}
+# 可扩展: 若后续发现其它 LCSC 英文页符号乱码, 追加到此表即可。
+
+_CJK_RE = re.compile(r'[\u3000-\u303F\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF\uFF00-\uFFEF]')
+
+def fix_mojibake(text):
+    """把已知乱码符号还原为正确符号; 不改正常英文/中文。"""
+    if not text:
+        return text
+    for bad, good in MOJIBAKE_MAP.items():
+        text = text.replace(bad, good)
+    return text
+
+def strip_residual_cjk(text):
+    """删除残留 CJK (真实中文 / 未映射到的乱码); 仅用于可见英文文本字段。"""
+    if not text:
+        return text
+    return _CJK_RE.sub('', text)
+
+def normalize_visible(text):
+    """可见英文文本: 先还原符号, 再剥离残留 CJK。正常英文不受影响。"""
+    return strip_residual_cjk(fix_mojibake(text))
+
+def normalize_data(text):
+    """数据层 (attributes_json 值): 只还原符号, 保留原始中文 (由 allowlist 过滤)。"""
+    return fix_mojibake(text)
+
+def has_cjk(text):
+    return bool(_CJK_RE.search(text or ''))
+
 # ---------------- 网络 ----------------
 def fetch_page(code, timeout=25):
     url = f"https://www.lcsc.com/en/product-detail/{code}.html"
@@ -73,8 +107,8 @@ def extract_property_values(html):
     """内联 JSON-LD 的 PropertyValue 规格 -> [(name, value)]"""
     pairs = []
     for m in re.finditer(r'"@type":"PropertyValue","name":"([^"]*)","value":"([^"]*)"', html):
-        k = m.group(1).strip()
-        v = m.group(2).strip()
+        k = fix_mojibake(m.group(1).strip())
+        v = fix_mojibake(m.group(2).strip())
         if k and v:
             pairs.append((k, v))
     # 去重 (同名保留首个)
@@ -94,7 +128,7 @@ def extract_applications(html):
         t = re.sub(r'<[^>]+>', '', li)
         t = re.sub(r'\s+', ' ', t).strip()
         if t:
-            apps.append(t)
+            apps.append(normalize_visible(t))
     return apps
 
 def _norm_mpn(s):
@@ -136,6 +170,7 @@ def sanitize_desc(t):
     t = re.sub(r'in stock', '', t, flags=re.I)
     t = re.sub(r',?\s*[\d,]+\s*available', '', t, flags=re.I)
     t = re.sub(r'\s+', ' ', t).strip()
+    t = normalize_visible(t)          # Plan B #1616: 还原符号 + 剥离残留中文
     return t.strip(' ,;')
 
 def extract_description(html):
@@ -185,8 +220,9 @@ def extract_faq(html):
                     qtext = q.get('name', '')
                     atext = q.get('acceptedAnswer', {}).get('text', '')
                     if qtext and atext:
-                        faqs.append((re.sub(r'<[^>]+>', '', qtext).strip(),
-                                     re.sub(r'<[^>]+>', '', atext).strip()))
+                        qc = normalize_visible(re.sub(r'<[^>]+>', '', qtext).strip())
+                        ac = normalize_visible(re.sub(r'<[^>]+>', '', atext).strip())
+                        faqs.append((qc, ac))
     return faqs
 
 def extract_lcsc_mfr(html):
@@ -288,7 +324,7 @@ def main():
     raw_rows = []
     patch_rows = []
     mani = {'timestamp': ts, 'targets': len(targets), 'ok': 0, 'fail': 0,
-            'per_row': []}
+            'cjk_raw_pages': 0, 'per_row': []}
 
     for r in targets:
         mpn = r.get('mpn', '')
@@ -307,6 +343,10 @@ def main():
             desc = extract_description(html)
             faqs = extract_faq(html)
             mfr = extract_lcsc_mfr(html)
+
+            cjk_raw = has_cjk(html)
+            if cjk_raw:
+                mani['cjk_raw_pages'] += 1
 
             rec['n_attrs'] = len(pvs)
             rec['n_apps'] = len(apps)
@@ -353,7 +393,8 @@ def main():
             mani['ok'] += 1
             mani['per_row'].append({'mpn': mpn, 'ref': code, 'status': 'ok',
                                     'n_attrs': len(pvs), 'n_apps': len(apps),
-                                    'n_alts': len(alts), 'n_faq': len(faqs)})
+                                    'n_alts': len(alts), 'n_faq': len(faqs),
+                                    'cjk_raw': cjk_raw})
             print(f"[ok]   {mpn} ({code}) attrs={len(pvs)} apps={len(apps)} "
                   f"alts={len(alts)} faq={len(faqs)} mfr={mfr}")
         except Exception as e:
@@ -371,7 +412,7 @@ def main():
     with open(mani_path, 'w', encoding='utf-8') as f:
         json.dump(mani, f, ensure_ascii=False, indent=2)
 
-    print(f"\n[done] ok={mani['ok']} fail={mani['fail']}")
+    print(f"\n[done] ok={mani['ok']} fail={mani['fail']} cjk_raw_pages={mani['cjk_raw_pages']}")
     print(f"  raw   : {raw_path}")
     print(f"  patch : {patch_path}")
     print(f"  manifest: {mani_path}")

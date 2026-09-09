@@ -31,6 +31,41 @@ PATCH_COLS = ["attributes_json", "applications", "alternative_parts",
               "description", "keywords", "faq"]
 MASTER = "data/production/master_parts_v2.1.csv"
 
+# ---------------- CJK / mojibake 归一化 (Plan B #1617, 写回防御) ----------------
+# 与 _enrich_lcsc_http.py 同源: 乱码符号卤碌惟掳 -> ±µΩ°, 其余 CJK 剥离。
+MOJIBAKE_MAP = {'卤': '±', '碌': 'µ', '惟': 'Ω', '掳': '°', '：': ':'}
+_CJK_RE = re.compile(r'[\u3000-\u303F\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF\uFF00-\uFFEF]')
+
+def fix_mojibake(text):
+    if not text:
+        return text
+    for bad, good in MOJIBAKE_MAP.items():
+        text = text.replace(bad, good)
+    return text
+
+def normalize_visible(text):
+    if not text:
+        return text
+    return _CJK_RE.sub('', fix_mojibake(text))
+
+def normalize_data_json(aj):
+    """attributes_json: 解析后对字符串值还原符号, 重新 dump; 保留结构。"""
+    if not aj:
+        return aj
+    try:
+        obj = json.loads(aj)
+    except Exception:
+        return aj
+    def walk(o):
+        if isinstance(o, dict):
+            return {k: walk(v) for k, v in o.items()}
+        if isinstance(o, list):
+            return [walk(x) for x in o]
+        if isinstance(o, str):
+            return fix_mojibake(o)
+        return o
+    return json.dumps(walk(obj), ensure_ascii=False)
+
 def norm_mpn(s):
     return re.sub(r'[\s()\-]', '', (s or '').lower())
 
@@ -119,11 +154,16 @@ def main():
 
         changed = []
         for col in PATCH_COLS:
-            new_val = pr.get(col, '') or ''
-            if col == 'attributes_json' and aj is None:
-                continue
-            if col == 'alternative_parts':
-                new_val = alts_fixed
+            if col == 'attributes_json':
+                if aj is None:
+                    continue
+                # 数据层: 只还原符号, 保留原始中文 (由 allowlist 过滤)
+                new_val = normalize_data_json(aj)
+            elif col == 'alternative_parts':
+                new_val = normalize_visible(alts_fixed)
+            else:
+                # 可见英文文本: 还原符号 + 剥离残留 CJK
+                new_val = normalize_visible(pr.get(col, '') or '')
             if not new_val:
                 continue
             old_val = (m.get(col) or '').strip()
