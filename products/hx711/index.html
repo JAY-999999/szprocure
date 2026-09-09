@@ -82,7 +82,7 @@
         <h1 class="mpn">HX711<span class="rohs-badge" aria-hidden="true">RoHS</span></h1>
         <p class="type">Analog IC</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/avia-semicon-xiamen/">Avia Semicon (Xiamen)</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/integrated-circuits/">Analog IC</a></div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/avia-semicon-xiamen/">Avia Semicon (Xiamen)</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/integrated-circuits/">Analog IC</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">SOP-16</div></div>
         </div>
         <p class="hero-desc">24-Bit Analog-to-Digital Converter (ADC) for Weigh Scales</p>
       </div>
@@ -174,6 +174,7 @@
           <a href="#overview" class="tab-btn active">Overview</a>
           <a href="#specifications" class="tab-btn">Specifications</a>
           <a href="#documentation" class="tab-btn">Documentation</a>
+          <a href="#applications" class="tab-btn">Applications</a>
           <a href="#related" class="tab-btn">Related Parts</a>
         </nav>
 
@@ -186,7 +187,7 @@
           <h2 class="section-title">Technical Specifications</h2>
           <table class="spec-table">
 <tbody>
-<tr><th>Interface Type</th><td>SPI</td></tr><tr><th>Operating Voltage</th><td>2.6V~5.5V</td></tr></tbody>
+<tr><th>Interface Type</th><td>SPI</td></tr><tr><th>Operating Voltage</th><td>2.6V~5.5V</td></tr><tr><th>Package</th><td>SOP-16</td></tr><tr><th>Operating Temperature</th><td>-40℃~+85℃</td></tr><tr><th>Interface</th><td>SPI</td></tr><tr><th>Quiescent Current (Iq)</th><td>1.4mA</td></tr><tr><th>Voltage - Supply</th><td>2.6V~5.5V</td></tr><tr><th>Number of Channels</th><td>2</td></tr><tr><th>Integral non - linearity</th><td>-</td></tr><tr><th>Voltage Reference</th><td>Built-in</td></tr><tr><th>Clock/Oscillator</th><td>Built-in;External</td></tr><tr><th>Clock Frequency</th><td>11.0592MHz;1MHz~20MHz</td></tr><tr><th>Features</th><td>Multiplexers;Power-on reset</td></tr><tr><th>Resolution(Bits)</th><td>24;10Hz;80Hz</td></tr><tr><th>S/N Ratio</th><td>-</td></tr><tr><th>DNL (LSB)</th><td>-</td></tr><tr><th>ADC architecture</th><td>-</td></tr><tr><th>Programmable Gain</th><td>Support</td></tr></tbody>
 </table>
         </section>
 
@@ -200,7 +201,10 @@
   </details>
 </section>
 
-        
+        <section id="applications" class="tab-panel">
+  <h2 class="section-title">Common Applications</h2>
+  <ul class="app-list"><li>Weigh Scales</li><li>Industrial Process Control</li></ul>
+</section>
 
         <section id="related" class="tab-panel">
   <h2 class="section-title">Related Integrated Circuits</h2>
@@ -233,7 +237,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'related' } ];
+    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'applications' }, { id: 'related' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

@@ -14,6 +14,7 @@
   <meta property="og:description" content="Source B0505S-1WR3 (EVISUN modules) from Shenzhen, China. Shenzhen supplier network, hard-to-find support and BOM procurement for global buyers." />
   <meta property="og:url" content="https://www.szprocure.com/products/b0505s1wr3/" />
   <meta property="og:image" content="https://www.szprocure.com/assets/img/hero.svg" />
+
   <link rel="stylesheet" href="/assets/styles.css" />
   <link rel="stylesheet" href="/assets/sku-v3.css" />
   <style>
@@ -51,6 +52,19 @@
   }
   </script>
 
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+    { "@type": "Question", "name": "What Is the Pinout Compatibility of the EVISUN B0505S-1WR3 with Other Standard Isolation Modules", "acceptedAnswer": { "@type": "Answer", "text": "The B0505S-1WR3 features an industry-standard SIP package pinout, making it physically and electrically compatible with most 5V to 5V 1W isolated DC-DC converters on the market that follow the same footprint. However, always verify your PCB layout against the provided dimension sheet before replacing an existing component.;" } },
+    { "@type": "Question", "name": "How Can I Find Alternative Parts if This Module Is Out of Stock", "acceptedAnswer": { "@type": "Answer", "text": "If the EVISUN B0505S-1WR3 is unavailable, you can use the &quot;Show similar products&quot; feature on LCSC to find direct replacements. Look for 1W isolated, non-regulated single-output DC-DC converters with a 5V input, 5V output, and a matching SIP packaging (11.7x6mm) from other reputable brands.;" } },
+    { "@type": "Question", "name": "What Are the Primary Application Scenarios for This DC-DC Converter", "acceptedAnswer": { "@type": "Answer", "text": "This module is ideally suited for distributed power systems requiring electrical isolation from the input supply. Common application scenarios include pure digital circuits, general low-frequency analog circuits, relay driver circuits, and data switching networks where noise reduction or ground-loop elimination is necessary.;" } },
+    { "@type": "Question", "name": "What Are the Key Technical Specifications Regarding Input and Output", "acceptedAnswer": { "@type": "Answer", "text": "The EVISUN B0505S-1WR3 operates within a fixed input voltage range of 4.5V to 5.5V (5V nominal) and provides an isolated, non-regulated 5V single-channel output. It delivers a maximum output current of 200mA (1W power), features an 86% conversion efficiency, and offers an isolation voltage of 1500VDC/min.;" } },
+    { "@type": "Question", "name": "What Critical Design Rules Should Be Followed During Implementation", "acceptedAnswer": { "@type": "Answer", "text": "When implementing this converter, ensure that the maximum capacitive load does not exceed 2400uF to guarantee a proper startup. Additionally, while the module includes sustained short-circuit protection with automatic fault recovery, it is designed for a fixed voltage input and should operate within its specified -40°C to +105°C temperature range for optimal reliability." } }
+    ]
+  }
+  </script>
 
   <script type="application/ld+json">
   {
@@ -81,7 +95,7 @@
         <h1 class="mpn">B0505S-1WR3<span class="rohs-badge" aria-hidden="true">RoHS</span></h1>
         <p class="type">Modules</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/evisun/">EVISUN</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/modules/">Modules</a></div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/evisun/">EVISUN</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/modules/">Modules</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">SIP,11.7x6mm</div></div>
         </div>
         <p class="hero-desc">DC-DC modular power supply, 1W, fixed voltage input, isolated non-regulated single-channel output</p>
       </div>
@@ -90,14 +104,81 @@
       <aside class="rfq-card" id="rfq-card">
         <h3>Request a Quote</h3>
         <p>Tell us your quantity, target price, and delivery requirements. We source from Shenzhen and reply within 1 business day.</p>
-        <div class="rfq-form">
-          <div class="rfq-field"><label>Part Number</label><input type="text" value="B0505S-1WR3" readonly></div>
-          <div class="rfq-field"><label>Quantity</label><input type="text" placeholder="e.g. 1,000"></div>
-          <div class="rfq-field"><label>Target Price</label><input type="text" placeholder="USD / piece"></div>
-          <div class="rfq-field"><label>Email</label><input type="email" placeholder="your@email.com"></div>
-          <div class="rfq-field"><label>Requirements</label><textarea placeholder="e.g. Original/New, EOL, specific package, certification requirements"></textarea></div>
+
+        <div class="form-success" id="formSuccess">
+          <h3>Thank you. Your RFQ has been received.</h3>
+          <p>Our sourcing team will review your requirements and contact you shortly.</p>
         </div>
-        <a class="rfq-btn" href="/request-a-quote/?pn=B0505S-1WR3&mfr=EVISUN&cat=Modules&source=product&rfq_type=sku_quote" data-zh="获取报价">Request a Quote</a>
+
+        <form id="quote-form" action="https://formsubmit.co/sales@szprocure.com" method="POST" enctype="multipart/form-data" novalidate>
+          <input type="hidden" name="_subject" value="New SKU RFQ — SZ Procure" />
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <input type="hidden" name="category" id="rfq_category" value="Modules" />
+          <input type="hidden" name="source_url" id="source_url" />
+          <input type="hidden" name="rfq_type" id="rfq_type" value="sku_quote" />
+          <input type="hidden" name="manufacturer" id="rfq_manufacturer" value="EVISUN" />
+          <input type="hidden" name="country_source" id="country_source" />
+          <input type="hidden" name="referrer" id="referrer" />
+          <input type="hidden" name="submitted_at" id="submitted_at" />
+          <input type="hidden" name="requirement_type" id="requirement_type" />
+
+          <div class="rfq-form">
+            <div class="rfq-field"><label for="part_number">Part Number</label><input id="part_number" name="part_number" type="text" value="B0505S-1WR3" readonly></div>
+            <div class="rfq-field"><label for="quantity">Quantity</label><input id="quantity" name="quantity" type="number" min="1" step="1" placeholder="e.g. 1,000"></div>
+            <div class="rfq-field"><label for="target_price">Target Price</label><input id="target_price" name="target_price" type="text" placeholder="USD / piece"></div>
+            <div class="rfq-field"><label for="email">Email <span class="req">*</span></label><input id="email" name="email" type="email" required placeholder="your@email.com"><div class="form-error" id="formError"></div></div>
+            <div class="rfq-field"><label for="requirements">Requirements</label><textarea id="requirements" name="requirements" placeholder="e.g. Original/New, EOL, specific package, certification requirements"></textarea></div>
+            <div class="rfq-field"><label for="attachment">Attachment <span style="font-weight:400;color:#6b7280">(optional)</span></label><span class="file-pick" style="display:inline-block;margin:.2rem 0"><label for="attachment" class="rfq-file-btn" style="display:inline-block;padding:.45rem .9rem;border:1px solid #c7cdd6;border-radius:8px;background:#f3f4f6;color:#1f2937;cursor:pointer;font-size:.9rem">Choose File</label><span id="attachment-name" style="margin-left:.5rem;color:#6b7280;font-size:.85rem">No file chosen</span></span><input id="attachment" name="attachment" type="file" accept=".pdf,.xls,.xlsx,.csv,.jpg,.jpeg,.png,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv,image/jpeg,image/png" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0"><p style="font-size:.8rem;color:#6b7280;margin:.3rem 0 0">PDF, Excel, CSV, JPG, PNG &mdash; max 10MB</p><div class="form-error" id="formFileError"></div></div>
+          </div>
+
+          <div class="form-error" id="formSubmitError"></div>
+          <button class="rfq-btn" type="submit">Request a Quote</button>
+        </form>
+
+      <script>
+      (function(){
+        var form = document.getElementById("quote-form");
+        if(!form) return;
+        var fileInput = form.querySelector('input[type="file"][name="attachment"]');
+        var fileErr = document.getElementById("formFileError");
+        if(!fileInput || !fileErr) return;
+        var MAX = 10 * 1024 * 1024;
+        var ALLOWED_EXT = ["pdf","xls","xlsx","csv","jpg","jpeg","png"];
+        var ALLOWED_MIME = ["application/pdf","application/vnd.ms-excel","application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","text/csv","image/jpeg","image/png"];
+        function fileValid(){
+          fileErr.style.display = "none";
+          fileErr.textContent = "";
+          if(!fileInput.files || !fileInput.files.length) return true;
+          var f = fileInput.files[0];
+          var ext = (f.name.split(".").pop() || "").toLowerCase();
+          var okType = (ALLOWED_EXT.indexOf(ext) !== -1) || (f.type && ALLOWED_MIME.indexOf(f.type) !== -1);
+          if(!okType){
+            fileErr.textContent = "Unsupported file type. Allowed: PDF, Excel, CSV, JPG, PNG (max 10MB).";
+            fileErr.style.display = "block";
+            return false;
+          }
+          if(f.size > MAX){
+            fileErr.textContent = "File is too large. Maximum size is 10MB.";
+            fileErr.style.display = "block";
+            return false;
+          }
+          return true;
+        }
+        fileInput.addEventListener("change", function(){
+          var nm = document.getElementById("attachment-name");
+          if (nm) nm.textContent = (fileInput.files && fileInput.files.length) ? fileInput.files[0].name : "No file chosen";
+          fileValid();
+        });
+        form.addEventListener("submit", function(e){
+          if(!fileValid()){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            if(fileInput) fileInput.focus();
+          }
+        }, true);
+      })();
+      </script>
       </aside>
 
       <!-- TABS: sticky nav + scroll-spy; all panels in DOM (SEO-friendly) -->
@@ -106,7 +187,9 @@
           <a href="#overview" class="tab-btn active">Overview</a>
           <a href="#specifications" class="tab-btn">Specifications</a>
           <a href="#documentation" class="tab-btn">Documentation</a>
+          <a href="#applications" class="tab-btn">Applications</a>
           <a href="#related" class="tab-btn">Related Parts</a>
+          <a href="#faq" class="tab-btn">FAQ</a>
         </nav>
 
         <section id="overview" class="tab-panel">
@@ -118,7 +201,7 @@
           <h2 class="section-title">Technical Specifications</h2>
           <table class="spec-table">
 <tbody>
-<tr><th>Operating Voltage</th><td>4.5V~5.5V</td></tr><tr><th>Output Voltage</th><td>5V</td></tr></tbody>
+<tr><th>Operating Voltage</th><td>4.5V~5.5V</td></tr><tr><th>Output Voltage</th><td>5V</td></tr><tr><th>Package</th><td>SIP,11.7x6mm</td></tr><tr><th>Output Voltage</th><td>5V</td></tr><tr><th>Ripple Noise</th><td>30mVp-p</td></tr><tr><th>Type</th><td>Plastic encapsulated type</td></tr><tr><th>Operating Temperature</th><td>-40℃~+105℃</td></tr><tr><th>Quiescent Supply Current</th><td>6mA</td></tr><tr><th>Voltage - Supply</th><td>4.5V~5.5V</td></tr><tr><th>Capacitive Load(Max)</th><td>2400uF</td></tr><tr><th>Number of Outputs</th><td>1</td></tr><tr><th>Iout</th><td>200mA</td></tr><tr><th>Height</th><td>6mm</td></tr><tr><th>Frequency - Switching</th><td>200kHz~340kHz</td></tr><tr><th>Isolation Voltage(Vrms)</th><td>1.5kV</td></tr><tr><th>Features</th><td>Short Circuit Protection;Automatic fault recovery</td></tr><tr><th>Output Power</th><td>1W</td></tr><tr><th>Conversion Efficiency</th><td>86%</td></tr><tr><th>Length</th><td>11.68mm</td></tr><tr><th>Width</th><td>10.2mm</td></tr></tbody>
 </table>
         </section>
 
@@ -132,7 +215,10 @@
   </details>
 </section>
 
-        
+        <section id="applications" class="tab-panel">
+  <h2 class="section-title">Common Applications</h2>
+  <ul class="app-list"><li>Applications requiring an isolated power supply from the input in distributed power systems</li><li>Pure digital circuits</li><li>General low-frequency analog circuits</li><li>Relay driver circuits</li><li>Data switching circuits</li></ul>
+</section>
 
         <section id="related" class="tab-panel">
   <h2 class="section-title">Related Modules &amp; Communication Modules</h2>
@@ -142,7 +228,10 @@
 
         
 
-        
+        <section id="faq" class="tab-panel">
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq-item"><h3>What Is the Pinout Compatibility of the EVISUN B0505S-1WR3 with Other Standard Isolation Modules</h3><p>The B0505S-1WR3 features an industry-standard SIP package pinout, making it physically and electrically compatible with most 5V to 5V 1W isolated DC-DC converters on the market that follow the same footprint. However, always verify your PCB layout against the provided dimension sheet before replacing an existing component.;</p></div><div class="faq-item"><h3>How Can I Find Alternative Parts if This Module Is Out of Stock</h3><p>If the EVISUN B0505S-1WR3 is unavailable, you can use the &quot;Show similar products&quot; feature on LCSC to find direct replacements. Look for 1W isolated, non-regulated single-output DC-DC converters with a 5V input, 5V output, and a matching SIP packaging (11.7x6mm) from other reputable brands.;</p></div><div class="faq-item"><h3>What Are the Primary Application Scenarios for This DC-DC Converter</h3><p>This module is ideally suited for distributed power systems requiring electrical isolation from the input supply. Common application scenarios include pure digital circuits, general low-frequency analog circuits, relay driver circuits, and data switching networks where noise reduction or ground-loop elimination is necessary.;</p></div><div class="faq-item"><h3>What Are the Key Technical Specifications Regarding Input and Output</h3><p>The EVISUN B0505S-1WR3 operates within a fixed input voltage range of 4.5V to 5.5V (5V nominal) and provides an isolated, non-regulated 5V single-channel output. It delivers a maximum output current of 200mA (1W power), features an 86% conversion efficiency, and offers an isolation voltage of 1500VDC/min.;</p></div><div class="faq-item"><h3>What Critical Design Rules Should Be Followed During Implementation</h3><p>When implementing this converter, ensure that the maximum capacitive load does not exceed 2400uF to guarantee a proper startup. Additionally, while the module includes sustained short-circuit protection with automatic fault recovery, it is designed for a fixed voltage input and should operate within its specified -40°C to +105°C temperature range for optimal reliability.</p></div>
+</section>
       </div>
 
       <!-- Sourcing (no stock/price/lead-time promises) -->
@@ -165,7 +254,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'related' } ];
+    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'applications' }, { id: 'related' }, { id: 'faq' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

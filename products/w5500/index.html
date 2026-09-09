@@ -14,6 +14,7 @@
   <meta property="og:description" content="Source W5500 (WIZNET modules) from Shenzhen, China. Shenzhen supplier network, hard-to-find support and BOM procurement for global buyers." />
   <meta property="og:url" content="https://www.szprocure.com/products/w5500/" />
   <meta property="og:image" content="https://www.szprocure.com/assets/img/hero.svg" />
+
   <link rel="stylesheet" href="/assets/styles.css" />
   <link rel="stylesheet" href="/assets/sku-v3.css" />
   <style>
@@ -47,10 +48,23 @@
     "category": "Modules &amp; Communication Modules",
     "brand": { "@type": "Brand", "name": "WIZNET", "@id": "https://www.szprocure.com/#szprocure-org" },
     "description": "W5500 is a modules from WIZNET. SZ Procure helps global buyers source this part through verified suppliers, with flexible quantity, hard-to-find support and competitive quotes.",
-    "url": "https://www.szprocure.com/products/w5500/"
+    "url": "https://www.szprocure.com/products/w5500/", "alternatePart": ["CH394Q"]
   }
   </script>
 
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+    { "@type": "Question", "name": "Is the W5500 Compatible With 5V Microcontrollers", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The W5500 operates on a 3.3V supply but its I/O pins are 5V tolerant, so it can interface directly with 5V microcontrollers (such as traditional Arduino boards) without external logic level shifters;" } },
+    { "@type": "Question", "name": "What Should I Look for in an Alternative to the W5500", "acceptedAnswer": { "@type": "Answer", "text": "A drop-in replacement should offer an integrated Ethernet MAC and PHY, a standard SPI host interface, and a similar hardwired TCP/IP stack to avoid extra software overhead. Note that alternative chips may use different pinouts and require updated software libraries, since the W5500&#x27;s register map and SPI frame format are specific to WIZnet&#x27;s implementation.;" } },
+    { "@type": "Question", "name": "In What Application Scenarios Is the W5500 Typically Used", "acceptedAnswer": { "@type": "Answer", "text": "The W5500 is commonly used in home network devices (set-top boxes, PVRs, digital media adapters), serial-to-Ethernet and parallel-to-Ethernet converters, USB-to-Ethernet and GPIO-to-Ethernet adapters, security systems (DVRs, network cameras, kiosks), factory and building automation, medical monitoring equipment, and embedded servers.;" } },
+    { "@type": "Question", "name": "What Core Network Protocols and Memory Does the W5500 Support", "acceptedAnswer": { "@type": "Answer", "text": "The W5500 has a hardwired TCP/IP stack supporting TCP, UDP, IPv4, ICMP, ARP, IGMP, and PPPoE. It includes 32KB of internal memory for Ethernet packet buffering, supports 10BASE-T and 100BASE-TX speeds, and can manage up to 8 independent hardware sockets simultaneously.;" } },
+    { "@type": "Question", "name": "How Do I Connect the W5500 to a Host MCU, and What Power-Saving Features Does It Offer", "acceptedAnswer": { "@type": "Answer", "text": "The W5500 offloads the entire network stack to hardware, so connection is straightforward: wire your MCU to the W5500 via SPI and use a simple socket library to send and receive data. The SPI interface is rated up to 80 MHz in theory, though WIZnet&#x27;s tested and guaranteed minimum clock speed is 33.3 MHz for stable operation; actual achievable speed depends on PCB trace length and signal integrity. For power-sensitive designs, the W5500 also supports Wake on LAN over UDP and a power-down mode." } }
+    ]
+  }
+  </script>
 
   <script type="application/ld+json">
   {
@@ -81,7 +95,7 @@
         <h1 class="mpn">W5500<span class="rohs-badge" aria-hidden="true">RoHS</span></h1>
         <p class="type">Modules</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/wiznet/">WIZNET</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/modules/">Modules</a></div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/wiznet/">WIZNET</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/modules/">Modules</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">LQFP-48(7x7)</div></div>
         </div>
         <p class="hero-desc">Hardwired TCP/IP embedded Ethernet controller</p>
       </div>
@@ -90,14 +104,81 @@
       <aside class="rfq-card" id="rfq-card">
         <h3>Request a Quote</h3>
         <p>Tell us your quantity, target price, and delivery requirements. We source from Shenzhen and reply within 1 business day.</p>
-        <div class="rfq-form">
-          <div class="rfq-field"><label>Part Number</label><input type="text" value="W5500" readonly></div>
-          <div class="rfq-field"><label>Quantity</label><input type="text" placeholder="e.g. 1,000"></div>
-          <div class="rfq-field"><label>Target Price</label><input type="text" placeholder="USD / piece"></div>
-          <div class="rfq-field"><label>Email</label><input type="email" placeholder="your@email.com"></div>
-          <div class="rfq-field"><label>Requirements</label><textarea placeholder="e.g. Original/New, EOL, specific package, certification requirements"></textarea></div>
+
+        <div class="form-success" id="formSuccess">
+          <h3>Thank you. Your RFQ has been received.</h3>
+          <p>Our sourcing team will review your requirements and contact you shortly.</p>
         </div>
-        <a class="rfq-btn" href="/request-a-quote/?pn=W5500&mfr=WIZNET&cat=Modules&source=product&rfq_type=sku_quote" data-zh="获取报价">Request a Quote</a>
+
+        <form id="quote-form" action="https://formsubmit.co/sales@szprocure.com" method="POST" enctype="multipart/form-data" novalidate>
+          <input type="hidden" name="_subject" value="New SKU RFQ — SZ Procure" />
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <input type="hidden" name="category" id="rfq_category" value="Modules" />
+          <input type="hidden" name="source_url" id="source_url" />
+          <input type="hidden" name="rfq_type" id="rfq_type" value="sku_quote" />
+          <input type="hidden" name="manufacturer" id="rfq_manufacturer" value="WIZNET" />
+          <input type="hidden" name="country_source" id="country_source" />
+          <input type="hidden" name="referrer" id="referrer" />
+          <input type="hidden" name="submitted_at" id="submitted_at" />
+          <input type="hidden" name="requirement_type" id="requirement_type" />
+
+          <div class="rfq-form">
+            <div class="rfq-field"><label for="part_number">Part Number</label><input id="part_number" name="part_number" type="text" value="W5500" readonly></div>
+            <div class="rfq-field"><label for="quantity">Quantity</label><input id="quantity" name="quantity" type="number" min="1" step="1" placeholder="e.g. 1,000"></div>
+            <div class="rfq-field"><label for="target_price">Target Price</label><input id="target_price" name="target_price" type="text" placeholder="USD / piece"></div>
+            <div class="rfq-field"><label for="email">Email <span class="req">*</span></label><input id="email" name="email" type="email" required placeholder="your@email.com"><div class="form-error" id="formError"></div></div>
+            <div class="rfq-field"><label for="requirements">Requirements</label><textarea id="requirements" name="requirements" placeholder="e.g. Original/New, EOL, specific package, certification requirements"></textarea></div>
+            <div class="rfq-field"><label for="attachment">Attachment <span style="font-weight:400;color:#6b7280">(optional)</span></label><span class="file-pick" style="display:inline-block;margin:.2rem 0"><label for="attachment" class="rfq-file-btn" style="display:inline-block;padding:.45rem .9rem;border:1px solid #c7cdd6;border-radius:8px;background:#f3f4f6;color:#1f2937;cursor:pointer;font-size:.9rem">Choose File</label><span id="attachment-name" style="margin-left:.5rem;color:#6b7280;font-size:.85rem">No file chosen</span></span><input id="attachment" name="attachment" type="file" accept=".pdf,.xls,.xlsx,.csv,.jpg,.jpeg,.png,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv,image/jpeg,image/png" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0"><p style="font-size:.8rem;color:#6b7280;margin:.3rem 0 0">PDF, Excel, CSV, JPG, PNG &mdash; max 10MB</p><div class="form-error" id="formFileError"></div></div>
+          </div>
+
+          <div class="form-error" id="formSubmitError"></div>
+          <button class="rfq-btn" type="submit">Request a Quote</button>
+        </form>
+
+      <script>
+      (function(){
+        var form = document.getElementById("quote-form");
+        if(!form) return;
+        var fileInput = form.querySelector('input[type="file"][name="attachment"]');
+        var fileErr = document.getElementById("formFileError");
+        if(!fileInput || !fileErr) return;
+        var MAX = 10 * 1024 * 1024;
+        var ALLOWED_EXT = ["pdf","xls","xlsx","csv","jpg","jpeg","png"];
+        var ALLOWED_MIME = ["application/pdf","application/vnd.ms-excel","application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","text/csv","image/jpeg","image/png"];
+        function fileValid(){
+          fileErr.style.display = "none";
+          fileErr.textContent = "";
+          if(!fileInput.files || !fileInput.files.length) return true;
+          var f = fileInput.files[0];
+          var ext = (f.name.split(".").pop() || "").toLowerCase();
+          var okType = (ALLOWED_EXT.indexOf(ext) !== -1) || (f.type && ALLOWED_MIME.indexOf(f.type) !== -1);
+          if(!okType){
+            fileErr.textContent = "Unsupported file type. Allowed: PDF, Excel, CSV, JPG, PNG (max 10MB).";
+            fileErr.style.display = "block";
+            return false;
+          }
+          if(f.size > MAX){
+            fileErr.textContent = "File is too large. Maximum size is 10MB.";
+            fileErr.style.display = "block";
+            return false;
+          }
+          return true;
+        }
+        fileInput.addEventListener("change", function(){
+          var nm = document.getElementById("attachment-name");
+          if (nm) nm.textContent = (fileInput.files && fileInput.files.length) ? fileInput.files[0].name : "No file chosen";
+          fileValid();
+        });
+        form.addEventListener("submit", function(e){
+          if(!fileValid()){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            if(fileInput) fileInput.focus();
+          }
+        }, true);
+      })();
+      </script>
       </aside>
 
       <!-- TABS: sticky nav + scroll-spy; all panels in DOM (SEO-friendly) -->
@@ -106,7 +187,10 @@
           <a href="#overview" class="tab-btn active">Overview</a>
           <a href="#specifications" class="tab-btn">Specifications</a>
           <a href="#documentation" class="tab-btn">Documentation</a>
+          <a href="#applications" class="tab-btn">Applications</a>
           <a href="#related" class="tab-btn">Related Parts</a>
+          <a href="#alternative" class="tab-btn">Alternative Parts</a>
+          <a href="#faq" class="tab-btn">FAQ</a>
         </nav>
 
         <section id="overview" class="tab-panel">
@@ -116,7 +200,10 @@
 
         <section id="specifications" class="tab-panel">
           <h2 class="section-title">Technical Specifications</h2>
-          <div class="spec-empty"><p>Detailed specifications and the official datasheet are available on request. Send the part number and our team will provide the full parameter table and documentation.</p></div>
+          <table class="spec-table">
+<tbody>
+<tr><th>Package</th><td>LQFP-48(7x7)</td></tr><tr><th>MAC Interface</th><td>SPI</td></tr><tr><th>Voltage - Supply</th><td>3.3V</td></tr><tr><th>Features</th><td>Low-power mode;Wake-up function;Programmable LED indication</td></tr><tr><th>Integrated PHY</th><td>Yes</td></tr><tr><th>Communication Interface</th><td>SPI</td></tr><tr><th>Operating Temperature</th><td>-40℃~+85℃</td></tr><tr><th>Memory Space</th><td>32KB</td></tr><tr><th>Ethernet Speed Standards</th><td>10BASE-T;100BASE-TX</td></tr></tbody>
+</table>
         </section>
 
         <section id="documentation" class="tab-panel">
@@ -129,7 +216,10 @@
   </details>
 </section>
 
-        
+        <section id="applications" class="tab-panel">
+  <h2 class="section-title">Common Applications</h2>
+  <ul class="app-list"><li>Home Network Devices: Set-Top Boxes, PVRs, Digital Media Adapters</li><li>Serial-to-Ethernet: Access Controls, LED displays, Wireless AP relays, etc.</li><li>Parallel-to-Ethernet: POS / Mini Printers, Copiers</li><li>USB-to-Ethernet: Storage Devices, Network Printers</li><li>GPIO-to-Ethernet: Home Network Sensors</li><li>Security Systems: DVRs, Network Cameras, Kiosks</li><li>Factory and Building Automations</li><li>Medical Monitoring Equipment</li><li>Embedded Servers</li></ul>
+</section>
 
         <section id="related" class="tab-panel">
   <h2 class="section-title">Related Modules &amp; Communication Modules</h2>
@@ -137,9 +227,16 @@
   <div class="related-grid"><div class="related-card"><a href="/products/b0505s1wr3/">B0505S-1WR3</a></div><div class="related-card"><a href="/products/clrc66303hny/">CLRC66303HNY</a></div><div class="related-card"><a href="/products/esp32s3wroom1n16r8/">ESP32-S3-WROOM-1-N16R8</a></div><div class="related-card"><a href="/products/b1212s1wr3/">B1212S-1WR3</a></div><div class="related-card"><a href="/products/rfx2401c/">RFX2401C</a></div><div class="related-card"><a href="/products/esp32wroom32en16/">ESP32-WROOM-32E-N16</a></div></div>
 </section>
 
-        
+        <section id="alternative" class="tab-panel">
+  <h2 class="section-title">Alternative Parts</h2>
+  <p>Common <strong>W5500 alternatives</strong> overseas buyers search for:</p>
+  <ul class="alt-list"><li><a href="/request-a-quote/?pn=CH394Q" class="alt-link">CH394Q <span class="muted">(request quote)</span></a></li></ul>
+</section>
 
-        
+        <section id="faq" class="tab-panel">
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq-item"><h3>Is the W5500 Compatible With 5V Microcontrollers</h3><p>Yes. The W5500 operates on a 3.3V supply but its I/O pins are 5V tolerant, so it can interface directly with 5V microcontrollers (such as traditional Arduino boards) without external logic level shifters;</p></div><div class="faq-item"><h3>What Should I Look for in an Alternative to the W5500</h3><p>A drop-in replacement should offer an integrated Ethernet MAC and PHY, a standard SPI host interface, and a similar hardwired TCP/IP stack to avoid extra software overhead. Note that alternative chips may use different pinouts and require updated software libraries, since the W5500&#x27;s register map and SPI frame format are specific to WIZnet&#x27;s implementation.;</p></div><div class="faq-item"><h3>In What Application Scenarios Is the W5500 Typically Used</h3><p>The W5500 is commonly used in home network devices (set-top boxes, PVRs, digital media adapters), serial-to-Ethernet and parallel-to-Ethernet converters, USB-to-Ethernet and GPIO-to-Ethernet adapters, security systems (DVRs, network cameras, kiosks), factory and building automation, medical monitoring equipment, and embedded servers.;</p></div><div class="faq-item"><h3>What Core Network Protocols and Memory Does the W5500 Support</h3><p>The W5500 has a hardwired TCP/IP stack supporting TCP, UDP, IPv4, ICMP, ARP, IGMP, and PPPoE. It includes 32KB of internal memory for Ethernet packet buffering, supports 10BASE-T and 100BASE-TX speeds, and can manage up to 8 independent hardware sockets simultaneously.;</p></div><div class="faq-item"><h3>How Do I Connect the W5500 to a Host MCU, and What Power-Saving Features Does It Offer</h3><p>The W5500 offloads the entire network stack to hardware, so connection is straightforward: wire your MCU to the W5500 via SPI and use a simple socket library to send and receive data. The SPI interface is rated up to 80 MHz in theory, though WIZnet&#x27;s tested and guaranteed minimum clock speed is 33.3 MHz for stable operation; actual achievable speed depends on PCB trace length and signal integrity. For power-sensitive designs, the W5500 also supports Wake on LAN over UDP and a power-down mode.</p></div>
+</section>
       </div>
 
       <!-- Sourcing (no stock/price/lead-time promises) -->
@@ -162,7 +259,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'related' } ];
+    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'applications' }, { id: 'related' }, { id: 'alternative' }, { id: 'faq' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

@@ -14,6 +14,7 @@
   <meta property="og:description" content="Source FS8205A (TECH PUBLIC mosfet) from Shenzhen, China. Shenzhen supplier network, hard-to-find support and BOM procurement for global buyers." />
   <meta property="og:url" content="https://www.szprocure.com/products/fs8205a/" />
   <meta property="og:image" content="https://www.szprocure.com/assets/img/hero.svg" />
+
   <link rel="stylesheet" href="/assets/styles.css" />
   <link rel="stylesheet" href="/assets/sku-v3.css" />
   <style>
@@ -47,10 +48,23 @@
     "category": "Semiconductor Components",
     "brand": { "@type": "Brand", "name": "TECH PUBLIC", "@id": "https://www.szprocure.com/#szprocure-org" },
     "description": "FS8205A is a mosfet from TECH PUBLIC. SZ Procure helps global buyers source this part through verified suppliers, with flexible quantity, hard-to-find support and competitive quotes.",
-    "url": "https://www.szprocure.com/products/fs8205a/"
+    "url": "https://www.szprocure.com/products/fs8205a/", "alternatePart": ["UT8205AG-AG6", "TPM8205ATS6", "DMG6968UDM-TP", "SSF2418E-TP", "8205S", "8205A", "TPM8205ATS6-1", "TPM8205TS6"]
   }
   </script>
 
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+    { "@type": "Question", "name": "Is the TECH PUBLIC FS8205A Compatible With Dual N-Channel Systems Requiring Low On-Resistance", "acceptedAnswer": { "@type": "Answer", "text": "Yes, it is highly compatible. The FS8205A is a dual N-channel MOSFET designed to fit seamlessly into systems configured for common-drain or dual-switch setups, offering a low RDS(on) of 31.5mΩ at a 2.5V gate drive to optimize efficiency.;" } },
+    { "@type": "Question", "name": "What Are the Recommended Replacements or Alternatives for This Component", "acceptedAnswer": { "@type": "Answer", "text": "While the FS8205A is an industry-standard dual N-channel MOSFET in a SOT-23-6 package, you can explore over 64,000 similar products in the Single FETs, MOSFETs category on LCSC Electronics. Be sure to verify the pinout configuration, RDS(on), and voltage ratings when selecting an alternative.;" } },
+    { "@type": "Question", "name": "In What Application Scenarios Is This MOSFET Best Utilized", "acceptedAnswer": { "@type": "Answer", "text": "This device features TrenchPower technology and is optimized for fast-switching applications. It is ideally used for synchronous rectification in DC/DC and AC/DC converters, as well as isolated DC/DC converters within telecommunications and industrial equipment.;" } },
+    { "@type": "Question", "name": "What Are the Core Technical Specifications of the FS8205A", "acceptedAnswer": { "@type": "Answer", "text": "The FS8205A features a Drain to Source Voltage (Vds) of 20V, a Continuous Drain Current (Id) of 6A, and a power dissipation (Pd) of 1.5W. It operates reliably across a wide operating temperature range from -55°C to +150°C.;" } },
+    { "@type": "Question", "name": "What Should Be Considered During the Board Layout and Implementation of This SOT-23-6 Package", "acceptedAnswer": { "@type": "Answer", "text": "When implementing the FS8205A, ensure that thermal dissipation is managed correctly since the compact SOT-23-6 package handles up to 1.5W of power. Proper PCB trace width should be allocated for the 6A continuous current, and gate drive voltages should respect the 1.2V gate threshold voltage (Vgs(th)) for clean switching." } }
+    ]
+  }
+  </script>
 
   <script type="application/ld+json">
   {
@@ -81,7 +95,7 @@
         <h1 class="mpn">FS8205A</h1>
         <p class="type">MOSFET</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/tech-public/">TECH PUBLIC</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/semiconductor-components/">MOSFET</a></div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/tech-public/">TECH PUBLIC</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/semiconductor-components/">MOSFET</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">SOT-23-6</div></div>
         </div>
         <p class="hero-desc">MOSFET 20V 9A SOT-23-6</p>
       </div>
@@ -90,14 +104,81 @@
       <aside class="rfq-card" id="rfq-card">
         <h3>Request a Quote</h3>
         <p>Tell us your quantity, target price, and delivery requirements. We source from Shenzhen and reply within 1 business day.</p>
-        <div class="rfq-form">
-          <div class="rfq-field"><label>Part Number</label><input type="text" value="FS8205A" readonly></div>
-          <div class="rfq-field"><label>Quantity</label><input type="text" placeholder="e.g. 1,000"></div>
-          <div class="rfq-field"><label>Target Price</label><input type="text" placeholder="USD / piece"></div>
-          <div class="rfq-field"><label>Email</label><input type="email" placeholder="your@email.com"></div>
-          <div class="rfq-field"><label>Requirements</label><textarea placeholder="e.g. Original/New, EOL, specific package, certification requirements"></textarea></div>
+
+        <div class="form-success" id="formSuccess">
+          <h3>Thank you. Your RFQ has been received.</h3>
+          <p>Our sourcing team will review your requirements and contact you shortly.</p>
         </div>
-        <a class="rfq-btn" href="/request-a-quote/?pn=FS8205A&mfr=TECH%20PUBLIC&cat=MOSFET&source=product&rfq_type=sku_quote" data-zh="获取报价">Request a Quote</a>
+
+        <form id="quote-form" action="https://formsubmit.co/sales@szprocure.com" method="POST" enctype="multipart/form-data" novalidate>
+          <input type="hidden" name="_subject" value="New SKU RFQ — SZ Procure" />
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <input type="hidden" name="category" id="rfq_category" value="MOSFET" />
+          <input type="hidden" name="source_url" id="source_url" />
+          <input type="hidden" name="rfq_type" id="rfq_type" value="sku_quote" />
+          <input type="hidden" name="manufacturer" id="rfq_manufacturer" value="TECH PUBLIC" />
+          <input type="hidden" name="country_source" id="country_source" />
+          <input type="hidden" name="referrer" id="referrer" />
+          <input type="hidden" name="submitted_at" id="submitted_at" />
+          <input type="hidden" name="requirement_type" id="requirement_type" />
+
+          <div class="rfq-form">
+            <div class="rfq-field"><label for="part_number">Part Number</label><input id="part_number" name="part_number" type="text" value="FS8205A" readonly></div>
+            <div class="rfq-field"><label for="quantity">Quantity</label><input id="quantity" name="quantity" type="number" min="1" step="1" placeholder="e.g. 1,000"></div>
+            <div class="rfq-field"><label for="target_price">Target Price</label><input id="target_price" name="target_price" type="text" placeholder="USD / piece"></div>
+            <div class="rfq-field"><label for="email">Email <span class="req">*</span></label><input id="email" name="email" type="email" required placeholder="your@email.com"><div class="form-error" id="formError"></div></div>
+            <div class="rfq-field"><label for="requirements">Requirements</label><textarea id="requirements" name="requirements" placeholder="e.g. Original/New, EOL, specific package, certification requirements"></textarea></div>
+            <div class="rfq-field"><label for="attachment">Attachment <span style="font-weight:400;color:#6b7280">(optional)</span></label><span class="file-pick" style="display:inline-block;margin:.2rem 0"><label for="attachment" class="rfq-file-btn" style="display:inline-block;padding:.45rem .9rem;border:1px solid #c7cdd6;border-radius:8px;background:#f3f4f6;color:#1f2937;cursor:pointer;font-size:.9rem">Choose File</label><span id="attachment-name" style="margin-left:.5rem;color:#6b7280;font-size:.85rem">No file chosen</span></span><input id="attachment" name="attachment" type="file" accept=".pdf,.xls,.xlsx,.csv,.jpg,.jpeg,.png,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv,image/jpeg,image/png" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0"><p style="font-size:.8rem;color:#6b7280;margin:.3rem 0 0">PDF, Excel, CSV, JPG, PNG &mdash; max 10MB</p><div class="form-error" id="formFileError"></div></div>
+          </div>
+
+          <div class="form-error" id="formSubmitError"></div>
+          <button class="rfq-btn" type="submit">Request a Quote</button>
+        </form>
+
+      <script>
+      (function(){
+        var form = document.getElementById("quote-form");
+        if(!form) return;
+        var fileInput = form.querySelector('input[type="file"][name="attachment"]');
+        var fileErr = document.getElementById("formFileError");
+        if(!fileInput || !fileErr) return;
+        var MAX = 10 * 1024 * 1024;
+        var ALLOWED_EXT = ["pdf","xls","xlsx","csv","jpg","jpeg","png"];
+        var ALLOWED_MIME = ["application/pdf","application/vnd.ms-excel","application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","text/csv","image/jpeg","image/png"];
+        function fileValid(){
+          fileErr.style.display = "none";
+          fileErr.textContent = "";
+          if(!fileInput.files || !fileInput.files.length) return true;
+          var f = fileInput.files[0];
+          var ext = (f.name.split(".").pop() || "").toLowerCase();
+          var okType = (ALLOWED_EXT.indexOf(ext) !== -1) || (f.type && ALLOWED_MIME.indexOf(f.type) !== -1);
+          if(!okType){
+            fileErr.textContent = "Unsupported file type. Allowed: PDF, Excel, CSV, JPG, PNG (max 10MB).";
+            fileErr.style.display = "block";
+            return false;
+          }
+          if(f.size > MAX){
+            fileErr.textContent = "File is too large. Maximum size is 10MB.";
+            fileErr.style.display = "block";
+            return false;
+          }
+          return true;
+        }
+        fileInput.addEventListener("change", function(){
+          var nm = document.getElementById("attachment-name");
+          if (nm) nm.textContent = (fileInput.files && fileInput.files.length) ? fileInput.files[0].name : "No file chosen";
+          fileValid();
+        });
+        form.addEventListener("submit", function(e){
+          if(!fileValid()){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            if(fileInput) fileInput.focus();
+          }
+        }, true);
+      })();
+      </script>
       </aside>
 
       <!-- TABS: sticky nav + scroll-spy; all panels in DOM (SEO-friendly) -->
@@ -106,6 +187,10 @@
           <a href="#overview" class="tab-btn active">Overview</a>
           <a href="#specifications" class="tab-btn">Specifications</a>
           <a href="#documentation" class="tab-btn">Documentation</a>
+          <a href="#applications" class="tab-btn">Applications</a>
+          <a href="#related" class="tab-btn">Related Parts</a>
+          <a href="#alternative" class="tab-btn">Alternative Parts</a>
+          <a href="#faq" class="tab-btn">FAQ</a>
         </nav>
 
         <section id="overview" class="tab-panel">
@@ -117,7 +202,7 @@
           <h2 class="section-title">Technical Specifications</h2>
           <table class="spec-table">
 <tbody>
-<tr><th>Drain-Source Voltage (Vdss)</th><td>20V</td></tr><tr><th>Continuous Drain Current (Id)</th><td>6A</td></tr><tr><th>Power Dissipation (Pd)</th><td>1.5W</td></tr></tbody>
+<tr><th>Drain-Source Voltage (Vdss)</th><td>20V</td></tr><tr><th>Continuous Drain Current (Id)</th><td>6A</td></tr><tr><th>Power Dissipation (Pd)</th><td>1.5W</td></tr><tr><th>Package</th><td>SOT-23-6</td></tr><tr><th>Output Capacitance(Coss)</th><td>65pF</td></tr><tr><th>Pd - Power Dissipation</th><td>1.5W</td></tr><tr><th>Configuration</th><td>Common source</td></tr><tr><th>Operating Temperature</th><td>-55℃~+150℃</td></tr><tr><th>Drain to Source Voltage</th><td>20V</td></tr><tr><th>Current - Continuous Drain(Id)</th><td>6A</td></tr><tr><th>Gate Threshold Voltage (Vgs(th))</th><td>1.2V</td></tr><tr><th>Reverse Transfer Capacitance (Crss@Vds)</th><td>58pF</td></tr><tr><th>Rds(On)</th><td>31.5mΩ@2.5V</td></tr><tr><th>Number</th><td>2 N-Channel</td></tr><tr><th>Input Capacitance(Ciss)</th><td>466pF</td></tr><tr><th>Gate Charge(Qg)</th><td>5.7nC@4.5V</td></tr><tr><th>Vgs</th><td>±10V</td></tr><tr><th>Type</th><td>N-Channel</td></tr></tbody>
 </table>
         </section>
 
@@ -131,13 +216,27 @@
   </details>
 </section>
 
-        
+        <section id="applications" class="tab-panel">
+  <h2 class="section-title">Common Applications</h2>
+  <ul class="app-list"><li>Synchronous Rectification in DC/DC and AC/DC Converters</li><li>Isolated Dc/DC Converters in Telecom and Industrial</li></ul>
+</section>
 
-        
+        <section id="related" class="tab-panel">
+  <h2 class="section-title">Related Semiconductor Components</h2>
+  <p>Other semiconductor components we help global buyers source:</p>
+  <div class="related-grid"><div class="related-card"><a href="/products/bss123/">BSS123</a></div><div class="related-card"><a href="/products/irlml6344trpbf/">IRLML6344TRPBF</a></div><div class="related-card"><a href="/products/irf9540npbf/">IRF9540NPBF</a></div><div class="related-card"><a href="/products/ao4407a/">AO4407A</a></div><div class="related-card"><a href="/products/sgt50t65fd1pn/">SGT50T65FD1PN</a></div><div class="related-card"><a href="/products/bc81740215/">BC817-40,215</a></div></div>
+</section>
 
-        
+        <section id="alternative" class="tab-panel">
+  <h2 class="section-title">Alternative Parts</h2>
+  <p>Common <strong>FS8205A alternatives</strong> overseas buyers search for:</p>
+  <ul class="alt-list"><li><a href="/request-a-quote/?pn=UT8205AG-AG6" class="alt-link">UT8205AG-AG6 <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=TPM8205ATS6" class="alt-link">TPM8205ATS6 <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=DMG6968UDM-TP" class="alt-link">DMG6968UDM-TP <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=SSF2418E-TP" class="alt-link">SSF2418E-TP <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=8205S" class="alt-link">8205S <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=8205A" class="alt-link">8205A <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=TPM8205ATS6-1" class="alt-link">TPM8205ATS6-1 <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=TPM8205TS6" class="alt-link">TPM8205TS6 <span class="muted">(request quote)</span></a></li></ul>
+</section>
 
-        
+        <section id="faq" class="tab-panel">
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq-item"><h3>Is the TECH PUBLIC FS8205A Compatible With Dual N-Channel Systems Requiring Low On-Resistance</h3><p>Yes, it is highly compatible. The FS8205A is a dual N-channel MOSFET designed to fit seamlessly into systems configured for common-drain or dual-switch setups, offering a low RDS(on) of 31.5mΩ at a 2.5V gate drive to optimize efficiency.;</p></div><div class="faq-item"><h3>What Are the Recommended Replacements or Alternatives for This Component</h3><p>While the FS8205A is an industry-standard dual N-channel MOSFET in a SOT-23-6 package, you can explore over 64,000 similar products in the Single FETs, MOSFETs category on LCSC Electronics. Be sure to verify the pinout configuration, RDS(on), and voltage ratings when selecting an alternative.;</p></div><div class="faq-item"><h3>In What Application Scenarios Is This MOSFET Best Utilized</h3><p>This device features TrenchPower technology and is optimized for fast-switching applications. It is ideally used for synchronous rectification in DC/DC and AC/DC converters, as well as isolated DC/DC converters within telecommunications and industrial equipment.;</p></div><div class="faq-item"><h3>What Are the Core Technical Specifications of the FS8205A</h3><p>The FS8205A features a Drain to Source Voltage (Vds) of 20V, a Continuous Drain Current (Id) of 6A, and a power dissipation (Pd) of 1.5W. It operates reliably across a wide operating temperature range from -55°C to +150°C.;</p></div><div class="faq-item"><h3>What Should Be Considered During the Board Layout and Implementation of This SOT-23-6 Package</h3><p>When implementing the FS8205A, ensure that thermal dissipation is managed correctly since the compact SOT-23-6 package handles up to 1.5W of power. Proper PCB trace width should be allocated for the 6A continuous current, and gate drive voltages should respect the 1.2V gate threshold voltage (Vgs(th)) for clean switching.</p></div>
+</section>
       </div>
 
       <!-- Sourcing (no stock/price/lead-time promises) -->
@@ -160,7 +259,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' } ];
+    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'applications' }, { id: 'related' }, { id: 'alternative' }, { id: 'faq' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

@@ -14,6 +14,7 @@
   <meta property="og:description" content="Source DS18B20+ (Maxim Integrated sensors) from Shenzhen, China. Shenzhen supplier network, hard-to-find support and BOM procurement for global buyers." />
   <meta property="og:url" content="https://www.szprocure.com/products/ds18b20/" />
   <meta property="og:image" content="https://www.szprocure.com/assets/img/hero.svg" />
+
   <link rel="stylesheet" href="/assets/styles.css" />
   <link rel="stylesheet" href="/assets/sku-v3.css" />
   <style>
@@ -47,10 +48,23 @@
     "category": "Sensors &amp; Transducers",
     "brand": { "@type": "Brand", "name": "Maxim Integrated", "@id": "https://www.szprocure.com/#szprocure-org" },
     "description": "DS18B20+ is a sensors from Maxim Integrated. SZ Procure helps global buyers source this part through verified suppliers, with flexible quantity, hard-to-find support and competitive quotes.",
-    "url": "https://www.szprocure.com/products/ds18b20/"
+    "url": "https://www.szprocure.com/products/ds18b20/", "alternatePart": ["DS18B20-TUDI", "DS18B20+T&amp;amp", "R", "DS18B20-TD", "DS18B20+JSM", "GX1820", "HT18B20ARTZ", "HT18B20ATZ", "DS18B20(UMW)", "DS18S20+", "MAX31820MCR+T", "HX18B20-T", "DS18B20-MS", "DS18B20B-MS", "DS18B20+MSK", "DS18B20", "SD5820A", "GX1831", "MAX31820MCR+", "YCT1820Z", "DS1822+"]
   }
   </script>
 
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+    { "@type": "Question", "name": "What power supply boundaries, temperature sensing limits, and measurement accuracy specifications govern the DS18B20+", "acceptedAnswer": { "@type": "Answer", "text": "The DS18B20+ is a digital temperature sensor operating across an external supply voltage (VDD) range of 3.0V to 5.5V. It measures temperatures from -55°C to +125°C with an accuracy of ±0.5°C over the -10°C to +85°C range. During temperature conversions, the active supply current is 1.5mA maximum at 5V, while standby current is 750nA typical.;" } },
+    { "@type": "Question", "name": "How does resolution selection alter temperature measurement precision and conversion timing in the DS18B20+", "acceptedAnswer": { "@type": "Answer", "text": "The DS18B20+ features a user-programmable temperature resolution of 9, 10, 11, or 12 bits, corresponding to temperature increments of 0.5°C, 0.25°C, 0.125°C, and 0.0625°C, respectively. Higher resolution increases conversion time, with maximum conversion times of 93.75ms at 9-bit resolution, 187.5ms at 10-bit, 375ms at 11-bit, and 750ms at 12-bit.;" } },
+    { "@type": "Question", "name": "How does the 1-Wire protocol handle multi-drop network architecture and individual sensor identification", "acceptedAnswer": { "@type": "Answer", "text": "The DS18B20+ uses Maxim&#x27;s proprietary 1-Wire open-drain serial interface, requiring only a single data line (DQ) and ground for communication. Each device contains a factory-programmed, unique 64-bit ROM code consisting of an 8-bit family code (28h), a 48-bit serial number, and an 8-bit CRC. This unique identifier allows multiple DS18B20+ devices to share the same 1-Wire bus while being individually addressed by the bus master. The bus requires an external pullup resistor of approximately 5kΩ.;" } },
+    { "@type": "Question", "name": "What is parasitic power mode, and how does it reduce physical wiring count in remote sensor nodes", "acceptedAnswer": { "@type": "Answer", "text": "In parasite power mode, the DS18B20+ derives operating power directly from the DQ line through an internal parasite power capacitor (CPP), allowing operation using only the DQ and GND connections while the VDD pin is connected to ground. During temperature conversions or EEPROM writes, when the operating current can reach 1.5mA, the 1-Wire bus must be pulled high using a strong pullup (typically implemented with a MOSFET) to provide sufficient operating current.;" } },
+    { "@type": "Question", "name": "Which package options and pin configurations are available for the DS18B20+", "acceptedAnswer": { "@type": "Answer", "text": "The DS18B20+ is available in three package options: a 3-pin TO-92 package (DS18B20), an 8-pin SO package (DS18B20Z), and an 8-pin µSOP package (DS18B20U). The TO-92 package uses a 3-pin configuration consisting of Pin 1: GND, Pin 2: DQ, and Pin 3: VDD." } }
+    ]
+  }
+  </script>
 
   <script type="application/ld+json">
   {
@@ -81,7 +95,7 @@
         <h1 class="mpn">DS18B20+<span class="rohs-badge" aria-hidden="true">RoHS</span></h1>
         <p class="type">Sensors</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/maxim-integrated/">Maxim Integrated</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/sensors/">Sensors</a></div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/maxim-integrated/">Maxim Integrated</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/sensors/">Sensors</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">TO-92</div></div>
         </div>
         <p class="hero-desc">Programmable Resolution 1-Wire Digital Thermometer</p>
       </div>
@@ -90,14 +104,81 @@
       <aside class="rfq-card" id="rfq-card">
         <h3>Request a Quote</h3>
         <p>Tell us your quantity, target price, and delivery requirements. We source from Shenzhen and reply within 1 business day.</p>
-        <div class="rfq-form">
-          <div class="rfq-field"><label>Part Number</label><input type="text" value="DS18B20+" readonly></div>
-          <div class="rfq-field"><label>Quantity</label><input type="text" placeholder="e.g. 1,000"></div>
-          <div class="rfq-field"><label>Target Price</label><input type="text" placeholder="USD / piece"></div>
-          <div class="rfq-field"><label>Email</label><input type="email" placeholder="your@email.com"></div>
-          <div class="rfq-field"><label>Requirements</label><textarea placeholder="e.g. Original/New, EOL, specific package, certification requirements"></textarea></div>
+
+        <div class="form-success" id="formSuccess">
+          <h3>Thank you. Your RFQ has been received.</h3>
+          <p>Our sourcing team will review your requirements and contact you shortly.</p>
         </div>
-        <a class="rfq-btn" href="/request-a-quote/?pn=DS18B20%2B&mfr=Maxim%20Integrated&cat=Sensors&source=product&rfq_type=sku_quote" data-zh="获取报价">Request a Quote</a>
+
+        <form id="quote-form" action="https://formsubmit.co/sales@szprocure.com" method="POST" enctype="multipart/form-data" novalidate>
+          <input type="hidden" name="_subject" value="New SKU RFQ — SZ Procure" />
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <input type="hidden" name="category" id="rfq_category" value="Sensors" />
+          <input type="hidden" name="source_url" id="source_url" />
+          <input type="hidden" name="rfq_type" id="rfq_type" value="sku_quote" />
+          <input type="hidden" name="manufacturer" id="rfq_manufacturer" value="Maxim Integrated" />
+          <input type="hidden" name="country_source" id="country_source" />
+          <input type="hidden" name="referrer" id="referrer" />
+          <input type="hidden" name="submitted_at" id="submitted_at" />
+          <input type="hidden" name="requirement_type" id="requirement_type" />
+
+          <div class="rfq-form">
+            <div class="rfq-field"><label for="part_number">Part Number</label><input id="part_number" name="part_number" type="text" value="DS18B20+" readonly></div>
+            <div class="rfq-field"><label for="quantity">Quantity</label><input id="quantity" name="quantity" type="number" min="1" step="1" placeholder="e.g. 1,000"></div>
+            <div class="rfq-field"><label for="target_price">Target Price</label><input id="target_price" name="target_price" type="text" placeholder="USD / piece"></div>
+            <div class="rfq-field"><label for="email">Email <span class="req">*</span></label><input id="email" name="email" type="email" required placeholder="your@email.com"><div class="form-error" id="formError"></div></div>
+            <div class="rfq-field"><label for="requirements">Requirements</label><textarea id="requirements" name="requirements" placeholder="e.g. Original/New, EOL, specific package, certification requirements"></textarea></div>
+            <div class="rfq-field"><label for="attachment">Attachment <span style="font-weight:400;color:#6b7280">(optional)</span></label><span class="file-pick" style="display:inline-block;margin:.2rem 0"><label for="attachment" class="rfq-file-btn" style="display:inline-block;padding:.45rem .9rem;border:1px solid #c7cdd6;border-radius:8px;background:#f3f4f6;color:#1f2937;cursor:pointer;font-size:.9rem">Choose File</label><span id="attachment-name" style="margin-left:.5rem;color:#6b7280;font-size:.85rem">No file chosen</span></span><input id="attachment" name="attachment" type="file" accept=".pdf,.xls,.xlsx,.csv,.jpg,.jpeg,.png,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv,image/jpeg,image/png" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0"><p style="font-size:.8rem;color:#6b7280;margin:.3rem 0 0">PDF, Excel, CSV, JPG, PNG &mdash; max 10MB</p><div class="form-error" id="formFileError"></div></div>
+          </div>
+
+          <div class="form-error" id="formSubmitError"></div>
+          <button class="rfq-btn" type="submit">Request a Quote</button>
+        </form>
+
+      <script>
+      (function(){
+        var form = document.getElementById("quote-form");
+        if(!form) return;
+        var fileInput = form.querySelector('input[type="file"][name="attachment"]');
+        var fileErr = document.getElementById("formFileError");
+        if(!fileInput || !fileErr) return;
+        var MAX = 10 * 1024 * 1024;
+        var ALLOWED_EXT = ["pdf","xls","xlsx","csv","jpg","jpeg","png"];
+        var ALLOWED_MIME = ["application/pdf","application/vnd.ms-excel","application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","text/csv","image/jpeg","image/png"];
+        function fileValid(){
+          fileErr.style.display = "none";
+          fileErr.textContent = "";
+          if(!fileInput.files || !fileInput.files.length) return true;
+          var f = fileInput.files[0];
+          var ext = (f.name.split(".").pop() || "").toLowerCase();
+          var okType = (ALLOWED_EXT.indexOf(ext) !== -1) || (f.type && ALLOWED_MIME.indexOf(f.type) !== -1);
+          if(!okType){
+            fileErr.textContent = "Unsupported file type. Allowed: PDF, Excel, CSV, JPG, PNG (max 10MB).";
+            fileErr.style.display = "block";
+            return false;
+          }
+          if(f.size > MAX){
+            fileErr.textContent = "File is too large. Maximum size is 10MB.";
+            fileErr.style.display = "block";
+            return false;
+          }
+          return true;
+        }
+        fileInput.addEventListener("change", function(){
+          var nm = document.getElementById("attachment-name");
+          if (nm) nm.textContent = (fileInput.files && fileInput.files.length) ? fileInput.files[0].name : "No file chosen";
+          fileValid();
+        });
+        form.addEventListener("submit", function(e){
+          if(!fileValid()){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            if(fileInput) fileInput.focus();
+          }
+        }, true);
+      })();
+      </script>
       </aside>
 
       <!-- TABS: sticky nav + scroll-spy; all panels in DOM (SEO-friendly) -->
@@ -106,7 +187,10 @@
           <a href="#overview" class="tab-btn active">Overview</a>
           <a href="#specifications" class="tab-btn">Specifications</a>
           <a href="#documentation" class="tab-btn">Documentation</a>
+          <a href="#applications" class="tab-btn">Applications</a>
           <a href="#related" class="tab-btn">Related Parts</a>
+          <a href="#alternative" class="tab-btn">Alternative Parts</a>
+          <a href="#faq" class="tab-btn">FAQ</a>
         </nav>
 
         <section id="overview" class="tab-panel">
@@ -118,7 +202,7 @@
           <h2 class="section-title">Technical Specifications</h2>
           <table class="spec-table">
 <tbody>
-<tr><th>Detection Temperature</th><td>-55℃~+125℃</td></tr><tr><th>Interface Type</th><td>Single-Wire Bus</td></tr><tr><th>Accuracy</th><td>±0.5℃</td></tr></tbody>
+<tr><th>Detection Temperature</th><td>-55℃~+125℃</td></tr><tr><th>Interface Type</th><td>Single-Wire Bus</td></tr><tr><th>Accuracy</th><td>±0.5℃</td></tr><tr><th>Package</th><td>TO-92</td></tr><tr><th>Operating Temperature</th><td>-</td></tr><tr><th>Detection Temperature Range</th><td>-55℃~+125℃</td></tr><tr><th>Voltage - Supply</th><td>3V~5.5V</td></tr><tr><th>Interface</th><td>Single bus</td></tr><tr><th>Tolerance</th><td>±0.5℃</td></tr><tr><th>Standby Current</th><td>1uA</td></tr><tr><th>Temperature Conversion Time</th><td>750ms</td></tr><tr><th>Features</th><td>Temperature threshold monitoring;Configurable temperature output;On-chip non-volatile parameter storage</td></tr><tr><th>Temperature Resolution</th><td>12bit</td></tr></tbody>
 </table>
         </section>
 
@@ -132,7 +216,10 @@
   </details>
 </section>
 
-        
+        <section id="applications" class="tab-panel">
+  <h2 class="section-title">Common Applications</h2>
+  <ul class="app-list"><li>Thermostatic Controls</li><li>Industrial Systems</li><li>Consumer Products</li><li>Thermometers</li><li>Thermally Sensitive Systems</li></ul>
+</section>
 
         <section id="related" class="tab-panel">
   <h2 class="section-title">Related Sensors &amp; Transducers</h2>
@@ -140,9 +227,16 @@
   <div class="related-grid"><div class="related-card"><a href="/products/as5047patsm/">AS5047P-ATSM</a></div><div class="related-card"><a href="/products/as5600asot/">AS5600-ASOT</a></div><div class="related-card"><a href="/products/dps368xtsa1/">DPS368XTSA1</a></div><div class="related-card"><a href="/products/ds18b20uumw/">DS18B20U(UMW)</a></div><div class="related-card"><a href="/products/bme280/">BME280</a></div><div class="related-card"><a href="/products/acs712elctr20at/">ACS712ELCTR-20A-T</a></div></div>
 </section>
 
-        
+        <section id="alternative" class="tab-panel">
+  <h2 class="section-title">Alternative Parts</h2>
+  <p>Common <strong>DS18B20+ alternatives</strong> overseas buyers search for:</p>
+  <ul class="alt-list"><li><a href="/request-a-quote/?pn=DS18B20-TUDI" class="alt-link">DS18B20-TUDI <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=DS18B20+T&amp;amp" class="alt-link">DS18B20+T&amp;amp <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=R" class="alt-link">R <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=DS18B20-TD" class="alt-link">DS18B20-TD <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=DS18B20+JSM" class="alt-link">DS18B20+JSM <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=GX1820" class="alt-link">GX1820 <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=HT18B20ARTZ" class="alt-link">HT18B20ARTZ <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=HT18B20ATZ" class="alt-link">HT18B20ATZ <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=DS18B20(UMW)" class="alt-link">DS18B20(UMW) <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=DS18S20+" class="alt-link">DS18S20+ <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=MAX31820MCR+T" class="alt-link">MAX31820MCR+T <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=HX18B20-T" class="alt-link">HX18B20-T <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=DS18B20-MS" class="alt-link">DS18B20-MS <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=DS18B20B-MS" class="alt-link">DS18B20B-MS <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=DS18B20+MSK" class="alt-link">DS18B20+MSK <span class="muted">(request quote)</span></a></li><li><a href="/products/ds18b20/" class="alt-link">DS18B20</a></li><li><a href="/request-a-quote/?pn=SD5820A" class="alt-link">SD5820A <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=GX1831" class="alt-link">GX1831 <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=MAX31820MCR+" class="alt-link">MAX31820MCR+ <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=YCT1820Z" class="alt-link">YCT1820Z <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=DS1822+" class="alt-link">DS1822+ <span class="muted">(request quote)</span></a></li></ul>
+</section>
 
-        
+        <section id="faq" class="tab-panel">
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq-item"><h3>What power supply boundaries, temperature sensing limits, and measurement accuracy specifications govern the DS18B20+</h3><p>The DS18B20+ is a digital temperature sensor operating across an external supply voltage (VDD) range of 3.0V to 5.5V. It measures temperatures from -55°C to +125°C with an accuracy of ±0.5°C over the -10°C to +85°C range. During temperature conversions, the active supply current is 1.5mA maximum at 5V, while standby current is 750nA typical.;</p></div><div class="faq-item"><h3>How does resolution selection alter temperature measurement precision and conversion timing in the DS18B20+</h3><p>The DS18B20+ features a user-programmable temperature resolution of 9, 10, 11, or 12 bits, corresponding to temperature increments of 0.5°C, 0.25°C, 0.125°C, and 0.0625°C, respectively. Higher resolution increases conversion time, with maximum conversion times of 93.75ms at 9-bit resolution, 187.5ms at 10-bit, 375ms at 11-bit, and 750ms at 12-bit.;</p></div><div class="faq-item"><h3>How does the 1-Wire protocol handle multi-drop network architecture and individual sensor identification</h3><p>The DS18B20+ uses Maxim&#x27;s proprietary 1-Wire open-drain serial interface, requiring only a single data line (DQ) and ground for communication. Each device contains a factory-programmed, unique 64-bit ROM code consisting of an 8-bit family code (28h), a 48-bit serial number, and an 8-bit CRC. This unique identifier allows multiple DS18B20+ devices to share the same 1-Wire bus while being individually addressed by the bus master. The bus requires an external pullup resistor of approximately 5kΩ.;</p></div><div class="faq-item"><h3>What is parasitic power mode, and how does it reduce physical wiring count in remote sensor nodes</h3><p>In parasite power mode, the DS18B20+ derives operating power directly from the DQ line through an internal parasite power capacitor (CPP), allowing operation using only the DQ and GND connections while the VDD pin is connected to ground. During temperature conversions or EEPROM writes, when the operating current can reach 1.5mA, the 1-Wire bus must be pulled high using a strong pullup (typically implemented with a MOSFET) to provide sufficient operating current.;</p></div><div class="faq-item"><h3>Which package options and pin configurations are available for the DS18B20+</h3><p>The DS18B20+ is available in three package options: a 3-pin TO-92 package (DS18B20), an 8-pin SO package (DS18B20Z), and an 8-pin µSOP package (DS18B20U). The TO-92 package uses a 3-pin configuration consisting of Pin 1: GND, Pin 2: DQ, and Pin 3: VDD.</p></div>
+</section>
       </div>
 
       <!-- Sourcing (no stock/price/lead-time promises) -->
@@ -165,7 +259,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'related' } ];
+    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'applications' }, { id: 'related' }, { id: 'alternative' }, { id: 'faq' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

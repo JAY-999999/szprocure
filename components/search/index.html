@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Part Number Search Results — Source from Shenzhen, China | SZ Procure</title>
+  <meta name="description" content="Search results for electronic component part numbers (MPN), manufacturers and categories sourced from Shenzhen. Multiple matches are listed here — pick the exact part you need and request a quote." />
+  <!-- P0-b: Search Results Page is NOT an SEO landing page. Keep dynamic ?q= results out of the index. -->
+  <meta name="robots" content="noindex, follow" />
+  <link rel="canonical" href="https://www.szprocure.com/components/" />
+  <link rel="alternate" hreflang="x-default" href="https://www.szprocure.com/components/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="SZ Procure" />
+  <meta property="og:title" content="Part Number Search Results | SZ Procure" />
+  <meta property="og:description" content="Search results for electronic component part numbers, manufacturers and categories." />
+  <meta property="og:url" content="https://www.szprocure.com/components/search/" />
+  <link rel="stylesheet" href="/assets/styles.css" />
+
+  <!-- Page-scoped, additive styles for the results page. Does NOT modify global styles.css. -->
+  <style>
+    /* Hero / search header (account for sticky 84px nav) */
+    .search-hero { padding: 120px 0 34px; background: var(--bg-soft); border-bottom: 1px solid var(--border); }
+    .search-hero h1 { font-size: clamp(1.7rem, 3.4vw, 2.35rem); margin-bottom: 16px; }
+    .search-form-wrap { max-width: 760px; }
+    .comp-search { display: flex; gap: 10px; max-width: 100%; margin: 0; }
+    .comp-search input {
+      flex: 1; min-width: 0; padding: 15px 18px; border: 1px solid var(--border);
+      border-radius: 12px; font-size: 1.05rem; background: #fff; color: var(--ink);
+    }
+    .comp-search input:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
+    .comp-search .btn { flex: none; padding: 15px 28px; font-size: 1.02rem; }
+
+    /* Results */
+    .results-section { padding: 40px 0 80px; }
+    .results-title { font-size: 1.5rem; margin: 6px 0 4px; }
+    .results-count { color: var(--muted); margin-bottom: 22px; }
+    .search-prompt { color: var(--muted); max-width: 60ch; }
+
+    /* PART list — compact rows, MPN is the primary link */
+    .part-list { display: flex; flex-direction: column; }
+    .part-row {
+      display: flex; align-items: center; gap: 14px; padding: 14px 16px;
+      border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px;
+      background: #fff; text-decoration: none; color: var(--ink); transition: border-color .15s ease, background .15s ease;
+    }
+    .part-row:hover { border-color: var(--accent); background: #f5f9ff; }
+    .part-mpn { font-weight: 700; font-size: 1.04rem; color: var(--navy); flex: 0 0 auto; min-width: 0; overflow-wrap: anywhere; }
+    .part-meta { color: var(--muted); font-size: .92rem; flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
+    .part-go { color: var(--accent); font-weight: 700; flex: 0 0 auto; }
+
+    /* Pagination */
+    .pager { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 30px 0; }
+    .pager a, .pager .pager-cur, .pager .pager-gap {
+      padding: 8px 13px; border-radius: 9px; border: 1px solid var(--border); font-size: .92rem; color: var(--navy); text-decoration: none;
+    }
+    .pager a:hover { border-color: var(--accent); color: var(--accent); }
+    .pager .pager-cur { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .pager .pager-gap { border: none; color: var(--muted-2); }
+
+    /* Related matches (auxiliary: MFR / CAT / SUB) */
+    .related { margin-top: 44px; padding-top: 28px; border-top: 1px solid var(--border); }
+    .rel-title { font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 700; margin-bottom: 16px; }
+    .rel-block { margin-bottom: 18px; }
+    .rel-head { font-weight: 700; color: var(--navy); margin-bottom: 9px; font-size: .98rem; }
+    .rel-items { display: flex; flex-wrap: wrap; gap: 8px; }
+    .rel-item {
+      display: inline-block; padding: 6px 13px; border: 1px solid var(--border); border-radius: 999px;
+      color: var(--navy); text-decoration: none; font-size: .9rem; background: #fff;
+    }
+    .rel-item:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* No results */
+    .sr-empty-page {
+      background: var(--bg-soft); border: 1px solid var(--border); border-radius: 16px;
+      padding: 42px 28px; text-align: center; max-width: 640px; margin: 16px auto;
+    }
+    .sr-empty-page h3 { margin-bottom: 8px; }
+    .sr-empty-page p { color: var(--muted); }
+    .sr-empty-page .btn { margin-top: 18px; }
+
+    /* Mobile: stack each result, never cram a wide table */
+    @media (max-width: 720px) {
+      .search-hero { padding: 100px 0 26px; }
+      .comp-search { flex-direction: column; }
+      .comp-search .btn { width: 100%; }
+      .part-row { flex-direction: column; align-items: flex-start; gap: 4px; }
+      .part-go { display: none; }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.szprocure.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Components", "item": "https://www.szprocure.com/components/" },
+      { "@type": "ListItem", "position": 3, "name": "Search", "item": "https://www.szprocure.com/components/search/" }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <div id="site-header"></div>
+  <main>
+    <!-- SEARCH HEADER: search box preserved at top; submitting reloads /components/search/?q= -->
+    <section class="search-hero">
+      <div class="container">
+        <div class="eyebrow">SEARCH RESULTS</div>
+        <h1 data-zh="元器件搜索结果">Component Search</h1>
+        <div class="search-form-wrap">
+          <form class="comp-search" id="searchForm" action="/components/search/" method="get" role="search">
+            <input type="search" name="q" id="searchInput" placeholder="e.g. STM32F103C8T6, Texas Instruments, MOSFET…" aria-label="Search components, manufacturers or categories" data-zh-ph="例如 STM32F103C8T6、Texas Instruments、MOSFET…" />
+            <button type="submit" class="btn btn-primary" data-zh="搜索">Search</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section class="results-section">
+      <div class="container">
+        <div id="resultHead"></div>
+        <div id="partResults"></div>
+        <div id="pagination"></div>
+        <div id="relatedMatches"></div>
+        <div id="emptyState"></div>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+
+  <!-- Reuse the SAME search core as the Components Hub (hub.js). No second algorithm. -->
+  <script src="/assets/site.js" defer></script>
+  <script src="/components/components-data.js"></script>
+  <script src="/components/hub.js" defer></script>
+  <script src="/components/search/search.js" defer></script>
+</body>
+</html>

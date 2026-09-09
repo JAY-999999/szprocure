@@ -14,6 +14,7 @@
   <meta property="og:description" content="Source GRM188R61E475KE11D (Murata Manufacturing capacitor) from Shenzhen, China. Shenzhen supplier network, hard-to-find support and BOM procurement for global buyers." />
   <meta property="og:url" content="https://www.szprocure.com/products/grm188r61e475ke11d/" />
   <meta property="og:image" content="https://www.szprocure.com/assets/img/hero.svg" />
+
   <link rel="stylesheet" href="/assets/styles.css" />
   <link rel="stylesheet" href="/assets/sku-v3.css" />
   <style>
@@ -47,7 +48,7 @@
     "category": "Passive Components",
     "brand": { "@type": "Brand", "name": "Murata Manufacturing", "@id": "https://www.szprocure.com/#szprocure-org" },
     "description": "GRM188R61E475KE11D is a capacitor from Murata Manufacturing. SZ Procure helps global buyers source this part through verified suppliers, with flexible quantity, hard-to-find support and competitive quotes.",
-    "url": "https://www.szprocure.com/products/grm188r61e475ke11d/"
+    "url": "https://www.szprocure.com/products/grm188r61e475ke11d/", "alternatePart": ["CL10A475KA8NQNC", "TCC0603X5R475K250CT", "CGA0603X5R475K250JT", "CC0603KRX5R8BB475", "0603X475K250NT", "C1608X5R1E475KT000E", "TMK107BBJ475KA-T", "YBK0603X5R475K250NT", "FCC0603X475K250CT", "0603X5R475K250NT", "GRT188R61E475KE13D", "GRM188R61E475KE15D", "0603X475K250CT", "06033D475KAT2A", "KGM15CR51E475KT", "GRM188R61E475KE11J", "CL10A475KA91INC", "C0603X5R250-475KNP", "HGC0603R5475K250NTHJ", "0603X475K250"]
   }
   </script>
 
@@ -81,7 +82,7 @@
         <h1 class="mpn">GRM188R61E475KE11D<span class="rohs-badge" aria-hidden="true">RoHS</span></h1>
         <p class="type">Capacitor</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/murata-manufacturing/">Murata Manufacturing</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/passive-components/">Capacitor</a></div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/murata-manufacturing/">Murata Manufacturing</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/passive-components/">Capacitor</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">0603</div></div>
         </div>
         <p class="hero-desc">CAP CER 4.7uF 25V X5R 0603</p>
       </div>
@@ -90,14 +91,81 @@
       <aside class="rfq-card" id="rfq-card">
         <h3>Request a Quote</h3>
         <p>Tell us your quantity, target price, and delivery requirements. We source from Shenzhen and reply within 1 business day.</p>
-        <div class="rfq-form">
-          <div class="rfq-field"><label>Part Number</label><input type="text" value="GRM188R61E475KE11D" readonly></div>
-          <div class="rfq-field"><label>Quantity</label><input type="text" placeholder="e.g. 1,000"></div>
-          <div class="rfq-field"><label>Target Price</label><input type="text" placeholder="USD / piece"></div>
-          <div class="rfq-field"><label>Email</label><input type="email" placeholder="your@email.com"></div>
-          <div class="rfq-field"><label>Requirements</label><textarea placeholder="e.g. Original/New, EOL, specific package, certification requirements"></textarea></div>
+
+        <div class="form-success" id="formSuccess">
+          <h3>Thank you. Your RFQ has been received.</h3>
+          <p>Our sourcing team will review your requirements and contact you shortly.</p>
         </div>
-        <a class="rfq-btn" href="/request-a-quote/?pn=GRM188R61E475KE11D&mfr=Murata%20Manufacturing&cat=Capacitor&source=product&rfq_type=sku_quote" data-zh="获取报价">Request a Quote</a>
+
+        <form id="quote-form" action="https://formsubmit.co/sales@szprocure.com" method="POST" enctype="multipart/form-data" novalidate>
+          <input type="hidden" name="_subject" value="New SKU RFQ — SZ Procure" />
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <input type="hidden" name="category" id="rfq_category" value="Capacitor" />
+          <input type="hidden" name="source_url" id="source_url" />
+          <input type="hidden" name="rfq_type" id="rfq_type" value="sku_quote" />
+          <input type="hidden" name="manufacturer" id="rfq_manufacturer" value="Murata Manufacturing" />
+          <input type="hidden" name="country_source" id="country_source" />
+          <input type="hidden" name="referrer" id="referrer" />
+          <input type="hidden" name="submitted_at" id="submitted_at" />
+          <input type="hidden" name="requirement_type" id="requirement_type" />
+
+          <div class="rfq-form">
+            <div class="rfq-field"><label for="part_number">Part Number</label><input id="part_number" name="part_number" type="text" value="GRM188R61E475KE11D" readonly></div>
+            <div class="rfq-field"><label for="quantity">Quantity</label><input id="quantity" name="quantity" type="number" min="1" step="1" placeholder="e.g. 1,000"></div>
+            <div class="rfq-field"><label for="target_price">Target Price</label><input id="target_price" name="target_price" type="text" placeholder="USD / piece"></div>
+            <div class="rfq-field"><label for="email">Email <span class="req">*</span></label><input id="email" name="email" type="email" required placeholder="your@email.com"><div class="form-error" id="formError"></div></div>
+            <div class="rfq-field"><label for="requirements">Requirements</label><textarea id="requirements" name="requirements" placeholder="e.g. Original/New, EOL, specific package, certification requirements"></textarea></div>
+            <div class="rfq-field"><label for="attachment">Attachment <span style="font-weight:400;color:#6b7280">(optional)</span></label><span class="file-pick" style="display:inline-block;margin:.2rem 0"><label for="attachment" class="rfq-file-btn" style="display:inline-block;padding:.45rem .9rem;border:1px solid #c7cdd6;border-radius:8px;background:#f3f4f6;color:#1f2937;cursor:pointer;font-size:.9rem">Choose File</label><span id="attachment-name" style="margin-left:.5rem;color:#6b7280;font-size:.85rem">No file chosen</span></span><input id="attachment" name="attachment" type="file" accept=".pdf,.xls,.xlsx,.csv,.jpg,.jpeg,.png,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv,image/jpeg,image/png" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0"><p style="font-size:.8rem;color:#6b7280;margin:.3rem 0 0">PDF, Excel, CSV, JPG, PNG &mdash; max 10MB</p><div class="form-error" id="formFileError"></div></div>
+          </div>
+
+          <div class="form-error" id="formSubmitError"></div>
+          <button class="rfq-btn" type="submit">Request a Quote</button>
+        </form>
+
+      <script>
+      (function(){
+        var form = document.getElementById("quote-form");
+        if(!form) return;
+        var fileInput = form.querySelector('input[type="file"][name="attachment"]');
+        var fileErr = document.getElementById("formFileError");
+        if(!fileInput || !fileErr) return;
+        var MAX = 10 * 1024 * 1024;
+        var ALLOWED_EXT = ["pdf","xls","xlsx","csv","jpg","jpeg","png"];
+        var ALLOWED_MIME = ["application/pdf","application/vnd.ms-excel","application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","text/csv","image/jpeg","image/png"];
+        function fileValid(){
+          fileErr.style.display = "none";
+          fileErr.textContent = "";
+          if(!fileInput.files || !fileInput.files.length) return true;
+          var f = fileInput.files[0];
+          var ext = (f.name.split(".").pop() || "").toLowerCase();
+          var okType = (ALLOWED_EXT.indexOf(ext) !== -1) || (f.type && ALLOWED_MIME.indexOf(f.type) !== -1);
+          if(!okType){
+            fileErr.textContent = "Unsupported file type. Allowed: PDF, Excel, CSV, JPG, PNG (max 10MB).";
+            fileErr.style.display = "block";
+            return false;
+          }
+          if(f.size > MAX){
+            fileErr.textContent = "File is too large. Maximum size is 10MB.";
+            fileErr.style.display = "block";
+            return false;
+          }
+          return true;
+        }
+        fileInput.addEventListener("change", function(){
+          var nm = document.getElementById("attachment-name");
+          if (nm) nm.textContent = (fileInput.files && fileInput.files.length) ? fileInput.files[0].name : "No file chosen";
+          fileValid();
+        });
+        form.addEventListener("submit", function(e){
+          if(!fileValid()){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            if(fileInput) fileInput.focus();
+          }
+        }, true);
+      })();
+      </script>
       </aside>
 
       <!-- TABS: sticky nav + scroll-spy; all panels in DOM (SEO-friendly) -->
@@ -106,6 +174,8 @@
           <a href="#overview" class="tab-btn active">Overview</a>
           <a href="#specifications" class="tab-btn">Specifications</a>
           <a href="#documentation" class="tab-btn">Documentation</a>
+          <a href="#related" class="tab-btn">Related Parts</a>
+          <a href="#alternative" class="tab-btn">Alternative Parts</a>
         </nav>
 
         <section id="overview" class="tab-panel">
@@ -117,7 +187,7 @@
           <h2 class="section-title">Technical Specifications</h2>
           <table class="spec-table">
 <tbody>
-<tr><th>Capacitance</th><td>4.7uF</td></tr><tr><th>Accuracy</th><td>±10%</td></tr><tr><th>Rated Voltage</th><td>25V</td></tr><tr><th>Temperature Coefficient</th><td>X5R</td></tr></tbody>
+<tr><th>Capacitance</th><td>4.7uF</td></tr><tr><th>Accuracy</th><td>±10%</td></tr><tr><th>Rated Voltage</th><td>25V</td></tr><tr><th>Temperature Coefficient</th><td>X5R</td></tr><tr><th>Package</th><td>0603</td></tr><tr><th>Capacitance</th><td>4.7uF</td></tr><tr><th>Temperature Coefficient</th><td>X5R</td></tr><tr><th>Tolerance</th><td>±10%</td></tr><tr><th>Voltage Rating</th><td>25V</td></tr></tbody>
 </table>
         </section>
 
@@ -133,9 +203,17 @@
 
         
 
-        
+        <section id="related" class="tab-panel">
+  <h2 class="section-title">Related Passive Components</h2>
+  <p>Other passive components we help global buyers source:</p>
+  <div class="related-grid"><div class="related-card"><a href="/products/blm31pg601sn1l/">BLM31PG601SN1L</a></div><div class="related-card"><a href="/products/blm21pg221sn1d/">BLM21PG221SN1D</a></div><div class="related-card"><a href="/products/grm1555c1h102ja01d/">GRM1555C1H102JA01D</a></div><div class="related-card"><a href="/products/grm21br6ya106ke43l/">GRM21BR6YA106KE43L</a></div><div class="related-card"><a href="/products/grm155z71a105ke01d/">GRM155Z71A105KE01D</a></div><div class="related-card"><a href="/products/grm155r61e105ka12d/">GRM155R61E105KA12D</a></div></div>
+</section>
 
-        
+        <section id="alternative" class="tab-panel">
+  <h2 class="section-title">Alternative Parts</h2>
+  <p>Common <strong>GRM188R61E475KE11D alternatives</strong> overseas buyers search for:</p>
+  <ul class="alt-list"><li><a href="/request-a-quote/?pn=CL10A475KA8NQNC" class="alt-link">CL10A475KA8NQNC <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=TCC0603X5R475K250CT" class="alt-link">TCC0603X5R475K250CT <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=CGA0603X5R475K250JT" class="alt-link">CGA0603X5R475K250JT <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=CC0603KRX5R8BB475" class="alt-link">CC0603KRX5R8BB475 <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=0603X475K250NT" class="alt-link">0603X475K250NT <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=C1608X5R1E475KT000E" class="alt-link">C1608X5R1E475KT000E <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=TMK107BBJ475KA-T" class="alt-link">TMK107BBJ475KA-T <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=YBK0603X5R475K250NT" class="alt-link">YBK0603X5R475K250NT <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=FCC0603X475K250CT" class="alt-link">FCC0603X475K250CT <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=0603X5R475K250NT" class="alt-link">0603X5R475K250NT <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=GRT188R61E475KE13D" class="alt-link">GRT188R61E475KE13D <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=GRM188R61E475KE15D" class="alt-link">GRM188R61E475KE15D <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=0603X475K250CT" class="alt-link">0603X475K250CT <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=06033D475KAT2A" class="alt-link">06033D475KAT2A <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=KGM15CR51E475KT" class="alt-link">KGM15CR51E475KT <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=GRM188R61E475KE11J" class="alt-link">GRM188R61E475KE11J <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=CL10A475KA91INC" class="alt-link">CL10A475KA91INC <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=C0603X5R250-475KNP" class="alt-link">C0603X5R250-475KNP <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=HGC0603R5475K250NTHJ" class="alt-link">HGC0603R5475K250NTHJ <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=0603X475K250" class="alt-link">0603X475K250 <span class="muted">(request quote)</span></a></li></ul>
+</section>
 
         
       </div>
@@ -160,7 +238,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' } ];
+    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'related' }, { id: 'alternative' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

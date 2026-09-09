@@ -14,6 +14,7 @@
   <meta property="og:description" content="Source TYPE-C 16PIN 2MD(073) (SHOU HAN usb connectors) from Shenzhen, China. Shenzhen supplier network, hard-to-find support and BOM procurement for global buyers." />
   <meta property="og:url" content="https://www.szprocure.com/products/typec16pin2md073/" />
   <meta property="og:image" content="https://www.szprocure.com/assets/img/hero.svg" />
+
   <link rel="stylesheet" href="/assets/styles.css" />
   <link rel="stylesheet" href="/assets/sku-v3.css" />
   <style>
@@ -47,10 +48,23 @@
     "category": "Connectors &amp; Electromechanical",
     "brand": { "@type": "Brand", "name": "SHOU HAN", "@id": "https://www.szprocure.com/#szprocure-org" },
     "description": "TYPE-C 16PIN 2MD(073) is a usb connectors from SHOU HAN. SZ Procure helps global buyers source this part through verified suppliers, with flexible quantity, hard-to-find support and competitive quotes.",
-    "url": "https://www.szprocure.com/products/typec16pin2md073/"
+    "url": "https://www.szprocure.com/products/typec16pin2md073/", "alternatePart": ["TYPE-C 16PQT 073", "TYPE-C 16P QTWT", "SH-U262-161N-4BVC11", "TYPE-C 16PFS 2J-H7.45 IPX8", "SH-U262-161N-4B", "TYPE-C-3.1-16PIN"]
   }
   </script>
 
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+    { "@type": "Question", "name": "What Is the Minimum Ordering Quantity (MOQ) and Packaging Format", "acceptedAnswer": { "@type": "Answer", "text": "The component is available in Cut Tape packaging with a minimum order quantity of 20 pieces. For large-scale manufacturing, it can also be purchased in standard full reels of 1,000 pieces.;" } },
+    { "@type": "Question", "name": "What Is the Operational Temperature Range for This Part", "acceptedAnswer": { "@type": "Answer", "text": "The connector is designed to operate reliably within a temperature range of -25°C to +85°C, making it appropriate for most commercial and consumer electronics environments.;" } },
+    { "@type": "Question", "name": "What Is the PIN Configuration of This USB-C Receptacle", "acceptedAnswer": { "@type": "Answer", "text": "It is a 16-pin (16POS) female receptacle. The 16-pin layout provides full support for charging, USB 2.0 data transfer channels (D+ and D−), Configuration Channel pins (CC1 and CC2), and Sideband Use pins (SBU1 and SBU2).;" } },
+    { "@type": "Question", "name": "How Is This Component Mounted to a Printed Circuit Board (PCB)", "acceptedAnswer": { "@type": "Answer", "text": "This is a Surface Mount (SMD / SMT) connector designed for a Right Angle orientation, meaning it sits flat on the edge of the board for side-entry cable connections.;" } },
+    { "@type": "Question", "name": "What Is the Current and Voltage Rating for This USB-C Connector", "acceptedAnswer": { "@type": "Answer", "text": "The connector features a power current rating of 5A and a voltage rating of 5V, making it suitable for standard power delivery and data transfer applications." } }
+    ]
+  }
+  </script>
 
   <script type="application/ld+json">
   {
@@ -81,7 +95,7 @@
         <h1 class="mpn">TYPE-C 16PIN 2MD(073)<span class="rohs-badge" aria-hidden="true">RoHS</span></h1>
         <p class="type">USB Connectors</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/shou-han/">SHOU HAN</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/connectors/">USB Connectors</a></div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/shou-han/">SHOU HAN</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/connectors/">USB Connectors</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">SMD</div></div>
         </div>
         <p class="hero-desc">CONN RCPT Type-C 16POS SMD R/A</p>
       </div>
@@ -90,14 +104,81 @@
       <aside class="rfq-card" id="rfq-card">
         <h3>Request a Quote</h3>
         <p>Tell us your quantity, target price, and delivery requirements. We source from Shenzhen and reply within 1 business day.</p>
-        <div class="rfq-form">
-          <div class="rfq-field"><label>Part Number</label><input type="text" value="TYPE-C 16PIN 2MD(073)" readonly></div>
-          <div class="rfq-field"><label>Quantity</label><input type="text" placeholder="e.g. 1,000"></div>
-          <div class="rfq-field"><label>Target Price</label><input type="text" placeholder="USD / piece"></div>
-          <div class="rfq-field"><label>Email</label><input type="email" placeholder="your@email.com"></div>
-          <div class="rfq-field"><label>Requirements</label><textarea placeholder="e.g. Original/New, EOL, specific package, certification requirements"></textarea></div>
+
+        <div class="form-success" id="formSuccess">
+          <h3>Thank you. Your RFQ has been received.</h3>
+          <p>Our sourcing team will review your requirements and contact you shortly.</p>
         </div>
-        <a class="rfq-btn" href="/request-a-quote/?pn=TYPE-C%2016PIN%202MD%28073%29&mfr=SHOU%20HAN&cat=USB%20Connectors&source=product&rfq_type=sku_quote" data-zh="获取报价">Request a Quote</a>
+
+        <form id="quote-form" action="https://formsubmit.co/sales@szprocure.com" method="POST" enctype="multipart/form-data" novalidate>
+          <input type="hidden" name="_subject" value="New SKU RFQ — SZ Procure" />
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <input type="hidden" name="category" id="rfq_category" value="USB Connectors" />
+          <input type="hidden" name="source_url" id="source_url" />
+          <input type="hidden" name="rfq_type" id="rfq_type" value="sku_quote" />
+          <input type="hidden" name="manufacturer" id="rfq_manufacturer" value="SHOU HAN" />
+          <input type="hidden" name="country_source" id="country_source" />
+          <input type="hidden" name="referrer" id="referrer" />
+          <input type="hidden" name="submitted_at" id="submitted_at" />
+          <input type="hidden" name="requirement_type" id="requirement_type" />
+
+          <div class="rfq-form">
+            <div class="rfq-field"><label for="part_number">Part Number</label><input id="part_number" name="part_number" type="text" value="TYPE-C 16PIN 2MD(073)" readonly></div>
+            <div class="rfq-field"><label for="quantity">Quantity</label><input id="quantity" name="quantity" type="number" min="1" step="1" placeholder="e.g. 1,000"></div>
+            <div class="rfq-field"><label for="target_price">Target Price</label><input id="target_price" name="target_price" type="text" placeholder="USD / piece"></div>
+            <div class="rfq-field"><label for="email">Email <span class="req">*</span></label><input id="email" name="email" type="email" required placeholder="your@email.com"><div class="form-error" id="formError"></div></div>
+            <div class="rfq-field"><label for="requirements">Requirements</label><textarea id="requirements" name="requirements" placeholder="e.g. Original/New, EOL, specific package, certification requirements"></textarea></div>
+            <div class="rfq-field"><label for="attachment">Attachment <span style="font-weight:400;color:#6b7280">(optional)</span></label><span class="file-pick" style="display:inline-block;margin:.2rem 0"><label for="attachment" class="rfq-file-btn" style="display:inline-block;padding:.45rem .9rem;border:1px solid #c7cdd6;border-radius:8px;background:#f3f4f6;color:#1f2937;cursor:pointer;font-size:.9rem">Choose File</label><span id="attachment-name" style="margin-left:.5rem;color:#6b7280;font-size:.85rem">No file chosen</span></span><input id="attachment" name="attachment" type="file" accept=".pdf,.xls,.xlsx,.csv,.jpg,.jpeg,.png,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv,image/jpeg,image/png" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0"><p style="font-size:.8rem;color:#6b7280;margin:.3rem 0 0">PDF, Excel, CSV, JPG, PNG &mdash; max 10MB</p><div class="form-error" id="formFileError"></div></div>
+          </div>
+
+          <div class="form-error" id="formSubmitError"></div>
+          <button class="rfq-btn" type="submit">Request a Quote</button>
+        </form>
+
+      <script>
+      (function(){
+        var form = document.getElementById("quote-form");
+        if(!form) return;
+        var fileInput = form.querySelector('input[type="file"][name="attachment"]');
+        var fileErr = document.getElementById("formFileError");
+        if(!fileInput || !fileErr) return;
+        var MAX = 10 * 1024 * 1024;
+        var ALLOWED_EXT = ["pdf","xls","xlsx","csv","jpg","jpeg","png"];
+        var ALLOWED_MIME = ["application/pdf","application/vnd.ms-excel","application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","text/csv","image/jpeg","image/png"];
+        function fileValid(){
+          fileErr.style.display = "none";
+          fileErr.textContent = "";
+          if(!fileInput.files || !fileInput.files.length) return true;
+          var f = fileInput.files[0];
+          var ext = (f.name.split(".").pop() || "").toLowerCase();
+          var okType = (ALLOWED_EXT.indexOf(ext) !== -1) || (f.type && ALLOWED_MIME.indexOf(f.type) !== -1);
+          if(!okType){
+            fileErr.textContent = "Unsupported file type. Allowed: PDF, Excel, CSV, JPG, PNG (max 10MB).";
+            fileErr.style.display = "block";
+            return false;
+          }
+          if(f.size > MAX){
+            fileErr.textContent = "File is too large. Maximum size is 10MB.";
+            fileErr.style.display = "block";
+            return false;
+          }
+          return true;
+        }
+        fileInput.addEventListener("change", function(){
+          var nm = document.getElementById("attachment-name");
+          if (nm) nm.textContent = (fileInput.files && fileInput.files.length) ? fileInput.files[0].name : "No file chosen";
+          fileValid();
+        });
+        form.addEventListener("submit", function(e){
+          if(!fileValid()){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            if(fileInput) fileInput.focus();
+          }
+        }, true);
+      })();
+      </script>
       </aside>
 
       <!-- TABS: sticky nav + scroll-spy; all panels in DOM (SEO-friendly) -->
@@ -107,6 +188,8 @@
           <a href="#specifications" class="tab-btn">Specifications</a>
           <a href="#documentation" class="tab-btn">Documentation</a>
           <a href="#related" class="tab-btn">Related Parts</a>
+          <a href="#alternative" class="tab-btn">Alternative Parts</a>
+          <a href="#faq" class="tab-btn">FAQ</a>
         </nav>
 
         <section id="overview" class="tab-panel">
@@ -118,7 +201,7 @@
           <h2 class="section-title">Technical Specifications</h2>
           <table class="spec-table">
 <tbody>
-<tr><th>Mounting Type</th><td>Horizontal SMT</td></tr><tr><th>Operating Temperature</th><td>-25℃~+85℃</td></tr><tr><th>Number of Ports</th><td>1</td></tr><tr><th>Number of Contacts</th><td>16P</td></tr></tbody>
+<tr><th>Mounting Type</th><td>Horizontal SMT</td></tr><tr><th>Operating Temperature</th><td>-25℃~+85℃</td></tr><tr><th>Number of Ports</th><td>1</td></tr><tr><th>Number of Contacts</th><td>16P</td></tr><tr><th>Package</th><td>SMD</td></tr><tr><th>Protocol Standard</th><td>-</td></tr><tr><th>Number of Ports</th><td>1</td></tr><tr><th>Supplementary Features</th><td>-</td></tr><tr><th>Number of Contacts</th><td>16P</td></tr><tr><th>Connector Type</th><td>Type-C</td></tr><tr><th>Center Height</th><td>-</td></tr><tr><th>Voltage Rating</th><td>5V</td></tr><tr><th>Operating Temperature</th><td>-25℃~+85℃</td></tr><tr><th>Length</th><td>-</td></tr><tr><th>Mounting Type</th><td>Surface Mount, Right Angle</td></tr><tr><th>Gender</th><td>Female</td></tr></tbody>
 </table>
         </section>
 
@@ -140,9 +223,16 @@
   <div class="related-grid"><div class="related-card"><a href="/products/ft234xdr/">FT234XD-R</a></div><div class="related-card"><a href="/products/b2bxhalfsn/">B2B-XH-A(LF)(SN)</a></div><div class="related-card"><a href="/products/ts1088ar02016/">TS-1088-AR02016</a></div><div class="related-card"><a href="/products/uflrsmt180/">U.FL-R-SMT-1(80)</a></div><div class="related-card"><a href="/products/ft232rlreel/">FT232RL-REEL</a></div><div class="related-card"><a href="/products/b4bxhalfsn/">B4B-XH-A(LF)(SN)</a></div></div>
 </section>
 
-        
+        <section id="alternative" class="tab-panel">
+  <h2 class="section-title">Alternative Parts</h2>
+  <p>Common <strong>TYPE-C 16PIN 2MD(073) alternatives</strong> overseas buyers search for:</p>
+  <ul class="alt-list"><li><a href="/request-a-quote/?pn=TYPE-C 16PQT 073" class="alt-link">TYPE-C 16PQT 073 <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=TYPE-C 16P QTWT" class="alt-link">TYPE-C 16P QTWT <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=SH-U262-161N-4BVC11" class="alt-link">SH-U262-161N-4BVC11 <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=TYPE-C 16PFS 2J-H7.45 IPX8" class="alt-link">TYPE-C 16PFS 2J-H7.45 IPX8 <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=SH-U262-161N-4B" class="alt-link">SH-U262-161N-4B <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=TYPE-C-3.1-16PIN" class="alt-link">TYPE-C-3.1-16PIN <span class="muted">(request quote)</span></a></li></ul>
+</section>
 
-        
+        <section id="faq" class="tab-panel">
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq-item"><h3>What Is the Minimum Ordering Quantity (MOQ) and Packaging Format</h3><p>The component is available in Cut Tape packaging with a minimum order quantity of 20 pieces. For large-scale manufacturing, it can also be purchased in standard full reels of 1,000 pieces.;</p></div><div class="faq-item"><h3>What Is the Operational Temperature Range for This Part</h3><p>The connector is designed to operate reliably within a temperature range of -25°C to +85°C, making it appropriate for most commercial and consumer electronics environments.;</p></div><div class="faq-item"><h3>What Is the PIN Configuration of This USB-C Receptacle</h3><p>It is a 16-pin (16POS) female receptacle. The 16-pin layout provides full support for charging, USB 2.0 data transfer channels (D+ and D−), Configuration Channel pins (CC1 and CC2), and Sideband Use pins (SBU1 and SBU2).;</p></div><div class="faq-item"><h3>How Is This Component Mounted to a Printed Circuit Board (PCB)</h3><p>This is a Surface Mount (SMD / SMT) connector designed for a Right Angle orientation, meaning it sits flat on the edge of the board for side-entry cable connections.;</p></div><div class="faq-item"><h3>What Is the Current and Voltage Rating for This USB-C Connector</h3><p>The connector features a power current rating of 5A and a voltage rating of 5V, making it suitable for standard power delivery and data transfer applications.</p></div>
+</section>
       </div>
 
       <!-- Sourcing (no stock/price/lead-time promises) -->
@@ -165,7 +255,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'related' } ];
+    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'related' }, { id: 'alternative' }, { id: 'faq' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

@@ -14,6 +14,7 @@
   <meta property="og:description" content="Source BLM18PG471SN1D (Murata Manufacturing inductor) from Shenzhen, China. Shenzhen supplier network, hard-to-find support and BOM procurement for global buyers." />
   <meta property="og:url" content="https://www.szprocure.com/products/blm18pg471sn1d/" />
   <meta property="og:image" content="https://www.szprocure.com/assets/img/hero.svg" />
+
   <link rel="stylesheet" href="/assets/styles.css" />
   <link rel="stylesheet" href="/assets/sku-v3.css" />
   <style>
@@ -47,7 +48,7 @@
     "category": "Passive Components",
     "brand": { "@type": "Brand", "name": "Murata Manufacturing", "@id": "https://www.szprocure.com/#szprocure-org" },
     "description": "BLM18PG471SN1D is a inductor from Murata Manufacturing. SZ Procure helps global buyers source this part through verified suppliers, with flexible quantity, hard-to-find support and competitive quotes.",
-    "url": "https://www.szprocure.com/products/blm18pg471sn1d/"
+    "url": "https://www.szprocure.com/products/blm18pg471sn1d/", "alternatePart": ["BLM18PG471SH1D", "BLM18PG471SZ1D", "MH1608-471Y", "HCB1608KF-471T10", "PBBHAQ1608H-471T10", "MPZ1608B471ATA00", "MPZ1608S471ATA00", "MPZ1608S471ATD25", "MPZ1608B471ATD25", "BLM18KG471BH1D", "FBMH1608HM471-T", "ACML-0603H-471-T", "AFBC-Q0603-471-T", "MFBA2V1608-471-R", "SIM03471Y1A0M32", "SIM03471Y1A032", "PE-0603PFB471ST", "WLBD1608HCU471TH", "WLBD1608HCU471TL", "Z0603C471BPWZT"]
   }
   </script>
 
@@ -81,7 +82,7 @@
         <h1 class="mpn">BLM18PG471SN1D<span class="rohs-badge" aria-hidden="true">RoHS</span></h1>
         <p class="type">Inductor</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/murata-manufacturing/">Murata Manufacturing</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/passive-components/">Inductor</a></div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/murata-manufacturing/">Murata Manufacturing</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/passive-components/">Inductor</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">0603</div></div>
         </div>
         <p class="hero-desc">FERRITE BEAD 470Ω 0603 1LN</p>
       </div>
@@ -90,14 +91,81 @@
       <aside class="rfq-card" id="rfq-card">
         <h3>Request a Quote</h3>
         <p>Tell us your quantity, target price, and delivery requirements. We source from Shenzhen and reply within 1 business day.</p>
-        <div class="rfq-form">
-          <div class="rfq-field"><label>Part Number</label><input type="text" value="BLM18PG471SN1D" readonly></div>
-          <div class="rfq-field"><label>Quantity</label><input type="text" placeholder="e.g. 1,000"></div>
-          <div class="rfq-field"><label>Target Price</label><input type="text" placeholder="USD / piece"></div>
-          <div class="rfq-field"><label>Email</label><input type="email" placeholder="your@email.com"></div>
-          <div class="rfq-field"><label>Requirements</label><textarea placeholder="e.g. Original/New, EOL, specific package, certification requirements"></textarea></div>
+
+        <div class="form-success" id="formSuccess">
+          <h3>Thank you. Your RFQ has been received.</h3>
+          <p>Our sourcing team will review your requirements and contact you shortly.</p>
         </div>
-        <a class="rfq-btn" href="/request-a-quote/?pn=BLM18PG471SN1D&mfr=Murata%20Manufacturing&cat=Inductor&source=product&rfq_type=sku_quote" data-zh="获取报价">Request a Quote</a>
+
+        <form id="quote-form" action="https://formsubmit.co/sales@szprocure.com" method="POST" enctype="multipart/form-data" novalidate>
+          <input type="hidden" name="_subject" value="New SKU RFQ — SZ Procure" />
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <input type="hidden" name="category" id="rfq_category" value="Inductor" />
+          <input type="hidden" name="source_url" id="source_url" />
+          <input type="hidden" name="rfq_type" id="rfq_type" value="sku_quote" />
+          <input type="hidden" name="manufacturer" id="rfq_manufacturer" value="Murata Manufacturing" />
+          <input type="hidden" name="country_source" id="country_source" />
+          <input type="hidden" name="referrer" id="referrer" />
+          <input type="hidden" name="submitted_at" id="submitted_at" />
+          <input type="hidden" name="requirement_type" id="requirement_type" />
+
+          <div class="rfq-form">
+            <div class="rfq-field"><label for="part_number">Part Number</label><input id="part_number" name="part_number" type="text" value="BLM18PG471SN1D" readonly></div>
+            <div class="rfq-field"><label for="quantity">Quantity</label><input id="quantity" name="quantity" type="number" min="1" step="1" placeholder="e.g. 1,000"></div>
+            <div class="rfq-field"><label for="target_price">Target Price</label><input id="target_price" name="target_price" type="text" placeholder="USD / piece"></div>
+            <div class="rfq-field"><label for="email">Email <span class="req">*</span></label><input id="email" name="email" type="email" required placeholder="your@email.com"><div class="form-error" id="formError"></div></div>
+            <div class="rfq-field"><label for="requirements">Requirements</label><textarea id="requirements" name="requirements" placeholder="e.g. Original/New, EOL, specific package, certification requirements"></textarea></div>
+            <div class="rfq-field"><label for="attachment">Attachment <span style="font-weight:400;color:#6b7280">(optional)</span></label><span class="file-pick" style="display:inline-block;margin:.2rem 0"><label for="attachment" class="rfq-file-btn" style="display:inline-block;padding:.45rem .9rem;border:1px solid #c7cdd6;border-radius:8px;background:#f3f4f6;color:#1f2937;cursor:pointer;font-size:.9rem">Choose File</label><span id="attachment-name" style="margin-left:.5rem;color:#6b7280;font-size:.85rem">No file chosen</span></span><input id="attachment" name="attachment" type="file" accept=".pdf,.xls,.xlsx,.csv,.jpg,.jpeg,.png,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv,image/jpeg,image/png" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0"><p style="font-size:.8rem;color:#6b7280;margin:.3rem 0 0">PDF, Excel, CSV, JPG, PNG &mdash; max 10MB</p><div class="form-error" id="formFileError"></div></div>
+          </div>
+
+          <div class="form-error" id="formSubmitError"></div>
+          <button class="rfq-btn" type="submit">Request a Quote</button>
+        </form>
+
+      <script>
+      (function(){
+        var form = document.getElementById("quote-form");
+        if(!form) return;
+        var fileInput = form.querySelector('input[type="file"][name="attachment"]');
+        var fileErr = document.getElementById("formFileError");
+        if(!fileInput || !fileErr) return;
+        var MAX = 10 * 1024 * 1024;
+        var ALLOWED_EXT = ["pdf","xls","xlsx","csv","jpg","jpeg","png"];
+        var ALLOWED_MIME = ["application/pdf","application/vnd.ms-excel","application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","text/csv","image/jpeg","image/png"];
+        function fileValid(){
+          fileErr.style.display = "none";
+          fileErr.textContent = "";
+          if(!fileInput.files || !fileInput.files.length) return true;
+          var f = fileInput.files[0];
+          var ext = (f.name.split(".").pop() || "").toLowerCase();
+          var okType = (ALLOWED_EXT.indexOf(ext) !== -1) || (f.type && ALLOWED_MIME.indexOf(f.type) !== -1);
+          if(!okType){
+            fileErr.textContent = "Unsupported file type. Allowed: PDF, Excel, CSV, JPG, PNG (max 10MB).";
+            fileErr.style.display = "block";
+            return false;
+          }
+          if(f.size > MAX){
+            fileErr.textContent = "File is too large. Maximum size is 10MB.";
+            fileErr.style.display = "block";
+            return false;
+          }
+          return true;
+        }
+        fileInput.addEventListener("change", function(){
+          var nm = document.getElementById("attachment-name");
+          if (nm) nm.textContent = (fileInput.files && fileInput.files.length) ? fileInput.files[0].name : "No file chosen";
+          fileValid();
+        });
+        form.addEventListener("submit", function(e){
+          if(!fileValid()){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            if(fileInput) fileInput.focus();
+          }
+        }, true);
+      })();
+      </script>
       </aside>
 
       <!-- TABS: sticky nav + scroll-spy; all panels in DOM (SEO-friendly) -->
@@ -106,6 +174,8 @@
           <a href="#overview" class="tab-btn active">Overview</a>
           <a href="#specifications" class="tab-btn">Specifications</a>
           <a href="#documentation" class="tab-btn">Documentation</a>
+          <a href="#related" class="tab-btn">Related Parts</a>
+          <a href="#alternative" class="tab-btn">Alternative Parts</a>
         </nav>
 
         <section id="overview" class="tab-panel">
@@ -117,7 +187,7 @@
           <h2 class="section-title">Technical Specifications</h2>
           <table class="spec-table">
 <tbody>
-<tr><th>Number of Lines</th><td>1</td></tr><tr><th>Impedance @ Frequency</th><td>470Ω@100MHz</td></tr><tr><th>Tolerance</th><td>±25%</td></tr><tr><th>DC Resistance (DCR)</th><td>200mΩ</td></tr></tbody>
+<tr><th>Number of Lines</th><td>1</td></tr><tr><th>Impedance @ Frequency</th><td>470Ω@100MHz</td></tr><tr><th>Tolerance</th><td>±25%</td></tr><tr><th>DC Resistance (DCR)</th><td>200mΩ</td></tr><tr><th>Package</th><td>0603</td></tr><tr><th>DC Resistance(DCR)</th><td>200mΩ</td></tr><tr><th>Operating Temperature</th><td>-55℃~+125℃</td></tr><tr><th>Number of Lines</th><td>1</td></tr><tr><th>Tolerance</th><td>±25%</td></tr><tr><th>Current Rating</th><td>1A</td></tr><tr><th>Impedance @ Frequency</th><td>470Ω@100MHz</td></tr></tbody>
 </table>
         </section>
 
@@ -133,9 +203,17 @@
 
         
 
-        
+        <section id="related" class="tab-panel">
+  <h2 class="section-title">Related Passive Components</h2>
+  <p>Other passive components we help global buyers source:</p>
+  <div class="related-grid"><div class="related-card"><a href="/products/gcm155r71h104ke02d/">GCM155R71H104KE02D</a></div><div class="related-card"><a href="/products/grm188r61e475ke11d/">GRM188R61E475KE11D</a></div><div class="related-card"><a href="/products/blm31pg601sn1l/">BLM31PG601SN1L</a></div><div class="related-card"><a href="/products/blm21pg221sn1d/">BLM21PG221SN1D</a></div><div class="related-card"><a href="/products/grm1555c1h102ja01d/">GRM1555C1H102JA01D</a></div><div class="related-card"><a href="/products/grm21br6ya106ke43l/">GRM21BR6YA106KE43L</a></div></div>
+</section>
 
-        
+        <section id="alternative" class="tab-panel">
+  <h2 class="section-title">Alternative Parts</h2>
+  <p>Common <strong>BLM18PG471SN1D alternatives</strong> overseas buyers search for:</p>
+  <ul class="alt-list"><li><a href="/request-a-quote/?pn=BLM18PG471SH1D" class="alt-link">BLM18PG471SH1D <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=BLM18PG471SZ1D" class="alt-link">BLM18PG471SZ1D <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=MH1608-471Y" class="alt-link">MH1608-471Y <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=HCB1608KF-471T10" class="alt-link">HCB1608KF-471T10 <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=PBBHAQ1608H-471T10" class="alt-link">PBBHAQ1608H-471T10 <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=MPZ1608B471ATA00" class="alt-link">MPZ1608B471ATA00 <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=MPZ1608S471ATA00" class="alt-link">MPZ1608S471ATA00 <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=MPZ1608S471ATD25" class="alt-link">MPZ1608S471ATD25 <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=MPZ1608B471ATD25" class="alt-link">MPZ1608B471ATD25 <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=BLM18KG471BH1D" class="alt-link">BLM18KG471BH1D <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=FBMH1608HM471-T" class="alt-link">FBMH1608HM471-T <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ACML-0603H-471-T" class="alt-link">ACML-0603H-471-T <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=AFBC-Q0603-471-T" class="alt-link">AFBC-Q0603-471-T <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=MFBA2V1608-471-R" class="alt-link">MFBA2V1608-471-R <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=SIM03471Y1A0M32" class="alt-link">SIM03471Y1A0M32 <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=SIM03471Y1A032" class="alt-link">SIM03471Y1A032 <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=PE-0603PFB471ST" class="alt-link">PE-0603PFB471ST <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=WLBD1608HCU471TH" class="alt-link">WLBD1608HCU471TH <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=WLBD1608HCU471TL" class="alt-link">WLBD1608HCU471TL <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=Z0603C471BPWZT" class="alt-link">Z0603C471BPWZT <span class="muted">(request quote)</span></a></li></ul>
+</section>
 
         
       </div>
@@ -160,7 +238,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' } ];
+    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'related' }, { id: 'alternative' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

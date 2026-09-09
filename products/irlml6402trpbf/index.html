@@ -14,6 +14,7 @@
   <meta property="og:description" content="Source IRLML6402TRPBF (Infineon Technologies mosfet) from Shenzhen, China. Shenzhen supplier network, hard-to-find support and BOM procurement for global buyers." />
   <meta property="og:url" content="https://www.szprocure.com/products/irlml6402trpbf/" />
   <meta property="og:image" content="https://www.szprocure.com/assets/img/hero.svg" />
+
   <link rel="stylesheet" href="/assets/styles.css" />
   <link rel="stylesheet" href="/assets/sku-v3.css" />
   <style>
@@ -47,7 +48,7 @@
     "category": "Semiconductor Components",
     "brand": { "@type": "Brand", "name": "Infineon Technologies", "@id": "https://www.szprocure.com/#szprocure-org" },
     "description": "IRLML6402TRPBF is a mosfet from Infineon Technologies. SZ Procure helps global buyers source this part through verified suppliers, with flexible quantity, hard-to-find support and competitive quotes.",
-    "url": "https://www.szprocure.com/products/irlml6402trpbf/"
+    "url": "https://www.szprocure.com/products/irlml6402trpbf/", "alternatePart": ["IRLML6402", "WST3401", "KIRLML6402TRPBF", "RU3401C", "CCX2301BA", "AO3401A", "SP2305LT2C", "VB2240", "IRLML6402GTRPBF", "AP2P053N"]
   }
   </script>
 
@@ -81,7 +82,7 @@
         <h1 class="mpn">IRLML6402TRPBF<span class="rohs-badge" aria-hidden="true">RoHS</span></h1>
         <p class="type">MOSFET</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/infineon-technologies/">Infineon Technologies</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/semiconductor-components/">MOSFET</a></div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/infineon-technologies/">Infineon Technologies</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/semiconductor-components/">MOSFET</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">SOT-23</div></div>
         </div>
         <p class="hero-desc">MOSFET P-CH 20V 3.7A SOT-23</p>
       </div>
@@ -90,14 +91,81 @@
       <aside class="rfq-card" id="rfq-card">
         <h3>Request a Quote</h3>
         <p>Tell us your quantity, target price, and delivery requirements. We source from Shenzhen and reply within 1 business day.</p>
-        <div class="rfq-form">
-          <div class="rfq-field"><label>Part Number</label><input type="text" value="IRLML6402TRPBF" readonly></div>
-          <div class="rfq-field"><label>Quantity</label><input type="text" placeholder="e.g. 1,000"></div>
-          <div class="rfq-field"><label>Target Price</label><input type="text" placeholder="USD / piece"></div>
-          <div class="rfq-field"><label>Email</label><input type="email" placeholder="your@email.com"></div>
-          <div class="rfq-field"><label>Requirements</label><textarea placeholder="e.g. Original/New, EOL, specific package, certification requirements"></textarea></div>
+
+        <div class="form-success" id="formSuccess">
+          <h3>Thank you. Your RFQ has been received.</h3>
+          <p>Our sourcing team will review your requirements and contact you shortly.</p>
         </div>
-        <a class="rfq-btn" href="/request-a-quote/?pn=IRLML6402TRPBF&mfr=Infineon%20Technologies&cat=MOSFET&source=product&rfq_type=sku_quote" data-zh="获取报价">Request a Quote</a>
+
+        <form id="quote-form" action="https://formsubmit.co/sales@szprocure.com" method="POST" enctype="multipart/form-data" novalidate>
+          <input type="hidden" name="_subject" value="New SKU RFQ — SZ Procure" />
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <input type="hidden" name="category" id="rfq_category" value="MOSFET" />
+          <input type="hidden" name="source_url" id="source_url" />
+          <input type="hidden" name="rfq_type" id="rfq_type" value="sku_quote" />
+          <input type="hidden" name="manufacturer" id="rfq_manufacturer" value="Infineon Technologies" />
+          <input type="hidden" name="country_source" id="country_source" />
+          <input type="hidden" name="referrer" id="referrer" />
+          <input type="hidden" name="submitted_at" id="submitted_at" />
+          <input type="hidden" name="requirement_type" id="requirement_type" />
+
+          <div class="rfq-form">
+            <div class="rfq-field"><label for="part_number">Part Number</label><input id="part_number" name="part_number" type="text" value="IRLML6402TRPBF" readonly></div>
+            <div class="rfq-field"><label for="quantity">Quantity</label><input id="quantity" name="quantity" type="number" min="1" step="1" placeholder="e.g. 1,000"></div>
+            <div class="rfq-field"><label for="target_price">Target Price</label><input id="target_price" name="target_price" type="text" placeholder="USD / piece"></div>
+            <div class="rfq-field"><label for="email">Email <span class="req">*</span></label><input id="email" name="email" type="email" required placeholder="your@email.com"><div class="form-error" id="formError"></div></div>
+            <div class="rfq-field"><label for="requirements">Requirements</label><textarea id="requirements" name="requirements" placeholder="e.g. Original/New, EOL, specific package, certification requirements"></textarea></div>
+            <div class="rfq-field"><label for="attachment">Attachment <span style="font-weight:400;color:#6b7280">(optional)</span></label><span class="file-pick" style="display:inline-block;margin:.2rem 0"><label for="attachment" class="rfq-file-btn" style="display:inline-block;padding:.45rem .9rem;border:1px solid #c7cdd6;border-radius:8px;background:#f3f4f6;color:#1f2937;cursor:pointer;font-size:.9rem">Choose File</label><span id="attachment-name" style="margin-left:.5rem;color:#6b7280;font-size:.85rem">No file chosen</span></span><input id="attachment" name="attachment" type="file" accept=".pdf,.xls,.xlsx,.csv,.jpg,.jpeg,.png,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv,image/jpeg,image/png" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0"><p style="font-size:.8rem;color:#6b7280;margin:.3rem 0 0">PDF, Excel, CSV, JPG, PNG &mdash; max 10MB</p><div class="form-error" id="formFileError"></div></div>
+          </div>
+
+          <div class="form-error" id="formSubmitError"></div>
+          <button class="rfq-btn" type="submit">Request a Quote</button>
+        </form>
+
+      <script>
+      (function(){
+        var form = document.getElementById("quote-form");
+        if(!form) return;
+        var fileInput = form.querySelector('input[type="file"][name="attachment"]');
+        var fileErr = document.getElementById("formFileError");
+        if(!fileInput || !fileErr) return;
+        var MAX = 10 * 1024 * 1024;
+        var ALLOWED_EXT = ["pdf","xls","xlsx","csv","jpg","jpeg","png"];
+        var ALLOWED_MIME = ["application/pdf","application/vnd.ms-excel","application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","text/csv","image/jpeg","image/png"];
+        function fileValid(){
+          fileErr.style.display = "none";
+          fileErr.textContent = "";
+          if(!fileInput.files || !fileInput.files.length) return true;
+          var f = fileInput.files[0];
+          var ext = (f.name.split(".").pop() || "").toLowerCase();
+          var okType = (ALLOWED_EXT.indexOf(ext) !== -1) || (f.type && ALLOWED_MIME.indexOf(f.type) !== -1);
+          if(!okType){
+            fileErr.textContent = "Unsupported file type. Allowed: PDF, Excel, CSV, JPG, PNG (max 10MB).";
+            fileErr.style.display = "block";
+            return false;
+          }
+          if(f.size > MAX){
+            fileErr.textContent = "File is too large. Maximum size is 10MB.";
+            fileErr.style.display = "block";
+            return false;
+          }
+          return true;
+        }
+        fileInput.addEventListener("change", function(){
+          var nm = document.getElementById("attachment-name");
+          if (nm) nm.textContent = (fileInput.files && fileInput.files.length) ? fileInput.files[0].name : "No file chosen";
+          fileValid();
+        });
+        form.addEventListener("submit", function(e){
+          if(!fileValid()){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            if(fileInput) fileInput.focus();
+          }
+        }, true);
+      })();
+      </script>
       </aside>
 
       <!-- TABS: sticky nav + scroll-spy; all panels in DOM (SEO-friendly) -->
@@ -106,6 +174,9 @@
           <a href="#overview" class="tab-btn active">Overview</a>
           <a href="#specifications" class="tab-btn">Specifications</a>
           <a href="#documentation" class="tab-btn">Documentation</a>
+          <a href="#applications" class="tab-btn">Applications</a>
+          <a href="#related" class="tab-btn">Related Parts</a>
+          <a href="#alternative" class="tab-btn">Alternative Parts</a>
         </nav>
 
         <section id="overview" class="tab-panel">
@@ -117,7 +188,7 @@
           <h2 class="section-title">Technical Specifications</h2>
           <table class="spec-table">
 <tbody>
-<tr><th>Type</th><td>P-Channel</td></tr><tr><th>Drain-Source Voltage (Vdss)</th><td>20V</td></tr><tr><th>Continuous Drain Current (Id)</th><td>3.7A</td></tr></tbody>
+<tr><th>Type</th><td>P-Channel</td></tr><tr><th>Drain-Source Voltage (Vdss)</th><td>20V</td></tr><tr><th>Continuous Drain Current (Id)</th><td>3.7A</td></tr><tr><th>Package</th><td>SOT-23</td></tr><tr><th>Output Capacitance(Coss)</th><td>145pF</td></tr><tr><th>Pd - Power Dissipation</th><td>1.3W</td></tr><tr><th>Configuration</th><td>-</td></tr><tr><th>Operating Temperature</th><td>-55℃~+150℃</td></tr><tr><th>Drain to Source Voltage</th><td>20V</td></tr><tr><th>Current - Continuous Drain(Id)</th><td>3.7A</td></tr><tr><th>Gate Threshold Voltage (Vgs(th))</th><td>1.2V</td></tr><tr><th>Reverse Transfer Capacitance (Crss@Vds)</th><td>110pF</td></tr><tr><th>Rds(On)</th><td>65mΩ@4.5V</td></tr><tr><th>Number</th><td>1 P-Channel</td></tr><tr><th>Input Capacitance(Ciss)</th><td>633pF</td></tr><tr><th>Gate Charge(Qg)</th><td>12nC</td></tr><tr><th>Vgs</th><td>±12V</td></tr><tr><th>Type</th><td>P-Channel</td></tr></tbody>
 </table>
         </section>
 
@@ -131,11 +202,22 @@
   </details>
 </section>
 
-        
+        <section id="applications" class="tab-panel">
+  <h2 class="section-title">Common Applications</h2>
+  <ul class="app-list"><li>battery and load management</li><li>portable electronics</li><li>PCMClA cards</li></ul>
+</section>
 
-        
+        <section id="related" class="tab-panel">
+  <h2 class="section-title">Related Semiconductor Components</h2>
+  <p>Other semiconductor components we help global buyers source:</p>
+  <div class="related-grid"><div class="related-card"><a href="/products/pesd5z33115/">PESD5Z3.3,115</a></div><div class="related-card"><a href="/products/mbr0540t1g/">MBR0540T1G</a></div><div class="related-card"><a href="/products/irfb4110pbf/">IRFB4110PBF</a></div><div class="related-card"><a href="/products/pesd1can215/">PESD1CAN,215</a></div><div class="related-card"><a href="/products/bas516115/">BAS516,115</a></div><div class="related-card"><a href="/products/sm4007pl/">SM4007PL</a></div></div>
+</section>
 
-        
+        <section id="alternative" class="tab-panel">
+  <h2 class="section-title">Alternative Parts</h2>
+  <p>Common <strong>IRLML6402TRPBF alternatives</strong> overseas buyers search for:</p>
+  <ul class="alt-list"><li><a href="/request-a-quote/?pn=IRLML6402" class="alt-link">IRLML6402 <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=WST3401" class="alt-link">WST3401 <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=KIRLML6402TRPBF" class="alt-link">KIRLML6402TRPBF <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=RU3401C" class="alt-link">RU3401C <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=CCX2301BA" class="alt-link">CCX2301BA <span class="muted">(request quote)</span></a></li><li><a href="/products/ao3401a/" class="alt-link">AO3401A</a></li><li><a href="/request-a-quote/?pn=SP2305LT2C" class="alt-link">SP2305LT2C <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=VB2240" class="alt-link">VB2240 <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=IRLML6402GTRPBF" class="alt-link">IRLML6402GTRPBF <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=AP2P053N" class="alt-link">AP2P053N <span class="muted">(request quote)</span></a></li></ul>
+</section>
 
         
       </div>
@@ -160,7 +242,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' } ];
+    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'applications' }, { id: 'related' }, { id: 'alternative' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

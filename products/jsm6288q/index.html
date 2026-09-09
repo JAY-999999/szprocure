@@ -82,7 +82,7 @@
         <h1 class="mpn">JSM6288Q<span class="rohs-badge" aria-hidden="true">RoHS</span></h1>
         <p class="type">Logic IC</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/jsmsemi/">JSMSEMI</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/integrated-circuits/">Logic IC</a></div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/jsmsemi/">JSMSEMI</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/integrated-circuits/">Logic IC</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">QFN-24</div></div>
         </div>
         <p class="hero-desc">Three-phase high and low side power MOSFET/IGBT driver chip</p>
       </div>
@@ -174,6 +174,7 @@
           <a href="#overview" class="tab-btn active">Overview</a>
           <a href="#specifications" class="tab-btn">Specifications</a>
           <a href="#documentation" class="tab-btn">Documentation</a>
+          <a href="#applications" class="tab-btn">Applications</a>
           <a href="#related" class="tab-btn">Related Parts</a>
         </nav>
 
@@ -186,7 +187,7 @@
           <h2 class="section-title">Technical Specifications</h2>
           <table class="spec-table">
 <tbody>
-<tr><th>Source Current (IOH)</th><td>1.5A</td></tr><tr><th>Operating Voltage</th><td>8V~20V</td></tr><tr><th>Sink Current (IOL)</th><td>1.8A</td></tr></tbody>
+<tr><th>Source Current (IOH)</th><td>1.5A</td></tr><tr><th>Operating Voltage</th><td>8V~20V</td></tr><tr><th>Sink Current (IOL)</th><td>1.8A</td></tr><tr><th>Package</th><td>QFN-24</td></tr><tr><th>Input Logic Level - Low</th><td>-</td></tr><tr><th>Low Level Delay Time</th><td>-</td></tr><tr><th>High Level Delay Time</th><td>-</td></tr><tr><th>Quiescent Current</th><td>230uA</td></tr><tr><th>Input Logic Level - High</th><td>-</td></tr><tr><th>Voltage - Supply</th><td>8V~20V</td></tr><tr><th>Operating Temperature</th><td>-40℃~+125℃</td></tr><tr><th>Driven Configuration</th><td>High Side;Low Side;Three Phase</td></tr><tr><th>Current - Output Low(IOL)</th><td>1.8A</td></tr><tr><th>Rise Time</th><td>30ns</td></tr><tr><th>Fall Time</th><td>30ns</td></tr><tr><th>Features</th><td>Dead-time control;Interleaved conduction protection</td></tr><tr><th>Current - Output High(IOH)</th><td>1.5A</td></tr><tr><th>Load Type</th><td>MOSFET</td></tr></tbody>
 </table>
         </section>
 
@@ -200,7 +201,10 @@
   </details>
 </section>
 
-        
+        <section id="applications" class="tab-panel">
+  <h2 class="section-title">Common Applications</h2>
+  <ul class="app-list"><li>Motor Control</li><li>Air Conditioners</li><li>Washing Machines</li><li>General-Purpose Inverters</li><li>Micro-Inverter Drives</li></ul>
+</section>
 
         <section id="related" class="tab-panel">
   <h2 class="section-title">Related Integrated Circuits</h2>
@@ -233,7 +237,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'related' } ];
+    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'applications' }, { id: 'related' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

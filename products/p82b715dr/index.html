@@ -82,7 +82,7 @@
         <h1 class="mpn">P82B715DR<span class="rohs-badge" aria-hidden="true">RoHS</span></h1>
         <p class="type">Interface IC</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/texas-instruments/">Texas Instruments</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/integrated-circuits/">Interface IC</a></div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/texas-instruments/">Texas Instruments</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/integrated-circuits/">Interface IC</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">SOIC-8</div></div>
         </div>
         <p class="hero-desc">I²C Bus Extender</p>
       </div>
@@ -174,6 +174,7 @@
           <a href="#overview" class="tab-btn active">Overview</a>
           <a href="#specifications" class="tab-btn">Specifications</a>
           <a href="#documentation" class="tab-btn">Documentation</a>
+          <a href="#applications" class="tab-btn">Applications</a>
           <a href="#related" class="tab-btn">Related Parts</a>
         </nav>
 
@@ -186,7 +187,7 @@
           <h2 class="section-title">Technical Specifications</h2>
           <table class="spec-table">
 <tbody>
-<tr><th>Type</th><td>Buffer</td></tr><tr><th>Input Type</th><td>2-Wire Bus</td></tr><tr><th>Number of Channels</th><td>2</td></tr></tbody>
+<tr><th>Type</th><td>Buffer</td></tr><tr><th>Input Type</th><td>2-Wire Bus</td></tr><tr><th>Number of Channels</th><td>2</td></tr><tr><th>Package</th><td>SOIC-8</td></tr><tr><th>Type</th><td>Buffer</td></tr><tr><th>Input type</th><td>2-Wire Bus</td></tr><tr><th>Voltage - Supply</th><td>4.5V~12V</td></tr><tr><th>Input Capacitance</th><td>400pF</td></tr><tr><th>Number of Channels</th><td>2</td></tr><tr><th>Output Type</th><td>LDA;LCL</td></tr><tr><th>Delay Time</th><td>250ns</td></tr><tr><th>Features</th><td>Bus capacitance isolation;Edge rate control</td></tr><tr><th>Operating Temperature</th><td>-40℃~+85℃</td></tr><tr><th>Supply Current</th><td>22mA</td></tr></tbody>
 </table>
         </section>
 
@@ -200,7 +201,10 @@
   </details>
 </section>
 
-        
+        <section id="applications" class="tab-panel">
+  <h2 class="section-title">Common Applications</h2>
+  <ul class="app-list"><li>HDMI DDC Long I²C Communications</li><li>Industrial Communications</li></ul>
+</section>
 
         <section id="related" class="tab-panel">
   <h2 class="section-title">Related Integrated Circuits</h2>
@@ -233,7 +237,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'related' } ];
+    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'applications' }, { id: 'related' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

@@ -14,6 +14,7 @@
   <meta property="og:description" content="Source TPD1E10B06DPYR (Texas Instruments diode) from Shenzhen, China. Shenzhen supplier network, hard-to-find support and BOM procurement for global buyers." />
   <meta property="og:url" content="https://www.szprocure.com/products/tpd1e10b06dpyr/" />
   <meta property="og:image" content="https://www.szprocure.com/assets/img/hero.svg" />
+
   <link rel="stylesheet" href="/assets/styles.css" />
   <link rel="stylesheet" href="/assets/sku-v3.css" />
   <style>
@@ -47,7 +48,7 @@
     "category": "Semiconductor Components",
     "brand": { "@type": "Brand", "name": "Texas Instruments", "@id": "https://www.szprocure.com/#szprocure-org" },
     "description": "TPD1E10B06DPYR is a diode from Texas Instruments. SZ Procure helps global buyers source this part through verified suppliers, with flexible quantity, hard-to-find support and competitive quotes.",
-    "url": "https://www.szprocure.com/products/tpd1e10b06dpyr/"
+    "url": "https://www.szprocure.com/products/tpd1e10b06dpyr/", "alternatePart": ["TPD1E10B06DPYR(UMW)", "TPD1E10B06QDPYRQ1", "ESD54231N-2/TR", "ESDA05CP-ES", "ESD5471X-ES", "ESDBL5V0Y1-ES", "PESD5V0S1BLN-ES", "ESD8D5.0CB1T5G", "ESD5451X-ES", "RLSD92Q051C", "FS05BDF", "ESD5451N-2-ES", "PESDNC2FD5VB-ES", "TPD1E10B06DPYT", "ESD54151N-2/TR", "DTESDBLC5V0LED02-ES", "D5V0L1B2LPSQ-ES", "PESD5V0V1BL-ES", "PESDNC2FD5VBS-ES", "WE05DF-BES-ES"]
   }
   </script>
 
@@ -81,23 +82,90 @@
         <h1 class="mpn">TPD1E10B06DPYR<span class="rohs-badge" aria-hidden="true">RoHS</span></h1>
         <p class="type">Diode</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/texas-instruments/">Texas Instruments</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/semiconductor-components/">Diode</a></div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/texas-instruments/">Texas Instruments</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/semiconductor-components/">Diode</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">X1-SON-2(0.6x1)</div></div>
         </div>
-        <p class="hero-desc">TPD1E10B06DPYR is a diode from Texas Instruments. SZ Procure helps global buyers source this part through verified suppliers, with flexible quantity, hard-to-find support and competitive quotes.</p>
+        <p class="hero-desc">14VC Clamp 6A@8/20us Ipp ESD DIODE X1-SON-2(0.6x1)</p>
       </div>
 
       
       <aside class="rfq-card" id="rfq-card">
         <h3>Request a Quote</h3>
         <p>Tell us your quantity, target price, and delivery requirements. We source from Shenzhen and reply within 1 business day.</p>
-        <div class="rfq-form">
-          <div class="rfq-field"><label>Part Number</label><input type="text" value="TPD1E10B06DPYR" readonly></div>
-          <div class="rfq-field"><label>Quantity</label><input type="text" placeholder="e.g. 1,000"></div>
-          <div class="rfq-field"><label>Target Price</label><input type="text" placeholder="USD / piece"></div>
-          <div class="rfq-field"><label>Email</label><input type="email" placeholder="your@email.com"></div>
-          <div class="rfq-field"><label>Requirements</label><textarea placeholder="e.g. Original/New, EOL, specific package, certification requirements"></textarea></div>
+
+        <div class="form-success" id="formSuccess">
+          <h3>Thank you. Your RFQ has been received.</h3>
+          <p>Our sourcing team will review your requirements and contact you shortly.</p>
         </div>
-        <a class="rfq-btn" href="/request-a-quote/?pn=TPD1E10B06DPYR&mfr=Texas%20Instruments&cat=Diode&source=product&rfq_type=sku_quote" data-zh="获取报价">Request a Quote</a>
+
+        <form id="quote-form" action="https://formsubmit.co/sales@szprocure.com" method="POST" enctype="multipart/form-data" novalidate>
+          <input type="hidden" name="_subject" value="New SKU RFQ — SZ Procure" />
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <input type="hidden" name="category" id="rfq_category" value="Diode" />
+          <input type="hidden" name="source_url" id="source_url" />
+          <input type="hidden" name="rfq_type" id="rfq_type" value="sku_quote" />
+          <input type="hidden" name="manufacturer" id="rfq_manufacturer" value="Texas Instruments" />
+          <input type="hidden" name="country_source" id="country_source" />
+          <input type="hidden" name="referrer" id="referrer" />
+          <input type="hidden" name="submitted_at" id="submitted_at" />
+          <input type="hidden" name="requirement_type" id="requirement_type" />
+
+          <div class="rfq-form">
+            <div class="rfq-field"><label for="part_number">Part Number</label><input id="part_number" name="part_number" type="text" value="TPD1E10B06DPYR" readonly></div>
+            <div class="rfq-field"><label for="quantity">Quantity</label><input id="quantity" name="quantity" type="number" min="1" step="1" placeholder="e.g. 1,000"></div>
+            <div class="rfq-field"><label for="target_price">Target Price</label><input id="target_price" name="target_price" type="text" placeholder="USD / piece"></div>
+            <div class="rfq-field"><label for="email">Email <span class="req">*</span></label><input id="email" name="email" type="email" required placeholder="your@email.com"><div class="form-error" id="formError"></div></div>
+            <div class="rfq-field"><label for="requirements">Requirements</label><textarea id="requirements" name="requirements" placeholder="e.g. Original/New, EOL, specific package, certification requirements"></textarea></div>
+            <div class="rfq-field"><label for="attachment">Attachment <span style="font-weight:400;color:#6b7280">(optional)</span></label><span class="file-pick" style="display:inline-block;margin:.2rem 0"><label for="attachment" class="rfq-file-btn" style="display:inline-block;padding:.45rem .9rem;border:1px solid #c7cdd6;border-radius:8px;background:#f3f4f6;color:#1f2937;cursor:pointer;font-size:.9rem">Choose File</label><span id="attachment-name" style="margin-left:.5rem;color:#6b7280;font-size:.85rem">No file chosen</span></span><input id="attachment" name="attachment" type="file" accept=".pdf,.xls,.xlsx,.csv,.jpg,.jpeg,.png,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv,image/jpeg,image/png" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0"><p style="font-size:.8rem;color:#6b7280;margin:.3rem 0 0">PDF, Excel, CSV, JPG, PNG &mdash; max 10MB</p><div class="form-error" id="formFileError"></div></div>
+          </div>
+
+          <div class="form-error" id="formSubmitError"></div>
+          <button class="rfq-btn" type="submit">Request a Quote</button>
+        </form>
+
+      <script>
+      (function(){
+        var form = document.getElementById("quote-form");
+        if(!form) return;
+        var fileInput = form.querySelector('input[type="file"][name="attachment"]');
+        var fileErr = document.getElementById("formFileError");
+        if(!fileInput || !fileErr) return;
+        var MAX = 10 * 1024 * 1024;
+        var ALLOWED_EXT = ["pdf","xls","xlsx","csv","jpg","jpeg","png"];
+        var ALLOWED_MIME = ["application/pdf","application/vnd.ms-excel","application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","text/csv","image/jpeg","image/png"];
+        function fileValid(){
+          fileErr.style.display = "none";
+          fileErr.textContent = "";
+          if(!fileInput.files || !fileInput.files.length) return true;
+          var f = fileInput.files[0];
+          var ext = (f.name.split(".").pop() || "").toLowerCase();
+          var okType = (ALLOWED_EXT.indexOf(ext) !== -1) || (f.type && ALLOWED_MIME.indexOf(f.type) !== -1);
+          if(!okType){
+            fileErr.textContent = "Unsupported file type. Allowed: PDF, Excel, CSV, JPG, PNG (max 10MB).";
+            fileErr.style.display = "block";
+            return false;
+          }
+          if(f.size > MAX){
+            fileErr.textContent = "File is too large. Maximum size is 10MB.";
+            fileErr.style.display = "block";
+            return false;
+          }
+          return true;
+        }
+        fileInput.addEventListener("change", function(){
+          var nm = document.getElementById("attachment-name");
+          if (nm) nm.textContent = (fileInput.files && fileInput.files.length) ? fileInput.files[0].name : "No file chosen";
+          fileValid();
+        });
+        form.addEventListener("submit", function(e){
+          if(!fileValid()){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            if(fileInput) fileInput.focus();
+          }
+        }, true);
+      })();
+      </script>
       </aside>
 
       <!-- TABS: sticky nav + scroll-spy; all panels in DOM (SEO-friendly) -->
@@ -107,18 +175,19 @@
           <a href="#specifications" class="tab-btn">Specifications</a>
           <a href="#documentation" class="tab-btn">Documentation</a>
           <a href="#related" class="tab-btn">Related Parts</a>
+          <a href="#alternative" class="tab-btn">Alternative Parts</a>
         </nav>
 
         <section id="overview" class="tab-panel">
           <h2 class="section-title">Product Overview</h2>
-          <p>TPD1E10B06DPYR is a diode from Texas Instruments. SZ Procure helps global buyers source this part through verified suppliers, with flexible quantity, hard-to-find support and competitive quotes.</p>
+          <p>14VC Clamp 6A@8/20us Ipp ESD DIODE X1-SON-2(0.6x1)</p>
         </section>
 
         <section id="specifications" class="tab-panel">
           <h2 class="section-title">Technical Specifications</h2>
           <table class="spec-table">
 <tbody>
-<tr><th>Polarity</th><td>Bidirectional</td></tr><tr><th>Clamping Voltage</th><td>14V</td></tr><tr><th>Peak Pulse Power (Ppp)</th><td>90W@8/20us</td></tr><tr><th>Reverse Standoff Voltage (Vrwm)</th><td>5.5V</td></tr></tbody>
+<tr><th>Polarity</th><td>Bidirectional</td></tr><tr><th>Clamping Voltage</th><td>14V</td></tr><tr><th>Peak Pulse Power (Ppp)</th><td>90W@8/20us</td></tr><tr><th>Reverse Standoff Voltage (Vrwm)</th><td>5.5V</td></tr><tr><th>Package</th><td>X1-SON-2(0.6x1)</td></tr><tr><th>Clamping Voltage</th><td>14V</td></tr><tr><th>Operating Temperature</th><td>-40℃~+125℃</td></tr><tr><th>Peak Pulse Current (Ipp)</th><td>6A@8/20us</td></tr><tr><th>Peak Pulse Power Dissipation (Ppp)</th><td>90W@8/20us</td></tr><tr><th>Number of Channels</th><td>1</td></tr><tr><th>Voltage - Breakdown</th><td>6V</td></tr><tr><th>Type</th><td>ESD</td></tr><tr><th>Reverse Leakage Current (Ir)</th><td>100nA</td></tr><tr><th>Polarity</th><td>Bidirectional</td></tr><tr><th>Reverse Stand-Off Voltage (Vrwm)</th><td>5.5V</td></tr></tbody>
 </table>
         </section>
 
@@ -140,7 +209,11 @@
   <div class="related-grid"><div class="related-card"><a href="/products/uln2003d1013tr/">ULN2003D1013TR</a></div><div class="related-card"><a href="/products/usblc62sc6/">USBLC6-2SC6</a></div><div class="related-card"><a href="/products/tpd4e05u06dqar/">TPD4E05U06DQAR</a></div><div class="related-card"><a href="/products/usblc64sc6/">USBLC6-4SC6</a></div><div class="related-card"><a href="/products/tpd4eusb30dqar/">TPD4EUSB30DQAR</a></div><div class="related-card"><a href="/products/uln2803cdwr/">ULN2803CDWR</a></div></div>
 </section>
 
-        
+        <section id="alternative" class="tab-panel">
+  <h2 class="section-title">Alternative Parts</h2>
+  <p>Common <strong>TPD1E10B06DPYR alternatives</strong> overseas buyers search for:</p>
+  <ul class="alt-list"><li><a href="/request-a-quote/?pn=TPD1E10B06DPYR(UMW)" class="alt-link">TPD1E10B06DPYR(UMW) <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=TPD1E10B06QDPYRQ1" class="alt-link">TPD1E10B06QDPYRQ1 <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ESD54231N-2/TR" class="alt-link">ESD54231N-2/TR <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ESDA05CP-ES" class="alt-link">ESDA05CP-ES <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ESD5471X-ES" class="alt-link">ESD5471X-ES <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ESDBL5V0Y1-ES" class="alt-link">ESDBL5V0Y1-ES <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=PESD5V0S1BLN-ES" class="alt-link">PESD5V0S1BLN-ES <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ESD8D5.0CB1T5G" class="alt-link">ESD8D5.0CB1T5G <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ESD5451X-ES" class="alt-link">ESD5451X-ES <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=RLSD92Q051C" class="alt-link">RLSD92Q051C <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=FS05BDF" class="alt-link">FS05BDF <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ESD5451N-2-ES" class="alt-link">ESD5451N-2-ES <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=PESDNC2FD5VB-ES" class="alt-link">PESDNC2FD5VB-ES <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=TPD1E10B06DPYT" class="alt-link">TPD1E10B06DPYT <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ESD54151N-2/TR" class="alt-link">ESD54151N-2/TR <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=DTESDBLC5V0LED02-ES" class="alt-link">DTESDBLC5V0LED02-ES <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=D5V0L1B2LPSQ-ES" class="alt-link">D5V0L1B2LPSQ-ES <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=PESD5V0V1BL-ES" class="alt-link">PESD5V0V1BL-ES <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=PESDNC2FD5VBS-ES" class="alt-link">PESDNC2FD5VBS-ES <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=WE05DF-BES-ES" class="alt-link">WE05DF-BES-ES <span class="muted">(request quote)</span></a></li></ul>
+</section>
 
         
       </div>
@@ -165,7 +238,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'related' } ];
+    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'related' }, { id: 'alternative' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

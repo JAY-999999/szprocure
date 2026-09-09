@@ -52,6 +52,19 @@
   }
   </script>
 
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+    { "@type": "Question", "name": "Is the BME280 Register and Performance Compatible With the BMP280", "acceptedAnswer": { "@type": "Answer", "text": "Yes, the BME280 is fully register and performance compatible with the Bosch Sensortec BMP280 digital pressure sensor. However, please note that the BME280 additionally includes a digital humidity sensor, providing comprehensive environmental data that the BMP280 does not offer.;" } },
+    { "@type": "Question", "name": "What Are the Direct Alternatives or Replacements for This Sensor", "acceptedAnswer": { "@type": "Answer", "text": "If you require similar barometric pressure and temperature measurements, the Bosch BMP280 is a direct alternative, though it lacks the humidity sensing capability. For other combined environmental tracking, you may browse the Humidity, Moisture Sensors category on our platform to find cross-brand alternatives with matching pinouts or I2C/SPI interfaces.;" } },
+    { "@type": "Question", "name": "In What Application Scenarios Can This Sensor Be Utilized", "acceptedAnswer": { "@type": "Answer", "text": "Thanks to its compact size and low power consumption, the BME280 is ideal for home automation control (HVAC), fitness monitoring, Internet of Things (IoT) devices, context awareness (e.g., room change or skin detection), weather forecasting, GPS refinement (slope detection), and indoor navigation (floor/elevator detection).;" } },
+    { "@type": "Question", "name": "What Are the Key Technical Specifications Regarding Power and Precision", "acceptedAnswer": { "@type": "Answer", "text": "The BME280 operates on a supply voltage range of 1.71V to 3.6V and features a 16-bit resolution. It delivers a humidity tolerance of ±3%RH, a temperature tolerance of ±0.5°C, and exhibits an ultra-low current consumption of just 3.6 µA at 1Hz when operating all three sensors (humidity, pressure, and temperature), dropping to 0.1 µA in sleep mode.;" } },
+    { "@type": "Question", "name": "How Do You Connect and Communicate With the Sensor During Implementation", "acceptedAnswer": { "@type": "Answer", "text": "The sensor integrates both I2C (up to 3.4 MHz) and SPI (3-wire and 4-wire, up to 10 MHz) digital interfaces, allowing easy interfacing with microcontrollers. It features three power modes (sleep, normal, and forced) and supports customizable oversampling and filter settings to tailors data rates and noise levels to your project&#x27;s specific needs." } }
+    ]
+  }
+  </script>
 
   <script type="application/ld+json">
   {
@@ -82,7 +95,7 @@
         <h1 class="mpn">BME280<span class="rohs-badge" aria-hidden="true">RoHS</span></h1>
         <p class="type">Sensors</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/bosch/">Bosch</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/sensors/">Sensors</a></div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/bosch/">Bosch</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/sensors/">Sensors</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">LGA-8(2.5x2.5)</div></div>
         </div>
         <p class="hero-desc">Combined humidity and pressure sensor</p>
       </div>
@@ -174,7 +187,9 @@
           <a href="#overview" class="tab-btn active">Overview</a>
           <a href="#specifications" class="tab-btn">Specifications</a>
           <a href="#documentation" class="tab-btn">Documentation</a>
+          <a href="#applications" class="tab-btn">Applications</a>
           <a href="#related" class="tab-btn">Related Parts</a>
+          <a href="#faq" class="tab-btn">FAQ</a>
         </nav>
 
         <section id="overview" class="tab-panel">
@@ -186,7 +201,7 @@
           <h2 class="section-title">Technical Specifications</h2>
           <table class="spec-table">
 <tbody>
-<tr><th>Temperature Range</th><td>-40℃~+85℃</td></tr><tr><th>Humidity Range</th><td>0%RH~100%RH</td></tr><tr><th>Humidity Accuracy</th><td>±3%RH</td></tr></tbody>
+<tr><th>Temperature Range</th><td>-40℃~+85℃</td></tr><tr><th>Humidity Range</th><td>0%RH~100%RH</td></tr><tr><th>Humidity Accuracy</th><td>±3%RH</td></tr><tr><th>Package</th><td>LGA-8(2.5x2.5)</td></tr><tr><th>Humidity Tolerance</th><td>±3%RH</td></tr><tr><th>Voltage - Supply</th><td>1.71V~3.6V</td></tr><tr><th>Resolution</th><td>16bit</td></tr><tr><th>Temperature Range</th><td>-40℃~+85℃</td></tr><tr><th>Humidity</th><td>0%RH~100%RH</td></tr><tr><th>Temperature Tolerance</th><td>±0.5℃</td></tr><tr><th>Current - Supply</th><td>1.8uA</td></tr><tr><th>Interface</th><td>I2C;SPI</td></tr><tr><th>Features</th><td>Temperature compensation;Factory calibration;Self-diagnosis and confidence flag</td></tr></tbody>
 </table>
         </section>
 
@@ -200,7 +215,10 @@
   </details>
 </section>
 
-        
+        <section id="applications" class="tab-panel">
+  <h2 class="section-title">Common Applications</h2>
+  <ul class="app-list"><li>Context awareness, e.g. skin detection, room change detection</li><li>Fitness monitoring / well-being</li><li>Warning regarding dryness or high temperatures</li><li>Measurement of volume and air flow</li><li>Home automation control, control heating, venting, air conditioning (HVAC)</li><li>Internet of things</li><li>GPS enhancement (e.g. time-to-first-fix improvement, dead reckoning, slope detection)</li><li>Indoor navigation (change of floor detection, elevator detection)</li><li>Outdoor navigation, leisure and sports applications</li><li>Weather forecast</li><li>Vertical velocity indication (rise/sink speed)</li></ul>
+</section>
 
         <section id="related" class="tab-panel">
   <h2 class="section-title">Related Sensors &amp; Transducers</h2>
@@ -210,7 +228,10 @@
 
         
 
-        
+        <section id="faq" class="tab-panel">
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq-item"><h3>Is the BME280 Register and Performance Compatible With the BMP280</h3><p>Yes, the BME280 is fully register and performance compatible with the Bosch Sensortec BMP280 digital pressure sensor. However, please note that the BME280 additionally includes a digital humidity sensor, providing comprehensive environmental data that the BMP280 does not offer.;</p></div><div class="faq-item"><h3>What Are the Direct Alternatives or Replacements for This Sensor</h3><p>If you require similar barometric pressure and temperature measurements, the Bosch BMP280 is a direct alternative, though it lacks the humidity sensing capability. For other combined environmental tracking, you may browse the Humidity, Moisture Sensors category on our platform to find cross-brand alternatives with matching pinouts or I2C/SPI interfaces.;</p></div><div class="faq-item"><h3>In What Application Scenarios Can This Sensor Be Utilized</h3><p>Thanks to its compact size and low power consumption, the BME280 is ideal for home automation control (HVAC), fitness monitoring, Internet of Things (IoT) devices, context awareness (e.g., room change or skin detection), weather forecasting, GPS refinement (slope detection), and indoor navigation (floor/elevator detection).;</p></div><div class="faq-item"><h3>What Are the Key Technical Specifications Regarding Power and Precision</h3><p>The BME280 operates on a supply voltage range of 1.71V to 3.6V and features a 16-bit resolution. It delivers a humidity tolerance of ±3%RH, a temperature tolerance of ±0.5°C, and exhibits an ultra-low current consumption of just 3.6 µA at 1Hz when operating all three sensors (humidity, pressure, and temperature), dropping to 0.1 µA in sleep mode.;</p></div><div class="faq-item"><h3>How Do You Connect and Communicate With the Sensor During Implementation</h3><p>The sensor integrates both I2C (up to 3.4 MHz) and SPI (3-wire and 4-wire, up to 10 MHz) digital interfaces, allowing easy interfacing with microcontrollers. It features three power modes (sleep, normal, and forced) and supports customizable oversampling and filter settings to tailors data rates and noise levels to your project&#x27;s specific needs.</p></div>
+</section>
       </div>
 
       <!-- Sourcing (no stock/price/lead-time promises) -->
@@ -233,7 +254,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'related' } ];
+    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'applications' }, { id: 'related' }, { id: 'faq' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

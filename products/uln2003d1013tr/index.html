@@ -14,6 +14,7 @@
   <meta property="og:description" content="Source ULN2003D1013TR (STMicroelectronics transistor) from Shenzhen, China. Shenzhen supplier network, hard-to-find support and BOM procurement for global buyers." />
   <meta property="og:url" content="https://www.szprocure.com/products/uln2003d1013tr/" />
   <meta property="og:image" content="https://www.szprocure.com/assets/img/hero.svg" />
+
   <link rel="stylesheet" href="/assets/styles.css" />
   <link rel="stylesheet" href="/assets/sku-v3.css" />
   <style>
@@ -47,7 +48,7 @@
     "category": "Semiconductor Components",
     "brand": { "@type": "Brand", "name": "STMicroelectronics", "@id": "https://www.szprocure.com/#szprocure-org" },
     "description": "ULN2003D1013TR is a transistor from STMicroelectronics. SZ Procure helps global buyers source this part through verified suppliers, with flexible quantity, hard-to-find support and competitive quotes.",
-    "url": "https://www.szprocure.com/products/uln2003d1013tr/"
+    "url": "https://www.szprocure.com/products/uln2003d1013tr/", "alternatePart": ["ULN2001D1013TR", "ULN2004D1013TR", "ULN2003ADR2G-TP", "ULQ2003D1013TRY", "ULN2003", "ILN2003ADT", "ULN2003AES", "ULQ2004D1013TR", "ULN2003G", "HT2003ARZ", "ULN2003S", "ULN2004ADR", "ULN2003AU", "ULN2003A", "ULN2003AIDR", "ULN2002D1013TR", "ULN2004AD"]
   }
   </script>
 
@@ -81,7 +82,7 @@
         <h1 class="mpn">ULN2003D1013TR<span class="rohs-badge" aria-hidden="true">RoHS</span></h1>
         <p class="type">Transistor</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/stmicroelectronics/">STMicroelectronics</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/semiconductor-components/">Transistor</a></div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/stmicroelectronics/">STMicroelectronics</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/semiconductor-components/">Transistor</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">SOIC-16</div></div>
         </div>
         <p class="hero-desc">Seven Darlington array</p>
       </div>
@@ -90,14 +91,81 @@
       <aside class="rfq-card" id="rfq-card">
         <h3>Request a Quote</h3>
         <p>Tell us your quantity, target price, and delivery requirements. We source from Shenzhen and reply within 1 business day.</p>
-        <div class="rfq-form">
-          <div class="rfq-field"><label>Part Number</label><input type="text" value="ULN2003D1013TR" readonly></div>
-          <div class="rfq-field"><label>Quantity</label><input type="text" placeholder="e.g. 1,000"></div>
-          <div class="rfq-field"><label>Target Price</label><input type="text" placeholder="USD / piece"></div>
-          <div class="rfq-field"><label>Email</label><input type="email" placeholder="your@email.com"></div>
-          <div class="rfq-field"><label>Requirements</label><textarea placeholder="e.g. Original/New, EOL, specific package, certification requirements"></textarea></div>
+
+        <div class="form-success" id="formSuccess">
+          <h3>Thank you. Your RFQ has been received.</h3>
+          <p>Our sourcing team will review your requirements and contact you shortly.</p>
         </div>
-        <a class="rfq-btn" href="/request-a-quote/?pn=ULN2003D1013TR&mfr=STMicroelectronics&cat=Transistor&source=product&rfq_type=sku_quote" data-zh="获取报价">Request a Quote</a>
+
+        <form id="quote-form" action="https://formsubmit.co/sales@szprocure.com" method="POST" enctype="multipart/form-data" novalidate>
+          <input type="hidden" name="_subject" value="New SKU RFQ — SZ Procure" />
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <input type="hidden" name="category" id="rfq_category" value="Transistor" />
+          <input type="hidden" name="source_url" id="source_url" />
+          <input type="hidden" name="rfq_type" id="rfq_type" value="sku_quote" />
+          <input type="hidden" name="manufacturer" id="rfq_manufacturer" value="STMicroelectronics" />
+          <input type="hidden" name="country_source" id="country_source" />
+          <input type="hidden" name="referrer" id="referrer" />
+          <input type="hidden" name="submitted_at" id="submitted_at" />
+          <input type="hidden" name="requirement_type" id="requirement_type" />
+
+          <div class="rfq-form">
+            <div class="rfq-field"><label for="part_number">Part Number</label><input id="part_number" name="part_number" type="text" value="ULN2003D1013TR" readonly></div>
+            <div class="rfq-field"><label for="quantity">Quantity</label><input id="quantity" name="quantity" type="number" min="1" step="1" placeholder="e.g. 1,000"></div>
+            <div class="rfq-field"><label for="target_price">Target Price</label><input id="target_price" name="target_price" type="text" placeholder="USD / piece"></div>
+            <div class="rfq-field"><label for="email">Email <span class="req">*</span></label><input id="email" name="email" type="email" required placeholder="your@email.com"><div class="form-error" id="formError"></div></div>
+            <div class="rfq-field"><label for="requirements">Requirements</label><textarea id="requirements" name="requirements" placeholder="e.g. Original/New, EOL, specific package, certification requirements"></textarea></div>
+            <div class="rfq-field"><label for="attachment">Attachment <span style="font-weight:400;color:#6b7280">(optional)</span></label><span class="file-pick" style="display:inline-block;margin:.2rem 0"><label for="attachment" class="rfq-file-btn" style="display:inline-block;padding:.45rem .9rem;border:1px solid #c7cdd6;border-radius:8px;background:#f3f4f6;color:#1f2937;cursor:pointer;font-size:.9rem">Choose File</label><span id="attachment-name" style="margin-left:.5rem;color:#6b7280;font-size:.85rem">No file chosen</span></span><input id="attachment" name="attachment" type="file" accept=".pdf,.xls,.xlsx,.csv,.jpg,.jpeg,.png,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv,image/jpeg,image/png" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0"><p style="font-size:.8rem;color:#6b7280;margin:.3rem 0 0">PDF, Excel, CSV, JPG, PNG &mdash; max 10MB</p><div class="form-error" id="formFileError"></div></div>
+          </div>
+
+          <div class="form-error" id="formSubmitError"></div>
+          <button class="rfq-btn" type="submit">Request a Quote</button>
+        </form>
+
+      <script>
+      (function(){
+        var form = document.getElementById("quote-form");
+        if(!form) return;
+        var fileInput = form.querySelector('input[type="file"][name="attachment"]');
+        var fileErr = document.getElementById("formFileError");
+        if(!fileInput || !fileErr) return;
+        var MAX = 10 * 1024 * 1024;
+        var ALLOWED_EXT = ["pdf","xls","xlsx","csv","jpg","jpeg","png"];
+        var ALLOWED_MIME = ["application/pdf","application/vnd.ms-excel","application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","text/csv","image/jpeg","image/png"];
+        function fileValid(){
+          fileErr.style.display = "none";
+          fileErr.textContent = "";
+          if(!fileInput.files || !fileInput.files.length) return true;
+          var f = fileInput.files[0];
+          var ext = (f.name.split(".").pop() || "").toLowerCase();
+          var okType = (ALLOWED_EXT.indexOf(ext) !== -1) || (f.type && ALLOWED_MIME.indexOf(f.type) !== -1);
+          if(!okType){
+            fileErr.textContent = "Unsupported file type. Allowed: PDF, Excel, CSV, JPG, PNG (max 10MB).";
+            fileErr.style.display = "block";
+            return false;
+          }
+          if(f.size > MAX){
+            fileErr.textContent = "File is too large. Maximum size is 10MB.";
+            fileErr.style.display = "block";
+            return false;
+          }
+          return true;
+        }
+        fileInput.addEventListener("change", function(){
+          var nm = document.getElementById("attachment-name");
+          if (nm) nm.textContent = (fileInput.files && fileInput.files.length) ? fileInput.files[0].name : "No file chosen";
+          fileValid();
+        });
+        form.addEventListener("submit", function(e){
+          if(!fileValid()){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            if(fileInput) fileInput.focus();
+          }
+        }, true);
+      })();
+      </script>
       </aside>
 
       <!-- TABS: sticky nav + scroll-spy; all panels in DOM (SEO-friendly) -->
@@ -106,7 +174,9 @@
           <a href="#overview" class="tab-btn active">Overview</a>
           <a href="#specifications" class="tab-btn">Specifications</a>
           <a href="#documentation" class="tab-btn">Documentation</a>
+          <a href="#applications" class="tab-btn">Applications</a>
           <a href="#related" class="tab-btn">Related Parts</a>
+          <a href="#alternative" class="tab-btn">Alternative Parts</a>
         </nav>
 
         <section id="overview" class="tab-panel">
@@ -118,7 +188,7 @@
           <h2 class="section-title">Technical Specifications</h2>
           <table class="spec-table">
 <tbody>
-<tr><th>Number of Channels</th><td>Seven-Channel</td></tr><tr><th>Transistor Type</th><td>BJT</td></tr><tr><th>Collector-Emitter Breakdown Voltage (Vceo)</th><td>50V</td></tr><tr><th>Collector Current (Ic)</th><td>500mA</td></tr></tbody>
+<tr><th>Number of Channels</th><td>Seven-Channel</td></tr><tr><th>Transistor Type</th><td>BJT</td></tr><tr><th>Collector-Emitter Breakdown Voltage (Vceo)</th><td>50V</td></tr><tr><th>Collector Current (Ic)</th><td>500mA</td></tr><tr><th>Package</th><td>SOIC-16</td></tr><tr><th>Output Leakage Current(Icex)</th><td>50uA</td></tr><tr><th>Collector - Emitter Voltage VCEO</th><td>50V</td></tr><tr><th>Input Capacitiance(Ci)</th><td>15pF</td></tr><tr><th>Reverse Leakage Current (Ir)</th><td>50uA</td></tr><tr><th>number of channels</th><td>Seven channels</td></tr><tr><th>Input Current(on)</th><td>0.82mA</td></tr><tr><th>Vce Saturation(VCE(sat))</th><td>1.6V</td></tr><tr><th>Type</th><td>BJT</td></tr><tr><th>Voltage - Forward(Vf)</th><td>1.7V</td></tr><tr><th>Voltage - Input(Max)</th><td>30V</td></tr><tr><th>Input Current(off)</th><td>65uA</td></tr><tr><th>Current - Collector(Ic)</th><td>500mA</td></tr><tr><th>Operating Temperature</th><td>-40℃~+85℃</td></tr></tbody>
 </table>
         </section>
 
@@ -132,7 +202,10 @@
   </details>
 </section>
 
-        
+        <section id="applications" class="tab-panel">
+  <h2 class="section-title">Common Applications</h2>
+  <ul class="app-list"><li>Solenoid</li><li>Relay</li><li>DC Motor</li><li>LED Display</li><li>Incandescent Lamp</li><li>Thermal Printhead</li><li>High-Power Buffer</li></ul>
+</section>
 
         <section id="related" class="tab-panel">
   <h2 class="section-title">Related Semiconductor Components</h2>
@@ -140,7 +213,11 @@
   <div class="related-grid"><div class="related-card"><a href="/products/usblc62sc6/">USBLC6-2SC6</a></div><div class="related-card"><a href="/products/tpd4e05u06dqar/">TPD4E05U06DQAR</a></div><div class="related-card"><a href="/products/usblc64sc6/">USBLC6-4SC6</a></div><div class="related-card"><a href="/products/tpd4eusb30dqar/">TPD4EUSB30DQAR</a></div><div class="related-card"><a href="/products/uln2803cdwr/">ULN2803CDWR</a></div><div class="related-card"><a href="/products/usblc62p6/">USBLC6-2P6</a></div></div>
 </section>
 
-        
+        <section id="alternative" class="tab-panel">
+  <h2 class="section-title">Alternative Parts</h2>
+  <p>Common <strong>ULN2003D1013TR alternatives</strong> overseas buyers search for:</p>
+  <ul class="alt-list"><li><a href="/request-a-quote/?pn=ULN2001D1013TR" class="alt-link">ULN2001D1013TR <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ULN2004D1013TR" class="alt-link">ULN2004D1013TR <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ULN2003ADR2G-TP" class="alt-link">ULN2003ADR2G-TP <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ULQ2003D1013TRY" class="alt-link">ULQ2003D1013TRY <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ULN2003" class="alt-link">ULN2003 <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ILN2003ADT" class="alt-link">ILN2003ADT <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ULN2003AES" class="alt-link">ULN2003AES <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ULQ2004D1013TR" class="alt-link">ULQ2004D1013TR <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ULN2003G" class="alt-link">ULN2003G <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=HT2003ARZ" class="alt-link">HT2003ARZ <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ULN2003S" class="alt-link">ULN2003S <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ULN2004ADR" class="alt-link">ULN2004ADR <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ULN2003AU" class="alt-link">ULN2003AU <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ULN2003A" class="alt-link">ULN2003A <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ULN2003AIDR" class="alt-link">ULN2003AIDR <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ULN2002D1013TR" class="alt-link">ULN2002D1013TR <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ULN2004AD" class="alt-link">ULN2004AD <span class="muted">(request quote)</span></a></li></ul>
+</section>
 
         
       </div>
@@ -165,7 +242,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'related' } ];
+    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'applications' }, { id: 'related' }, { id: 'alternative' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

@@ -14,6 +14,7 @@
   <meta property="og:description" content="Source MBRA340T3G (ON Semiconductor diode) from Shenzhen, China. Shenzhen supplier network, hard-to-find support and BOM procurement for global buyers." />
   <meta property="og:url" content="https://www.szprocure.com/products/mbra340t3g/" />
   <meta property="og:image" content="https://www.szprocure.com/assets/img/hero.svg" />
+
   <link rel="stylesheet" href="/assets/styles.css" />
   <link rel="stylesheet" href="/assets/sku-v3.css" />
   <style>
@@ -47,7 +48,7 @@
     "category": "Semiconductor Components",
     "brand": { "@type": "Brand", "name": "ON Semiconductor", "@id": "https://www.szprocure.com/#szprocure-org" },
     "description": "MBRA340T3G is a diode from ON Semiconductor. SZ Procure helps global buyers source this part through verified suppliers, with flexible quantity, hard-to-find support and competitive quotes.",
-    "url": "https://www.szprocure.com/products/mbra340t3g/"
+    "url": "https://www.szprocure.com/products/mbra340t3g/", "alternatePart": ["SSL34", "SS36L", "SS56L", "SS54L", "SS34L", "SDT3A45SA-13", "SK34A", "SS34", "B340LA-13-F", "SSL34A", "PL34A", "SL34A-TP", "NRVBA340T3G-VF01", "SSL345", "SS545L", "SDT5A50SA-13"]
   }
   </script>
 
@@ -81,7 +82,7 @@
         <h1 class="mpn">MBRA340T3G<span class="rohs-badge" aria-hidden="true">RoHS</span></h1>
         <p class="type">Diode</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/on-semiconductor/">ON Semiconductor</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/semiconductor-components/">Diode</a></div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/on-semiconductor/">ON Semiconductor</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/semiconductor-components/">Diode</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">SMA(DO-214AC)</div></div>
         </div>
         <p class="hero-desc">DIODE SCHOTTKY 40V SMA(DO-214AC)</p>
       </div>
@@ -90,14 +91,81 @@
       <aside class="rfq-card" id="rfq-card">
         <h3>Request a Quote</h3>
         <p>Tell us your quantity, target price, and delivery requirements. We source from Shenzhen and reply within 1 business day.</p>
-        <div class="rfq-form">
-          <div class="rfq-field"><label>Part Number</label><input type="text" value="MBRA340T3G" readonly></div>
-          <div class="rfq-field"><label>Quantity</label><input type="text" placeholder="e.g. 1,000"></div>
-          <div class="rfq-field"><label>Target Price</label><input type="text" placeholder="USD / piece"></div>
-          <div class="rfq-field"><label>Email</label><input type="email" placeholder="your@email.com"></div>
-          <div class="rfq-field"><label>Requirements</label><textarea placeholder="e.g. Original/New, EOL, specific package, certification requirements"></textarea></div>
+
+        <div class="form-success" id="formSuccess">
+          <h3>Thank you. Your RFQ has been received.</h3>
+          <p>Our sourcing team will review your requirements and contact you shortly.</p>
         </div>
-        <a class="rfq-btn" href="/request-a-quote/?pn=MBRA340T3G&mfr=ON%20Semiconductor&cat=Diode&source=product&rfq_type=sku_quote" data-zh="获取报价">Request a Quote</a>
+
+        <form id="quote-form" action="https://formsubmit.co/sales@szprocure.com" method="POST" enctype="multipart/form-data" novalidate>
+          <input type="hidden" name="_subject" value="New SKU RFQ — SZ Procure" />
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <input type="hidden" name="category" id="rfq_category" value="Diode" />
+          <input type="hidden" name="source_url" id="source_url" />
+          <input type="hidden" name="rfq_type" id="rfq_type" value="sku_quote" />
+          <input type="hidden" name="manufacturer" id="rfq_manufacturer" value="ON Semiconductor" />
+          <input type="hidden" name="country_source" id="country_source" />
+          <input type="hidden" name="referrer" id="referrer" />
+          <input type="hidden" name="submitted_at" id="submitted_at" />
+          <input type="hidden" name="requirement_type" id="requirement_type" />
+
+          <div class="rfq-form">
+            <div class="rfq-field"><label for="part_number">Part Number</label><input id="part_number" name="part_number" type="text" value="MBRA340T3G" readonly></div>
+            <div class="rfq-field"><label for="quantity">Quantity</label><input id="quantity" name="quantity" type="number" min="1" step="1" placeholder="e.g. 1,000"></div>
+            <div class="rfq-field"><label for="target_price">Target Price</label><input id="target_price" name="target_price" type="text" placeholder="USD / piece"></div>
+            <div class="rfq-field"><label for="email">Email <span class="req">*</span></label><input id="email" name="email" type="email" required placeholder="your@email.com"><div class="form-error" id="formError"></div></div>
+            <div class="rfq-field"><label for="requirements">Requirements</label><textarea id="requirements" name="requirements" placeholder="e.g. Original/New, EOL, specific package, certification requirements"></textarea></div>
+            <div class="rfq-field"><label for="attachment">Attachment <span style="font-weight:400;color:#6b7280">(optional)</span></label><span class="file-pick" style="display:inline-block;margin:.2rem 0"><label for="attachment" class="rfq-file-btn" style="display:inline-block;padding:.45rem .9rem;border:1px solid #c7cdd6;border-radius:8px;background:#f3f4f6;color:#1f2937;cursor:pointer;font-size:.9rem">Choose File</label><span id="attachment-name" style="margin-left:.5rem;color:#6b7280;font-size:.85rem">No file chosen</span></span><input id="attachment" name="attachment" type="file" accept=".pdf,.xls,.xlsx,.csv,.jpg,.jpeg,.png,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv,image/jpeg,image/png" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0"><p style="font-size:.8rem;color:#6b7280;margin:.3rem 0 0">PDF, Excel, CSV, JPG, PNG &mdash; max 10MB</p><div class="form-error" id="formFileError"></div></div>
+          </div>
+
+          <div class="form-error" id="formSubmitError"></div>
+          <button class="rfq-btn" type="submit">Request a Quote</button>
+        </form>
+
+      <script>
+      (function(){
+        var form = document.getElementById("quote-form");
+        if(!form) return;
+        var fileInput = form.querySelector('input[type="file"][name="attachment"]');
+        var fileErr = document.getElementById("formFileError");
+        if(!fileInput || !fileErr) return;
+        var MAX = 10 * 1024 * 1024;
+        var ALLOWED_EXT = ["pdf","xls","xlsx","csv","jpg","jpeg","png"];
+        var ALLOWED_MIME = ["application/pdf","application/vnd.ms-excel","application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","text/csv","image/jpeg","image/png"];
+        function fileValid(){
+          fileErr.style.display = "none";
+          fileErr.textContent = "";
+          if(!fileInput.files || !fileInput.files.length) return true;
+          var f = fileInput.files[0];
+          var ext = (f.name.split(".").pop() || "").toLowerCase();
+          var okType = (ALLOWED_EXT.indexOf(ext) !== -1) || (f.type && ALLOWED_MIME.indexOf(f.type) !== -1);
+          if(!okType){
+            fileErr.textContent = "Unsupported file type. Allowed: PDF, Excel, CSV, JPG, PNG (max 10MB).";
+            fileErr.style.display = "block";
+            return false;
+          }
+          if(f.size > MAX){
+            fileErr.textContent = "File is too large. Maximum size is 10MB.";
+            fileErr.style.display = "block";
+            return false;
+          }
+          return true;
+        }
+        fileInput.addEventListener("change", function(){
+          var nm = document.getElementById("attachment-name");
+          if (nm) nm.textContent = (fileInput.files && fileInput.files.length) ? fileInput.files[0].name : "No file chosen";
+          fileValid();
+        });
+        form.addEventListener("submit", function(e){
+          if(!fileValid()){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            if(fileInput) fileInput.focus();
+          }
+        }, true);
+      })();
+      </script>
       </aside>
 
       <!-- TABS: sticky nav + scroll-spy; all panels in DOM (SEO-friendly) -->
@@ -106,6 +174,8 @@
           <a href="#overview" class="tab-btn active">Overview</a>
           <a href="#specifications" class="tab-btn">Specifications</a>
           <a href="#documentation" class="tab-btn">Documentation</a>
+          <a href="#related" class="tab-btn">Related Parts</a>
+          <a href="#alternative" class="tab-btn">Alternative Parts</a>
         </nav>
 
         <section id="overview" class="tab-panel">
@@ -117,7 +187,7 @@
           <h2 class="section-title">Technical Specifications</h2>
           <table class="spec-table">
 <tbody>
-<tr><th>Diode Configuration</th><td>1 Independent</td></tr><tr><th>DC Reverse Voltage (Vr)</th><td>40V</td></tr><tr><th>Rectified Current</th><td>3A</td></tr><tr><th>Forward Voltage (Vf)</th><td>450mV@3A</td></tr></tbody>
+<tr><th>Diode Configuration</th><td>1 Independent</td></tr><tr><th>DC Reverse Voltage (Vr)</th><td>40V</td></tr><tr><th>Rectified Current</th><td>3A</td></tr><tr><th>Forward Voltage (Vf)</th><td>450mV@3A</td></tr><tr><th>Package</th><td>SMA(DO-214AC)</td></tr><tr><th>Diode Configuration</th><td>1 Independent</td></tr><tr><th>Operating Junction Temperature Range</th><td>-55℃~+150℃</td></tr><tr><th>Voltage - DC Reverse (Vr) (Max)</th><td>40V</td></tr><tr><th>Voltage - Forward(Vf@If)</th><td>450mV@3A</td></tr><tr><th>Reverse Leakage Current (Ir)</th><td>300uA@40V</td></tr><tr><th>Non-Repetitive Peak Forward Surge Current</th><td>100A</td></tr><tr><th>Current - Rectified</th><td>3A</td></tr></tbody>
 </table>
         </section>
 
@@ -133,9 +203,17 @@
 
         
 
-        
+        <section id="related" class="tab-panel">
+  <h2 class="section-title">Related Semiconductor Components</h2>
+  <p>Other semiconductor components we help global buyers source:</p>
+  <div class="related-grid"><div class="related-card"><a href="/products/srv054tct/">SRV05-4.TCT</a></div><div class="related-card"><a href="/products/fdv301n/">FDV301N</a></div><div class="related-card"><a href="/products/esd5z50t1g/">ESD5Z5.0T1G</a></div><div class="related-card"><a href="/products/si2302cdst1ge3/">Si2302CDS-T1-GE3</a></div><div class="related-card"><a href="/products/bas16j115/">BAS16J,115</a></div><div class="related-card"><a href="/products/smaj50a/">SMAJ5.0A</a></div></div>
+</section>
 
-        
+        <section id="alternative" class="tab-panel">
+  <h2 class="section-title">Alternative Parts</h2>
+  <p>Common <strong>MBRA340T3G alternatives</strong> overseas buyers search for:</p>
+  <ul class="alt-list"><li><a href="/request-a-quote/?pn=SSL34" class="alt-link">SSL34 <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=SS36L" class="alt-link">SS36L <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=SS56L" class="alt-link">SS56L <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=SS54L" class="alt-link">SS54L <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=SS34L" class="alt-link">SS34L <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=SDT3A45SA-13" class="alt-link">SDT3A45SA-13 <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=SK34A" class="alt-link">SK34A <span class="muted">(request quote)</span></a></li><li><a href="/products/ss34/" class="alt-link">SS34</a></li><li><a href="/request-a-quote/?pn=B340LA-13-F" class="alt-link">B340LA-13-F <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=SSL34A" class="alt-link">SSL34A <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=PL34A" class="alt-link">PL34A <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=SL34A-TP" class="alt-link">SL34A-TP <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=NRVBA340T3G-VF01" class="alt-link">NRVBA340T3G-VF01 <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=SSL345" class="alt-link">SSL345 <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=SS545L" class="alt-link">SS545L <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=SDT5A50SA-13" class="alt-link">SDT5A50SA-13 <span class="muted">(request quote)</span></a></li></ul>
+</section>
 
         
       </div>
@@ -160,7 +238,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' } ];
+    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'related' }, { id: 'alternative' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

@@ -82,7 +82,7 @@
         <h1 class="mpn">TCA9548APWR<span class="rohs-badge" aria-hidden="true">RoHS</span></h1>
         <p class="type">Interface IC</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/texas-instruments/">Texas Instruments</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/integrated-circuits/">Interface IC</a></div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/texas-instruments/">Texas Instruments</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/integrated-circuits/">Interface IC</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">TSSOP-24</div></div>
         </div>
         <p class="hero-desc">Low-voltage 8-channel I²C switch with reset support</p>
       </div>
@@ -174,6 +174,7 @@
           <a href="#overview" class="tab-btn active">Overview</a>
           <a href="#specifications" class="tab-btn">Specifications</a>
           <a href="#documentation" class="tab-btn">Documentation</a>
+          <a href="#applications" class="tab-btn">Applications</a>
           <a href="#related" class="tab-btn">Related Parts</a>
         </nav>
 
@@ -186,7 +187,7 @@
           <h2 class="section-title">Technical Specifications</h2>
           <table class="spec-table">
 <tbody>
-<tr><th>Data Rate</th><td>400Kbps</td></tr><tr><th>Function</th><td>Power-On / Reset Config</td></tr><tr><th>Operating Voltage</th><td>1.65V~5.5V</td></tr></tbody>
+<tr><th>Data Rate</th><td>400Kbps</td></tr><tr><th>Function</th><td>Power-On / Reset Config</td></tr><tr><th>Operating Voltage</th><td>1.65V~5.5V</td></tr><tr><th>Package</th><td>TSSOP-24</td></tr><tr><th>Voltage - Supply</th><td>1.65V~5.5V</td></tr><tr><th>Interface</th><td>I2C;SMBus</td></tr><tr><th>Operating Temperature</th><td>-40℃~+85℃</td></tr><tr><th>Quiescent Current</th><td>2uA</td></tr><tr><th>Data Rate</th><td>400Kbps</td></tr><tr><th>Supply Current</th><td>80uA</td></tr><tr><th>Function</th><td>Power-up/reset configuration</td></tr></tbody>
 </table>
         </section>
 
@@ -200,7 +201,10 @@
   </details>
 </section>
 
-        
+        <section id="applications" class="tab-panel">
+  <h2 class="section-title">Common Applications</h2>
+  <ul class="app-list"><li>Servers</li><li>Routers (telecom switching equipment)</li><li>Factory automation</li><li>Products with I²C slave address conflicts (e.g., multiple identical temperature sensors present)</li></ul>
+</section>
 
         <section id="related" class="tab-panel">
   <h2 class="section-title">Related Integrated Circuits</h2>
@@ -233,7 +237,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'related' } ];
+    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'applications' }, { id: 'related' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

@@ -14,6 +14,7 @@
   <meta property="og:description" content="Source SRD-12VDC-SL-C (Songle Relay switches) from Shenzhen, China. Shenzhen supplier network, hard-to-find support and BOM procurement for global buyers." />
   <meta property="og:url" content="https://www.szprocure.com/products/srd12vdcslc/" />
   <meta property="og:image" content="https://www.szprocure.com/assets/img/hero.svg" />
+
   <link rel="stylesheet" href="/assets/styles.css" />
   <link rel="stylesheet" href="/assets/sku-v3.css" />
   <style>
@@ -51,6 +52,19 @@
   }
   </script>
 
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+    { "@type": "Question", "name": "What are the key electrical ratings and contact configuration of the Songle SRD-12VDC-SL-C relay", "acceptedAnswer": { "@type": "Answer", "text": "The Songle SRD-12VDC-SL-C is a PCB-mounted electromechanical relay with a 12V DC coil and a Single Pole Double Throw (SPDT / 1 Form C) contact configuration. The SRD series is available with 7A, 10A, and 15A contact ratings. For the 10A version, the contacts are rated for 10A at 250VAC. The 12V coil has a typical power consumption of 0.36W, corresponding to a coil current of approximately 30mA and a coil resistance of approximately 400Ω at 20°C.;" } },
+    { "@type": "Question", "name": "What are the coil operating characteristics of the SRD-12VDC-SL-C", "acceptedAnswer": { "@type": "Answer", "text": "The SRD-12VDC-SL-C uses a 12V DC coil with a typical power consumption of 0.36W. At the rated voltage, the coil current is approximately 30mA, and the coil resistance is approximately 400Ω at 20°C, as specified in the datasheet.;" } },
+    { "@type": "Question", "name": "What is the rated service life of the SRD-12VDC-SL-C", "acceptedAnswer": { "@type": "Answer", "text": "According to the SRD series datasheet, the relay has a mechanical life of 1 × 10⁷ operations. The specified electrical life is 1 × 10⁵ operations or 1 × 10⁴ operations, depending on the applicable contact load and test conditions defined by the manufacturer. Refer to the product specifications for the appropriate rating for your application.;" } },
+    { "@type": "Question", "name": "What installation considerations should be followed when using the SRD-12VDC-SL-C", "acceptedAnswer": { "@type": "Answer", "text": "The SRD-12VDC-SL-C is designed for PCB mounting, and the manufacturer provides the recommended PCB footprint and mounting dimensions in the datasheet. When switching mains or other high-voltage circuits, PCB layout should follow the applicable electrical safety standards for creepage, clearance, and conductor sizing appropriate to the target application.;" } },
+    { "@type": "Question", "name": "What are the operating temperature and environmental ratings of the SRD-12VDC-SL-C", "acceptedAnswer": { "@type": "Answer", "text": "According to the SRD series datasheet, the relay is available with operating temperature ratings of −40°C to +85°C or −40°C to +105°C, depending on the version. The specified operating humidity is up to 85% RH at 20°C. These ratings should be considered when selecting the relay for the intended operating environment." } }
+    ]
+  }
+  </script>
 
   <script type="application/ld+json">
   {
@@ -81,7 +95,7 @@
         <h1 class="mpn">SRD-12VDC-SL-C</h1>
         <p class="type">Switches</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/songle-relay/">Songle Relay</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/connectors/">Switches</a></div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/songle-relay/">Songle Relay</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/connectors/">Switches</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">Through Hole,19.2x15.6mm</div></div>
         </div>
         <p class="hero-desc">Single group transfer type relay</p>
       </div>
@@ -90,14 +104,81 @@
       <aside class="rfq-card" id="rfq-card">
         <h3>Request a Quote</h3>
         <p>Tell us your quantity, target price, and delivery requirements. We source from Shenzhen and reply within 1 business day.</p>
-        <div class="rfq-form">
-          <div class="rfq-field"><label>Part Number</label><input type="text" value="SRD-12VDC-SL-C" readonly></div>
-          <div class="rfq-field"><label>Quantity</label><input type="text" placeholder="e.g. 1,000"></div>
-          <div class="rfq-field"><label>Target Price</label><input type="text" placeholder="USD / piece"></div>
-          <div class="rfq-field"><label>Email</label><input type="email" placeholder="your@email.com"></div>
-          <div class="rfq-field"><label>Requirements</label><textarea placeholder="e.g. Original/New, EOL, specific package, certification requirements"></textarea></div>
+
+        <div class="form-success" id="formSuccess">
+          <h3>Thank you. Your RFQ has been received.</h3>
+          <p>Our sourcing team will review your requirements and contact you shortly.</p>
         </div>
-        <a class="rfq-btn" href="/request-a-quote/?pn=SRD-12VDC-SL-C&mfr=Songle%20Relay&cat=Switches&source=product&rfq_type=sku_quote" data-zh="获取报价">Request a Quote</a>
+
+        <form id="quote-form" action="https://formsubmit.co/sales@szprocure.com" method="POST" enctype="multipart/form-data" novalidate>
+          <input type="hidden" name="_subject" value="New SKU RFQ — SZ Procure" />
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <input type="hidden" name="category" id="rfq_category" value="Switches" />
+          <input type="hidden" name="source_url" id="source_url" />
+          <input type="hidden" name="rfq_type" id="rfq_type" value="sku_quote" />
+          <input type="hidden" name="manufacturer" id="rfq_manufacturer" value="Songle Relay" />
+          <input type="hidden" name="country_source" id="country_source" />
+          <input type="hidden" name="referrer" id="referrer" />
+          <input type="hidden" name="submitted_at" id="submitted_at" />
+          <input type="hidden" name="requirement_type" id="requirement_type" />
+
+          <div class="rfq-form">
+            <div class="rfq-field"><label for="part_number">Part Number</label><input id="part_number" name="part_number" type="text" value="SRD-12VDC-SL-C" readonly></div>
+            <div class="rfq-field"><label for="quantity">Quantity</label><input id="quantity" name="quantity" type="number" min="1" step="1" placeholder="e.g. 1,000"></div>
+            <div class="rfq-field"><label for="target_price">Target Price</label><input id="target_price" name="target_price" type="text" placeholder="USD / piece"></div>
+            <div class="rfq-field"><label for="email">Email <span class="req">*</span></label><input id="email" name="email" type="email" required placeholder="your@email.com"><div class="form-error" id="formError"></div></div>
+            <div class="rfq-field"><label for="requirements">Requirements</label><textarea id="requirements" name="requirements" placeholder="e.g. Original/New, EOL, specific package, certification requirements"></textarea></div>
+            <div class="rfq-field"><label for="attachment">Attachment <span style="font-weight:400;color:#6b7280">(optional)</span></label><span class="file-pick" style="display:inline-block;margin:.2rem 0"><label for="attachment" class="rfq-file-btn" style="display:inline-block;padding:.45rem .9rem;border:1px solid #c7cdd6;border-radius:8px;background:#f3f4f6;color:#1f2937;cursor:pointer;font-size:.9rem">Choose File</label><span id="attachment-name" style="margin-left:.5rem;color:#6b7280;font-size:.85rem">No file chosen</span></span><input id="attachment" name="attachment" type="file" accept=".pdf,.xls,.xlsx,.csv,.jpg,.jpeg,.png,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv,image/jpeg,image/png" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0"><p style="font-size:.8rem;color:#6b7280;margin:.3rem 0 0">PDF, Excel, CSV, JPG, PNG &mdash; max 10MB</p><div class="form-error" id="formFileError"></div></div>
+          </div>
+
+          <div class="form-error" id="formSubmitError"></div>
+          <button class="rfq-btn" type="submit">Request a Quote</button>
+        </form>
+
+      <script>
+      (function(){
+        var form = document.getElementById("quote-form");
+        if(!form) return;
+        var fileInput = form.querySelector('input[type="file"][name="attachment"]');
+        var fileErr = document.getElementById("formFileError");
+        if(!fileInput || !fileErr) return;
+        var MAX = 10 * 1024 * 1024;
+        var ALLOWED_EXT = ["pdf","xls","xlsx","csv","jpg","jpeg","png"];
+        var ALLOWED_MIME = ["application/pdf","application/vnd.ms-excel","application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","text/csv","image/jpeg","image/png"];
+        function fileValid(){
+          fileErr.style.display = "none";
+          fileErr.textContent = "";
+          if(!fileInput.files || !fileInput.files.length) return true;
+          var f = fileInput.files[0];
+          var ext = (f.name.split(".").pop() || "").toLowerCase();
+          var okType = (ALLOWED_EXT.indexOf(ext) !== -1) || (f.type && ALLOWED_MIME.indexOf(f.type) !== -1);
+          if(!okType){
+            fileErr.textContent = "Unsupported file type. Allowed: PDF, Excel, CSV, JPG, PNG (max 10MB).";
+            fileErr.style.display = "block";
+            return false;
+          }
+          if(f.size > MAX){
+            fileErr.textContent = "File is too large. Maximum size is 10MB.";
+            fileErr.style.display = "block";
+            return false;
+          }
+          return true;
+        }
+        fileInput.addEventListener("change", function(){
+          var nm = document.getElementById("attachment-name");
+          if (nm) nm.textContent = (fileInput.files && fileInput.files.length) ? fileInput.files[0].name : "No file chosen";
+          fileValid();
+        });
+        form.addEventListener("submit", function(e){
+          if(!fileValid()){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            if(fileInput) fileInput.focus();
+          }
+        }, true);
+      })();
+      </script>
       </aside>
 
       <!-- TABS: sticky nav + scroll-spy; all panels in DOM (SEO-friendly) -->
@@ -107,6 +188,7 @@
           <a href="#specifications" class="tab-btn">Specifications</a>
           <a href="#documentation" class="tab-btn">Documentation</a>
           <a href="#related" class="tab-btn">Related Parts</a>
+          <a href="#faq" class="tab-btn">FAQ</a>
         </nav>
 
         <section id="overview" class="tab-panel">
@@ -118,7 +200,7 @@
           <h2 class="section-title">Technical Specifications</h2>
           <table class="spec-table">
 <tbody>
-<tr><th>Coil Voltage</th><td>12V</td></tr><tr><th>Contact Form</th><td>1 Form C (SPDT)</td></tr><tr><th>Maximum Switching Voltage</th><td>250V@AC</td></tr><tr><th>Maximum Switching Current</th><td>15A</td></tr></tbody>
+<tr><th>Coil Voltage</th><td>12V</td></tr><tr><th>Contact Form</th><td>1 Form C (SPDT)</td></tr><tr><th>Maximum Switching Voltage</th><td>250V@AC</td></tr><tr><th>Maximum Switching Current</th><td>15A</td></tr><tr><th>Package</th><td>Through Hole,19.2x15.6mm</td></tr><tr><th>Coil Voltage</th><td>12V</td></tr><tr><th>Switching Voltage(Max)</th><td>250V@AC</td></tr><tr><th>Coil Resistance</th><td>400Ω</td></tr><tr><th>Release Time</th><td>10ms</td></tr><tr><th>Operate Time</th><td>10ms</td></tr><tr><th>Length</th><td>19.2mm</td></tr><tr><th>Height</th><td>15.8mm</td></tr><tr><th>Contact Resistance</th><td>100mΩ</td></tr><tr><th>Number of Pins</th><td>5</td></tr><tr><th>Coil Type</th><td>Non-Polarized - Single Coil</td></tr><tr><th>Width</th><td>15.6mm</td></tr><tr><th>Switching Current(Max)</th><td>15A</td></tr><tr><th>Coil Rated Power</th><td>360mW</td></tr><tr><th>Contact Rating</th><td>-</td></tr><tr><th>Contact Form</th><td>One set of changeover: 1C (SPDT-changeover)</td></tr></tbody>
 </table>
         </section>
 
@@ -142,7 +224,10 @@
 
         
 
-        
+        <section id="faq" class="tab-panel">
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq-item"><h3>What are the key electrical ratings and contact configuration of the Songle SRD-12VDC-SL-C relay</h3><p>The Songle SRD-12VDC-SL-C is a PCB-mounted electromechanical relay with a 12V DC coil and a Single Pole Double Throw (SPDT / 1 Form C) contact configuration. The SRD series is available with 7A, 10A, and 15A contact ratings. For the 10A version, the contacts are rated for 10A at 250VAC. The 12V coil has a typical power consumption of 0.36W, corresponding to a coil current of approximately 30mA and a coil resistance of approximately 400Ω at 20°C.;</p></div><div class="faq-item"><h3>What are the coil operating characteristics of the SRD-12VDC-SL-C</h3><p>The SRD-12VDC-SL-C uses a 12V DC coil with a typical power consumption of 0.36W. At the rated voltage, the coil current is approximately 30mA, and the coil resistance is approximately 400Ω at 20°C, as specified in the datasheet.;</p></div><div class="faq-item"><h3>What is the rated service life of the SRD-12VDC-SL-C</h3><p>According to the SRD series datasheet, the relay has a mechanical life of 1 × 10⁷ operations. The specified electrical life is 1 × 10⁵ operations or 1 × 10⁴ operations, depending on the applicable contact load and test conditions defined by the manufacturer. Refer to the product specifications for the appropriate rating for your application.;</p></div><div class="faq-item"><h3>What installation considerations should be followed when using the SRD-12VDC-SL-C</h3><p>The SRD-12VDC-SL-C is designed for PCB mounting, and the manufacturer provides the recommended PCB footprint and mounting dimensions in the datasheet. When switching mains or other high-voltage circuits, PCB layout should follow the applicable electrical safety standards for creepage, clearance, and conductor sizing appropriate to the target application.;</p></div><div class="faq-item"><h3>What are the operating temperature and environmental ratings of the SRD-12VDC-SL-C</h3><p>According to the SRD series datasheet, the relay is available with operating temperature ratings of −40°C to +85°C or −40°C to +105°C, depending on the version. The specified operating humidity is up to 85% RH at 20°C. These ratings should be considered when selecting the relay for the intended operating environment.</p></div>
+</section>
       </div>
 
       <!-- Sourcing (no stock/price/lead-time promises) -->
@@ -165,7 +250,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'related' } ];
+    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'related' }, { id: 'faq' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;
