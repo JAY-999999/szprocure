@@ -15,6 +15,46 @@
   <meta property="og:url" content="https://www.szprocure.com/components/integrated-circuits/interface-ics/" />
   <meta property="og:image" content="https://www.szprocure.com/assets/img/hero.svg" />
   <link rel="stylesheet" href="/assets/styles.css" />
+  <style>
+    .sku-heading-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;margin:0 0 14px;}
+    .sku-title{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-self:start;}
+    .sku-title h2{margin:0;}
+    .sku-count-badge{display:inline-flex;align-items:center;justify-content:center;min-width:32px;height:32px;padding:0 10px;border-radius:999px;background:var(--accent-soft);color:var(--muted);font-size:.85rem;font-weight:700;}
+    .sku-section{padding-top:48px;padding-bottom:40px;}
+    .sku-search{width:420px;max-width:100%;justify-self:center;}
+    .sku-search input{width:100%;padding:11px 14px;border:1px solid var(--border-strong);border-radius:10px;font-size:.95rem;color:var(--navy);background:#fff;}
+    .sku-search input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);}
+    .sku-part-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:4px;}
+    .sku-part-card{display:flex;flex-direction:column;gap:5px;padding:14px 16px;border:1px solid var(--border-strong);border-radius:10px;background:#fff;text-decoration:none;transition:border-color .15s,box-shadow .15s;}
+    .sku-part-card:hover{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);}
+    .sku-part-card .pn{font-size:1rem;font-weight:600;color:var(--navy);line-height:1.35;word-break:break-word;}
+    .sku-part-card .mfr{font-size:.9rem;color:var(--muted);line-height:1.3;}
+    .sku-empty{display:none;padding:18px 14px;color:var(--muted);font-style:italic;}
+    .pagination{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:26px;}
+    .pagination .page-state{display:inline-flex;align-items:center;justify-content:center;min-width:40px;height:40px;padding:0 12px;border-radius:9px;background:var(--accent);color:#fff;font-weight:600;}
+    .pagination .btn-ghost{min-width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;}
+    @media (max-width:640px){
+      .sku-heading-row{grid-template-columns:1fr;gap:12px;}
+      .sku-search{width:100%;grid-column:1;}
+      .sku-part-grid{grid-template-columns:1fr;}
+    }
+    .section:not(.navy) h2 { font-size: clamp(1.25rem, 2vw, 1.55rem); }
+    .page-head h1 { font-size: clamp(1.3rem, 2vw, 1.6rem); }
+    @media (max-width: 520px) { .page-head h1 { font-size: 1.1rem !important; } }
+    .subcat-card { padding: 14px 18px; display: flex; align-items: center; justify-content: center; min-height: 74px; color: inherit; text-decoration: none; }
+    .subcat-card .sku-mpn { color: var(--text, #1a2233); font-weight: 600; font-size: .95rem; text-align: center; }
+    .subcat-card:hover .sku-mpn { color: var(--accent, #0A84FF); }
+    .sku-mfr { white-space: nowrap; }
+    .check-list li { white-space: nowrap; }
+    .grid.grid-4 { gap: 22px; }
+    .sku-card { padding: 14px 18px; display: flex; align-items: center; justify-content: center; min-height: 74px; color: inherit; text-decoration: none; }
+    .sku-card .sku-mpn { color: var(--text, #1a2233); font-weight: 600; font-size: .95rem; text-align: center; }
+    .sku-card:hover .sku-mpn { color: var(--accent, #0A84FF); }
+    .cta-simple h2 { font-size: 1.3rem; }
+    /* Pull the RFQ block down so its gray background does not overlap the cards above. */
+    .section--cta-simple { margin-top: 0 !important; padding: 24px 0 48px; }
+    @media (max-width: 860px) { .section--cta-simple { margin-top: 0 !important; } }
+  </style>
   <script src="/assets/site.js"></script>
   <script type="application/ld+json">
   {
@@ -738,71 +778,85 @@
       <a href="/components/integrated-circuits/">Integrated Circuits</a> ›
       <span>Interface ICs</span>
     </div></nav>
-    <section class="page-head">
+    <section class="page-head" style="padding:38px 0 32px;">
       <div class="container">
-        <div class="eyebrow">Component Subcategory</div>
-        <h1>Interface ICs</h1>
-        <p class="lead">Interface ics are core integrated circuits used throughout electronic and IoT products. As your China sourcing partner, SZ Procure helps global buyers procure interface ics from a verified Shenzhen supply network — including popular families and hard-to-find versions — with BOM consolidation and consolidated quotes.</p>
-        <div class="part-head-actions">
+        <h1 style="margin-bottom:4px;">Interface ICs</h1>
+        <p class="lead" style="margin-bottom:6px;">Interface ICs bridge communication between chips and systems — UART, SPI, I2C, CAN, RS-485 and transceivers.</p>
+        <ul class="check-list" style="margin-top:8px; display:grid; grid-template-columns:1fr 1fr; column-gap:16px; row-gap:9px; padding-left:0; max-width:760px;">
+          <li style="margin:0; line-height:1.45;"><span style="color:var(--accent,#0A84FF)">&#10003;</span> Hard-to-find Parts Sourcing</li>
+          <li style="margin:0; line-height:1.45;"><span style="color:var(--accent,#0A84FF)">&#10003;</span> Alternative Parts Matching</li>
+          <li style="margin:0; line-height:1.45;"><span style="color:var(--accent,#0A84FF)">&#10003;</span> Supplier Screening &amp; Product Verification</li>
+          <li style="margin:0; line-height:1.45;"><span style="color:var(--accent,#0A84FF)">&#10003;</span> BOM &amp; Small Quantity Orders</li>
+        </ul>
+        <div class="part-head-actions" style="margin-top:12px;">
           <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
         </div>
       </div>
     </section>
-    <section class="section">
+    <section class="section sku-section">
       <div class="container">
-        <h2>Interface ICs We Source</h2>
-        <ul class="bullet-list part-index" id="part-index">
-          <li><a href="/products/adum1201arzrl7/">ADUM1201ARZ-RL7</a> <span class="muted">— Analog Devices</span></li>
-          <li><a href="/products/adm2587ebrwzreel7/">ADM2587EBRWZ-REEL7</a> <span class="muted">— Analog Devices</span></li>
-          <li><a href="/products/sn65hvd230dr/">SN65HVD230DR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/iso1050dubr/">ISO1050DUBR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/iso3082dwr/">ISO3082DWR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/adum3160brwzrl/">ADUM3160BRWZ-RL</a> <span class="muted">— Analog Devices</span></li>
-          <li><a href="/products/adm2582ebrwzreel7/">ADM2582EBRWZ-REEL7</a> <span class="muted">— Analog Devices</span></li>
-          <li><a href="/products/adum4160brwzrl/">ADUM4160BRWZ-RL</a> <span class="muted">— Analog Devices</span></li>
-          <li><a href="/products/adum1201brzrl7/">ADUM1201BRZ-RL7</a> <span class="muted">— Analog Devices</span></li>
-          <li><a href="/products/sn75176bdr/">SN75176BDR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/adm3251earwzreel/">ADM3251EARWZ-REEL</a> <span class="muted">— Analog Devices</span></li>
-          <li><a href="/products/adum1250arzrl7/">ADUM1250ARZ-RL7</a> <span class="muted">— Analog Devices</span></li>
-          <li><a href="/products/lan8720aicptr/">LAN8720AI-CP-TR</a> <span class="muted">— Microchip Technology</span></li>
-          <li><a href="/products/sn65hvd75dr/">SN65HVD75DR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/txb0108pwr/">TXB0108PWR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/txs0108epwr/">TXS0108EPWR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/iso1044bdr/">ISO1044BDR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/sn74lvc1t45dbvr/">SN74LVC1T45DBVR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/sn74lvc8t245pwr/">SN74LVC8T245PWR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/txs0104epwr/">TXS0104EPWR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/sn65hvd232dr/">SN65HVD232DR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/max3232eipwr/">MAX3232EIPWR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/tca9548apwr/">TCA9548APWR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/sn65hvd233dr/">SN65HVD233DR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/thvd1450dr/">THVD1450DR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/lan8720acptr/">LAN8720A-CP-TR</a> <span class="muted">— Microchip Technology</span></li>
-          <li><a href="/products/mcp2551isn/">MCP2551-I/SN</a> <span class="muted">— Microchip Technology</span></li>
-          <li><a href="/products/lan8742acztr/">LAN8742A-CZ-TR</a> <span class="muted">— Microchip Technology</span></li>
-          <li><a href="/products/txs0102dcur/">TXS0102DCUR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/txb0102dcur/">TXB0102DCUR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/lan8742aicztr/">LAN8742AI-CZ-TR</a> <span class="muted">— Microchip Technology</span></li>
-          <li><a href="/products/txs0102dctr/">TXS0102DCTR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/p82b715dr/">P82B715DR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/dp83848ivvxnopb/">DP83848IVVX/NOPB</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/sn74lvc2t45dcur/">SN74LVC2T45DCUR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/max3232cdr/">MAX3232CDR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/sn74lvc1g17dckr/">SN74LVC1G17DCKR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/iso1540dr/">ISO1540DR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/sn74lvc2g17dckr/">SN74LVC2G17DCKR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/pca9306dctr/">PCA9306DCTR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/txb0104pwr/">TXB0104PWR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/mcp23017tess/">MCP23017T-E/SS</a> <span class="muted">— Microchip Technology</span></li>
-          <li><a href="/products/st3485ebdr/">ST3485EBDR</a> <span class="muted">— STMicroelectronics</span></li>
-          <li><a href="/products/max3232ipwr/">MAX3232IPWR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/pca9306dcur/">PCA9306DCUR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/sn6501dbvr/">SN6501DBVR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/sn74lv1t34dbvr/">SN74LV1T34DBVR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/sn74ahct1g125dbvr/">SN74AHCT1G125DBVR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/sn74lvc1g17dbvr/">SN74LVC1G17DBVR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/thvd1400dr/">THVD1400DR</a> <span class="muted">— Texas Instruments</span></li>
-        </ul>
+        <div class="sku-heading-row">
+          <div class="sku-title">
+            <h2>Interface ICs We Source</h2>
+            <span class="sku-count-badge" aria-label="100 parts">100</span>
+          </div>
+          <div class="sku-search">
+            <input type="search" id="sku-filter" placeholder="Filter by part number or manufacturer…" aria-label="Filter parts" autocomplete="off" />
+          </div>
+        </div>
+        <div class="sku-part-grid" id="sku-grid">
+          <a class="sku-part-card" href="/products/adum1201arzrl7/"><span class="pn">ADUM1201ARZ-RL7</span><span class="mfr">Analog Devices</span></a>
+          <a class="sku-part-card" href="/products/adm2587ebrwzreel7/"><span class="pn">ADM2587EBRWZ-REEL7</span><span class="mfr">Analog Devices</span></a>
+          <a class="sku-part-card" href="/products/sn65hvd230dr/"><span class="pn">SN65HVD230DR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/iso1050dubr/"><span class="pn">ISO1050DUBR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/iso3082dwr/"><span class="pn">ISO3082DWR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/adum3160brwzrl/"><span class="pn">ADUM3160BRWZ-RL</span><span class="mfr">Analog Devices</span></a>
+          <a class="sku-part-card" href="/products/adm2582ebrwzreel7/"><span class="pn">ADM2582EBRWZ-REEL7</span><span class="mfr">Analog Devices</span></a>
+          <a class="sku-part-card" href="/products/adum4160brwzrl/"><span class="pn">ADUM4160BRWZ-RL</span><span class="mfr">Analog Devices</span></a>
+          <a class="sku-part-card" href="/products/adum1201brzrl7/"><span class="pn">ADUM1201BRZ-RL7</span><span class="mfr">Analog Devices</span></a>
+          <a class="sku-part-card" href="/products/sn75176bdr/"><span class="pn">SN75176BDR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/adm3251earwzreel/"><span class="pn">ADM3251EARWZ-REEL</span><span class="mfr">Analog Devices</span></a>
+          <a class="sku-part-card" href="/products/adum1250arzrl7/"><span class="pn">ADUM1250ARZ-RL7</span><span class="mfr">Analog Devices</span></a>
+          <a class="sku-part-card" href="/products/lan8720aicptr/"><span class="pn">LAN8720AI-CP-TR</span><span class="mfr">Microchip Technology</span></a>
+          <a class="sku-part-card" href="/products/sn65hvd75dr/"><span class="pn">SN65HVD75DR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/txb0108pwr/"><span class="pn">TXB0108PWR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/txs0108epwr/"><span class="pn">TXS0108EPWR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/iso1044bdr/"><span class="pn">ISO1044BDR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/sn74lvc1t45dbvr/"><span class="pn">SN74LVC1T45DBVR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/sn74lvc8t245pwr/"><span class="pn">SN74LVC8T245PWR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/txs0104epwr/"><span class="pn">TXS0104EPWR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/sn65hvd232dr/"><span class="pn">SN65HVD232DR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/max3232eipwr/"><span class="pn">MAX3232EIPWR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/tca9548apwr/"><span class="pn">TCA9548APWR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/sn65hvd233dr/"><span class="pn">SN65HVD233DR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/thvd1450dr/"><span class="pn">THVD1450DR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/lan8720acptr/"><span class="pn">LAN8720A-CP-TR</span><span class="mfr">Microchip Technology</span></a>
+          <a class="sku-part-card" href="/products/mcp2551isn/"><span class="pn">MCP2551-I/SN</span><span class="mfr">Microchip Technology</span></a>
+          <a class="sku-part-card" href="/products/lan8742acztr/"><span class="pn">LAN8742A-CZ-TR</span><span class="mfr">Microchip Technology</span></a>
+          <a class="sku-part-card" href="/products/txs0102dcur/"><span class="pn">TXS0102DCUR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/txb0102dcur/"><span class="pn">TXB0102DCUR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/lan8742aicztr/"><span class="pn">LAN8742AI-CZ-TR</span><span class="mfr">Microchip Technology</span></a>
+          <a class="sku-part-card" href="/products/txs0102dctr/"><span class="pn">TXS0102DCTR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/p82b715dr/"><span class="pn">P82B715DR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/dp83848ivvxnopb/"><span class="pn">DP83848IVVX/NOPB</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/sn74lvc2t45dcur/"><span class="pn">SN74LVC2T45DCUR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/max3232cdr/"><span class="pn">MAX3232CDR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/sn74lvc1g17dckr/"><span class="pn">SN74LVC1G17DCKR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/iso1540dr/"><span class="pn">ISO1540DR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/sn74lvc2g17dckr/"><span class="pn">SN74LVC2G17DCKR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/pca9306dctr/"><span class="pn">PCA9306DCTR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/txb0104pwr/"><span class="pn">TXB0104PWR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/mcp23017tess/"><span class="pn">MCP23017T-E/SS</span><span class="mfr">Microchip Technology</span></a>
+          <a class="sku-part-card" href="/products/st3485ebdr/"><span class="pn">ST3485EBDR</span><span class="mfr">STMicroelectronics</span></a>
+          <a class="sku-part-card" href="/products/max3232ipwr/"><span class="pn">MAX3232IPWR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/pca9306dcur/"><span class="pn">PCA9306DCUR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/sn6501dbvr/"><span class="pn">SN6501DBVR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/sn74lv1t34dbvr/"><span class="pn">SN74LV1T34DBVR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/sn74ahct1g125dbvr/"><span class="pn">SN74AHCT1G125DBVR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/sn74lvc1g17dbvr/"><span class="pn">SN74LVC1G17DBVR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/thvd1400dr/"><span class="pn">THVD1400DR</span><span class="mfr">Texas Instruments</span></a>
+        </div>
+        <p class="sku-empty" id="sku-empty">No parts match your filter.</p>
         <nav class="pagination" aria-label="Pagination">
           <span class="page-state" aria-current="page">1</span>
           <a class="btn btn-ghost" href="/components/integrated-circuits/interface-ics/page/2/">2</a>
@@ -810,39 +864,67 @@
         </nav>
       </div>
     </section>
-    <section class="section">
+    <section class="section" id="subcategories" style="padding:12px 0 48px;">
       <div class="container">
         <h2>Related Subcategories</h2>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;">
-          <a href="/components/integrated-circuits/microcontrollers/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Microcontrollers</a>
-          <a href="/components/integrated-circuits/amplifiers-comparators/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Amplifiers &amp; Comparators</a>
-          <a href="/components/integrated-circuits/data-converters/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Data Converters</a>
-          <a href="/components/integrated-circuits/logic-ics/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Logic ICs</a>
+        <div class="grid grid-4">
+          <a class="card subcat-card" href="/components/integrated-circuits/microcontrollers/"><div class="sku-mpn">Microcontrollers</div></a>
+          <a class="card subcat-card" href="/components/integrated-circuits/amplifiers-comparators/"><div class="sku-mpn">Amplifiers &amp; Comparators</div></a>
+          <a class="card subcat-card" href="/components/integrated-circuits/data-converters/"><div class="sku-mpn">Data Converters</div></a>
+          <a class="card subcat-card" href="/components/integrated-circuits/logic-ics/"><div class="sku-mpn">Logic ICs</div></a>
         </div>
       </div>
     </section>
-    <section class="section">
+    <section class="section" id="manufacturers" style="padding:12px 0 24px;">
       <div class="container">
         <h2>Related Manufacturers</h2>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;">
-          <a href="/manufacturers/texas-instruments/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Texas Instruments</a>
-          <a href="/manufacturers/microchip-technology/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Microchip Technology</a>
-          <a href="/manufacturers/analog-devices/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Analog Devices</a>
-          <a href="/manufacturers/maxim-integrated/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Maxim Integrated</a>
-          <a href="/manufacturers/stmicroelectronics/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">STMicroelectronics</a>
-          <a href="/manufacturers/littelfuse-ixys/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Littelfuse/IXYS</a>
-          <a href="/manufacturers/nxp-semiconductors/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">NXP Semiconductors</a>
-          <a href="/manufacturers/mixic/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Mixic</a>
+        <div class="grid grid-4">
+          <a class="card sku-card" href="/manufacturers/texas-instruments/"><div class="sku-mpn">Texas Instruments</div></a>
+          <a class="card sku-card" href="/manufacturers/microchip-technology/"><div class="sku-mpn">Microchip Technology</div></a>
+          <a class="card sku-card" href="/manufacturers/analog-devices/"><div class="sku-mpn">Analog Devices</div></a>
+          <a class="card sku-card" href="/manufacturers/maxim-integrated/"><div class="sku-mpn">Maxim Integrated</div></a>
+          <a class="card sku-card" href="/manufacturers/stmicroelectronics/"><div class="sku-mpn">STMicroelectronics</div></a>
+          <a class="card sku-card" href="/manufacturers/littelfuse-ixys/"><div class="sku-mpn">Littelfuse/IXYS</div></a>
+          <a class="card sku-card" href="/manufacturers/nxp-semiconductors/"><div class="sku-mpn">NXP Semiconductors</div></a>
+          <a class="card sku-card" href="/manufacturers/mixic/"><div class="sku-mpn">Mixic</div></a>
         </div>
       </div>
     </section>
-    <section class="section">
+    <section class="section soft section--cta-simple">
       <div class="container">
-        <h2>Need a Quote?</h2>
-        <p>Send us your BOM or a list of parts. We return a consolidated quote with lead-time and alternates.</p>
-        <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
+        <div class="cta-simple">
+          <div>
+            <h2>Need a Part or BOM?</h2>
+            <p style="margin:6px 0 0; font-size:1rem; color:var(--muted,#6b7280); line-height:1.4;">Send us your part numbers and quantities for a quote.</p>
+          </div>
+          <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
+        </div>
       </div>
     </section>
+    <script>
+      (function(){
+        var inp = document.getElementById("sku-filter");
+        var grid = document.getElementById("sku-grid");
+        var empty = document.getElementById("sku-empty");
+        if (inp && grid) {
+          var cards = grid.querySelectorAll(".sku-part-card");
+          inp.addEventListener("input", function(){
+            var q = inp.value.trim().toLowerCase();
+            var shown = 0;
+            for (var i=0;i<cards.length;i++){
+              var c = cards[i];
+              var pn = c.querySelector(".pn");
+              var mf = c.querySelector(".mfr");
+              var txt = ((pn?pn.textContent:"") + " " + (mf?mf.textContent:"")).toLowerCase();
+              var ok = q === "" || txt.indexOf(q) !== -1;
+              c.style.display = ok ? "" : "none";
+              if (ok) shown++;
+            }
+            if (empty) empty.style.display = shown ? "none" : "block";
+          });
+        }
+      })();
+    </script>
   </main>
 </body>
 </html>

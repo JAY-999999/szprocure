@@ -39,54 +39,89 @@
     "address": { "@type": "PostalAddress", "addressLocality": "Shenzhen", "addressCountry": "CN" }
   }
   </script>
+  <style>
+    /* L1 component category page-local visual tuning (2026-09-11) */
+    .section:not(.navy) h2 { font-size: clamp(1.25rem, 2vw, 1.55rem); }
+    .page-head h1 { font-size: clamp(1.3rem, 2vw, 1.6rem); }
+    @media (max-width: 520px) { .page-head h1 { font-size: 1.1rem !important; } }
+    .subcat-card { padding: 14px 18px; display: flex; align-items: center; min-height: 74px; }
+    .sku-mfr { white-space: nowrap; }
+    .check-list li { white-space: nowrap; }
+    .cta-simple h2 { font-size: 1.3rem; }
+    /* V3: L1 RFQ on white background (no gray soft band) while keeping the same
+       24px gap to the featured cards above. */
+    .section--cta-simple { margin-top: -24px !important; padding-top: 0 !important; padding-bottom: 0 !important; background: #fff !important; }
+    .cta-simple { padding-top: 0 !important; padding-bottom: 40px !important; }
+    @media (max-width: 860px) {
+      .section--cta-simple { margin-top: -24px !important; background: #fff !important; }
+      .cta-simple { padding-bottom: 32px !important; }
+    }
+  </style>
 </head>
 <body>
   <div id="site-header"></div>
   <main>
     <nav class="breadcrumb"><div class="container">
-      <a href="/">Home</a> ›
-      <a href="/components/">Components</a> ›
+      <a href="/">Home</a> &#8250;
+      <a href="/components/">Components</a> &#8250;
       <span>Connectors &amp; Electromechanical</span>
     </div></nav>
 
     <!-- 1. Hero / Category Sourcing Intro (merged) -->
-    <section class="page-head">
+    <section class="page-head" style="padding:38px 0 32px;">
       <div class="container">
-        <div class="eyebrow" data-zh="元器件分类">Component Category</div>
-        <h1>Connectors &amp; Electromechanical</h1>
-        <p class="lead">57 connectors &amp; electromechanical we help global buyers source — from the Shenzhen supply chain.</p>
-        <p>Our connectors &amp; electromechanical sourcing spans Connectors, Switches and more, from brands such as JST, Texas Instruments, BOOMELE(Boom Precision Elec), FTDI. SZ Procure helps global buyers source these parts from the Shenzhen supply chain — covering popular families, hard-to-find versions and BOM consolidation with verified suppliers and competitive quotes.</p><p class="muted small">Send the part number — our Shenzhen team cross-references availability and quotes, whether you need production-volume reels or a single hard-to-find variant.</p>
-        <div class="part-head-actions">
+        <h1 style="margin-bottom:4px;">Connectors &amp; Electromechanical</h1>
+        <p class="lead" style="margin-bottom:6px;">Connectors, relays, switches and terminals that join circuits, route signals and control power across boards, cables and enclosures.</p>
+        <ul class="check-list" style="margin-top:8px; display:grid; grid-template-columns:1fr 1fr; column-gap:16px; row-gap:9px; padding-left:0; max-width:760px;">
+          <li style="margin:0; line-height:1.45;"><span style="color:var(--accent,#0A84FF)">&#10003;</span> Hard-to-find Parts Sourcing</li>
+          <li style="margin:0; line-height:1.45;"><span style="color:var(--accent,#0A84FF)">&#10003;</span> Alternative Parts Matching</li>
+          <li style="margin:0; line-height:1.45;"><span style="color:var(--accent,#0A84FF)">&#10003;</span> Supplier Screening &amp; Product Verification</li>
+          <li style="margin:0; line-height:1.45;"><span style="color:var(--accent,#0A84FF)">&#10003;</span> BOM &amp; Small Quantity Orders</li>
+        </ul>
+        <div class="part-head-actions" style="margin-top:12px;">
           <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
-          <a class="btn btn-ghost" href="https://wa.me/8613530888389">WhatsApp</a>
-          <a class="btn btn-ghost" href="mailto:sales@szprocure.com">Email</a>
         </div>
       </div>
     </section>
 
     <!-- 2. Subcategory Navigation -->
-    <section class="section" id="subcategories">
+    <section class="section" id="subcategories" style="padding:48px 0;">
       <div class="container">
         <h2>Connectors &amp; Electromechanical Subcategories</h2>
-        <div class="grid grid-4"><a class="card subcat-card" href="/request-a-quote/" data-zh="获取报价"><div class="sku-mpn">Connectors &amp; Electromechanical</div><div class="sku-mfr">Request a quote</div></a></div>
+        <div class="grid grid-4">
+          <a class="card subcat-card" href="/components/connectors-electromechanical/connectors/"><div class="sku-mpn">Connectors</div></a>
+          <a class="card subcat-card" href="/components/connectors-electromechanical/switches/"><div class="sku-mpn">Switches</div></a>
+        </div>
       </div>
     </section>
 
-    <!-- 3. Representative Products (bounded 12) -->
-    <section class="section">
+    <!-- 3. Featured Components (bounded) -->
+    <section class="section" id="featured" style="padding:48px 0;">
       <div class="container">
-        <h2>Representative Connectors &amp; Electromechanical</h2>
-        <div class="grid grid-4"><a class="card sku-card" href="/products/104pwb/"><div class="sku-mpn">1.0-4PWB</div><div class="sku-mfr">DEALON</div></a><a class="card sku-card" href="/products/591701s00d/"><div class="sku-mpn">59170-1-S-00-D</div><div class="sku-mfr">Littelfuse</div></a></div>
-        <p class="muted"><a href="#subcategories">Browse the full list in each subcategory →</a></p>
+        <h2>Featured Components</h2>
+        <div class="grid grid-4">
+          <a class="card sku-card" href="/products/254140l15mm/"><div class="sku-mpn">2.54-1*40L=15MM</div><div class="sku-mfr">ZHOURI</div></a>
+          <a class="card sku-card" href="/products/typec31m12/"><div class="sku-mpn">TYPE-C-31-M-12</div><div class="sku-mfr">Korean Hroparts</div></a>
+          <a class="card sku-card" href="/products/usb2514biaezgtr/"><div class="sku-mpn">USB2514BI-AEZG-TR</div><div class="sku-mfr">Microchip Technology</div></a>
+          <a class="card sku-card" href="/products/tps22810drvr/"><div class="sku-mpn">TPS22810DRVR</div><div class="sku-mfr">Texas Instruments</div></a>
+          <a class="card sku-card" href="/products/sn74lvc1g3157dckr/"><div class="sku-mpn">SN74LVC1G3157DCKR</div><div class="sku-mfr">Texas Instruments</div></a>
+          <a class="card sku-card" href="/products/tps22917dbvr/"><div class="sku-mpn">TPS22917DBVR</div><div class="sku-mfr">Texas Instruments</div></a>
+          <a class="card sku-card" href="/products/tps22918dbvr/"><div class="sku-mpn">TPS22918DBVR</div><div class="sku-mfr">Texas Instruments</div></a>
+          <a class="card sku-card" href="/products/tps22919dckr/"><div class="sku-mpn">TPS22919DCKR</div><div class="sku-mfr">Texas Instruments</div></a>
+        </div>
       </div>
     </section>
 
     <!-- 4. RFQ / Sourcing CTA -->
-    <section class="section navy">
-      <div class="container" style="text-align:center">
-        <h2>Need a Connectors &amp; Electromechanical part?</h2>
-        <p>Send us the part number and quantity for a quote.</p>
-        <a class="btn btn-white btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
+    <section class="section section--cta-simple">
+      <div class="container">
+        <div class="cta-simple">
+          <div>
+            <h2>Need a Part or BOM?</h2>
+            <p style="margin:6px 0 0; font-size:1rem; color:var(--muted,#6b7280); line-height:1.4;">Send us your part numbers and quantities for a quote.</p>
+          </div>
+          <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
+        </div>
       </div>
     </section>
   </main>

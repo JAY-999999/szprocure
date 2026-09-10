@@ -15,6 +15,46 @@
   <meta property="og:url" content="https://www.szprocure.com/components/connectors-electromechanical/switches/" />
   <meta property="og:image" content="https://www.szprocure.com/assets/img/hero.svg" />
   <link rel="stylesheet" href="/assets/styles.css" />
+  <style>
+    .sku-heading-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;margin:0 0 14px;}
+    .sku-title{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-self:start;}
+    .sku-title h2{margin:0;}
+    .sku-count-badge{display:inline-flex;align-items:center;justify-content:center;min-width:32px;height:32px;padding:0 10px;border-radius:999px;background:var(--accent-soft);color:var(--muted);font-size:.85rem;font-weight:700;}
+    .sku-section{padding-top:48px;padding-bottom:40px;}
+    .sku-search{width:420px;max-width:100%;justify-self:center;}
+    .sku-search input{width:100%;padding:11px 14px;border:1px solid var(--border-strong);border-radius:10px;font-size:.95rem;color:var(--navy);background:#fff;}
+    .sku-search input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);}
+    .sku-part-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:4px;}
+    .sku-part-card{display:flex;flex-direction:column;gap:5px;padding:14px 16px;border:1px solid var(--border-strong);border-radius:10px;background:#fff;text-decoration:none;transition:border-color .15s,box-shadow .15s;}
+    .sku-part-card:hover{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);}
+    .sku-part-card .pn{font-size:1rem;font-weight:600;color:var(--navy);line-height:1.35;word-break:break-word;}
+    .sku-part-card .mfr{font-size:.9rem;color:var(--muted);line-height:1.3;}
+    .sku-empty{display:none;padding:18px 14px;color:var(--muted);font-style:italic;}
+    .pagination{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:26px;}
+    .pagination .page-state{display:inline-flex;align-items:center;justify-content:center;min-width:40px;height:40px;padding:0 12px;border-radius:9px;background:var(--accent);color:#fff;font-weight:600;}
+    .pagination .btn-ghost{min-width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;}
+    @media (max-width:640px){
+      .sku-heading-row{grid-template-columns:1fr;gap:12px;}
+      .sku-search{width:100%;grid-column:1;}
+      .sku-part-grid{grid-template-columns:1fr;}
+    }
+    .section:not(.navy) h2 { font-size: clamp(1.25rem, 2vw, 1.55rem); }
+    .page-head h1 { font-size: clamp(1.3rem, 2vw, 1.6rem); }
+    @media (max-width: 520px) { .page-head h1 { font-size: 1.1rem !important; } }
+    .subcat-card { padding: 14px 18px; display: flex; align-items: center; justify-content: center; min-height: 74px; color: inherit; text-decoration: none; }
+    .subcat-card .sku-mpn { color: var(--text, #1a2233); font-weight: 600; font-size: .95rem; text-align: center; }
+    .subcat-card:hover .sku-mpn { color: var(--accent, #0A84FF); }
+    .sku-mfr { white-space: nowrap; }
+    .check-list li { white-space: nowrap; }
+    .grid.grid-4 { gap: 22px; }
+    .sku-card { padding: 14px 18px; display: flex; align-items: center; justify-content: center; min-height: 74px; color: inherit; text-decoration: none; }
+    .sku-card .sku-mpn { color: var(--text, #1a2233); font-weight: 600; font-size: .95rem; text-align: center; }
+    .sku-card:hover .sku-mpn { color: var(--accent, #0A84FF); }
+    .cta-simple h2 { font-size: 1.3rem; }
+    /* Pull the RFQ block down so its gray background does not overlap the cards above. */
+    .section--cta-simple { margin-top: 0 !important; padding: 24px 0 48px; }
+    @media (max-width: 860px) { .section--cta-simple { margin-top: 0 !important; } }
+  </style>
   <script src="/assets/site.js"></script>
   <script type="application/ld+json">
   {
@@ -257,65 +297,107 @@
       <a href="/components/connectors-electromechanical/">Connectors &amp; Electromechanical</a> ›
       <span>Switches</span>
     </div></nav>
-    <section class="page-head">
+    <section class="page-head" style="padding:38px 0 32px;">
       <div class="container">
-        <div class="eyebrow">Component Subcategory</div>
-        <h1>Switches</h1>
-        <p class="lead">Switches are core connectors &amp; electromechanical used throughout electronic and IoT products. As your China sourcing partner, SZ Procure helps global buyers procure switches from a verified Shenzhen supply network — including popular families and hard-to-find versions — with BOM consolidation and consolidated quotes.</p>
-        <div class="part-head-actions">
+        <h1 style="margin-bottom:4px;">Switches</h1>
+        <p class="lead" style="margin-bottom:6px;">Switches are electromechanical controls that open, close or change signal and power paths in a circuit.</p>
+        <ul class="check-list" style="margin-top:8px; display:grid; grid-template-columns:1fr 1fr; column-gap:16px; row-gap:9px; padding-left:0; max-width:760px;">
+          <li style="margin:0; line-height:1.45;"><span style="color:var(--accent,#0A84FF)">&#10003;</span> Hard-to-find Parts Sourcing</li>
+          <li style="margin:0; line-height:1.45;"><span style="color:var(--accent,#0A84FF)">&#10003;</span> Alternative Parts Matching</li>
+          <li style="margin:0; line-height:1.45;"><span style="color:var(--accent,#0A84FF)">&#10003;</span> Supplier Screening &amp; Product Verification</li>
+          <li style="margin:0; line-height:1.45;"><span style="color:var(--accent,#0A84FF)">&#10003;</span> BOM &amp; Small Quantity Orders</li>
+        </ul>
+        <div class="part-head-actions" style="margin-top:12px;">
           <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
         </div>
       </div>
     </section>
-    <section class="section">
+    <section class="section sku-section">
       <div class="container">
-        <h2>Switches We Source</h2>
-        <ul class="bullet-list part-index" id="part-index">
-          <li><a href="/products/tps22810drvr/">TPS22810DRVR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/sn74lvc1g3157dckr/">SN74LVC1G3157DCKR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/tps22917dbvr/">TPS22917DBVR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/tps22918dbvr/">TPS22918DBVR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/tps22919dckr/">TPS22919DCKR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/adg719brtzreel7/">ADG719BRTZ-REEL7</a> <span class="muted">— Analog Devices</span></li>
-          <li><a href="/products/ts1088ar02016/">TS-1088-AR02016</a> <span class="muted">— XUNPU</span></li>
-          <li><a href="/products/ts1187abab/">TS-1187A-B-A-B</a> <span class="muted">— XKB Connection</span></li>
-          <li><a href="/products/g5nb1aedc5v/">G5NB-1A-E-DC5V</a> <span class="muted">— Omron</span></li>
-          <li><a href="/products/srd12vdcslc/">SRD-12VDC-SL-C</a> <span class="muted">— Songle Relay</span></li>
-          <li><a href="/products/srd05vdcslc/">SRD-05VDC-SL-C</a> <span class="muted">— Songle Relay</span></li>
-          <li><a href="/products/591701s00d/">59170-1-S-00-D</a> <span class="muted">— Littelfuse</span></li>
-          <li><a href="/products/b3u1000p/">B3U-1000P</a> <span class="muted">— Omron</span></li>
-        </ul>
+        <div class="sku-heading-row">
+          <div class="sku-title">
+            <h2>Switches We Source</h2>
+            <span class="sku-count-badge" aria-label="13 parts">13</span>
+          </div>
+          <div class="sku-search">
+            <input type="search" id="sku-filter" placeholder="Filter by part number or manufacturer…" aria-label="Filter parts" autocomplete="off" />
+          </div>
+        </div>
+        <div class="sku-part-grid" id="sku-grid">
+          <a class="sku-part-card" href="/products/tps22810drvr/"><span class="pn">TPS22810DRVR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/sn74lvc1g3157dckr/"><span class="pn">SN74LVC1G3157DCKR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/tps22917dbvr/"><span class="pn">TPS22917DBVR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/tps22918dbvr/"><span class="pn">TPS22918DBVR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/tps22919dckr/"><span class="pn">TPS22919DCKR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/adg719brtzreel7/"><span class="pn">ADG719BRTZ-REEL7</span><span class="mfr">Analog Devices</span></a>
+          <a class="sku-part-card" href="/products/ts1088ar02016/"><span class="pn">TS-1088-AR02016</span><span class="mfr">XUNPU</span></a>
+          <a class="sku-part-card" href="/products/ts1187abab/"><span class="pn">TS-1187A-B-A-B</span><span class="mfr">XKB Connection</span></a>
+          <a class="sku-part-card" href="/products/g5nb1aedc5v/"><span class="pn">G5NB-1A-E-DC5V</span><span class="mfr">Omron</span></a>
+          <a class="sku-part-card" href="/products/srd12vdcslc/"><span class="pn">SRD-12VDC-SL-C</span><span class="mfr">Songle Relay</span></a>
+          <a class="sku-part-card" href="/products/srd05vdcslc/"><span class="pn">SRD-05VDC-SL-C</span><span class="mfr">Songle Relay</span></a>
+          <a class="sku-part-card" href="/products/591701s00d/"><span class="pn">59170-1-S-00-D</span><span class="mfr">Littelfuse</span></a>
+          <a class="sku-part-card" href="/products/b3u1000p/"><span class="pn">B3U-1000P</span><span class="mfr">Omron</span></a>
+        </div>
+        <p class="sku-empty" id="sku-empty">No parts match your filter.</p>
       </div>
     </section>
-    <section class="section">
+    <section class="section" id="subcategories" style="padding:12px 0 48px;">
       <div class="container">
         <h2>Related Subcategories</h2>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;">
-          <a href="/components/connectors-electromechanical/connectors/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Connectors</a>
+        <div class="grid grid-4">
+          <a class="card subcat-card" href="/components/connectors-electromechanical/connectors/"><div class="sku-mpn">Connectors</div></a>
         </div>
       </div>
     </section>
-    <section class="section">
+    <section class="section" id="manufacturers" style="padding:12px 0 24px;">
       <div class="container">
         <h2>Related Manufacturers</h2>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;">
-          <a href="/manufacturers/texas-instruments/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Texas Instruments</a>
-          <a href="/manufacturers/omron/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Omron</a>
-          <a href="/manufacturers/songle-relay/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Songle Relay</a>
-          <a href="/manufacturers/analog-devices/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Analog Devices</a>
-          <a href="/manufacturers/xunpu/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">XUNPU</a>
-          <a href="/manufacturers/xkb-connection/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">XKB Connection</a>
-          <a href="/manufacturers/littelfuse/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Littelfuse</a>
+        <div class="grid grid-4">
+          <a class="card sku-card" href="/manufacturers/texas-instruments/"><div class="sku-mpn">Texas Instruments</div></a>
+          <a class="card sku-card" href="/manufacturers/omron/"><div class="sku-mpn">Omron</div></a>
+          <a class="card sku-card" href="/manufacturers/songle-relay/"><div class="sku-mpn">Songle Relay</div></a>
+          <a class="card sku-card" href="/manufacturers/analog-devices/"><div class="sku-mpn">Analog Devices</div></a>
+          <a class="card sku-card" href="/manufacturers/xunpu/"><div class="sku-mpn">XUNPU</div></a>
+          <a class="card sku-card" href="/manufacturers/xkb-connection/"><div class="sku-mpn">XKB Connection</div></a>
+          <a class="card sku-card" href="/manufacturers/littelfuse/"><div class="sku-mpn">Littelfuse</div></a>
         </div>
       </div>
     </section>
-    <section class="section">
+    <section class="section soft section--cta-simple">
       <div class="container">
-        <h2>Need a Quote?</h2>
-        <p>Send us your BOM or a list of parts. We return a consolidated quote with lead-time and alternates.</p>
-        <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
+        <div class="cta-simple">
+          <div>
+            <h2>Need a Part or BOM?</h2>
+            <p style="margin:6px 0 0; font-size:1rem; color:var(--muted,#6b7280); line-height:1.4;">Send us your part numbers and quantities for a quote.</p>
+          </div>
+          <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
+        </div>
       </div>
     </section>
+    <script>
+      (function(){
+        var inp = document.getElementById("sku-filter");
+        var grid = document.getElementById("sku-grid");
+        var empty = document.getElementById("sku-empty");
+        if (inp && grid) {
+          var cards = grid.querySelectorAll(".sku-part-card");
+          inp.addEventListener("input", function(){
+            var q = inp.value.trim().toLowerCase();
+            var shown = 0;
+            for (var i=0;i<cards.length;i++){
+              var c = cards[i];
+              var pn = c.querySelector(".pn");
+              var mf = c.querySelector(".mfr");
+              var txt = ((pn?pn.textContent:"") + " " + (mf?mf.textContent:"")).toLowerCase();
+              var ok = q === "" || txt.indexOf(q) !== -1;
+              c.style.display = ok ? "" : "none";
+              if (ok) shown++;
+            }
+            if (empty) empty.style.display = shown ? "none" : "block";
+          });
+        }
+      })();
+    </script>
   </main>
 </body>
 </html>

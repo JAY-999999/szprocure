@@ -15,6 +15,46 @@
   <meta property="og:url" content="https://www.szprocure.com/components/integrated-circuits/microcontrollers/page/2/" />
   <meta property="og:image" content="https://www.szprocure.com/assets/img/hero.svg" />
   <link rel="stylesheet" href="/assets/styles.css" />
+  <style>
+    .sku-heading-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;margin:0 0 14px;}
+    .sku-title{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-self:start;}
+    .sku-title h2{margin:0;}
+    .sku-count-badge{display:inline-flex;align-items:center;justify-content:center;min-width:32px;height:32px;padding:0 10px;border-radius:999px;background:var(--accent-soft);color:var(--muted);font-size:.85rem;font-weight:700;}
+    .sku-section{padding-top:48px;padding-bottom:40px;}
+    .sku-search{width:420px;max-width:100%;justify-self:center;}
+    .sku-search input{width:100%;padding:11px 14px;border:1px solid var(--border-strong);border-radius:10px;font-size:.95rem;color:var(--navy);background:#fff;}
+    .sku-search input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);}
+    .sku-part-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:4px;}
+    .sku-part-card{display:flex;flex-direction:column;gap:5px;padding:14px 16px;border:1px solid var(--border-strong);border-radius:10px;background:#fff;text-decoration:none;transition:border-color .15s,box-shadow .15s;}
+    .sku-part-card:hover{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);}
+    .sku-part-card .pn{font-size:1rem;font-weight:600;color:var(--navy);line-height:1.35;word-break:break-word;}
+    .sku-part-card .mfr{font-size:.9rem;color:var(--muted);line-height:1.3;}
+    .sku-empty{display:none;padding:18px 14px;color:var(--muted);font-style:italic;}
+    .pagination{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:26px;}
+    .pagination .page-state{display:inline-flex;align-items:center;justify-content:center;min-width:40px;height:40px;padding:0 12px;border-radius:9px;background:var(--accent);color:#fff;font-weight:600;}
+    .pagination .btn-ghost{min-width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;}
+    @media (max-width:640px){
+      .sku-heading-row{grid-template-columns:1fr;gap:12px;}
+      .sku-search{width:100%;grid-column:1;}
+      .sku-part-grid{grid-template-columns:1fr;}
+    }
+    .section:not(.navy) h2 { font-size: clamp(1.25rem, 2vw, 1.55rem); }
+    .page-head h1 { font-size: clamp(1.3rem, 2vw, 1.6rem); }
+    @media (max-width: 520px) { .page-head h1 { font-size: 1.1rem !important; } }
+    .subcat-card { padding: 14px 18px; display: flex; align-items: center; justify-content: center; min-height: 74px; color: inherit; text-decoration: none; }
+    .subcat-card .sku-mpn { color: var(--text, #1a2233); font-weight: 600; font-size: .95rem; text-align: center; }
+    .subcat-card:hover .sku-mpn { color: var(--accent, #0A84FF); }
+    .sku-mfr { white-space: nowrap; }
+    .check-list li { white-space: nowrap; }
+    .grid.grid-4 { gap: 22px; }
+    .sku-card { padding: 14px 18px; display: flex; align-items: center; justify-content: center; min-height: 74px; color: inherit; text-decoration: none; }
+    .sku-card .sku-mpn { color: var(--text, #1a2233); font-weight: 600; font-size: .95rem; text-align: center; }
+    .sku-card:hover .sku-mpn { color: var(--accent, #0A84FF); }
+    .cta-simple h2 { font-size: 1.3rem; }
+    /* Pull the RFQ block down so its gray background does not overlap the cards above. */
+    .section--cta-simple { margin-top: 0 !important; padding: 24px 0 48px; }
+    @media (max-width: 860px) { .section--cta-simple { margin-top: 0 !important; } }
+  </style>
   <script src="/assets/site.js"></script>
   <script type="application/ld+json">
   {
@@ -556,57 +596,71 @@
       <a href="/components/integrated-circuits/">Integrated Circuits</a> ›
       <span>Microcontrollers</span>
     </div></nav>
-    <section class="page-head">
+    <section class="page-head" style="padding:38px 0 32px;">
       <div class="container">
-        <div class="eyebrow">Component Subcategory</div>
-        <h1>Microcontrollers</h1>
-        <p class="lead">Microcontrollers are core integrated circuits used throughout electronic and IoT products. As your China sourcing partner, SZ Procure helps global buyers procure microcontrollers from a verified Shenzhen supply network — including popular families and hard-to-find versions — with BOM consolidation and consolidated quotes.</p>
-        <div class="part-head-actions">
+        <h1 style="margin-bottom:4px;">Microcontrollers</h1>
+        <p class="lead" style="margin-bottom:6px;">Microcontrollers are self-contained integrated circuits that combine a processor, memory and peripherals to control embedded and IoT devices.</p>
+        <ul class="check-list" style="margin-top:8px; display:grid; grid-template-columns:1fr 1fr; column-gap:16px; row-gap:9px; padding-left:0; max-width:760px;">
+          <li style="margin:0; line-height:1.45;"><span style="color:var(--accent,#0A84FF)">&#10003;</span> Hard-to-find Parts Sourcing</li>
+          <li style="margin:0; line-height:1.45;"><span style="color:var(--accent,#0A84FF)">&#10003;</span> Alternative Parts Matching</li>
+          <li style="margin:0; line-height:1.45;"><span style="color:var(--accent,#0A84FF)">&#10003;</span> Supplier Screening &amp; Product Verification</li>
+          <li style="margin:0; line-height:1.45;"><span style="color:var(--accent,#0A84FF)">&#10003;</span> BOM &amp; Small Quantity Orders</li>
+        </ul>
+        <div class="part-head-actions" style="margin-top:12px;">
           <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
         </div>
       </div>
     </section>
-    <section class="section">
+    <section class="section sku-section">
       <div class="container">
-        <h2>Microcontrollers We Source</h2>
-        <ul class="bullet-list part-index" id="part-index">
-          <li><a href="/products/stm32h723vgh6/">STM32H723VGH6</a> <span class="muted">— STMicroelectronics</span></li>
-          <li><a href="/products/stm32f429igt6/">STM32F429IGT6</a> <span class="muted">— STMicroelectronics</span></li>
-          <li><a href="/products/stm32g431kbu6/">STM32G431KBU6</a> <span class="muted">— STMicroelectronics</span></li>
-          <li><a href="/products/stm8s003k3t6ctr/">STM8S003K3T6CTR</a> <span class="muted">— STMicroelectronics</span></li>
-          <li><a href="/products/atmega64aau/">ATMEGA64A-AU</a> <span class="muted">— Microchip Technology</span></li>
-          <li><a href="/products/atmega328pmu/">ATMEGA328P-MU</a> <span class="muted">— Microchip Technology</span></li>
-          <li><a href="/products/atsamd21g18aau/">ATSAMD21G18A-AU</a> <span class="muted">— Microchip Technology</span></li>
-          <li><a href="/products/pic16f1933iss/">PIC16F1933-I/SS</a> <span class="muted">— Microchip Technology</span></li>
-          <li><a href="/products/msp430f247tpmr/">MSP430F247TPMR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/tms320f28069pzt/">TMS320F28069PZT</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/lpc1765fbd100k/">LPC1765FBD100K</a> <span class="muted">— NXP Semiconductors</span></li>
-          <li><a href="/products/mkl17z64vfm4/">MKL17Z64VFM4</a> <span class="muted">— NXP Semiconductors</span></li>
-          <li><a href="/products/lpc824m201jhi33y/">LPC824M201JHI33Y</a> <span class="muted">— NXP Semiconductors</span></li>
-          <li><a href="/products/gd32f303rct6/">GD32F303RCT6</a> <span class="muted">— GigaDevice Semicon Beijing</span></li>
-          <li><a href="/products/at32f415cbt7/">AT32F415CBT7</a> <span class="muted">— ARTERY</span></li>
-          <li><a href="/products/stm32g070cbt6/">STM32G070CBT6</a> <span class="muted">— STMicroelectronics</span></li>
-          <li><a href="/products/stm32h7b0vbt6/">STM32H7B0VBT6</a> <span class="muted">— STMicroelectronics</span></li>
-          <li><a href="/products/s9keaz128amlk/">S9KEAZ128AMLK</a> <span class="muted">— NXP Semiconductors</span></li>
-          <li><a href="/products/at24c64dxhmt/">AT24C64D-XHM-T</a> <span class="muted">— Microchip Technology</span></li>
-          <li><a href="/products/w25x40clsnig/">W25X40CLSNIG</a> <span class="muted">— Winbond Electronics</span></li>
-          <li><a href="/products/abs0732768khzt/">ABS07-32.768KHZ-T</a> <span class="muted">— ABRACON</span></li>
-          <li><a href="/products/pic18f6722ipt/">PIC18F6722-I/PT</a> <span class="muted">— Microchip Technology</span></li>
-          <li><a href="/products/pic16f1828iss/">PIC16F1828-I/SS</a> <span class="muted">— Microchip Technology</span></li>
-          <li><a href="/products/atmega8aau/">ATMEGA8A-AU</a> <span class="muted">— Microchip Technology</span></li>
-          <li><a href="/products/d5116an9cxgxnu/">D5116AN9CXGXN-U</a> <span class="muted">— Kingston</span></li>
-          <li><a href="/products/gd5f1gm7ueyigr/">GD5F1GM7UEYIGR</a> <span class="muted">— GigaDevice Semicon Beijing</span></li>
-          <li><a href="/products/25lc040atisn/">25LC040AT-I/SN</a> <span class="muted">— Microchip Technology</span></li>
-          <li><a href="/products/pic18f46k22imv/">PIC18F46K22-I/MV</a> <span class="muted">— Microchip Technology</span></li>
-          <li><a href="/products/ow7el89cenuyo3ylc32m/">OW7EL89CENUYO3YLC-32M</a> <span class="muted">— YXC Crystal Oscillators</span></li>
-          <li><a href="/products/max96714fgtjvyt/">MAX96714FGTJ/VY+T</a> <span class="muted">— Maxim Integrated</span></li>
-          <li><a href="/products/tms320f2808pza/">TMS320F2808PZA</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/mx25l25645gm2i10gtr/">MX25L25645GM2I-10GTR</a> <span class="muted">— Macronix International</span></li>
-          <li><a href="/products/mcp3008ip/">MCP3008-I/P</a> <span class="muted">— Microchip Technology</span></li>
-          <li><a href="/products/lpc2214fbd14401k/">LPC2214FBD144/01K</a> <span class="muted">— NXP Semiconductors</span></li>
-          <li><a href="/products/nt5cc128m16jreki/">NT5CC128M16JR-EKI</a> <span class="muted">— Nanya Tech</span></li>
-          <li><a href="/products/w25q256jweiq/">W25Q256JWEIQ</a> <span class="muted">— Winbond Electronics</span></li>
-        </ul>
+        <div class="sku-heading-row">
+          <div class="sku-title">
+            <h2>Microcontrollers We Source</h2>
+            <span class="sku-count-badge" aria-label="86 parts">86</span>
+          </div>
+          <div class="sku-search">
+            <input type="search" id="sku-filter" placeholder="Filter by part number or manufacturer…" aria-label="Filter parts" autocomplete="off" />
+          </div>
+        </div>
+        <div class="sku-part-grid" id="sku-grid">
+          <a class="sku-part-card" href="/products/stm32h723vgh6/"><span class="pn">STM32H723VGH6</span><span class="mfr">STMicroelectronics</span></a>
+          <a class="sku-part-card" href="/products/stm32f429igt6/"><span class="pn">STM32F429IGT6</span><span class="mfr">STMicroelectronics</span></a>
+          <a class="sku-part-card" href="/products/stm32g431kbu6/"><span class="pn">STM32G431KBU6</span><span class="mfr">STMicroelectronics</span></a>
+          <a class="sku-part-card" href="/products/stm8s003k3t6ctr/"><span class="pn">STM8S003K3T6CTR</span><span class="mfr">STMicroelectronics</span></a>
+          <a class="sku-part-card" href="/products/atmega64aau/"><span class="pn">ATMEGA64A-AU</span><span class="mfr">Microchip Technology</span></a>
+          <a class="sku-part-card" href="/products/atmega328pmu/"><span class="pn">ATMEGA328P-MU</span><span class="mfr">Microchip Technology</span></a>
+          <a class="sku-part-card" href="/products/atsamd21g18aau/"><span class="pn">ATSAMD21G18A-AU</span><span class="mfr">Microchip Technology</span></a>
+          <a class="sku-part-card" href="/products/pic16f1933iss/"><span class="pn">PIC16F1933-I/SS</span><span class="mfr">Microchip Technology</span></a>
+          <a class="sku-part-card" href="/products/msp430f247tpmr/"><span class="pn">MSP430F247TPMR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/tms320f28069pzt/"><span class="pn">TMS320F28069PZT</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/lpc1765fbd100k/"><span class="pn">LPC1765FBD100K</span><span class="mfr">NXP Semiconductors</span></a>
+          <a class="sku-part-card" href="/products/mkl17z64vfm4/"><span class="pn">MKL17Z64VFM4</span><span class="mfr">NXP Semiconductors</span></a>
+          <a class="sku-part-card" href="/products/lpc824m201jhi33y/"><span class="pn">LPC824M201JHI33Y</span><span class="mfr">NXP Semiconductors</span></a>
+          <a class="sku-part-card" href="/products/gd32f303rct6/"><span class="pn">GD32F303RCT6</span><span class="mfr">GigaDevice Semicon Beijing</span></a>
+          <a class="sku-part-card" href="/products/at32f415cbt7/"><span class="pn">AT32F415CBT7</span><span class="mfr">ARTERY</span></a>
+          <a class="sku-part-card" href="/products/stm32g070cbt6/"><span class="pn">STM32G070CBT6</span><span class="mfr">STMicroelectronics</span></a>
+          <a class="sku-part-card" href="/products/stm32h7b0vbt6/"><span class="pn">STM32H7B0VBT6</span><span class="mfr">STMicroelectronics</span></a>
+          <a class="sku-part-card" href="/products/s9keaz128amlk/"><span class="pn">S9KEAZ128AMLK</span><span class="mfr">NXP Semiconductors</span></a>
+          <a class="sku-part-card" href="/products/at24c64dxhmt/"><span class="pn">AT24C64D-XHM-T</span><span class="mfr">Microchip Technology</span></a>
+          <a class="sku-part-card" href="/products/w25x40clsnig/"><span class="pn">W25X40CLSNIG</span><span class="mfr">Winbond Electronics</span></a>
+          <a class="sku-part-card" href="/products/abs0732768khzt/"><span class="pn">ABS07-32.768KHZ-T</span><span class="mfr">ABRACON</span></a>
+          <a class="sku-part-card" href="/products/pic18f6722ipt/"><span class="pn">PIC18F6722-I/PT</span><span class="mfr">Microchip Technology</span></a>
+          <a class="sku-part-card" href="/products/pic16f1828iss/"><span class="pn">PIC16F1828-I/SS</span><span class="mfr">Microchip Technology</span></a>
+          <a class="sku-part-card" href="/products/atmega8aau/"><span class="pn">ATMEGA8A-AU</span><span class="mfr">Microchip Technology</span></a>
+          <a class="sku-part-card" href="/products/d5116an9cxgxnu/"><span class="pn">D5116AN9CXGXN-U</span><span class="mfr">Kingston</span></a>
+          <a class="sku-part-card" href="/products/gd5f1gm7ueyigr/"><span class="pn">GD5F1GM7UEYIGR</span><span class="mfr">GigaDevice Semicon Beijing</span></a>
+          <a class="sku-part-card" href="/products/25lc040atisn/"><span class="pn">25LC040AT-I/SN</span><span class="mfr">Microchip Technology</span></a>
+          <a class="sku-part-card" href="/products/pic18f46k22imv/"><span class="pn">PIC18F46K22-I/MV</span><span class="mfr">Microchip Technology</span></a>
+          <a class="sku-part-card" href="/products/ow7el89cenuyo3ylc32m/"><span class="pn">OW7EL89CENUYO3YLC-32M</span><span class="mfr">YXC Crystal Oscillators</span></a>
+          <a class="sku-part-card" href="/products/max96714fgtjvyt/"><span class="pn">MAX96714FGTJ/VY+T</span><span class="mfr">Maxim Integrated</span></a>
+          <a class="sku-part-card" href="/products/tms320f2808pza/"><span class="pn">TMS320F2808PZA</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/mx25l25645gm2i10gtr/"><span class="pn">MX25L25645GM2I-10GTR</span><span class="mfr">Macronix International</span></a>
+          <a class="sku-part-card" href="/products/mcp3008ip/"><span class="pn">MCP3008-I/P</span><span class="mfr">Microchip Technology</span></a>
+          <a class="sku-part-card" href="/products/lpc2214fbd14401k/"><span class="pn">LPC2214FBD144/01K</span><span class="mfr">NXP Semiconductors</span></a>
+          <a class="sku-part-card" href="/products/nt5cc128m16jreki/"><span class="pn">NT5CC128M16JR-EKI</span><span class="mfr">Nanya Tech</span></a>
+          <a class="sku-part-card" href="/products/w25q256jweiq/"><span class="pn">W25Q256JWEIQ</span><span class="mfr">Winbond Electronics</span></a>
+        </div>
+        <p class="sku-empty" id="sku-empty">No parts match your filter.</p>
         <nav class="pagination" aria-label="Pagination">
           <a rel="prev" class="btn btn-ghost" href="/components/integrated-circuits/microcontrollers/">‹ Prev</a>
           <a class="btn btn-ghost" href="/components/integrated-circuits/microcontrollers/">1</a>
@@ -614,39 +668,67 @@
         </nav>
       </div>
     </section>
-    <section class="section">
+    <section class="section" id="subcategories" style="padding:12px 0 48px;">
       <div class="container">
         <h2>Related Subcategories</h2>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;">
-          <a href="/components/integrated-circuits/amplifiers-comparators/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Amplifiers &amp; Comparators</a>
-          <a href="/components/integrated-circuits/interface-ics/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Interface ICs</a>
-          <a href="/components/integrated-circuits/data-converters/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Data Converters</a>
-          <a href="/components/integrated-circuits/logic-ics/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Logic ICs</a>
+        <div class="grid grid-4">
+          <a class="card subcat-card" href="/components/integrated-circuits/amplifiers-comparators/"><div class="sku-mpn">Amplifiers &amp; Comparators</div></a>
+          <a class="card subcat-card" href="/components/integrated-circuits/interface-ics/"><div class="sku-mpn">Interface ICs</div></a>
+          <a class="card subcat-card" href="/components/integrated-circuits/data-converters/"><div class="sku-mpn">Data Converters</div></a>
+          <a class="card subcat-card" href="/components/integrated-circuits/logic-ics/"><div class="sku-mpn">Logic ICs</div></a>
         </div>
       </div>
     </section>
-    <section class="section">
+    <section class="section" id="manufacturers" style="padding:12px 0 24px;">
       <div class="container">
         <h2>Related Manufacturers</h2>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;">
-          <a href="/manufacturers/stmicroelectronics/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">STMicroelectronics</a>
-          <a href="/manufacturers/microchip-technology/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Microchip Technology</a>
-          <a href="/manufacturers/nxp-semiconductors/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">NXP Semiconductors</a>
-          <a href="/manufacturers/texas-instruments/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Texas Instruments</a>
-          <a href="/manufacturers/gigadevice-semicon-beijing/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">GigaDevice Semicon Beijing</a>
-          <a href="/manufacturers/winbond-electronics/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Winbond Electronics</a>
-          <a href="/manufacturers/wch/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">WCH</a>
-          <a href="/manufacturers/raspberry-pi/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Raspberry Pi</a>
+        <div class="grid grid-4">
+          <a class="card sku-card" href="/manufacturers/stmicroelectronics/"><div class="sku-mpn">STMicroelectronics</div></a>
+          <a class="card sku-card" href="/manufacturers/microchip-technology/"><div class="sku-mpn">Microchip Technology</div></a>
+          <a class="card sku-card" href="/manufacturers/nxp-semiconductors/"><div class="sku-mpn">NXP Semiconductors</div></a>
+          <a class="card sku-card" href="/manufacturers/texas-instruments/"><div class="sku-mpn">Texas Instruments</div></a>
+          <a class="card sku-card" href="/manufacturers/gigadevice-semicon-beijing/"><div class="sku-mpn">GigaDevice Semicon Beijing</div></a>
+          <a class="card sku-card" href="/manufacturers/winbond-electronics/"><div class="sku-mpn">Winbond Electronics</div></a>
+          <a class="card sku-card" href="/manufacturers/wch/"><div class="sku-mpn">WCH</div></a>
+          <a class="card sku-card" href="/manufacturers/raspberry-pi/"><div class="sku-mpn">Raspberry Pi</div></a>
         </div>
       </div>
     </section>
-    <section class="section">
+    <section class="section soft section--cta-simple">
       <div class="container">
-        <h2>Need a Quote?</h2>
-        <p>Send us your BOM or a list of parts. We return a consolidated quote with lead-time and alternates.</p>
-        <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
+        <div class="cta-simple">
+          <div>
+            <h2>Need a Part or BOM?</h2>
+            <p style="margin:6px 0 0; font-size:1rem; color:var(--muted,#6b7280); line-height:1.4;">Send us your part numbers and quantities for a quote.</p>
+          </div>
+          <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
+        </div>
       </div>
     </section>
+    <script>
+      (function(){
+        var inp = document.getElementById("sku-filter");
+        var grid = document.getElementById("sku-grid");
+        var empty = document.getElementById("sku-empty");
+        if (inp && grid) {
+          var cards = grid.querySelectorAll(".sku-part-card");
+          inp.addEventListener("input", function(){
+            var q = inp.value.trim().toLowerCase();
+            var shown = 0;
+            for (var i=0;i<cards.length;i++){
+              var c = cards[i];
+              var pn = c.querySelector(".pn");
+              var mf = c.querySelector(".mfr");
+              var txt = ((pn?pn.textContent:"") + " " + (mf?mf.textContent:"")).toLowerCase();
+              var ok = q === "" || txt.indexOf(q) !== -1;
+              c.style.display = ok ? "" : "none";
+              if (ok) shown++;
+            }
+            if (empty) empty.style.display = shown ? "none" : "block";
+          });
+        }
+      })();
+    </script>
   </main>
 </body>
 </html>

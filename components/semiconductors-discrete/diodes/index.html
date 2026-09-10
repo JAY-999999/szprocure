@@ -15,6 +15,46 @@
   <meta property="og:url" content="https://www.szprocure.com/components/semiconductors-discrete/diodes/" />
   <meta property="og:image" content="https://www.szprocure.com/assets/img/hero.svg" />
   <link rel="stylesheet" href="/assets/styles.css" />
+  <style>
+    .sku-heading-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;margin:0 0 14px;}
+    .sku-title{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-self:start;}
+    .sku-title h2{margin:0;}
+    .sku-count-badge{display:inline-flex;align-items:center;justify-content:center;min-width:32px;height:32px;padding:0 10px;border-radius:999px;background:var(--accent-soft);color:var(--muted);font-size:.85rem;font-weight:700;}
+    .sku-section{padding-top:48px;padding-bottom:40px;}
+    .sku-search{width:420px;max-width:100%;justify-self:center;}
+    .sku-search input{width:100%;padding:11px 14px;border:1px solid var(--border-strong);border-radius:10px;font-size:.95rem;color:var(--navy);background:#fff;}
+    .sku-search input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);}
+    .sku-part-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:4px;}
+    .sku-part-card{display:flex;flex-direction:column;gap:5px;padding:14px 16px;border:1px solid var(--border-strong);border-radius:10px;background:#fff;text-decoration:none;transition:border-color .15s,box-shadow .15s;}
+    .sku-part-card:hover{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);}
+    .sku-part-card .pn{font-size:1rem;font-weight:600;color:var(--navy);line-height:1.35;word-break:break-word;}
+    .sku-part-card .mfr{font-size:.9rem;color:var(--muted);line-height:1.3;}
+    .sku-empty{display:none;padding:18px 14px;color:var(--muted);font-style:italic;}
+    .pagination{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:26px;}
+    .pagination .page-state{display:inline-flex;align-items:center;justify-content:center;min-width:40px;height:40px;padding:0 12px;border-radius:9px;background:var(--accent);color:#fff;font-weight:600;}
+    .pagination .btn-ghost{min-width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;}
+    @media (max-width:640px){
+      .sku-heading-row{grid-template-columns:1fr;gap:12px;}
+      .sku-search{width:100%;grid-column:1;}
+      .sku-part-grid{grid-template-columns:1fr;}
+    }
+    .section:not(.navy) h2 { font-size: clamp(1.25rem, 2vw, 1.55rem); }
+    .page-head h1 { font-size: clamp(1.3rem, 2vw, 1.6rem); }
+    @media (max-width: 520px) { .page-head h1 { font-size: 1.1rem !important; } }
+    .subcat-card { padding: 14px 18px; display: flex; align-items: center; justify-content: center; min-height: 74px; color: inherit; text-decoration: none; }
+    .subcat-card .sku-mpn { color: var(--text, #1a2233); font-weight: 600; font-size: .95rem; text-align: center; }
+    .subcat-card:hover .sku-mpn { color: var(--accent, #0A84FF); }
+    .sku-mfr { white-space: nowrap; }
+    .check-list li { white-space: nowrap; }
+    .grid.grid-4 { gap: 22px; }
+    .sku-card { padding: 14px 18px; display: flex; align-items: center; justify-content: center; min-height: 74px; color: inherit; text-decoration: none; }
+    .sku-card .sku-mpn { color: var(--text, #1a2233); font-weight: 600; font-size: .95rem; text-align: center; }
+    .sku-card:hover .sku-mpn { color: var(--accent, #0A84FF); }
+    .cta-simple h2 { font-size: 1.3rem; }
+    /* Pull the RFQ block down so its gray background does not overlap the cards above. */
+    .section--cta-simple { margin-top: 0 !important; padding: 24px 0 48px; }
+    @media (max-width: 860px) { .section--cta-simple { margin-top: 0 !important; } }
+  </style>
   <script src="/assets/site.js"></script>
   <script type="application/ld+json">
   {
@@ -738,71 +778,85 @@
       <a href="/components/semiconductors-discrete/">Semiconductors &amp; Discrete</a> ›
       <span>Diodes</span>
     </div></nav>
-    <section class="page-head">
+    <section class="page-head" style="padding:38px 0 32px;">
       <div class="container">
-        <div class="eyebrow">Component Subcategory</div>
-        <h1>Diodes</h1>
-        <p class="lead">Diodes are core semiconductors &amp; discrete used throughout electronic and IoT products. As your China sourcing partner, SZ Procure helps global buyers procure diodes from a verified Shenzhen supply network — including popular families and hard-to-find versions — with BOM consolidation and consolidated quotes.</p>
-        <div class="part-head-actions">
+        <h1 style="margin-bottom:4px;">Diodes</h1>
+        <p class="lead" style="margin-bottom:6px;">Diodes allow current in one direction and are used for rectification, clamping, protection and switching.</p>
+        <ul class="check-list" style="margin-top:8px; display:grid; grid-template-columns:1fr 1fr; column-gap:16px; row-gap:9px; padding-left:0; max-width:760px;">
+          <li style="margin:0; line-height:1.45;"><span style="color:var(--accent,#0A84FF)">&#10003;</span> Hard-to-find Parts Sourcing</li>
+          <li style="margin:0; line-height:1.45;"><span style="color:var(--accent,#0A84FF)">&#10003;</span> Alternative Parts Matching</li>
+          <li style="margin:0; line-height:1.45;"><span style="color:var(--accent,#0A84FF)">&#10003;</span> Supplier Screening &amp; Product Verification</li>
+          <li style="margin:0; line-height:1.45;"><span style="color:var(--accent,#0A84FF)">&#10003;</span> BOM &amp; Small Quantity Orders</li>
+        </ul>
+        <div class="part-head-actions" style="margin-top:12px;">
           <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
         </div>
       </div>
     </section>
-    <section class="section">
+    <section class="section sku-section">
       <div class="container">
-        <h2>Diodes We Source</h2>
-        <ul class="bullet-list part-index" id="part-index">
-          <li><a href="/products/1n4148ws/">1N4148WS</a> <span class="muted">— Diodes Incorporated</span></li>
-          <li><a href="/products/ss34/">SS34</a> <span class="muted">— Diodes Incorporated</span></li>
-          <li><a href="/products/tpd1e10b06dpyr/">TPD1E10B06DPYR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/usblc62sc6/">USBLC6-2SC6</a> <span class="muted">— STMicroelectronics</span></li>
-          <li><a href="/products/tpd4e05u06dqar/">TPD4E05U06DQAR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/usblc64sc6/">USBLC6-4SC6</a> <span class="muted">— STMicroelectronics</span></li>
-          <li><a href="/products/tpd4eusb30dqar/">TPD4EUSB30DQAR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/usblc62p6/">USBLC6-2P6</a> <span class="muted">— STMicroelectronics</span></li>
-          <li><a href="/products/bav99215/">BAV99,215</a> <span class="muted">— Nexperia</span></li>
-          <li><a href="/products/bat46wj115/">BAT46WJ,115</a> <span class="muted">— Nexperia</span></li>
-          <li><a href="/products/pmeg6010cej115/">PMEG6010CEJ,115</a> <span class="muted">— Nexperia</span></li>
-          <li><a href="/products/pmeg6010ceh115/">PMEG6010CEH,115</a> <span class="muted">— Nexperia</span></li>
-          <li><a href="/products/1n4148w7f/">1N4148W-7-F</a> <span class="muted">— Diodes Incorporated</span></li>
-          <li><a href="/products/bat54215/">BAT54,215</a> <span class="muted">— Nexperia</span></li>
-          <li><a href="/products/bat54slt1g/">BAT54SLT1G</a> <span class="muted">— ON Semiconductor</span></li>
-          <li><a href="/products/1n5819ws/">1N5819WS</a> <span class="muted">— Guangdong Hottech</span></li>
-          <li><a href="/products/bat54c215/">BAT54C,215</a> <span class="muted">— Nexperia</span></li>
-          <li><a href="/products/1n4148w/">1N4148W</a> <span class="muted">— JSMSEMI</span></li>
-          <li><a href="/products/prtr5v0u2f115/">PRTR5V0U2F,115</a> <span class="muted">— Nexperia</span></li>
-          <li><a href="/products/nup2105lt1g/">NUP2105LT1G</a> <span class="muted">— ON Semiconductor</span></li>
-          <li><a href="/products/bat54s/">BAT54S</a> <span class="muted">— JSMSEMI</span></li>
-          <li><a href="/products/pesd0402140/">PESD0402-140</a> <span class="muted">— Littelfuse</span></li>
-          <li><a href="/products/pesd3v3s2ut215/">PESD3V3S2UT,215</a> <span class="muted">— Nexperia</span></li>
-          <li><a href="/products/1n5819hw7f/">1N5819HW-7-F</a> <span class="muted">— Diodes Incorporated</span></li>
-          <li><a href="/products/esd5z33t1g/">ESD5Z3.3T1G</a> <span class="muted">— ON Semiconductor</span></li>
-          <li><a href="/products/ll4148gs08/">LL4148-GS08</a> <span class="muted">— Vishay Intertechnology</span></li>
-          <li><a href="/products/ss54/">SS54</a> <span class="muted">— MDD(Microdiode Semiconductor)</span></li>
-          <li><a href="/products/ss14/">SS14</a> <span class="muted">— MDD(Microdiode Semiconductor)</span></li>
-          <li><a href="/products/pesd5z33115/">PESD5Z3.3,115</a> <span class="muted">— Nexperia</span></li>
-          <li><a href="/products/mbr0540t1g/">MBR0540T1G</a> <span class="muted">— ON Semiconductor</span></li>
-          <li><a href="/products/pesd1can215/">PESD1CAN,215</a> <span class="muted">— Nexperia</span></li>
-          <li><a href="/products/bas516115/">BAS516,115</a> <span class="muted">— Nexperia</span></li>
-          <li><a href="/products/sm4007pl/">SM4007PL</a> <span class="muted">— MDD(Microdiode Semiconductor)</span></li>
-          <li><a href="/products/b560c13f/">B560C-13-F</a> <span class="muted">— Diodes Incorporated</span></li>
-          <li><a href="/products/b340a13f/">B340A-13-F</a> <span class="muted">— Diodes Incorporated</span></li>
-          <li><a href="/products/mbr0520lt1g/">MBR0520LT1G</a> <span class="muted">— ON Semiconductor</span></li>
-          <li><a href="/products/mbra340t3g/">MBRA340T3G</a> <span class="muted">— ON Semiconductor</span></li>
-          <li><a href="/products/srv054tct/">SRV05-4.TCT</a> <span class="muted">— Semtech</span></li>
-          <li><a href="/products/esd5z50t1g/">ESD5Z5.0T1G</a> <span class="muted">— ON Semiconductor</span></li>
-          <li><a href="/products/bas16j115/">BAS16J,115</a> <span class="muted">— Nexperia</span></li>
-          <li><a href="/products/smaj50a/">SMAJ5.0A</a> <span class="muted">— Littelfuse</span></li>
-          <li><a href="/products/bas316115/">BAS316,115</a> <span class="muted">— Nexperia</span></li>
-          <li><a href="/products/pesd2can215/">PESD2CAN,215</a> <span class="muted">— Nexperia</span></li>
-          <li><a href="/products/bav99lt1g/">BAV99LT1G</a> <span class="muted">— ON Semiconductor</span></li>
-          <li><a href="/products/bav70215/">BAV70,215</a> <span class="muted">— Nexperia</span></li>
-          <li><a href="/products/esd9l50st5g/">ESD9L5.0ST5G</a> <span class="muted">— ON Semiconductor</span></li>
-          <li><a href="/products/sm71202htg/">SM712-02HTG</a> <span class="muted">— Littelfuse</span></li>
-          <li><a href="/products/cus10s30h3f/">CUS10S30,H3F</a> <span class="muted">— Toshiba</span></li>
-          <li><a href="/products/b540c13f/">B540C-13-F</a> <span class="muted">— Diodes Incorporated</span></li>
-          <li><a href="/products/smbj50a/">SMBJ5.0A</a> <span class="muted">— Littelfuse</span></li>
-        </ul>
+        <div class="sku-heading-row">
+          <div class="sku-title">
+            <h2>Diodes We Source</h2>
+            <span class="sku-count-badge" aria-label="61 parts">61</span>
+          </div>
+          <div class="sku-search">
+            <input type="search" id="sku-filter" placeholder="Filter by part number or manufacturer…" aria-label="Filter parts" autocomplete="off" />
+          </div>
+        </div>
+        <div class="sku-part-grid" id="sku-grid">
+          <a class="sku-part-card" href="/products/1n4148ws/"><span class="pn">1N4148WS</span><span class="mfr">Diodes Incorporated</span></a>
+          <a class="sku-part-card" href="/products/ss34/"><span class="pn">SS34</span><span class="mfr">Diodes Incorporated</span></a>
+          <a class="sku-part-card" href="/products/tpd1e10b06dpyr/"><span class="pn">TPD1E10B06DPYR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/usblc62sc6/"><span class="pn">USBLC6-2SC6</span><span class="mfr">STMicroelectronics</span></a>
+          <a class="sku-part-card" href="/products/tpd4e05u06dqar/"><span class="pn">TPD4E05U06DQAR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/usblc64sc6/"><span class="pn">USBLC6-4SC6</span><span class="mfr">STMicroelectronics</span></a>
+          <a class="sku-part-card" href="/products/tpd4eusb30dqar/"><span class="pn">TPD4EUSB30DQAR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/usblc62p6/"><span class="pn">USBLC6-2P6</span><span class="mfr">STMicroelectronics</span></a>
+          <a class="sku-part-card" href="/products/bav99215/"><span class="pn">BAV99,215</span><span class="mfr">Nexperia</span></a>
+          <a class="sku-part-card" href="/products/bat46wj115/"><span class="pn">BAT46WJ,115</span><span class="mfr">Nexperia</span></a>
+          <a class="sku-part-card" href="/products/pmeg6010cej115/"><span class="pn">PMEG6010CEJ,115</span><span class="mfr">Nexperia</span></a>
+          <a class="sku-part-card" href="/products/pmeg6010ceh115/"><span class="pn">PMEG6010CEH,115</span><span class="mfr">Nexperia</span></a>
+          <a class="sku-part-card" href="/products/1n4148w7f/"><span class="pn">1N4148W-7-F</span><span class="mfr">Diodes Incorporated</span></a>
+          <a class="sku-part-card" href="/products/bat54215/"><span class="pn">BAT54,215</span><span class="mfr">Nexperia</span></a>
+          <a class="sku-part-card" href="/products/bat54slt1g/"><span class="pn">BAT54SLT1G</span><span class="mfr">ON Semiconductor</span></a>
+          <a class="sku-part-card" href="/products/1n5819ws/"><span class="pn">1N5819WS</span><span class="mfr">Guangdong Hottech</span></a>
+          <a class="sku-part-card" href="/products/bat54c215/"><span class="pn">BAT54C,215</span><span class="mfr">Nexperia</span></a>
+          <a class="sku-part-card" href="/products/1n4148w/"><span class="pn">1N4148W</span><span class="mfr">JSMSEMI</span></a>
+          <a class="sku-part-card" href="/products/prtr5v0u2f115/"><span class="pn">PRTR5V0U2F,115</span><span class="mfr">Nexperia</span></a>
+          <a class="sku-part-card" href="/products/nup2105lt1g/"><span class="pn">NUP2105LT1G</span><span class="mfr">ON Semiconductor</span></a>
+          <a class="sku-part-card" href="/products/bat54s/"><span class="pn">BAT54S</span><span class="mfr">JSMSEMI</span></a>
+          <a class="sku-part-card" href="/products/pesd0402140/"><span class="pn">PESD0402-140</span><span class="mfr">Littelfuse</span></a>
+          <a class="sku-part-card" href="/products/pesd3v3s2ut215/"><span class="pn">PESD3V3S2UT,215</span><span class="mfr">Nexperia</span></a>
+          <a class="sku-part-card" href="/products/1n5819hw7f/"><span class="pn">1N5819HW-7-F</span><span class="mfr">Diodes Incorporated</span></a>
+          <a class="sku-part-card" href="/products/esd5z33t1g/"><span class="pn">ESD5Z3.3T1G</span><span class="mfr">ON Semiconductor</span></a>
+          <a class="sku-part-card" href="/products/ll4148gs08/"><span class="pn">LL4148-GS08</span><span class="mfr">Vishay Intertechnology</span></a>
+          <a class="sku-part-card" href="/products/ss54/"><span class="pn">SS54</span><span class="mfr">MDD(Microdiode Semiconductor)</span></a>
+          <a class="sku-part-card" href="/products/ss14/"><span class="pn">SS14</span><span class="mfr">MDD(Microdiode Semiconductor)</span></a>
+          <a class="sku-part-card" href="/products/pesd5z33115/"><span class="pn">PESD5Z3.3,115</span><span class="mfr">Nexperia</span></a>
+          <a class="sku-part-card" href="/products/mbr0540t1g/"><span class="pn">MBR0540T1G</span><span class="mfr">ON Semiconductor</span></a>
+          <a class="sku-part-card" href="/products/pesd1can215/"><span class="pn">PESD1CAN,215</span><span class="mfr">Nexperia</span></a>
+          <a class="sku-part-card" href="/products/bas516115/"><span class="pn">BAS516,115</span><span class="mfr">Nexperia</span></a>
+          <a class="sku-part-card" href="/products/sm4007pl/"><span class="pn">SM4007PL</span><span class="mfr">MDD(Microdiode Semiconductor)</span></a>
+          <a class="sku-part-card" href="/products/b560c13f/"><span class="pn">B560C-13-F</span><span class="mfr">Diodes Incorporated</span></a>
+          <a class="sku-part-card" href="/products/b340a13f/"><span class="pn">B340A-13-F</span><span class="mfr">Diodes Incorporated</span></a>
+          <a class="sku-part-card" href="/products/mbr0520lt1g/"><span class="pn">MBR0520LT1G</span><span class="mfr">ON Semiconductor</span></a>
+          <a class="sku-part-card" href="/products/mbra340t3g/"><span class="pn">MBRA340T3G</span><span class="mfr">ON Semiconductor</span></a>
+          <a class="sku-part-card" href="/products/srv054tct/"><span class="pn">SRV05-4.TCT</span><span class="mfr">Semtech</span></a>
+          <a class="sku-part-card" href="/products/esd5z50t1g/"><span class="pn">ESD5Z5.0T1G</span><span class="mfr">ON Semiconductor</span></a>
+          <a class="sku-part-card" href="/products/bas16j115/"><span class="pn">BAS16J,115</span><span class="mfr">Nexperia</span></a>
+          <a class="sku-part-card" href="/products/smaj50a/"><span class="pn">SMAJ5.0A</span><span class="mfr">Littelfuse</span></a>
+          <a class="sku-part-card" href="/products/bas316115/"><span class="pn">BAS316,115</span><span class="mfr">Nexperia</span></a>
+          <a class="sku-part-card" href="/products/pesd2can215/"><span class="pn">PESD2CAN,215</span><span class="mfr">Nexperia</span></a>
+          <a class="sku-part-card" href="/products/bav99lt1g/"><span class="pn">BAV99LT1G</span><span class="mfr">ON Semiconductor</span></a>
+          <a class="sku-part-card" href="/products/bav70215/"><span class="pn">BAV70,215</span><span class="mfr">Nexperia</span></a>
+          <a class="sku-part-card" href="/products/esd9l50st5g/"><span class="pn">ESD9L5.0ST5G</span><span class="mfr">ON Semiconductor</span></a>
+          <a class="sku-part-card" href="/products/sm71202htg/"><span class="pn">SM712-02HTG</span><span class="mfr">Littelfuse</span></a>
+          <a class="sku-part-card" href="/products/cus10s30h3f/"><span class="pn">CUS10S30,H3F</span><span class="mfr">Toshiba</span></a>
+          <a class="sku-part-card" href="/products/b540c13f/"><span class="pn">B540C-13-F</span><span class="mfr">Diodes Incorporated</span></a>
+          <a class="sku-part-card" href="/products/smbj50a/"><span class="pn">SMBJ5.0A</span><span class="mfr">Littelfuse</span></a>
+        </div>
+        <p class="sku-empty" id="sku-empty">No parts match your filter.</p>
         <nav class="pagination" aria-label="Pagination">
           <span class="page-state" aria-current="page">1</span>
           <a class="btn btn-ghost" href="/components/semiconductors-discrete/diodes/page/2/">2</a>
@@ -810,36 +864,64 @@
         </nav>
       </div>
     </section>
-    <section class="section">
+    <section class="section" id="subcategories" style="padding:12px 0 48px;">
       <div class="container">
         <h2>Related Subcategories</h2>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;">
-          <a href="/components/semiconductors-discrete/transistors/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Transistors</a>
+        <div class="grid grid-4">
+          <a class="card subcat-card" href="/components/semiconductors-discrete/transistors/"><div class="sku-mpn">Transistors</div></a>
         </div>
       </div>
     </section>
-    <section class="section">
+    <section class="section" id="manufacturers" style="padding:12px 0 24px;">
       <div class="container">
         <h2>Related Manufacturers</h2>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;">
-          <a href="/manufacturers/nexperia/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Nexperia</a>
-          <a href="/manufacturers/on-semiconductor/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">ON Semiconductor</a>
-          <a href="/manufacturers/diodes-incorporated/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Diodes Incorporated</a>
-          <a href="/manufacturers/littelfuse/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Littelfuse</a>
-          <a href="/manufacturers/littelfuse-ixys/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Littelfuse/IXYS</a>
-          <a href="/manufacturers/texas-instruments/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Texas Instruments</a>
-          <a href="/manufacturers/stmicroelectronics/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">STMicroelectronics</a>
-          <a href="/manufacturers/jsmsemi/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">JSMSEMI</a>
+        <div class="grid grid-4">
+          <a class="card sku-card" href="/manufacturers/nexperia/"><div class="sku-mpn">Nexperia</div></a>
+          <a class="card sku-card" href="/manufacturers/on-semiconductor/"><div class="sku-mpn">ON Semiconductor</div></a>
+          <a class="card sku-card" href="/manufacturers/diodes-incorporated/"><div class="sku-mpn">Diodes Incorporated</div></a>
+          <a class="card sku-card" href="/manufacturers/littelfuse/"><div class="sku-mpn">Littelfuse</div></a>
+          <a class="card sku-card" href="/manufacturers/littelfuse-ixys/"><div class="sku-mpn">Littelfuse/IXYS</div></a>
+          <a class="card sku-card" href="/manufacturers/texas-instruments/"><div class="sku-mpn">Texas Instruments</div></a>
+          <a class="card sku-card" href="/manufacturers/stmicroelectronics/"><div class="sku-mpn">STMicroelectronics</div></a>
+          <a class="card sku-card" href="/manufacturers/jsmsemi/"><div class="sku-mpn">JSMSEMI</div></a>
         </div>
       </div>
     </section>
-    <section class="section">
+    <section class="section soft section--cta-simple">
       <div class="container">
-        <h2>Need a Quote?</h2>
-        <p>Send us your BOM or a list of parts. We return a consolidated quote with lead-time and alternates.</p>
-        <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
+        <div class="cta-simple">
+          <div>
+            <h2>Need a Part or BOM?</h2>
+            <p style="margin:6px 0 0; font-size:1rem; color:var(--muted,#6b7280); line-height:1.4;">Send us your part numbers and quantities for a quote.</p>
+          </div>
+          <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
+        </div>
       </div>
     </section>
+    <script>
+      (function(){
+        var inp = document.getElementById("sku-filter");
+        var grid = document.getElementById("sku-grid");
+        var empty = document.getElementById("sku-empty");
+        if (inp && grid) {
+          var cards = grid.querySelectorAll(".sku-part-card");
+          inp.addEventListener("input", function(){
+            var q = inp.value.trim().toLowerCase();
+            var shown = 0;
+            for (var i=0;i<cards.length;i++){
+              var c = cards[i];
+              var pn = c.querySelector(".pn");
+              var mf = c.querySelector(".mfr");
+              var txt = ((pn?pn.textContent:"") + " " + (mf?mf.textContent:"")).toLowerCase();
+              var ok = q === "" || txt.indexOf(q) !== -1;
+              c.style.display = ok ? "" : "none";
+              if (ok) shown++;
+            }
+            if (empty) empty.style.display = shown ? "none" : "block";
+          });
+        }
+      })();
+    </script>
   </main>
 </body>
 </html>

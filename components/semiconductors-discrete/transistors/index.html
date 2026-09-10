@@ -15,6 +15,46 @@
   <meta property="og:url" content="https://www.szprocure.com/components/semiconductors-discrete/transistors/" />
   <meta property="og:image" content="https://www.szprocure.com/assets/img/hero.svg" />
   <link rel="stylesheet" href="/assets/styles.css" />
+  <style>
+    .sku-heading-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;margin:0 0 14px;}
+    .sku-title{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-self:start;}
+    .sku-title h2{margin:0;}
+    .sku-count-badge{display:inline-flex;align-items:center;justify-content:center;min-width:32px;height:32px;padding:0 10px;border-radius:999px;background:var(--accent-soft);color:var(--muted);font-size:.85rem;font-weight:700;}
+    .sku-section{padding-top:48px;padding-bottom:40px;}
+    .sku-search{width:420px;max-width:100%;justify-self:center;}
+    .sku-search input{width:100%;padding:11px 14px;border:1px solid var(--border-strong);border-radius:10px;font-size:.95rem;color:var(--navy);background:#fff;}
+    .sku-search input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);}
+    .sku-part-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:4px;}
+    .sku-part-card{display:flex;flex-direction:column;gap:5px;padding:14px 16px;border:1px solid var(--border-strong);border-radius:10px;background:#fff;text-decoration:none;transition:border-color .15s,box-shadow .15s;}
+    .sku-part-card:hover{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);}
+    .sku-part-card .pn{font-size:1rem;font-weight:600;color:var(--navy);line-height:1.35;word-break:break-word;}
+    .sku-part-card .mfr{font-size:.9rem;color:var(--muted);line-height:1.3;}
+    .sku-empty{display:none;padding:18px 14px;color:var(--muted);font-style:italic;}
+    .pagination{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:26px;}
+    .pagination .page-state{display:inline-flex;align-items:center;justify-content:center;min-width:40px;height:40px;padding:0 12px;border-radius:9px;background:var(--accent);color:#fff;font-weight:600;}
+    .pagination .btn-ghost{min-width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;}
+    @media (max-width:640px){
+      .sku-heading-row{grid-template-columns:1fr;gap:12px;}
+      .sku-search{width:100%;grid-column:1;}
+      .sku-part-grid{grid-template-columns:1fr;}
+    }
+    .section:not(.navy) h2 { font-size: clamp(1.25rem, 2vw, 1.55rem); }
+    .page-head h1 { font-size: clamp(1.3rem, 2vw, 1.6rem); }
+    @media (max-width: 520px) { .page-head h1 { font-size: 1.1rem !important; } }
+    .subcat-card { padding: 14px 18px; display: flex; align-items: center; justify-content: center; min-height: 74px; color: inherit; text-decoration: none; }
+    .subcat-card .sku-mpn { color: var(--text, #1a2233); font-weight: 600; font-size: .95rem; text-align: center; }
+    .subcat-card:hover .sku-mpn { color: var(--accent, #0A84FF); }
+    .sku-mfr { white-space: nowrap; }
+    .check-list li { white-space: nowrap; }
+    .grid.grid-4 { gap: 22px; }
+    .sku-card { padding: 14px 18px; display: flex; align-items: center; justify-content: center; min-height: 74px; color: inherit; text-decoration: none; }
+    .sku-card .sku-mpn { color: var(--text, #1a2233); font-weight: 600; font-size: .95rem; text-align: center; }
+    .sku-card:hover .sku-mpn { color: var(--accent, #0A84FF); }
+    .cta-simple h2 { font-size: 1.3rem; }
+    /* Pull the RFQ block down so its gray background does not overlap the cards above. */
+    .section--cta-simple { margin-top: 0 !important; padding: 24px 0 48px; }
+    @media (max-width: 860px) { .section--cta-simple { margin-top: 0 !important; } }
+  </style>
   <script src="/assets/site.js"></script>
   <script type="application/ld+json">
   {
@@ -699,100 +739,142 @@
       <a href="/components/semiconductors-discrete/">Semiconductors &amp; Discrete</a> ›
       <span>Transistors</span>
     </div></nav>
-    <section class="page-head">
+    <section class="page-head" style="padding:38px 0 32px;">
       <div class="container">
-        <div class="eyebrow">Component Subcategory</div>
-        <h1>Transistors</h1>
-        <p class="lead">Transistors are core semiconductors &amp; discrete used throughout electronic and IoT products. As your China sourcing partner, SZ Procure helps global buyers procure transistors from a verified Shenzhen supply network — including popular families and hard-to-find versions — with BOM consolidation and consolidated quotes.</p>
-        <div class="part-head-actions">
+        <h1 style="margin-bottom:4px;">Transistors</h1>
+        <p class="lead" style="margin-bottom:6px;">Transistors switch and amplify signals — bipolar (BJT), MOSFET and IGBT devices for analog and power use.</p>
+        <ul class="check-list" style="margin-top:8px; display:grid; grid-template-columns:1fr 1fr; column-gap:16px; row-gap:9px; padding-left:0; max-width:760px;">
+          <li style="margin:0; line-height:1.45;"><span style="color:var(--accent,#0A84FF)">&#10003;</span> Hard-to-find Parts Sourcing</li>
+          <li style="margin:0; line-height:1.45;"><span style="color:var(--accent,#0A84FF)">&#10003;</span> Alternative Parts Matching</li>
+          <li style="margin:0; line-height:1.45;"><span style="color:var(--accent,#0A84FF)">&#10003;</span> Supplier Screening &amp; Product Verification</li>
+          <li style="margin:0; line-height:1.45;"><span style="color:var(--accent,#0A84FF)">&#10003;</span> BOM &amp; Small Quantity Orders</li>
+        </ul>
+        <div class="part-head-actions" style="margin-top:12px;">
           <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
         </div>
       </div>
     </section>
-    <section class="section">
+    <section class="section sku-section">
       <div class="container">
-        <h2>Transistors We Source</h2>
-        <ul class="bullet-list part-index" id="part-index">
-          <li><a href="/products/ao3400a/">AO3400A</a> <span class="muted">— Alpha &amp; Omega Semiconductor</span></li>
-          <li><a href="/products/ao3401a/">AO3401A</a> <span class="muted">— Alpha &amp; Omega Semiconductor</span></li>
-          <li><a href="/products/2n7002/">2N7002</a> <span class="muted">— ON Semiconductor</span></li>
-          <li><a href="/products/uln2003adr/">ULN2003ADR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/uln2003d1013tr/">ULN2003D1013TR</a> <span class="muted">— STMicroelectronics</span></li>
-          <li><a href="/products/uln2803cdwr/">ULN2803CDWR</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/2n7002215/">2N7002,215</a> <span class="muted">— Nexperia</span></li>
-          <li><a href="/products/bss138lt1g/">BSS138LT1G</a> <span class="muted">— ON Semiconductor</span></li>
-          <li><a href="/products/irf540npbf/">IRF540NPBF</a> <span class="muted">— Infineon Technologies</span></li>
-          <li><a href="/products/irlml6402trpbf/">IRLML6402TRPBF</a> <span class="muted">— Infineon Technologies</span></li>
-          <li><a href="/products/irfb4110pbf/">IRFB4110PBF</a> <span class="muted">— Infineon Technologies</span></li>
-          <li><a href="/products/bss138/">BSS138</a> <span class="muted">— ON Semiconductor</span></li>
-          <li><a href="/products/irfz44npbf/">IRFZ44NPBF</a> <span class="muted">— Infineon Technologies</span></li>
-          <li><a href="/products/fdv301n/">FDV301N</a> <span class="muted">— ON Semiconductor</span></li>
-          <li><a href="/products/si2302cdst1ge3/">Si2302CDS-T1-GE3</a> <span class="muted">— Vishay Intertechnology</span></li>
-          <li><a href="/products/ao3407a/">AO3407A</a> <span class="muted">— Alpha &amp; Omega Semiconductor</span></li>
-          <li><a href="/products/bss1387f/">BSS138-7-F</a> <span class="muted">— Diodes Incorporated</span></li>
-          <li><a href="/products/2n7002kt1ge3/">2N7002K-T1-GE3</a> <span class="muted">— Vishay Intertechnology</span></li>
-          <li><a href="/products/2n7002lt1g/">2N7002LT1G</a> <span class="muted">— ON Semiconductor</span></li>
-          <li><a href="/products/irfr5305trpbf/">IRFR5305TRPBF</a> <span class="muted">— Infineon Technologies</span></li>
-          <li><a href="/products/bss84lt1g/">BSS84LT1G</a> <span class="muted">— ON Semiconductor</span></li>
-          <li><a href="/products/si2301cdst1ge3/">SI2301CDS-T1-GE3</a> <span class="muted">— Vishay Intertechnology</span></li>
-          <li><a href="/products/irf3205pbf/">IRF3205PBF</a> <span class="muted">— Infineon Technologies</span></li>
-          <li><a href="/products/fs8205a/">FS8205A</a> <span class="muted">— TECH PUBLIC</span></li>
-          <li><a href="/products/bss123/">BSS123</a> <span class="muted">— ON Semiconductor</span></li>
-          <li><a href="/products/irlml6344trpbf/">IRLML6344TRPBF</a> <span class="muted">— Infineon Technologies</span></li>
-          <li><a href="/products/irf9540npbf/">IRF9540NPBF</a> <span class="muted">— Infineon Technologies</span></li>
-          <li><a href="/products/ao4407a/">AO4407A</a> <span class="muted">— Alpha &amp; Omega Semiconductor</span></li>
-          <li><a href="/products/sgt50t65fd1pn/">SGT50T65FD1PN</a> <span class="muted">— Hangzhou Silan Microelectronics</span></li>
-          <li><a href="/products/bc81740215/">BC817-40,215</a> <span class="muted">— Nexperia</span></li>
-          <li><a href="/products/csd25402q3a/">CSD25402Q3A</a> <span class="muted">— Texas Instruments</span></li>
-          <li><a href="/products/irf4905pbf/">IRF4905PBF</a> <span class="muted">— Infineon Technologies</span></li>
-          <li><a href="/products/bcx5616115/">BCX56-16,115</a> <span class="muted">— Nexperia</span></li>
-          <li><a href="/products/ltv356tb/">LTV-356T-B</a> <span class="muted">— Lite-On Technology</span></li>
-          <li><a href="/products/uln2001d/">ULN2001D</a> <span class="muted">— Mixic</span></li>
-          <li><a href="/products/ltv817sta1/">LTV-817S-TA1</a> <span class="muted">— Lite-On Technology</span></li>
-          <li><a href="/products/stw33n60m2/">STW33N60M2</a> <span class="muted">— STMicroelectronics</span></li>
-          <li><a href="/products/bep0080sb/">BEP0080SB</a> <span class="muted">— BORN</span></li>
-          <li><a href="/products/ltstc191tbkt5a/">LTST-C191TBKT-5A</a> <span class="muted">— Lite-On Technology</span></li>
-          <li><a href="/products/pdta124et215/">PDTA124ET,215</a> <span class="muted">— Nexperia</span></li>
-          <li><a href="/products/pmv40un2r/">PMV40UN2R</a> <span class="muted">— Nexperia</span></li>
-          <li><a href="/products/hla5730d1ws108hr3ly/">HL-A-5730D1W-S1-08-HR3(LY)</a> <span class="muted">— HONGLITRONIC</span></li>
-          <li><a href="/products/ixtp170n075t2/">IXTP170N075T2</a> <span class="muted">— Littelfuse/IXYS</span></li>
-          <li><a href="/products/bc848clt1g/">BC848CLT1G</a> <span class="muted">— ON Semiconductor</span></li>
-          <li><a href="/products/ixfn120n65x2/">IXFN120N65X2</a> <span class="muted">— Littelfuse/IXYS</span></li>
-          <li><a href="/products/ixfn62n80q3/">IXFN62N80Q3</a> <span class="muted">— Littelfuse/IXYS</span></li>
-          <li><a href="/products/ixtx102n65x2/">IXTX102N65X2</a> <span class="muted">— Littelfuse/IXYS</span></li>
-        </ul>
+        <div class="sku-heading-row">
+          <div class="sku-title">
+            <h2>Transistors We Source</h2>
+            <span class="sku-count-badge" aria-label="47 parts">47</span>
+          </div>
+          <div class="sku-search">
+            <input type="search" id="sku-filter" placeholder="Filter by part number or manufacturer…" aria-label="Filter parts" autocomplete="off" />
+          </div>
+        </div>
+        <div class="sku-part-grid" id="sku-grid">
+          <a class="sku-part-card" href="/products/ao3400a/"><span class="pn">AO3400A</span><span class="mfr">Alpha &amp; Omega Semiconductor</span></a>
+          <a class="sku-part-card" href="/products/ao3401a/"><span class="pn">AO3401A</span><span class="mfr">Alpha &amp; Omega Semiconductor</span></a>
+          <a class="sku-part-card" href="/products/2n7002/"><span class="pn">2N7002</span><span class="mfr">ON Semiconductor</span></a>
+          <a class="sku-part-card" href="/products/uln2003adr/"><span class="pn">ULN2003ADR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/uln2003d1013tr/"><span class="pn">ULN2003D1013TR</span><span class="mfr">STMicroelectronics</span></a>
+          <a class="sku-part-card" href="/products/uln2803cdwr/"><span class="pn">ULN2803CDWR</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/2n7002215/"><span class="pn">2N7002,215</span><span class="mfr">Nexperia</span></a>
+          <a class="sku-part-card" href="/products/bss138lt1g/"><span class="pn">BSS138LT1G</span><span class="mfr">ON Semiconductor</span></a>
+          <a class="sku-part-card" href="/products/irf540npbf/"><span class="pn">IRF540NPBF</span><span class="mfr">Infineon Technologies</span></a>
+          <a class="sku-part-card" href="/products/irlml6402trpbf/"><span class="pn">IRLML6402TRPBF</span><span class="mfr">Infineon Technologies</span></a>
+          <a class="sku-part-card" href="/products/irfb4110pbf/"><span class="pn">IRFB4110PBF</span><span class="mfr">Infineon Technologies</span></a>
+          <a class="sku-part-card" href="/products/bss138/"><span class="pn">BSS138</span><span class="mfr">ON Semiconductor</span></a>
+          <a class="sku-part-card" href="/products/irfz44npbf/"><span class="pn">IRFZ44NPBF</span><span class="mfr">Infineon Technologies</span></a>
+          <a class="sku-part-card" href="/products/fdv301n/"><span class="pn">FDV301N</span><span class="mfr">ON Semiconductor</span></a>
+          <a class="sku-part-card" href="/products/si2302cdst1ge3/"><span class="pn">Si2302CDS-T1-GE3</span><span class="mfr">Vishay Intertechnology</span></a>
+          <a class="sku-part-card" href="/products/ao3407a/"><span class="pn">AO3407A</span><span class="mfr">Alpha &amp; Omega Semiconductor</span></a>
+          <a class="sku-part-card" href="/products/bss1387f/"><span class="pn">BSS138-7-F</span><span class="mfr">Diodes Incorporated</span></a>
+          <a class="sku-part-card" href="/products/2n7002kt1ge3/"><span class="pn">2N7002K-T1-GE3</span><span class="mfr">Vishay Intertechnology</span></a>
+          <a class="sku-part-card" href="/products/2n7002lt1g/"><span class="pn">2N7002LT1G</span><span class="mfr">ON Semiconductor</span></a>
+          <a class="sku-part-card" href="/products/irfr5305trpbf/"><span class="pn">IRFR5305TRPBF</span><span class="mfr">Infineon Technologies</span></a>
+          <a class="sku-part-card" href="/products/bss84lt1g/"><span class="pn">BSS84LT1G</span><span class="mfr">ON Semiconductor</span></a>
+          <a class="sku-part-card" href="/products/si2301cdst1ge3/"><span class="pn">SI2301CDS-T1-GE3</span><span class="mfr">Vishay Intertechnology</span></a>
+          <a class="sku-part-card" href="/products/irf3205pbf/"><span class="pn">IRF3205PBF</span><span class="mfr">Infineon Technologies</span></a>
+          <a class="sku-part-card" href="/products/fs8205a/"><span class="pn">FS8205A</span><span class="mfr">TECH PUBLIC</span></a>
+          <a class="sku-part-card" href="/products/bss123/"><span class="pn">BSS123</span><span class="mfr">ON Semiconductor</span></a>
+          <a class="sku-part-card" href="/products/irlml6344trpbf/"><span class="pn">IRLML6344TRPBF</span><span class="mfr">Infineon Technologies</span></a>
+          <a class="sku-part-card" href="/products/irf9540npbf/"><span class="pn">IRF9540NPBF</span><span class="mfr">Infineon Technologies</span></a>
+          <a class="sku-part-card" href="/products/ao4407a/"><span class="pn">AO4407A</span><span class="mfr">Alpha &amp; Omega Semiconductor</span></a>
+          <a class="sku-part-card" href="/products/sgt50t65fd1pn/"><span class="pn">SGT50T65FD1PN</span><span class="mfr">Hangzhou Silan Microelectronics</span></a>
+          <a class="sku-part-card" href="/products/bc81740215/"><span class="pn">BC817-40,215</span><span class="mfr">Nexperia</span></a>
+          <a class="sku-part-card" href="/products/csd25402q3a/"><span class="pn">CSD25402Q3A</span><span class="mfr">Texas Instruments</span></a>
+          <a class="sku-part-card" href="/products/irf4905pbf/"><span class="pn">IRF4905PBF</span><span class="mfr">Infineon Technologies</span></a>
+          <a class="sku-part-card" href="/products/bcx5616115/"><span class="pn">BCX56-16,115</span><span class="mfr">Nexperia</span></a>
+          <a class="sku-part-card" href="/products/ltv356tb/"><span class="pn">LTV-356T-B</span><span class="mfr">Lite-On Technology</span></a>
+          <a class="sku-part-card" href="/products/uln2001d/"><span class="pn">ULN2001D</span><span class="mfr">Mixic</span></a>
+          <a class="sku-part-card" href="/products/ltv817sta1/"><span class="pn">LTV-817S-TA1</span><span class="mfr">Lite-On Technology</span></a>
+          <a class="sku-part-card" href="/products/stw33n60m2/"><span class="pn">STW33N60M2</span><span class="mfr">STMicroelectronics</span></a>
+          <a class="sku-part-card" href="/products/bep0080sb/"><span class="pn">BEP0080SB</span><span class="mfr">BORN</span></a>
+          <a class="sku-part-card" href="/products/ltstc191tbkt5a/"><span class="pn">LTST-C191TBKT-5A</span><span class="mfr">Lite-On Technology</span></a>
+          <a class="sku-part-card" href="/products/pdta124et215/"><span class="pn">PDTA124ET,215</span><span class="mfr">Nexperia</span></a>
+          <a class="sku-part-card" href="/products/pmv40un2r/"><span class="pn">PMV40UN2R</span><span class="mfr">Nexperia</span></a>
+          <a class="sku-part-card" href="/products/hla5730d1ws108hr3ly/"><span class="pn">HL-A-5730D1W-S1-08-HR3(LY)</span><span class="mfr">HONGLITRONIC</span></a>
+          <a class="sku-part-card" href="/products/ixtp170n075t2/"><span class="pn">IXTP170N075T2</span><span class="mfr">Littelfuse/IXYS</span></a>
+          <a class="sku-part-card" href="/products/bc848clt1g/"><span class="pn">BC848CLT1G</span><span class="mfr">ON Semiconductor</span></a>
+          <a class="sku-part-card" href="/products/ixfn120n65x2/"><span class="pn">IXFN120N65X2</span><span class="mfr">Littelfuse/IXYS</span></a>
+          <a class="sku-part-card" href="/products/ixfn62n80q3/"><span class="pn">IXFN62N80Q3</span><span class="mfr">Littelfuse/IXYS</span></a>
+          <a class="sku-part-card" href="/products/ixtx102n65x2/"><span class="pn">IXTX102N65X2</span><span class="mfr">Littelfuse/IXYS</span></a>
+        </div>
+        <p class="sku-empty" id="sku-empty">No parts match your filter.</p>
       </div>
     </section>
-    <section class="section">
+    <section class="section" id="subcategories" style="padding:12px 0 48px;">
       <div class="container">
         <h2>Related Subcategories</h2>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;">
-          <a href="/components/semiconductors-discrete/diodes/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Diodes</a>
+        <div class="grid grid-4">
+          <a class="card subcat-card" href="/components/semiconductors-discrete/diodes/"><div class="sku-mpn">Diodes</div></a>
         </div>
       </div>
     </section>
-    <section class="section">
+    <section class="section" id="manufacturers" style="padding:12px 0 24px;">
       <div class="container">
         <h2>Related Manufacturers</h2>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;">
-          <a href="/manufacturers/infineon-technologies/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Infineon Technologies</a>
-          <a href="/manufacturers/on-semiconductor/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">ON Semiconductor</a>
-          <a href="/manufacturers/nexperia/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Nexperia</a>
-          <a href="/manufacturers/alpha-omega-semiconductor/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Alpha &amp; Omega Semiconductor</a>
-          <a href="/manufacturers/littelfuse-ixys/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Littelfuse/IXYS</a>
-          <a href="/manufacturers/texas-instruments/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Texas Instruments</a>
-          <a href="/manufacturers/vishay-intertechnology/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Vishay Intertechnology</a>
-          <a href="/manufacturers/lite-on-technology/" style="display:block;padding:14px 16px;border:1px solid #e2e2e7;border-radius:10px;text-decoration:none;color:#1d1d1f;background:#fff;font-size:14px;font-weight:500;">Lite-On Technology</a>
+        <div class="grid grid-4">
+          <a class="card sku-card" href="/manufacturers/infineon-technologies/"><div class="sku-mpn">Infineon Technologies</div></a>
+          <a class="card sku-card" href="/manufacturers/on-semiconductor/"><div class="sku-mpn">ON Semiconductor</div></a>
+          <a class="card sku-card" href="/manufacturers/nexperia/"><div class="sku-mpn">Nexperia</div></a>
+          <a class="card sku-card" href="/manufacturers/alpha-omega-semiconductor/"><div class="sku-mpn">Alpha &amp; Omega Semiconductor</div></a>
+          <a class="card sku-card" href="/manufacturers/littelfuse-ixys/"><div class="sku-mpn">Littelfuse/IXYS</div></a>
+          <a class="card sku-card" href="/manufacturers/texas-instruments/"><div class="sku-mpn">Texas Instruments</div></a>
+          <a class="card sku-card" href="/manufacturers/vishay-intertechnology/"><div class="sku-mpn">Vishay Intertechnology</div></a>
+          <a class="card sku-card" href="/manufacturers/lite-on-technology/"><div class="sku-mpn">Lite-On Technology</div></a>
         </div>
       </div>
     </section>
-    <section class="section">
+    <section class="section soft section--cta-simple">
       <div class="container">
-        <h2>Need a Quote?</h2>
-        <p>Send us your BOM or a list of parts. We return a consolidated quote with lead-time and alternates.</p>
-        <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
+        <div class="cta-simple">
+          <div>
+            <h2>Need a Part or BOM?</h2>
+            <p style="margin:6px 0 0; font-size:1rem; color:var(--muted,#6b7280); line-height:1.4;">Send us your part numbers and quantities for a quote.</p>
+          </div>
+          <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
+        </div>
       </div>
     </section>
+    <script>
+      (function(){
+        var inp = document.getElementById("sku-filter");
+        var grid = document.getElementById("sku-grid");
+        var empty = document.getElementById("sku-empty");
+        if (inp && grid) {
+          var cards = grid.querySelectorAll(".sku-part-card");
+          inp.addEventListener("input", function(){
+            var q = inp.value.trim().toLowerCase();
+            var shown = 0;
+            for (var i=0;i<cards.length;i++){
+              var c = cards[i];
+              var pn = c.querySelector(".pn");
+              var mf = c.querySelector(".mfr");
+              var txt = ((pn?pn.textContent:"") + " " + (mf?mf.textContent:"")).toLowerCase();
+              var ok = q === "" || txt.indexOf(q) !== -1;
+              c.style.display = ok ? "" : "none";
+              if (ok) shown++;
+            }
+            if (empty) empty.style.display = shown ? "none" : "block";
+          });
+        }
+      })();
+    </script>
   </main>
 </body>
 </html>

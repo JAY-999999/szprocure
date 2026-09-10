@@ -39,54 +39,88 @@
     "address": { "@type": "PostalAddress", "addressLocality": "Shenzhen", "addressCountry": "CN" }
   }
   </script>
+  <style>
+    /* L1 component category page-local visual tuning (2026-09-11) */
+    .section:not(.navy) h2 { font-size: clamp(1.25rem, 2vw, 1.55rem); }
+    .page-head h1 { font-size: clamp(1.3rem, 2vw, 1.6rem); }
+    @media (max-width: 520px) { .page-head h1 { font-size: 1.1rem !important; } }
+    .subcat-card { padding: 14px 18px; display: flex; align-items: center; min-height: 74px; }
+    .sku-mfr { white-space: nowrap; }
+    .check-list li { white-space: nowrap; }
+    .cta-simple h2 { font-size: 1.3rem; }
+    /* V3: L1 RFQ on white background (no gray soft band) while keeping the same
+       24px gap to the featured cards above. */
+    .section--cta-simple { margin-top: -24px !important; padding-top: 0 !important; padding-bottom: 0 !important; background: #fff !important; }
+    .cta-simple { padding-top: 0 !important; padding-bottom: 40px !important; }
+    @media (max-width: 860px) {
+      .section--cta-simple { margin-top: -24px !important; background: #fff !important; }
+      .cta-simple { padding-bottom: 32px !important; }
+    }
+  </style>
 </head>
 <body>
   <div id="site-header"></div>
   <main>
     <nav class="breadcrumb"><div class="container">
-      <a href="/">Home</a> ›
-      <a href="/components/">Components</a> ›
+      <a href="/">Home</a> &#8250;
+      <a href="/components/">Components</a> &#8250;
       <span>Sensors</span>
     </div></nav>
 
     <!-- 1. Hero / Category Sourcing Intro (merged) -->
-    <section class="page-head">
+    <section class="page-head" style="padding:38px 0 32px;">
       <div class="container">
-        <div class="eyebrow" data-zh="元器件分类">Component Category</div>
-        <h1>Sensors</h1>
-        <p class="lead">31 sensors we help global buyers source — from the Shenzhen supply chain.</p>
-        <p>Our sensors sourcing spans Sensors and more, from brands such as STMicroelectronics, Texas Instruments, Bosch, Advanced Monolithic Systems. SZ Procure helps global buyers source these parts from the Shenzhen supply chain — covering popular families, hard-to-find versions and BOM consolidation with verified suppliers and competitive quotes.</p><p class="muted small">Send the part number — our Shenzhen team cross-references availability and quotes, whether you need production-volume reels or a single hard-to-find variant.</p>
-        <div class="part-head-actions">
+        <h1 style="margin-bottom:4px;">Sensors</h1>
+        <p class="lead" style="margin-bottom:6px;">Motion, proximity and environmental sensors that detect position, acceleration and field for measurement and control in smart devices.</p>
+        <ul class="check-list" style="margin-top:8px; display:grid; grid-template-columns:1fr 1fr; column-gap:16px; row-gap:9px; padding-left:0; max-width:760px;">
+          <li style="margin:0; line-height:1.45;"><span style="color:var(--accent,#0A84FF)">&#10003;</span> Hard-to-find Parts Sourcing</li>
+          <li style="margin:0; line-height:1.45;"><span style="color:var(--accent,#0A84FF)">&#10003;</span> Alternative Parts Matching</li>
+          <li style="margin:0; line-height:1.45;"><span style="color:var(--accent,#0A84FF)">&#10003;</span> Supplier Screening &amp; Product Verification</li>
+          <li style="margin:0; line-height:1.45;"><span style="color:var(--accent,#0A84FF)">&#10003;</span> BOM &amp; Small Quantity Orders</li>
+        </ul>
+        <div class="part-head-actions" style="margin-top:12px;">
           <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
-          <a class="btn btn-ghost" href="https://wa.me/8613530888389">WhatsApp</a>
-          <a class="btn btn-ghost" href="mailto:sales@szprocure.com">Email</a>
         </div>
       </div>
     </section>
 
     <!-- 2. Subcategory Navigation -->
-    <section class="section" id="subcategories">
+    <section class="section" id="subcategories" style="padding:48px 0;">
       <div class="container">
         <h2>Sensors Subcategories</h2>
-        <div class="grid grid-4"><a class="card subcat-card" href="/components/sensors/sensors/"><div class="sku-mpn">Sensors</div><div class="sku-mfr">31 SKUs</div><div class="muted small">Source 31 sensors from the Shenzhen supply chain.</div></a></div>
+        <div class="grid grid-4">
+          <a class="card subcat-card" href="/components/sensors/sensors/"><div class="sku-mpn">Sensors</div></a>
+        </div>
       </div>
     </section>
 
-    <!-- 3. Representative Products (bounded 12) -->
-    <section class="section">
+    <!-- 3. Featured Components (bounded) -->
+    <section class="section" id="featured" style="padding:48px 0;">
       <div class="container">
-        <h2>Representative Sensors</h2>
-        <div class="grid grid-4"><a class="card sku-card" href="/products/acs712elctr20at/"><div class="sku-mpn">ACS712ELCTR-20A-T</div><div class="sku-mfr">ALLEGRO</div></a></div>
-        <p class="muted"><a href="#subcategories">Browse the full list in each subcategory →</a></p>
+        <h2>Featured Components</h2>
+        <div class="grid grid-4">
+          <a class="card sku-card" href="/products/adxl345bcczrl7/"><div class="sku-mpn">ADXL345BCCZ-RL7</div><div class="sku-mfr">Analog Devices</div></a>
+          <a class="card sku-card" href="/products/lsm6ds3trc/"><div class="sku-mpn">LSM6DS3TR-C</div><div class="sku-mfr">STMicroelectronics</div></a>
+          <a class="card sku-card" href="/products/lsm6dsltr/"><div class="sku-mpn">LSM6DSLTR</div><div class="sku-mfr">STMicroelectronics</div></a>
+          <a class="card sku-card" href="/products/vl53l0cxv0dh1/"><div class="sku-mpn">VL53L0CXV0DH/1</div><div class="sku-mfr">STMicroelectronics</div></a>
+          <a class="card sku-card" href="/products/vl53l1cxv0fy1/"><div class="sku-mpn">VL53L1CXV0FY/1</div><div class="sku-mfr">STMicroelectronics</div></a>
+          <a class="card sku-card" href="/products/lsm303agrtr/"><div class="sku-mpn">LSM303AGRTR</div><div class="sku-mfr">STMicroelectronics</div></a>
+          <a class="card sku-card" href="/products/lis2dw12tr/"><div class="sku-mpn">LIS2DW12TR</div><div class="sku-mfr">STMicroelectronics</div></a>
+          <a class="card sku-card" href="/products/vl53l4cdv0dh1/"><div class="sku-mpn">VL53L4CDV0DH/1</div><div class="sku-mfr">STMicroelectronics</div></a>
+        </div>
       </div>
     </section>
 
     <!-- 4. RFQ / Sourcing CTA -->
-    <section class="section navy">
-      <div class="container" style="text-align:center">
-        <h2>Need a Sensors part?</h2>
-        <p>Send us the part number and quantity for a quote.</p>
-        <a class="btn btn-white btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
+    <section class="section section--cta-simple">
+      <div class="container">
+        <div class="cta-simple">
+          <div>
+            <h2>Need a Part or BOM?</h2>
+            <p style="margin:6px 0 0; font-size:1rem; color:var(--muted,#6b7280); line-height:1.4;">Send us your part numbers and quantities for a quote.</p>
+          </div>
+          <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
+        </div>
       </div>
     </section>
   </main>
