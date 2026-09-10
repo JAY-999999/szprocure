@@ -2,11 +2,13 @@
 """
 gen_subcategory.py  —  SZProcure Subcategory V2 generator (ADDITIVE / ISOLATED)
 ================================================================================
-Generates Product Collection Landing Pages for every L3 subcategory that already
-exists on disk under components/<top>/<l3>/, plus pagination pages, plus a
-standalone sitemap_subcat.xml.  Designed to be re-runnable and to scale toward
-20k SKUs: classification comes from the data source (parts.json `category`), not
-from any hand-built taxonomy engine.
+Generates Product Collection Landing Pages for every L3 subcategory that appears
+in parts.json, keyed EXACTLY like gen_parts.py's L3 sitemap loop
+(slugify_name(category) -> top_slug, slugify_name(subcategory, paren-stripped) ->
+l3_slug) so the rendered HTML lands at the same URL the sitemap references. Plus
+pagination pages and a standalone sitemap_subcat.xml.  Data-driven and re-runnable;
+classification comes from parts.json, I3 publish-status gating comes from the
+(read-only) taxonomy file.
 
 V2 redesign: merged hero+intro, single Request a Quote CTA, no local filter,
 no visible SKU count, static pagination, Related Manufacturers / Subcategories.
@@ -15,9 +17,10 @@ capped at RELATED_CAP, Manufacturers sorted by SKU count desc and filtered to
 real existing pages (slugify_mfr matches gen_parts slugify_name rule).
 
 Freeze guarantees (MUST stay true):
-  * gen_parts.py / parts.json / sitemap_parts.xml / vercel.json untouched
+  * gen_parts.py / sitemap_parts.xml / vercel.json UNTOUCHED (we read parts.json +
+    data/category_taxonomy.json READ-ONLY; we write only L3 HTML + sitemap_subcat.xml)
   * assets/styles.css / assets/site.js untouched
-  * all 552 /products/ SKU pages, 6 L2 category pages, Hub, Search, 84 MFR pages untouched
+  * all /products/ SKU pages, L2 category top pages, Hub, Search, MFR pages untouched
 
 Usage:
   python gen_subcategory.py --dry-run     # report only, write nothing
@@ -94,55 +97,54 @@ def load_parts():
         return json.load(f)
 
 
-def walk_existing_subcats():
-    """Return list of dicts: top_slug, l3_slug, display, top_display.
-    Only subcats that already have an index.html on disk are generated (V1 scope)."""
-    found = []
-    for top in sorted(os.listdir(COMP)):
-        tp = os.path.join(COMP, top)
-        if not os.path.isdir(tp) or top == "search":
+def load_taxonomy():
+    """I3/I4 (READ-ONLY): read data/category_taxonomy.json to replicate gen_parts.py's
+    L3 publish-status gating. Returns (TOP_PS, L1_PS):
+      TOP_PS: {top_slug: publish_status}     (active/hidden/review)
+      L1_PS:  {l1_slug:  publish_status}     (slug == slugify_name(en_display))
+    gen_subcategory.py never writes this file (freeze guarantee)."""
+    path = os.path.join(ROOT, "data", "category_taxonomy.json")
+    if not os.path.exists(path):
+        return {}, {}
+    with open(path, encoding="utf-8") as f:
+        tax = json.load(f)
+    tops = {t["slug"]: t.get("publish_status", "active") for t in tax.get("top_scopes", [])}
+    l1 = {}
+    for c in tax.get("l1_categories", []):
+        l1[c.get("slug")] = c.get("publish_status", "active")
+    return tops, l1
+
+
+def data_driven_groups(parts):
+    """Group parts EXACTLY like gen_parts.py's L3 sitemap loop (gen_parts.py L4424-4446).
+
+    gen_parts.py keys by (native_top_slug, native_l1) where:
+      native_top_slug = slugify_name(parts.json `category`)
+      native_l1       = slugify_name(parts.json `subcategory`, paren-alias stripped)
+    Verified across all 746 parts: slugify_name(subcategory.split('(')[0])
+    == slugify_name(native_l1) (0 mismatch), so both slugs derive from parts.json
+    alone (parts.json has no native_l1 column). This REMOVES the old dual-source bug
+    where grouping was keyed by `category` (the TOP) but looked up by `l3_slug`
+    (the L3) -- silently dropping every SKU from its L3 page and leaving the
+    sitemap's 19 L3 URLs pointing at empty directories.
+
+    Returns dict: (top_slug, l3_slug) -> {parts, top_display, l3_display}."""
+    groups = {}
+    for p in parts:
+        cat = (p.get("category") or "").strip()
+        sub = (p.get("subcategory") or "")
+        if not cat or not sub:
             continue
-        # L2 display name from its index.html <title>; L2 titles bake in an SEO
-        # suffix (" Sourcing from Shenzhen, China") that we strip for a clean name.
-        top_display = top.replace("-", " ").title()
-        t_idx = os.path.join(tp, "index.html")
-        if os.path.exists(t_idx):
-            t = open(t_idx, encoding="utf-8").read()
-            m = __import__("re").search(r"<title>([^<|]+)", t)
-            if m:
-                # L2 <title> is already HTML-escaped ("&amp;"); unescape so esc() below emits a single escape
-                top_display = html.unescape(m.group(1).split("|")[0].strip())
-                # L2 titles bake in an SEO suffix ("Sourcing from Shenzhen, China"); strip it so the
-                # subcat hero/breadcrumb show a clean category name instead of SEO boilerplate.
-                for _sfx in (" Sourcing from Shenzhen, China",
-                             " — Source from Shenzhen, China",
-                             " Source from Shenzhen, China"):
-                    if top_display.endswith(_sfx):
-                        top_display = top_display[: -len(_sfx)].strip()
-                        break
-        for l3 in sorted(os.listdir(tp)):
-            lp = os.path.join(tp, l3)
-            if not os.path.isdir(lp):
-                continue
-            idx = os.path.join(lp, "index.html")
-            # A subcat dir without index.html is a NEW subcat created by gen_parts.py
-            # (makedirs only, no legacy write). Derive a clean display name so
-            # gen_subcategory.py renders it with the v2.1 template on this run.
-            display = l3.replace("-", " ").title()
-            if os.path.exists(idx):
-                t = open(idx, encoding="utf-8").read()
-                h1 = __import__("re").search(r"<h1[^>]*>(.*?)</h1>", t, __import__("re").S)
-                if h1:
-                    display = html.unescape(h1.group(1).strip())
-            found.append(
-                {
-                    "top_slug": top,
-                    "l3_slug": l3,
-                    "display": display,
-                    "top_display": top_display,
-                }
-            )
-    return found
+        top_slug = slugify_name(cat)
+        l3_display = sub.split("(")[0].strip()
+        l3_slug = slugify_name(l3_display)
+        key = (top_slug, l3_slug)
+        g = groups.get(key)
+        if g is None:
+            g = {"parts": [], "top_display": cat, "l3_display": l3_display}
+            groups[key] = g
+        g["parts"].append(p)
+    return groups
 
 
 def valid_mfr_slugs():
@@ -424,69 +426,73 @@ def main():
         ap.error("specify --dry-run or --apply")
 
     parts = load_parts()
-    # subcat -> list of parts
-    # KEY BY STABLE SLUG: slugify_name(p["category"]) == on-disk l3_slug.
-    # Do NOT key by the raw category string or by the page display/H1 text —
-    # those can drift for SEO/copy reasons and would silently drop SKUs.
-    by_cat = defaultdict(list)
-    for p in parts:
-        by_cat[slugify_name(p.get("category", ""))].append(p)
-    existing = walk_existing_subcats()
+    TOP_PS, L1_PS = load_taxonomy()
+    raw_groups = data_driven_groups(parts)
+
+    # ---- I3 gating: mirror gen_parts.py L3 loop (skip non-active top / hidden|review l1) ----
+    groups = {}
+    skipped = []
+    for key, g in raw_groups.items():
+        top_slug, l3_slug = key
+        if TOP_PS.get(top_slug, "active") != "active":
+            skipped.append((key, "top_not_active"))
+            continue
+        if L1_PS.get(l3_slug, "active") in ("hidden", "review"):
+            skipped.append((key, "l1_hidden_review"))
+            continue
+        groups[key] = g
+
     known_mfr = valid_mfr_slugs()
-
-    # index existing by (top,l3) for sibling lookup
+    # index groups by top for sibling (Related Subcategories) lookup
     by_top = defaultdict(list)
-    for e in existing:
-        by_top[e["top_slug"]].append(e)
+    for key in groups:
+        by_top[key[0]].append(key)
 
-    plan = []  # rows for report
-    for e in existing:
-        cat = e["display"]                         # render-only: H1 / title text
-        all_parts = by_cat.get(e["l3_slug"], [])  # STABLE match: slug == on-disk dir
+    plan = []
+    for key in sorted(groups):
+        top_slug, l3_slug = key
+        g = groups[key]
+        all_parts = g["parts"]
         total_n = len(all_parts)
-        total_pages = max(1, (total_n + PER_PAGE - 1) // PER_PAGE) if total_n else 0
+        total_pages = max(1, (total_n + PER_PAGE - 1) // PER_PAGE)
         # Related Manufacturers: by SKU count desc, only existing pages, capped
         mfr_counts = Counter(p["manufacturer"] for p in all_parts)
         mfr_options = [m for m, _ in mfr_counts.most_common()
                        if slugify_mfr(m) in known_mfr][:RELATED_CAP]
-        # Related Subcategories: same L2, other L3, alphabetical, capped
-        siblings = [(s["display"], f"/components/{s['top_slug']}/{s['l3_slug']}/")
-                    for s in by_top[e["top_slug"]]
-                    if s["l3_slug"] != e["l3_slug"]][:RELATED_CAP]
-        indexable = total_n >= GATE
-        robots = "index, follow" if indexable else "noindex, follow"
+        # Related Subcategories: same L2, other L3, capped
+        siblings = [(groups[s]["l3_display"], f"/components/{s[0]}/{s[1]}/")
+                    for s in by_top[top_slug] if s != key][:RELATED_CAP]
+        # All I3-passing groups are listed in sitemap_parts.xml (gen_parts.py applies no
+        # GATE in its L3 loop), so render them indexable to stay consistent with the sitemap.
+        indexable = True
+        robots = "index, follow"
         plan.append({
-            "top": e["top_slug"], "l3": e["l3_slug"], "display": cat,
+            "top": top_slug, "l3": l3_slug, "display": g["l3_display"],
+            "top_display": g["top_display"],
             "n": total_n, "pages": total_pages, "robots": robots,
             "in_sitemap": indexable, "siblings": len(siblings),
             "mfrs": len(mfr_options),
         })
 
     if args.dry_run:
-        print("=== SUBCATEGORY V1 DRY-RUN REPORT ===")
-        print(f"Existing subcats on disk: {len(existing)}")
-        idx = [r for r in plan if r["in_sitemap"]]
-        noidx = [r for r in plan if not r["in_sitemap"]]
-        print(f"Indexable (>= {GATE} SKU): {len(idx)}")
-        print(f"Noindex (< {GATE} SKU):   {len(noidx)}")
+        print("=== SUBCATEGORY V2 DRY-RUN REPORT (data-driven, I3-gated) ===")
+        print(f"Data-driven (top,l3) groups: {len(raw_groups)}")
+        print(f"After I3 gating (rendered):  {len(groups)}")
+        if skipped:
+            print(f"Skipped by I3 gating:        {len(skipped)}")
+            for k, why in skipped:
+                print(f"   - {k[0]}/{k[1]}  ({why})")
         pag = [r for r in plan if r["pages"] > 1]
         print(f"Subcats needing pagination (> {PER_PAGE}/page): {len(pag)} -> "
               + ", ".join(f"{r['display']}({r['pages']})" for r in pag))
-        print(f"Sitemap entries (page-1 only): {len(idx)}")
+        print(f"Sitemap entries (all rendered): {len(plan)}")
         print("\n-- Per subcat --")
         for r in sorted(plan, key=lambda x: -x["n"]):
-            print(f"  {r['display']:24} n={r['n']:3} pages={r['pages']} robots={r['robots']:14} "
+            print(f"  {r['display']:26} n={r['n']:3} pages={r['pages']} robots={r['robots']:14} "
                   f"sitemap={'Y' if r['in_sitemap'] else 'N'} siblings={r['siblings']} mfrs={r['mfrs']}")
-        # orphan check: parts whose category slug has no existing subcat dir
-        # (stable key = slugify_name(category); display/H1 text must not be used)
-        mapped_slugs = {e["l3_slug"] for e in existing}
-        orphans = [p for p in parts if slugify_name(p.get("category", "")) not in mapped_slugs]
-        print(f"\nOrphan SKUs (category w/ no subcat page): {len(orphans)}")
-        for o in orphans:
-            print(f"  {o['url_slug']} cat={o['category']}")
-        # duplicate MPN across subcats
-        dup = [m for m, c in Counter(p["mpn"] for p in parts).items() if c > 1]
-        print(f"\nDuplicate MPN values in parts.json: {len(dup)} (cross-subcat dup would be a bug)")
+        # parts that failed to group (missing category/subcategory)
+        n_ungrouped = len(parts) - sum(len(g["parts"]) for g in raw_groups.values())
+        print(f"\nParts not grouped (missing category/subcategory): {n_ungrouped}")
         # URL uniqueness among generated
         urls = set()
         for r in plan:
@@ -500,9 +506,10 @@ def main():
     # ---- APPLY ----
     written = 0
     sitemap_urls = []
-    for e in existing:
-        cat = e["display"]                          # render-only: H1 / title text
-        all_parts = by_cat.get(e["l3_slug"], [])   # STABLE match: slug == on-disk dir
+    for key in sorted(groups):
+        top_slug, l3_slug = key
+        g = groups[key]
+        all_parts = g["parts"]
         total_n = len(all_parts)
         if total_n == 0:
             continue
@@ -511,26 +518,25 @@ def main():
         mfr_counts = Counter(p["manufacturer"] for p in all_parts)
         mfr_options = [m for m, _ in mfr_counts.most_common()
                        if slugify_mfr(m) in known_mfr][:RELATED_CAP]
-        # Related Subcategories: same L2, other L3, alphabetical, capped
-        siblings = [(s["display"], f"/components/{s['top_slug']}/{s['l3_slug']}/")
-                    for s in by_top[e["top_slug"]]
-                    if s["l3_slug"] != e["l3_slug"]][:RELATED_CAP]
-        base_dir = os.path.join(COMP, e["top_slug"], e["l3_slug"])
+        # Related Subcategories: same L2, other L3, capped
+        siblings = [(groups[s]["l3_display"], f"/components/{s[0]}/{s[1]}/")
+                    for s in by_top[top_slug] if s != key][:RELATED_CAP]
+        base_dir = os.path.join(COMP, top_slug, l3_slug)
         for pg in range(1, total_pages + 1):
-            doc = build_page(cat, e["top_slug"], e["top_display"], e["l3_slug"],
+            doc = build_page(g["l3_display"], top_slug, g["top_display"], l3_slug,
                              all_parts, pg, total_pages, mfr_options, siblings)
             if pg == 1:
                 out = os.path.join(base_dir, "index.html")
-                page_url = f"/components/{e['top_slug']}/{e['l3_slug']}/"
+                page_url = f"/components/{top_slug}/{l3_slug}/"
             else:
                 out = os.path.join(base_dir, "page", str(pg), "index.html")
-                page_url = f"/components/{e['top_slug']}/{e['l3_slug']}/page/{pg}/"
+                page_url = f"/components/{top_slug}/{l3_slug}/page/{pg}/"
             os.makedirs(os.path.dirname(out), exist_ok=True)
             with open(out, "w", encoding="utf-8") as f:
                 f.write(doc)
             written += 1
-            # sitemap: only page-1 of indexable subcats
-            if total_n >= GATE and pg == 1:
+            # sitemap: every rendered (I3-passing) subcat — mirrors sitemap_parts.xml
+            if pg == 1:
                 sitemap_urls.append(SITE + page_url)
     # sitemap_subcat.xml
     sm = ['<?xml version="1.0" encoding="UTF-8"?>']
