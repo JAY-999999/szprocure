@@ -142,20 +142,13 @@ CATEGORY_MAP = {
     "GNSS Modules": "modules",
 }
 # canonical top-level category slug -> display name (matches /components/ CollectionPage)
-TOP_CATEGORIES = {
-    "integrated-circuits": "Integrated Circuits",
-    "semiconductor-components": "Semiconductor Components",
-    "passive-components": "Passive Components",
-    "sensors": "Sensors & Transducers",
-    "connectors": "Connectors & Electromechanical",
-    "modules": "Modules & Communication Modules",
-}
 # ---------------------------------------------------------------------------
-# Taxonomy resolver (P0 — 2026-09-08)
-# The category mapping has been EXTERNALIZED to data/category_taxonomy.json, which is
-# now the single source of truth. The silent DEFAULT_CAT_SLUG fallback has been REMOVED:
-# an unknown category no longer collapses into "integrated-circuits" — it resolves to
-# UNMAPPED and is quarantined (observable, non-fatal). See resolve_taxonomy() below.
+# Taxonomy resolver (I3/I4 — 2026-09-10)
+# v2 native taxonomy (data/category_taxonomy.json) is the SINGLE source of truth.
+# The old hardcoded 6-top TOP_CATEGORIES literal is GONE: top scopes are DERIVED from
+# the v2 `top_scopes` array (see TOP_CATEGORIES below, computed at import). gen_parts.py
+# reads MASTER.native_l1 + publish_status directly (Scheme A: native_l1 is the sole
+# 02->03 contract — no resolve_taxonomy fallback on the old 6-top taxonomy).
 # ---------------------------------------------------------------------------
 _TAXONOMY = None
 _TAXONOMY_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
@@ -163,108 +156,147 @@ _TAXONOMY_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
 
 
 def load_taxonomy(force=False):
-    """Load data/category_taxonomy.json (authoritative taxonomy). Module-level cached.
-
-    Raises FileNotFoundError if the config is missing — taxonomy is the single source of
-    truth and MUST exist; there is intentionally NO code-level fallback."""
+    """Load data/category_taxonomy.json (v2 — the authoritative NATIVE taxonomy).
+    Module-level cached. Builds lookup tables keyed by native_l1 slug and top_scope slug:
+      _TAXONOMY['tops']      : top_scope slug -> {slug,name,publish_status,l1_count}
+      _TAXONOMY['l1_by_slug']: native_l1 slug -> {slug,name,top_scope,top_name,publish_status}
+    Raises FileNotFoundError if the config is missing (taxonomy MUST exist; no fallback)."""
     global _TAXONOMY
     if _TAXONOMY is not None and not force:
         return _TAXONOMY
     with open(_TAXONOMY_PATH, encoding="utf-8") as _f:
         _data = json.load(_f)
-    _by_name, _by_slug = {}, {}
-    for _s in _data.get("subcategories", []):
-        _by_name.setdefault(_s["name"], []).append(_s)
-        _by_slug.setdefault(_s["slug"], []).append(_s)
-    _tops = {_t["slug"]: _t for _t in _data.get("top_categories", [])}
-    _TAXONOMY = {"raw": _data, "by_name": _by_name, "by_slug": _by_slug, "tops": _tops}
+    _tops = {}
+    for _t in _data.get("top_scopes", []):
+        _tops[_t["slug"]] = {
+            "slug": _t["slug"],
+            "name": _t.get("name", _t["slug"]),
+            "publish_status": (_t.get("publish_status") or "active").strip().lower(),
+            "l1_count": _t.get("l1_count", 0),
+        }
+    _l1 = {}
+    for _l in _data.get("l1_categories", []):
+        _ts = _l.get("top_scope")
+        _l1[_l["slug"]] = {
+            "slug": _l["slug"],
+            "name": _l.get("en_display", _l.get("raw_name", _l["slug"])),
+            "top_scope": _ts,
+            "top_name": _tops.get(_ts, {}).get("name", _ts) if _ts else _ts,
+            "publish_status": (_l.get("publish_status") or "active").strip().lower(),
+        }
+    _TAXONOMY = {"raw": _data, "tops": _tops, "l1_by_slug": _l1}
     return _TAXONOMY
 
 
+def _native_entry(native_l1):
+    """Look up a MASTER.native_l1 slug in the v2 taxonomy (case-insensitive)."""
+    if not native_l1:
+        return None
+    return load_taxonomy()["l1_by_slug"].get((native_l1 or "").strip().lower())
+
+
+def resolve_native(native_l1):
+    """Core native resolver (I3/I4). Map MASTER.native_l1 -> top scope + publish_status.
+    Returns dict {status, top_slug, top_name, l1_slug, l1_name, publish_status}.
+    status in {RESOLVED, UNMAPPED}. A native L1 never self-references its top scope, so
+    SELF_REFERENCE / COLLISION are impossible here (they belonged to the old fine/top model)."""
+    _e = _native_entry(native_l1)
+    if not _e:
+        return {"status": "UNMAPPED", "top_slug": None, "top_name": None,
+                "l1_slug": None, "l1_name": native_l1, "publish_status": "active"}
+    return {"status": "RESOLVED", "top_slug": _e["top_scope"], "top_name": _e["top_name"],
+            "l1_slug": _e["slug"], "l1_name": _e["name"], "publish_status": _e["publish_status"]}
+
+
+def _as_set(v):
+    if isinstance(v, (list, tuple, set)):
+        return set(v)
+    return {v}
+
+
+def native_top_scopes(publish_status=None):
+    """I4: single source of truth for top-level scopes. Returns ordered list of
+    (slug, name) for every top_scope, optionally filtered by publish_status
+    ('active'/'hidden'/'review'). Order follows taxonomy.json top_scopes order."""
+    _tops = load_taxonomy()["tops"]
+    _out = []
+    for _slug, _t in _tops.items():
+        if publish_status is not None and _t["publish_status"] not in _as_set(publish_status):
+            continue
+        _out.append((_slug, _t["name"]))
+    return _out
+
+
+def top_scope_name(cslug):
+    """Display name for a native top_scope slug (falls back to the slug)."""
+    _t = load_taxonomy()["tops"].get(cslug)
+    return _t["name"] if _t else cslug
+
+
+def sku_publish_status(row):
+    """I3: SKU-level publish_status gate. Defaults to 'active' for legacy rows missing
+    the column, so nothing is hidden by accident."""
+    ps = (row.get("publish_status") if isinstance(row, dict) else None)
+    ps = (ps or "").strip().lower()
+    return ps if ps in ("active", "hidden", "review") else "active"
+
+
+def effective_publish_status(row):
+    """I3: a SKU is hidden/review if EITHER its own publish_status OR its native top
+    scope's publish_status is hidden/review. active+active => active."""
+    _sku = sku_publish_status(row)
+    if _sku == "hidden":
+        return "hidden"
+    _res = resolve_native(row.get("native_l1") if isinstance(row, dict) else None)
+    _top = _res.get("publish_status", "active") if _res["status"] == "RESOLVED" else "active"
+    if _top == "hidden" or _sku == "hidden":
+        return "hidden"
+    if _top == "review" or _sku == "review":
+        return "review"
+    return "active"
+
+
+# I4: top-level scopes are DERIVED from the v2 taxonomy (NOT a hardcoded 6-list).
+# Mirrors native_top_scopes() (all 13 native canonical groups) so legacy call sites /
+# build wrappers that import gen_parts.TOP_CATEGORIES keep working while the single
+# source of truth stays the taxonomy file.
+TOP_CATEGORIES = {_s: _n for _s, _n in native_top_scopes()}
+
+# I3: public-facing scope set = ACTIVE top scopes only (hidden/review excluded from the
+# hub navigation + sitemap). The single source of truth stays the taxonomy file.
+ACTIVE_TOP_CATEGORIES = {_s: _n for _s, _n in native_top_scopes("active")}
+
+
 def resolve_taxonomy(raw_cat):
-    """Resolve a raw CSV category string against the externalized taxonomy.
-
-    Returns a dict with status in {RESOLVED, SELF_REFERENCE, UNMAPPED, COLLISION}:
-      - RESOLVED       : mapped fine category, distinct from its top (an L3 page is valid)
-      - SELF_REFERENCE : slug == top (e.g. 'Connectors' under 'connectors'); the L3 page
-                         would collapse onto the top page, so NO L3 page is generated
-      - UNMAPPED       : category absent from the taxonomy (was previously a silent DEFAULT
-                         fallback). Non-fatal: the SKU is quarantined, the batch does not die,
-                         and the gap is observable (count + raw category/subcategory values)
-      - COLLISION       : two distinct taxonomy entries share a slug (illegal). Never
-                         auto-numbered to foo-2; must be manually resolved
-
-    There is NO silent default fallback.
-    """
-    _tax = load_taxonomy()
-    _cat = (raw_cat or "").strip()
-    if not _cat:
-        return {"status": "UNMAPPED", "top": None, "slug": None, "name": _cat,
-                "self_reference": False, "reason": "empty category"}
-    _matches = _tax["by_name"].get(_cat)
-    if not _matches:
-        return {"status": "UNMAPPED", "top": None, "slug": None, "name": _cat,
-                "self_reference": False,
-                "reason": "category not present in data/category_taxonomy.json"}
-    if len(_matches) > 1:
-        return {"status": "COLLISION", "top": None, "slug": None, "name": _cat,
-                "self_reference": False,
-                "reason": "multiple taxonomy entries share name %r: %s"
-                          % (_cat, [m["taxonomy_id"] for m in _matches])}
-    _entry = _matches[0]
-    # Slug-collision guard: the same slug owned by >1 distinct entry is illegal.
-    _peers = _tax["by_slug"].get(_entry["slug"], [])
-    if len(_peers) > 1:
-        return {"status": "COLLISION", "top": None, "slug": _entry["slug"], "name": _cat,
-                "self_reference": False,
-                "reason": "slug %r shared by multiple entries: %s"
-                          % (_entry["slug"], [m["taxonomy_id"] for m in _peers])}
-    _top = _entry["parent_category"]
-    if _top not in _tax["tops"]:
-        return {"status": "UNMAPPED", "top": None, "slug": _entry["slug"], "name": _cat,
-                "self_reference": False,
-                "reason": "parent top %r not declared in top_categories" % _top}
-    if _entry.get("self_reference"):
-        return {"status": "SELF_REFERENCE", "top": _top, "slug": _entry["slug"],
-                "name": _cat, "self_reference": True, "reason": None}
-    return {"status": "RESOLVED", "top": _top, "slug": _entry["slug"], "name": _cat,
-            "self_reference": False, "reason": None}
+    """Backward-compatible alias (I3/I4): delegate to resolve_native(). The `raw_cat`
+    argument is interpreted as a MASTER.native_l1 slug. Returns the legacy 4-state dict
+    shape for the few legacy call sites still using it (native L1s resolve RESOLVED/UNMAPPED)."""
+    _res = resolve_native(raw_cat)
+    if _res["status"] == "RESOLVED":
+        return {"status": "RESOLVED", "top": _res["top_slug"], "slug": _res["l1_slug"],
+                "name": _res["l1_name"], "self_reference": False, "reason": None}
+    return {"status": "UNMAPPED", "top": None, "slug": None, "name": raw_cat,
+            "self_reference": False, "reason": "native_l1 not present in v2 taxonomy"}
 
 
 def resolve_cat(fine_cat):
-    """Compatibility wrapper (P0): delegate to resolve_taxonomy, preserving the legacy
-    (top_slug, top_name) signature used by the ~60 existing call sites.
-
-    Unknown categories previously fell back to DEFAULT_CAT_SLUG (silently, always IC).
-    They now resolve to a sentinel ('__UNMAPPED__', 'Unmapped') so generation can quarantine
-    them. The silent DEFAULT fallback has been REMOVED. Full migration of the 60 call sites
-    to resolve_taxonomy() (and UNMAPPED handling in generation) is scheduled for P1+ and is
-    explicitly OUT of P0 scope."""
-    _res = resolve_taxonomy(fine_cat)
-    if _res["status"] in ("RESOLVED", "SELF_REFERENCE"):
-        _top = _res["top"]
-        return _top, TOP_CATEGORIES.get(_top, _top)
+    """Compatibility wrapper: (top_slug, top_name) from a MASTER.native_l1 slug.
+    Unknown native_l1 resolves to a sentinel ('__UNMAPPED__', 'Unmapped')."""
+    _res = resolve_native(fine_cat)
+    if _res["status"] == "RESOLVED":
+        return _res["top_slug"], _res["top_name"]
     return "__UNMAPPED__", "Unmapped"
 
 
 # ---------------------------------------------------------------------------
-# Generation-phase taxonomy classifier (P1-B1 — 2026-09-09)
-# Wraps resolve_taxonomy() so the SKU/category *generation* phase is explicitly
-# 4-state aware. Every generation call site that must judge category state now
-# routes through here, so UNMAPPED / COLLISION are OBSERVED (recorded + counted)
-# instead of silently collapsing, and SELF_REFERENCE is visible to the category-
-# page generator (which must NOT emit a same-named L3 page).
-#
-# Returns (status, top_slug, top_name):
-#   RESOLVED       -> (status, parent_top, display_name)   # byte-identical to legacy
-#   SELF_REFERENCE -> (status, parent_top, display_name)   # byte-identical to legacy
-#   UNMAPPED       -> (status, "__UNMAPPED__", "Unmapped") # quarantine, NO IC fallback
-#   COLLISION      -> (status, "__UNMAPPED__", "Unmapped") # quarantine, NO foo-2 auto-number
-# For RESOLVED & SELF_REFERENCE the returned top_slug/top_name are IDENTICAL to the
-# legacy resolve_cat(), so all 570 production SKUs classify unchanged (Mismatch = 0).
+# Generation-phase taxonomy classifier (I3/I4 — 2026-09-10)
+# Routes through resolve_native(); UNMAPPED is OBSERVED (recorded + counted) instead
+# of silently collapsing onto a fake category. Returns (status, top_slug, top_name).
+# For RESOLVED the returned top_slug/top_name are the NATIVE top scope (13 canonical
+# groups), so every production SKU classifies to a native scope (not the old 6).
 # ---------------------------------------------------------------------------
 _TAXONOMY_GEN_STATS = {"RESOLVED": 0, "SELF_REFERENCE": 0, "UNMAPPED": 0, "COLLISION": 0}
-_TAXONOMY_QUARANTINE = []  # raw category strings seen as UNMAPPED/COLLISION during generation
+_TAXONOMY_QUARANTINE = []  # raw native_l1 strings seen as UNMAPPED during generation
 
 
 def reset_taxonomy_gen_state():
@@ -280,25 +312,23 @@ def get_taxonomy_gen_state():
 
 
 def resolve_cat_state(raw_cat):
-    """Generation-phase 4-state classifier. Records counters + quarantine, returns
-    (status, top_slug, top_name). Never raises; UNMAPPED/COLLISION are quarantined."""
-    _res = resolve_taxonomy(raw_cat)
+    """Generation-phase classifier. `raw_cat` is the MASTER native_l1 slug (I3/I4 contract).
+    Returns (status, top_slug, top_name). Never raises; UNMAPPED quarantined.
+    Signature preserved so call sites only need to pass row['native_l1'] instead of
+    row['category']."""
+    _res = resolve_native(raw_cat)
     _status = _res["status"]
     _TAXONOMY_GEN_STATS[_status] = _TAXONOMY_GEN_STATS.get(_status, 0) + 1
-    if _status in ("UNMAPPED", "COLLISION"):
-        _TAXONOMY_QUARANTINE.append(_res["name"])
-    if _status in ("RESOLVED", "SELF_REFERENCE"):
-        _top = _res["top"]
-        return _status, _top, TOP_CATEGORIES.get(_top, _top)
-    # UNMAPPED / COLLISION: explicit quarantine sentinel (NOT a fake category, never IC).
-    return _status, "__UNMAPPED__", "Unmapped"
+    if _status == "UNMAPPED":
+        _TAXONOMY_QUARANTINE.append(raw_cat)
+        return _status, "__UNMAPPED__", "Unmapped"
+    return _status, _res["top_slug"], _res["top_name"]
 
 
 def l3_page_should_skip(fine_cat):
-    """P1-B1: an L3 sub-category page must be SKIPPED (never generated) when its
-    taxonomy status is SELF_REFERENCE (would collapse onto the top page), COLLISION
-    (taxonomy config error — never auto-number to foo-2), or UNMAPPED (no valid L3).
-    Pure helper so the skip decision is unit-testable without running the generator."""
+    """I3/I4: an L3 sub-category page is SKIPPED when its native_l1 status is UNMAPPED
+    (no valid L3). Native L1s never self-reference their top, so SELF_REFERENCE/COLLISION
+    no longer apply. Pure helper for unit testing."""
     return resolve_cat_state(fine_cat)[0] in ("SELF_REFERENCE", "COLLISION", "UNMAPPED")
 
 # ---- manufacturer official websites (for Reference Resources) -----------------
@@ -462,11 +492,12 @@ def breadcrumb_jsonld(items):
   </script>"""
 
 # ---- SEO head builder (consistent across all generated pages) -----------------
-def seo_head(title, desc, url, img=None):
+def seo_head(title, desc, url, img=None, noindex=False):
+    _robots = "noindex, nofollow" if noindex else "index, follow"
     og_img = img or f"{DOMAIN}/assets/img/hero.svg"
     return f"""  <title>{title}</title>
   <meta name="description" content="{desc}" />
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content="{_robots}" />
   <link rel="canonical" href="{url}" />
   <link rel="alternate" hreflang="x-default" href="{url}" />
   <meta property="og:type" content="website" />
@@ -723,10 +754,10 @@ def _hub_catalog_from_groups(groups):
     Only RESOLVED / SELF_REFERENCE fine categories contribute; UNMAPPED / COLLISION
     are quarantined (skipped) — consistent with l3_page_should_skip()."""
     load_taxonomy()
-    cats = {top: {"name": TOP_CATEGORIES[top], "count": 0, "subs": {}}
-            for top in TOP_CATEGORIES}
+    cats = {top: {"name": ACTIVE_TOP_CATEGORIES[top], "count": 0, "subs": {}}
+            for top in ACTIVE_TOP_CATEGORIES}
     for g in groups:
-        raw = (g.get("category") or "").strip()
+        raw = (g.get("native_l1") or "").strip()
         if not raw:
             continue
         res = resolve_taxonomy(raw)
@@ -743,7 +774,7 @@ def _hub_catalog_from_groups(groups):
         )
         sub["count"] += 1
     out = {}
-    for top in TOP_CATEGORIES:
+    for top in ACTIVE_TOP_CATEGORIES:
         subs = sorted(cats[top]["subs"].values(), key=lambda s: s["name"].lower())
         out[top] = {"name": cats[top]["name"], "count": cats[top]["count"], "subs": subs}
     return out
@@ -751,7 +782,7 @@ def _hub_catalog_from_groups(groups):
 
 def _render_hub_nav(catalog):
     items = []
-    for top in TOP_CATEGORIES:
+    for top in ACTIVE_TOP_CATEGORIES:
         c = catalog[top]
         items.append(
             '          <button type="button" class="catalog-nav-item" '
@@ -763,7 +794,7 @@ def _render_hub_nav(catalog):
 
 def _render_hub_sections(catalog):
     sections = []
-    for top in TOP_CATEGORIES:
+    for top in ACTIVE_TOP_CATEGORIES:
         c = catalog[top]
         subs = []
         for s in c["subs"]:
@@ -821,7 +852,8 @@ def inject_hub_anchors(hub_path, groups):
 def gen_part_page(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
     pn = row["mpn"].strip()
     mfr = row["manufacturer"].strip()
-    cat = row["category"].strip()
+    _cat_res = resolve_native(row.get("native_l1"))
+    cat = _cat_res.get("l1_name") or (row.get("category") or "").strip()
     subcat = (row.get("subcategory") or "").strip()
     specs_raw = (row.get("attributes_json") or "").strip()
     apps = (row.get("applications") or "").strip()
@@ -848,10 +880,11 @@ def gen_part_page(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
     og_img = f"{DOMAIN}{img_url}" if img_url.startswith("/") else img_url
 
     # Resolve fine category -> 6 top-level /components/ URL (breadcrumbs & links)
-    # P1-B1: generation-phase 4-state classifier (UNMAPPED/COLLISION quarantined,
-    # recorded + counted; SELF_REFERENCE identified; RESOLVED unchanged).
-    status, cat_slug, cat_top = resolve_cat_state(cat)
+    # P1-B1/I3/I4: generation-phase classifier over MASTER.native_l1 (UNMAPPED quarantined).
+    status, cat_slug, cat_top = resolve_cat_state(row["native_l1"])
     cat_resolved = status in ("RESOLVED", "SELF_REFERENCE")
+    ps = effective_publish_status(row)
+    noindex = ps in ("hidden", "review")
 
     # ---- SEO copy: procurement language, Shenzhen/China sourcing keywords ----
     # Lead / overview emphasizes the BUYING scenario (global procurement from
@@ -1163,7 +1196,7 @@ def gen_part_page(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-{seo_head(title, desc, url, og_img)}
+{seo_head(title, desc, url, og_img, noindex=noindex)}
   <link rel="stylesheet" href="/assets/styles.css" />
 {crumb}
 {product_jsonld}
@@ -1517,7 +1550,8 @@ def _enrich_cosmetic(s):
 def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
     pn = row["mpn"].strip()
     mfr = row["manufacturer"].strip()
-    cat = row["category"].strip()
+    _cat_res = resolve_native(row.get("native_l1"))
+    cat = _cat_res.get("l1_name") or (row.get("category") or "").strip()
     subcat = (row.get("subcategory") or "").strip()
     specs_raw = (row.get("attributes_json") or "").strip()
     apps = (row.get("applications") or "").strip()
@@ -1532,10 +1566,11 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
     img_url = img if img else "/assets/img/hero.svg"
     og_img = f"{DOMAIN}{img_url}" if img_url.startswith("/") else img_url
 
-    # P1-B1: generation-phase 4-state classifier (UNMAPPED/COLLISION quarantined,
-    # recorded + counted; SELF_REFERENCE identified; RESOLVED unchanged).
-    status, cat_slug, cat_top = resolve_cat_state(cat)
+    # P1-B1/I3/I4: generation-phase classifier over MASTER.native_l1 (UNMAPPED quarantined).
+    status, cat_slug, cat_top = resolve_cat_state(row["native_l1"])
     cat_resolved = status in ("RESOLVED", "SELF_REFERENCE")
+    ps = effective_publish_status(row)
+    noindex = ps in ("hidden", "review")
 
     # ---- SEO copy: IDENTICAL formula to V2 (guarantees byte-equal SEO head/schema) ----
     fallback_overview = (f"{esc(pn)} is a {esc(subcat or cat).lower()} from {esc(mfr)}. "
@@ -1915,7 +1950,7 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-{seo_head(title, desc, url, og_img)}
+{seo_head(title, desc, url, og_img, noindex=noindex)}
 {enrich_meta}
   <link rel="stylesheet" href="/assets/styles.css" />
   <link rel="stylesheet" href="/assets/sku-v3.css" />
@@ -2028,13 +2063,19 @@ def gen_manufacturer_page(mfr, parts, cat_slugs):
     # list of parts linking back to product pages
     part_links = "".join(
         f'<li><a href="/products/{p.get("url_slug") or slugify(p["mpn"])}/">{esc(p["mpn"])}</a> '
-        f'<span class="muted">— {esc(p["category"])}</span></li>'
+        f'<span class="muted">— {esc(resolve_native(p.get("native_l1")).get("l1_name") or p.get("category", ""))}</span></li>'
         for p in sorted(parts, key=lambda x: x["mpn"])
     )
-    # related categories for this manufacturer (resolve fine -> top slug)
+    # related categories for this manufacturer (resolve native_l1 -> top scope)
+    _mfr_cat_by_top = {}
+    for _c in {p.get("native_l1") for p in parts}:
+        _res = resolve_native(_c)
+        if _res["status"] != "RESOLVED":
+            continue
+        _mfr_cat_by_top.setdefault(_res["top_slug"], _res["l1_name"])
     cat_links = "".join(
-        f'<li><a href="/components/{resolve_cat(c)[0]}/">{esc(c)}</a></li>'
-        for c in sorted({p["category"] for p in parts})
+        f'<li><a href="/components/{esc(_t)}/">{esc(_n)}</a></li>'
+        for _t, _n in sorted(_mfr_cat_by_top.items(), key=lambda kv: kv[1].lower())
     )
     crumb = breadcrumb_jsonld([
         ("Home", f"{DOMAIN}/"),
@@ -2158,7 +2199,7 @@ def gen_manufacturer_page(mfr, parts, cat_slugs):
 # SEO entry + category navigation + procurement conversion. Groups SKUs that
 # resolve (via CATEGORY_MAP) to this top-level category.
 # ==============================================================================
-def gen_component_category_page(cat_slug, cat_name, parts, all_rows=None, by_cat=None):
+def gen_component_category_page(cat_slug, cat_name, parts, all_rows=None, by_cat=None, noindex=None):
     url = f"{DOMAIN}/components/{cat_slug}/"
     n = len(parts)
     cat_lower = esc(cat_name).lower()
@@ -2167,34 +2208,45 @@ def gen_component_category_page(cat_slug, cat_name, parts, all_rows=None, by_cat
             f"{cat_lower} we help global buyers procure — alternates, "
             f"lead-time and quote support.")
 
+    # I3: gate category page indexing by the top scope's publish_status (hidden/review => noindex).
+    if noindex is None:
+        _top_ps = load_taxonomy()["tops"].get(cat_slug, {}).get("publish_status", "active")
+        noindex = _top_ps in ("hidden", "review")
+
     # ---- 1. Subcategory aggregation (real L3 pages only) ----
     # Count by fine category; link only to subcategories that actually exist on
     # disk (generated by gen_component_subcategory_page). Deterministic + data-driven.
     # Category HTML grows with SUBCATEGORY count, never with SKU count.
-    sub_counts = {}
+    # I3/I4: aggregate by native L1 (MASTER.native_l1), not the legacy `category` string,
+    # so subcategory links/slugs are consistent with the native top scope.
+    sub_counts = {}  # l1_slug -> [l1_name, count]
     for p in parts:
-        fine = (p.get("category") or "").strip()
-        if fine:
-            sub_counts[fine] = sub_counts.get(fine, 0) + 1
-    sub_sorted = sorted(sub_counts.items(), key=lambda kv: (-kv[1], kv[0]))
+        _e = _native_entry(p.get("native_l1"))
+        if not _e:
+            continue
+        _s = sub_counts.get(_e["slug"])
+        if _s is None:
+            sub_counts[_e["slug"]] = [_e["name"], 1]
+        else:
+            _s[1] += 1
+    sub_sorted = sorted(sub_counts.items(), key=lambda kv: (-kv[1][1], kv[0]))
     # Subcat cards MUST only link L3 pages that actually exist on disk — never a
-    # fabricated URL. A fine category with SKUs but no generated L3 page (e.g. an
-    # unmapped "Comparator" defaulting into IC) is simply omitted from the nav.
+    # fabricated URL. A native L1 with SKUs but no generated L3 page is omitted from the nav.
     cat_dir = os.path.join(ROOT, "components", cat_slug)
     existing_l3 = set()
     if os.path.isdir(cat_dir):
         for _n in os.listdir(cat_dir):
             if os.path.isfile(os.path.join(cat_dir, _n, "index.html")):
                 existing_l3.add(_n)
-    visible_subs = [(fine, cnt) for fine, cnt in sub_sorted if slugify_name(fine) in existing_l3]
+    visible_subs = [(slug, name, cnt) for slug, (name, cnt) in sub_sorted if slug in existing_l3]
     if visible_subs:
         sub_cards = "".join(
-            f'<a class="card subcat-card" href="/components/{esc(cat_slug)}/{esc(slugify_name(fine))}/">'
-            f'<div class="sku-mpn">{esc(fine)}</div>'
+            f'<a class="card subcat-card" href="/components/{esc(cat_slug)}/{esc(slug)}/">'
+            f'<div class="sku-mpn">{esc(name)}</div>'
             f'<div class="sku-mfr">{cnt} SKUs</div>'
-            f'<div class="muted small">Source {cnt} {esc(fine).lower()} from the Shenzhen supply chain.</div>'
+            f'<div class="muted small">Source {cnt} {esc(name).lower()} from the Shenzhen supply chain.</div>'
             f'</a>'
-            for fine, cnt in visible_subs
+            for slug, name, cnt in visible_subs
         )
     else:
         sub_cards = (f'<a class="card subcat-card" href="/request-a-quote/" data-zh="获取报价">'
@@ -2205,7 +2257,7 @@ def gen_component_category_page(cat_slug, cat_name, parts, all_rows=None, by_cat
     # Built from REAL subcategory names + REAL top manufacturers in this category,
     # so the six category pages never share identical boilerplate. No fabricated
     # supplier/authorization/stock/price claims.
-    top_subs = [fine for fine, _ in sub_sorted[:4]]
+    top_subs = [name for slug, (name, cnt) in sub_sorted[:4]]
     mfr_counts = {}
     for p in parts:
         m = (p.get("manufacturer") or "").strip()
@@ -2233,7 +2285,7 @@ def gen_component_category_page(cat_slug, cat_name, parts, all_rows=None, by_cat
     for fine, _ in sub_sorted:
         if fine in seen_sub:
             continue
-        cands = [p for p in parts if (p.get("category") or "").strip() == fine]
+        cands = [p for p in parts if (p.get("native_l1") or "").strip().lower() == fine]
         if not cands:
             continue
         cands.sort(key=lambda x: x["mpn"])
@@ -2258,7 +2310,7 @@ def gen_component_category_page(cat_slug, cat_name, parts, all_rows=None, by_cat
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-{seo_head(title, desc, url)}
+{seo_head(title, desc, url, noindex=noindex)}
   <link rel="stylesheet" href="/assets/styles.css" />
 {crumb}
 {org_jsonld()}
@@ -2327,7 +2379,7 @@ def gen_component_category_page(cat_slug, cat_name, parts, all_rows=None, by_cat
 # (no new Schema type). No frozen layer (URL/RFQ/Schema/Data Factory) is touched.
 # ==============================================================================
 
-def gen_component_subcategory_page(l2_slug, l2_name, l3_name, l3_slug, parts, all_rows=None):
+def gen_component_subcategory_page(l2_slug, l2_name, l3_name, l3_slug, parts, all_rows=None, noindex=False):
     url = f"{DOMAIN}/components/{l2_slug}/{l3_slug}/"
     n = len(parts)
     title = f"{esc(l3_name)} — {esc(l2_name)} | SZ Procure"
@@ -2361,7 +2413,7 @@ def gen_component_subcategory_page(l2_slug, l2_name, l3_name, l3_slug, parts, al
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-{seo_head(title, desc, url)}
+{seo_head(title, desc, url, noindex=noindex)}
   <link rel="stylesheet" href="/assets/styles.css" />
 {crumb}
 {org_jsonld()}
@@ -3127,6 +3179,16 @@ SYNTHETIC_MPN_PATTERNS = [
     re.compile(r'XXX$', re.I),
     re.compile(r'_(TEST|SAMPLE|MOCK)$', re.I),
 ]
+
+# P0-2 WHITELIST: real manufacturer all-digit MPNs that match the synthetic-MPN
+# pattern (^\d{6,}$) but are legitimate production parts (Molex uses purely numeric
+# part numbers). Authorized 2026-09-11 to unblock the production build — these are
+# NOT synthetic/test data. Future legitimate numeric MPNs go here.
+SYNTHETIC_MPN_WHITELIST = {
+    "5023520200",   # Molex
+    "1054500101",   # Molex
+}
+
 FAKE_BRAND_TOKENS = re.compile(
     r'(Acme|Nova|Placeholder|Synthetic|Mock|Fake|TestCorp|DemoSemi|Injected)', re.I)
 
@@ -3178,6 +3240,8 @@ def detect_synthetic_mpn(rows):
     bad = []
     for i, r in enumerate(rows, 1):
         mpn = (r.get("mpn") or "").strip()
+        if mpn in SYNTHETIC_MPN_WHITELIST:
+            continue  # authorized legitimate all-digit MPN (see SYNTHETIC_MPN_WHITELIST)
         mfr = (r.get("manufacturer") or "").strip()
         hit = None
         for pat in SYNTHETIC_MPN_PATTERNS:
@@ -3260,7 +3324,7 @@ def _now_iso():
 def _build_by_cat(groups):
     by_cat = defaultdict(list)
     for g in groups:
-        cslug, _ = resolve_cat(g["category"].strip())
+        cslug, _ = resolve_cat((g.get("native_l1") or "").strip())
         by_cat[cslug].append(g)
     return by_cat
 
@@ -3364,7 +3428,7 @@ def compute_build_key(slug, row, by_cat, related_map=None):
     """
     pn = (row.get("mpn") or "").strip()
     renderer_v = _renderer_v_for(pn)
-    cslug, _ = resolve_cat((row.get("category") or "").strip())
+    cslug, _ = resolve_cat((row.get("native_l1") or "").strip())
     dependency_fp = (_related_parts_fingerprint(slug, related_map)
                      if related_map is not None
                      else _category_pool_fingerprint(cslug, by_cat))
@@ -3587,19 +3651,32 @@ def regen_global_artifacts(args, groups, out_root, by_cat, related_map, generate
     except Exception:
         rows = []
 
-    urls = [f"{DOMAIN}/products/{g['url_slug']}/" for g in groups if g.get("url_slug")]
+    # I3: exclude hidden/review SKUs from the sitemap (they already get noindex on-page)
+    urls = [
+        f"{DOMAIN}/products/{g['url_slug']}/"
+        for g in groups
+        if g.get("url_slug") and effective_publish_status(g) not in ("hidden", "review")
+    ]
     for mfr in by_mfr:
         urls.append(f"{DOMAIN}/manufacturers/{slugify_name(mfr)}/")
     urls.append(f"{DOMAIN}/manufacturers/")
     for cslug in TOP_CATEGORIES:
+        _top_ps = load_taxonomy()["tops"].get(cslug, {}).get("publish_status", "active")
         parts = by_cat.get(cslug, [])
-        urls.append(f"{DOMAIN}/components/{cslug}/")
+        if _top_ps == "active":
+            urls.append(f"{DOMAIN}/components/{cslug}/")
         l3_groups = defaultdict(list)
         for p in parts:
-            fine = (p.get("category") or "").strip()
+            fine = (p.get("native_l1") or "").strip()
             if fine:
                 l3_groups[fine].append(p)
         for fine in sorted(l3_groups):
+            if _top_ps != "active":
+                continue
+            if l3_page_should_skip(fine):
+                continue
+            if resolve_native(fine)["publish_status"] in ("hidden", "review"):
+                continue
             urls.append(f"{DOMAIN}/components/{cslug}/{slugify_name(fine)}/")
     urls.append(f"{DOMAIN}/components/")
 
@@ -3629,10 +3706,11 @@ def regen_global_artifacts(args, groups, out_root, by_cat, related_map, generate
     for g in groups:
         pn = g["mpn"].strip()
         mfr = g["manufacturer"].strip()
-        cat = g["category"].strip()
+        _native = resolve_native(g.get("native_l1"))
+        cat = _native.get("l1_name") or (g.get("category") or "").strip()
+        c_top = _native.get("top_slug") or ""
         p_slug = g["url_slug"]
         m_slug = slugify_name(mfr)
-        c_slug = slugify_name(cat)
         key_p = ("p", pn.lower())
         if key_p not in seen:
             search_entries.append({"t": pn, "k": pn.lower(), "keys": pn_search_keys(pn),
@@ -3645,8 +3723,7 @@ def regen_global_artifacts(args, groups, out_root, by_cat, related_map, generate
                                    "u": f"/manufacturers/{m_slug}/", "sub": "View all sourced parts"})
             seen.add(key_m)
         key_c = ("c", cat.lower())
-        if key_c not in seen:
-            c_top = resolve_cat(cat)[0]
+        if key_c not in seen and c_top:
             search_entries.append({"t": cat, "k": cat.lower(), "ty": "Category",
                                    "u": f"/components/{c_top}/", "sub": "Browse category"})
             seen.add(key_c)
@@ -3686,8 +3763,11 @@ def regen_global_artifacts(args, groups, out_root, by_cat, related_map, generate
             "manufacturer": g["manufacturer"].strip(),
             "brand": g.get("brand", g["manufacturer"]).strip(),
             "url_slug": uslug,
-            "category": g.get("category", "").strip(),
-            "subcategory": g.get("subcategory", "").strip(),
+            # I3/I4: parts.json category/subcategory use the native_l1 taxonomy (single
+            # source of truth), not the legacy `category` string. Defensive fallback to the
+            # legacy value only if native_l1 cannot be resolved (never expected).
+            "category": top_scope_name(resolve_native(g.get("native_l1")).get("top_slug") or "") or g.get("category", "").strip(),
+            "subcategory": resolve_native(g.get("native_l1")).get("l1_name") or g.get("subcategory", "").strip(),
             "description": g.get("description", "").strip(),
             "applications": g.get("applications", "").strip(),
             "keywords": g.get("keywords", "").strip(),
@@ -3739,19 +3819,20 @@ def _regen_components_data(args, groups, out_root, by_cat, related_map, generate
         })
 
     categories = []
-    for cslug, cname in TOP_CATEGORIES.items():
+    for cslug, cname in ACTIVE_TOP_CATEGORIES.items():
         cat_parts = by_cat.get(cslug, [])
         l3 = defaultdict(list)
         for p in cat_parts:
-            fine = (p.get("category") or "").strip()
+            fine = (p.get("native_l1") or "").strip()
             if fine:
                 l3[fine].append(p)
         subcats = []
         for fine in sorted(l3, key=lambda f: f.lower()):
             fslug = slugify_name(fine)
+            fentry = _native_entry(fine)
             subcats.append({
                 "slug": fslug,
-                "name": fine,
+                "name": (fentry["name"] if fentry else fine),
                 "url": f"/components/{cslug}/{fslug}/",
                 "count": len(l3[fine]),
             })
@@ -3771,12 +3852,13 @@ def _regen_components_data(args, groups, out_root, by_cat, related_map, generate
         slug = g.get("url_slug") or ""
         if not slug:
             continue
-        cslug, _ = resolve_cat(g["category"].strip())
+        _cres = resolve_native(g.get("native_l1"))
+        cslug = _cres.get("top_slug") or ""
         parts_out.append({
             "mpn": pn,
             "mfr": g["manufacturer"].strip(),
-            "subcat": (g.get("category") or "").strip(),
-            "cat": TOP_CATEGORIES.get(cslug, cslug),
+            "subcat": _cres.get("l1_name") or (g.get("category") or "").strip(),
+            "cat": top_scope_name(cslug) if cslug else (g.get("category") or "").strip(),
             "url": f"/products/{slug}/",
             "slug": slug,
         })
@@ -3891,7 +3973,7 @@ def incremental_pipeline(args, groups, out_root, manifest_path=MANIFEST_PATH):
     l3_groups = defaultdict(lambda: defaultdict(list))
     for cslug, _parts in by_cat.items():
         for p in _parts:
-            fine = (p.get("category") or "").strip()
+            fine = (p.get("native_l1") or "").strip()
             if fine:
                 l3_groups[cslug][fine].append(p)
 
@@ -3901,10 +3983,10 @@ def incremental_pipeline(args, groups, out_root, manifest_path=MANIFEST_PATH):
     for s in write_set:
         g = plan[s]["g"]
         affected_brands.add(g["manufacturer"].strip())
-        _status, _cslug, _cname = resolve_cat_state(g["category"].strip())
+        _status, _cslug, _cname = resolve_cat_state((g.get("native_l1") or "").strip())
         if _status in ("RESOLVED", "SELF_REFERENCE"):
             affected_cats.add(_cslug)
-        _fine = (g.get("category") or "").strip()
+        _fine = (g.get("native_l1") or "").strip()
         if _fine and not l3_page_should_skip(_fine):
             affected_l3.add((_cslug, _fine, slugify_name(_fine)))
     # SCOPE GUARD: unexpected = planned - (requested ∪ dependency_induced)
@@ -3983,7 +4065,7 @@ def incremental_pipeline(args, groups, out_root, manifest_path=MANIFEST_PATH):
         for s in sorted(write_set):
             p = plan[s]
             g = p["g"]
-            _, cslug, _ = resolve_cat_state(g["category"].strip())
+            _, cslug, _ = resolve_cat_state((g.get("native_l1") or "").strip())
             mfr_slug = slugify_name(g["manufacturer"].strip())
             path = _write_sku_page_atomic(args, g, cslug, mfr_slug,
                                           related_map, generated_slugs, out_root)
@@ -4266,7 +4348,7 @@ def main():
     by_cat = defaultdict(list)
     for g in groups:
         by_mfr[g["manufacturer"].strip()].append(g)
-        cslug, _ = resolve_cat(g["category"].strip())
+        cslug, _ = resolve_cat((g.get("native_l1") or "").strip())
         by_cat[cslug].append(g)
 
     # ---- P0-1 related-products pre-index (final slugs) ----
@@ -4285,7 +4367,7 @@ def main():
         slug = g["url_slug"]
         if not slug:
             continue
-        cslug, _ = resolve_cat(g["category"].strip())
+        cslug, _ = resolve_cat((g.get("native_l1") or "").strip())
         mfr_slug = slugify_name(g["manufacturer"].strip())
         if pn.upper() in V2_LEGACY_EXCEPTIONS:
             page = gen_part_page(g, cslug, mfr_slug, related=related_map.get(slug, []), generated_slugs=generated_slugs)
@@ -4298,7 +4380,9 @@ def main():
         os.makedirs(d, exist_ok=True)
         with open(os.path.join(d, "index.html"), "w", encoding="utf-8") as f:
             f.write(page)
-        urls.append(f"{DOMAIN}/products/{slug}/")
+        # I3: exclude hidden/review SKUs from the sitemap (page already noindex)
+        if effective_publish_status(g) not in ("hidden", "review"):
+            urls.append(f"{DOMAIN}/products/{slug}/")
         written += 1
         if args.single and args.single.strip().upper() == pn.upper():
             print(f"  [--single] Generated only {pn} -> products/{slug}/index.html")
@@ -4327,7 +4411,8 @@ def main():
         os.makedirs(d, exist_ok=True)
         with open(os.path.join(d, "index.html"), "w", encoding="utf-8") as f:
             f.write(gen_component_category_page(cslug, cname, parts, all_rows=rows, by_cat=by_cat))
-        urls.append(f"{DOMAIN}/components/{cslug}/")
+        if load_taxonomy()["tops"].get(cslug, {}).get("publish_status", "active") == "active":
+            urls.append(f"{DOMAIN}/components/{cslug}/")
 
     # ---- component L3 subcategory pages (/components/<l2>/<l3>/) ----
     # ROOT-FIX: L3 pages are rendered EXCLUSIVELY by gen_subcategory.py (the v2.1
@@ -4337,9 +4422,10 @@ def main():
     # directory exists so a new fine category is discoverable; actual HTML is produced in
     # the delegated pass AFTER parts.json is regenerated (see below).
     for cslug, cname in TOP_CATEGORIES.items():
+        _top_ps = load_taxonomy()["tops"].get(cslug, {}).get("publish_status", "active")
         l3_groups = defaultdict(list)
         for p in by_cat.get(cslug, []):
-            fine = (p.get("category") or "").strip()
+            fine = (p.get("native_l1") or "").strip()
             if fine:
                 l3_groups[fine].append(p)
         for fine, l3_parts in sorted(l3_groups.items()):
@@ -4349,6 +4435,10 @@ def main():
             # never emit a broken page. All three are recorded (counters +
             # quarantine) and the batch continues; nothing is silently numbered.
             if l3_page_should_skip(fine):
+                continue
+            if _top_ps != "active":
+                continue
+            if resolve_native(fine)["publish_status"] in ("hidden", "review"):
                 continue
             l3_slug = slugify_name(fine)
             d = os.path.join(out_root, "components", cslug, l3_slug)
@@ -4390,10 +4480,11 @@ def main():
     for g in groups:
         pn = g["mpn"].strip()
         mfr = g["manufacturer"].strip()
-        cat = g["category"].strip()
+        _native = resolve_native(g.get("native_l1"))
+        cat = _native.get("l1_name") or (g.get("category") or "").strip()
+        c_top = _native.get("top_slug") or ""
         p_slug = g["url_slug"]
         m_slug = slugify_name(mfr)
-        c_slug = slugify_name(cat)
         key_p = ("p", pn.lower())
         if key_p not in seen:
             search_entries.append({"t": pn, "k": pn.lower(), "keys": pn_search_keys(pn),
@@ -4405,8 +4496,7 @@ def main():
                                    "u": f"/manufacturers/{m_slug}/", "sub": "View all sourced parts"})
             seen.add(key_m)
         key_c = ("c", cat.lower())
-        if key_c not in seen:
-            c_top = resolve_cat(cat)[0]
+        if key_c not in seen and c_top:
             search_entries.append({"t": cat, "k": cat.lower(), "ty": "Category",
                                    "u": f"/components/{c_top}/", "sub": "Browse category"})
             seen.add(key_c)
@@ -4447,8 +4537,11 @@ def main():
             "manufacturer": g["manufacturer"].strip(),
             "brand": g.get("brand", g["manufacturer"]).strip(),
             "url_slug": uslug,
-            "category": g.get("category", "").strip(),
-            "subcategory": g.get("subcategory", "").strip(),
+            # I3/I4: parts.json category/subcategory use the native_l1 taxonomy (single
+            # source of truth), not the legacy `category` string. Defensive fallback to the
+            # legacy value only if native_l1 cannot be resolved (never expected).
+            "category": top_scope_name(resolve_native(g.get("native_l1")).get("top_slug") or "") or g.get("category", "").strip(),
+            "subcategory": resolve_native(g.get("native_l1")).get("l1_name") or g.get("subcategory", "").strip(),
             "description": g.get("description", "").strip(),
             "applications": g.get("applications", "").strip(),
             "keywords": g.get("keywords", "").strip(),

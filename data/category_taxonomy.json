@@ -1,531 +1,759 @@
 {
-  "version": "v1",
-  "generated_by": "P0-1 _p0_build_taxonomy.py",
-  "description": "Externalized taxonomy mapping. Replaces in-code CATEGORY_MAP + silent DEFAULT_CAT_SLUG fallback. 6 top categories + every fine category accepted by production. Unknown categories are NOT present and therefore resolve to UNMAPPED (no silent default).",
-  "top_categories": [
+  "version": "v2",
+  "generated_by": "I1 _i1_build_taxonomy.py (Scheme A: MASTER.native_l1 is sole 02->03 contract)",
+  "description": "Native 56-L1 taxonomy rebuilt from LCSC source tree (category.csv) via 02 closure (_r5). Replaces old v1 6-top/54-sub taxonomy. MASTER.native_l1 holds this slug; gen_parts.py reads native_l1 + publish_status directly (no resolve_taxonomy fallback on old taxonomy). Top scopes are the 13 native canonical groups (NOT the old 6).",
+  "top_scopes": [
     {
-      "taxonomy_id": "top-01",
-      "slug": "integrated-circuits",
-      "name": "Integrated Circuits",
-      "status": "active"
-    },
-    {
-      "taxonomy_id": "top-02",
-      "slug": "semiconductor-components",
-      "name": "Semiconductor Components",
-      "status": "active"
-    },
-    {
-      "taxonomy_id": "top-03",
       "slug": "passive-components",
       "name": "Passive Components",
-      "status": "active"
+      "publish_status": "active",
+      "l1_count": 5
     },
     {
-      "taxonomy_id": "top-04",
-      "slug": "sensors",
-      "name": "Sensors & Transducers",
-      "status": "active"
-    },
-    {
-      "taxonomy_id": "top-05",
-      "slug": "connectors",
+      "slug": "connectors-electromechanical",
       "name": "Connectors & Electromechanical",
-      "status": "active"
+      "publish_status": "active",
+      "l1_count": 4
     },
     {
-      "taxonomy_id": "top-06",
-      "slug": "modules",
-      "name": "Modules & Communication Modules",
-      "status": "active"
+      "slug": "semiconductors-discrete",
+      "name": "Semiconductors & Discrete",
+      "publish_status": "active",
+      "l1_count": 7
+    },
+    {
+      "slug": "power-management",
+      "name": "Power Management",
+      "publish_status": "active",
+      "l1_count": 1
+    },
+    {
+      "slug": "optoelectronics",
+      "name": "Optoelectronics",
+      "publish_status": "active",
+      "l1_count": 2
+    },
+    {
+      "slug": "development-tools-boards",
+      "name": "Development Tools & Boards",
+      "publish_status": "review",
+      "l1_count": 2
+    },
+    {
+      "slug": "memory",
+      "name": "Memory",
+      "publish_status": "active",
+      "l1_count": 1
+    },
+    {
+      "slug": "sensors",
+      "name": "Sensors",
+      "publish_status": "active",
+      "l1_count": 2
+    },
+    {
+      "slug": "modules-communication",
+      "name": "Modules & Communication",
+      "publish_status": "active",
+      "l1_count": 3
+    },
+    {
+      "slug": "integrated-circuits",
+      "name": "Integrated Circuits",
+      "publish_status": "active",
+      "l1_count": 9
+    },
+    {
+      "slug": "audio-signal",
+      "name": "Audio & Signal",
+      "publish_status": "active",
+      "l1_count": 1
+    },
+    {
+      "slug": "test-measurement",
+      "name": "Test & Measurement",
+      "publish_status": "review",
+      "l1_count": 2
+    },
+    {
+      "slug": "industrial-mechanical",
+      "name": "Industrial & Mechanical",
+      "publish_status": "hidden",
+      "l1_count": 17
     }
   ],
-  "subcategories": [
+  "l1_categories": [
     {
-      "name": "Board-to-Board",
-      "parent_category": "connectors",
-      "slug": "board-to-board",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-board-to-board"
-    },
-    {
-      "name": "Connectors",
-      "parent_category": "connectors",
-      "slug": "connectors",
-      "self_reference": true,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-connectors"
-    },
-    {
-      "name": "Connectors & Electromechanical",
-      "parent_category": "connectors",
-      "slug": "connectors-electromechanical",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-connectors-electromechanical"
-    },
-    {
-      "name": "FFC/FPC",
-      "parent_category": "connectors",
-      "slug": "ffc-fpc",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-ffc-fpc"
-    },
-    {
-      "name": "Pin Header",
-      "parent_category": "connectors",
-      "slug": "pin-header",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-pin-header"
-    },
-    {
-      "name": "Switches",
-      "parent_category": "connectors",
-      "slug": "switches",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-switches"
-    },
-    {
-      "name": "USB Connectors",
-      "parent_category": "connectors",
-      "slug": "usb-connectors",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-usb-connectors"
-    },
-    {
-      "name": "Wire Connectors",
-      "parent_category": "connectors",
-      "slug": "wire-connectors",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-wire-connectors"
-    },
-    {
-      "name": "Analog IC",
-      "parent_category": "integrated-circuits",
-      "slug": "analog-ic",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-analog-ic"
-    },
-    {
-      "name": "I/O Expanders",
-      "parent_category": "integrated-circuits",
-      "slug": "i-o-expanders",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-i-o-expanders"
-    },
-    {
-      "name": "Integrated Circuits",
-      "parent_category": "integrated-circuits",
-      "slug": "integrated-circuits",
-      "self_reference": true,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-integrated-circuits"
-    },
-    {
-      "name": "Interface IC",
-      "parent_category": "integrated-circuits",
-      "slug": "interface-ic",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-interface-ic"
-    },
-    {
-      "name": "Logic IC",
-      "parent_category": "integrated-circuits",
-      "slug": "logic-ic",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-logic-ic"
-    },
-    {
-      "name": "MCU",
-      "parent_category": "integrated-circuits",
-      "slug": "mcu",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-mcu"
-    },
-    {
-      "name": "Memory",
-      "parent_category": "integrated-circuits",
-      "slug": "memory",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-memory"
-    },
-    {
-      "name": "Memory IC",
-      "parent_category": "integrated-circuits",
-      "slug": "memory-ic",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-memory-ic"
-    },
-    {
-      "name": "Microcontroller",
-      "parent_category": "integrated-circuits",
-      "slug": "microcontroller",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-microcontroller"
-    },
-    {
-      "name": "Microcontrollers",
-      "parent_category": "integrated-circuits",
-      "slug": "microcontrollers",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-microcontrollers"
-    },
-    {
-      "name": "Operational Amplifier",
-      "parent_category": "integrated-circuits",
-      "slug": "operational-amplifier",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-operational-amplifier"
-    },
-    {
-      "name": "Power Management IC",
-      "parent_category": "integrated-circuits",
-      "slug": "power-management-ic",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-power-management-ic"
-    },
-    {
-      "name": "Voltage Regulator",
-      "parent_category": "integrated-circuits",
-      "slug": "voltage-regulator",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-voltage-regulator"
-    },
-    {
-      "name": "Bluetooth Modules",
-      "parent_category": "modules",
-      "slug": "bluetooth-modules",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-bluetooth-modules"
-    },
-    {
-      "name": "Cellular Modules",
-      "parent_category": "modules",
-      "slug": "cellular-modules",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-cellular-modules"
-    },
-    {
-      "name": "GNSS Modules",
-      "parent_category": "modules",
-      "slug": "gnss-modules",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-gnss-modules"
-    },
-    {
-      "name": "Modules",
-      "parent_category": "modules",
-      "slug": "modules",
-      "self_reference": true,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-modules"
-    },
-    {
-      "name": "Modules & Communication Modules",
-      "parent_category": "modules",
-      "slug": "modules-communication-modules",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-modules-communication-modules"
-    },
-    {
-      "name": "RF Modules",
-      "parent_category": "modules",
-      "slug": "rf-modules",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-rf-modules"
-    },
-    {
-      "name": "WiFi Modules",
-      "parent_category": "modules",
-      "slug": "wifi-modules",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-wifi-modules"
-    },
-    {
-      "name": "Capacitor",
-      "parent_category": "passive-components",
-      "slug": "capacitor",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-capacitor"
-    },
-    {
-      "name": "Capacitors",
-      "parent_category": "passive-components",
       "slug": "capacitors",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-capacitors"
+      "raw_name": "电容",
+      "en_display": "Capacitors",
+      "canonical_group": "Passive Components",
+      "top_scope": "passive-components",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 22,
+      "l3_count": 0,
+      "legacy_l1_slug": "passive-components"
     },
     {
-      "name": "Crystal Oscillator",
-      "parent_category": "passive-components",
-      "slug": "crystal-oscillator",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-crystal-oscillator"
-    },
-    {
-      "name": "Electrolytic Capacitor",
-      "parent_category": "passive-components",
-      "slug": "electrolytic-capacitor",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-electrolytic-capacitor"
-    },
-    {
-      "name": "Inductor",
-      "parent_category": "passive-components",
-      "slug": "inductor",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-inductor"
-    },
-    {
-      "name": "Inductors",
-      "parent_category": "passive-components",
-      "slug": "inductors",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-inductors"
-    },
-    {
-      "name": "LED Components",
-      "parent_category": "passive-components",
-      "slug": "led-components",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-led-components"
-    },
-    {
-      "name": "Passive Components",
-      "parent_category": "passive-components",
-      "slug": "passive-components",
-      "self_reference": true,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-passive-components"
-    },
-    {
-      "name": "Resistor",
-      "parent_category": "passive-components",
-      "slug": "resistor",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-resistor"
-    },
-    {
-      "name": "Resistors",
-      "parent_category": "passive-components",
       "slug": "resistors",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-resistors"
+      "raw_name": "电阻",
+      "en_display": "Resistors",
+      "canonical_group": "Passive Components",
+      "top_scope": "passive-components",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 6,
+      "l3_count": 4,
+      "legacy_l1_slug": "passive-components"
     },
     {
-      "name": "Diode",
-      "parent_category": "semiconductor-components",
-      "slug": "diode",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-diode"
+      "slug": "connectors",
+      "raw_name": "连接器",
+      "en_display": "Connectors",
+      "canonical_group": "Connectors & Electromechanical",
+      "top_scope": "connectors-electromechanical",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 52,
+      "l3_count": 3,
+      "legacy_l1_slug": "connectors"
     },
     {
-      "name": "IGBT",
-      "parent_category": "semiconductor-components",
-      "slug": "igbt",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-igbt"
+      "slug": "diodes",
+      "raw_name": "二极管",
+      "en_display": "Diodes",
+      "canonical_group": "Semiconductors & Discrete",
+      "top_scope": "semiconductors-discrete",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 11,
+      "l3_count": 6,
+      "legacy_l1_slug": "semiconductor-components"
     },
     {
-      "name": "MOSFET",
-      "parent_category": "semiconductor-components",
-      "slug": "mosfet",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-mosfet"
+      "slug": "power-management",
+      "raw_name": "电源管理",
+      "en_display": "Power Management",
+      "canonical_group": "Power Management",
+      "top_scope": "power-management",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 24,
+      "l3_count": 7,
+      "legacy_l1_slug": "integrated-circuits"
     },
     {
-      "name": "Power MOSFET",
-      "parent_category": "semiconductor-components",
-      "slug": "power-mosfet",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-power-mosfet"
+      "slug": "optoelectronics",
+      "raw_name": "光电器件",
+      "en_display": "Optoelectronics",
+      "canonical_group": "Optoelectronics",
+      "top_scope": "optoelectronics",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 15,
+      "l3_count": 1,
+      "legacy_l1_slug": ""
     },
     {
-      "name": "Rectifier",
-      "parent_category": "semiconductor-components",
-      "slug": "rectifier",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-rectifier"
+      "slug": "inductors-coils-transformers",
+      "raw_name": "电感/线圈/变压器",
+      "en_display": "Inductors, Coils & Transformers",
+      "canonical_group": "Passive Components",
+      "top_scope": "passive-components",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 13,
+      "l3_count": 1,
+      "legacy_l1_slug": "passive-components"
     },
     {
-      "name": "Rectifier Diode",
-      "parent_category": "semiconductor-components",
-      "slug": "rectifier-diode",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-rectifier-diode"
+      "slug": "development-boards-tools",
+      "raw_name": "开发板/开发工具",
+      "en_display": "Development Boards & Tools",
+      "canonical_group": "Development Tools & Boards",
+      "top_scope": "development-tools-boards",
+      "publish_status": "review",
+      "tier": "A",
+      "l2_count": 6,
+      "l3_count": 0,
+      "legacy_l1_slug": ""
     },
     {
-      "name": "Semiconductor Components",
-      "parent_category": "semiconductor-components",
-      "slug": "semiconductor-components",
-      "self_reference": true,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-semiconductor-components"
+      "slug": "memory",
+      "raw_name": "存储器",
+      "en_display": "Memory",
+      "canonical_group": "Memory",
+      "top_scope": "memory",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 20,
+      "l3_count": 0,
+      "legacy_l1_slug": "integrated-circuits"
     },
     {
-      "name": "Thyristor",
-      "parent_category": "semiconductor-components",
-      "slug": "thyristor",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-thyristor"
-    },
-    {
-      "name": "Transistor",
-      "parent_category": "semiconductor-components",
-      "slug": "transistor",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-transistor"
-    },
-    {
-      "name": "MEMS Sensor",
-      "parent_category": "sensors",
-      "slug": "mems-sensor",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-mems-sensor"
-    },
-    {
-      "name": "Motion Sensors",
-      "parent_category": "sensors",
-      "slug": "motion-sensors",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-motion-sensors"
-    },
-    {
-      "name": "Optical Sensors",
-      "parent_category": "sensors",
-      "slug": "optical-sensors",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-optical-sensors"
-    },
-    {
-      "name": "Pressure Sensors",
-      "parent_category": "sensors",
-      "slug": "pressure-sensors",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-pressure-sensors"
-    },
-    {
-      "name": "Sensors",
-      "parent_category": "sensors",
       "slug": "sensors",
-      "self_reference": true,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-sensors"
+      "raw_name": "传感器",
+      "en_display": "Sensors",
+      "canonical_group": "Sensors",
+      "top_scope": "sensors",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 30,
+      "l3_count": 6,
+      "legacy_l1_slug": "sensors"
     },
     {
-      "name": "Sensors & Transducers",
-      "parent_category": "sensors",
-      "slug": "sensors-transducers",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-sensors-transducers"
+      "slug": "relays",
+      "raw_name": "继电器",
+      "en_display": "Relays",
+      "canonical_group": "Connectors & Electromechanical",
+      "top_scope": "connectors-electromechanical",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 7,
+      "l3_count": 0,
+      "legacy_l1_slug": "connectors"
     },
     {
-      "name": "Temperature Sensors",
-      "parent_category": "sensors",
-      "slug": "temperature-sensors",
-      "self_reference": false,
-      "aliases": [],
-      "status": "active",
-      "taxonomy_id": "sub-temperature-sensors"
+      "slug": "functional-modules",
+      "raw_name": "功能模块",
+      "en_display": "Functional Modules",
+      "canonical_group": "Modules & Communication",
+      "top_scope": "modules-communication",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 3,
+      "l3_count": 6,
+      "legacy_l1_slug": "modules"
+    },
+    {
+      "slug": "iot-communication-modules",
+      "raw_name": "物联网/通信模块",
+      "en_display": "IoT & Communication Modules",
+      "canonical_group": "Modules & Communication",
+      "top_scope": "modules-communication",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 13,
+      "l3_count": 0,
+      "legacy_l1_slug": "modules"
+    },
+    {
+      "slug": "microcontrollers",
+      "raw_name": "单片机/微控制器",
+      "en_display": "Microcontrollers (MCU/MPU)",
+      "canonical_group": "Integrated Circuits",
+      "top_scope": "integrated-circuits",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 4,
+      "l3_count": 0,
+      "legacy_l1_slug": "integrated-circuits"
+    },
+    {
+      "slug": "logic-ics",
+      "raw_name": "逻辑器件",
+      "en_display": "Logic ICs",
+      "canonical_group": "Integrated Circuits",
+      "top_scope": "integrated-circuits",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 14,
+      "l3_count": 0,
+      "legacy_l1_slug": "integrated-circuits"
+    },
+    {
+      "slug": "clock-timing",
+      "raw_name": "时钟和定时",
+      "en_display": "Clock & Timing",
+      "canonical_group": "Integrated Circuits",
+      "top_scope": "integrated-circuits",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 11,
+      "l3_count": 1,
+      "legacy_l1_slug": "integrated-circuits"
+    },
+    {
+      "slug": "data-converters",
+      "raw_name": "ADC/DAC/数据转换",
+      "en_display": "Data Converters (ADC/DAC)",
+      "canonical_group": "Integrated Circuits",
+      "top_scope": "integrated-circuits",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 10,
+      "l3_count": 2,
+      "legacy_l1_slug": "integrated-circuits"
+    },
+    {
+      "slug": "rf-wireless",
+      "raw_name": "射频芯片/天线",
+      "en_display": "RF & Wireless (Chips & Antennas)",
+      "canonical_group": "Integrated Circuits",
+      "top_scope": "integrated-circuits",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 19,
+      "l3_count": 4,
+      "legacy_l1_slug": "integrated-circuits"
+    },
+    {
+      "slug": "amplifiers-comparators",
+      "raw_name": "运算放大器/比较器",
+      "en_display": "Amplifiers & Comparators",
+      "canonical_group": "Integrated Circuits",
+      "top_scope": "integrated-circuits",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 13,
+      "l3_count": 5,
+      "legacy_l1_slug": "integrated-circuits"
+    },
+    {
+      "slug": "interface-ics",
+      "raw_name": "通信接口芯片",
+      "en_display": "Interface ICs",
+      "canonical_group": "Integrated Circuits",
+      "top_scope": "integrated-circuits",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 24,
+      "l3_count": 6,
+      "legacy_l1_slug": "integrated-circuits"
+    },
+    {
+      "slug": "led-display-drivers",
+      "raw_name": "数码管驱动/LED驱动",
+      "en_display": "LED Display & Drivers",
+      "canonical_group": "Integrated Circuits",
+      "top_scope": "integrated-circuits",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 7,
+      "l3_count": 0,
+      "legacy_l1_slug": "integrated-circuits"
+    },
+    {
+      "slug": "transistors",
+      "raw_name": "三极管/MOS管/晶体管",
+      "en_display": "Transistors (BJT/MOSFET)",
+      "canonical_group": "Semiconductors & Discrete",
+      "top_scope": "semiconductors-discrete",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 12,
+      "l3_count": 0,
+      "legacy_l1_slug": "semiconductor-components"
+    },
+    {
+      "slug": "oscillators-resonators",
+      "raw_name": "振荡器/谐振器",
+      "en_display": "Oscillators & Resonators",
+      "canonical_group": "Passive Components",
+      "top_scope": "passive-components",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 14,
+      "l3_count": 0,
+      "legacy_l1_slug": "passive-components"
+    },
+    {
+      "slug": "audio-signal-devices",
+      "raw_name": "音频器件/振动马达",
+      "en_display": "Audio & Signal Devices",
+      "canonical_group": "Audio & Signal",
+      "top_scope": "audio-signal",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 6,
+      "l3_count": 0,
+      "legacy_l1_slug": ""
+    },
+    {
+      "slug": "circuit-protection",
+      "raw_name": "TVS/保险丝/板级保护",
+      "en_display": "Circuit Protection (TVS/Fuses)",
+      "canonical_group": "Semiconductors & Discrete",
+      "top_scope": "semiconductors-discrete",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 8,
+      "l3_count": 5,
+      "legacy_l1_slug": "semiconductor-components"
+    },
+    {
+      "slug": "switches",
+      "raw_name": "按键/开关",
+      "en_display": "Switches",
+      "canonical_group": "Connectors & Electromechanical",
+      "top_scope": "connectors-electromechanical",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 19,
+      "l3_count": 0,
+      "legacy_l1_slug": "connectors"
+    },
+    {
+      "slug": "test-measurement",
+      "raw_name": "仪器仪表",
+      "en_display": "Test & Measurement",
+      "canonical_group": "Test & Measurement",
+      "top_scope": "test-measurement",
+      "publish_status": "review",
+      "tier": "A",
+      "l2_count": 193,
+      "l3_count": 0,
+      "legacy_l1_slug": ""
+    },
+    {
+      "slug": "tools-consumables",
+      "raw_name": "电子工具/仪器/耗材",
+      "en_display": "Tools & Consumables",
+      "canonical_group": "Test & Measurement",
+      "top_scope": "test-measurement",
+      "publish_status": "review",
+      "tier": "A",
+      "l2_count": 2,
+      "l3_count": 68,
+      "legacy_l1_slug": ""
+    },
+    {
+      "slug": "evaluation-boards",
+      "raw_name": "方案验证板",
+      "en_display": "Evaluation Boards",
+      "canonical_group": "Development Tools & Boards",
+      "top_scope": "development-tools-boards",
+      "publish_status": "review",
+      "tier": "A",
+      "l2_count": 7,
+      "l3_count": 0,
+      "legacy_l1_slug": ""
+    },
+    {
+      "slug": "lathes-accessories",
+      "raw_name": "车床及配件",
+      "en_display": "(Industrial) Lathes & Accessories",
+      "canonical_group": "Industrial & Mechanical",
+      "top_scope": "industrial-mechanical",
+      "publish_status": "hidden",
+      "tier": "A",
+      "l2_count": 50,
+      "l3_count": 0,
+      "legacy_l1_slug": ""
+    },
+    {
+      "slug": "pneumatic-hydraulic-valves-pumps",
+      "raw_name": "气动/液压/管阀/泵",
+      "en_display": "(Industrial) Pneumatic/Hydraulic/Valves/Pumps",
+      "canonical_group": "Industrial & Mechanical",
+      "top_scope": "industrial-mechanical",
+      "publish_status": "hidden",
+      "tier": "A",
+      "l2_count": 87,
+      "l3_count": 0,
+      "legacy_l1_slug": ""
+    },
+    {
+      "slug": "safety-fire",
+      "raw_name": "安全/消防",
+      "en_display": "(Industrial) Safety & Fire",
+      "canonical_group": "Industrial & Mechanical",
+      "top_scope": "industrial-mechanical",
+      "publish_status": "hidden",
+      "tier": "A",
+      "l2_count": 100,
+      "l3_count": 0,
+      "legacy_l1_slug": ""
+    },
+    {
+      "slug": "lab-products",
+      "raw_name": "实验室产品",
+      "en_display": "(Industrial) Lab Products",
+      "canonical_group": "Industrial & Mechanical",
+      "top_scope": "industrial-mechanical",
+      "publish_status": "hidden",
+      "tier": "A",
+      "l2_count": 65,
+      "l3_count": 2,
+      "legacy_l1_slug": ""
+    },
+    {
+      "slug": "consumables",
+      "raw_name": "耗材辅材",
+      "en_display": "(Industrial) Consumables",
+      "canonical_group": "Industrial & Mechanical",
+      "top_scope": "industrial-mechanical",
+      "publish_status": "hidden",
+      "tier": "A",
+      "l2_count": 73,
+      "l3_count": 1,
+      "legacy_l1_slug": ""
+    },
+    {
+      "slug": "other",
+      "raw_name": "其它",
+      "en_display": "(Industrial) Other",
+      "canonical_group": "Industrial & Mechanical",
+      "top_scope": "industrial-mechanical",
+      "publish_status": "hidden",
+      "tier": "A",
+      "l2_count": 4,
+      "l3_count": 0,
+      "legacy_l1_slug": ""
+    },
+    {
+      "slug": "wires-cables",
+      "raw_name": "电线电缆",
+      "en_display": "(Industrial) Wires & Cables",
+      "canonical_group": "Industrial & Mechanical",
+      "top_scope": "industrial-mechanical",
+      "publish_status": "hidden",
+      "tier": "A",
+      "l2_count": 73,
+      "l3_count": 0,
+      "legacy_l1_slug": ""
+    },
+    {
+      "slug": "building-materials-hardware",
+      "raw_name": "建筑材料/建筑五金",
+      "en_display": "(Industrial) Building Materials & Hardware",
+      "canonical_group": "Industrial & Mechanical",
+      "top_scope": "industrial-mechanical",
+      "publish_status": "hidden",
+      "tier": "A",
+      "l2_count": 35,
+      "l3_count": 0,
+      "legacy_l1_slug": ""
+    },
+    {
+      "slug": "motor-driver-ics",
+      "raw_name": "电机驱动芯片",
+      "en_display": "Motor Driver ICs",
+      "canonical_group": "Integrated Circuits",
+      "top_scope": "integrated-circuits",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 5,
+      "l3_count": 0,
+      "legacy_l1_slug": "integrated-circuits"
+    },
+    {
+      "slug": "magnetic-sensors",
+      "raw_name": "磁传感器",
+      "en_display": "Magnetic Sensors",
+      "canonical_group": "Sensors",
+      "top_scope": "sensors",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 6,
+      "l3_count": 0,
+      "legacy_l1_slug": "sensors"
+    },
+    {
+      "slug": "terminals",
+      "raw_name": "端子",
+      "en_display": "Terminals",
+      "canonical_group": "Connectors & Electromechanical",
+      "top_scope": "connectors-electromechanical",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 18,
+      "l3_count": 0,
+      "legacy_l1_slug": "connectors"
+    },
+    {
+      "slug": "power-modules",
+      "raw_name": "电源模块",
+      "en_display": "Power Modules",
+      "canonical_group": "Modules & Communication",
+      "top_scope": "modules-communication",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 4,
+      "l3_count": 0,
+      "legacy_l1_slug": "modules"
+    },
+    {
+      "slug": "sic-devices",
+      "raw_name": "碳化硅(SiC)器件",
+      "en_display": "SiC Devices",
+      "canonical_group": "Semiconductors & Discrete",
+      "top_scope": "semiconductors-discrete",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 4,
+      "l3_count": 0,
+      "legacy_l1_slug": "semiconductor-components"
+    },
+    {
+      "slug": "gan-devices",
+      "raw_name": "氮化镓(GaN)器件",
+      "en_display": "GaN Devices",
+      "canonical_group": "Semiconductors & Discrete",
+      "top_scope": "semiconductors-discrete",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 1,
+      "l3_count": 0,
+      "legacy_l1_slug": "semiconductor-components"
+    },
+    {
+      "slug": "industrial-control-electrical",
+      "raw_name": "工控电气",
+      "en_display": "(Industrial) Industrial Control Electrical",
+      "canonical_group": "Industrial & Mechanical",
+      "top_scope": "industrial-mechanical",
+      "publish_status": "hidden",
+      "tier": "A",
+      "l2_count": 240,
+      "l3_count": 2,
+      "legacy_l1_slug": ""
+    },
+    {
+      "slug": "optocouplers",
+      "raw_name": "光耦",
+      "en_display": "Optocouplers (Isolators)",
+      "canonical_group": "Semiconductors & Discrete",
+      "top_scope": "semiconductors-discrete",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 6,
+      "l3_count": 0,
+      "legacy_l1_slug": "semiconductor-components"
+    },
+    {
+      "slug": "displays",
+      "raw_name": "显示屏",
+      "en_display": "Displays",
+      "canonical_group": "Optoelectronics",
+      "top_scope": "optoelectronics",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 6,
+      "l3_count": 0,
+      "legacy_l1_slug": ""
+    },
+    {
+      "slug": "office-supplies",
+      "raw_name": "办公日用",
+      "en_display": "(Industrial) Office Supplies",
+      "canonical_group": "Industrial & Mechanical",
+      "top_scope": "industrial-mechanical",
+      "publish_status": "hidden",
+      "tier": "A",
+      "l2_count": 352,
+      "l3_count": 1,
+      "legacy_l1_slug": ""
+    },
+    {
+      "slug": "signal-isolators",
+      "raw_name": "信号隔离器件",
+      "en_display": "Signal Isolators",
+      "canonical_group": "Semiconductors & Discrete",
+      "top_scope": "semiconductors-discrete",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 23,
+      "l3_count": 3,
+      "legacy_l1_slug": "semiconductor-components"
+    },
+    {
+      "slug": "ppe",
+      "raw_name": "劳保用品",
+      "en_display": "(Industrial) PPE",
+      "canonical_group": "Industrial & Mechanical",
+      "top_scope": "industrial-mechanical",
+      "publish_status": "hidden",
+      "tier": "A",
+      "l2_count": 68,
+      "l3_count": 0,
+      "legacy_l1_slug": ""
+    },
+    {
+      "slug": "fasteners-hardware",
+      "raw_name": "五金紧固",
+      "en_display": "(Industrial) Fasteners & Hardware",
+      "canonical_group": "Industrial & Mechanical",
+      "top_scope": "industrial-mechanical",
+      "publish_status": "hidden",
+      "tier": "A",
+      "l2_count": 221,
+      "l3_count": 0,
+      "legacy_l1_slug": ""
+    },
+    {
+      "slug": "tools-equipment",
+      "raw_name": "工具设备",
+      "en_display": "(Industrial) Tools & Equipment",
+      "canonical_group": "Industrial & Mechanical",
+      "top_scope": "industrial-mechanical",
+      "publish_status": "hidden",
+      "tier": "A",
+      "l2_count": 374,
+      "l3_count": 1,
+      "legacy_l1_slug": ""
+    },
+    {
+      "slug": "measuring-tools",
+      "raw_name": "量具",
+      "en_display": "(Industrial) Measuring Tools",
+      "canonical_group": "Industrial & Mechanical",
+      "top_scope": "industrial-mechanical",
+      "publish_status": "hidden",
+      "tier": "A",
+      "l2_count": 48,
+      "l3_count": 1,
+      "legacy_l1_slug": ""
+    },
+    {
+      "slug": "handling-packaging-storage",
+      "raw_name": "搬运/包装/存储",
+      "en_display": "(Industrial) Handling/Packaging/Storage",
+      "canonical_group": "Industrial & Mechanical",
+      "top_scope": "industrial-mechanical",
+      "publish_status": "hidden",
+      "tier": "A",
+      "l2_count": 92,
+      "l3_count": 0,
+      "legacy_l1_slug": ""
+    },
+    {
+      "slug": "cleaning-daily",
+      "raw_name": "清洁/日用品",
+      "en_display": "(Industrial) Cleaning & Daily",
+      "canonical_group": "Industrial & Mechanical",
+      "top_scope": "industrial-mechanical",
+      "publish_status": "hidden",
+      "tier": "A",
+      "l2_count": 85,
+      "l3_count": 0,
+      "legacy_l1_slug": ""
+    },
+    {
+      "slug": "chemicals-lubricants",
+      "raw_name": "工业试剂/润滑/除锈",
+      "en_display": "(Industrial) Chemicals/Lubricants",
+      "canonical_group": "Industrial & Mechanical",
+      "top_scope": "industrial-mechanical",
+      "publish_status": "hidden",
+      "tier": "A",
+      "l2_count": 27,
+      "l3_count": 0,
+      "legacy_l1_slug": ""
+    },
+    {
+      "slug": "filters-emi-suppression",
+      "raw_name": "磁珠/滤波器/EMI优化",
+      "en_display": "Filters & EMI Suppression",
+      "canonical_group": "Passive Components",
+      "top_scope": "passive-components",
+      "publish_status": "active",
+      "tier": "A",
+      "l2_count": 13,
+      "l3_count": 1,
+      "legacy_l1_slug": "passive-components"
     }
   ]
 }
