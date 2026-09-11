@@ -52,6 +52,7 @@ import re
 import sys
 import threading
 import time
+import random
 import urllib.request as urllib_request
 import urllib.error as urllib_error
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -678,7 +679,7 @@ def main(argv=None):
     if args.browser and cc is not None:
         handle = None
         try:
-            handle = cc.launch_stealth(EDGE, ua=cc.random_ua())
+            handle = cc.launch_stealth(cc.EDGE, ua=cc.random_ua())
             _, _b, ctx = handle
             # P2.G — 访问漏斗 / 会话预热: 先逛首页 + 英文站, 让 LCSC 自然落下 cookie
             if not args.no_warmup:
