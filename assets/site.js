@@ -450,6 +450,38 @@
         data.delete("email");
         data.append("fi-sender-email", _email);
       }
+
+      // 4) Forminit field-name convention: rename plain customer + system fields to
+      //    fi-{block}-{name} so Forminit captures them (it silently drops bare-named keys).
+      //    Explicit map only — no type-guessing over the whole FormData.
+      //    target_price is a free-text field ("USD / piece"), so it uses fi-text- not fi-number-.
+      var FORMINIT_RENAME = {
+        part_number: "fi-text-part_number",
+        manufacturer: "fi-text-manufacturer",
+        contact_name: "fi-text-contact_name",
+        quantity: "fi-number-quantity",
+        target_delivery: "fi-text-target_delivery",
+        country: "fi-text-country",
+        company: "fi-text-company",
+        message: "fi-text-message",
+        requirements: "fi-text-requirements",
+        target_price: "fi-text-target_price",
+        category: "fi-text-category",
+        source_url: "fi-text-source_url",
+        rfq_type: "fi-text-rfq_type",
+        country_source: "fi-text-country_source",
+        referrer: "fi-text-referrer",
+        submitted_at: "fi-text-submitted_at",
+        requirement_type: "fi-text-requirement_type"
+      };
+      Object.keys(FORMINIT_RENAME).forEach(function (oldKey) {
+        var newKey = FORMINIT_RENAME[oldKey];
+        if (!data.has(oldKey)) return;
+        var _vals = data.getAll(oldKey);
+        data.delete(oldKey);
+        _vals.forEach(function (v) { data.append(newKey, v); });
+      });
+
       fetch(form.getAttribute("action"), {
         method: "POST",
         body: data,
