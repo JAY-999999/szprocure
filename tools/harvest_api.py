@@ -48,6 +48,14 @@ UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/124.0 Safari/537.36")
 API = "https://wmsc.lcsc.com/ftps/wm/home/discount/product/search/list"
 PAGE_SIZE = 100
+
+# 01 礼貌化: 复用 collector_common 的 UA 池 / 全局断路器 (冻结层 bugfix/retry/并发 桶)
+sys.path.insert(0, HERE)
+try:
+    import collector_common as cc
+    UA = cc.UA_POOL[0]
+except Exception:  # noqa: BLE001
+    cc = None
 DATE = f"{datetime.datetime.now():%Y%m%d}"
 
 RAW_OUT = os.path.join(ROOT, "data", "raw", f"lcsc_api_FULL_{DATE}.csv")
@@ -176,21 +184,57 @@ def main():
           const r = await fetch('%s', {method:'POST',credentials:'include',
             headers:{'Content-Type':'application/json;charset=UTF-8','Accept':'application/json, text/plain, */*'},
             body: JSON.stringify(body)});
-          return await r.json();
+          let data = null;
+          try { data = await r.json(); } catch(e) { data = null; }
+          return {status: r.status, data: data};
         }""" % API
+        # P0.A — 全局断路器 (连续限流/5xx -> 整批冷却; 403 -> 硬停)
+        cooldown = cc.CooldownState() if cc else None
+        aborted = False
         total_pages = args.pages
         for pn in range(1, args.pages + 1):
-            j = pg.evaluate(js, {"currentPage": pn, "pageSize": PAGE_SIZE, "isHot": 0})
+            if cooldown is not None and cooldown.is_cooling():
+                cooldown.wait_if_cooling(print)
+            try:
+                out = pg.evaluate(js, {"currentPage": pn, "pageSize": PAGE_SIZE, "isHot": 0})
+            except Exception as e:  # noqa: BLE001
+                print(f"  page {pn}: fetch error {type(e).__name__}: {e}")
+                if cooldown is not None:
+                    cooldown.record_blocking()
+                    cooldown.wait_if_cooling(print)
+                continue
+            status = (out or {}).get("status") if isinstance(out, dict) else None
+            j = (out or {}).get("data") if isinstance(out, dict) else out
+            # 错误分类 (P0.C)
+            if status is not None and (status == 429 or 500 <= status < 600):
+                print(f"  page {pn}: HTTP {status} -> 限流/网关错误, 进入冷却")
+                if cooldown is not None:
+                    if cooldown.record_blocking(status):
+                        print(f"  [circuit] 连续限流/5xx -> 整批冷却 {cooldown.cooldown_sec}s")
+                    cooldown.wait_if_cooling(print)
+                continue
+            if status == 403:
+                print(f"  page {pn}: HTTP 403 硬封禁 -> 停止采集")
+                aborted = True
+                break
             res = (j or {}).get("result") or {}
             dl = res.get("dataList") or []
             if not dl:
+                if status is not None and status != 200:
+                    print(f"  page {pn}: 空数据且 HTTP {status} -> 疑似被挡, 停止")
+                    aborted = True
+                    break
                 total_pages = pn - 1
-                print(f"  page {pn}: empty -> stop")
+                print(f"  page {pn}: empty -> 末页")
                 break
             ranked.extend(dl)
+            if cooldown is not None:
+                cooldown.record_success()
             if pn % 10 == 0 or pn == 1:
                 print(f"  fetched page {pn}: +{len(dl)} (cum {len(ranked)})")
             pg.wait_for_timeout(random.randint(80, 200))
+        if aborted:
+            print("  [warn] 采集因限流/封禁提前停止; 已采部分仍写入 RAW")
         b.close()
     print(f"[fetch] total raw items: {len(ranked)}")
 
