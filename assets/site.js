@@ -319,6 +319,9 @@
   function bindQuoteForm() {
     var form = document.getElementById("quote-form");
     if (!form) return;
+    // RQF backend → Forminit (replaces FormSubmit). fetch() reads this at submit time,
+    // so 752 SKU pages + the standalone Request-a-Quote page all switch without HTML edits.
+    form.setAttribute("action", "https://forminit.com/f/0c1a0t3jx59");
     var success = document.getElementById("formSuccess");
     var emailErr = form.querySelector("#formError");
     var submitErr = form.querySelector("#formSubmitError");
@@ -424,7 +427,7 @@
         return;
       }
 
-      // 3) Submit to third-party endpoint (Formsubmit.co → sales@szprocure.com)
+      // 3) Submit to third-party endpoint (Forminit → https://forminit.com/f/0c1a0t3jx59)
       if (btn) { btn.disabled = true; btn.dataset.label = btn.textContent; btn.textContent = (getLang() === "zh") ? "提交中…" : "Submitting…"; }
       var data = new FormData(form);
       // Drop empty file inputs so they aren't transmitted as empty attachments
@@ -433,6 +436,20 @@
         if (_pair[1] && typeof _pair[1] === "object" && _pair[1].size === 0) _drop.push(_pair[0]);
       }
       _drop.forEach(function (k) { data.delete(k); });
+      // Forminit file field convention: fi-file-{name}[]. Rename existing uploaded_files
+      // (BOM detection above already ran on the raw input, so it stays intact).
+      var _files = data.getAll("uploaded_files");
+      if (_files.length) {
+        data.delete("uploaded_files");
+        _files.forEach(function (f) { data.append("fi-file-uploaded_files[]", f); });
+      }
+      // Forminit requires the sender email under fi-sender-email (plain "email" → HTTP 400).
+      // HTML field name stays "email"; only the transmitted key is rewritten.
+      if (data.has("email")) {
+        var _email = data.get("email");
+        data.delete("email");
+        data.append("fi-sender-email", _email);
+      }
       fetch(form.getAttribute("action"), {
         method: "POST",
         body: data,
