@@ -339,6 +339,10 @@ def acquire_one(code: str, out_dir: str, timeout: float, max_retries: int,
         write_runlog(runlog_path, rec, runlog_lock)
         return
 
+    # P1 — 随机波动延迟 (打破「固定 3.00s」机械特征; 2.0~4.5s)
+    if cc is not None:
+        time.sleep(random.uniform(2.0, 4.5))
+
     # retry / exponential backoff + 错误分类 + 全局断路器
     last_err = None
     http_status = None
@@ -674,7 +678,7 @@ def main(argv=None):
     if args.browser and cc is not None:
         handle = None
         try:
-            handle = cc.launch_stealth(EDGE, ua=DEFAULT_UA)
+            handle = cc.launch_stealth(EDGE, ua=cc.random_ua())
             _, _b, ctx = handle
             # P2.G — 访问漏斗 / 会话预热: 先逛首页 + 英文站, 让 LCSC 自然落下 cookie
             if not args.no_warmup:

@@ -32,24 +32,62 @@ EDGE = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
 # P1.E — UA 池 (少量真实、当下版本; 全部桌面 Windows, 与 viewport 1366x900 /
 #        locale en-US 自洽; 不要混 Mobile UA + Desktop viewport)
 # ---------------------------------------------------------------------------
+# 20~50 个真实、当下版本浏览器 UA (Chrome/Edge/Safari/Firefox, 桌面 Win+macOS 混合),
+# 与 viewport/locale 自洽; 每次请求随机抽一个, 打破恒定 UA 的 bot 特征。
 UA_POOL = [
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-    "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-    "(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-    "(KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-    "(KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36",
+    # Chrome (Windows)
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+    # Chrome (macOS)
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+    # Edge (Windows, Chromium)
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 Edg/128.0.0.0",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36 Edg/129.0.0.0",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.0.0",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0",
+    # Safari (macOS)
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1 Safari/605.1.15",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15",
+    # Firefox (Windows)
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:130.0) Gecko/20100101 Firefox/130.0",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0",
+    # Firefox (macOS)
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:126.0) Gecko/20100101 Firefox/126.0",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:129.0) Gecko/20100101 Firefox/129.0",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:131.0) Gecko/20100101 Firefox/131.0",
 ]
 
-# 与 UA 中 Chrome 主版本号对应的 Sec-CH-UA 客户端提示 (须自洽)
-_SEC_CH_UA_BY_CHROME = {
-    124: '"Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"',
-    126: '"Chromium";v="126", "Google Chrome";v="126", "Not-A.Brand";v="99"',
-    128: '"Chromium";v="128", "Google Chrome";v="128", "Not-A.Brand";v="99"',
-    129: '"Chromium";v="129", "Google Chrome";v="129", "Not-A.Brand";v="99"',
-}
+# Sec-CH-UA 客户端提示: 仅 Chromium 系需要, 按 UA 中 Chrome 主版本动态生成 (须自洽)
+def _sec_ch_ua(chrome_ver: int) -> str:
+    return (f'"Chromium";v="{chrome_ver}", '
+            f'"Google Chrome";v="{chrome_ver}", '
+            f'"Not-A.Brand";v="99"')
+
+
+# 伪装「从搜索引擎点击进来」的 Referer 来路池 (避免自引用暴露 bot)
+REFERER_POOL = [
+    "https://www.google.com/",
+    "https://www.google.com/search?q=lcsc+electronic+components",
+    "https://www.bing.com/search?q=lcsc+components",
+    "https://www.google.com.hk/",
+]
+
+
+def random_ua() -> str:
+    """从 UA 池随机抽一个, 用于每次请求轮换指纹。"""
+    return random.choice(UA_POOL)
 
 
 def _chrome_major(ua: str) -> int:
@@ -58,23 +96,24 @@ def _chrome_major(ua: str) -> int:
     return int(m.group(1)) if m else 124
 
 
-def build_headers(ua: str, referer: str = "https://www.lcsc.com/") -> dict:
-    """构造自洽请求头。Sec-CH-UA 与 UA 的 Chrome 版本一致, 不暴露 bot 痕迹。"""
-    chrome = _chrome_major(ua)
-    sec = _SEC_CH_UA_BY_CHROME.get(chrome, _SEC_CH_UA_BY_CHROME[124])
-    return {
+def build_headers(ua: str, referer: str = None) -> dict:
+    """构造自洽请求头。仅 Chromium 系补 Sec-CH-UA; Referer 默认随机伪装搜索来路。"""
+    chrome = _chrome_major(ua) if "Chrome/" in ua else None
+    headers = {
         "User-Agent": ua,
         "Accept-Language": "en-US,en;q=0.9",
         "Accept": (
             "text/html,application/xhtml+xml,application/xml;q=0.9,"
             "image/avif,image/webp,*/*;q=0.8"
         ),
-        "Sec-CH-UA": sec,
-        "Sec-CH-UA-Mobile": "?0",
-        "Sec-CH-UA-Platform": '"Windows"',
-        "Referer": referer,
+        "Referer": referer or random.choice(REFERER_POOL),
         "Upgrade-Insecure-Requests": "1",
     }
+    if chrome is not None:
+        headers["Sec-CH-UA"] = _sec_ch_ua(chrome)
+        headers["Sec-CH-UA-Mobile"] = "?0"
+        headers["Sec-CH-UA-Platform"] = '"macOS"' if "Mac" in ua else '"Windows"'
+    return headers
 
 
 # ---------------------------------------------------------------------------

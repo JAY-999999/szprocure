@@ -53,7 +53,7 @@ PAGE_SIZE = 100
 sys.path.insert(0, HERE)
 try:
     import collector_common as cc
-    UA = cc.UA_POOL[0]
+    UA = cc.random_ua()
 except Exception:  # noqa: BLE001
     cc = None
 DATE = f"{datetime.datetime.now():%Y%m%d}"
