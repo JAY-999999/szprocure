@@ -52,26 +52,6 @@
   }
   </script>
 
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-    { "@type": "Question", "name": "What Packaging and Handling Considerations Apply to the HS96L03W2C03 OLED Module", "acceptedAnswer": { "@type": "Answer", "text": "The HS96L03W2C03 is packaged as 1 piece per bag, with a minimum and standard packaging of 1 unit. As an OLED display module with a glass panel, it requires careful handling to prevent mechanical stress on the display glass and FPC ribbon connections. The display area is 0.96 inches diagonal with a 128 × 64 pixel resolution. No specific SMT assembly is required, as this module is typically connector-mounted. The LCSC product page lists CNHTS 8517799000, classifying it as a communication-related subassembly.;" } },
-    { "@type": "Question", "name": "What Interface Does the HS96L03W2C03 Use, and What Microcontroller Voltage Levels Are Compatible", "acceptedAnswer": { "@type": "Answer", "text": "The HS96L03W2C03 uses the I2C (two-wire) serial interface, as indicated by the product description. The SSD1315 controller supports standard I2C addressing, allowing easy integration with a wide range of microcontrollers. The display&#x27;s operating voltage and logic level compatibility should be confirmed in the datasheet (available at LCSC LCSC# C5248080). Typical SSD1315-based 0.96-inch I2C OLED modules operate with a supply voltage of 3.3V or 5V with built-in charge pump circuits for the OLED panel.;" } },
-    { "@type": "Question", "name": "Is the SSD1315 Controller in the HS96L03W2C03 Compatible With SSD1306-Based Software Libraries", "acceptedAnswer": { "@type": "Answer", "text": "The SSD1315 controller used in the HS96L03W2C03 is register-compatible with the widely used SSD1306 in most operational modes, allowing many SSD1306-targeting firmware libraries (such as Adafruit SSD1306 for Arduino, or u8g2) to drive this module without modification. However, minor initialization differences may exist; it is advisable to review the SSD1315 datasheet available via LCSC (C5248080 datasheet PDF) to confirm any divergence in command set before relying on existing SSD1306 code in production.;" } },
-    { "@type": "Question", "name": "What Are the Fundamental Specifications of the HS96L03W2C03 OLED Display Module", "acceptedAnswer": { "@type": "Answer", "text": "The HS96L03W2C03 is a 0.96-inch monochrome OLED graphic display module with a resolution of 128 × 64 pixels. It uses the SSD1315 display controller chip and communicates via the I2C interface. The display is categorized under Optoelectronics / LCD, OLED, Graphic (LCSC# C5248080) and is RoHS compliant. It is sold individually (minimum order: 1 piece, standard packaging: 1 piece per bag). The part is available in a small lot from HS (Zhongshan) manufacturer.;" } },
-    { "@type": "Question", "name": "How Should the HS96L03W2C03 OLED Module Be Packaged and Handled", "acceptedAnswer": { "@type": "Answer", "text": "On LCSC (LCSC# C5248080), the HS96L03W2C03 is priced as follows:
-1+ pcs: $2.3178 each
-10+ pcs: $1.9264 each
-30+ pcs: $1.7177 each
-100+ pcs: $1.5285 each
-500+ pcs: $1.4395 each
-1,000+ pcs: $1.4039 each
-At the time of this FAQ, only 9 units are in stock. For volume purchases, it is advisable to request a quote or check for restocking lead times. The minimum order is 1 piece." } }
-    ]
-  }
-  </script>
 
   <script type="application/ld+json">
   {
@@ -102,9 +82,8 @@ At the time of this FAQ, only 9 units are in stock. For volume purchases, it is 
         <h1 class="mpn">HS96L03W2C03</h1>
         <p class="type">LED Components</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/hs/">HS</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/optoelectronics/">LED Components</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">-</div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/hs/">HS</a><span class="brand-tag">Asian Brands</span></div></div><div class="id-row"><div class="id-label">MPN</div><div class="id-value">HS96L03W2C03</div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/optoelectronics/">LED Components</a></div></div><div class="id-row"><div class="id-label">Datasheet</div><div class="id-value"><a class="doc-link" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C5248080.pdf" target="_blank" rel="nofollow noopener" download><span class="doc-ico">&#128196;</span> HS96L03W2C03 Datasheet</a></div></div><div class="id-row"><div class="id-label">Key Attributes</div><div class="id-value">HS HS96L03W2C03 - I2C</div></div>
         </div>
-        <p class="hero-desc">0.96 128x64 SSD1315 chip I2C LCD, OLED, Graphic</p>
       </div>
 
       
@@ -191,63 +170,79 @@ At the time of this FAQ, only 9 units are in stock. For volume purchases, it is 
       <!-- TABS: sticky nav + scroll-spy; all panels in DOM (SEO-friendly) -->
       <div class="tab-wrap">
         <nav class="tab-nav">
-          <a href="#overview" class="tab-btn active">Overview</a>
-          <a href="#specifications" class="tab-btn">Specifications</a>
-          <a href="#documentation" class="tab-btn">Documentation</a>
-          <a href="#related" class="tab-btn">Related Parts</a>
-          <a href="#faq" class="tab-btn">FAQ</a>
+          <a href="#specifications" class="tab-btn active">Specifications</a>
+          <a href="#introduction" class="tab-btn">Introduction</a>
+          <a href="#applications" class="tab-btn">Applications</a>
+          <a href="#documentation" class="tab-btn">Datasheet</a>
+          <a href="#compliance" class="tab-btn">Compliance &amp; Export Codes</a>
         </nav>
-
-        <section id="overview" class="tab-panel">
-          <h2 class="section-title">Product Overview</h2>
-          <p>0.96 128x64 SSD1315 chip I2C LCD, OLED, Graphic</p>
-        </section>
 
         <section id="specifications" class="tab-panel">
           <h2 class="section-title">Technical Specifications</h2>
-          <table class="spec-table">
-<tbody>
-<tr><th>Core Chip</th><td>SSD1315 Chip</td></tr><tr><th>Interface Type</th><td>I2C</td></tr><tr><th>Size (inch)</th><td>0.96</td></tr><tr><th>Pixel Resolution</th><td>128x64</td></tr><tr><th>Package</th><td>-</td></tr><tr><th>Display Range</th><td>21.744x10.864mm</td></tr><tr><th>Function</th><td>-</td></tr><tr><th>Quiescent Current</th><td>-</td></tr><tr><th>Operating Temperature</th><td>-40℃~+70℃</td></tr><tr><th>Size</th><td>0.96</td></tr><tr><th>Dot Pixels</th><td>128x64</td></tr><tr><th>Controller Type</th><td>SSD1315 chip</td></tr><tr><th>Display Color</th><td>White</td></tr><tr><th>Type of Drive</th><td>Passive (PMOLED)</td></tr><tr><th>Interface</th><td>I2C</td></tr></tbody>
-</table>
+          <div class="spec-grid">
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Interface</th><td>I2C</td></tr><tr><th>Display Range</th><td>21.744x10.864mm</td></tr><tr><th>Size</th><td>0.96</td></tr><tr><th>Dot Pixels</th><td>128x64</td></tr></tbody></table>
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Controller Type</th><td>SSD1315 chip</td></tr><tr><th>Display Color</th><td>White</td></tr><tr><th>Type of Drive</th><td>Passive (PMOLED)</td></tr></tbody></table>
+</div>
         </section>
 
+        <section id="introduction" class="tab-panel">
+          <h2 class="section-title">Product Introduction</h2>
+          <div class="intro-body"><p>- Display Mode: Passive Matrix</p><p>- Display Color: Monochrome (White)</p><p>- Drive Duty: 1/64 Duty</p><p>- Pixel Count: 128×64</p><p>- PCB Dimensions: 27.3×27.8×2.65 (mm)</p><p>- Active Area: 21.744×10.864 (mm)</p><p>- Pixel Pitch: 0.17×0.17 (mm)</p><p>- Pixel Size: 0.154×0.154 (mm)</p><p>- The I2C communication interface consists of slave address bit DC, I2C bus data signal SDA (output: SDAOUT/D2, input: SDAIN/D1), and I2C bus clock signal SCL (D0). Both data and clock signals must be connected to pull-up resistors.</p><p>- Slave Address Bit (SA0): The slave address must be identified before any data is transmitted or received over the I2C bus. The device will respond to the slave address following the slave address bit (&quot;SA0&quot; bit) and the read/write select bit (&quot;R/W#&quot; bit), with the byte format as follows:</p><p>- b7 b6 b5 b4 b3 b2 b1 b0 0 1 1 1 1 0 SA0 R/W#</p><p>- The &quot;SA0&quot; bit provides an extension bit for the slave address. Either &quot;0111100&quot; or &quot;0111101&quot; can be selected as the OLED slave address. The D/C# pin serves as SA0 for slave address selection. The &quot;R/W#&quot; bit determines the operation mode of the I2C bus interface. R/W# = 1 for read mode; R/W# = 0 for write mode.</p><p>- If unexpected noise appears in the display window during operation, reset the display to restore normal display functionality.</p></div>
+        </section>
+
+        
+
+        <section id="applications" class="tab-panel">
+  <h2 class="section-title">Applications</h2>
+  <ul class="app-list"><li>Signal translation</li><li>Bus interfacing</li><li>Level shifting</li><li>Industrial communication</li><li>Embedded I/O</li></ul>
+</section>
+
         <section id="documentation" class="tab-panel">
-  <h2 class="section-title">Documentation</h2>
+  <h2 class="section-title">Datasheet</h2>
   <details class="doc-acc" open>
-    <summary><span class="doc-ico">&#128196;</span> Datasheet <span class="doc-tag">PDF</span></summary>
+    <summary>
+      <span class="doc-acc-title" aria-label="Datasheet"><span class="doc-ico">&#128196;</span></span>
+      <span class="doc-acc-actions">
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C5248080.pdf" target="_blank" rel="nofollow noopener">Open</a>
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C5248080.pdf" target="_blank" rel="nofollow noopener" download>Download</a>
+      </span>
+    </summary>
     <div class="doc-acc-body">
-      <a class="doc-dl" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/hs96l03w2c03.pdf" target="_blank" rel="nofollow noopener">Download HS96L03W2C03 Datasheet (PDF)</a>
+      <div class="doc-preview"><embed src="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C5248080.pdf" type="application/pdf" title="HS96L03W2C03 Datasheet Preview" aria-label="HS96L03W2C03 Datasheet Preview" /></div>
     </div>
   </details>
 </section>
 
         
 
-        <section id="related" class="tab-panel">
-  <h2 class="section-title">Related Optoelectronics</h2>
-  <p>Other optoelectronics we help global buyers source:</p>
-  <div class="related-grid"><div class="related-card"><a href="/products/sk6812minie/">SK6812MINI-E</a></div><div class="related-card"><a href="/products/ws2812bbw/">WS2812B-B/W</a></div><div class="related-card"><a href="/products/yled0603b/">YLED0603B</a></div><div class="related-card"><a href="/products/yled0603r/">YLED0603R</a></div><div class="related-card"><a href="/products/xl2012ugc/">XL-2012UGC</a></div><div class="related-card"><a href="/products/xl1608ugc04/">XL-1608UGC-04</a></div></div>
-</section>
-
-        
-
-        <section id="faq" class="tab-panel">
-  <h2 class="section-title">Frequently Asked Questions</h2>
-  <div class="faq-item"><h3>What Packaging and Handling Considerations Apply to the HS96L03W2C03 OLED Module</h3><p>The HS96L03W2C03 is packaged as 1 piece per bag, with a minimum and standard packaging of 1 unit. As an OLED display module with a glass panel, it requires careful handling to prevent mechanical stress on the display glass and FPC ribbon connections. The display area is 0.96 inches diagonal with a 128 × 64 pixel resolution. No specific SMT assembly is required, as this module is typically connector-mounted. The LCSC product page lists CNHTS 8517799000, classifying it as a communication-related subassembly.;</p></div><div class="faq-item"><h3>What Interface Does the HS96L03W2C03 Use, and What Microcontroller Voltage Levels Are Compatible</h3><p>The HS96L03W2C03 uses the I2C (two-wire) serial interface, as indicated by the product description. The SSD1315 controller supports standard I2C addressing, allowing easy integration with a wide range of microcontrollers. The display&#x27;s operating voltage and logic level compatibility should be confirmed in the datasheet (available at LCSC LCSC# C5248080). Typical SSD1315-based 0.96-inch I2C OLED modules operate with a supply voltage of 3.3V or 5V with built-in charge pump circuits for the OLED panel.;</p></div><div class="faq-item"><h3>Is the SSD1315 Controller in the HS96L03W2C03 Compatible With SSD1306-Based Software Libraries</h3><p>The SSD1315 controller used in the HS96L03W2C03 is register-compatible with the widely used SSD1306 in most operational modes, allowing many SSD1306-targeting firmware libraries (such as Adafruit SSD1306 for Arduino, or u8g2) to drive this module without modification. However, minor initialization differences may exist; it is advisable to review the SSD1315 datasheet available via LCSC (C5248080 datasheet PDF) to confirm any divergence in command set before relying on existing SSD1306 code in production.;</p></div><div class="faq-item"><h3>What Are the Fundamental Specifications of the HS96L03W2C03 OLED Display Module</h3><p>The HS96L03W2C03 is a 0.96-inch monochrome OLED graphic display module with a resolution of 128 × 64 pixels. It uses the SSD1315 display controller chip and communicates via the I2C interface. The display is categorized under Optoelectronics / LCD, OLED, Graphic (LCSC# C5248080) and is RoHS compliant. It is sold individually (minimum order: 1 piece, standard packaging: 1 piece per bag). The part is available in a small lot from HS (Zhongshan) manufacturer.;</p></div><div class="faq-item"><h3>How Should the HS96L03W2C03 OLED Module Be Packaged and Handled</h3><p>On LCSC (LCSC# C5248080), the HS96L03W2C03 is priced as follows:
-1+ pcs: $2.3178 each
-10+ pcs: $1.9264 each
-30+ pcs: $1.7177 each
-100+ pcs: $1.5285 each
-500+ pcs: $1.4395 each
-1,000+ pcs: $1.4039 each
-At the time of this FAQ, only 9 units are in stock. For volume purchases, it is advisable to request a quote or check for restocking lead times. The minimum order is 1 piece.</p></div>
+        <section id="compliance" class="tab-panel">
+  <h2 class="section-title">Compliance &amp; Export Codes</h2>
+  <div class="compliance-grid">
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>CNHTS</th><td>8517799000</td></tr><tr><th>USHTS</th><td>8517790000</td></tr><tr><th>TARIC</th><td>8517790000</td></tr><tr><th>CAHTS</th><td>8517790000</td></tr></tbody>
+</table>
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>BRHTS</th><td>85177900</td></tr><tr><th>INHTS</th><td>85177990</td></tr><tr><th>MXHTS</th><td>8517.70.99</td></tr></tbody>
+</table>
+  </div>
 </section>
       </div>
+
+      <!-- FAQ: independent section (removed from TAB nav / scroll-spy on 2026-09-12), placed before Sourcing -->
+      
 
       <!-- Sourcing (no stock/price/lead-time promises) -->
       <section class="sourcing">
         <h2>Sourcing Information</h2>
-        <p>SZ Procure is a sourcing partner for <strong>HS96L03W2C03</strong>, not a stock catalog. We help international buyers source original components from the China electronics supply chain — send your quantity and target price for a quotation.</p>
+        <p>SZ Procure is a sourcing partner for the <strong>HS96L03W2C03</strong> (HS LED Components), not a stock catalog. We help international buyers source this electronic component through the China electronics supply chain, with verified supplier sourcing and quality inspection.</p><p>For HS96L03W2C03, our electronics sourcing covers supplier sourcing across the China electronics supply chain, supplier verification and multi-supplier quotation comparison so you can compare offers before purchase. We coordinate purchase orders, consolidation and international logistics dispatch from Shenzhen.</p><p>Quality control includes supplier qualification and screening, then product, packaging and labeling checks with outgoing inspection before dispatch. These are sourcing services we perform &mdash; they are not a guarantee of any supplier's stock, price, lead time or authenticity. Tell us your required quantity, target price and sourcing requirements, then <a href="#rfq-card">Request a Quote</a>.</p>
       </section>
     </div>
   </main>
@@ -264,7 +259,7 @@ At the time of this FAQ, only 9 units are in stock. For volume purchases, it is 
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'related' }, { id: 'faq' } ];
+    var groups = [ { id: 'specifications' }, { id: 'introduction' }, { id: 'applications' }, { id: 'documentation' }, { id: 'compliance' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

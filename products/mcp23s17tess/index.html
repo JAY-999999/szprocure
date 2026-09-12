@@ -91,9 +91,8 @@
         <h1 class="mpn">MCP23S17T-E/SS<span class="rohs-badge" aria-hidden="true">RoHS</span></h1>
         <p class="type">SPI</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/microchip-technology/">Microchip Technology</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/integrated-circuits/">SPI</a></div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/microchip-technology/">Microchip Technology</a></div></div><div class="id-row"><div class="id-label">MPN</div><div class="id-value">MCP23S17T-E/SS</div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/integrated-circuits/">SPI</a></div></div><div class="id-row"><div class="id-label">Datasheet</div><div class="id-value"><a class="doc-link" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C128577.pdf" target="_blank" rel="nofollow noopener" download><span class="doc-ico">&#128196;</span> MCP23S17T-E/SS Datasheet</a></div></div><div class="id-row"><div class="id-label">Key Attributes</div><div class="id-value">MICROCHIP MCP23S17T-E/SS - SPI - 3.65 V</div></div>
         </div>
-        <p class="hero-desc">Microchip Technology MCP23S17T-E/SS - SPI - 3.65 V</p>
       </div>
 
       
@@ -180,55 +179,86 @@
       <!-- TABS: sticky nav + scroll-spy; all panels in DOM (SEO-friendly) -->
       <div class="tab-wrap">
         <nav class="tab-nav">
-          <a href="#overview" class="tab-btn active">Overview</a>
-          <a href="#specifications" class="tab-btn">Specifications</a>
-          <a href="#documentation" class="tab-btn">Documentation</a>
+          <a href="#specifications" class="tab-btn active">Specifications</a>
+          <a href="#introduction" class="tab-btn">Introduction</a>
+          <a href="#features" class="tab-btn">Features</a>
           <a href="#applications" class="tab-btn">Applications</a>
-          <a href="#related" class="tab-btn">Related Parts</a>
-          <a href="#faq" class="tab-btn">FAQ</a>
+          <a href="#documentation" class="tab-btn">Datasheet</a>
+          <a href="#compliance" class="tab-btn">Compliance &amp; Export Codes</a>
         </nav>
-
-        <section id="overview" class="tab-panel">
-          <h2 class="section-title">Product Overview</h2>
-          <p>Microchip Technology MCP23S17T-E/SS - SPI - 3.65 V</p>
-        </section>
 
         <section id="specifications" class="tab-panel">
           <h2 class="section-title">Technical Specifications</h2>
-          <table class="spec-table">
-<tbody>
-<tr><th>Working Voltage V</th><td>3.65 V</td></tr><tr><th>Interface</th><td>SPI</td></tr><tr><th>Number of I/O</th><td>16</td></tr><tr><th>Iq A</th><td>1e-06</td></tr></tbody>
-</table>
+          <div class="spec-grid">
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Working Voltage V</th><td>3.65 V</td></tr><tr><th>Interface</th><td>SPI</td></tr><tr><th>Number of I/O</th><td>16</td></tr><tr><th>Iq A</th><td>1e-06</td></tr></tbody></table>
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Interrupt Output</th><td>Interrupt Output</td></tr><tr><th>Number of Supporting Devices</th><td>8</td></tr><tr><th>Current - Output High(IOH)</th><td>-</td></tr></tbody></table>
+</div>
         </section>
 
-        <section id="documentation" class="tab-panel">
-  <h2 class="section-title">Documentation</h2>
-  <p class="doc-note">Datasheet is available on request. Send the part number and our team will provide the official documentation.</p>
+        <section id="introduction" class="tab-panel">
+          <h2 class="section-title">Product Introduction</h2>
+          <div class="intro-body"><p>The MCP23017/MCP23S17 (MCP23X17) device family provides 16-bit general-purpose parallel I/O expansion for I2C bus or SPI applications. The two devices differ only in the serial interface. The MCP23X17 consists of multiple 8-bit configuration registers for input, output, and polarity selection. The system master can enable the I/Os as inputs or outputs by writing to the I/O configuration bits (IODIRA/B). The data for each input or output is stored in the corresponding input or output register. The polarity of the input port registers can be inverted using the polarity inversion register. All registers can be read by the master system. The 16-bit I/O port functionality consists of two 8-bit ports (PORTA and PORTB). The MCP23X17 can be configured to operate in 8-bit or 16-bit mode via IOCON.BANK. There are two interrupt pins, INTA and INTB, which can be associated with their respective ports or logically OR&#x27;ed together so that both pins will be activated when either port causes an interrupt. The interrupt output can be configured to activate under two conditions (mutually exclusive): 1. When any input state differs from its corresponding input port register state. This is used to indicate to the system master that the input state has changed. 2. When the input state differs from the preconfigured register value (DEFVAL register). The interrupt capture register captures the port value at the time the interrupt occurs, thereby preserving the condition that caused the interrupt. Power-on Reset (POR) sets the registers to their default values and initializes the device state machine. The hardware address pins are used to determine the device address.</p></div>
+        </section>
+
+        <section id="features" class="tab-panel">
+  <h2 class="section-title">Features</h2>
+  <ul class="features-list"><li>16-bit remote bidirectional I/O port — I/O pins default to inputs</li><li>High-speed I2C interface (MCP23017) — 100 kHz, 400 kHz, 1.7 MHz</li><li>High-speed SPI interface (MCP23S17) — 10 MHz (max)</li><li>Three hardware address pins supporting up to 8 devices on the bus</li><li>Configurable interrupt output pins — configurable as active-high (output), active-low (output), or open-drain (output)</li><li>INTA and INTB configurable for independent or combined operation</li><li>Configurable interrupt sources — interrupt-on-change based on configured register default values or pin level changes</li><li>&quot;Polarity inversion&quot; register for configuring input port data polarity</li><li>External reset input</li><li>Low standby current: 1μA (maximum)</li><li>Operating voltage:</li><li>1.8V to 5.5V (-40°C to +85°C)</li><li>2.7V to 5.5V (-40°C to +85°C)</li><li>4.5V to 5.5V (-40°C to +125°C)</li></ul>
 </section>
 
         <section id="applications" class="tab-panel">
-  <h2 class="section-title">Common Applications</h2>
+  <h2 class="section-title">Applications</h2>
   <ul class="app-list"><li>Signal translation</li><li>Bus interfacing</li><li>Level shifting</li><li>Industrial communication</li><li>Embedded I/O</li></ul>
 </section>
 
-        <section id="related" class="tab-panel">
-  <h2 class="section-title">Related Integrated Circuits</h2>
-  <p>Other integrated circuits we help global buyers source:</p>
-  <div class="related-grid"><div class="related-card"><a href="/products/ft230xqr/">FT230XQ-R</a></div><div class="related-card"><a href="/products/tja1021t20cm118/">TJA1021T/20/CM,118</a></div><div class="related-card"><a href="/products/abs0732768khzt/">ABS07-32.768KHZ-T</a></div><div class="related-card"><a href="/products/hef4543bt653/">HEF4543BT,653</a></div><div class="related-card"><a href="/products/tps3701ddcr/">TPS3701DDCR</a></div><div class="related-card"><a href="/products/pic18f6722ipt/">PIC18F6722-I/PT</a></div></div>
+        <section id="documentation" class="tab-panel">
+  <h2 class="section-title">Datasheet</h2>
+  <details class="doc-acc" open>
+    <summary>
+      <span class="doc-acc-title" aria-label="Datasheet"><span class="doc-ico">&#128196;</span></span>
+      <span class="doc-acc-actions">
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C128577.pdf" target="_blank" rel="nofollow noopener">Open</a>
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C128577.pdf" target="_blank" rel="nofollow noopener" download>Download</a>
+      </span>
+    </summary>
+    <div class="doc-acc-body">
+      <div class="doc-preview"><embed src="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C128577.pdf" type="application/pdf" title="MCP23S17T-E/SS Datasheet Preview" aria-label="MCP23S17T-E/SS Datasheet Preview" /></div>
+    </div>
+  </details>
 </section>
 
         
 
-        <section id="faq" class="tab-panel">
+        <section id="compliance" class="tab-panel">
+  <h2 class="section-title">Compliance &amp; Export Codes</h2>
+  <div class="compliance-grid">
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>RoHS</th><td>ROHS3</td></tr><tr><th>ECCN</th><td>EAR99</td></tr><tr><th>CNHTS</th><td>8542399000</td></tr><tr><th>USHTS</th><td>8542390001</td></tr><tr><th>TARIC</th><td>8542399000</td></tr></tbody>
+</table>
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>CAHTS</th><td>8542390000</td></tr><tr><th>BRHTS</th><td>85423999</td></tr><tr><th>INHTS</th><td>85423900</td></tr><tr><th>MXHTS</th><td>8542.39.99</td></tr></tbody>
+</table>
+  </div>
+</section>
+      </div>
+
+      <!-- FAQ: independent section (removed from TAB nav / scroll-spy on 2026-09-12), placed before Sourcing -->
+      <section id="faq" class="tab-panel" style="grid-column:1;margin-top:16px;margin-bottom:16px">
   <h2 class="section-title">Frequently Asked Questions</h2>
   <div class="faq-item"><h3>What interface does MCP23S17T-E/SS support</h3><p>MCP23S17T-E/SS is a SPI interface device</p></div>
 </section>
-      </div>
 
       <!-- Sourcing (no stock/price/lead-time promises) -->
       <section class="sourcing">
         <h2>Sourcing Information</h2>
-        <p>SZ Procure is a sourcing partner for <strong>MCP23S17T-E/SS</strong>, not a stock catalog. We help international buyers source original components from the China electronics supply chain — send your quantity and target price for a quotation.</p>
+        <p>SZ Procure is a sourcing partner for the <strong>MCP23S17T-E/SS</strong> (Microchip Technology SPI), not a stock catalog. We help international buyers source this electronic component through the China electronics supply chain, with verified supplier sourcing and quality inspection.</p><p>For MCP23S17T-E/SS, our electronics sourcing covers supplier sourcing across the China electronics supply chain, supplier verification and multi-supplier quotation comparison so you can compare offers before purchase. We coordinate purchase orders, consolidation and international logistics dispatch from Shenzhen.</p><p>Quality control includes supplier qualification and screening, then product, packaging and labeling checks with outgoing inspection before dispatch. These are sourcing services we perform &mdash; they are not a guarantee of any supplier's stock, price, lead time or authenticity. Tell us your required quantity, target price and sourcing requirements, then <a href="#rfq-card">Request a Quote</a>.</p>
       </section>
     </div>
   </main>
@@ -245,7 +275,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'applications' }, { id: 'related' }, { id: 'faq' } ];
+    var groups = [ { id: 'specifications' }, { id: 'introduction' }, { id: 'features' }, { id: 'applications' }, { id: 'documentation' }, { id: 'compliance' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

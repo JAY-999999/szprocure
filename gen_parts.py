@@ -1512,19 +1512,23 @@ V2_LEGACY_EXCEPTIONS = set()
 # ---------------------------------------------------------------------------
 # RoHS compliance badge (V3 template rule)
 # ---------------------------------------------------------------------------
-# Reads authoritative RoHS compliance + evidence from the LCSC distributor API
-# snapshot (data/raw/lcsc_api_FULL_*.json). That file is a LOCAL build-time input
-# only (gitignored), so the badge is baked into static HTML at generation time —
-# the live site has NO runtime dependency and MASTER/parts.json are NOT touched.
-# NEVER fabricates: a badge is emitted ONLY when isRohsCert is true AND real
-# evidence (rohsCertType / non-empty rohsCertList) exists. Every other state
-# (missing / unknown / unmatched / evidence insufficient) returns '' (no badge).
+# RoHS compliance badge — authoritative source is the 01-collected A RAW
+# (data/raw/lcsc_http_scale500/C*.json, source_raw.main_product.{isRohsCert,
+# rohsCertType, rohsCertList}). This ALIGNS the Hero badge with the Compliance
+# section (_get_features_compliance_index), which already reads the same A RAW —
+# closing the previous dual-source inconsistency where the badge used the legacy
+# B snapshot (lcsc_api_FULL_*.json) while the Compliance section used A.
+# Build-time only (gitignored RAW): baked into static HTML, NO runtime dep,
+# MASTER/parts.json NOT touched. NEVER fabricates: a badge is emitted ONLY when
+# isRohsCert is true AND real evidence (rohsCertType / non-empty rohsCertList)
+# exists. Every other state (missing / unknown / unmatched / evidence
+# insufficient) returns '' (no badge).
 _ROHS_INDEX = None
-_ROHS_SRC_GLOB = "data/raw/lcsc_api_FULL_*.json"
+_ROHS_SRC_GLOB = "data/raw/lcsc_http_scale500/C*.json"
 
 
 def _get_rohs_index():
-    """Lazy-load LCSC API snapshot -> {MPN_or_CODE_upper: item}. Empty dict on any failure."""
+    """Lazy-load A scale500 RAW -> {MPN_or_CODE_upper: main_product}. Empty dict on any failure."""
     global _ROHS_INDEX
     if _ROHS_INDEX is not None:
         return _ROHS_INDEX
@@ -1534,20 +1538,23 @@ def _get_rohs_index():
     for fp in _glob.glob(os.path.join(here, _ROHS_SRC_GLOB)):
         try:
             with open(fp, encoding="utf-8") as fh:
-                data = json.load(fh)
+                d = json.load(fh)
         except (FileNotFoundError, OSError, json.JSONDecodeError):
             continue
-        if not isinstance(data, list):
+        if not isinstance(d, dict):
             continue
-        for it in data:
-            if not isinstance(it, dict):
-                continue
-            pm = (it.get("productModel") or "").strip().upper()
-            pc = (it.get("productCode") or "").strip().upper()
-            if pm:
-                _ROHS_INDEX[pm] = it
-            if pc:
-                _ROHS_INDEX[pc] = it
+        src = d.get("source_raw", d)
+        if not isinstance(src, dict):
+            continue
+        mp = src.get("main_product", {}) or {}
+        if not isinstance(mp, dict):
+            continue
+        pm = (mp.get("productModel") or "").strip().upper()
+        pc = (mp.get("productCode") or "").strip().upper()
+        if pm:
+            _ROHS_INDEX[pm] = mp
+        if pc:
+            _ROHS_INDEX[pc] = mp
     return _ROHS_INDEX
 
 

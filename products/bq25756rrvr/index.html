@@ -82,9 +82,8 @@
         <h1 class="mpn">BQ25756RRVR<span class="rohs-badge" aria-hidden="true">RoHS</span></h1>
         <p class="type">Voltage Regulator</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/texas-instruments/">Texas Instruments</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/power-management/">Voltage Regulator</a></div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/texas-instruments/">Texas Instruments</a></div></div><div class="id-row"><div class="id-label">MPN</div><div class="id-value">BQ25756RRVR</div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/power-management/">Voltage Regulator</a></div></div><div class="id-row"><div class="id-label">Datasheet</div><div class="id-value"><a class="doc-link" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C19272232.pdf" target="_blank" rel="nofollow noopener" download><span class="doc-ico">&#128196;</span> BQ25756RRVR Datasheet</a></div></div><div class="id-row"><div class="id-label">Key Attributes</div><div class="id-value">TI BQ25756RRVR</div></div>
         </div>
-        <p class="hero-desc">Texas Instruments BQ25756RRVR</p>
       </div>
 
       
@@ -171,51 +170,83 @@
       <!-- TABS: sticky nav + scroll-spy; all panels in DOM (SEO-friendly) -->
       <div class="tab-wrap">
         <nav class="tab-nav">
-          <a href="#overview" class="tab-btn active">Overview</a>
-          <a href="#specifications" class="tab-btn">Specifications</a>
-          <a href="#documentation" class="tab-btn">Documentation</a>
+          <a href="#specifications" class="tab-btn active">Specifications</a>
+          <a href="#introduction" class="tab-btn">Introduction</a>
+          <a href="#features" class="tab-btn">Features</a>
           <a href="#applications" class="tab-btn">Applications</a>
-          <a href="#related" class="tab-btn">Related Parts</a>
+          <a href="#documentation" class="tab-btn">Datasheet</a>
+          <a href="#compliance" class="tab-btn">Compliance &amp; Export Codes</a>
         </nav>
-
-        <section id="overview" class="tab-panel">
-          <h2 class="section-title">Product Overview</h2>
-          <p>Texas Instruments BQ25756RRVR</p>
-        </section>
 
         <section id="specifications" class="tab-panel">
           <h2 class="section-title">Technical Specifications</h2>
-          <table class="spec-table">
-<tbody>
-<tr><th>Working Voltage V</th><td>37.1 V</td></tr><tr><th>Iq A</th><td>1.7e-05</td></tr></tbody>
-</table>
+          <div class="spec-grid">
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Working Voltage V</th><td>37.1 V</td></tr><tr><th>Iq A</th><td>1.7e-05</td></tr><tr><th>End-Off Voltage</th><td>-</td></tr><tr><th>Number of Cells</th><td>1~14</td></tr><tr><th>Battery Temperature Detection</th><td>Support</td></tr><tr><th>0V Battery Charge</th><td>-</td></tr></tbody></table>
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Type of Battery</th><td>Lithium Battery;LiFePO4 Battery</td></tr><tr><th>The Chip Type</th><td>Charging IC</td></tr><tr><th>Balance Current</th><td>-</td></tr><tr><th>Charge Current - Max</th><td>20A</td></tr><tr><th>Charging Saturation Voltage</th><td>-</td></tr></tbody></table>
+</div>
         </section>
 
-        <section id="documentation" class="tab-panel">
-  <h2 class="section-title">Documentation</h2>
-  <p class="doc-note">Datasheet is available on request. Send the part number and our team will provide the official documentation.</p>
+        <section id="introduction" class="tab-panel">
+          <h2 class="section-title">Product Introduction</h2>
+          <div class="intro-body"><p>The BQ25756 is a wide-input-voltage, switch-mode buck/boost lithium-ion, lithium-polymer, or lithium-iron-phosphate battery charging controller with bidirectional power flow support. This device not only provides precise charging current and charging voltage regulation but also offers automatic pre-charging regulation, charging termination, and charging status indication, enabling efficient battery charging over a wide voltage range. The device integrates all loop compensation functions of the buck/boost converter, thus providing an easy-to-use, high-density solution. In reverse mode, the device draws power from the battery and regulates the input terminal voltage through an added constant current loop to achieve protection, thereby supporting USB-PD EPR power profiles. In addition to the I2C host-controlled charging mode, the device also supports an independent charging mode through resistor-programmable limits. The input current, charging current, and charging voltage regulation targets can be set via the ILIM_HIZ, ICHG, and FB pins respectively.</p></div>
+        </section>
+
+        <section id="features" class="tab-panel">
+  <h2 class="section-title">Features</h2>
+  <ul class="features-list"><li>Wide battery voltage operating range: up to 70V, supporting multi-chemistry batteries: 1-cell to 14-cell Li-ion charging profile, 1-cell to 16-cell LiFePO₄ charging profile</li><li>Synchronous buck/boost charging controller with NFET drivers</li><li>Adjustable switching frequency: 200kHz to 600kHz</li><li>Optional external clock synchronization</li><li>Integrated loop compensation with soft-start</li><li>Optional gate driver supply input for improved efficiency</li><li>Automatic MPPT for solar charging</li><li>Buck-only mode</li><li>Bidirectional converter operation (reverse mode) supporting USB-PD EPR</li><li>Adjustable input voltage (VAC) regulation range: 3.3V to 65V in 20mV steps</li><li>Adjustable input current regulation (RAC_SNS) using 5mΩ resistor: 400mA to 20A in 50mA steps</li><li>±0.5% charge voltage regulation</li><li>±3% charge current regulation</li><li>±3% input current regulation</li><li>I2C control for superior system performance with per-battery programmable options</li><li>Hardware-adjustable input and output current limits</li><li>Integrated 16-bit ADC for voltage, current, and temperature monitoring</li><li>Adjustable input overvoltage and undervoltage protection</li><li>Battery overvoltage and overcurrent protection</li><li>Charge safety timer</li><li>Battery short-circuit protection</li><li>Thermal shutdown</li><li>Status outputs: adapter present status (PG), charger operating status (STAT1, STAT2)</li><li>36-pin 5mm × 6mm QFN package</li></ul>
 </section>
 
         <section id="applications" class="tab-panel">
-  <h2 class="section-title">Common Applications</h2>
+  <h2 class="section-title">Applications</h2>
   <ul class="app-list"><li>- E-kick scooters, e-bikes - Cordless power tools, garden tools - Robotic lawn mowers - Portable power stations - Cordless vacuum cleaners, robotic vacuum cleaners - Solar chargers - USB-PD EPR (Extended Power Range)</li></ul>
 </section>
 
-        <section id="related" class="tab-panel">
-  <h2 class="section-title">Related Power Management</h2>
-  <p>Other power management we help global buyers source:</p>
-  <div class="related-grid"><div class="related-card"><a href="/products/tps562242drlr/">TPS562242DRLR</a></div><div class="related-card"><a href="/products/ua78m05cdcyr/">UA78M05CDCYR</a></div><div class="related-card"><a href="/products/tps563203drlr/">TPS563203DRLR</a></div><div class="related-card"><a href="/products/lm317/">LM317</a></div><div class="related-card"><a href="/products/tl431qdbzrqr/">TL431QDBZR-QR</a></div><div class="related-card"><a href="/products/sn74lv165adr/">SN74LV165ADR</a></div></div>
+        <section id="documentation" class="tab-panel">
+  <h2 class="section-title">Datasheet</h2>
+  <details class="doc-acc" open>
+    <summary>
+      <span class="doc-acc-title" aria-label="Datasheet"><span class="doc-ico">&#128196;</span></span>
+      <span class="doc-acc-actions">
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C19272232.pdf" target="_blank" rel="nofollow noopener">Open</a>
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C19272232.pdf" target="_blank" rel="nofollow noopener" download>Download</a>
+      </span>
+    </summary>
+    <div class="doc-acc-body">
+      <div class="doc-preview"><embed src="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C19272232.pdf" type="application/pdf" title="BQ25756RRVR Datasheet Preview" aria-label="BQ25756RRVR Datasheet Preview" /></div>
+    </div>
+  </details>
 </section>
 
         
 
-        
+        <section id="compliance" class="tab-panel">
+  <h2 class="section-title">Compliance &amp; Export Codes</h2>
+  <div class="compliance-grid">
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>RoHS</th><td>ROHS3</td></tr><tr><th>ECCN</th><td>EAR99</td></tr><tr><th>CNHTS</th><td>8542399000</td></tr><tr><th>USHTS</th><td>8542390001</td></tr><tr><th>TARIC</th><td>8542399000</td></tr></tbody>
+</table>
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>CAHTS</th><td>8542390000</td></tr><tr><th>BRHTS</th><td>85423999</td></tr><tr><th>INHTS</th><td>85423900</td></tr><tr><th>MXHTS</th><td>8542.39.99</td></tr></tbody>
+</table>
+  </div>
+</section>
       </div>
+
+      <!-- FAQ: independent section (removed from TAB nav / scroll-spy on 2026-09-12), placed before Sourcing -->
+      
 
       <!-- Sourcing (no stock/price/lead-time promises) -->
       <section class="sourcing">
         <h2>Sourcing Information</h2>
-        <p>SZ Procure is a sourcing partner for <strong>BQ25756RRVR</strong>, not a stock catalog. We help international buyers source original components from the China electronics supply chain — send your quantity and target price for a quotation.</p>
+        <p>SZ Procure is a sourcing partner for the <strong>BQ25756RRVR</strong> (Texas Instruments Voltage Regulator), not a stock catalog. We help international buyers source this electronic component through the China electronics supply chain, with verified supplier sourcing and quality inspection.</p><p>For component sourcing of BQ25756RRVR, we run supplier sourcing across the China electronics supply chain, supplier verification and multi-supplier quotation comparison so you can compare offers before purchase. We coordinate purchase orders, consolidation and international logistics dispatch from Shenzhen.</p><p>Quality control focuses on supplier qualification and screening, then product, packaging and labeling checks with outgoing inspection before dispatch. These are sourcing services we perform &mdash; they are not a guarantee of any supplier's stock, price, lead time or authenticity. Tell us your required quantity, target price and sourcing requirements, then <a href="#rfq-card">Request a Quote</a>.</p>
       </section>
     </div>
   </main>
@@ -232,7 +263,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'applications' }, { id: 'related' } ];
+    var groups = [ { id: 'specifications' }, { id: 'introduction' }, { id: 'features' }, { id: 'applications' }, { id: 'documentation' }, { id: 'compliance' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

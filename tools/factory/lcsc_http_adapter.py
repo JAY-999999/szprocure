@@ -305,6 +305,61 @@ def build_en_attributes(mp):
     return attrs_canon, attrs_unmapped
 
 
+# Identity / branding keys that must NOT be forwarded as technical specs
+# (they describe the part's identity/commercial packaging, not electrical
+# behaviour, and the pipeline already captures brand/manufacturer elsewhere).
+_IDENTITY_KEY_BLACKLIST = {
+    "brand", "manufacturer", "series", "part number", "part status",
+    "packaging", "package", "package / case", "mounting type",
+    "supplier device package", "base product number", "rohs",
+    "lead free", "lead-free",
+}
+
+
+def _forward_unmapped_specs(canon, unmapped):
+    """Merge UNMAPPED paramVOList specs into the forwarded attributes so they are
+    no longer silently dropped into the pool-only (dropped-by-master_row) bucket.
+
+    Every ``unmapped`` value is already ASCII-folded by ``build_en_attributes``
+    (normalize_text: ℃->degC, Ω->Ohm, CJK ASCII-gated), so it survives the
+    build_row CJK guard. We additionally guard the KEY: skip genuine CJK-only
+    keys and identity/branding keys, and never overwrite an existing canonical
+    key (conflict-safe). This is pipeline-faithful (real spec names/values from
+    the A RAW) — nothing is AI-generated or normalised away.
+    """
+    out = dict(canon)
+    for name_en, val in unmapped.items():
+        if not name_en or not val:
+            continue
+        if any(ord(ch) > 127 for ch in name_en):
+            continue  # CJK-only key — not a usable spec label
+        if name_en.lower().strip() in _IDENTITY_KEY_BLACKLIST:
+            continue
+        if name_en in out:
+            continue  # collision with an existing canonical key
+        out[name_en] = val
+    return out
+
+
+def _first_image_url(mp):
+    """Official product image URL from the A RAW envelope.
+
+    Source: ``main_product.productImages`` (list; first entry is the front
+    image) with ``productImageUrlBig`` / ``productImageUrl`` as fallback.
+    Returns '' when absent. Per the self-hosting policy the raw LCSC URL is
+    captured here (so 02 no longer drops the field); downloading + rewriting it
+    to a local/r2 asset is a separate pre-deploy gated step (#1761), NOT done at
+    collection time — the live site must never hotlink assets.lcsc.com.
+    """
+    imgs = mp.get("productImages") or []
+    if isinstance(imgs, list):
+        for u in imgs:
+            if isinstance(u, str) and u.strip():
+                return u.strip()
+    big = mp.get("productImageUrlBig") or mp.get("productImageUrl") or ""
+    return (big or "").strip()
+
+
 # --------------------------------------------------------------------------
 # envelope flattening -> record dict consumed by build_row
 # --------------------------------------------------------------------------
@@ -342,6 +397,7 @@ def flatten_envelope(env):
         "attributes_json": json.dumps(attrs_canon, ensure_ascii=False),
         "attributes_json_unmapped": json.dumps(attrs_unmapped, ensure_ascii=False),
         "source_datasheet_url": (mp.get("pdfUrl") or "").strip(),
+        "source_image_url": _first_image_url(mp),
         "supplier_sku": (mp.get("productCode") or "").strip(),
         "alternative_parts": alts,
         "related_parts_raw": related_raw,
@@ -1006,6 +1062,19 @@ def http_build_category_row(record, mpn, brand):
     apps = (record.get("_applications_en") or "").strip()
     if apps:
         fields["applications"] = apps
+    # GAP-2: the family adapters rebuild attributes_json from cherry-picked
+    # canonical specs ONLY, so unmapped paramVOList specs would otherwise be
+    # silently dropped. Merge the unmapped bucket back here — the single
+    # injection point for every HTTP row (canonical + unmapped both survive the
+    # build_row CJK guard because build_en_attributes already ASCII-folds them).
+    try:
+        _canon = json.loads(fields.get("attributes_json") or "{}")
+        _unmap = json.loads(record.get("attributes_json_unmapped") or "{}")
+        if _unmap:
+            fields["attributes_json"] = json.dumps(
+                _forward_unmapped_specs(_canon, _unmap), ensure_ascii=False)
+    except Exception:
+        pass
     return fields, meta
 
 

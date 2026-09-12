@@ -57,11 +57,11 @@
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-    { "@type": "Question", "name": "What are the core electrical ratings and package characteristics of the MT3608 boost converter", "acceptedAnswer": { "@type": "Answer", "text": "The MT3608 is a constant-frequency, current-mode step-up (boost) DC-DC converter intended for small, low-power applications. It operates over an input voltage range of 2V to 24V and provides an adjustable output voltage up to 28V. The device operates at a fixed 1.2MHz switching frequency, allowing the use of compact external inductors and capacitors. It integrates an 80mΩ internal power MOSFET with a 4A internal switch current limit and is available in a 6-pin SOT23-6 package.;" } },
-    { "@type": "Question", "name": "Which external components are required for a stable MT3608 boost converter design", "acceptedAnswer": { "@type": "Answer", "text": "A typical MT3608 boost converter requires an inductor, Schottky diode, input capacitor, output capacitor, and an external resistor divider to set the output voltage. The recommended inductor value is 4.7µH to 22µH. The datasheet recommends 22µF low-ESR ceramic capacitors (X5R or X7R) for both the input and output. A Schottky diode is recommended because of its low forward voltage drop and fast recovery, improving efficiency at the converter&#x27;s 1.2MHz switching frequency. The output voltage is programmed using an external resistor divider referenced to the 0.6V feedback voltage.;" } },
-    { "@type": "Question", "name": "How does the MT3608 regulate efficiency and performance under different load conditions", "acceptedAnswer": { "@type": "Answer", "text": "The MT3608 uses a fixed-frequency, peak current-mode control architecture to regulate output voltage. It operates at a 1.2MHz switching frequency and automatically shifts to Pulse Frequency Modulation (PFM) mode under light-load conditions to improve efficiency. Typical quiescent current in PFM mode is 100–200µA, and the converter achieves up to 93% efficiency, depending on operating conditions and external component selection. Internal soft-start helps reduce inrush current during startup, while current limiting and thermal protection improve reliability during operation.;" } },
-    { "@type": "Question", "name": "What PCB layout practices improve stability and noise performance in MT3608 circuits", "acceptedAnswer": { "@type": "Answer", "text": "Good PCB layout is essential for reliable operation of the MT3608. The input and output capacitors should be placed close to the IC and connected to a solid ground plane to reduce noise. High-current traces should be kept short and wide, and the SW node area should be minimized to reduce switching noise. The feedback components should be placed close to the IC and routed away from noisy switching nodes to maintain stable output regulation. A solid ground plane also improves thermal performance and reduces electrical noise.;" } },
-    { "@type": "Question", "name": "What protection features and practical considerations does the MT3608 provide for reliable operation", "acceptedAnswer": { "@type": "Answer", "text": "The MT3608 includes under-voltage lockout (UVLO), current limiting, thermal overload protection, and internal soft-start to improve reliability during startup and fault conditions. The datasheet specifies a typical thermal shutdown temperature of 155°C and a 4A internal switch current limit. In practical applications, overall performance depends on proper component selection, PCB layout, and adequate thermal management to ensure stable operation and high efficiency." } }
+    { "@type": "Question", "name": "What are the core electrical ratings and package characteristics of the MT3608 boost converter?", "acceptedAnswer": { "@type": "Answer", "text": "The MT3608 is a constant-frequency, current-mode step-up (boost) DC-DC converter intended for small, low-power applications. It operates over an input voltage range of 2V to 24V and provides an adjustable output voltage up to 28V. The device operates at a fixed 1.2MHz switching frequency, allowing the use of compact external inductors and capacitors. It integrates an 80mΩ internal power MOSFET with a 4A internal switch current limit and is available in a 6-pin SOT23-6 package." } },
+    { "@type": "Question", "name": "Which external components are required for a stable MT3608 boost converter design?", "acceptedAnswer": { "@type": "Answer", "text": "A typical MT3608 boost converter requires an inductor, Schottky diode, input capacitor, output capacitor, and an external resistor divider to set the output voltage. The recommended inductor value is 4.7µH to 22µH. The datasheet recommends 22µF low-ESR ceramic capacitors (X5R or X7R) for both the input and output. A Schottky diode is recommended because of its low forward voltage drop and fast recovery, improving efficiency at the converter&#x27;s 1.2MHz switching frequency. The output voltage is programmed using an external resistor divider referenced to the 0.6V feedback voltage." } },
+    { "@type": "Question", "name": "How does the MT3608 regulate efficiency and performance under different load conditions?", "acceptedAnswer": { "@type": "Answer", "text": "The MT3608 uses a fixed-frequency, peak current-mode control architecture to regulate output voltage. It operates at a 1.2MHz switching frequency and automatically shifts to Pulse Frequency Modulation (PFM) mode under light-load conditions to improve efficiency. Typical quiescent current in PFM mode is 100–200µA, and the converter achieves up to 93% efficiency, depending on operating conditions and external component selection. Internal soft-start helps reduce inrush current during startup, while current limiting and thermal protection improve reliability during operation." } },
+    { "@type": "Question", "name": "What PCB layout practices improve stability and noise performance in MT3608 circuits?", "acceptedAnswer": { "@type": "Answer", "text": "Good PCB layout is essential for reliable operation of the MT3608. The input and output capacitors should be placed close to the IC and connected to a solid ground plane to reduce noise. High-current traces should be kept short and wide, and the SW node area should be minimized to reduce switching noise. The feedback components should be placed close to the IC and routed away from noisy switching nodes to maintain stable output regulation. A solid ground plane also improves thermal performance and reduces electrical noise." } },
+    { "@type": "Question", "name": "What protection features and practical considerations does the MT3608 provide for reliable operation?", "acceptedAnswer": { "@type": "Answer", "text": "The MT3608 includes under-voltage lockout (UVLO), current limiting, thermal overload protection, and internal soft-start to improve reliability during startup and fault conditions. The datasheet specifies a typical thermal shutdown temperature of 155°C and a 4A internal switch current limit. In practical applications, overall performance depends on proper component selection, PCB layout, and adequate thermal management to ensure stable operation and high efficiency." } }
     ]
   }
   </script>
@@ -95,9 +95,8 @@
         <h1 class="mpn">MT3608<span class="rohs-badge" aria-hidden="true">RoHS</span></h1>
         <p class="type">Voltage Regulator</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/xi-an-aerosemi-tech/">XI&#x27;AN Aerosemi Tech</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/power-management/">Voltage Regulator</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">SOT-23-6</div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/xi-an-aerosemi-tech/">XI&#x27;AN Aerosemi Tech</a><span class="brand-tag">Asian Brands</span></div></div><div class="id-row"><div class="id-label">MPN</div><div class="id-value">MT3608</div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/power-management/">Voltage Regulator</a></div></div><div class="id-row"><div class="id-label">Datasheet</div><div class="id-value"><a class="doc-link" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C84817.pdf" target="_blank" rel="nofollow noopener" download><span class="doc-ico">&#128196;</span> MT3608 Datasheet</a></div></div><div class="id-row"><div class="id-label">Key Attributes</div><div class="id-value">XI&#x27;AN Aerosemi Tech MT3608 - Adjustable - 14.30 V - 2.000 A</div></div>
         </div>
-        <p class="hero-desc">High Efficiency 1.2MHz 2A Step Up Converter</p>
       </div>
 
       
@@ -184,60 +183,86 @@
       <!-- TABS: sticky nav + scroll-spy; all panels in DOM (SEO-friendly) -->
       <div class="tab-wrap">
         <nav class="tab-nav">
-          <a href="#overview" class="tab-btn active">Overview</a>
-          <a href="#specifications" class="tab-btn">Specifications</a>
-          <a href="#documentation" class="tab-btn">Documentation</a>
+          <a href="#specifications" class="tab-btn active">Specifications</a>
+          <a href="#introduction" class="tab-btn">Introduction</a>
+          <a href="#features" class="tab-btn">Features</a>
           <a href="#applications" class="tab-btn">Applications</a>
-          <a href="#related" class="tab-btn">Related Parts</a>
-          <a href="#faq" class="tab-btn">FAQ</a>
+          <a href="#documentation" class="tab-btn">Datasheet</a>
+          <a href="#compliance" class="tab-btn">Compliance &amp; Export Codes</a>
         </nav>
-
-        <section id="overview" class="tab-panel">
-          <h2 class="section-title">Product Overview</h2>
-          <p>High Efficiency 1.2MHz 2A Step Up Converter</p>
-        </section>
 
         <section id="specifications" class="tab-panel">
           <h2 class="section-title">Technical Specifications</h2>
-          <table class="spec-table">
-<tbody>
-<tr><th>Function Type</th><td>Step-Up</td></tr><tr><th>Output Type</th><td>Adjustable</td></tr><tr><th>Output Voltage</th><td>600mV~28V</td></tr><tr><th>Output Current</th><td>2A</td></tr><tr><th>Package</th><td>SOT-23-6</td></tr><tr><th>Operating Temperature</th><td>-40℃~+85℃</td></tr><tr><th>Frequency - Switching</th><td>1.2MHz</td></tr><tr><th>Function</th><td>Boost</td></tr><tr><th>Number of Outputs</th><td>1</td></tr><tr><th>Features</th><td>Light load efficient mode;Overcurrent Protection</td></tr><tr><th>Output Type</th><td>Adjustable</td></tr><tr><th>Topology</th><td>Boost</td></tr><tr><th>Operating Voltage</th><td>2V~24V</td></tr><tr><th>Switch tube (built-in/external)</th><td>Built-in</td></tr><tr><th>Output Voltage</th><td>600mV~28V</td></tr><tr><th>Output Current</th><td>2A</td></tr><tr><th>Quiescent Current</th><td>100uA;1.6mA</td></tr></tbody>
-</table>
+          <div class="spec-grid">
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Output Type</th><td>Adjustable</td></tr><tr><th>Output Voltage</th><td>14.3 V</td></tr><tr><th>Output Current</th><td>2 A</td></tr><tr><th>Function</th><td>Boost</td></tr><tr><th>Working Voltage V</th><td>13 V</td></tr></tbody></table>
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Switching Freq Hz</th><td>1.2 MHz</td></tr><tr><th>Channels</th><td>1</td></tr><tr><th>Iq A</th><td>0.001 A</td></tr><tr><th>Switch tube (built-in/external)</th><td>Built-in</td></tr></tbody></table>
+</div>
         </section>
 
+        <section id="introduction" class="tab-panel">
+          <h2 class="section-title">Product Introduction</h2>
+          <div class="intro-body"><p>MT3608 is a constant-frequency, current-mode boost converter in a 6-pin SOT23 package, designed for small, low-power applications. The device operates at a switching frequency of 1.2MHz, allowing the use of tiny, low-cost inductors and capacitors with heights no greater than 2mm. The internal soft-start function reduces inrush current and extends battery life. The MT3608 features automatic switchover to pulse frequency modulation mode at light loads, and integrates UVLO, current limiting, and thermal overload protection to prevent device damage under output overload conditions.</p></div>
+        </section>
+
+        <section id="features" class="tab-panel">
+  <h2 class="section-title">Features</h2>
+  <ul class="features-list"><li>Integrated 80mΩ power MOSFET</li><li>2V to 24V input voltage range</li><li>1.2MHz fixed switching frequency</li><li>Internal 4A switch current limit</li><li>Adjustable output voltage</li><li>Internal compensation</li><li>Up to 28V output voltage</li><li>Automatic pulse frequency modulation mode at light load</li><li>Up to 93% efficiency</li><li>6-pin SOT23-6 package</li></ul>
+</section>
+
+        <section id="applications" class="tab-panel">
+  <h2 class="section-title">Applications</h2>
+  <ul class="app-list"><li>- Battery-powered devices - Set-top boxes - LCD bias power supplies - DSL and cable modems and routers - Network cards powered by PCI or PCI Express slots</li></ul>
+</section>
+
         <section id="documentation" class="tab-panel">
-  <h2 class="section-title">Documentation</h2>
+  <h2 class="section-title">Datasheet</h2>
   <details class="doc-acc" open>
-    <summary><span class="doc-ico">&#128196;</span> Datasheet <span class="doc-tag">PDF</span></summary>
+    <summary>
+      <span class="doc-acc-title" aria-label="Datasheet"><span class="doc-ico">&#128196;</span></span>
+      <span class="doc-acc-actions">
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C84817.pdf" target="_blank" rel="nofollow noopener">Open</a>
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C84817.pdf" target="_blank" rel="nofollow noopener" download>Download</a>
+      </span>
+    </summary>
     <div class="doc-acc-body">
-      <a class="doc-dl" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/mt3608.pdf" target="_blank" rel="nofollow noopener">Download MT3608 Datasheet (PDF)</a>
+      <div class="doc-preview"><embed src="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C84817.pdf" type="application/pdf" title="MT3608 Datasheet Preview" aria-label="MT3608 Datasheet Preview" /></div>
     </div>
   </details>
 </section>
 
-        <section id="applications" class="tab-panel">
-  <h2 class="section-title">Common Applications</h2>
-  <ul class="app-list"><li>Battery-powered devices</li><li>Set-top boxes</li><li>LCD bias power supplies</li><li>DSL and cable modems and routers</li><li>Network cards powered by PCI or PCI Express slots</li></ul>
-</section>
-
-        <section id="related" class="tab-panel">
-  <h2 class="section-title">Related Power Management</h2>
-  <p>Other power management we help global buyers source:</p>
-  <div class="related-grid"><div class="related-card"><a href="/products/ap3012ktrg1/">AP3012KTR-G1</a></div><div class="related-card"><a href="/products/xc6206p332mrg/">XC6206P332MR-G</a></div><div class="related-card"><a href="/products/ams111750/">AMS1117-5.0</a></div><div class="related-card"><a href="/products/spx3819m5l33tr/">SPX3819M5-L-3-3/TR</a></div><div class="related-card"><a href="/products/dw01a/">DW01A</a></div><div class="related-card"><a href="/products/hr4988e/">HR4988E</a></div></div>
-</section>
-
         
 
-        <section id="faq" class="tab-panel">
-  <h2 class="section-title">Frequently Asked Questions</h2>
-  <div class="faq-item"><h3>What are the core electrical ratings and package characteristics of the MT3608 boost converter</h3><p>The MT3608 is a constant-frequency, current-mode step-up (boost) DC-DC converter intended for small, low-power applications. It operates over an input voltage range of 2V to 24V and provides an adjustable output voltage up to 28V. The device operates at a fixed 1.2MHz switching frequency, allowing the use of compact external inductors and capacitors. It integrates an 80mΩ internal power MOSFET with a 4A internal switch current limit and is available in a 6-pin SOT23-6 package.;</p></div><div class="faq-item"><h3>Which external components are required for a stable MT3608 boost converter design</h3><p>A typical MT3608 boost converter requires an inductor, Schottky diode, input capacitor, output capacitor, and an external resistor divider to set the output voltage. The recommended inductor value is 4.7µH to 22µH. The datasheet recommends 22µF low-ESR ceramic capacitors (X5R or X7R) for both the input and output. A Schottky diode is recommended because of its low forward voltage drop and fast recovery, improving efficiency at the converter&#x27;s 1.2MHz switching frequency. The output voltage is programmed using an external resistor divider referenced to the 0.6V feedback voltage.;</p></div><div class="faq-item"><h3>How does the MT3608 regulate efficiency and performance under different load conditions</h3><p>The MT3608 uses a fixed-frequency, peak current-mode control architecture to regulate output voltage. It operates at a 1.2MHz switching frequency and automatically shifts to Pulse Frequency Modulation (PFM) mode under light-load conditions to improve efficiency. Typical quiescent current in PFM mode is 100–200µA, and the converter achieves up to 93% efficiency, depending on operating conditions and external component selection. Internal soft-start helps reduce inrush current during startup, while current limiting and thermal protection improve reliability during operation.;</p></div><div class="faq-item"><h3>What PCB layout practices improve stability and noise performance in MT3608 circuits</h3><p>Good PCB layout is essential for reliable operation of the MT3608. The input and output capacitors should be placed close to the IC and connected to a solid ground plane to reduce noise. High-current traces should be kept short and wide, and the SW node area should be minimized to reduce switching noise. The feedback components should be placed close to the IC and routed away from noisy switching nodes to maintain stable output regulation. A solid ground plane also improves thermal performance and reduces electrical noise.;</p></div><div class="faq-item"><h3>What protection features and practical considerations does the MT3608 provide for reliable operation</h3><p>The MT3608 includes under-voltage lockout (UVLO), current limiting, thermal overload protection, and internal soft-start to improve reliability during startup and fault conditions. The datasheet specifies a typical thermal shutdown temperature of 155°C and a 4A internal switch current limit. In practical applications, overall performance depends on proper component selection, PCB layout, and adequate thermal management to ensure stable operation and high efficiency.</p></div>
+        <section id="compliance" class="tab-panel">
+  <h2 class="section-title">Compliance &amp; Export Codes</h2>
+  <div class="compliance-grid">
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>RoHS</th><td>ROHS</td></tr><tr><th>CNHTS</th><td>8542399000</td></tr><tr><th>USHTS</th><td>8542390001</td></tr><tr><th>TARIC</th><td>8542399000</td></tr></tbody>
+</table>
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>CAHTS</th><td>8542390000</td></tr><tr><th>BRHTS</th><td>85423999</td></tr><tr><th>INHTS</th><td>85423900</td></tr><tr><th>MXHTS</th><td>8542.39.99</td></tr></tbody>
+</table>
+  </div>
 </section>
       </div>
+
+      <!-- FAQ: independent section (removed from TAB nav / scroll-spy on 2026-09-12), placed before Sourcing -->
+      <section id="faq" class="tab-panel" style="grid-column:1;margin-top:16px;margin-bottom:16px">
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq-item"><h3>What are the core electrical ratings and package characteristics of the MT3608 boost converter?</h3><p>The MT3608 is a constant-frequency, current-mode step-up (boost) DC-DC converter intended for small, low-power applications. It operates over an input voltage range of 2V to 24V and provides an adjustable output voltage up to 28V. The device operates at a fixed 1.2MHz switching frequency, allowing the use of compact external inductors and capacitors. It integrates an 80mΩ internal power MOSFET with a 4A internal switch current limit and is available in a 6-pin SOT23-6 package.</p></div><div class="faq-item"><h3>Which external components are required for a stable MT3608 boost converter design?</h3><p>A typical MT3608 boost converter requires an inductor, Schottky diode, input capacitor, output capacitor, and an external resistor divider to set the output voltage. The recommended inductor value is 4.7µH to 22µH. The datasheet recommends 22µF low-ESR ceramic capacitors (X5R or X7R) for both the input and output. A Schottky diode is recommended because of its low forward voltage drop and fast recovery, improving efficiency at the converter&#x27;s 1.2MHz switching frequency. The output voltage is programmed using an external resistor divider referenced to the 0.6V feedback voltage.</p></div><div class="faq-item"><h3>How does the MT3608 regulate efficiency and performance under different load conditions?</h3><p>The MT3608 uses a fixed-frequency, peak current-mode control architecture to regulate output voltage. It operates at a 1.2MHz switching frequency and automatically shifts to Pulse Frequency Modulation (PFM) mode under light-load conditions to improve efficiency. Typical quiescent current in PFM mode is 100–200µA, and the converter achieves up to 93% efficiency, depending on operating conditions and external component selection. Internal soft-start helps reduce inrush current during startup, while current limiting and thermal protection improve reliability during operation.</p></div><div class="faq-item"><h3>What PCB layout practices improve stability and noise performance in MT3608 circuits?</h3><p>Good PCB layout is essential for reliable operation of the MT3608. The input and output capacitors should be placed close to the IC and connected to a solid ground plane to reduce noise. High-current traces should be kept short and wide, and the SW node area should be minimized to reduce switching noise. The feedback components should be placed close to the IC and routed away from noisy switching nodes to maintain stable output regulation. A solid ground plane also improves thermal performance and reduces electrical noise.</p></div><div class="faq-item"><h3>What protection features and practical considerations does the MT3608 provide for reliable operation?</h3><p>The MT3608 includes under-voltage lockout (UVLO), current limiting, thermal overload protection, and internal soft-start to improve reliability during startup and fault conditions. The datasheet specifies a typical thermal shutdown temperature of 155°C and a 4A internal switch current limit. In practical applications, overall performance depends on proper component selection, PCB layout, and adequate thermal management to ensure stable operation and high efficiency.</p></div>
+</section>
 
       <!-- Sourcing (no stock/price/lead-time promises) -->
       <section class="sourcing">
         <h2>Sourcing Information</h2>
-        <p>SZ Procure is a sourcing partner for <strong>MT3608</strong>, not a stock catalog. We help international buyers source original components from the China electronics supply chain — send your quantity and target price for a quotation.</p>
+        <p>SZ Procure is a sourcing partner for the <strong>MT3608</strong> (XI&#x27;AN Aerosemi Tech Voltage Regulator), not a stock catalog. We help international buyers source this electronic component through the China electronics supply chain, with verified supplier sourcing and quality inspection.</p><p>For component sourcing of MT3608, we run supplier sourcing across the China electronics supply chain, supplier verification and multi-supplier quotation comparison so you can compare offers before purchase. We coordinate purchase orders, consolidation and international logistics dispatch from Shenzhen.</p><p>Quality control focuses on supplier qualification and screening, then product, packaging and labeling checks with outgoing inspection before dispatch. These are sourcing services we perform &mdash; they are not a guarantee of any supplier's stock, price, lead time or authenticity. Tell us your required quantity, target price and sourcing requirements, then <a href="#rfq-card">Request a Quote</a>.</p>
       </section>
     </div>
   </main>
@@ -254,7 +279,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'applications' }, { id: 'related' }, { id: 'faq' } ];
+    var groups = [ { id: 'specifications' }, { id: 'introduction' }, { id: 'features' }, { id: 'applications' }, { id: 'documentation' }, { id: 'compliance' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

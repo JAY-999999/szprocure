@@ -82,9 +82,8 @@
         <h1 class="mpn">GD5F1GM7UEYIGR<span class="rohs-badge" aria-hidden="true">RoHS</span></h1>
         <p class="type">Microcontroller</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/gigadevice-semicon-beijing/">GigaDevice Semicon Beijing</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/integrated-circuits/">Microcontroller</a></div></div><div class="id-row"><div class="id-label">Maximum Clock Speed</div><div class="id-value">133 MHz</div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/gigadevice-semicon-beijing/">GigaDevice Semicon Beijing</a><span class="brand-tag">Asian Brands</span></div></div><div class="id-row"><div class="id-label">MPN</div><div class="id-value">GD5F1GM7UEYIGR</div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/integrated-circuits/">Microcontroller</a></div></div><div class="id-row"><div class="id-label">Maximum Clock Speed</div><div class="id-value">133 MHz</div></div><div class="id-row"><div class="id-label">Datasheet</div><div class="id-value"><a class="doc-link" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C19193269.pdf" target="_blank" rel="nofollow noopener" download><span class="doc-ico">&#128196;</span> GD5F1GM7UEYIGR Datasheet</a></div></div><div class="id-row"><div class="id-label">Key Attributes</div><div class="id-value">GigaDevice Semicon Beijing GD5F1GM7UEYIGR - 133 MHz</div></div>
         </div>
-        <p class="hero-desc">GigaDevice Semicon Beijing GD5F1GM7UEYIGR - 133 MHz</p>
       </div>
 
       
@@ -171,51 +170,83 @@
       <!-- TABS: sticky nav + scroll-spy; all panels in DOM (SEO-friendly) -->
       <div class="tab-wrap">
         <nav class="tab-nav">
-          <a href="#overview" class="tab-btn active">Overview</a>
-          <a href="#specifications" class="tab-btn">Specifications</a>
-          <a href="#documentation" class="tab-btn">Documentation</a>
+          <a href="#specifications" class="tab-btn active">Specifications</a>
+          <a href="#introduction" class="tab-btn">Introduction</a>
+          <a href="#features" class="tab-btn">Features</a>
           <a href="#applications" class="tab-btn">Applications</a>
-          <a href="#related" class="tab-btn">Related Parts</a>
+          <a href="#documentation" class="tab-btn">Datasheet</a>
+          <a href="#compliance" class="tab-btn">Compliance &amp; Export Codes</a>
         </nav>
-
-        <section id="overview" class="tab-panel">
-          <h2 class="section-title">Product Overview</h2>
-          <p>GigaDevice Semicon Beijing GD5F1GM7UEYIGR - 133 MHz</p>
-        </section>
 
         <section id="specifications" class="tab-panel">
           <h2 class="section-title">Technical Specifications</h2>
-          <table class="spec-table">
-<tbody>
-<tr><th>Maximum Clock Speed</th><td>133 MHz</td></tr></tbody>
-</table>
+          <div class="spec-grid">
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Maximum Clock Speed</th><td>133 MHz</td></tr><tr><th>Memory Size</th><td>1Gbit</td></tr><tr><th>Program / Erase Cycles</th><td>80,000 cycles</td></tr><tr><th>Data Retention - TDR (Year)</th><td>10 years</td></tr></tbody></table>
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Block Erase Time(tBE)</th><td>3ms</td></tr><tr><th>Write Cycle Time(tWC)</th><td>-</td></tr><tr><th>Page Programming Time (Tpp)</th><td>320us</td></tr><tr><th>Standby Supply Current</th><td>50uA</td></tr></tbody></table>
+</div>
         </section>
 
-        <section id="documentation" class="tab-panel">
-  <h2 class="section-title">Documentation</h2>
-  <p class="doc-note">Datasheet is available on request. Send the part number and our team will provide the official documentation.</p>
+        <section id="introduction" class="tab-panel">
+          <h2 class="section-title">Product Introduction</h2>
+          <div class="intro-body"><p>SPI (Serial Peripheral Interface) NAND Flash provides an ultra-cost effective while high density non-volatile memory storage solution for embedded systems, based on an industry-standard NAND Flash memory core. It is an attractive alternative to SPI-NOR and standard parallel NAND Flash, with advanced features.</p><p>• Total pin count is 8, including VCC and GND</p><p>• Density is 1Gb</p><p>• Superior write performance and cost per bit over SPI-NOR</p><p>• Significant low cost than parallel NAND</p><p>This low-pin-count NAND Flash memory follows the industry-standard serial peripheral interface, and always remains the same pin out from one density to another. The command sets resemble common SPI-NOR command sets, modified to handle NAND specific functions and added new features. It is an easy-to-integrate NAND Flash memory, with specified designed features to ease host management:</p><p>• User-selectable internal ECC. ECC parity is generated internally during a page program operation. When a page is read to the cache register, the ECC parity is detected and corrects the errors when necessary. The 64-bytes spare area is available even when internal ECC enabled. The device outputs corrected data and returns an ECC error status.</p><p>• Internal data move or copy back with internal ECC. The device can be easily refreshed and manage garbage collection task, without need of shift in and out of data.</p><p>• Power on Read with internal ECC. The device will automatically read first page of fist block to cache after power on, then host can directly read data from cache for easy boot. Also the data is promised correct by internal ECC when ECC enabled.</p><p>It is programmed and read in page-based operations, and erased in block-based operations. Data is transferred to or from the NAND Flash memory array, page by page, to a data register and a cache register. The cache register is closest to I/O control circuits and acts as a data buffer for the I/O data; the data register is closest to the memory array and acts as a data buffer for the NAND Flash memory array operation. The cache register functions as the buffer memory to enable page and random data READ/WRITE and copy back operations. These devices also use a SPI status register that reports the status of device operation.</p></div>
+        </section>
+
+        <section id="features" class="tab-panel">
+  <h2 class="section-title">Features</h2>
+  <ul class="features-list"><li>1Gb SLC NAND Flash</li><li>Advanced security Features - 20K-Byte OTP Region</li><li>Page Size:</li><li>Internal ECC On (ECC_EN = 1, default): Page Size: 2048-Byte + 64-Byte</li><li>Internal ECC Off (ECC_EN = 0): Page Size: 2048-Byte + 128-Byte</li><li>Program/Erase/Read Speed:</li><li>Page Program time: 320us typical</li><li>Block Erase time: 3ms typical</li><li>Page read time: 120us maximum</li><li>Standard, Dual, Quad SPI, DTR</li><li>Standard SPI: SCLK, CS#, SI, SO, WP#, HOLD#</li><li>Dual SPI: SCLK, CS#, SIO0, SIO1, WP#, HOLD#</li><li>Quad SPI: SCLK, CS#, SIO0, SIO1, SIO2, SIO3</li><li>DTR(Double Transfer Rate) Read: SCLK, CS#, SIO0, SIO1, SIO2, SIO3</li><li>Low Power Consumption:</li><li>30mA maximum active current</li><li>50uA maximum standby current</li><li>Enhanced access performance - 2KByte cache for fast random read</li><li>High Speed Clock Frequency:</li><li>3.3V:</li><li>133MHz for Standard/Dual/Quad SPI</li><li>104MHz for DTR Quad SPI</li><li>1.8V:</li><li>104MHz for Standard/Dual/Quad SPI</li><li>80MHz for DTR Quad SPI</li><li>Advanced Feature for NAND - Factory good block0</li><li>Deep Power Down(1.8V only)</li><li>Reliability:</li><li>P/E cycles with ECC: Typical 80K</li><li>Data retention: 10 Years</li><li>Software/Hardware Write Protection:</li><li>Write protect all/portion of memory via software</li><li>Register protection with WP# Pin</li><li>Power Lock Down Protection</li><li>Internal ECC - 8bits /528byte</li><li>Single Power Supply Voltage:</li><li>Full voltage range for 1.8V: 1.7V ~ 2.0V</li><li>Full voltage range for 3.3V: 2.7V ~ 3.6V</li></ul>
 </section>
 
         <section id="applications" class="tab-panel">
-  <h2 class="section-title">Common Applications</h2>
+  <h2 class="section-title">Applications</h2>
   <ul class="app-list"><li>Embedded control</li><li>IoT devices</li><li>Industrial automation</li><li>Consumer electronics</li><li>Motor control</li></ul>
 </section>
 
-        <section id="related" class="tab-panel">
-  <h2 class="section-title">Related Integrated Circuits</h2>
-  <p>Other integrated circuits we help global buyers source:</p>
-  <div class="related-grid"><div class="related-card"><a href="/products/mcp6042tisn/">MCP6042T-I/SN</a></div><div class="related-card"><a href="/products/mcp9808temc/">MCP9808T-E/MC</a></div><div class="related-card"><a href="/products/max3232euet/">MAX3232EUE+T</a></div><div class="related-card"><a href="/products/tca9517adgkr/">TCA9517ADGKR</a></div><div class="related-card"><a href="/products/tc4427aeoa713/">TC4427AEOA713</a></div><div class="related-card"><a href="/products/sn74lvc1g132dckr/">SN74LVC1G132DCKR</a></div></div>
+        <section id="documentation" class="tab-panel">
+  <h2 class="section-title">Datasheet</h2>
+  <details class="doc-acc" open>
+    <summary>
+      <span class="doc-acc-title" aria-label="Datasheet"><span class="doc-ico">&#128196;</span></span>
+      <span class="doc-acc-actions">
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C19193269.pdf" target="_blank" rel="nofollow noopener">Open</a>
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C19193269.pdf" target="_blank" rel="nofollow noopener" download>Download</a>
+      </span>
+    </summary>
+    <div class="doc-acc-body">
+      <div class="doc-preview"><embed src="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C19193269.pdf" type="application/pdf" title="GD5F1GM7UEYIGR Datasheet Preview" aria-label="GD5F1GM7UEYIGR Datasheet Preview" /></div>
+    </div>
+  </details>
 </section>
 
         
 
-        
+        <section id="compliance" class="tab-panel">
+  <h2 class="section-title">Compliance &amp; Export Codes</h2>
+  <div class="compliance-grid">
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>RoHS</th><td>ROHS</td></tr><tr><th>ECCN</th><td>3A991B1A</td></tr><tr><th>CNHTS</th><td>8542329000</td></tr><tr><th>USHTS</th><td>8542320071</td></tr><tr><th>TARIC</th><td>8542329000</td></tr></tbody>
+</table>
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>CAHTS</th><td>8542330000</td></tr><tr><th>BRHTS</th><td>85423299</td></tr><tr><th>INHTS</th><td>85423200</td></tr><tr><th>MXHTS</th><td>8542.32.99</td></tr></tbody>
+</table>
+  </div>
+</section>
       </div>
+
+      <!-- FAQ: independent section (removed from TAB nav / scroll-spy on 2026-09-12), placed before Sourcing -->
+      
 
       <!-- Sourcing (no stock/price/lead-time promises) -->
       <section class="sourcing">
         <h2>Sourcing Information</h2>
-        <p>SZ Procure is a sourcing partner for <strong>GD5F1GM7UEYIGR</strong>, not a stock catalog. We help international buyers source original components from the China electronics supply chain — send your quantity and target price for a quotation.</p>
+        <p>SZ Procure is a sourcing partner for the <strong>GD5F1GM7UEYIGR</strong> (GigaDevice Semicon Beijing Microcontroller), not a stock catalog. We help international buyers source this electronic component through the China electronics supply chain, with verified supplier sourcing and quality inspection.</p><p>For component sourcing of GD5F1GM7UEYIGR, we run supplier sourcing across the China electronics supply chain, supplier verification and multi-supplier quotation comparison so you can compare offers before purchase. We coordinate purchase orders, consolidation and international logistics dispatch from Shenzhen.</p><p>Quality control focuses on supplier qualification and screening, then product, packaging and labeling checks with outgoing inspection before dispatch. These are sourcing services we perform &mdash; they are not a guarantee of any supplier's stock, price, lead time or authenticity. Tell us your required quantity, target price and sourcing requirements, then <a href="#rfq-card">Request a Quote</a>.</p>
       </section>
     </div>
   </main>
@@ -232,7 +263,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'applications' }, { id: 'related' } ];
+    var groups = [ { id: 'specifications' }, { id: 'introduction' }, { id: 'features' }, { id: 'applications' }, { id: 'documentation' }, { id: 'compliance' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

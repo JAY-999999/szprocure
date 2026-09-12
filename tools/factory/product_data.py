@@ -249,7 +249,8 @@ def build_row(record, mpn, brand, mfr_map=None):
         "availability": "active",
         "alternative_parts": (record.get("alternative_parts") or "").strip(),
         "datasheet_url": (record.get("source_datasheet_url") or "").strip(),
-        "faq": fields["faq"], "image": "", "source": "", "source_url": "LCSC",
+        "faq": fields["faq"], "image": (record.get("source_image_url") or "").strip(),
+        "source": "", "source_url": "LCSC",
         "supplier_reference": (record.get("supplier_sku") or "").strip(),
     }
     # final CJK guard on attribute values (defence in depth)

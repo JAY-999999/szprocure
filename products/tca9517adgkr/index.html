@@ -91,9 +91,8 @@
         <h1 class="mpn">TCA9517ADGKR<span class="rohs-badge" aria-hidden="true">RoHS</span></h1>
         <p class="type">I2C;SMBus</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/texas-instruments/">Texas Instruments</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/integrated-circuits/">I2C;SMBus</a></div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/texas-instruments/">Texas Instruments</a></div></div><div class="id-row"><div class="id-label">MPN</div><div class="id-value">TCA9517ADGKR</div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/integrated-circuits/">I2C;SMBus</a></div></div><div class="id-row"><div class="id-label">Datasheet</div><div class="id-value"><a class="doc-link" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C201698.pdf" target="_blank" rel="nofollow noopener" download><span class="doc-ico">&#128196;</span> TCA9517ADGKR Datasheet</a></div></div><div class="id-row"><div class="id-label">Key Attributes</div><div class="id-value">TI TCA9517ADGKR - I2C;SMBus - 3.65 V</div></div>
         </div>
-        <p class="hero-desc">Texas Instruments TCA9517ADGKR - I2C;SMBus - 3.65 V</p>
       </div>
 
       
@@ -180,42 +179,54 @@
       <!-- TABS: sticky nav + scroll-spy; all panels in DOM (SEO-friendly) -->
       <div class="tab-wrap">
         <nav class="tab-nav">
-          <a href="#overview" class="tab-btn active">Overview</a>
-          <a href="#specifications" class="tab-btn">Specifications</a>
-          <a href="#documentation" class="tab-btn">Documentation</a>
+          <a href="#specifications" class="tab-btn active">Specifications</a>
+          <a href="#introduction" class="tab-btn">Introduction</a>
+          <a href="#features" class="tab-btn">Features</a>
           <a href="#applications" class="tab-btn">Applications</a>
-          <a href="#related" class="tab-btn">Related Parts</a>
+          <a href="#documentation" class="tab-btn">Datasheet</a>
           <a href="#alternative" class="tab-btn">Alternative Parts</a>
-          <a href="#faq" class="tab-btn">FAQ</a>
+          <a href="#compliance" class="tab-btn">Compliance &amp; Export Codes</a>
         </nav>
-
-        <section id="overview" class="tab-panel">
-          <h2 class="section-title">Product Overview</h2>
-          <p>Texas Instruments TCA9517ADGKR - I2C;SMBus - 3.65 V</p>
-        </section>
 
         <section id="specifications" class="tab-panel">
           <h2 class="section-title">Technical Specifications</h2>
-          <table class="spec-table">
-<tbody>
-<tr><th>Working Voltage V</th><td>3.65 V</td></tr><tr><th>Interface</th><td>I2C;SMBus</td></tr><tr><th>Number of Elements</th><td>1</td></tr></tbody>
-</table>
+          <div class="spec-grid">
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Working Voltage V</th><td>3.65 V</td></tr><tr><th>Interface</th><td>I2C;SMBus</td></tr><tr><th>Number of Elements</th><td>1</td></tr><tr><th>output type</th><td>Open-drain</td></tr><tr><th>Output Signal</th><td>-</td></tr></tbody></table>
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Input Signal</th><td>-</td></tr><tr><th>Channel Type</th><td>Bidirectional</td></tr><tr><th>Number of Circuits</th><td>2</td></tr><tr><th>Current - Output High(IOH)</th><td>-</td></tr><tr><th>Current - Output Low(IOL)</th><td>6mA</td></tr></tbody></table>
+</div>
         </section>
 
-        <section id="documentation" class="tab-panel">
-  <h2 class="section-title">Documentation</h2>
-  <p class="doc-note">Datasheet is available on request. Send the part number and our team will provide the official documentation.</p>
+        <section id="introduction" class="tab-panel">
+          <h2 class="section-title">Product Introduction</h2>
+          <div class="intro-body"><p>The TCA9517A is a bidirectional buffer with level-shifting capability for I²C and SMBus systems. It enables bidirectional voltage level translation (step-up/step-down) between low voltages (as low as 0.9V) and high voltages (2.7V to 5.5V) in mixed-mode applications. The device extends I²C and SMBus systems without impacting system performance, even during level translation.</p><p>The TCA9517A buffers the SDA and SCL signals on the I²C bus, allowing both buses in an I²C application to support bus capacitance up to 400pF.</p><p>The TCA9517A features two types of drivers: Side-A drivers and Side-B drivers. All inputs and I/Os are 5.5V overvoltage tolerant, even when the device is powered down (VCCB and/or VCCA = 0V).</p><p>The TCA9517A has a higher contention level threshold (VILC) than the TCA9517, allowing connection of slave devices with weaker pull-down capability.</p><p>The buffer design type on Side B prevents its use with devices that have a static voltage offset. This is because such devices do not recognize the buffered low-level signal as a valid logic low, and therefore do not pass it as a buffered low level.</p><p>The Side-B drivers operate at voltages between 2.7V and 5.5V. The output low level for this internal buffer is approximately 0.5V; however, when the output is internally driven low, the input voltage must be at least 70mV below the output low level. Higher-voltage low signals are referred to as buffered low levels. When a Side-B I/O is internally driven low, the input does not recognize this low level as a logic low. This characteristic prevents latch-up when the input low state is released.</p><p>The Side-A drivers operate at voltages between 0.9V and 5.5V and can sink larger currents. They do not require the buffered low-level characteristic (or static offset voltage). This means that a low-level signal on Side B is translated to a low level close to 0V on Side A, accommodating the smaller voltage swing of low-voltage logic. The output pull-down on Side A drives a &quot;hard&quot; low level, and the input threshold is set at 0.3×VCCA to meet the lower VOL requirements of systems with low-side supply voltages as low as 0.9V.</p><p>Two or more TCA9517A devices can be connected together on the A side to form various topologies, with Side A serving as the common bus. Additionally, Side A can be directly connected to any other buffer with a static or dynamic offset voltage. Multiple TCA9517A devices can be daisy-chained (with adjacent devices connected via Side A and Side B); the offset voltage does not accumulate — only flight time delay needs to be considered. Due to the buffered low-voltage characteristic of Side B, TCA9517A devices cannot be interconnected via Side B. Side B must not be connected to devices equipped with rise-time accelerators.</p><p>VCCA is used solely to provide the 0.3×VCCA reference voltage for the Side-A input comparator or for the power-good detection circuit. The TCA9517A logic and all I/Os are powered by the VCCB pin.</p><p>When used with standard I²C systems, pull-up resistors are required on the buffered buses to provide a logic high level. The TCA9517A uses the standard open-drain configuration for the I²C bus. The sizing of these pull-up resistors is system-dependent; however, each side of the repeater must have a pull-up resistor. This device is designed to work with Standard-Mode and Fast-Mode I²C devices, not just SMBus devices. In general-purpose IC systems that support Standard-Mode devices and multiple masters, Standard-Mode I²C devices are rated for only 3mA. Higher termination currents may be used under specific conditions.</p></div>
+        </section>
+
+        <section id="features" class="tab-panel">
+  <h2 class="section-title">Features</h2>
+  <ul class="features-list"><li>Dual-channel bidirectional buffer</li><li>Compatible with I²C bus and SMBus</li><li>Side A operating supply voltage range: 0.9V to 5.5V</li><li>Side B operating supply voltage range: 2.7V to 5.5V</li><li>Voltage level translation from 0.9V–5.5V to 2.7V–5.5V</li><li>Pin-compatible and functional drop-in replacement for PCA9515B</li><li>Active-high repeater enable input</li><li>Open-drain I2C I/O</li><li>5.5V tolerant I²C and enable inputs support mixed-mode signal operation</li><li>Compatible with Standard-mode and Fast-mode I²C devices and multimaster configurations</li><li>I²C pins go high-impedance when device is powered down</li><li>Latch-up performance exceeds 100mA per JESD 78 Class II</li><li>ESD protection exceeds JESD 22: 5500V HBM (A114-A), 200V MM (A115-A), 1000V CDM (C101)</li></ul>
 </section>
 
         <section id="applications" class="tab-panel">
-  <h2 class="section-title">Common Applications</h2>
+  <h2 class="section-title">Applications</h2>
   <ul class="app-list"><li>- Servers - Routers (telecom switching equipment) - Industrial equipment - Products with multiple I2C slave devices and/or long PCB traces</li></ul>
 </section>
 
-        <section id="related" class="tab-panel">
-  <h2 class="section-title">Related Integrated Circuits</h2>
-  <p>Other integrated circuits we help global buyers source:</p>
-  <div class="related-grid"><div class="related-card"><a href="/products/tc4427aeoa713/">TC4427AEOA713</a></div><div class="related-card"><a href="/products/sn74lvc1g132dckr/">SN74LVC1G132DCKR</a></div><div class="related-card"><a href="/products/25lc040atisn/">25LC040AT-I/SN</a></div><div class="related-card"><a href="/products/ad8656armzreel/">AD8656ARMZ-REEL</a></div><div class="related-card"><a href="/products/op275gszreel7/">OP275GSZ-REEL7</a></div><div class="related-card"><a href="/products/mcp6001utiot/">MCP6001UT-I/OT</a></div></div>
+        <section id="documentation" class="tab-panel">
+  <h2 class="section-title">Datasheet</h2>
+  <details class="doc-acc" open>
+    <summary>
+      <span class="doc-acc-title" aria-label="Datasheet"><span class="doc-ico">&#128196;</span></span>
+      <span class="doc-acc-actions">
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C201698.pdf" target="_blank" rel="nofollow noopener">Open</a>
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C201698.pdf" target="_blank" rel="nofollow noopener" download>Download</a>
+      </span>
+    </summary>
+    <div class="doc-acc-body">
+      <div class="doc-preview"><embed src="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C201698.pdf" type="application/pdf" title="TCA9517ADGKR Datasheet Preview" aria-label="TCA9517ADGKR Datasheet Preview" /></div>
+    </div>
+  </details>
 </section>
 
         <section id="alternative" class="tab-panel">
@@ -224,16 +235,35 @@
   <ul class="alt-list"><li><a href="/request-a-quote/?pn=TCA9517DGKR" class="alt-link">TCA9517DGKR <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=TCA9517DGKRQ1" class="alt-link">TCA9517DGKRQ1 <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=TPT29617A-VS1R" class="alt-link">TPT29617A-VS1R <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=NCT5927W TR" class="alt-link">NCT5927W TR <span class="muted">(request quote)</span></a></li></ul>
 </section>
 
-        <section id="faq" class="tab-panel">
+        <section id="compliance" class="tab-panel">
+  <h2 class="section-title">Compliance &amp; Export Codes</h2>
+  <div class="compliance-grid">
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>RoHS</th><td>ROHS3</td></tr><tr><th>ECCN</th><td>EAR99</td></tr><tr><th>CNHTS</th><td>8542399000</td></tr><tr><th>USHTS</th><td>8542390001</td></tr><tr><th>TARIC</th><td>8542399000</td></tr></tbody>
+</table>
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>CAHTS</th><td>8542390000</td></tr><tr><th>BRHTS</th><td>85423999</td></tr><tr><th>INHTS</th><td>85423900</td></tr><tr><th>MXHTS</th><td>8542.39.99</td></tr></tbody>
+</table>
+  </div>
+</section>
+      </div>
+
+      <!-- FAQ: independent section (removed from TAB nav / scroll-spy on 2026-09-12), placed before Sourcing -->
+      <section id="faq" class="tab-panel" style="grid-column:1;margin-top:16px;margin-bottom:16px">
   <h2 class="section-title">Frequently Asked Questions</h2>
   <div class="faq-item"><h3>What interface does TCA9517ADGKR support</h3><p>TCA9517ADGKR is a I2C;SMBus interface device</p></div>
 </section>
-      </div>
 
       <!-- Sourcing (no stock/price/lead-time promises) -->
       <section class="sourcing">
         <h2>Sourcing Information</h2>
-        <p>SZ Procure is a sourcing partner for <strong>TCA9517ADGKR</strong>, not a stock catalog. We help international buyers source original components from the China electronics supply chain — send your quantity and target price for a quotation.</p>
+        <p>SZ Procure is a sourcing partner for the <strong>TCA9517ADGKR</strong> (Texas Instruments I2C;SMBus), not a stock catalog. We help international buyers source this electronic component through the China electronics supply chain, with verified supplier sourcing and quality inspection.</p><p>For TCA9517ADGKR, our electronics sourcing covers supplier sourcing across the China electronics supply chain, supplier verification and multi-supplier quotation comparison so you can compare offers before purchase. We coordinate purchase orders, consolidation and international logistics dispatch from Shenzhen.</p><p>Quality control includes supplier qualification and screening, then product, packaging and labeling checks with outgoing inspection before dispatch. These are sourcing services we perform &mdash; they are not a guarantee of any supplier's stock, price, lead time or authenticity. Tell us your required quantity, target price and sourcing requirements, then <a href="#rfq-card">Request a Quote</a>.</p>
       </section>
     </div>
   </main>
@@ -250,7 +280,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'applications' }, { id: 'related' }, { id: 'alternative' }, { id: 'faq' } ];
+    var groups = [ { id: 'specifications' }, { id: 'introduction' }, { id: 'features' }, { id: 'applications' }, { id: 'documentation' }, { id: 'alternative' }, { id: 'compliance' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

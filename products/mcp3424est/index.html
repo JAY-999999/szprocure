@@ -91,9 +91,8 @@
         <h1 class="mpn">MCP3424-E/ST<span class="rohs-badge" aria-hidden="true">RoHS</span></h1>
         <p class="type">I2C</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/microchip-technology/">Microchip Technology</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/integrated-circuits/">I2C</a></div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/microchip-technology/">Microchip Technology</a></div></div><div class="id-row"><div class="id-label">MPN</div><div class="id-value">MCP3424-E/ST</div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/integrated-circuits/">I2C</a></div></div><div class="id-row"><div class="id-label">Datasheet</div><div class="id-value"><a class="doc-link" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C219880.pdf" target="_blank" rel="nofollow noopener" download><span class="doc-ico">&#128196;</span> MCP3424-E/ST Datasheet</a></div></div><div class="id-row"><div class="id-label">Key Attributes</div><div class="id-value">MICROCHIP MCP3424-E/ST - I2C - 4.10 V</div></div>
         </div>
-        <p class="hero-desc">Microchip Technology MCP3424-E/ST - I2C - 4.10 V</p>
       </div>
 
       
@@ -180,42 +179,54 @@
       <!-- TABS: sticky nav + scroll-spy; all panels in DOM (SEO-friendly) -->
       <div class="tab-wrap">
         <nav class="tab-nav">
-          <a href="#overview" class="tab-btn active">Overview</a>
-          <a href="#specifications" class="tab-btn">Specifications</a>
-          <a href="#documentation" class="tab-btn">Documentation</a>
+          <a href="#specifications" class="tab-btn active">Specifications</a>
+          <a href="#introduction" class="tab-btn">Introduction</a>
+          <a href="#features" class="tab-btn">Features</a>
           <a href="#applications" class="tab-btn">Applications</a>
-          <a href="#related" class="tab-btn">Related Parts</a>
+          <a href="#documentation" class="tab-btn">Datasheet</a>
           <a href="#alternative" class="tab-btn">Alternative Parts</a>
-          <a href="#faq" class="tab-btn">FAQ</a>
+          <a href="#compliance" class="tab-btn">Compliance &amp; Export Codes</a>
         </nav>
-
-        <section id="overview" class="tab-panel">
-          <h2 class="section-title">Product Overview</h2>
-          <p>Microchip Technology MCP3424-E/ST - I2C - 4.10 V</p>
-        </section>
 
         <section id="specifications" class="tab-panel">
           <h2 class="section-title">Technical Specifications</h2>
-          <table class="spec-table">
-<tbody>
-<tr><th>Working Voltage V</th><td>4.1 V</td></tr><tr><th>Interface</th><td>I2C</td></tr></tbody>
-</table>
+          <div class="spec-grid">
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Working Voltage V</th><td>4.1 V</td></tr><tr><th>Interface</th><td>I2C</td></tr><tr><th>Voltage Reference</th><td>Built-in</td></tr><tr><th>Clock/Oscillator</th><td>Built-in</td></tr><tr><th>Quiescent Current (Iq)</th><td>135uA</td></tr></tbody></table>
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Resolution(Bits)</th><td>3.75Hz;18</td></tr><tr><th>ADC architecture</th><td>Sigma-Delta</td></tr><tr><th>Integral non - linearity</th><td>-</td></tr><tr><th>Programmable Gain</th><td>Support</td></tr></tbody></table>
+</div>
         </section>
 
-        <section id="documentation" class="tab-panel">
-  <h2 class="section-title">Documentation</h2>
-  <p class="doc-note">Datasheet is available on request. Send the part number and our team will provide the official documentation.</p>
+        <section id="introduction" class="tab-panel">
+          <h2 class="section-title">Product Introduction</h2>
+          <div class="intro-body"><p>The MCP3422, MCP3423 and MCP3424 devices (MCP3422/3/4) are low noise and high accuracy 18-Bit delta-sigma analog-to-digital (△≥ A/D) converters. These devices can convert analog inputs to digital codes with up to 18 bits of resolution.</p><p>The on-board 2.048V reference voltage enables an input range of ± 2.048V differentially (fullscale range = 4.096V/PGA).</p><p>These devices can output analog-to-digital conversion results at rates of 3.75, 15, 60, or 240 samples per second depending on the user controllable configuration bit settings using the two-wire I²C serial interface. During each conversion, the device calibrates offset and gain errors automatically. This provides accurate conversion results from conversion to conversion over variations in temperature and power supply fluctuation.</p><p>The user can select the PGA gain of x1, x2, x4, or x8 before the analog-to-digital conversion takes place. This allows the MCP3422/3/4 devices to convert a very weak input signal with high resolution.</p><p>The MCP3422/3/4 devices have two conversion modes: (a) One-Shot Conversion mode and (b) Continuous Conversion mode. In One-Shot conversion mode, the device performs a single conversion and enters a low current standby mode automatically until it receives another conversion command. This reduces current consumption greatly during idle periods. In Continuous conversion mode, the conversion takes place continuously at the set conversion speed. The device updates its output buffer with the most recent conversion data.</p><p>The devices operate from a single 2.7V to 5.5V power supply and have a two-wire I²C compatible serial interface for a standard (100 kHz), fast (400 kHz), or high-speed (3.4 MHz) mode.</p><p>The I²C address bits for the MCP3423 and MCP3424 are selected by using two external I²C address selection pins (Adro and Adr1). The user can configure the device to one of eight available addresses by connecting these two address selection pins to VDD, VSS or float. The I²C address bits of the MCP3422 are programmed at the factory during production.</p><p>The MCP3422 and MCP3423 devices have two differential input channels and the MCP3424 has four differential input channels. All electrical properties of these three devices are the same except the differences in the number of input channels and I²C address bit selection options.</p><p>The MCP3422 is available in 8-pin SOIC, DFN, and MSOP packages. The MCP3423 is available in 10-pin DFN, and MSOP packages. The MCP3424 is available in 14-pin SOIC and TSSOP packages.</p></div>
+        </section>
+
+        <section id="features" class="tab-panel">
+  <h2 class="section-title">Features</h2>
+  <ul class="features-list"><li>18-bit △ ADC with Differential Inputs: 2 channels (MCP3422 and MCP3423), 4 channels (MCP3424)</li><li>Differential Input Full Scale Range: -VREF to +VREF</li><li>Self Calibration of Internal Offset and Gain per Each Conversion</li><li>On-Board Voltage Reference (VREF): Accuracy: 2.048V ± 0.05%, Drift: 15 ppm/℃</li><li>On-Board Programmable Gain Amplifier (PGA): Gains of 1, 2, 4 or 8</li><li>INL: 10 ppm of Full Scale Range</li><li>Programmable Data Rate Options: 3.75 SPS (18 bits), 15 SPS (16 bits), 60 SPS (14 bits), 240 SPS (12 bits)</li><li>One-Shot or Continuous Conversion Options</li><li>Low Current Consumption: 135 μA typical (VDD = 3V, Continuous Conversion), 36 μA typical (VDD = 3V, One-Shot Conversion with 1 SPS)</li><li>On-Board Oscillator I²C Interface: Standard, Fast and High Speed Modes, User configurable two external address pins for MCP3423 and MCP3424</li><li>Single Supply Operation: 2.7V to 5.5V</li><li>Extended Temperature Range: -40°C to +125°C</li></ul>
 </section>
 
         <section id="applications" class="tab-panel">
-  <h2 class="section-title">Common Applications</h2>
+  <h2 class="section-title">Applications</h2>
   <ul class="app-list"><li>- Portable Instrumentation and Consumer Goods - Temperature Sensing with RTD, Thermistor, and Thermocouple - Bridge Sensing for Pressure, Strain, and Force - Weigh Scales - Battery Fuel Gauges - Factory Automation Equipment</li></ul>
 </section>
 
-        <section id="related" class="tab-panel">
-  <h2 class="section-title">Related Integrated Circuits</h2>
-  <p>Other integrated circuits we help global buyers source:</p>
-  <div class="related-grid"><div class="related-card"><a href="/products/lan9500aiabzj/">LAN9500AI-ABZJ</a></div><div class="related-card"><a href="/products/usb2514bim2/">USB2514B-I/M2</a></div><div class="related-card"><a href="/products/pic18f46k22imv/">PIC18F46K22-I/MV</a></div><div class="related-card"><a href="/products/tfdu4101tr3/">TFDU4101-TR3</a></div><div class="related-card"><a href="/products/ow7el89cenuyo3ylc32m/">OW7EL89CENUYO3YLC-32M</a></div><div class="related-card"><a href="/products/max3490eesat/">MAX3490EESA+T</a></div></div>
+        <section id="documentation" class="tab-panel">
+  <h2 class="section-title">Datasheet</h2>
+  <details class="doc-acc" open>
+    <summary>
+      <span class="doc-acc-title" aria-label="Datasheet"><span class="doc-ico">&#128196;</span></span>
+      <span class="doc-acc-actions">
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C219880.pdf" target="_blank" rel="nofollow noopener">Open</a>
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C219880.pdf" target="_blank" rel="nofollow noopener" download>Download</a>
+      </span>
+    </summary>
+    <div class="doc-acc-body">
+      <div class="doc-preview"><embed src="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C219880.pdf" type="application/pdf" title="MCP3424-E/ST Datasheet Preview" aria-label="MCP3424-E/ST Datasheet Preview" /></div>
+    </div>
+  </details>
 </section>
 
         <section id="alternative" class="tab-panel">
@@ -224,16 +235,35 @@
   <ul class="alt-list"><li><a href="/request-a-quote/?pn=MCP3424T-E/ST" class="alt-link">MCP3424T-E/ST <span class="muted">(request quote)</span></a></li></ul>
 </section>
 
-        <section id="faq" class="tab-panel">
+        <section id="compliance" class="tab-panel">
+  <h2 class="section-title">Compliance &amp; Export Codes</h2>
+  <div class="compliance-grid">
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>RoHS</th><td>ROHS3</td></tr><tr><th>ECCN</th><td>EAR99</td></tr><tr><th>CNHTS</th><td>8542399000</td></tr><tr><th>USHTS</th><td>8542390001</td></tr><tr><th>TARIC</th><td>8542399000</td></tr></tbody>
+</table>
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>CAHTS</th><td>8542390000</td></tr><tr><th>BRHTS</th><td>85423999</td></tr><tr><th>INHTS</th><td>85423900</td></tr><tr><th>MXHTS</th><td>8542.39.99</td></tr></tbody>
+</table>
+  </div>
+</section>
+      </div>
+
+      <!-- FAQ: independent section (removed from TAB nav / scroll-spy on 2026-09-12), placed before Sourcing -->
+      <section id="faq" class="tab-panel" style="grid-column:1;margin-top:16px;margin-bottom:16px">
   <h2 class="section-title">Frequently Asked Questions</h2>
   <div class="faq-item"><h3>What interface does MCP3424-E/ST support</h3><p>MCP3424-E/ST is a I2C interface device</p></div>
 </section>
-      </div>
 
       <!-- Sourcing (no stock/price/lead-time promises) -->
       <section class="sourcing">
         <h2>Sourcing Information</h2>
-        <p>SZ Procure is a sourcing partner for <strong>MCP3424-E/ST</strong>, not a stock catalog. We help international buyers source original components from the China electronics supply chain — send your quantity and target price for a quotation.</p>
+        <p>SZ Procure is a sourcing partner for the <strong>MCP3424-E/ST</strong> (Microchip Technology I2C), not a stock catalog. We help international buyers source this electronic component through the China electronics supply chain, with verified supplier sourcing and quality inspection.</p><p>For MCP3424-E/ST, our electronics sourcing covers supplier sourcing across the China electronics supply chain, supplier verification and multi-supplier quotation comparison so you can compare offers before purchase. We coordinate purchase orders, consolidation and international logistics dispatch from Shenzhen.</p><p>Quality control includes supplier qualification and screening, then product, packaging and labeling checks with outgoing inspection before dispatch. These are sourcing services we perform &mdash; they are not a guarantee of any supplier's stock, price, lead time or authenticity. Tell us your required quantity, target price and sourcing requirements, then <a href="#rfq-card">Request a Quote</a>.</p>
       </section>
     </div>
   </main>
@@ -250,7 +280,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'applications' }, { id: 'related' }, { id: 'alternative' }, { id: 'faq' } ];
+    var groups = [ { id: 'specifications' }, { id: 'introduction' }, { id: 'features' }, { id: 'applications' }, { id: 'documentation' }, { id: 'alternative' }, { id: 'compliance' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;
