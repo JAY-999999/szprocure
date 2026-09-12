@@ -341,12 +341,22 @@ def flatten_envelope(env):
         "description": desc_norm,
         "attributes_json": json.dumps(attrs_canon, ensure_ascii=False),
         "attributes_json_unmapped": json.dumps(attrs_unmapped, ensure_ascii=False),
-        "source_datasheet_url": "",
+        "source_datasheet_url": (mp.get("pdfUrl") or "").strip(),
         "supplier_sku": (mp.get("productCode") or "").strip(),
         "alternative_parts": alts,
         "related_parts_raw": related_raw,
         "_applications_en": apps_en,
         "_source_kind": "lcsc_http_json",
+        # --- extensions forwarded from the RAW envelope (pool-only; NOT in the
+        #     MASTER 19 columns). They are no longer silently dropped here.
+        #     MASTER persistence (new columns) is STOP-gated and deferred with the
+        #     746-SKU backfill (item 2). The 03 renderer already reads htsMap /
+        #     eccn / faqs directly from RAW for live pages. ---
+        "_hts_map": json.dumps(mp.get("htsMap") or {}, ensure_ascii=False),
+        "_eccn": (mp.get("eccn") or "").strip(),
+        "_weight": mp.get("weight"),
+        "_moq": mp.get("minBuyNumber"),
+        "_faqs_raw": json.dumps(mp.get("faqs") or [], ensure_ascii=False),
     }
 
 

@@ -248,7 +248,7 @@ def build_row(record, mpn, brand, mfr_map=None):
         "attributes_json": fields["attributes_json"],
         "availability": "active",
         "alternative_parts": (record.get("alternative_parts") or "").strip(),
-        "datasheet_url": "",
+        "datasheet_url": (record.get("source_datasheet_url") or "").strip(),
         "faq": fields["faq"], "image": "", "source": "", "source_url": "LCSC",
         "supplier_reference": (record.get("supplier_sku") or "").strip(),
     }
