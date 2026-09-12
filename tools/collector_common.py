@@ -16,6 +16,7 @@
 """
 from __future__ import annotations
 
+import os
 import random
 import threading
 import time
@@ -131,7 +132,7 @@ def shuffled_codes(codes, seed: int = 20260911):
 # ---------------------------------------------------------------------------
 def launch_stealth(executable_path: str = EDGE, headless: bool = True,
                    locale: str = "en-US", viewport: dict = None,
-                   ua: str = None):
+                   ua: str = None, proxy: dict = None):
     """
     启动一个隐藏自动化痕迹的 Edge 上下文。
     返回 (pw, browser, context); 调用方用 close_stealth(handle) 关闭。
@@ -145,7 +146,7 @@ def launch_stealth(executable_path: str = EDGE, headless: bool = True,
     if ua is None:
         ua = UA_POOL[0]
     pw = sync_playwright().start()
-    b = pw.chromium.launch(
+    launch_kwargs = dict(
         executable_path=executable_path,
         headless=headless,
         args=[
@@ -155,6 +156,9 @@ def launch_stealth(executable_path: str = EDGE, headless: bool = True,
             "--disable-dev-shm-usage",
         ],
     )
+    if proxy:
+        launch_kwargs["proxy"] = proxy
+    b = pw.chromium.launch(**launch_kwargs)
     ctx = b.new_context(user_agent=ua, locale=locale, viewport=viewport)
     ctx.add_init_script(
         "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
@@ -172,6 +176,63 @@ def close_stealth(handle):
             closer()
         except Exception:  # noqa: BLE001
             pass
+
+
+# ---------------------------------------------------------------------------
+# P1.G — SOCKS5 / 静态 IP 出口 (匿名: 不暴露真实本机 IP)
+# ---------------------------------------------------------------------------
+def load_proxy() -> str | None:
+    """读取代理 URL: 优先环境变量 LCSC_PROXY, 否则 tools/.lcsc_proxy (gitignored)。"""
+    env = os.environ.get("LCSC_PROXY")
+    if env:
+        return env.strip()
+    here = os.path.dirname(os.path.abspath(__file__))
+    p = os.path.join(here, ".lcsc_proxy")
+    if os.path.exists(p):
+        try:
+            with open(p, "r", encoding="utf-8") as f:
+                return f.read().strip()
+        except Exception:  # noqa: BLE001
+            return None
+    return None
+
+
+def parse_proxy(proxy_url: str | None) -> dict | None:
+    """转为 Playwright launch proxy 字典; 无则返回 None。
+
+    Chromium 的 SOCKS5 认证需 username/password 单独字段, 不能只嵌在 server URL
+    (否则 SOCKS 握手被拒 -> ERR_SOCKS_CONNECTION_FAILED)。故此处把 userinfo 拆出。
+    """
+    if not proxy_url:
+        return None
+    from urllib.parse import urlsplit
+    sp = urlsplit(proxy_url)
+    server = f"{sp.scheme}://{sp.hostname}"
+    if sp.port:
+        server += f":{sp.port}"
+    d = {"server": server}
+    if sp.username:
+        d["username"] = sp.username
+    if sp.password:
+        d["password"] = sp.password
+    return d
+
+
+def verify_egress_ip(ctx, expected: str | None = None) -> str | None:
+    """preflight: 经已代理 ctx 访问 ipinfo.io, 打印出口 IP, 确认静态 IP 生效。"""
+    try:
+        page = ctx.new_page()
+        try:
+            page.goto("https://ipinfo.io/ip", wait_until="domcontentloaded", timeout=20000)
+            ip = (page.inner_text("body") or "").strip()
+        finally:
+            page.close()
+        tag = "OK" if (not expected or expected in ip) else "WARN(非期望IP)"
+        print(f"[egress] 出口IP={ip} (期望静态IP={expected}) [{tag}]")
+        return ip
+    except Exception as e:  # noqa: BLE001
+        print(f"[warn] 出口IP自检失败: {e}")
+        return None
 
 
 # ---------------------------------------------------------------------------

@@ -55,6 +55,7 @@ import time
 import random
 import urllib.request as urllib_request
 import urllib.error as urllib_error
+import urllib.parse as urllib_parse
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 
@@ -159,13 +160,60 @@ def build_url(code: str) -> str:
     return f"https://www.lcsc.com/en/product-detail/{code}.html"
 
 
+# SOCKS5 / 静态 IP 出口: urllib 兜底路径的全局代理 opener (浏览器模式由 Playwright 代理处理)
+_URLLIB_PROXY_OPENER = None
+
+
+def _mask_proxy(url: str) -> str:
+    """日志中脱敏代理 URL, 仅显示 host:port, 不暴露账密。"""
+    if not url:
+        return url
+    try:
+        sp = urllib_parse.urlsplit(url)
+        netloc = sp.hostname or ""
+        if sp.port:
+            netloc += f":{sp.port}"
+        return f"{sp.scheme}://***:***@{netloc}"
+    except Exception:  # noqa: BLE001
+        return "***"
+
+
+def configure_urllib_proxy(proxy_url: str | None):
+    """为 urllib 兜底路径配置代理。SOCKS5 需 PySocks; HTTP/HTTPS 用 ProxyHandler。"""
+    global _URLLIB_PROXY_OPENER
+    _URLLIB_PROXY_OPENER = None
+    if not proxy_url:
+        return
+    if proxy_url.startswith("socks5"):
+        try:
+            import socks
+            import socket
+            sp = urllib_parse.urlsplit(proxy_url)
+            socks.set_default_proxy(socks.SOCKS5, sp.hostname, sp.port or 1080,
+                                    username=sp.username or None,
+                                    password=sp.password or None)
+            socket.socket = socks.socksocket
+            # urlopen 直接走被替换的默认 socket, 无需独立 opener
+        except ImportError:
+            print("[warn] PySocks 未安装, urllib 兜底不走代理(请用浏览器模式); "
+                  "pip install PySocks")
+    else:
+        handler = urllib_request.ProxyHandler({"http": proxy_url, "https": proxy_url})
+        _URLLIB_PROXY_OPENER = urllib_request.build_opener(handler)
+
+
 def fetch_page(code: str, timeout: float):
     """urllib 兜底路径: 返回 (http_status, html_str)。非 2xx 抛 HTTPError。"""
     url = build_url(code)
     req = urllib_request.Request(url, headers=HDR)
-    with urllib_request.urlopen(req, timeout=timeout) as r:
-        status = r.getcode()
-        raw = r.read()
+    if _URLLIB_PROXY_OPENER is not None:
+        with _URLLIB_PROXY_OPENER.open(req, timeout=timeout) as r:
+            status = r.getcode()
+            raw = r.read()
+    else:
+        with urllib_request.urlopen(req, timeout=timeout) as r:
+            status = r.getcode()
+            raw = r.read()
     return status, raw.decode("utf-8", "replace")
 
 
@@ -613,7 +661,21 @@ def main(argv=None):
                     help="每 N 个产品插入 5-15s 长暂停 (0=关闭, 默认 20)")
     ap.add_argument("--no-warmup", action="store_true",
                     help="浏览器模式跳过 首页/分类 预热漏斗")
+    ap.add_argument("--proxy", default=None,
+                    help="SOCKS5/HTTP 代理 URL (覆盖 LCSC_PROXY 环境变量 / tools/.lcsc_proxy)")
     args = ap.parse_args(argv)
+
+    # 静态 IP / SOCKS5 出口 (匿名: 不暴露真实本机 IP)
+    proxy_url = os.environ.get("LCSC_PROXY") or (cc.load_proxy() if cc else None)
+    if getattr(args, "proxy", None):
+        proxy_url = args.proxy
+    pw_proxy = cc.parse_proxy(proxy_url) if (cc and proxy_url) else None
+    expect_ip = os.environ.get("LCSC_EXPECT_IP", "82.25.225.72")
+    configure_urllib_proxy(proxy_url)
+    if proxy_url:
+        print(f"[01-acquire] 出口代理: {_mask_proxy(proxy_url)} (真实本机IP不暴露)")
+    else:
+        print("[01-acquire] 未配置代理, 直连本机IP")
 
     codes = list(args.codes)
     if args.codes_file:
@@ -679,8 +741,10 @@ def main(argv=None):
     if args.browser and cc is not None:
         handle = None
         try:
-            handle = cc.launch_stealth(cc.EDGE, ua=cc.random_ua())
+            handle = cc.launch_stealth(cc.EDGE, ua=cc.random_ua(), proxy=pw_proxy)
             _, _b, ctx = handle
+            if pw_proxy:
+                cc.verify_egress_ip(ctx, expected=expect_ip)
             # P2.G — 访问漏斗 / 会话预热: 先逛首页 + 英文站, 让 LCSC 自然落下 cookie
             if not args.no_warmup:
                 warm = ctx.new_page()

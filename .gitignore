@@ -92,3 +92,6 @@ enrich_slug_map.json
 # --- PHASE 1 Incremental Publishing build state (regenerable from products/;
 #     NOT hand-edited, NOT deployed, NOT committed) ---
 build_manifest.json
+
+# --- 01 采集器 SOCKS5 代理凭据 (本地仅运行用; 绝不进仓库 / 部署包) ---
+tools/.lcsc_proxy
