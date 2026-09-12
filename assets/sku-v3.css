@@ -24,7 +24,7 @@
 .sku-v3 .breadcrumb a:hover{color:var(--accent)}
 .sku-v3 .breadcrumb span{margin:0 6px}
 
-.sku-v3 .page-grid{display:grid;grid-template-columns:7fr 3fr;gap:32px;align-items:start;padding:28px 0 36px}
+.sku-v3 .page-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,3fr);gap:32px;align-items:start;padding:28px 0 36px}
 .sku-v3 .hero-left{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px 32px;grid-column:1}
 .sku-v3 .mfr{font-size:13px;font-weight:600;color:var(--text-3);letter-spacing:.04em;text-transform:uppercase;margin:0 0 10px}
 .sku-v3 .mfr a{color:var(--text-2)}
