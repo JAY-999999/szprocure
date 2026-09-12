@@ -132,12 +132,17 @@ def shuffled_codes(codes, seed: int = 20260911):
 # ---------------------------------------------------------------------------
 def launch_stealth(executable_path: str = EDGE, headless: bool = True,
                    locale: str = "en-US", viewport: dict = None,
-                   ua: str = None, proxy: dict = None):
+                   ua: str = None, proxy: dict = None,
+                   disable_background_networking: bool = True):
     """
     启动一个隐藏自动化痕迹的 Edge 上下文。
     返回 (pw, browser, context); 调用方用 close_stealth(handle) 关闭。
     navigator.webdriver 被置为 undefined; --disable-blink-features 关闭
     AutomationControlled 标志, 降低 headless 典型泄漏。
+
+    disable_background_networking=True (默认): 关闭 Chromium 后台联网
+    (safe-browsing / 组件更新 / 同步 / 遥测 / 扩展商店等), 避免本机 IP /
+    腾讯云出口 IP 经这些旁路泄漏, 也避免后台流量触发 LCSC 风控。
     """
     if not _HAVE_PLAYWRIGHT:
         raise RuntimeError("playwright 不可用; 请改用 urllib 兜底 (--no-browser)")
@@ -146,15 +151,30 @@ def launch_stealth(executable_path: str = EDGE, headless: bool = True,
     if ua is None:
         ua = UA_POOL[0]
     pw = sync_playwright().start()
+    launch_args = [
+        "--disable-blink-features=AutomationControlled",
+        "--no-sandbox",
+        "--disable-gpu",
+        "--disable-dev-shm-usage",
+    ]
+    if disable_background_networking:
+        # 关闭一切非采集必需的 Chromium 后台联网, 防止真实/出口 IP 经旁路泄漏
+        launch_args += [
+            "--disable-background-networking",
+            "--disable-component-update",
+            "--disable-sync",
+            "--metrics-recording-only",
+            "--no-first-run",
+            "--disable-extensions",
+            "--disable-default-apps",
+            "--disable-background-downloads",
+            "--disable-client-side-phishing-detection",
+            "--disable-features=Translate,OptimizationHints,MediaRouter",
+        ]
     launch_kwargs = dict(
         executable_path=executable_path,
         headless=headless,
-        args=[
-            "--disable-blink-features=AutomationControlled",
-            "--no-sandbox",
-            "--disable-gpu",
-            "--disable-dev-shm-usage",
-        ],
+        args=launch_args,
     )
     if proxy:
         launch_kwargs["proxy"] = proxy
@@ -218,8 +238,15 @@ def parse_proxy(proxy_url: str | None) -> dict | None:
     return d
 
 
-def verify_egress_ip(ctx, expected: str | None = None) -> str | None:
-    """preflight: 经已代理 ctx 访问 ipinfo.io, 打印出口 IP, 确认静态 IP 生效。"""
+def verify_egress_ip(ctx, expected: str | None = None,
+                     require: bool = False) -> str | None:
+    """
+    preflight: 经已代理 ctx 访问 ipinfo.io, 打印出口 IP, 确认静态 IP 生效。
+
+    require=False (默认, 向后兼容): 自检失败/非期望IP 仅 WARN, 返回 None/IP。
+    require=True  (fail-closed): 出口 IP 取不到或非期望静态 IP 时抛 RuntimeError,
+      由调用方在采集前 sys.exit, 杜绝「真实/腾讯云 IP 经直连泄漏」的最坏情况。
+    """
     try:
         page = ctx.new_page()
         try:
@@ -229,9 +256,14 @@ def verify_egress_ip(ctx, expected: str | None = None) -> str | None:
             page.close()
         tag = "OK" if (not expected or expected in ip) else "WARN(非期望IP)"
         print(f"[egress] 出口IP={ip} (期望静态IP={expected}) [{tag}]")
+        if require and expected and expected not in ip:
+            raise RuntimeError(
+                f"verify_egress_ip 失败: 实测出口IP={ip!r} 非期望静态IP={expected!r}")
         return ip
     except Exception as e:  # noqa: BLE001
         print(f"[warn] 出口IP自检失败: {e}")
+        if require:
+            raise RuntimeError(f"verify_egress_ip 自检异常: {e}")
         return None
 
 

@@ -93,6 +93,54 @@ except Exception:  # noqa: BLE001
     cc = None
     DEFAULT_UA = UA
 
+# PySocks 可用性 (仅 urllib 兜底 SOCKS5 路径需要); 浏览器模式由 Playwright 代理处理
+try:
+    import socks  # PySocks
+    _HAVE_PYSOCKS = True
+except Exception:  # noqa: BLE001
+    _HAVE_PYSOCKS = False
+
+
+def _read_proxy_url_local() -> str | None:
+    """不依赖 collector_common, 直接读取代理 URL (env LCSC_PROXY 或 tools/.lcsc_proxy)。
+
+    用途: fail-closed 探针。即便 collector_common 导入失败 (cc=None), 也能发现
+    「代理其实已配置, 但被 cc=None 静默绕过 -> 直连泄漏真实 IP」的最坏情况。
+    """
+    env = os.environ.get("LCSC_PROXY")
+    if env:
+        return env.strip()
+    p = os.path.join(SCRIPT_DIR, ".lcsc_proxy")
+    if os.path.exists(p):
+        try:
+            with open(p, "r", encoding="utf-8") as f:
+                return f.read().strip()
+        except Exception:  # noqa: BLE001
+            return None
+    return None
+
+
+def _verify_egress_urllib(proxy_url: str, expect_ip: str | None) -> str | None:
+    """urllib 兜底路径的出口 IP 自检: 经当前代理 opener 访问 ipinfo.io, 返回出口 IP。
+
+    失败 (取不到 / 异常) 返回 None; 由调用方按 fail-closed 策略决定退出或告警。
+    """
+    try:
+        req = urllib_request.Request(
+            "https://ipinfo.io/ip", headers={"User-Agent": UA})
+        if _URLLIB_PROXY_OPENER is not None:
+            with _URLLIB_PROXY_OPENER.open(req, timeout=20) as r:
+                ip = r.read().decode("utf-8", "replace").strip()
+        else:
+            with urllib_request.urlopen(req, timeout=20) as r:
+                ip = r.read().decode("utf-8", "replace").strip()
+        tag = "OK" if (not expect_ip or expect_ip in ip) else "WARN"
+        print(f"[egress] 出口IP={ip} (期望静态IP={expect_ip}) [{tag}]")
+        return ip
+    except Exception as e:  # noqa: BLE001
+        print(f"[warn] 出口IP自检失败(urllib): {e}")
+        return None
+
 NEXT_DATA_RE = re.compile(
     r'<script id="__NEXT_DATA__"[^>]*>(.*?)</script>', re.S)
 
@@ -663,19 +711,48 @@ def main(argv=None):
                     help="浏览器模式跳过 首页/分类 预热漏斗")
     ap.add_argument("--proxy", default=None,
                     help="SOCKS5/HTTP 代理 URL (覆盖 LCSC_PROXY 环境变量 / tools/.lcsc_proxy)")
+    ap.add_argument("--allow-direct", action="store_true",
+                    help="破 fail-closed 铁律: 允许在代理匿名保证无法满足时直连真实IP "
+                         "(仅在确认安全/本地调试时谨慎使用)")
     args = ap.parse_args(argv)
 
     # 静态 IP / SOCKS5 出口 (匿名: 不暴露真实本机 IP)
-    proxy_url = os.environ.get("LCSC_PROXY") or (cc.load_proxy() if cc else None)
-    if getattr(args, "proxy", None):
-        proxy_url = args.proxy
+    # fail-closed 探针: 即使 collector_common 导入失败, 也要独立读代理配置,
+    # 避免「代理已配置却被 cc=None 静默绕过 -> 直连泄漏真实/腾讯云 IP」。
+    env_proxy = os.environ.get("LCSC_PROXY")
+    file_proxy = _read_proxy_url_local()  # 不依赖 cc, 直接读 tools/.lcsc_proxy
+    proxy_url = args.proxy or env_proxy or file_proxy
     pw_proxy = cc.parse_proxy(proxy_url) if (cc and proxy_url) else None
     expect_ip = os.environ.get("LCSC_EXPECT_IP", "82.25.225.72")
+
+    # ---- fail-closed 门禁 (P0#1 / P0#2 / P1) ----
+    # 原则: 一旦「配置/意图是走代理匿名」, 就必须保证匿名; 任何环节无法满足 ->
+    #       默认 sys.exit, 除非显式 --allow-direct (运营确认接受直连风险)。
+    if proxy_url is not None:
+        if cc is None:
+            # P0#1: cc 导入失败 => 失去 .lcsc_proxy 读取/parse_proxy/stealth 代理能力,
+            #        代理配置被静默丢弃 -> urllib 直连暴露真实 IP。
+            if not args.allow_direct:
+                print("[fail-closed] collector_common 导入失败, 无法保证代理匿名 "
+                      f"(代理={_mask_proxy(proxy_url)} 将被静默绕过, 真实IP直连)。"
+                      " 设置 --allow-direct 可强制直连。")
+                sys.exit(2)
+            print(f"[warn] collector_common 导入失败但 --allow-direct 已设, "
+                  f"代理={_mask_proxy(proxy_url)} 仍尝试经 urllib 使用")
+        if (not args.browser) and proxy_url.startswith("socks5") and not _HAVE_PYSOCKS:
+            # P1: urllib SOCKS5 但无 PySocks -> 无代理直连
+            if not args.allow_direct:
+                print("[fail-closed] 代理为 SOCKS5 但 PySocks 不可用, urllib 将直连暴露真实IP。"
+                      " 请 pip install PySocks 或使用浏览器模式, 或设置 --allow-direct。")
+                sys.exit(2)
+            print("[warn] SOCKS5 无 PySocks 但 --allow-direct 已设, 将继续(可能直连)")
+
     configure_urllib_proxy(proxy_url)
     if proxy_url:
         print(f"[01-acquire] 出口代理: {_mask_proxy(proxy_url)} (真实本机IP不暴露)")
     else:
-        print("[01-acquire] 未配置代理, 直连本机IP")
+        print("[01-acquire] 未配置代理, 直连本机真实IP "
+              "(如需匿名请设置 LCSC_PROXY 环境变量或 tools/.lcsc_proxy)")
 
     codes = list(args.codes)
     if args.codes_file:
@@ -741,10 +818,17 @@ def main(argv=None):
     if args.browser and cc is not None:
         handle = None
         try:
-            handle = cc.launch_stealth(cc.EDGE, ua=cc.random_ua(), proxy=pw_proxy)
+            handle = cc.launch_stealth(cc.EDGE, ua=cc.random_ua(), proxy=pw_proxy,
+                                       disable_background_networking=True)
             _, _b, ctx = handle
+            # P0#2 — fail-closed 出口 IP 自检: 实测非期望静态 IP 即中止,
+            #        绝不退化为「直连真实 IP 仅告警」。
             if pw_proxy:
-                cc.verify_egress_ip(ctx, expected=expect_ip)
+                try:
+                    cc.verify_egress_ip(ctx, expected=expect_ip, require=True)
+                except RuntimeError as e:
+                    print(f"[fail-closed] 出口IP自检失败, 中止采集: {e}")
+                    sys.exit(2)
             # P2.G — 访问漏斗 / 会话预热: 先逛首页 + 英文站, 让 LCSC 自然落下 cookie
             if not args.no_warmup:
                 warm = ctx.new_page()
@@ -768,6 +852,15 @@ def main(argv=None):
                 cc.close_stealth(handle)
     else:
         # urllib 模式: 串行或线程池
+        # P0#2 — fail-closed 出口 IP 自检 (urllib 路径同样不能泄漏真实 IP)
+        if proxy_url is not None:
+            ip = _verify_egress_urllib(proxy_url, expect_ip)
+            if ip is None or (expect_ip and expect_ip not in ip):
+                if not args.allow_direct:
+                    print(f"[fail-closed] 出口IP自检失败(urllib): ip={ip} 期望={expect_ip}; "
+                          f"直连将暴露真实IP。设置 --allow-direct 可强制直连。")
+                    sys.exit(2)
+                print(f"[warn] 出口IP自检失败(urllib) 但 --allow-direct 已设, 继续")
         if args.concurrency <= 1:
             _run_serial(fetch_page)
         else:
