@@ -2714,7 +2714,7 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
 {seo_head(title, desc, url, og_img, noindex=noindex)}
 {enrich_meta}
   <link rel="stylesheet" href="/assets/styles.css" />
-  <link rel="stylesheet" href="/assets/sku-v3.css?v=20260912e" />
+  <link rel="stylesheet" href="/assets/sku-v3.css?v=20260912f" />
   <style>
     /* Page-scoped: suppress global floating/bottom conversion UI so the page-level
        RFQ owns conversion. Does NOT modify global site.js / styles.css. */
