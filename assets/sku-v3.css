@@ -24,7 +24,7 @@
 .sku-v3 .breadcrumb a:hover{color:var(--accent)}
 .sku-v3 .breadcrumb span{margin:0 6px}
 
-.sku-v3 .page-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:32px;align-items:start;padding:28px 0 36px}
+.sku-v3 .page-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:24px;align-items:start;padding:28px 0 36px}
 .sku-v3 .hero-left{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px 32px;grid-column:1}
 .sku-v3 .mfr{font-size:13px;font-weight:600;color:var(--text-3);letter-spacing:.04em;text-transform:uppercase;margin:0 0 10px}
 .sku-v3 .mfr a{color:var(--text-2)}
@@ -73,6 +73,8 @@
 .sku-v3 .faq-a{font-size:14px;color:var(--text-2);margin:0;line-height:1.55}
 .sku-v3 .app-list{margin:0;padding-left:20px}
 .sku-v3 .app-list li{font-size:14px;color:var(--text-2);padding:5px 0}
+.sku-v3 .features-list{margin:0;padding-left:20px}
+.sku-v3 .features-list li{font-size:14px;color:var(--text-2);padding:5px 0}
 
 .sku-v3 .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
 .sku-v3 .related-card{border:1px solid var(--border);border-radius:8px;padding:14px}
@@ -157,6 +159,10 @@
 .sku-v3 .compliance-table th,.sku-v3 .compliance-table td{padding:10px 8px;text-align:left;vertical-align:top}
 .sku-v3 .compliance-table th{width:200px;font-weight:500;color:var(--text-3);padding-left:0}
 .sku-v3 .compliance-table td{font-weight:600;color:var(--text);font-family:var(--mono);padding-right:0;word-break:break-word}
+
+/* Empty specifications fallback (when no real spec data; V3 layout) */
+.sku-v3 .spec-empty{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;font-size:14px;color:var(--text-2);line-height:1.6}
+.sku-v3 .spec-empty p{margin:0}
 
 /* Asian-brand tag inline in hero id-value */
 .sku-v3 .brand-tag{display:inline-block;margin-left:8px;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600;color:#9a3412;background:#ffedd5;border:1px solid #fed7aa;vertical-align:middle}
