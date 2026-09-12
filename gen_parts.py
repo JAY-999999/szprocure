@@ -2102,6 +2102,9 @@ def build_sourcing_info(pn, mfr, cat, subcat, native_l1_raw, spec_pairs_en, apps
     mfr_e = esc(mfr) if mfr else ""
     cat_e = esc(cat) if cat else ""
     subcat_e = esc(subcat) if subcat else ""
+    # Official RFQ page URL (same standard SKU-quote deep-link used elsewhere in the site).
+    rfq_url = (f"/request-a-quote/?pn={urlquote(pn)}&mfr={urlquote(mfr)}&cat={urlquote(cat)}"
+               f"&source=product&rfq_type=sku_quote")
     type_key, lifecycle = classify_product_type(subcat, native_l1_raw)
 
     # product noun: prefer a specific subcategory term, else category, else "component"
@@ -2140,46 +2143,46 @@ def build_sourcing_info(pn, mfr, cat, subcat, native_l1_raw, spec_pairs_en, apps
     if type_key == "mcu_ic":
         svc = (f"For component sourcing of {pn_e}, we run supplier sourcing across the China "
                f"electronics supply chain, supplier verification and multi-supplier quotation "
-               f"comparison so you can compare offers before purchase. We coordinate purchase "
-               f"orders, consolidation and international logistics dispatch from Shenzhen.")
+              f"comparison so you can compare offers before purchase. We coordinate purchase "
+              f"orders, consolidation and international logistics dispatch from Shenzhen.")
         qc = (f"Quality control focuses on supplier qualification and screening, then product, "
               f"packaging and labeling checks with outgoing inspection before dispatch. These are "
               f"sourcing services we perform &mdash; they are not a guarantee of any supplier's stock, "
               f"price, lead time or authenticity. Tell us your required quantity, target price and "
-              f"sourcing requirements, then <a href=\"#rfq-card\">Request a Quote</a>.")
+              f"sourcing requirements, then <a href=\"{rfq_url}\">Request a Quote</a>.")
     elif type_key == "connector":
         svc = (f"For {pn_e}, supplier sourcing matches your required specifications &mdash; such as "
                f"pin count, pitch and mounting style &mdash; against verified China electronics supply "
                f"chain suppliers, with multi-supplier quotation comparison and purchase-order "
-               f"coordination. We handle consolidation and international logistics dispatch from "
-               f"Shenzhen.")
+              f"coordination. We handle consolidation and international logistics dispatch from "
+              f"Shenzhen.")
         qc = (f"Quality control includes supplier qualification and screening, specification "
               f"matching verification, and product, packaging and labeling checks with outgoing "
               f"inspection. These checks are part of our sourcing service and do not constitute a "
               f"guarantee of stock, price, lead time or authenticity. Tell us your required "
               f"quantity, target price and sourcing requirements, then "
-              f"<a href=\"#rfq-card\">Request a Quote</a>.")
+              f"<a href=\"{rfq_url}\">Request a Quote</a>.")
     elif type_key == "module":
         svc = (f"For electronics sourcing of {pn_e}, we carry out availability verification across "
                f"suppliers in the China electronics supply chain, multi-supplier quotation comparison and "
-               f"purchase-order coordination, then consolidation and international logistics dispatch "
-               f"from Shenzhen.")
+              f"purchase-order coordination, then consolidation and international logistics dispatch "
+              f"from Shenzhen.")
         qc = (f"Quality control covers supplier qualification and screening, availability "
               f"cross-check, product, packaging and labeling inspection and outgoing inspection. "
               f"These are sourcing services we provide; they are not a guarantee of a specific "
               f"supplier's stock, price, lead time or authenticity. Tell us your required quantity, "
               f"target price and sourcing requirements, then "
-              f"<a href=\"#rfq-card\">Request a Quote</a>.")
+              f"<a href=\"{rfq_url}\">Request a Quote</a>.")
     else:  # other
         svc = (f"For {pn_e}, our electronics sourcing covers supplier sourcing across the China "
                f"electronics supply chain, supplier verification and multi-supplier quotation "
-               f"comparison so you can compare offers before purchase. We coordinate purchase orders, "
-               f"consolidation and international logistics dispatch from Shenzhen.")
+              f"comparison so you can compare offers before purchase. We coordinate purchase orders, "
+              f"consolidation and international logistics dispatch from Shenzhen.")
         qc = (f"Quality control includes supplier qualification and screening, then product, "
               f"packaging and labeling checks with outgoing inspection before dispatch. These are "
               f"sourcing services we perform &mdash; they are not a guarantee of any supplier's stock, "
               f"price, lead time or authenticity. Tell us your required quantity, target price and "
-              f"sourcing requirements, then <a href=\"#rfq-card\">Request a Quote</a>.")
+              f"sourcing requirements, then <a href=\"{rfq_url}\">Request a Quote</a>.")
 
     p2 = f"<p>{svc}{lifecycle_note}</p>"
     p3 = f"<p>{qc}</p>"
