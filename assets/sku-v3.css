@@ -51,8 +51,8 @@
 .sku-v3 .rfq-btn:hover{background:var(--accent-2)}
 
 .sku-v3 .tab-wrap{grid-column:1;margin-top:0}
-.sku-v3 .tab-nav{display:flex;gap:8px;background:var(--surface);padding:0 24px;border:1px solid var(--border);border-radius:var(--radius);overflow-x:auto;position:sticky;top:84px;z-index:10;box-shadow:0 1px 0 rgba(0,0,0,.04)}
-.sku-v3 .tab-btn{display:inline-block;padding:14px 18px;font-size:14px;font-weight:600;color:var(--text-3);background:transparent;border:none;text-decoration:none;white-space:nowrap;cursor:pointer}
+.sku-v3 .tab-nav{display:flex;flex-wrap:wrap;gap:4px;background:var(--surface);padding:0 12px;border:1px solid var(--border);border-radius:var(--radius);position:sticky;top:84px;z-index:10;box-shadow:0 1px 0 rgba(0,0,0,.04)}
+.sku-v3 .tab-btn{display:inline-block;padding:14px 7px;font-size:14px;font-weight:600;color:var(--text-3);background:transparent;border:none;text-decoration:none;white-space:nowrap;cursor:pointer}
 .sku-v3 .tab-btn:hover{color:var(--accent);text-decoration:none}
 .sku-v3 .tab-btn.active{color:var(--accent);background:rgba(10,132,255,.1);border-radius:999px}
 .sku-v3 .tab-panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px 28px 28px;margin-top:16px;scroll-margin-top:150px}
@@ -107,7 +107,7 @@
 .sku-v3 .doc-link{color:var(--accent);font-size:13px;font-weight:600}
 .sku-v3 .doc-link:hover{text-decoration:underline}
 .sku-v3 .doc-preview{margin-top:12px}
-.sku-v3 .doc-preview embed{width:100%;height:560px;border:1px solid var(--border);border-radius:8px;background:#fff}
+.sku-v3 .doc-preview embed{width:100%;aspect-ratio:1/1.414;height:auto;border:1px solid var(--border);border-radius:8px;background:#fff}
 
 @media (max-width:900px){
   .sku-v3 .page-grid{grid-template-columns:1fr}
@@ -115,7 +115,7 @@
   .sku-v3 .sourcing{margin-top:18px}
 }
 @media (max-width:760px){
-  .sku-v3 .tab-nav{overflow-x:auto;white-space:nowrap}
+  .sku-v3 .tab-nav{flex-wrap:wrap}
 }
 @media (max-width:640px){
   .sku-v3 .container{padding:0 16px}
@@ -197,5 +197,5 @@
   .sku-v3 .alt-list{grid-template-columns:1fr}
 }
 @media (max-width:640px){
-  .sku-v3 .doc-preview embed{height:420px}
+  .sku-v3 .doc-preview embed{height:auto}
 }
