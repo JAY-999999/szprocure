@@ -16,7 +16,7 @@
   <meta property="og:image" content="https://www.szprocure.com/assets/img/hero.svg" />
 
   <link rel="stylesheet" href="/assets/styles.css" />
-  <link rel="stylesheet" href="/assets/sku-v3.css" />
+  <link rel="stylesheet" href="/assets/sku-v3.css?v=20260912d" />
   <style>
     /* Page-scoped: suppress global floating/bottom conversion UI so the page-level
        RFQ owns conversion. Does NOT modify global site.js / styles.css. */
@@ -59,9 +59,7 @@
     "mainEntity": [
     { "@type": "Question", "name": "Is the W5500 Compatible With 5V Microcontrollers", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The W5500 operates on a 3.3V supply but its I/O pins are 5V tolerant, so it can interface directly with 5V microcontrollers (such as traditional Arduino boards) without external logic level shifters;" } },
     { "@type": "Question", "name": "What Should I Look for in an Alternative to the W5500", "acceptedAnswer": { "@type": "Answer", "text": "A drop-in replacement should offer an integrated Ethernet MAC and PHY, a standard SPI host interface, and a similar hardwired TCP/IP stack to avoid extra software overhead. Note that alternative chips may use different pinouts and require updated software libraries, since the W5500&#x27;s register map and SPI frame format are specific to WIZnet&#x27;s implementation.;" } },
-    { "@type": "Question", "name": "In What Application Scenarios Is the W5500 Typically Used", "acceptedAnswer": { "@type": "Answer", "text": "The W5500 is commonly used in home network devices (set-top boxes, PVRs, digital media adapters), serial-to-Ethernet and parallel-to-Ethernet converters, USB-to-Ethernet and GPIO-to-Ethernet adapters, security systems (DVRs, network cameras, kiosks), factory and building automation, medical monitoring equipment, and embedded servers.;" } },
-    { "@type": "Question", "name": "What Core Network Protocols and Memory Does the W5500 Support", "acceptedAnswer": { "@type": "Answer", "text": "The W5500 has a hardwired TCP/IP stack supporting TCP, UDP, IPv4, ICMP, ARP, IGMP, and PPPoE. It includes 32KB of internal memory for Ethernet packet buffering, supports 10BASE-T and 100BASE-TX speeds, and can manage up to 8 independent hardware sockets simultaneously.;" } },
-    { "@type": "Question", "name": "How Do I Connect the W5500 to a Host MCU, and What Power-Saving Features Does It Offer", "acceptedAnswer": { "@type": "Answer", "text": "The W5500 offloads the entire network stack to hardware, so connection is straightforward: wire your MCU to the W5500 via SPI and use a simple socket library to send and receive data. The SPI interface is rated up to 80 MHz in theory, though WIZnet&#x27;s tested and guaranteed minimum clock speed is 33.3 MHz for stable operation; actual achievable speed depends on PCB trace length and signal integrity. For power-sensitive designs, the W5500 also supports Wake on LAN over UDP and a power-down mode." } }
+    { "@type": "Question", "name": "In What Application Scenarios Is the W5500 Typically Used", "acceptedAnswer": { "@type": "Answer", "text": "The W5500 is commonly used in home network devices (set-top boxes, PVRs, digital media adapters), serial-to-Ethernet and parallel-to-Ethernet converters, USB-to-Ethernet and GPIO-to-Ethernet adapters, security systems (DVRs, network cameras, kiosks), factory and building automation, medical monitoring equipment, and embedded servers.;" } }
     ]
   }
   </script>
@@ -95,9 +93,8 @@
         <h1 class="mpn">W5500<span class="rohs-badge" aria-hidden="true">RoHS</span></h1>
         <p class="type">Modules</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/wiznet/">WIZNET</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/modules-communication/">Modules</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">LQFP-48(7x7)</div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/wiznet/">WIZNET</a></div></div><div class="id-row"><div class="id-label">MPN</div><div class="id-value">W5500</div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/modules-communication/">Modules</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">LQFP-48(7x7)</div></div><div class="id-row"><div class="id-label">Datasheet</div><div class="id-value"><a class="doc-link" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/w5500.pdf" target="_blank" rel="nofollow noopener" download><span class="doc-ico">&#128196;</span> W5500 Datasheet</a></div></div><div class="id-row"><div class="id-label">Key Attributes</div><div class="id-value">Hardwired TCP/IP embedded Ethernet controller</div></div>
         </div>
-        <p class="hero-desc">Hardwired TCP/IP embedded Ethernet controller</p>
       </div>
 
       
@@ -184,47 +181,49 @@
       <!-- TABS: sticky nav + scroll-spy; all panels in DOM (SEO-friendly) -->
       <div class="tab-wrap">
         <nav class="tab-nav">
-          <a href="#overview" class="tab-btn active">Overview</a>
-          <a href="#specifications" class="tab-btn">Specifications</a>
-          <a href="#documentation" class="tab-btn">Documentation</a>
+          <a href="#specifications" class="tab-btn active">Specifications</a>
+          <a href="#introduction" class="tab-btn">Introduction</a>
           <a href="#applications" class="tab-btn">Applications</a>
-          <a href="#related" class="tab-btn">Related Parts</a>
+          <a href="#documentation" class="tab-btn">Datasheet</a>
           <a href="#alternative" class="tab-btn">Alternative Parts</a>
-          <a href="#faq" class="tab-btn">FAQ</a>
         </nav>
-
-        <section id="overview" class="tab-panel">
-          <h2 class="section-title">Product Overview</h2>
-          <p>Hardwired TCP/IP embedded Ethernet controller</p>
-        </section>
 
         <section id="specifications" class="tab-panel">
           <h2 class="section-title">Technical Specifications</h2>
-          <table class="spec-table">
-<tbody>
-<tr><th>Package</th><td>LQFP-48(7x7)</td></tr><tr><th>MAC Interface</th><td>SPI</td></tr><tr><th>Voltage - Supply</th><td>3.3V</td></tr><tr><th>Features</th><td>Low-power mode;Wake-up function;Programmable LED indication</td></tr><tr><th>Integrated PHY</th><td>Yes</td></tr><tr><th>Communication Interface</th><td>SPI</td></tr><tr><th>Operating Temperature</th><td>-40℃~+85℃</td></tr><tr><th>Memory Space</th><td>32KB</td></tr><tr><th>Ethernet Speed Standards</th><td>10BASE-T;100BASE-TX</td></tr></tbody>
-</table>
+          <div class="spec-grid">
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Package</th><td>LQFP-48(7x7)</td></tr><tr><th>MAC Interface</th><td>SPI</td></tr><tr><th>Voltage - Supply</th><td>3.3V</td></tr><tr><th>Features</th><td>Low-power mode;Wake-up function;Programmable LED indication</td></tr><tr><th>Integrated PHY</th><td>Yes</td></tr></tbody></table>
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Communication Interface</th><td>SPI</td></tr><tr><th>Operating Temperature</th><td>-40℃~+85℃</td></tr><tr><th>Memory Space</th><td>32KB</td></tr><tr><th>Ethernet Speed Standards</th><td>10BASE-T;100BASE-TX</td></tr></tbody></table>
+</div>
         </section>
 
-        <section id="documentation" class="tab-panel">
-  <h2 class="section-title">Documentation</h2>
-  <details class="doc-acc" open>
-    <summary><span class="doc-ico">&#128196;</span> Datasheet <span class="doc-tag">PDF</span></summary>
-    <div class="doc-acc-body">
-      <a class="doc-dl" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/w5500.pdf" target="_blank" rel="nofollow noopener">Download W5500 Datasheet (PDF)</a>
-    </div>
-  </details>
-</section>
+        <section id="introduction" class="tab-panel">
+          <h2 class="section-title">Product Introduction</h2>
+          <p>Hardwired TCP/IP embedded Ethernet controller</p>
+        </section>
+
+        
 
         <section id="applications" class="tab-panel">
-  <h2 class="section-title">Common Applications</h2>
+  <h2 class="section-title">Applications</h2>
   <ul class="app-list"><li>Home Network Devices: Set-Top Boxes, PVRs, Digital Media Adapters</li><li>Serial-to-Ethernet: Access Controls, LED displays, Wireless AP relays, etc.</li><li>Parallel-to-Ethernet: POS / Mini Printers, Copiers</li><li>USB-to-Ethernet: Storage Devices, Network Printers</li><li>GPIO-to-Ethernet: Home Network Sensors</li><li>Security Systems: DVRs, Network Cameras, Kiosks</li><li>Factory and Building Automations</li><li>Medical Monitoring Equipment</li><li>Embedded Servers</li></ul>
 </section>
 
-        <section id="related" class="tab-panel">
-  <h2 class="section-title">Related Modules &amp; Communication</h2>
-  <p>Other modules &amp; communication we help global buyers source:</p>
-  <div class="related-grid"><div class="related-card"><a href="/products/b0505s1wr3/">B0505S-1WR3</a></div><div class="related-card"><a href="/products/clrc66303hny/">CLRC66303HNY</a></div><div class="related-card"><a href="/products/esp32s3wroom1n16r8/">ESP32-S3-WROOM-1-N16R8</a></div><div class="related-card"><a href="/products/b1212s1wr3/">B1212S-1WR3</a></div><div class="related-card"><a href="/products/rfx2401c/">RFX2401C</a></div><div class="related-card"><a href="/products/esp32wroom32en16/">ESP32-WROOM-32E-N16</a></div></div>
+        <section id="documentation" class="tab-panel">
+  <h2 class="section-title">Datasheet</h2>
+  <details class="doc-acc" open>
+    <summary>
+      <span class="doc-acc-title" aria-label="Datasheet"><span class="doc-ico">&#128196;</span></span>
+      <span class="doc-acc-actions">
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/w5500.pdf" target="_blank" rel="nofollow noopener">Open</a>
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/w5500.pdf" target="_blank" rel="nofollow noopener" download>Download</a>
+      </span>
+    </summary>
+    <div class="doc-acc-body">
+      <div class="doc-preview"><embed src="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/w5500.pdf" type="application/pdf" title="W5500 Datasheet Preview" aria-label="W5500 Datasheet Preview" /></div>
+    </div>
+  </details>
 </section>
 
         <section id="alternative" class="tab-panel">
@@ -233,16 +232,19 @@
   <ul class="alt-list"><li><a href="/request-a-quote/?pn=CH394Q" class="alt-link">CH394Q <span class="muted">(request quote)</span></a></li></ul>
 </section>
 
-        <section id="faq" class="tab-panel">
-  <h2 class="section-title">Frequently Asked Questions</h2>
-  <div class="faq-item"><h3>Is the W5500 Compatible With 5V Microcontrollers</h3><p>Yes. The W5500 operates on a 3.3V supply but its I/O pins are 5V tolerant, so it can interface directly with 5V microcontrollers (such as traditional Arduino boards) without external logic level shifters;</p></div><div class="faq-item"><h3>What Should I Look for in an Alternative to the W5500</h3><p>A drop-in replacement should offer an integrated Ethernet MAC and PHY, a standard SPI host interface, and a similar hardwired TCP/IP stack to avoid extra software overhead. Note that alternative chips may use different pinouts and require updated software libraries, since the W5500&#x27;s register map and SPI frame format are specific to WIZnet&#x27;s implementation.;</p></div><div class="faq-item"><h3>In What Application Scenarios Is the W5500 Typically Used</h3><p>The W5500 is commonly used in home network devices (set-top boxes, PVRs, digital media adapters), serial-to-Ethernet and parallel-to-Ethernet converters, USB-to-Ethernet and GPIO-to-Ethernet adapters, security systems (DVRs, network cameras, kiosks), factory and building automation, medical monitoring equipment, and embedded servers.;</p></div><div class="faq-item"><h3>What Core Network Protocols and Memory Does the W5500 Support</h3><p>The W5500 has a hardwired TCP/IP stack supporting TCP, UDP, IPv4, ICMP, ARP, IGMP, and PPPoE. It includes 32KB of internal memory for Ethernet packet buffering, supports 10BASE-T and 100BASE-TX speeds, and can manage up to 8 independent hardware sockets simultaneously.;</p></div><div class="faq-item"><h3>How Do I Connect the W5500 to a Host MCU, and What Power-Saving Features Does It Offer</h3><p>The W5500 offloads the entire network stack to hardware, so connection is straightforward: wire your MCU to the W5500 via SPI and use a simple socket library to send and receive data. The SPI interface is rated up to 80 MHz in theory, though WIZnet&#x27;s tested and guaranteed minimum clock speed is 33.3 MHz for stable operation; actual achievable speed depends on PCB trace length and signal integrity. For power-sensitive designs, the W5500 also supports Wake on LAN over UDP and a power-down mode.</p></div>
-</section>
+        
       </div>
+
+      <!-- FAQ: independent section (removed from TAB nav / scroll-spy on 2026-09-12), placed before Sourcing -->
+      <section id="faq" class="tab-panel" style="grid-column:1;margin-top:16px;margin-bottom:16px">
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq-item"><h3>Is the W5500 Compatible With 5V Microcontrollers</h3><p>Yes. The W5500 operates on a 3.3V supply but its I/O pins are 5V tolerant, so it can interface directly with 5V microcontrollers (such as traditional Arduino boards) without external logic level shifters;</p></div><div class="faq-item"><h3>What Should I Look for in an Alternative to the W5500</h3><p>A drop-in replacement should offer an integrated Ethernet MAC and PHY, a standard SPI host interface, and a similar hardwired TCP/IP stack to avoid extra software overhead. Note that alternative chips may use different pinouts and require updated software libraries, since the W5500&#x27;s register map and SPI frame format are specific to WIZnet&#x27;s implementation.;</p></div><div class="faq-item"><h3>In What Application Scenarios Is the W5500 Typically Used</h3><p>The W5500 is commonly used in home network devices (set-top boxes, PVRs, digital media adapters), serial-to-Ethernet and parallel-to-Ethernet converters, USB-to-Ethernet and GPIO-to-Ethernet adapters, security systems (DVRs, network cameras, kiosks), factory and building automation, medical monitoring equipment, and embedded servers.;</p></div>
+</section>
 
       <!-- Sourcing (no stock/price/lead-time promises) -->
       <section class="sourcing">
         <h2>Sourcing Information</h2>
-        <p>SZ Procure is a sourcing partner for <strong>W5500</strong>, not a stock catalog. We help international buyers source original components from the China electronics supply chain — send your quantity and target price for a quotation.</p>
+        <p>SZ Procure is a sourcing partner for the <strong>W5500</strong> (WIZNET Modules), not a stock catalog. We help international buyers source this electronic component through the China electronics supply chain, with verified supplier sourcing and quality inspection.</p><p>For electronics sourcing of W5500, we carry out availability verification across suppliers in the China electronics supply chain, multi-supplier quotation comparison and purchase-order coordination, then consolidation and international logistics dispatch from Shenzhen.</p><p>Quality control covers supplier qualification and screening, availability cross-check, product, packaging and labeling inspection and outgoing inspection. These are sourcing services we provide; they are not a guarantee of a specific supplier's stock, price, lead time or authenticity. Tell us your required quantity, target price and sourcing requirements, then <a href="#rfq-card">Request a Quote</a>.</p>
       </section>
     </div>
   </main>
@@ -259,7 +261,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'applications' }, { id: 'related' }, { id: 'alternative' }, { id: 'faq' } ];
+    var groups = [ { id: 'specifications' }, { id: 'introduction' }, { id: 'applications' }, { id: 'documentation' }, { id: 'alternative' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

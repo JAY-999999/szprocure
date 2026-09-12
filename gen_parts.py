@@ -412,6 +412,17 @@ def split_specs(s):
 def split_multi(s):
     return [x.strip() for x in re.split(r"[;]", s) if x.strip()]
 
+def _faq_is_offbrand(answer):
+    """True when a FAQ answer echoes a competitor (LCSC) or a hard price point.
+
+    Our site is a China sourcing agent, not a price-comparison page; publishing a
+    competitor's live pricing ("On LCSC... priced at $0.0008") is off-brand. Such
+    entries are dropped at generation time (real pipeline content, minus the
+    competitor-specific subset) so we never fabricate and never echo a rival.
+    """
+    return bool(re.search(r"LCSC|\$\s?\d", answer or "", re.I))
+
+
 def parse_faq(raw, pn=""):
     """Parse FAQ column into list of (question, answer).
     Format: Q: question?A: answer;  Q: q2?A: a2
@@ -431,6 +442,12 @@ def parse_faq(raw, pn=""):
 
 def render_faq(pairs, pn):
     """Return (html_block, FAQ JSON-LD script). Empty when no real FAQ pairs."""
+    if not pairs:
+        return "", ""
+    # Central off-brand guard: never render a FAQ that echoes a competitor (LCSC)
+    # or a hard price point — our site is a sourcing agent, not a price page.
+    # Applies to BOTH question and answer text.
+    pairs = [(q, a) for (q, a) in pairs if not (_faq_is_offbrand(q) or _faq_is_offbrand(a))]
     if not pairs:
         return "", ""
     items_html = ""
@@ -453,6 +470,160 @@ def render_faq(pairs, pn):
   }}
   </script>"""
     return items_html, ld
+
+
+# ---- FAQ source-priority merge (final rule, 2026-09-12) ------------------------
+def _lcsc_faq_is_platform(q, a):
+    """True when an LCSC/RAW FAQ is about LCSC platform/business (price, stock,
+    buying, shipping, account, service) rather than the *product* itself.
+
+    Rule: we may reuse LCSC's real product knowledge, but never its
+    platform/commerce copy (price / stock / order / delivery / account /
+    warranty-service). Conservative: only explicit commerce signals drop.
+    """
+    t = f"{(q or '')} {(a or '')}".lower()
+    patterns = [
+        r"\$\s?\d",                                         # hard price point
+        r"\bprice\b|\bpricing\b|\bcost\b|\bquote\b",
+        r"\bin stock\b|\bstock level\b|\binventory\b|\bmoq\b|\bminimum order",
+        r"\bbuy\b|\bpurchase\b|\border online\b|\border now\b|\bplace an order\b|\badd to cart\b|\bcheckout\b",
+        r"\bshipping\b|\bshipment\b|\bdeliver\b|\bdelivery\b|\blead[- ]?time\b",
+        r"\baccount\b|\blogin\b|\bregister\b|\bsign[- ]?in\b",
+        r"\blcsc\b|our website|the website|\bmarketplace\b",
+        r"\breturn policy\b|\bwarranty claim\b|\bcustomer service\b|\btrack my order\b",
+    ]
+    for p in patterns:
+        if re.search(p, t):
+            return True
+    return False
+
+
+def _faq_approx_key(t):
+    """Synonym-normalized question token set for light, dependency-free
+    approximate dedup. e.g. 'Operational Temperature Range' ~ 'operating
+    temperature range' (operational->operating), 'temp' ~ 'temperature'."""
+    _SYN = {
+        "operational": "operating", "operation": "operating",
+        "temp": "temperature", "temps": "temperature",
+        "spec": "specification", "specs": "specification",
+        "params": "parameters", "param": "parameter",
+        "pkg": "package", "packaging": "package",
+        "ic": "chip", "mcu": "microcontroller",
+        "max": "maximum", "min": "minimum",
+        "vol": "voltage", "curr": "current",
+        "freq": "frequency",
+    }
+    toks = _enrich_norm_text(t or "").split()
+    toks = [_SYN.get(w, w) for w in toks]
+    return frozenset(toks)
+
+
+def _faq_is_dup(q1, a1, q2, a2):
+    """Exact normalized OR approximate (synonym-set equal / subset) dedup."""
+    if _enrich_norm_text(q1) == _enrich_norm_text(q2):
+        return True
+    k1, k2 = _faq_approx_key(q1), _faq_approx_key(q2)
+    if not k1 or not k2:
+        return False
+    if k1 == k2:
+        return True
+    if k1 < k2 or k2 < k1:        # one is a subset of the other
+        return True
+    return False
+
+
+def _print_faq_audit(pn, audit):
+    """Human-readable FAQ merge audit for --single verification."""
+    print(f"  [FAQ AUDIT] {pn}")
+    print(f"    LCSC qualified (kept in full) : {audit['lcsc_qualified']}")
+    print(f"    SZProcure self-gen (top-up)   : {audit['szprocure_self_gen']}")
+    print(f"    enrichment adopted (capped)   : {audit['enrichment_used']}")
+    print(f"    FINAL FAQ count               : {audit['final_count']}")
+    if audit["filtered"]:
+        print(f"    filtered (dropped):")
+        for r, c in audit["filtered"].items():
+            print(f"      - {r}: {c}")
+    if audit["deduped"]:
+        print(f"    deduped:")
+        for r, c in audit["deduped"].items():
+            print(f"      - {r}: {c}")
+
+
+def merge_faqs(faq_raw, enrich, row):
+    """Final FAQ merge: source priority + count control (rule confirmed 2026-09-12).
+
+    Priority:
+      Pass A  LCSC/RAW qualified product FAQs -> kept IN FULL (no truncation to 3).
+      Pass B  SZProcure self-gen (MASTER.faq)  -> used ONLY to top up to 3 when
+              LCSC qualified < 3. MASTER is never modified; only the adopted
+              count is capped at the merge layer (never fabricate to pad).
+      Pass C  enrichment FAQ                    -> minor supplement; only truly-new
+              high-value product questions, capped, NEVER appended uncontrolled
+              when LCSC>=3.
+    off-brand (LCSC/price) filtered on BOTH question+answer at merge time;
+    exact + approximate (synonym) dedup across all sources.
+    Returns (pairs, audit_dict).
+    """
+    audit = {"lcsc_qualified": 0, "szprocure_self_gen": 0, "enrichment_used": 0,
+             "final_count": 0, "filtered": {}, "deduped": {}}
+
+    def _filt(reason):
+        audit["filtered"][reason] = audit["filtered"].get(reason, 0) + 1
+
+    def _ded(reason):
+        audit["deduped"][reason] = audit["deduped"].get(reason, 0) + 1
+
+    # ---- Pass A: LCSC / RAW qualified product FAQs (kept in full) ----
+    lcsc_pairs = []
+    raw_ext = _raw_section_extras(row)
+    if raw_ext:
+        seen = set()
+        for q, a in (raw_ext.get("faqs") or []):
+            if _faq_is_offbrand(q) or _faq_is_offbrand(a):
+                _filt("offbrand"); continue
+            if _lcsc_faq_is_platform(q, a):
+                _filt("lcsc_platform_business"); continue
+            key = _enrich_norm_text(q)
+            if key in seen:
+                _ded("lcsc_internal_dup"); continue
+            seen.add(key)
+            lcsc_pairs.append([q, a])
+    audit["lcsc_qualified"] = len(lcsc_pairs)
+    final = [list(p) for p in lcsc_pairs]
+
+    # ---- Pass B: SZProcure self-gen (MASTER.faq) tops up to 3 when LCSC < 3 ----
+    self_gen = []
+    if len(final) < 3:
+        for q, a in parse_faq(faq_raw, row.get("mpn", "")):
+            if _faq_is_offbrand(q) or _faq_is_offbrand(a):
+                _filt("selfgen_offbrand"); continue
+            if len(final) >= 3:
+                break
+            if any(_faq_is_dup(q, a, fq, fa) for fq, fa in final):
+                _ded("selfgen_dup_vs_lcsc"); continue
+            final.append([q, a]); self_gen.append([q, a])
+    audit["szprocure_self_gen"] = len(self_gen)
+
+    # ---- Pass C: enrichment — truly-new, capped, never uncontrolled when rich ----
+    enrich_used = []
+    if enrich and enrich.get("faq"):
+        cap = 0 if len(final) >= 3 else (3 - len(final))
+        for f in enrich["faq"]:
+            if len(enrich_used) >= cap:
+                break
+            q = f.get("question") if isinstance(f, dict) else None
+            a = f.get("answer") if isinstance(f, dict) else None
+            if not (q and a):
+                continue
+            if _faq_is_offbrand(q) or _faq_is_offbrand(a):
+                _filt("enrich_offbrand"); continue
+            if any(_faq_is_dup(q, a, fq, fa) for fq, fa in final):
+                _ded("enrich_dup"); continue
+            final.append([q, a]); enrich_used.append([q, a])
+    audit["enrichment_used"] = len(enrich_used)
+    audit["final_count"] = len(final)
+    return final, audit
+
 
 def esc(s):
     return html.escape(str(s), quote=True)
@@ -889,7 +1060,7 @@ def gen_part_page(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
     # ---- SEO copy: procurement language, Shenzhen/China sourcing keywords ----
     # Lead / overview emphasizes the BUYING scenario (global procurement from
     # Shenzhen supply chain), not just a spec description of the part.
-    # P0-3: the VISIBLE Product Overview now prefers the REAL description from the
+    # P0-3: the VISIBLE Product Introduction now prefers the REAL description from the
     # CSV. Only when it is blank do we fall back to the procurement template.
     # The meta `desc` and the Product JSON-LD `description` below stay unchanged
     # (URL / Title / Meta / Schema / H1 are frozen).
@@ -1072,7 +1243,7 @@ def gen_part_page(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
         apps_section = (
             '<section class="section apps-section">\n'
             '  <div class="container">\n'
-            '    <h2>Common Applications</h2>\n'
+            '    <h2>Applications</h2>\n'
             f'    <ul class="alt-list">{apps_items}</ul>\n'
             '  </div>\n'
             '</section>'
@@ -1255,8 +1426,8 @@ def gen_part_page(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
     <section class="section">
       <div class="container two-col">
         <div class="part-main">
-          <!-- 2. Product Overview (SEO, not encyclopedia) -->
-          <h2>Product Overview</h2>
+          <!-- 2. Product Introduction (SEO, not encyclopedia) -->
+          <h2>Product Introduction</h2>
           <p>{overview}</p>
 
           <!-- 3. Technical Specifications -->
@@ -1404,6 +1575,235 @@ def rohs_badge_html(row):
     return '<span class="rohs-badge" aria-hidden="true">RoHS</span>'
 
 
+# ---------------------------------------------------------------------------
+# Brand classification: LCSC flags Asian-brand parts via `isAsianBrand` (bool)
+# in the 01-collected scale500 RAW (data/raw/lcsc_http_scale500/C*.json).
+# Loaded at generation time (no MASTER/parts.json schema change, no runtime dep)
+# — mirrors the RoHS index pattern. NEVER self-classifies: emits "Asian Brands"
+# ONLY when isAsianBrand is literally true; every other state returns '' (no tag).
+_ASIAN_INDEX = None
+_ASIAN_SRC_GLOB = "data/raw/lcsc_http_scale500/C*.json"
+
+
+def _get_asian_index():
+    """Lazy-load scale500 RAW -> {CODE_or_MPN_upper: isAsianBrand(bool)}. Empty on failure."""
+    global _ASIAN_INDEX
+    if _ASIAN_INDEX is not None:
+        return _ASIAN_INDEX
+    _ASIAN_INDEX = {}
+    import glob as _glob
+    here = os.path.dirname(os.path.abspath(__file__))
+    for fp in _glob.glob(os.path.join(here, _ASIAN_SRC_GLOB)):
+        try:
+            with open(fp, encoding="utf-8") as fh:
+                d = json.load(fh)
+        except (FileNotFoundError, OSError, json.JSONDecodeError):
+            continue
+        if not isinstance(d, dict):
+            continue
+        src = d.get("source_raw", d)
+        mp = src.get("main_product", {}) or {}
+        if not isinstance(mp, dict):
+            continue
+        pc = (mp.get("productCode") or "").strip().upper()
+        pm = (mp.get("productModel") or "").strip().upper()
+        flag = mp.get("isAsianBrand")
+        if pc:
+            _ASIAN_INDEX[pc] = flag
+        if pm:
+            _ASIAN_INDEX[pm] = flag
+    return _ASIAN_INDEX
+
+
+# ---------------------------------------------------------------------------
+# Features + Compliance & Export Codes: sourced from the 01-collected scale500
+# RAW at generation time (mirrors the Asian-Brands index). NEVER fabricated —
+# a section is emitted ONLY when the real field exists in the RAW.
+#   Features                -> source_raw.overviewData.productFeaturesEn
+#   ECCN / HTS(US) / RoHS   -> source_raw.main_product.{eccn, htsMap.US, isRohsCert}
+_FEATURES_COMPLIANCE_INDEX = None
+_FC_SRC_GLOB = "data/raw/lcsc_http_scale500/C*.json"
+
+
+def _get_features_compliance_index():
+    """Lazy-load scale500 RAW -> {CODE_or_MPN_upper: dict(features, eccn, hts_us, rohs, rohs_type)}."""
+    global _FEATURES_COMPLIANCE_INDEX
+    if _FEATURES_COMPLIANCE_INDEX is not None:
+        return _FEATURES_COMPLIANCE_INDEX
+    _FEATURES_COMPLIANCE_INDEX = {}
+    import glob as _glob
+    here = os.path.dirname(os.path.abspath(__file__))
+    for fp in _glob.glob(os.path.join(here, _FC_SRC_GLOB)):
+        try:
+            with open(fp, encoding="utf-8") as fh:
+                d = json.load(fh)
+        except (FileNotFoundError, OSError, json.JSONDecodeError):
+            continue
+        if not isinstance(d, dict):
+            continue
+        src = d.get("source_raw", d)
+        if not isinstance(src, dict):
+            continue
+        mp = src.get("main_product", {}) or {}
+        if not isinstance(mp, dict):
+            continue
+        od = src.get("overviewData", {}) or {}
+        pc = (mp.get("productCode") or "").strip().upper()
+        pm = (mp.get("productModel") or "").strip().upper()
+        features = (od.get("productFeaturesEn") or "").strip()
+        # Product Introduction: official narrative from the 01-collected RAW. PRIMARY
+        # source is overviewData.productIntroEn; main_product.productIntroEn is the
+        # short variant used as a fallback when the overviewData one is empty. This is
+        # the real pipeline content (铁律: all SKU copy comes from the pipeline), NOT
+        # AI-generated — it wires the field the 01 adapter had been discarding.
+        intro = (od.get("productIntroEn") or "").strip()
+        intro_short = (mp.get("productIntroEn") or "").strip()
+        eccn = (mp.get("eccn") or "").strip()
+        hts_map = mp.get("htsMap") or {}
+        if not isinstance(hts_map, dict):
+            hts_map = {}
+        # Keep the full country->HTS map so the Compliance table can render every
+        # country variant present in the 01-collected RAW (US, CN, CA, BR, IN, MX, TARIC).
+        hts_us = (hts_map.get("US", "") or "").strip()
+        rohs = bool(mp.get("isRohsCert"))
+        rohs_type = (mp.get("rohsCertType") or "").strip()
+        rec = {
+            "features": features,
+            "intro": intro,
+            "intro_short": intro_short,
+            "eccn": eccn,
+            "hts_map": hts_map,
+            "hts_us": hts_us,
+            "rohs": rohs,
+            "rohs_type": rohs_type,
+        }
+        if pc:
+            _FEATURES_COMPLIANCE_INDEX[pc] = rec
+        if pm:
+            _FEATURES_COMPLIANCE_INDEX[pm] = rec
+    return _FEATURES_COMPLIANCE_INDEX
+
+
+# ---------------------------------------------------------------------------
+# Applications / FAQ / Alternative Parts: sourced from the 01-collected scale500
+# RAW at generation time (mirrors the Features/Compliance index). NEVER fabricated
+# — a section is emitted ONLY when the real field exists in the RAW.
+#   Applications  -> source_raw.overviewData.pdfApplicationAreasEn (non-empty lines)
+#   FAQ           -> source_raw.main_product.faqs[] (question+answer, real pipeline copy)
+#   Alternatives  -> alternatePartList[] where hasAlternatePart is True (real MPN only)
+_SECTION_EXTRAS_INDEX = None
+_SEXTRA_SRC_GLOB = "data/raw/lcsc_http_scale500/C*.json"
+
+
+def _get_section_extras_index():
+    """Lazy-load scale500 RAW -> {CODE_or_MPN_upper: dict(apps, faqs, alts)}."""
+    global _SECTION_EXTRAS_INDEX
+    if _SECTION_EXTRAS_INDEX is not None:
+        return _SECTION_EXTRAS_INDEX
+    _SECTION_EXTRAS_INDEX = {}
+    import glob as _glob
+    here = os.path.dirname(os.path.abspath(__file__))
+    for fp in _glob.glob(os.path.join(here, _SEXTRA_SRC_GLOB)):
+        try:
+            with open(fp, encoding="utf-8") as fh:
+                d = json.load(fh)
+        except (FileNotFoundError, OSError, json.JSONDecodeError):
+            continue
+        if not isinstance(d, dict):
+            continue
+        src = d.get("source_raw", d)
+        if not isinstance(src, dict):
+            continue
+        mp = src.get("main_product", {}) or {}
+        if not isinstance(mp, dict):
+            continue
+        od = src.get("overviewData", {}) or {}
+        pc = (mp.get("productCode") or "").strip().upper()
+        pm = (mp.get("productModel") or "").strip().upper()
+        # Applications — one list item per non-empty line of the official area text.
+        apps = (od.get("pdfApplicationAreasEn") or "").strip()
+        app_list = [x.strip(" -\u2022\t") for x in apps.splitlines() if x.strip()] if apps else []
+        # FAQ — real pipeline Q/A pairs (competitor/price entries dropped at render).
+        faqs = []
+        for f in (mp.get("faqs") or []):
+            if not isinstance(f, dict):
+                continue
+            q = (f.get("question") or "").strip().rstrip(";").strip()
+            a = (f.get("answer") or "").strip().rstrip(";").strip()
+            if q and a:
+                faqs.append([q, a])
+        # Alternatives — ONLY verified alternates (hasAlternatePart True) with a real MPN.
+        alts = []
+        for al in (src.get("alternatePartList") or mp.get("alternatePartList") or []):
+            if not isinstance(al, dict):
+                continue
+            if al.get("hasAlternatePart") is not True:
+                continue
+            model = (al.get("productModel") or "").strip()
+            if model:
+                alts.append(model)
+        rec = {"apps": app_list, "faqs": faqs, "alts": alts}
+        if pc:
+            _SECTION_EXTRAS_INDEX[pc] = rec
+        if pm:
+            _SECTION_EXTRAS_INDEX[pm] = rec
+    return _SECTION_EXTRAS_INDEX
+
+
+def _raw_section_extras(row):
+    """Return {apps, faqs, alts} from the 01-collected scale500 RAW, or None (no fabrication)."""
+    idx = _get_section_extras_index()
+    if not idx:
+        return None
+    lcsc = (row.get("supplier_reference") or "").strip().upper()
+    mpn = (row.get("mpn") or "").strip().upper()
+    return idx.get(lcsc) or idx.get(mpn)
+
+
+def _raw_fc_rec(row):
+    """Return the Features/Compliance record for this row, or None (no fabrication)."""
+    idx = _get_features_compliance_index()
+    if not idx:
+        return None
+    lcsc = (row.get("supplier_reference") or "").strip().upper()
+    mpn = (row.get("mpn") or "").strip().upper()
+    return idx.get(lcsc) or idx.get(mpn)
+
+
+def _raw_intro_text(row):
+    """Return the REAL pipeline Product Introduction for this row, or None.
+
+    Source precedence (all from the 01-collected scale500 RAW, never AI-written):
+      overviewData.productIntroEn  (official full intro)  ->  main_product.productIntroEn (short).
+    Returns None when neither exists so the panel falls back to MASTER short_description.
+    """
+    rec = _raw_fc_rec(row)
+    if not rec:
+        return None
+    return rec.get("intro") or rec.get("intro_short") or None
+
+
+def brand_class_html(row):
+    """Brand classification tag — emits LCSC 'Asian Brands' ONLY when the
+    01-collected RAW flag `isAsianBrand` is literally true.
+
+    Site policy: classification is NEVER inferred from the brand name. When the
+    flag is missing / false / unmatched, returns '' (no tag, no fabrication).
+    Loaded at generation time from scale500 RAW; MASTER schema is untouched.
+    """
+    idx = _get_asian_index()
+    if not idx:
+        return ""
+    lcsc = (row.get("supplier_reference") or "").strip().upper()
+    mpn = (row.get("mpn") or "").strip().upper()
+    flag = idx.get(lcsc)
+    if flag is None:
+        flag = idx.get(mpn)
+    if flag is not True:
+        return ""
+    return '<span class="brand-tag">Asian Brands</span>'
+
+
 # ==============================================================================
 # Risk #2 (2026-09-08): PDF enrichment loaded AT GENERATION TIME.
 # This replaces the old post-hoc HTML string injection (_enrich_apply.py), so
@@ -1411,6 +1811,93 @@ def rohs_badge_html(row):
 # optional and NEVER a publish blocker.
 # ==============================================================================
 ENRICH_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "enrich")
+
+# Authored rich-text Introduction slot (NOT overwritten by the enrichment pipeline).
+INTRO_DIR = os.path.join(ROOT, "data", "intro")
+
+# ---- Rich-text (Product Introduction) sanitizer ---------------------------------
+# The Introduction tab may carry authored rich HTML (data/intro/<mpn>.html).
+# We render a SAFE SUBSET only: formatting tags, no scripts, no event handlers,
+# and links restricted to http/https/mailto. All other tags/attrs are stripped.
+import html as _html
+from html.parser import HTMLParser
+
+_INTRO_ALLOWED_TAGS = {
+    "p", "br", "strong", "b", "em", "i", "u", "ul", "ol", "li",
+    "h3", "h4", "h5", "h6", "blockquote", "code", "pre",
+    "table", "thead", "tbody", "tr", "th", "td",
+    "a", "span", "div",
+}
+_INTRO_ALLOWED_ATTRS = {
+    "a": {"href", "rel", "target"},
+    "span": {"class"}, "div": {"class"},
+    "td": {"class"}, "th": {"class"},
+}
+
+
+class _IntroSanitizer(HTMLParser):
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self._out = []
+        self._stack = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag not in _INTRO_ALLOWED_TAGS:
+            return
+        allowed = _INTRO_ALLOWED_ATTRS.get(tag, set())
+        parts = []
+        for k, v in attrs:
+            kl = k.lower()
+            if kl not in allowed:
+                continue
+            if kl == "href" and v is not None:
+                v = v.strip()
+                if not v.startswith(("http://", "https://", "mailto:")):
+                    continue
+            parts.append(f' {kl}="{_html.escape(v or "", quote=True)}"')
+        self._out.append(f"<{tag}{''.join(parts)}>")
+        self._stack.append(tag)
+
+    def handle_startendtag(self, tag, attrs):
+        if tag not in _INTRO_ALLOWED_TAGS:
+            return
+        self._out.append(f"<{tag}/>")
+
+    def handle_endtag(self, tag):
+        if tag not in _INTRO_ALLOWED_TAGS:
+            return
+        if tag in self._stack:
+            self._out.append(f"</{tag}>")
+            self._stack.remove(tag)
+
+    def handle_data(self, data):
+        self._out.append(_html.escape(data))
+
+
+def render_rich_html(raw_html):
+    """Sanitize authored rich HTML to a safe subset; returns '' for empty/None."""
+    if not raw_html:
+        return ""
+    s = _IntroSanitizer()
+    s.feed(raw_html)
+    return "".join(s._out)
+
+
+def load_intro_html(mpn, slug):
+    """Authored rich-text Introduction: data/intro/<mpn>.html (one file per part).
+    Resolution: slug / SLUG / mpn / MPN with .html/.htm. None when absent."""
+    for c in (slug, (slug or "").upper(), mpn, (mpn or "").upper()):
+        if not c:
+            continue
+        for ext in (".html", ".htm"):
+            p = os.path.join(INTRO_DIR, f"{c}{ext}")
+            if os.path.isfile(p):
+                try:
+                    with open(p, "r", encoding="utf-8") as fh:
+                        return fh.read()
+                except Exception:
+                    return None
+    return None
 
 
 def load_enrichment(slug, mpn=None):
@@ -1547,7 +2034,152 @@ def _enrich_cosmetic(s):
     return s
 
 
-def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
+def classify_product_type(subcat, native_l1_raw):
+    """Classify a SKU into a sourcing-copy variant from VERIFIED text only.
+
+    Returns (type_key, lifecycle):
+      type_key in {mcu_ic, connector, module, other}
+      lifecycle in {normal, scarce, eol}
+    Lifecycle is flagged ONLY when explicit, verified lifecycle keywords appear in the
+    subcategory / native_l1 text — never inferred from missing or dirty data.
+    """
+    s = (subcat or "")
+    n = (native_l1_raw or "")
+    s_l = s.lower()
+    n_l = n.lower()
+    blob = f"{s_l} {n_l}"
+
+    # Lifecycle — explicit verified keywords only (no inference from blanks).
+    lifecycle = "normal"
+    if re.search(r"\b(eol|obsolete|nrnd|discontinued|end[- ]of[- ]life|last[- ]time[- ]buy|"
+                 r"not recommended for new design)\b", blob):
+        lifecycle = "eol"
+    elif re.search(r"(scarce|shortage|hard[- ]to[- ]find|allocated|long[- ]lead|"
+                   r"low[- ]stock|out[- ]of[- ]stock)", blob):
+        lifecycle = "scarce"
+
+    def _type_from(text):
+        t = (text or "").lower()
+        if re.search(r"connector|receptacle|header|terminal block|rj45|hdmi|usb connector", t):
+            return "connector"
+        if re.search(r"mcu|microcontroller|micro[- ]controller|mpu|fpga|dsp|asic|soc|processor|"
+                     r"\bcpu\b|integrated circuit|\bic\b|logic|memory|flash|eeprom|voltage regulator|"
+                     r"amplifier|adc|dac|op[- ]?amp|transistor|diode|mosfet|gate driver|led driver|"
+                     r"power management|switching|linear regulator", t):
+            return "mcu_ic"
+        if re.search(r"module|modules|wifi|rf module|wireless|ethernet|lora|ble|bluetooth|"
+                     r"gps|gsm|lte|nb-iot|zigbee", t):
+            return "module"
+        return None
+
+    t = _type_from(s) or _type_from(n)
+    if t is None:
+        t = "other"
+    return (t, lifecycle)
+
+
+def build_sourcing_info(pn, mfr, cat, subcat, native_l1_raw, spec_pairs_en, apps_list):
+    """Build the Sourcing Information block: fixed 4-part framework + SKU-driven variant.
+
+    Rules enforced (per 2026-09-12 spec):
+      - Only VERIFIED SKU data (pn, mfr, cat, subcat, specs, apps) is used.
+      - No inferred use / performance / supplier / stock / price / lead time / genuine /
+        certification / quality-result claims.
+      - No absolute or guarantee language (genuine, best/lowest price, guaranteed stock/
+        delivery, official/authorized distributor).
+      - Sourcing services are kept distinct from SKU facts.
+      - 2-3 dense, readable paragraphs; SEO keywords woven where relevant (no stuffing).
+    Returns an HTML string of <p> blocks (the <section> wrapper is owned by the caller).
+    """
+    pn_e = esc(pn)
+    mfr_e = esc(mfr) if mfr else ""
+    cat_e = esc(cat) if cat else ""
+    subcat_e = esc(subcat) if subcat else ""
+    type_key, lifecycle = classify_product_type(subcat, native_l1_raw)
+
+    # product noun: prefer a specific subcategory term, else category, else "component"
+    if subcat_e:
+        product_noun = subcat_e
+    elif cat_e:
+        product_noun = cat_e
+    else:
+        product_noun = "component"
+
+    # ---- Paragraph 1: procurement positioning (MPN + China electronics supply chain) ----
+    if mfr_e:
+        p1 = (f"<p>SZ Procure is a sourcing partner for the <strong>{pn_e}</strong> "
+              f"({mfr_e} {product_noun}), not a stock catalog. We help international buyers "
+              f"source this electronic component through the China electronics supply chain, "
+              f"with verified supplier sourcing and quality inspection.</p>")
+    else:
+        p1 = (f"<p>SZ Procure is a sourcing partner for the <strong>{pn_e}</strong> "
+              f"({product_noun}), not a stock catalog. We help international buyers source this "
+              f"electronic component through the China electronics supply chain, with verified "
+              f"supplier sourcing and quality inspection.</p>")
+
+    # Lifecycle disclosure — only when EXPLICIT verified keywords were present (no inference).
+    lifecycle_note = ""
+    if lifecycle == "scarce":
+        lifecycle_note = (f" Because {pn_e} may be in limited supply, we perform availability "
+                          f"investigation across multiple suppliers &mdash; a sourcing effort, not a "
+                          f"guarantee of stock or delivery date.")
+    elif lifecycle == "eol":
+        lifecycle_note = (f" Because {pn_e} is listed as end-of-life or obsolete in the supplied "
+                          f"data, we provide sourcing support and availability investigation across "
+                          f"remaining channels &mdash; a sourcing effort, not a guarantee of stock or "
+                          f"authenticity.")
+
+    # ---- Paragraphs 2 & 3: services & QC, varied by product type ----
+    if type_key == "mcu_ic":
+        svc = (f"For component sourcing of {pn_e}, we run supplier sourcing across the China "
+               f"electronics supply chain, supplier verification and multi-supplier quotation "
+               f"comparison so you can compare offers before purchase. We coordinate purchase "
+               f"orders, consolidation and international logistics dispatch from Shenzhen.")
+        qc = (f"Quality control focuses on supplier qualification and screening, then product, "
+              f"packaging and labeling checks with outgoing inspection before dispatch. These are "
+              f"sourcing services we perform &mdash; they are not a guarantee of any supplier's stock, "
+              f"price, lead time or authenticity. Tell us your required quantity, target price and "
+              f"sourcing requirements, then <a href=\"#rfq-card\">Request a Quote</a>.")
+    elif type_key == "connector":
+        svc = (f"For {pn_e}, supplier sourcing matches your required specifications &mdash; such as "
+               f"pin count, pitch and mounting style &mdash; against verified China electronics supply "
+               f"chain suppliers, with multi-supplier quotation comparison and purchase-order "
+               f"coordination. We handle consolidation and international logistics dispatch from "
+               f"Shenzhen.")
+        qc = (f"Quality control includes supplier qualification and screening, specification "
+              f"matching verification, and product, packaging and labeling checks with outgoing "
+              f"inspection. These checks are part of our sourcing service and do not constitute a "
+              f"guarantee of stock, price, lead time or authenticity. Tell us your required "
+              f"quantity, target price and sourcing requirements, then "
+              f"<a href=\"#rfq-card\">Request a Quote</a>.")
+    elif type_key == "module":
+        svc = (f"For electronics sourcing of {pn_e}, we carry out availability verification across "
+               f"suppliers in the China electronics supply chain, multi-supplier quotation comparison and "
+               f"purchase-order coordination, then consolidation and international logistics dispatch "
+               f"from Shenzhen.")
+        qc = (f"Quality control covers supplier qualification and screening, availability "
+              f"cross-check, product, packaging and labeling inspection and outgoing inspection. "
+              f"These are sourcing services we provide; they are not a guarantee of a specific "
+              f"supplier's stock, price, lead time or authenticity. Tell us your required quantity, "
+              f"target price and sourcing requirements, then "
+              f"<a href=\"#rfq-card\">Request a Quote</a>.")
+    else:  # other
+        svc = (f"For {pn_e}, our electronics sourcing covers supplier sourcing across the China "
+               f"electronics supply chain, supplier verification and multi-supplier quotation "
+               f"comparison so you can compare offers before purchase. We coordinate purchase orders, "
+               f"consolidation and international logistics dispatch from Shenzhen.")
+        qc = (f"Quality control includes supplier qualification and screening, then product, "
+              f"packaging and labeling checks with outgoing inspection before dispatch. These are "
+              f"sourcing services we perform &mdash; they are not a guarantee of any supplier's stock, "
+              f"price, lead time or authenticity. Tell us your required quantity, target price and "
+              f"sourcing requirements, then <a href=\"#rfq-card\">Request a Quote</a>.")
+
+    p2 = f"<p>{svc}{lifecycle_note}</p>"
+    p3 = f"<p>{qc}</p>"
+    return p1 + p2 + p3
+
+
+def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None, verbose=False):
     pn = row["mpn"].strip()
     mfr = row["manufacturer"].strip()
     _cat_res = resolve_native(row.get("native_l1"))
@@ -1586,7 +2218,7 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
     # ---- parse repeatable fields (same helpers as V2) ----
     alts = [a for a in split_multi(alt_raw) if slugify(a)]
     apps_list = split_multi(apps)
-    faq_pairs = parse_faq(faq_raw, pn)
+    # FAQ is assembled below via merge_faqs() (after enrichment load) — source priority + count control.
 
     # ---- structured attribute extraction: REAL MASTER attributes only ----
     spec_pairs = []
@@ -1615,9 +2247,9 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
     enrich_meta = ""
     main_attrs = ""
     if enrich is not None:
-        # short_description -> Overview tab only (MASTER hero-desc preserved; not an identity field)
+        # short_description -> Introduction tab only (MASTER hero-desc preserved; not an identity field)
         sd = (enrich.get("short_description") or {}).get("value")
-        overview_tab = esc(sd) if sd else overview
+        introduction_tab = esc(sd) if sd else overview
         # key_specifications -> append as supplemental datasheet params.
         # Dedup by NORMALIZED concept: skip any enrichment spec whose concept already
         # exists in the MASTER identity spec set (so no duplicate rows such as "SRAM",
@@ -1642,17 +2274,25 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
                 continue
             seen_apps.add(_enrich_norm_text(val))
             apps_list.append(val)
-        # faq -> append (dedup by NORMALIZED question against MASTER faq)
-        existing_q = {_enrich_norm_text(q) for q, _ in faq_pairs}
-        for f in (enrich.get("faq") or []):
-            q = f.get("question") if isinstance(f, dict) else None
-            a = f.get("answer") if isinstance(f, dict) else None
-            if not (q and a):
-                continue
-            if _enrich_norm_text(q) in existing_q:
-                continue
-            existing_q.add(_enrich_norm_text(q))
-            faq_pairs.append([q, a])
+        # ---- RAW section extras (Applications / FAQ / Alternative Parts) ----
+        # Real pipeline content from scale500; mapped ONLY when present, never forced.
+        raw_ext = _raw_section_extras(row)
+        if raw_ext:
+            # Applications: append RAW application areas (dedup by normalized text)
+            seen_apps = set(_enrich_norm_text(a) for a in apps_list)
+            for app in (raw_ext.get("apps") or []):
+                if _enrich_norm_text(app) in seen_apps:
+                    continue
+                seen_apps.add(_enrich_norm_text(app))
+                apps_list.append(app)
+            # FAQ already merged in via merge_faqs() (Pass A: LCSC/RAW qualified).
+            # Alternatives: extend with REAL verified MPNs (dedup)
+            seen_alt = {a.lower() for a in alts}
+            for model in (raw_ext.get("alts") or []):
+                if model.lower() in seen_alt:
+                    continue
+                seen_alt.add(model.lower())
+                alts.append(model)
         # keywords -> data asset ONLY (NOT injected into meta/visible SEO, per Risk #2)
         enrich_keywords = [k.get("value") for k in (enrich.get("keywords") or [])
                            if isinstance(k, dict) and k.get("value")]
@@ -1664,7 +2304,27 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
         if enrich_keywords:
             main_attrs += f' data-enrichment-keywords="{esc(", ".join(enrich_keywords))}"'
     else:
-        overview_tab = overview
+        introduction_tab = overview
+
+    # ---- FAQ: source-priority merge with count control (final rule; runs even with no enrichment) ----
+    faq_pairs, faq_audit = merge_faqs(faq_raw, enrich, row)
+    if verbose:
+        _print_faq_audit(pn, faq_audit)
+
+    # Product Introduction panel — authored rich HTML (human override) takes precedence;
+    # otherwise the REAL pipeline intro from RAW overviewData.productIntroEn (never AI);
+    # otherwise fall back to MASTER short_description / overview.
+    _authored_intro = load_intro_html(pn, slug)
+    if _authored_intro:
+        introduction_panel = f'<div class="intro-body">{render_rich_html(_authored_intro)}</div>'
+    else:
+        _raw_intro = _raw_intro_text(row)
+        if _raw_intro:
+            _paras = [p.strip() for p in _raw_intro.split("\n") if p.strip()]
+            _intro_html = "".join(f"<p>{esc(p)}</p>" for p in _paras)
+            introduction_panel = f'<div class="intro-body">{_intro_html}</div>'
+        else:
+            introduction_panel = f'<p>{introduction_tab}</p>'
 
     # V3 Specifications tab — real attributes, honest labels, NEVER invented rows.
     # MASTER specs first; enrichment specs appended as supplemental datasheet params.
@@ -1678,7 +2338,36 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
     for k, v in enrich_spec_pairs:
         specs_rows += f"<tr><th>{esc(k)}</th><td>{esc(v)}</td></tr>"
     if specs_rows:
-        specs_html = f'<table class="spec-table">\n<tbody>\n{specs_rows}</tbody>\n</table>'
+        row_matches = re.findall(r'<tr>.*?</tr>', specs_rows, re.DOTALL)
+        # Dedupe identical rows — some source attribute lists repeat the same field
+        # (e.g. LCSC productAttributesList lists Antenna Type / Sensitivity twice).
+        # Key by normalized (Type|Description) and keep the first occurrence only.
+        _deduped, _seen = [], set()
+        for _row in row_matches:
+            _m = re.match(r'<tr><th>(.*?)</th><td>(.*?)</td></tr>', _row, re.DOTALL)
+            if not _m:
+                _deduped.append(_row)
+                continue
+            _k = _enrich_norm_text(_m.group(1)) + '|' + _enrich_norm_text(_m.group(2))
+            if _k in _seen:
+                continue
+            _seen.add(_k)
+            _deduped.append(_row)
+        row_matches = _deduped
+        n = len(row_matches)
+        thead = '<thead><tr><th>Type</th><th>Description</th></tr></thead>'
+        if n <= 4:
+            specs_html = f'<table class="spec-table">{thead}\n<tbody>\n{specs_rows}</tbody>\n</table>'
+        else:
+            mid = (n + 1) // 2
+            left = ''.join(row_matches[:mid])
+            right = ''.join(row_matches[mid:])
+            specs_html = (
+                '<div class="spec-grid">\n'
+                f'  <table class="spec-table">{thead}<tbody>\n{left}</tbody></table>\n'
+                f'  <table class="spec-table">{thead}<tbody>\n{right}</tbody></table>\n'
+                '</div>'
+            )
     else:
         specs_html = (
             '<div class="spec-empty">'
@@ -1689,7 +2378,8 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
 
     # Hero identity fields — real, key identity only (no fabrication).
     id_rows = []
-    id_rows.append(("Manufacturer", f'<a href="/manufacturers/{mfr_slug}/">{esc(mfr)}</a>'))
+    id_rows.append(("Manufacturer", f'<a href="/manufacturers/{mfr_slug}/">{esc(mfr)}</a>{brand_class_html(row)}'))
+    id_rows.append(("MPN", esc(pn)))
     if cat_resolved:
         id_rows.append(("Product Type", f'<a href="/components/{cat_slug}/">{esc(subcat or cat_top)}</a>'))
     else:
@@ -1697,6 +2387,13 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
     for k, v in spec_pairs_en:
         if k.lower() in ("package", "core", "frequency_hz", "voltage_v"):
             id_rows.append((human_attr_label(k), esc(format_attr_value(k, v))))
+    if dsheet:
+        id_rows.append(("Datasheet",
+                        f'<a class="doc-link" href="{esc(dsheet)}" target="_blank" '
+                        f'rel="nofollow noopener" download>'
+                        f'<span class="doc-ico">&#128196;</span> {esc(pn)} Datasheet</a>'))
+    if overview:
+        id_rows.append(("Key Attributes", overview))
     id_list_html = "".join(
         f'<div class="id-row"><div class="id-label">{esc(k)}</div><div class="id-value">{v}</div></div>'
         for k, v in id_rows
@@ -1710,7 +2407,7 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
         apps_items = "".join(f"<li>{esc(x)}</li>" for x in apps_list)
         apps_section = (
             '<section id="applications" class="tab-panel">\n'
-            '  <h2 class="section-title">Common Applications</h2>\n'
+            '  <h2 class="section-title">Applications</h2>\n'
             f'  <ul class="app-list">{apps_items}</ul>\n'
             '</section>'
         )
@@ -1719,37 +2416,26 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
     faq_html, faq_jsonld = render_faq(faq_pairs, pn)
     faq_section = ""
     if faq_html:
+        # Standalone section (NOT a TAB): removed from tab-nav + scroll-spy on 2026-09-12.
+        # Keeps the same card styling as other sections; grid-column:1 keeps it in the
+        # left column (same column as .tab-wrap / .sourcing) so it does not land beside the RFQ card.
         faq_section = (
-            '<section id="faq" class="tab-panel">\n'
+            '<section id="faq" class="tab-panel" style="grid-column:1;margin-top:16px;margin-bottom:16px">\n'
             '  <h2 class="section-title">Frequently Asked Questions</h2>\n'
             f'  {faq_html}\n'
             '</section>'
         )
 
-    # Related Parts — "Other parts we source" (same top-category real SKUs; no compatible/replacement implication)
+    # Related Parts — REMOVED site-wide (2026-09-12): user requested removal of the
+    # Related tab/section from all 746 SKU pages (internal-link product web).
     related_section = ""
-    if related and cat_resolved:
-        rel_items = "".join(
-            f'<div class="related-card"><a href="/products/{oslug}/">{esc(opn)}</a></div>'
-            for opn, oslug in related
-        )
-        related_section = (
-            f'<section id="related" class="tab-panel">\n'
-            f'  <h2 class="section-title">Related {esc(cat_top)}</h2>\n'
-            f'  <p>Other {esc(cat_top).lower()} we help global buyers source:</p>\n'
-            f'  <div class="related-grid">{rel_items}</div>\n'
-            '</section>'
-        )
-    elif related:
-        # UNMAPPED/COLLISION: category is quarantined -> neutral "Related Parts" (no broken link)
-        related_section = (
-            f'<section id="related" class="tab-panel">\n'
-            f'  <h2 class="section-title">Related Parts</h2>\n'
-            '</section>'
-        )
 
     # Alternative Parts — HIDDEN unless real, verified alternates exist.
-    # (Site-wide alternative_parts is empty today; never inferred from series/package.)
+    # Source of truth = MASTER `alternative_parts` (verified cross-brand cross-references,
+    # e.g. STM32F103C8T6 -> CH32F103C8T6 / AO3400A -> AO3404A / RC0402FR-0710KL -> AC0402FR-1310KL).
+    # LCSC-confirmed alternates (rawExt.alts where hasAlternatePart==True) are appended when present
+    # — but in scale500 every hasAlternatePart is False, so the loose "also-viewed" list is excluded.
+    # NEVER fabricate/infer alternates from series or package.
     alt_section = ""
     if alts:
         alt_items = []
@@ -1768,15 +2454,23 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
                 '</section>'
             )
 
-    # Documentation — real datasheet only (never a fake PDF URL)
+    # Datasheet — real PDF only (never a fake URL).
+    # Inline <embed> is the ONLY PDF loaded at page init; no modal / no duplicate request.
     if dsheet:
         doc_section = (
             '<section id="documentation" class="tab-panel">\n'
-            '  <h2 class="section-title">Documentation</h2>\n'
+            '  <h2 class="section-title">Datasheet</h2>\n'
             '  <details class="doc-acc" open>\n'
-            '    <summary><span class="doc-ico">&#128196;</span> Datasheet <span class="doc-tag">PDF</span></summary>\n'
+            '    <summary>\n'
+            '      <span class="doc-acc-title" aria-label="Datasheet"><span class="doc-ico">&#128196;</span></span>\n'
+            '      <span class="doc-acc-actions">\n'
+            f'        <a class="doc-btn" href="{esc(dsheet)}" target="_blank" rel="nofollow noopener">Open</a>\n'
+            f'        <a class="doc-btn" href="{esc(dsheet)}" target="_blank" rel="nofollow noopener" download>Download</a>\n'
+            '      </span>\n'
+            '    </summary>\n'
             '    <div class="doc-acc-body">\n'
-            f'      <a class="doc-dl" href="{esc(dsheet)}" target="_blank" rel="nofollow noopener">Download {esc(pn)} Datasheet (PDF)</a>\n'
+            f'      <div class="doc-preview"><embed src="{esc(dsheet)}" type="application/pdf" '
+            f'title="{esc(pn)} Datasheet Preview" aria-label="{esc(pn)} Datasheet Preview" /></div>\n'
             '    </div>\n'
             '  </details>\n'
             '</section>'
@@ -1784,17 +2478,84 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
     else:
         doc_section = (
             '<section id="documentation" class="tab-panel">\n'
-            '  <h2 class="section-title">Documentation</h2>\n'
+            '  <h2 class="section-title">Datasheet</h2>\n'
             '  <p class="doc-note">Datasheet is available on request. Send the part number and our team will provide the official documentation.</p>\n'
             '</section>'
         )
 
-    # Sourcing Information — restrained, no stock/price/lead-time/availability claims
-    sourcing_html = (
-        f"<p>SZ Procure is a sourcing partner for <strong>{esc(pn)}</strong>, not a stock "
-        f"catalog. We help international buyers source original components from the China "
-        f"electronics supply chain — send your quantity and target price for a quotation.</p>"
-    )
+    # Features — official product feature bullets (01 RAW overviewData.productFeaturesEn)
+    features_section = ""
+    fc = _raw_fc_rec(row)
+    if fc and fc.get("features"):
+        feats = [ln.strip().lstrip("-•* ").strip()
+                 for ln in fc["features"].splitlines() if ln.strip()]
+        if feats:
+            feat_items = "".join(f"<li>{esc(x)}</li>" for x in feats)
+            features_section = (
+                '<section id="features" class="tab-panel">\n'
+                '  <h2 class="section-title">Features</h2>\n'
+                f'  <ul class="features-list">{feat_items}</ul>\n'
+                '</section>'
+            )
+
+    # Compliance & Export Codes — RoHS / ECCN / HTS by country (01 RAW, real only).
+    # Rendered as two side-by-side Type | Details tables to match the LCSC layout.
+    compliance_section = ""
+    if fc:
+        comp_rows = []
+        if fc.get("rohs"):
+            comp_rows.append(("RoHS", fc.get("rohs_type") or "Compliant"))
+        if fc.get("eccn"):
+            comp_rows.append(("ECCN", fc["eccn"]))
+        # HTS country variants, in the LCSC order shown in the reference screenshot:
+        # CN, US, TARIC, CA, BR, IN, MX. Any extra country codes fall to the end.
+        hts_map = fc.get("hts_map") or {}
+        hts_order = ["CN", "US", "TARIC", "CA", "BR", "IN", "MX"]
+        seen = set()
+        for code in hts_order:
+            val = hts_map.get(code)
+            if val:
+                label = "TARIC" if code == "TARIC" else f"{code}HTS"
+                comp_rows.append((label, str(val).strip()))
+                seen.add(code)
+        for code in sorted(hts_map.keys()):
+            if code in seen:
+                continue
+            val = hts_map.get(code)
+            if val:
+                label = "TARIC" if code == "TARIC" else f"{code}HTS"
+                comp_rows.append((label, str(val).strip()))
+        if comp_rows:
+            mid = (len(comp_rows) + 1) // 2
+            left_rows = comp_rows[:mid]
+            right_rows = comp_rows[mid:]
+            def _comp_table(rows):
+                body = "".join(
+                    f'<tr><th>{esc(k)}</th><td>{esc(v)}</td></tr>' for k, v in rows
+                )
+                return (
+                    '<table class="compliance-table">\n'
+                    '  <thead>\n'
+                    '    <tr><th>Type</th><th>Details</th></tr>\n'
+                    '  </thead>\n'
+                    f'  <tbody>{body}</tbody>\n'
+                    '</table>'
+                )
+            left_html = _comp_table(left_rows)
+            right_html = _comp_table(right_rows) if right_rows else ""
+            grid_inner = f"{left_html}\n{right_html}".strip()
+            compliance_section = (
+                '<section id="compliance" class="tab-panel">\n'
+                '  <h2 class="section-title">Compliance &amp; Export Codes</h2>\n'
+                f'  <div class="compliance-grid">\n{grid_inner}\n  </div>\n'
+                '</section>'
+            )
+
+    # Sourcing Information — fixed 4-part framework + SKU-driven dynamic copy (spec 2026-09-12)
+    # Only verified SKU data (pn, mfr, cat, subcat, native_l1, specs, apps) is used; no
+    # inferred use/performance/supplier/stock/price/lead-time/authenticity claims, no guarantees.
+    sourcing_html = build_sourcing_info(pn, mfr, cat, subcat, row.get("native_l1"),
+                                        spec_pairs_en, apps_list)
 
     # RFQ card — SKU Inline RFQ Standard v1 (form -> FormSubmit.co; optional attachment <=10MB)
     # No Buy Now / Add to Cart. Standalone /request-a-quote/ retained for BOM / multi-part sourcing.
@@ -1917,32 +2678,32 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
   </script>"""
 
     # tab nav — only real sections present
-    tabs = ['<a href="#overview" class="tab-btn active">Overview</a>',
-            '<a href="#specifications" class="tab-btn">Specifications</a>']
-    if doc_section:
-        tabs.append('<a href="#documentation" class="tab-btn">Documentation</a>')
+    tabs = ['<a href="#specifications" class="tab-btn active">Specifications</a>',
+            '<a href="#introduction" class="tab-btn">Introduction</a>']
+    if features_section:
+        tabs.append('<a href="#features" class="tab-btn">Features</a>')
     if apps_section:
         tabs.append('<a href="#applications" class="tab-btn">Applications</a>')
-    if related_section:
-        tabs.append('<a href="#related" class="tab-btn">Related Parts</a>')
+    if doc_section:
+        tabs.append('<a href="#documentation" class="tab-btn">Datasheet</a>')
     if alt_section:
         tabs.append('<a href="#alternative" class="tab-btn">Alternative Parts</a>')
-    if faq_section:
-        tabs.append('<a href="#faq" class="tab-btn">FAQ</a>')
+    if compliance_section:
+        tabs.append('<a href="#compliance" class="tab-btn">Compliance &amp; Export Codes</a>')
     tab_nav = "\n          ".join(tabs)
 
     # scroll-spy group ids (presentational only)
-    spy_ids = ["overview", "specifications"]
-    if doc_section:
-        spy_ids.append("documentation")
+    spy_ids = ["specifications", "introduction"]
+    if features_section:
+        spy_ids.append("features")
     if apps_section:
         spy_ids.append("applications")
-    if related_section:
-        spy_ids.append("related")
+    if doc_section:
+        spy_ids.append("documentation")
     if alt_section:
         spy_ids.append("alternative")
-    if faq_section:
-        spy_ids.append("faq")
+    if compliance_section:
+        spy_ids.append("compliance")
     spy_groups = ", ".join(f"{{ id: '{i}' }}" for i in spy_ids)
 
     return f"""<!DOCTYPE html>
@@ -1953,7 +2714,7 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
 {seo_head(title, desc, url, og_img, noindex=noindex)}
 {enrich_meta}
   <link rel="stylesheet" href="/assets/styles.css" />
-  <link rel="stylesheet" href="/assets/sku-v3.css" />
+  <link rel="stylesheet" href="/assets/sku-v3.css?v=20260912c" />
   <style>
     /* Page-scoped: suppress global floating/bottom conversion UI so the page-level
        RFQ owns conversion. Does NOT modify global site.js / styles.css. */
@@ -1984,7 +2745,6 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
         <div class="id-list">
 {id_list_html}
         </div>
-        <p class="hero-desc">{overview}</p>
       </div>
 
       {rfq_card}
@@ -1995,26 +2755,29 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
           {tab_nav}
         </nav>
 
-        <section id="overview" class="tab-panel">
-          <h2 class="section-title">Product Overview</h2>
-          <p>{overview_tab}</p>
-        </section>
-
         <section id="specifications" class="tab-panel">
           <h2 class="section-title">Technical Specifications</h2>
           {specs_html}
         </section>
 
-        {doc_section}
+        <section id="introduction" class="tab-panel">
+          <h2 class="section-title">Product Introduction</h2>
+          {introduction_panel}
+        </section>
+
+        {features_section}
 
         {apps_section}
 
-        {related_section}
+        {doc_section}
 
         {alt_section}
 
-        {faq_section}
+        {compliance_section}
       </div>
+
+      <!-- FAQ: independent section (removed from TAB nav / scroll-spy on 2026-09-12), placed before Sourcing -->
+      {faq_section}
 
       <!-- Sourcing (no stock/price/lead-time promises) -->
       <section class="sourcing">
@@ -3611,7 +4374,7 @@ def _write_sku_page_atomic(args, g, cslug, mfr_slug, related, generated_slugs, o
                              generated_slugs=generated_slugs)
     else:
         page = gen_part_page_v3(g, cslug, mfr_slug, related=related.get(slug, []),
-                                generated_slugs=generated_slugs)
+                                generated_slugs=generated_slugs, verbose=False)
     if "<html" not in page and "<!DOCTYPE" not in page.upper():
         raise RuntimeError(f"renderer produced no HTML for {slug} "
                            f"(refusing to write a broken page)")
@@ -4372,7 +5135,7 @@ def main():
         if pn.upper() in V2_LEGACY_EXCEPTIONS:
             page = gen_part_page(g, cslug, mfr_slug, related=related_map.get(slug, []), generated_slugs=generated_slugs)
         else:
-            page = gen_part_page_v3(g, cslug, mfr_slug, related=related_map.get(slug, []), generated_slugs=generated_slugs)
+            page = gen_part_page_v3(g, cslug, mfr_slug, related=related_map.get(slug, []), generated_slugs=generated_slugs, verbose=bool(args.single and args.single.strip().upper() == pn.upper()))
         # --single: skip every SKU except the target (do NOT write other pages)
         if args.single and args.single.strip().upper() != pn.upper():
             continue

@@ -16,7 +16,7 @@
   <meta property="og:image" content="https://www.szprocure.com/assets/img/hero.svg" />
 
   <link rel="stylesheet" href="/assets/styles.css" />
-  <link rel="stylesheet" href="/assets/sku-v3.css" />
+  <link rel="stylesheet" href="/assets/sku-v3.css?v=20260912d" />
   <style>
     /* Page-scoped: suppress global floating/bottom conversion UI so the page-level
        RFQ owns conversion. Does NOT modify global site.js / styles.css. */
@@ -59,9 +59,7 @@
     "mainEntity": [
     { "@type": "Question", "name": "What core interface translation features and integrated peripheral functions define the FT232RL-REEL", "acceptedAnswer": { "@type": "Answer", "text": "The FT232RL-REEL is a single-chip USB 2.0 Full Speed (12 Mbps) to asynchronous serial data (UART) interface IC. It features a fully integrated 1024-bit internal EEPROM for storing USB VID, PID, serial number, product description strings, and configuration descriptors, an integrated 12 MHz oscillator that eliminates the need for an external crystal, and configurable clock output options of 6 MHz, 12 MHz, 24 MHz, and 48 MHz. The device supports asynchronous data transfer rates from 300 baud up to 3 Mbaud at TTL/CMOS levels and includes a 256-byte receive FIFO buffer and a 128-byte transmit FIFO buffer for high data throughput.;" } },
     { "@type": "Question", "name": "What input supply ranges, power consumption profiles, and flexible logic levels govern IC operation", "acceptedAnswer": { "@type": "Answer", "text": "The device operates from a single main supply voltage (VCC) of 3.3 V to 5.25 V, with a typical operating current of 15 mA and a typical USB suspend current of 70 μA. An integrated 3.3 V LDO regulator provides up to 50 mA for external circuitry if required and can also supply the VCCIO pin. The UART interface logic level is configurable through VCCIO, which supports supply voltages from 1.8 V to 5.25 V, allowing direct interfacing with a wide range of logic families without external level shifters.;" } },
-    { "@type": "Question", "name": "Which physical footprint, terminal count, and mechanical dimensions specify the SSOP-28 package", "acceptedAnswer": { "@type": "Answer", "text": "The FT232RL is supplied in a 28-pin Shrink Small Outline Package (SSOP-28). The package body measures 10.20 mm × 5.30 mm (approximately 7.80 mm across the leads), has a maximum height of 2.00 mm, and uses a 0.65 mm lead pitch. The package is Pb-free and RoHS compliant.;" } },
-    { "@type": "Question", "name": "What does the FT232RL part designation indicate", "acceptedAnswer": { "@type": "Answer", "text": "The FT232R designates FTDI&#x27;s USB-to-UART bridge device family with integrated EEPROM and clock circuitry. The &quot;L&quot; suffix identifies the 28-pin SSOP package, while the related FT232RQ version is supplied in a QFN-32 package. The datasheet does not define the meaning of the &quot;-REEL&quot; suffix or specify reel dimensions or packing quantities.;" } },
-    { "@type": "Question", "name": "What operating temperature range and solder reflow conditions apply to the FT232RL", "acceptedAnswer": { "@type": "Answer", "text": "The FT232RL operates over an industrial ambient temperature range of −40°C to +85°C. It is supplied in a Pb-free, RoHS-compliant package and supports standard lead-free solder reflow with a peak temperature of 260°C. The device is MSL 3 compliant in accordance with IPC/JEDEC J-STD-033A. The datasheet does not specify an ESD rating." } }
+    { "@type": "Question", "name": "Which physical footprint, terminal count, and mechanical dimensions specify the SSOP-28 package", "acceptedAnswer": { "@type": "Answer", "text": "The FT232RL is supplied in a 28-pin Shrink Small Outline Package (SSOP-28). The package body measures 10.20 mm × 5.30 mm (approximately 7.80 mm across the leads), has a maximum height of 2.00 mm, and uses a 0.65 mm lead pitch. The package is Pb-free and RoHS compliant.;" } }
     ]
   }
   </script>
@@ -95,9 +93,8 @@
         <h1 class="mpn">FT232RL-REEL<span class="rohs-badge" aria-hidden="true">RoHS</span></h1>
         <p class="type">USB Connectors</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/ftdi/">FTDI</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/connectors-electromechanical/">USB Connectors</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">SSOP-28-208mil</div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/ftdi/">FTDI</a></div></div><div class="id-row"><div class="id-label">MPN</div><div class="id-value">FT232RL-REEL</div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/connectors-electromechanical/">USB Connectors</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">SSOP-28-208mil</div></div><div class="id-row"><div class="id-label">Datasheet</div><div class="id-value"><a class="doc-link" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ft232rl-reel.pdf" target="_blank" rel="nofollow noopener" download><span class="doc-ico">&#128196;</span> FT232RL-REEL Datasheet</a></div></div><div class="id-row"><div class="id-label">Key Attributes</div><div class="id-value">USB UART interface integrated circuit device with clock generator output and security dongle function</div></div>
         </div>
-        <p class="hero-desc">USB UART interface integrated circuit device with clock generator output and security dongle function</p>
       </div>
 
       
@@ -184,47 +181,49 @@
       <!-- TABS: sticky nav + scroll-spy; all panels in DOM (SEO-friendly) -->
       <div class="tab-wrap">
         <nav class="tab-nav">
-          <a href="#overview" class="tab-btn active">Overview</a>
-          <a href="#specifications" class="tab-btn">Specifications</a>
-          <a href="#documentation" class="tab-btn">Documentation</a>
+          <a href="#specifications" class="tab-btn active">Specifications</a>
+          <a href="#introduction" class="tab-btn">Introduction</a>
           <a href="#applications" class="tab-btn">Applications</a>
-          <a href="#related" class="tab-btn">Related Parts</a>
+          <a href="#documentation" class="tab-btn">Datasheet</a>
           <a href="#alternative" class="tab-btn">Alternative Parts</a>
-          <a href="#faq" class="tab-btn">FAQ</a>
         </nav>
-
-        <section id="overview" class="tab-panel">
-          <h2 class="section-title">Product Overview</h2>
-          <p>USB UART interface integrated circuit device with clock generator output and security dongle function</p>
-        </section>
 
         <section id="specifications" class="tab-panel">
           <h2 class="section-title">Technical Specifications</h2>
-          <table class="spec-table">
-<tbody>
-<tr><th>Application Function</th><td>USB to UART</td></tr><tr><th>Data Rate</th><td>3Mbps</td></tr><tr><th>USB Protocol Version</th><td>USB 2.0</td></tr><tr><th>Package</th><td>SSOP-28-208mil</td></tr><tr><th>Operating Temperature</th><td>-40℃~+85℃</td></tr><tr><th>Voltage - Supply</th><td>3.3V~5.25V</td></tr><tr><th>Number of ports</th><td>-</td></tr><tr><th>Features</th><td>Hardware flow control support;Programmable baud rate;Power-on reset;FIFO buffer;Built-in clock generator</td></tr><tr><th>Applications Function</th><td>USB to UART</td></tr><tr><th>Data Rate</th><td>3Mbps</td></tr><tr><th>Quiescent Supply Current</th><td>70uA</td></tr><tr><th>USB Protocol</th><td>USB 2.0</td></tr><tr><th>Current - Supply</th><td>15mA</td></tr></tbody>
-</table>
+          <div class="spec-grid">
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Application Function</th><td>USB to UART</td></tr><tr><th>Data Rate</th><td>3Mbps</td></tr><tr><th>USB Protocol Version</th><td>USB 2.0</td></tr><tr><th>Package</th><td>SSOP-28-208mil</td></tr><tr><th>Operating Temperature</th><td>-40℃~+85℃</td></tr><tr><th>Voltage - Supply</th><td>3.3V~5.25V</td></tr></tbody></table>
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Number of ports</th><td>-</td></tr><tr><th>Features</th><td>Hardware flow control support;Programmable baud rate;Power-on reset;FIFO buffer;Built-in clock generator</td></tr><tr><th>Applications Function</th><td>USB to UART</td></tr><tr><th>Quiescent Supply Current</th><td>70uA</td></tr><tr><th>USB Protocol</th><td>USB 2.0</td></tr><tr><th>Current - Supply</th><td>15mA</td></tr></tbody></table>
+</div>
         </section>
 
-        <section id="documentation" class="tab-panel">
-  <h2 class="section-title">Documentation</h2>
-  <details class="doc-acc" open>
-    <summary><span class="doc-ico">&#128196;</span> Datasheet <span class="doc-tag">PDF</span></summary>
-    <div class="doc-acc-body">
-      <a class="doc-dl" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ft232rl-reel.pdf" target="_blank" rel="nofollow noopener">Download FT232RL-REEL Datasheet (PDF)</a>
-    </div>
-  </details>
-</section>
+        <section id="introduction" class="tab-panel">
+          <h2 class="section-title">Product Introduction</h2>
+          <p>USB UART interface integrated circuit device with clock generator output and security dongle function</p>
+        </section>
+
+        
 
         <section id="applications" class="tab-panel">
-  <h2 class="section-title">Common Applications</h2>
+  <h2 class="section-title">Applications</h2>
   <ul class="app-list"><li>USB to RS232 / RS422 / RS485 Converters</li><li>Upgrading Legacy Peripherals to USB</li><li>Cellular and Cordless Phone USB data transfer cables and interfaces</li><li>Interfacing MCU / PLD / FPGA based designs to USB</li><li>USB Audio and Low Bandwidth Video data transfer</li><li>PDA to USB data transfer</li><li>USB Smart Card Readers</li><li>USB Instrumentation</li><li>USB Industrial Control</li><li>USB MP3 Player Interface</li><li>USB FLASH Card Reader / Writers</li><li>Set Top Box PC - USB interface</li><li>USB Digital Camera Interface</li><li>USB Hardware Modems</li><li>USB Wireless Modems</li><li>USB Bar Code Readers</li><li>USB Software / Hardware Encryption Dongles</li></ul>
 </section>
 
-        <section id="related" class="tab-panel">
-  <h2 class="section-title">Related Connectors &amp; Electromechanical</h2>
-  <p>Other connectors &amp; electromechanical we help global buyers source:</p>
-  <div class="related-grid"><div class="related-card"><a href="/products/b4bxhalfsn/">B4B-XH-A(LF)(SN)</a></div><div class="related-card"><a href="/products/b2bphkslfsn/">B2B-PH-K-S(LF)(SN)</a></div><div class="related-card"><a href="/products/gtusb7010asv/">GT-USB-7010ASV</a></div><div class="related-card"><a href="/products/uflrsmt110/">U.FL-R-SMT-1(10)</a></div><div class="related-card"><a href="/products/b4bphkslfsn/">B4B-PH-K-S(LF)(SN)</a></div><div class="related-card"><a href="/products/ts1187abab/">TS-1187A-B-A-B</a></div></div>
+        <section id="documentation" class="tab-panel">
+  <h2 class="section-title">Datasheet</h2>
+  <details class="doc-acc" open>
+    <summary>
+      <span class="doc-acc-title" aria-label="Datasheet"><span class="doc-ico">&#128196;</span></span>
+      <span class="doc-acc-actions">
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ft232rl-reel.pdf" target="_blank" rel="nofollow noopener">Open</a>
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ft232rl-reel.pdf" target="_blank" rel="nofollow noopener" download>Download</a>
+      </span>
+    </summary>
+    <div class="doc-acc-body">
+      <div class="doc-preview"><embed src="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ft232rl-reel.pdf" type="application/pdf" title="FT232RL-REEL Datasheet Preview" aria-label="FT232RL-REEL Datasheet Preview" /></div>
+    </div>
+  </details>
 </section>
 
         <section id="alternative" class="tab-panel">
@@ -233,16 +232,19 @@
   <ul class="alt-list"><li><a href="/request-a-quote/?pn=FT232RNL-REEL" class="alt-link">FT232RNL-REEL <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=HT8232RSZ" class="alt-link">HT8232RSZ <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=FT232RL-REEL-S" class="alt-link">FT232RL-REEL-S <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=CY7C64225-28PVXCT" class="alt-link">CY7C64225-28PVXCT <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=FT232RNL-TUBE" class="alt-link">FT232RNL-TUBE <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=CY7C65213A-28PVXI" class="alt-link">CY7C65213A-28PVXI <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=CY7C65213-28PVXIT" class="alt-link">CY7C65213-28PVXIT <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=CY7C65213A-28PVXIT" class="alt-link">CY7C65213A-28PVXIT <span class="muted">(request quote)</span></a></li></ul>
 </section>
 
-        <section id="faq" class="tab-panel">
-  <h2 class="section-title">Frequently Asked Questions</h2>
-  <div class="faq-item"><h3>What core interface translation features and integrated peripheral functions define the FT232RL-REEL</h3><p>The FT232RL-REEL is a single-chip USB 2.0 Full Speed (12 Mbps) to asynchronous serial data (UART) interface IC. It features a fully integrated 1024-bit internal EEPROM for storing USB VID, PID, serial number, product description strings, and configuration descriptors, an integrated 12 MHz oscillator that eliminates the need for an external crystal, and configurable clock output options of 6 MHz, 12 MHz, 24 MHz, and 48 MHz. The device supports asynchronous data transfer rates from 300 baud up to 3 Mbaud at TTL/CMOS levels and includes a 256-byte receive FIFO buffer and a 128-byte transmit FIFO buffer for high data throughput.;</p></div><div class="faq-item"><h3>What input supply ranges, power consumption profiles, and flexible logic levels govern IC operation</h3><p>The device operates from a single main supply voltage (VCC) of 3.3 V to 5.25 V, with a typical operating current of 15 mA and a typical USB suspend current of 70 μA. An integrated 3.3 V LDO regulator provides up to 50 mA for external circuitry if required and can also supply the VCCIO pin. The UART interface logic level is configurable through VCCIO, which supports supply voltages from 1.8 V to 5.25 V, allowing direct interfacing with a wide range of logic families without external level shifters.;</p></div><div class="faq-item"><h3>Which physical footprint, terminal count, and mechanical dimensions specify the SSOP-28 package</h3><p>The FT232RL is supplied in a 28-pin Shrink Small Outline Package (SSOP-28). The package body measures 10.20 mm × 5.30 mm (approximately 7.80 mm across the leads), has a maximum height of 2.00 mm, and uses a 0.65 mm lead pitch. The package is Pb-free and RoHS compliant.;</p></div><div class="faq-item"><h3>What does the FT232RL part designation indicate</h3><p>The FT232R designates FTDI&#x27;s USB-to-UART bridge device family with integrated EEPROM and clock circuitry. The &quot;L&quot; suffix identifies the 28-pin SSOP package, while the related FT232RQ version is supplied in a QFN-32 package. The datasheet does not define the meaning of the &quot;-REEL&quot; suffix or specify reel dimensions or packing quantities.;</p></div><div class="faq-item"><h3>What operating temperature range and solder reflow conditions apply to the FT232RL</h3><p>The FT232RL operates over an industrial ambient temperature range of −40°C to +85°C. It is supplied in a Pb-free, RoHS-compliant package and supports standard lead-free solder reflow with a peak temperature of 260°C. The device is MSL 3 compliant in accordance with IPC/JEDEC J-STD-033A. The datasheet does not specify an ESD rating.</p></div>
-</section>
+        
       </div>
+
+      <!-- FAQ: independent section (removed from TAB nav / scroll-spy on 2026-09-12), placed before Sourcing -->
+      <section id="faq" class="tab-panel" style="grid-column:1;margin-top:16px;margin-bottom:16px">
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq-item"><h3>What core interface translation features and integrated peripheral functions define the FT232RL-REEL</h3><p>The FT232RL-REEL is a single-chip USB 2.0 Full Speed (12 Mbps) to asynchronous serial data (UART) interface IC. It features a fully integrated 1024-bit internal EEPROM for storing USB VID, PID, serial number, product description strings, and configuration descriptors, an integrated 12 MHz oscillator that eliminates the need for an external crystal, and configurable clock output options of 6 MHz, 12 MHz, 24 MHz, and 48 MHz. The device supports asynchronous data transfer rates from 300 baud up to 3 Mbaud at TTL/CMOS levels and includes a 256-byte receive FIFO buffer and a 128-byte transmit FIFO buffer for high data throughput.;</p></div><div class="faq-item"><h3>What input supply ranges, power consumption profiles, and flexible logic levels govern IC operation</h3><p>The device operates from a single main supply voltage (VCC) of 3.3 V to 5.25 V, with a typical operating current of 15 mA and a typical USB suspend current of 70 μA. An integrated 3.3 V LDO regulator provides up to 50 mA for external circuitry if required and can also supply the VCCIO pin. The UART interface logic level is configurable through VCCIO, which supports supply voltages from 1.8 V to 5.25 V, allowing direct interfacing with a wide range of logic families without external level shifters.;</p></div><div class="faq-item"><h3>Which physical footprint, terminal count, and mechanical dimensions specify the SSOP-28 package</h3><p>The FT232RL is supplied in a 28-pin Shrink Small Outline Package (SSOP-28). The package body measures 10.20 mm × 5.30 mm (approximately 7.80 mm across the leads), has a maximum height of 2.00 mm, and uses a 0.65 mm lead pitch. The package is Pb-free and RoHS compliant.;</p></div>
+</section>
 
       <!-- Sourcing (no stock/price/lead-time promises) -->
       <section class="sourcing">
         <h2>Sourcing Information</h2>
-        <p>SZ Procure is a sourcing partner for <strong>FT232RL-REEL</strong>, not a stock catalog. We help international buyers source original components from the China electronics supply chain — send your quantity and target price for a quotation.</p>
+        <p>SZ Procure is a sourcing partner for the <strong>FT232RL-REEL</strong> (FTDI USB Connectors), not a stock catalog. We help international buyers source this electronic component through the China electronics supply chain, with verified supplier sourcing and quality inspection.</p><p>For FT232RL-REEL, supplier sourcing matches your required specifications &mdash; such as pin count, pitch and mounting style &mdash; against verified China electronics supply chain suppliers, with multi-supplier quotation comparison and purchase-order coordination. We handle consolidation and international logistics dispatch from Shenzhen.</p><p>Quality control includes supplier qualification and screening, specification matching verification, and product, packaging and labeling checks with outgoing inspection. These checks are part of our sourcing service and do not constitute a guarantee of stock, price, lead time or authenticity. Tell us your required quantity, target price and sourcing requirements, then <a href="#rfq-card">Request a Quote</a>.</p>
       </section>
     </div>
   </main>
@@ -259,7 +261,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'applications' }, { id: 'related' }, { id: 'alternative' }, { id: 'faq' } ];
+    var groups = [ { id: 'specifications' }, { id: 'introduction' }, { id: 'applications' }, { id: 'documentation' }, { id: 'alternative' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;
