@@ -73,6 +73,8 @@
 .sku-v3 .faq-a{font-size:14px;color:var(--text-2);margin:0;line-height:1.55}
 .sku-v3 .app-list{margin:0;padding-left:20px}
 .sku-v3 .app-list li{font-size:14px;color:var(--text-2);padding:5px 0}
+.sku-v3 .features-list{margin:0;padding-left:20px}
+.sku-v3 .features-list li{font-size:14px;color:var(--text-2);padding:5px 0;list-style:disc}
 
 .sku-v3 .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
 .sku-v3 .related-card{border:1px solid var(--border);border-radius:8px;padding:14px}

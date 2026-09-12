@@ -57,9 +57,9 @@
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-    { "@type": "Question", "name": "What core interface translation features and integrated peripheral functions define the FT232RL-REEL", "acceptedAnswer": { "@type": "Answer", "text": "The FT232RL-REEL is a single-chip USB 2.0 Full Speed (12 Mbps) to asynchronous serial data (UART) interface IC. It features a fully integrated 1024-bit internal EEPROM for storing USB VID, PID, serial number, product description strings, and configuration descriptors, an integrated 12 MHz oscillator that eliminates the need for an external crystal, and configurable clock output options of 6 MHz, 12 MHz, 24 MHz, and 48 MHz. The device supports asynchronous data transfer rates from 300 baud up to 3 Mbaud at TTL/CMOS levels and includes a 256-byte receive FIFO buffer and a 128-byte transmit FIFO buffer for high data throughput.;" } },
-    { "@type": "Question", "name": "What input supply ranges, power consumption profiles, and flexible logic levels govern IC operation", "acceptedAnswer": { "@type": "Answer", "text": "The device operates from a single main supply voltage (VCC) of 3.3 V to 5.25 V, with a typical operating current of 15 mA and a typical USB suspend current of 70 μA. An integrated 3.3 V LDO regulator provides up to 50 mA for external circuitry if required and can also supply the VCCIO pin. The UART interface logic level is configurable through VCCIO, which supports supply voltages from 1.8 V to 5.25 V, allowing direct interfacing with a wide range of logic families without external level shifters.;" } },
-    { "@type": "Question", "name": "Which physical footprint, terminal count, and mechanical dimensions specify the SSOP-28 package", "acceptedAnswer": { "@type": "Answer", "text": "The FT232RL is supplied in a 28-pin Shrink Small Outline Package (SSOP-28). The package body measures 10.20 mm × 5.30 mm (approximately 7.80 mm across the leads), has a maximum height of 2.00 mm, and uses a 0.65 mm lead pitch. The package is Pb-free and RoHS compliant.;" } }
+    { "@type": "Question", "name": "What core interface translation features and integrated peripheral functions define the FT232RL-REEL?", "acceptedAnswer": { "@type": "Answer", "text": "The FT232RL-REEL is a single-chip USB 2.0 Full Speed (12 Mbps) to asynchronous serial data (UART) interface IC. It features a fully integrated 1024-bit internal EEPROM for storing USB VID, PID, serial number, product description strings, and configuration descriptors, an integrated 12 MHz oscillator that eliminates the need for an external crystal, and configurable clock output options of 6 MHz, 12 MHz, 24 MHz, and 48 MHz. The device supports asynchronous data transfer rates from 300 baud up to 3 Mbaud at TTL/CMOS levels and includes a 256-byte receive FIFO buffer and a 128-byte transmit FIFO buffer for high data throughput." } },
+    { "@type": "Question", "name": "What input supply ranges, power consumption profiles, and flexible logic levels govern IC operation?", "acceptedAnswer": { "@type": "Answer", "text": "The device operates from a single main supply voltage (VCC) of 3.3 V to 5.25 V, with a typical operating current of 15 mA and a typical USB suspend current of 70 μA. An integrated 3.3 V LDO regulator provides up to 50 mA for external circuitry if required and can also supply the VCCIO pin. The UART interface logic level is configurable through VCCIO, which supports supply voltages from 1.8 V to 5.25 V, allowing direct interfacing with a wide range of logic families without external level shifters." } },
+    { "@type": "Question", "name": "Which physical footprint, terminal count, and mechanical dimensions specify the SSOP-28 package?", "acceptedAnswer": { "@type": "Answer", "text": "The FT232RL is supplied in a 28-pin Shrink Small Outline Package (SSOP-28). The package body measures 10.20 mm × 5.30 mm (approximately 7.80 mm across the leads), has a maximum height of 2.00 mm, and uses a 0.65 mm lead pitch. The package is Pb-free and RoHS compliant." } }
     ]
   }
   </script>
@@ -183,9 +183,11 @@
         <nav class="tab-nav">
           <a href="#specifications" class="tab-btn active">Specifications</a>
           <a href="#introduction" class="tab-btn">Introduction</a>
+          <a href="#features" class="tab-btn">Features</a>
           <a href="#applications" class="tab-btn">Applications</a>
           <a href="#documentation" class="tab-btn">Datasheet</a>
           <a href="#alternative" class="tab-btn">Alternative Parts</a>
+          <a href="#compliance" class="tab-btn">Compliance &amp; Export Codes</a>
         </nav>
 
         <section id="specifications" class="tab-panel">
@@ -203,7 +205,10 @@
           <p>USB UART interface integrated circuit device with clock generator output and security dongle function</p>
         </section>
 
-        
+        <section id="features" class="tab-panel">
+  <h2 class="section-title">Features</h2>
+  <ul class="features-list"><li>Single chip USB to asynchronous serial data transfer interface.</li><li>Entire USB protocol handled on the chip - No USB-specific firmware programming required.</li><li>UART interface support for 7 or 8 data bits, 1 or 2 stop bits and odd / even / mark / space / no parity.</li><li>Fully assisted hardware or X-On / X-Off software handshaking.</li><li>Data transfer rates from 300 baud to 3 Megabaud (RS422 / RS485 and at TTL levels) and 300 baud to 1 Megabaud (RS232).</li><li>256 byte receive buffer and 128 byte transmit buffer utilising buffer smoothing technology to allow for high data throughput.</li><li>FTDI’s royalty-free VCP and D2XX drivers eliminate the requirement for USB driver development in most cases.</li><li>In-built support for event characters and line break condition.</li><li>New USB FTDIChip-ID feature.</li><li>New configurable CBUS I/O pins.</li><li>Auto transmit buffer control for RS485 applications.</li><li>Transmit and receive LED drive signals.</li><li>New 48MHz, 24MHz,12MHz, and 6MHz clock output signal Options for driving external MCU or FPGA.</li><li>FIFO receive and transmit buffers for high data throughput.</li><li>Adjustable receive buffer timeout.</li><li>Synchronous and asynchronous bit bang mode interface options with RD# and WR# strobes.</li><li>New CBUS bit bang mode option.</li><li>Integrated 1024 Bit internal EEPROM for storing USB VID, PID, serial number and product description strings, and CBUS I/O configuration.</li><li>Device supplied preprogrammed with unique USB serial number.</li><li>Support for USB suspend and resume.</li><li>Support for bus powered, self powered, and highpower bus powered USB configurations.</li><li>Integrated 3.3V level converter for USB I/O.</li><li>Integrated level converter on UART and CBUS for interfacing to 5V - 1.8V Logic.</li><li>True 5V / 3.3V / 2.8V / 1.8V CMOS drive output and TTL input.</li><li>High I/O pin output drive option.</li><li>Integrated USB resistors.</li><li>Integrated power-on-reset circuit.</li><li>Fully integrated clock - no external crystal, oscillator, or resonator required.</li><li>Fully integrated AVCC supply filtering - No separate AVCC pin and no external R-C filter required.</li><li>UART signal inversion option.</li><li>USB bulk transfer mode.</li><li>3.3V to 5.25V Single Supply Operation.</li><li>Low operating and USB suspend current.</li><li>Low USB bandwidth consumption.</li><li>UHCI / OHCI / EHCI host controller compatible</li><li>USB 2.0 Full Speed compatible.</li><li>40°C to 85°C extended operating temperature range.</li><li>Available in compact Pb-free 28 Pin SSOP and QFN-32 packages (both RoHS compliant).</li></ul>
+</section>
 
         <section id="applications" class="tab-panel">
   <h2 class="section-title">Applications</h2>
@@ -232,13 +237,29 @@
   <ul class="alt-list"><li><a href="/request-a-quote/?pn=FT232RNL-REEL" class="alt-link">FT232RNL-REEL <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=HT8232RSZ" class="alt-link">HT8232RSZ <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=FT232RL-REEL-S" class="alt-link">FT232RL-REEL-S <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=CY7C64225-28PVXCT" class="alt-link">CY7C64225-28PVXCT <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=FT232RNL-TUBE" class="alt-link">FT232RNL-TUBE <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=CY7C65213A-28PVXI" class="alt-link">CY7C65213A-28PVXI <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=CY7C65213-28PVXIT" class="alt-link">CY7C65213-28PVXIT <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=CY7C65213A-28PVXIT" class="alt-link">CY7C65213A-28PVXIT <span class="muted">(request quote)</span></a></li></ul>
 </section>
 
-        
+        <section id="compliance" class="tab-panel">
+  <h2 class="section-title">Compliance &amp; Export Codes</h2>
+  <div class="compliance-grid">
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>RoHS</th><td>ROHS3</td></tr><tr><th>ECCN</th><td>EAR99</td></tr><tr><th>CNHTS</th><td>8542399000</td></tr><tr><th>USHTS</th><td>8542390001</td></tr><tr><th>TARIC</th><td>8542399000</td></tr></tbody>
+</table>
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>CAHTS</th><td>8542390000</td></tr><tr><th>BRHTS</th><td>85423999</td></tr><tr><th>INHTS</th><td>85423900</td></tr><tr><th>MXHTS</th><td>8542.39.99</td></tr></tbody>
+</table>
+  </div>
+</section>
       </div>
 
       <!-- FAQ: independent section (removed from TAB nav / scroll-spy on 2026-09-12), placed before Sourcing -->
       <section id="faq" class="tab-panel" style="grid-column:1;margin-top:16px;margin-bottom:16px">
   <h2 class="section-title">Frequently Asked Questions</h2>
-  <div class="faq-item"><h3>What core interface translation features and integrated peripheral functions define the FT232RL-REEL</h3><p>The FT232RL-REEL is a single-chip USB 2.0 Full Speed (12 Mbps) to asynchronous serial data (UART) interface IC. It features a fully integrated 1024-bit internal EEPROM for storing USB VID, PID, serial number, product description strings, and configuration descriptors, an integrated 12 MHz oscillator that eliminates the need for an external crystal, and configurable clock output options of 6 MHz, 12 MHz, 24 MHz, and 48 MHz. The device supports asynchronous data transfer rates from 300 baud up to 3 Mbaud at TTL/CMOS levels and includes a 256-byte receive FIFO buffer and a 128-byte transmit FIFO buffer for high data throughput.;</p></div><div class="faq-item"><h3>What input supply ranges, power consumption profiles, and flexible logic levels govern IC operation</h3><p>The device operates from a single main supply voltage (VCC) of 3.3 V to 5.25 V, with a typical operating current of 15 mA and a typical USB suspend current of 70 μA. An integrated 3.3 V LDO regulator provides up to 50 mA for external circuitry if required and can also supply the VCCIO pin. The UART interface logic level is configurable through VCCIO, which supports supply voltages from 1.8 V to 5.25 V, allowing direct interfacing with a wide range of logic families without external level shifters.;</p></div><div class="faq-item"><h3>Which physical footprint, terminal count, and mechanical dimensions specify the SSOP-28 package</h3><p>The FT232RL is supplied in a 28-pin Shrink Small Outline Package (SSOP-28). The package body measures 10.20 mm × 5.30 mm (approximately 7.80 mm across the leads), has a maximum height of 2.00 mm, and uses a 0.65 mm lead pitch. The package is Pb-free and RoHS compliant.;</p></div>
+  <div class="faq-item"><h3>What core interface translation features and integrated peripheral functions define the FT232RL-REEL?</h3><p>The FT232RL-REEL is a single-chip USB 2.0 Full Speed (12 Mbps) to asynchronous serial data (UART) interface IC. It features a fully integrated 1024-bit internal EEPROM for storing USB VID, PID, serial number, product description strings, and configuration descriptors, an integrated 12 MHz oscillator that eliminates the need for an external crystal, and configurable clock output options of 6 MHz, 12 MHz, 24 MHz, and 48 MHz. The device supports asynchronous data transfer rates from 300 baud up to 3 Mbaud at TTL/CMOS levels and includes a 256-byte receive FIFO buffer and a 128-byte transmit FIFO buffer for high data throughput.</p></div><div class="faq-item"><h3>What input supply ranges, power consumption profiles, and flexible logic levels govern IC operation?</h3><p>The device operates from a single main supply voltage (VCC) of 3.3 V to 5.25 V, with a typical operating current of 15 mA and a typical USB suspend current of 70 μA. An integrated 3.3 V LDO regulator provides up to 50 mA for external circuitry if required and can also supply the VCCIO pin. The UART interface logic level is configurable through VCCIO, which supports supply voltages from 1.8 V to 5.25 V, allowing direct interfacing with a wide range of logic families without external level shifters.</p></div><div class="faq-item"><h3>Which physical footprint, terminal count, and mechanical dimensions specify the SSOP-28 package?</h3><p>The FT232RL is supplied in a 28-pin Shrink Small Outline Package (SSOP-28). The package body measures 10.20 mm × 5.30 mm (approximately 7.80 mm across the leads), has a maximum height of 2.00 mm, and uses a 0.65 mm lead pitch. The package is Pb-free and RoHS compliant.</p></div>
 </section>
 
       <!-- Sourcing (no stock/price/lead-time promises) -->
@@ -261,7 +282,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'specifications' }, { id: 'introduction' }, { id: 'applications' }, { id: 'documentation' }, { id: 'alternative' } ];
+    var groups = [ { id: 'specifications' }, { id: 'introduction' }, { id: 'features' }, { id: 'applications' }, { id: 'documentation' }, { id: 'alternative' }, { id: 'compliance' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

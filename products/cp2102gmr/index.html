@@ -57,11 +57,9 @@
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-    { "@type": "Question", "name": "What internal controllers, clocking components, and USB functions are integrated into the CP2102", "acceptedAnswer": { "@type": "Answer", "text": "The Silicon Labs CP2102 is a highly integrated USB 2.0 full-speed (12 Mbps) USB-to-UART bridge controller. It integrates a USB function controller, USB transceiver, calibrated internal 48 MHz oscillator, on-chip 3.3 V voltage regulator, power-on reset circuit, and an internal 1024-byte EEPROM. The device requires no external crystal or USB resistors for USB communication, helping minimize external components and PCB space.;" } },
-    { "@type": "Question", "name": "What operating voltages, power modes, and current consumption does the CP2102 support", "acceptedAnswer": { "@type": "Answer", "text": "The CP2102 supports both bus-powered and self-powered operation. In bus-powered mode, the REGIN pin accepts 4.0 V to 5.25 V from the USB bus, while self-powered designs supply 3.0 V to 3.6 V directly to the VDD pin. The on-chip voltage regulator provides a nominal 3.3 V output and can supply up to 100 mA to external circuitry. Typical operating current is 20 mA, while typical suspend current is 80 µA (bus-powered with the regulator enabled).;" } },
-    { "@type": "Question", "name": "What UART baud rates, data formats, and flow-control options are supported", "acceptedAnswer": { "@type": "Answer", "text": "The CP2102 UART supports programmable baud rates from 300 bps up to 921600 bps. It includes a 576-byte receive buffer and a 640-byte transmit buffer, and supports 5-, 6-, 7-, or 8-bit data, 1, 1.5, or 2 stop bits, and odd, even, mark, space, or no parity. Hardware flow control (RTS/CTS and DSR/DTR), modem interface signals (DCD and RI), and software XON/XOFF handshaking are also supported.;" } },
-    { "@type": "Question", "name": "What package and operating temperature specifications apply to the CP2102", "acceptedAnswer": { "@type": "Answer", "text": "The CP2102 is available in a RoHS-compliant 28-pin QFN package measuring 5.0 mm × 5.0 mm and is specified for operation over an industrial temperature range of −40°C to +85°C.;" } },
-    { "@type": "Question", "name": "What EEPROM customization features and assembly recommendations are provided", "acceptedAnswer": { "@type": "Answer", "text": "The CP2102 includes an internal 1024-byte EEPROM that can be programmed over USB to customize the USB Vendor ID (VID), Product ID (PID), Product Description String, Power Descriptor, Device Release Number, and Device Serial Number for OEM applications. For PCB assembly, Silicon Labs recommends using the JEDEC/IPC J-STD-020 reflow profile for small-body components." } }
+    { "@type": "Question", "name": "What internal controllers, clocking components, and USB functions are integrated into the CP2102?", "acceptedAnswer": { "@type": "Answer", "text": "The Silicon Labs CP2102 is a highly integrated USB 2.0 full-speed (12 Mbps) USB-to-UART bridge controller. It integrates a USB function controller, USB transceiver, calibrated internal 48 MHz oscillator, on-chip 3.3 V voltage regulator, power-on reset circuit, and an internal 1024-byte EEPROM. The device requires no external crystal or USB resistors for USB communication, helping minimize external components and PCB space." } },
+    { "@type": "Question", "name": "What operating voltages, power modes, and current consumption does the CP2102 support?", "acceptedAnswer": { "@type": "Answer", "text": "The CP2102 supports both bus-powered and self-powered operation. In bus-powered mode, the REGIN pin accepts 4.0 V to 5.25 V from the USB bus, while self-powered designs supply 3.0 V to 3.6 V directly to the VDD pin. The on-chip voltage regulator provides a nominal 3.3 V output and can supply up to 100 mA to external circuitry. Typical operating current is 20 mA, while typical suspend current is 80 µA (bus-powered with the regulator enabled)." } },
+    { "@type": "Question", "name": "What UART baud rates, data formats, and flow-control options are supported?", "acceptedAnswer": { "@type": "Answer", "text": "The CP2102 UART supports programmable baud rates from 300 bps up to 921600 bps. It includes a 576-byte receive buffer and a 640-byte transmit buffer, and supports 5-, 6-, 7-, or 8-bit data, 1, 1.5, or 2 stop bits, and odd, even, mark, space, or no parity. Hardware flow control (RTS/CTS and DSR/DTR), modem interface signals (DCD and RI), and software XON/XOFF handshaking are also supported." } }
     ]
   }
   </script>
@@ -95,9 +93,8 @@
         <h1 class="mpn">CP2102-GMR<span class="rohs-badge" aria-hidden="true">RoHS</span></h1>
         <p class="type">USB Connectors</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/silicon-labs/">Silicon Labs</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/connectors-electromechanical/">USB Connectors</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">WQFN-28-EP(5x5)</div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/silicon-labs/">Silicon Labs</a></div></div><div class="id-row"><div class="id-label">MPN</div><div class="id-value">CP2102-GMR</div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/connectors-electromechanical/">USB Connectors</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">WQFN-28-EP(5x5)</div></div><div class="id-row"><div class="id-label">Datasheet</div><div class="id-value"><a class="doc-link" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/cp2102-gmr.pdf" target="_blank" rel="nofollow noopener" download><span class="doc-ico">&#128196;</span> CP2102-GMR Datasheet</a></div></div><div class="id-row"><div class="id-label">Key Attributes</div><div class="id-value">Single-Chip USB to UART Bridge</div></div>
         </div>
-        <p class="hero-desc">Single-Chip USB to UART Bridge</p>
       </div>
 
       
@@ -184,47 +181,54 @@
       <!-- TABS: sticky nav + scroll-spy; all panels in DOM (SEO-friendly) -->
       <div class="tab-wrap">
         <nav class="tab-nav">
-          <a href="#overview" class="tab-btn active">Overview</a>
-          <a href="#specifications" class="tab-btn">Specifications</a>
-          <a href="#documentation" class="tab-btn">Documentation</a>
+          <a href="#specifications" class="tab-btn active">Specifications</a>
+          <a href="#introduction" class="tab-btn">Introduction</a>
+          <a href="#features" class="tab-btn">Features</a>
           <a href="#applications" class="tab-btn">Applications</a>
-          <a href="#related" class="tab-btn">Related Parts</a>
+          <a href="#documentation" class="tab-btn">Datasheet</a>
           <a href="#alternative" class="tab-btn">Alternative Parts</a>
-          <a href="#faq" class="tab-btn">FAQ</a>
+          <a href="#compliance" class="tab-btn">Compliance &amp; Export Codes</a>
         </nav>
-
-        <section id="overview" class="tab-panel">
-          <h2 class="section-title">Product Overview</h2>
-          <p>Single-Chip USB to UART Bridge</p>
-        </section>
 
         <section id="specifications" class="tab-panel">
           <h2 class="section-title">Technical Specifications</h2>
-          <table class="spec-table">
-<tbody>
-<tr><th>Application Function</th><td>Transceiver</td></tr><tr><th>Data Rate</th><td>1Mbps</td></tr><tr><th>Package</th><td>WQFN-28-EP(5x5)</td></tr><tr><th>Voltage - Supply</th><td>3V~3.6V</td></tr><tr><th>Features</th><td>Hardware flow control support;Programmable baud rate;Power-on reset;Built-in clock generator</td></tr><tr><th>Operating Temperature</th><td>-40℃~+85℃</td></tr><tr><th>Applications Function</th><td>Transceiver</td></tr><tr><th>Quiescent Supply Current</th><td>80uA</td></tr><tr><th>USB Protocol</th><td>USB 2.0</td></tr><tr><th>Current - Supply</th><td>20mA</td></tr><tr><th>Number of Channels</th><td>-</td></tr><tr><th>Data Rate</th><td>1Mbps</td></tr></tbody>
-</table>
+          <div class="spec-grid">
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Application Function</th><td>Transceiver</td></tr><tr><th>Data Rate</th><td>1Mbps</td></tr><tr><th>Package</th><td>WQFN-28-EP(5x5)</td></tr><tr><th>Voltage - Supply</th><td>3V~3.6V</td></tr><tr><th>Features</th><td>Hardware flow control support;Programmable baud rate;Power-on reset;Built-in clock generator</td></tr><tr><th>Operating Temperature</th><td>-40℃~+85℃</td></tr></tbody></table>
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Applications Function</th><td>Transceiver</td></tr><tr><th>Quiescent Supply Current</th><td>80uA</td></tr><tr><th>USB Protocol</th><td>USB 2.0</td></tr><tr><th>Current - Supply</th><td>20mA</td></tr><tr><th>Number of Channels</th><td>-</td></tr></tbody></table>
+</div>
         </section>
 
-        <section id="documentation" class="tab-panel">
-  <h2 class="section-title">Documentation</h2>
-  <details class="doc-acc" open>
-    <summary><span class="doc-ico">&#128196;</span> Datasheet <span class="doc-tag">PDF</span></summary>
-    <div class="doc-acc-body">
-      <a class="doc-dl" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/cp2102-gmr.pdf" target="_blank" rel="nofollow noopener">Download CP2102-GMR Datasheet (PDF)</a>
-    </div>
-  </details>
+        <section id="introduction" class="tab-panel">
+          <h2 class="section-title">Product Introduction</h2>
+          <p>Single-Chip USB to UART Bridge</p>
+        </section>
+
+        <section id="features" class="tab-panel">
+  <h2 class="section-title">Features</h2>
+  <ul class="features-list"><li>Integrated USB transceiver; no external resistors required</li><li>Integrated clock; no external crystal required</li><li>Internal 1024-byte programmable ROM for vendor ID, product ID, serial number, power descriptor, release number, and product description strings - EEPROM (CP2102) - EPROM (One-time programmable) (CP2109)</li><li>On-chip power-on reset circuit</li><li>On-chip voltage regulator - 3.3 V output (CP2102) - 3.45 V output (CP2109)</li><li>100% pin and software compatible with CP2101</li><li>USB Specification 2.0 compliant; full-speed (12 Mbps)</li><li>USB suspend states supported via SUSPEND pins</li><li>All handshaking and modem interface signals</li><li>Data formats supported: Data bits: 5, 6, 7, and 8 Stop bits: 1, 1.5, and 2 Parity: odd, even, mark, space, no parity</li><li>Baud rates: 300 bps to 1 Mbps</li><li>576 Byte receive buffer; 640 byte transmit buffer</li><li>Hardware or X-On/X-Off handshaking supported</li><li>Event character support</li><li>Line break transmission</li><li>Works with existing COM port PC Applications</li><li>Royalty-free distribution license</li><li>Windows 8/7/Vista/Server 2003/XP/2000</li><li>Mac OS-X/OS-9</li><li>Linux</li><li>Royalty-Free Distribution License - Windows 7/Vista/XP/Server 2003/2000 - Windows CE</li></ul>
 </section>
 
         <section id="applications" class="tab-panel">
-  <h2 class="section-title">Common Applications</h2>
+  <h2 class="section-title">Applications</h2>
   <ul class="app-list"><li>Upgrade of RS-232 legacy devices to USB</li><li>Cellular phone USB interface cable</li><li>USB interface cable</li><li>USB to RS-232 serial adapter</li></ul>
 </section>
 
-        <section id="related" class="tab-panel">
-  <h2 class="section-title">Related Connectors &amp; Electromechanical</h2>
-  <p>Other connectors &amp; electromechanical we help global buyers source:</p>
-  <div class="related-grid"><div class="related-card"><a href="/products/b3bphkslfsn/">B3B-PH-K-S(LF)(SN)</a></div><div class="related-card"><a href="/products/pz254v1102p/">PZ254V-11-02P</a></div><div class="related-card"><a href="/products/g5nb1aedc5v/">G5NB-1A-E-DC5V</a></div><div class="related-card"><a href="/products/b6bxhalfsn/">B6B-XH-A(LF)(SN)</a></div><div class="related-card"><a href="/products/b2pvhlfsn/">B2P-VH(LF)(SN)</a></div><div class="related-card"><a href="/products/b5bxhalfsn/">B5B-XH-A(LF)(SN)</a></div></div>
+        <section id="documentation" class="tab-panel">
+  <h2 class="section-title">Datasheet</h2>
+  <details class="doc-acc" open>
+    <summary>
+      <span class="doc-acc-title" aria-label="Datasheet"><span class="doc-ico">&#128196;</span></span>
+      <span class="doc-acc-actions">
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/cp2102-gmr.pdf" target="_blank" rel="nofollow noopener">Open</a>
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/cp2102-gmr.pdf" target="_blank" rel="nofollow noopener" download>Download</a>
+      </span>
+    </summary>
+    <div class="doc-acc-body">
+      <div class="doc-preview"><embed src="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/cp2102-gmr.pdf" type="application/pdf" title="CP2102-GMR Datasheet Preview" aria-label="CP2102-GMR Datasheet Preview" /></div>
+    </div>
+  </details>
 </section>
 
         <section id="alternative" class="tab-panel">
@@ -233,16 +237,35 @@
   <ul class="alt-list"><li><a href="/request-a-quote/?pn=CP2102-GM" class="alt-link">CP2102-GM <span class="muted">(request quote)</span></a></li></ul>
 </section>
 
-        <section id="faq" class="tab-panel">
-  <h2 class="section-title">Frequently Asked Questions</h2>
-  <div class="faq-item"><h3>What internal controllers, clocking components, and USB functions are integrated into the CP2102</h3><p>The Silicon Labs CP2102 is a highly integrated USB 2.0 full-speed (12 Mbps) USB-to-UART bridge controller. It integrates a USB function controller, USB transceiver, calibrated internal 48 MHz oscillator, on-chip 3.3 V voltage regulator, power-on reset circuit, and an internal 1024-byte EEPROM. The device requires no external crystal or USB resistors for USB communication, helping minimize external components and PCB space.;</p></div><div class="faq-item"><h3>What operating voltages, power modes, and current consumption does the CP2102 support</h3><p>The CP2102 supports both bus-powered and self-powered operation. In bus-powered mode, the REGIN pin accepts 4.0 V to 5.25 V from the USB bus, while self-powered designs supply 3.0 V to 3.6 V directly to the VDD pin. The on-chip voltage regulator provides a nominal 3.3 V output and can supply up to 100 mA to external circuitry. Typical operating current is 20 mA, while typical suspend current is 80 µA (bus-powered with the regulator enabled).;</p></div><div class="faq-item"><h3>What UART baud rates, data formats, and flow-control options are supported</h3><p>The CP2102 UART supports programmable baud rates from 300 bps up to 921600 bps. It includes a 576-byte receive buffer and a 640-byte transmit buffer, and supports 5-, 6-, 7-, or 8-bit data, 1, 1.5, or 2 stop bits, and odd, even, mark, space, or no parity. Hardware flow control (RTS/CTS and DSR/DTR), modem interface signals (DCD and RI), and software XON/XOFF handshaking are also supported.;</p></div><div class="faq-item"><h3>What package and operating temperature specifications apply to the CP2102</h3><p>The CP2102 is available in a RoHS-compliant 28-pin QFN package measuring 5.0 mm × 5.0 mm and is specified for operation over an industrial temperature range of −40°C to +85°C.;</p></div><div class="faq-item"><h3>What EEPROM customization features and assembly recommendations are provided</h3><p>The CP2102 includes an internal 1024-byte EEPROM that can be programmed over USB to customize the USB Vendor ID (VID), Product ID (PID), Product Description String, Power Descriptor, Device Release Number, and Device Serial Number for OEM applications. For PCB assembly, Silicon Labs recommends using the JEDEC/IPC J-STD-020 reflow profile for small-body components.</p></div>
+        <section id="compliance" class="tab-panel">
+  <h2 class="section-title">Compliance &amp; Export Codes</h2>
+  <div class="compliance-grid">
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>RoHS</th><td>ROHS3</td></tr><tr><th>ECCN</th><td>EAR99</td></tr><tr><th>CNHTS</th><td>8542399000</td></tr><tr><th>USHTS</th><td>8542390001</td></tr><tr><th>TARIC</th><td>8542399000</td></tr></tbody>
+</table>
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>CAHTS</th><td>8542390000</td></tr><tr><th>BRHTS</th><td>85423999</td></tr><tr><th>INHTS</th><td>85423900</td></tr><tr><th>MXHTS</th><td>8542.39.99</td></tr></tbody>
+</table>
+  </div>
 </section>
       </div>
+
+      <!-- FAQ: independent section (removed from TAB nav / scroll-spy on 2026-09-12), placed before Sourcing -->
+      <section id="faq" class="tab-panel" style="grid-column:1;margin-top:16px;margin-bottom:16px">
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq-item"><h3>What internal controllers, clocking components, and USB functions are integrated into the CP2102?</h3><p>The Silicon Labs CP2102 is a highly integrated USB 2.0 full-speed (12 Mbps) USB-to-UART bridge controller. It integrates a USB function controller, USB transceiver, calibrated internal 48 MHz oscillator, on-chip 3.3 V voltage regulator, power-on reset circuit, and an internal 1024-byte EEPROM. The device requires no external crystal or USB resistors for USB communication, helping minimize external components and PCB space.</p></div><div class="faq-item"><h3>What operating voltages, power modes, and current consumption does the CP2102 support?</h3><p>The CP2102 supports both bus-powered and self-powered operation. In bus-powered mode, the REGIN pin accepts 4.0 V to 5.25 V from the USB bus, while self-powered designs supply 3.0 V to 3.6 V directly to the VDD pin. The on-chip voltage regulator provides a nominal 3.3 V output and can supply up to 100 mA to external circuitry. Typical operating current is 20 mA, while typical suspend current is 80 µA (bus-powered with the regulator enabled).</p></div><div class="faq-item"><h3>What UART baud rates, data formats, and flow-control options are supported?</h3><p>The CP2102 UART supports programmable baud rates from 300 bps up to 921600 bps. It includes a 576-byte receive buffer and a 640-byte transmit buffer, and supports 5-, 6-, 7-, or 8-bit data, 1, 1.5, or 2 stop bits, and odd, even, mark, space, or no parity. Hardware flow control (RTS/CTS and DSR/DTR), modem interface signals (DCD and RI), and software XON/XOFF handshaking are also supported.</p></div>
+</section>
 
       <!-- Sourcing (no stock/price/lead-time promises) -->
       <section class="sourcing">
         <h2>Sourcing Information</h2>
-        <p>SZ Procure is a sourcing partner for <strong>CP2102-GMR</strong>, not a stock catalog. We help international buyers source original components from the China electronics supply chain — send your quantity and target price for a quotation.</p>
+        <p>SZ Procure is a sourcing partner for the <strong>CP2102-GMR</strong> (Silicon Labs USB Connectors), not a stock catalog. We help international buyers source this electronic component through the China electronics supply chain, with verified supplier sourcing and quality inspection.</p><p>For CP2102-GMR, supplier sourcing matches your required specifications &mdash; such as pin count, pitch and mounting style &mdash; against verified China electronics supply chain suppliers, with multi-supplier quotation comparison and purchase-order coordination. We handle consolidation and international logistics dispatch from Shenzhen.</p><p>Quality control includes supplier qualification and screening, specification matching verification, and product, packaging and labeling checks with outgoing inspection. These checks are part of our sourcing service and do not constitute a guarantee of stock, price, lead time or authenticity. Tell us your required quantity, target price and sourcing requirements, then <a href="/request-a-quote/?pn=CP2102-GMR&mfr=Silicon%20Labs&cat=Connectors&source=product&rfq_type=sku_quote">Request a Quote</a>.</p>
       </section>
     </div>
   </main>
@@ -259,7 +282,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'applications' }, { id: 'related' }, { id: 'alternative' }, { id: 'faq' } ];
+    var groups = [ { id: 'specifications' }, { id: 'introduction' }, { id: 'features' }, { id: 'applications' }, { id: 'documentation' }, { id: 'alternative' }, { id: 'compliance' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

@@ -553,7 +553,8 @@ def merge_faqs(faq_raw, enrich, row):
     """Final FAQ merge: source priority + count control (rule confirmed 2026-09-12).
 
     Priority:
-      Pass A  LCSC/RAW qualified product FAQs -> kept IN FULL (no truncation to 3).
+      Pass A  LCSC/RAW qualified product FAQs -> merged IN FULL, then FORCED to
+              max-3 (user decision 2026-09-12: truncate to 3, any extras dropped).
       Pass B  SZProcure self-gen (MASTER.faq)  -> used ONLY to top up to 3 when
               LCSC qualified < 3. MASTER is never modified; only the adopted
               count is capped at the merge layer (never fabricate to pad).
@@ -621,6 +622,13 @@ def merge_faqs(faq_raw, enrich, row):
                 _ded("enrich_dup"); continue
             final.append([q, a]); enrich_used.append([q, a])
     audit["enrichment_used"] = len(enrich_used)
+    # ---- FORCED max-3 (user decision 2026-09-12) ----
+    # All off-brand (competitor/price) entries were already dropped during each
+    # Pass above, so `final` here holds only clean pairs. Truncate to the first
+    # 3 clean pairs — never keep more than 3 to satisfy the controlled standard.
+    if len(final) > 3:
+        audit["truncated_to_3"] = len(final) - 3
+        final = final[:3]
     audit["final_count"] = len(final)
     return final, audit
 
@@ -1781,13 +1789,15 @@ def _raw_intro_text(row):
     """Return the REAL pipeline Product Introduction for this row, or None.
 
     Source precedence (all from the 01-collected scale500 RAW, never AI-written):
-      overviewData.productIntroEn  (official full intro)  ->  main_product.productIntroEn (short).
-    Returns None when neither exists so the panel falls back to MASTER short_description.
+      main_product.productIntroEn  (intro_short, MODEL-level)  ->  overviewData.productIntroEn (intro, FAMILY-level).
+    Model-level is ALWAYS preferred over family-level so a specific SKU is never
+    overwritten by its family's generic copy (confirmed 2026-09-13).
+    Returns None when neither exists so the panel falls back to MASTER description.
     """
     rec = _raw_fc_rec(row)
     if not rec:
         return None
-    return rec.get("intro") or rec.get("intro_short") or None
+    return rec.get("intro_short") or rec.get("intro") or None
 
 
 def brand_class_html(row):
@@ -2321,14 +2331,18 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
     if verbose:
         _print_faq_audit(pn, faq_audit)
 
-    # Product Introduction panel — authored rich HTML (human override) takes precedence;
-    # otherwise the REAL pipeline intro from RAW overviewData.productIntroEn (never AI);
-    # otherwise fall back to MASTER short_description / overview.
+    # Product Introduction panel — MODEL-LEVEL priority (confirmed 2026-09-13).
+    # Resolution order (family-level MUST NEVER overwrite model-level):
+    #   MASTER description  ->  data/intro/<mpn>.html  ->  RAW intro_short (model-level)
+    #   ->  RAW intro (family-level)  ->  fallback.
     _authored_intro = load_intro_html(pn, slug)
-    if _authored_intro:
+    _model_desc = (row.get("description") or "").strip()
+    if _model_desc:
+        introduction_panel = f'<p>{esc(_model_desc)}</p>'
+    elif _authored_intro:
         introduction_panel = f'<div class="intro-body">{render_rich_html(_authored_intro)}</div>'
     else:
-        _raw_intro = _raw_intro_text(row)
+        _raw_intro = _raw_intro_text(row)  # prefers model-level intro_short over family-level intro
         if _raw_intro:
             _paras = [p.strip() for p in _raw_intro.split("\n") if p.strip()]
             _intro_html = "".join(f"<p>{esc(p)}</p>" for p in _paras)

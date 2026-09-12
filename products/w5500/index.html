@@ -57,9 +57,9 @@
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-    { "@type": "Question", "name": "Is the W5500 Compatible With 5V Microcontrollers", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The W5500 operates on a 3.3V supply but its I/O pins are 5V tolerant, so it can interface directly with 5V microcontrollers (such as traditional Arduino boards) without external logic level shifters;" } },
-    { "@type": "Question", "name": "What Should I Look for in an Alternative to the W5500", "acceptedAnswer": { "@type": "Answer", "text": "A drop-in replacement should offer an integrated Ethernet MAC and PHY, a standard SPI host interface, and a similar hardwired TCP/IP stack to avoid extra software overhead. Note that alternative chips may use different pinouts and require updated software libraries, since the W5500&#x27;s register map and SPI frame format are specific to WIZnet&#x27;s implementation.;" } },
-    { "@type": "Question", "name": "In What Application Scenarios Is the W5500 Typically Used", "acceptedAnswer": { "@type": "Answer", "text": "The W5500 is commonly used in home network devices (set-top boxes, PVRs, digital media adapters), serial-to-Ethernet and parallel-to-Ethernet converters, USB-to-Ethernet and GPIO-to-Ethernet adapters, security systems (DVRs, network cameras, kiosks), factory and building automation, medical monitoring equipment, and embedded servers.;" } }
+    { "@type": "Question", "name": "Is the W5500 Compatible With 5V Microcontrollers?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The W5500 operates on a 3.3V supply but its I/O pins are 5V tolerant, so it can interface directly with 5V microcontrollers (such as traditional Arduino boards) without external logic level shifters" } },
+    { "@type": "Question", "name": "In What Application Scenarios Is the W5500 Typically Used?", "acceptedAnswer": { "@type": "Answer", "text": "The W5500 is commonly used in home network devices (set-top boxes, PVRs, digital media adapters), serial-to-Ethernet and parallel-to-Ethernet converters, USB-to-Ethernet and GPIO-to-Ethernet adapters, security systems (DVRs, network cameras, kiosks), factory and building automation, medical monitoring equipment, and embedded servers." } },
+    { "@type": "Question", "name": "What Core Network Protocols and Memory Does the W5500 Support?", "acceptedAnswer": { "@type": "Answer", "text": "The W5500 has a hardwired TCP/IP stack supporting TCP, UDP, IPv4, ICMP, ARP, IGMP, and PPPoE. It includes 32KB of internal memory for Ethernet packet buffering, supports 10BASE-T and 100BASE-TX speeds, and can manage up to 8 independent hardware sockets simultaneously." } }
     ]
   }
   </script>
@@ -183,9 +183,11 @@
         <nav class="tab-nav">
           <a href="#specifications" class="tab-btn active">Specifications</a>
           <a href="#introduction" class="tab-btn">Introduction</a>
+          <a href="#features" class="tab-btn">Features</a>
           <a href="#applications" class="tab-btn">Applications</a>
           <a href="#documentation" class="tab-btn">Datasheet</a>
           <a href="#alternative" class="tab-btn">Alternative Parts</a>
+          <a href="#compliance" class="tab-btn">Compliance &amp; Export Codes</a>
         </nav>
 
         <section id="specifications" class="tab-panel">
@@ -203,7 +205,10 @@
           <p>Hardwired TCP/IP embedded Ethernet controller</p>
         </section>
 
-        
+        <section id="features" class="tab-panel">
+  <h2 class="section-title">Features</h2>
+  <ul class="features-list"><li>Supports Hardwired TCP/IP Protocols: TCP, UDP, ICMP, IPv4, ARP, IGMP, PPPoE</li><li>Supports 8 independent sockets simultaneously</li><li>Supports Power down mode</li><li>Supports Wake on LAN over UDP</li><li>Supports High Speed Serial Peripheral Interface (SPI MODE 0, 3)</li><li>Internal 32Kbytes Memory for TX/RX Buffers</li><li>10BaseT/100BaseTX Ethernet PHY embedded</li><li>Supports Auto Negotiation (Full and half duplex, 10 and 100-based)</li><li>Not supports IP Fragmentation</li><li>3.3V operation with 5V I/O signal tolerance</li><li>LED outputs (Full/Half duplex, Link, Speed, Active)</li><li>48 Pin LQFP Lead-Free Package (7x7mm, 0.5mm pitch)</li></ul>
+</section>
 
         <section id="applications" class="tab-panel">
   <h2 class="section-title">Applications</h2>
@@ -232,13 +237,29 @@
   <ul class="alt-list"><li><a href="/request-a-quote/?pn=CH394Q" class="alt-link">CH394Q <span class="muted">(request quote)</span></a></li></ul>
 </section>
 
-        
+        <section id="compliance" class="tab-panel">
+  <h2 class="section-title">Compliance &amp; Export Codes</h2>
+  <div class="compliance-grid">
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>RoHS</th><td>ROHS3</td></tr><tr><th>ECCN</th><td>5A991B1</td></tr><tr><th>CNHTS</th><td>8542399000</td></tr><tr><th>USHTS</th><td>8542390001</td></tr><tr><th>TARIC</th><td>8542399000</td></tr></tbody>
+</table>
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>CAHTS</th><td>8542390000</td></tr><tr><th>BRHTS</th><td>85423999</td></tr><tr><th>INHTS</th><td>85423900</td></tr><tr><th>MXHTS</th><td>8542.39.99</td></tr></tbody>
+</table>
+  </div>
+</section>
       </div>
 
       <!-- FAQ: independent section (removed from TAB nav / scroll-spy on 2026-09-12), placed before Sourcing -->
       <section id="faq" class="tab-panel" style="grid-column:1;margin-top:16px;margin-bottom:16px">
   <h2 class="section-title">Frequently Asked Questions</h2>
-  <div class="faq-item"><h3>Is the W5500 Compatible With 5V Microcontrollers</h3><p>Yes. The W5500 operates on a 3.3V supply but its I/O pins are 5V tolerant, so it can interface directly with 5V microcontrollers (such as traditional Arduino boards) without external logic level shifters;</p></div><div class="faq-item"><h3>What Should I Look for in an Alternative to the W5500</h3><p>A drop-in replacement should offer an integrated Ethernet MAC and PHY, a standard SPI host interface, and a similar hardwired TCP/IP stack to avoid extra software overhead. Note that alternative chips may use different pinouts and require updated software libraries, since the W5500&#x27;s register map and SPI frame format are specific to WIZnet&#x27;s implementation.;</p></div><div class="faq-item"><h3>In What Application Scenarios Is the W5500 Typically Used</h3><p>The W5500 is commonly used in home network devices (set-top boxes, PVRs, digital media adapters), serial-to-Ethernet and parallel-to-Ethernet converters, USB-to-Ethernet and GPIO-to-Ethernet adapters, security systems (DVRs, network cameras, kiosks), factory and building automation, medical monitoring equipment, and embedded servers.;</p></div>
+  <div class="faq-item"><h3>Is the W5500 Compatible With 5V Microcontrollers?</h3><p>Yes. The W5500 operates on a 3.3V supply but its I/O pins are 5V tolerant, so it can interface directly with 5V microcontrollers (such as traditional Arduino boards) without external logic level shifters</p></div><div class="faq-item"><h3>In What Application Scenarios Is the W5500 Typically Used?</h3><p>The W5500 is commonly used in home network devices (set-top boxes, PVRs, digital media adapters), serial-to-Ethernet and parallel-to-Ethernet converters, USB-to-Ethernet and GPIO-to-Ethernet adapters, security systems (DVRs, network cameras, kiosks), factory and building automation, medical monitoring equipment, and embedded servers.</p></div><div class="faq-item"><h3>What Core Network Protocols and Memory Does the W5500 Support?</h3><p>The W5500 has a hardwired TCP/IP stack supporting TCP, UDP, IPv4, ICMP, ARP, IGMP, and PPPoE. It includes 32KB of internal memory for Ethernet packet buffering, supports 10BASE-T and 100BASE-TX speeds, and can manage up to 8 independent hardware sockets simultaneously.</p></div>
 </section>
 
       <!-- Sourcing (no stock/price/lead-time promises) -->
@@ -261,7 +282,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'specifications' }, { id: 'introduction' }, { id: 'applications' }, { id: 'documentation' }, { id: 'alternative' } ];
+    var groups = [ { id: 'specifications' }, { id: 'introduction' }, { id: 'features' }, { id: 'applications' }, { id: 'documentation' }, { id: 'alternative' }, { id: 'compliance' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

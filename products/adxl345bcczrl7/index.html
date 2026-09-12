@@ -59,8 +59,7 @@
     "mainEntity": [
     { "@type": "Question", "name": "What communication interfaces does the ADXL345 support?", "acceptedAnswer": { "@type": "Answer", "text": "SPI (3- or 4-wire) and I2C; output data is 16-bit two&#x27;s complement." } },
     { "@type": "Question", "name": "What is the lowest power consumption?", "acceptedAnswer": { "@type": "Answer", "text": "0.1 uA typical in standby mode and 23 uA typical in measurement mode at VS = 2.5 V." } },
-    { "@type": "Question", "name": "What measurement ranges are available?", "acceptedAnswer": { "@type": "Answer", "text": "plusminus 2, plusminus 4, plusminus 8 and plusminus 16 g, user-selectable; full resolution up to 13-bit (3.9 mg/LSB)." } },
-    { "@type": "Question", "name": "What package does the ADXL345BCCZ-RL7 use?", "acceptedAnswer": { "@type": "Answer", "text": "14-pin LCC." } }
+    { "@type": "Question", "name": "What measurement ranges are available?", "acceptedAnswer": { "@type": "Answer", "text": "plusminus 2, plusminus 4, plusminus 8 and plusminus 16 g, user-selectable; full resolution up to 13-bit (3.9 mg/LSB)." } }
     ]
   }
   </script>
@@ -94,9 +93,8 @@
         <h1 class="mpn">ADXL345BCCZ-RL7<span class="rohs-badge" aria-hidden="true">RoHS</span></h1>
         <p class="type">Sensors</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/analog-devices/">Analog Devices</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/sensors/">Sensors</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">LGA-14(3x5)</div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/analog-devices/">Analog Devices</a></div></div><div class="id-row"><div class="id-label">MPN</div><div class="id-value">ADXL345BCCZ-RL7</div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/sensors/">Sensors</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">LGA-14(3x5)</div></div><div class="id-row"><div class="id-label">Datasheet</div><div class="id-value"><a class="doc-link" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/adxl345bccz-rl7.pdf" target="_blank" rel="nofollow noopener" download><span class="doc-ico">&#128196;</span> ADXL345BCCZ-RL7 Datasheet</a></div></div><div class="id-row"><div class="id-label">Key Attributes</div><div class="id-value">3-Axis Digital Accelerometer</div></div>
         </div>
-        <p class="hero-desc">3-Axis Digital Accelerometer</p>
       </div>
 
       
@@ -183,47 +181,54 @@
       <!-- TABS: sticky nav + scroll-spy; all panels in DOM (SEO-friendly) -->
       <div class="tab-wrap">
         <nav class="tab-nav">
-          <a href="#overview" class="tab-btn active">Overview</a>
-          <a href="#specifications" class="tab-btn">Specifications</a>
-          <a href="#documentation" class="tab-btn">Documentation</a>
+          <a href="#specifications" class="tab-btn active">Specifications</a>
+          <a href="#introduction" class="tab-btn">Introduction</a>
+          <a href="#features" class="tab-btn">Features</a>
           <a href="#applications" class="tab-btn">Applications</a>
-          <a href="#related" class="tab-btn">Related Parts</a>
+          <a href="#documentation" class="tab-btn">Datasheet</a>
           <a href="#alternative" class="tab-btn">Alternative Parts</a>
-          <a href="#faq" class="tab-btn">FAQ</a>
+          <a href="#compliance" class="tab-btn">Compliance &amp; Export Codes</a>
         </nav>
-
-        <section id="overview" class="tab-panel">
-          <h2 class="section-title">Product Overview</h2>
-          <p>The ADXL345BCCZ-RL7 is a small, thin, ultralow-power 3-axis digital accelerometer capable of measuring acceleration up to plusminus 16 g with 13-bit resolution. Output data is formatted as 16-bit two&#x27;s complement and accessed over an SPI (3- or 4-wire) or I2C digital interface. It consumes as little as 23 uA in measurement mode and 0.1 uA in standby at VS = 2.5 V, making it well suited to mobile and battery-powered devices. It is offered in a 14-pin LCC package.</p>
-        </section>
 
         <section id="specifications" class="tab-panel">
           <h2 class="section-title">Technical Specifications</h2>
-          <table class="spec-table">
-<tbody>
-<tr><th>Package</th><td>LGA-14(3x5)</td></tr><tr><th>Accelerometer Sensing Axis</th><td>X,Y,Z</td></tr><tr><th>Output Bits</th><td>16bit</td></tr><tr><th>Cache Size</th><td>-</td></tr><tr><th>Features</th><td>Motion event detection</td></tr><tr><th>Operating Temperature</th><td>-40℃~+85℃</td></tr><tr><th>Standby Current</th><td>100nA</td></tr><tr><th>Interface</th><td>SPI;I2C</td></tr><tr><th>Acceleration Measurement Range (MAX)</th><td>±16g</td></tr><tr><th>Voltage - Supply</th><td>2V~3.6V</td></tr><tr><th>Axes</th><td>3-axis</td></tr><tr><th>Measurement range</th><td>+/- 2 / +/- 4 / +/- 8 / +/- 16</td></tr><tr><th>Resolution</th><td>13-bit (full resolution, up to +/-16g); 10-bit fixed</td></tr><tr><th>Output data rate</th><td>0.1-3200</td></tr></tbody>
-</table>
+          <div class="spec-grid">
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Package</th><td>LGA-14(3x5)</td></tr><tr><th>Accelerometer Sensing Axis</th><td>X,Y,Z</td></tr><tr><th>Output Bits</th><td>16bit</td></tr><tr><th>Cache Size</th><td>-</td></tr><tr><th>Features</th><td>Motion event detection</td></tr><tr><th>Operating Temperature</th><td>-40℃~+85℃</td></tr><tr><th>Standby Current</th><td>100nA</td></tr></tbody></table>
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Interface</th><td>SPI;I2C</td></tr><tr><th>Acceleration Measurement Range (MAX)</th><td>±16g</td></tr><tr><th>Voltage - Supply</th><td>2V~3.6V</td></tr><tr><th>Axes</th><td>3-axis</td></tr><tr><th>Measurement range</th><td>+/- 2 / +/- 4 / +/- 8 / +/- 16</td></tr><tr><th>Resolution</th><td>13-bit (full resolution, up to +/-16g); 10-bit fixed</td></tr><tr><th>Output data rate</th><td>0.1-3200</td></tr></tbody></table>
+</div>
         </section>
 
-        <section id="documentation" class="tab-panel">
-  <h2 class="section-title">Documentation</h2>
-  <details class="doc-acc" open>
-    <summary><span class="doc-ico">&#128196;</span> Datasheet <span class="doc-tag">PDF</span></summary>
-    <div class="doc-acc-body">
-      <a class="doc-dl" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/adxl345bccz-rl7.pdf" target="_blank" rel="nofollow noopener">Download ADXL345BCCZ-RL7 Datasheet (PDF)</a>
-    </div>
-  </details>
+        <section id="introduction" class="tab-panel">
+          <h2 class="section-title">Product Introduction</h2>
+          <p>3-Axis Digital Accelerometer</p>
+        </section>
+
+        <section id="features" class="tab-panel">
+  <h2 class="section-title">Features</h2>
+  <ul class="features-list"><li>Ultralow power: as low as 25 μA in measurement mode and 0.1 μA in standby mode at V₅ = 2.5V (typical)</li><li>Power consumption scales automatically with bandwidth</li><li>User- selectable resolution</li><li>Fixed 10- bit resolution</li><li>Full resolution, where resolution increases with g range, up to 13- bit resolution at ± 16g (maintaining 4mg / LSB scale factor in all g ranges)</li><li>Embedded memory management system with FIFO technology minimizes host processor load</li><li>Single tap/double tap detection</li><li>Activity/inactivity monitoring</li><li>Free- fall detection</li><li>Supply voltage range: 2.0V to 3.6V</li><li>I/O voltage range: 1.7V to V₅</li><li>SPI (3- and 4- wire) and I²C digital interfaces</li><li>Flexible interrupt modes mappable to either interrupt pin</li><li>Measurement ranges selectable via serial command</li><li>Bandwidth selectable via serial command</li><li>Wide temperature range (- 40℃ to +85℃)</li><li>10,000 g shock survival</li><li>Pb free/RoHS compliant</li><li>Small and thin: 3mm×5mm×1mm LGA package</li></ul>
 </section>
 
         <section id="applications" class="tab-panel">
-  <h2 class="section-title">Common Applications</h2>
+  <h2 class="section-title">Applications</h2>
   <ul class="app-list"><li>Handsets</li><li>Medical instrumentation</li><li>Gaming and pointing devices</li><li>Industrial instrumentation</li><li>Personal navigation devices</li><li>Hard disk drive (HDD) protection</li><li>Mobile device applications</li><li>Tilt-sensing / inclination measurement</li><li>Tap / double-tap detection (UI input)</li><li>Free-fall / activity-inactivity detection</li><li>Shock / dynamic motion detection</li></ul>
 </section>
 
-        <section id="related" class="tab-panel">
-  <h2 class="section-title">Related Sensors</h2>
-  <p>Other sensors we help global buyers source:</p>
-  <div class="related-grid"><div class="related-card"><a href="/products/lsm6ds3trc/">LSM6DS3TR-C</a></div><div class="related-card"><a href="/products/lsm6dsltr/">LSM6DSLTR</a></div><div class="related-card"><a href="/products/vl53l0cxv0dh1/">VL53L0CXV0DH/1</a></div><div class="related-card"><a href="/products/vl53l1cxv0fy1/">VL53L1CXV0FY/1</a></div><div class="related-card"><a href="/products/lsm303agrtr/">LSM303AGRTR</a></div><div class="related-card"><a href="/products/lis2dw12tr/">LIS2DW12TR</a></div></div>
+        <section id="documentation" class="tab-panel">
+  <h2 class="section-title">Datasheet</h2>
+  <details class="doc-acc" open>
+    <summary>
+      <span class="doc-acc-title" aria-label="Datasheet"><span class="doc-ico">&#128196;</span></span>
+      <span class="doc-acc-actions">
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/adxl345bccz-rl7.pdf" target="_blank" rel="nofollow noopener">Open</a>
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/adxl345bccz-rl7.pdf" target="_blank" rel="nofollow noopener" download>Download</a>
+      </span>
+    </summary>
+    <div class="doc-acc-body">
+      <div class="doc-preview"><embed src="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/adxl345bccz-rl7.pdf" type="application/pdf" title="ADXL345BCCZ-RL7 Datasheet Preview" aria-label="ADXL345BCCZ-RL7 Datasheet Preview" /></div>
+    </div>
+  </details>
 </section>
 
         <section id="alternative" class="tab-panel">
@@ -232,16 +237,35 @@
   <ul class="alt-list"><li><a href="/request-a-quote/?pn=ADXL345BCCZ" class="alt-link">ADXL345BCCZ <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ADXL345BCCZ-RL" class="alt-link">ADXL345BCCZ-RL <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ADXL343BCCZ-RL7" class="alt-link">ADXL343BCCZ-RL7 <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ADXL343BCCZ-RL" class="alt-link">ADXL343BCCZ-RL <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ADXL343BCCZ" class="alt-link">ADXL343BCCZ <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ADXL345TCCZ-EP" class="alt-link">ADXL345TCCZ-EP <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ADXL375BCCZ" class="alt-link">ADXL375BCCZ <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ADXL375BCCZ-RL7" class="alt-link">ADXL375BCCZ-RL7 <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ADXL375BCCZ-RL" class="alt-link">ADXL375BCCZ-RL <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=LIS302DLTR" class="alt-link">LIS302DLTR <span class="muted">(request quote)</span></a></li></ul>
 </section>
 
-        <section id="faq" class="tab-panel">
-  <h2 class="section-title">Frequently Asked Questions</h2>
-  <div class="faq-item"><h3>What communication interfaces does the ADXL345 support?</h3><p>SPI (3- or 4-wire) and I2C; output data is 16-bit two&#x27;s complement.</p></div><div class="faq-item"><h3>What is the lowest power consumption?</h3><p>0.1 uA typical in standby mode and 23 uA typical in measurement mode at VS = 2.5 V.</p></div><div class="faq-item"><h3>What measurement ranges are available?</h3><p>plusminus 2, plusminus 4, plusminus 8 and plusminus 16 g, user-selectable; full resolution up to 13-bit (3.9 mg/LSB).</p></div><div class="faq-item"><h3>What package does the ADXL345BCCZ-RL7 use?</h3><p>14-pin LCC.</p></div>
+        <section id="compliance" class="tab-panel">
+  <h2 class="section-title">Compliance &amp; Export Codes</h2>
+  <div class="compliance-grid">
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>RoHS</th><td>ROHS3</td></tr><tr><th>ECCN</th><td>EAR99</td></tr><tr><th>CNHTS</th><td>9029900000</td></tr><tr><th>USHTS</th><td>9029908080</td></tr><tr><th>TARIC</th><td>9029900010</td></tr></tbody>
+</table>
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>CAHTS</th><td>9029900000</td></tr><tr><th>BRHTS</th><td>90299090</td></tr><tr><th>INHTS</th><td>90299000</td></tr><tr><th>MXHTS</th><td>9029.90.01</td></tr></tbody>
+</table>
+  </div>
 </section>
       </div>
+
+      <!-- FAQ: independent section (removed from TAB nav / scroll-spy on 2026-09-12), placed before Sourcing -->
+      <section id="faq" class="tab-panel" style="grid-column:1;margin-top:16px;margin-bottom:16px">
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq-item"><h3>What communication interfaces does the ADXL345 support?</h3><p>SPI (3- or 4-wire) and I2C; output data is 16-bit two&#x27;s complement.</p></div><div class="faq-item"><h3>What is the lowest power consumption?</h3><p>0.1 uA typical in standby mode and 23 uA typical in measurement mode at VS = 2.5 V.</p></div><div class="faq-item"><h3>What measurement ranges are available?</h3><p>plusminus 2, plusminus 4, plusminus 8 and plusminus 16 g, user-selectable; full resolution up to 13-bit (3.9 mg/LSB).</p></div>
+</section>
 
       <!-- Sourcing (no stock/price/lead-time promises) -->
       <section class="sourcing">
         <h2>Sourcing Information</h2>
-        <p>SZ Procure is a sourcing partner for <strong>ADXL345BCCZ-RL7</strong>, not a stock catalog. We help international buyers source original components from the China electronics supply chain — send your quantity and target price for a quotation.</p>
+        <p>SZ Procure is a sourcing partner for the <strong>ADXL345BCCZ-RL7</strong> (Analog Devices Sensors), not a stock catalog. We help international buyers source this electronic component through the China electronics supply chain, with verified supplier sourcing and quality inspection.</p><p>For ADXL345BCCZ-RL7, our electronics sourcing covers supplier sourcing across the China electronics supply chain, supplier verification and multi-supplier quotation comparison so you can compare offers before purchase. We coordinate purchase orders, consolidation and international logistics dispatch from Shenzhen.</p><p>Quality control includes supplier qualification and screening, then product, packaging and labeling checks with outgoing inspection before dispatch. These are sourcing services we perform &mdash; they are not a guarantee of any supplier's stock, price, lead time or authenticity. Tell us your required quantity, target price and sourcing requirements, then <a href="/request-a-quote/?pn=ADXL345BCCZ-RL7&mfr=Analog%20Devices&cat=Sensors&source=product&rfq_type=sku_quote">Request a Quote</a>.</p>
       </section>
     </div>
   </main>
@@ -258,7 +282,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'applications' }, { id: 'related' }, { id: 'alternative' }, { id: 'faq' } ];
+    var groups = [ { id: 'specifications' }, { id: 'introduction' }, { id: 'features' }, { id: 'applications' }, { id: 'documentation' }, { id: 'alternative' }, { id: 'compliance' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

@@ -57,7 +57,9 @@
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-    { "@type": "Question", "name": "What package is ATmega328 included in", "acceptedAnswer": { "@type": "Answer", "text": "ATmega328P-AU comes in a 32-pin TQFP surface-mount package; it is the same MCU family used on many Arduino boards." } }
+    { "@type": "Question", "name": "What Is the Operating Voltage Range of the ATMEGA328P-AU, and How Does Its 10-Bit ADC Perform in Mixed-Signal Applications?", "acceptedAnswer": { "@type": "Answer", "text": "The ATMEGA328P-AU operates across a wide supply voltage range of 1.8V to 5.5V, making it compatible with both 3.3V and 5V power domains without additional regulation in many designs. The integrated 10-bit ADC provides a resolution of 1/1024 of the reference voltage — on a 5V reference, this gives approximately 4.88mV per LSB. This resolution is adequate for temperature sensing, potentiometer reading, light sensing, pressure transducer interfaces, and battery monitoring. The operating temperature range is -40°C to +85°C, qualifying it for industrial and outdoor applications that experience wide ambient temperature excursions." } },
+    { "@type": "Question", "name": "How Is the ATMEGA328P-AU&#x27;s On-Chip Memory Structured, and Is 32KB of FLASH Sufficient for Typical Firmware Applications?", "acceptedAnswer": { "@type": "Answer", "text": "The ATMEGA328P-AU provides three on-chip memory types: 32KB of self-programmable in-system FLASH for firmware storage, 1KB of EEPROM for non-volatile data retention across power cycles (such as calibration constants or device configuration), and internal SRAM (refer to datasheet for SRAM size). The 32KB FLASH supports projects of significant complexity — it is the same flash capacity used in the Arduino Uno, which runs full networking stacks and sensor fusion libraries. The in-system programmability means firmware can be updated via the SPI interface without removing the device from the board, simplifying field maintenance and manufacturing programming." } },
+    { "@type": "Question", "name": "What Are the Key Processing Specifications of the ATMEGA328P-AU, and What Does Its 8-Bit AVR Core Mean for Embedded Application Suitability?", "acceptedAnswer": { "@type": "Answer", "text": "The ATMEGA328P-AU is an 8-bit microcontroller built on Microchip&#x27;s (formerly Atmel) AVR RISC architecture, operating at a maximum CPU speed of 20MHz with a built-in oscillator. It features 32KB of in-system programmable FLASH program storage, 1KB of EEPROM, and a 10-bit ADC. Housed in a TQFP-32 (7x7mm) package with 23 I/O pins, it is well-suited for embedded control, sensor acquisition, motor control, communication protocol bridging, and IoT edge applications. The wide supply voltage range of 1.8V–5.5V accommodates both 3.3V and 5V system designs without additional level-shifting." } }
     ]
   }
   </script>
@@ -91,9 +93,8 @@
         <h1 class="mpn">ATmega328P-AU<span class="rohs-badge" aria-hidden="true">RoHS</span></h1>
         <p class="type">8-bit AVR MCU</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/microchip-technology/">Microchip Technology</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/integrated-circuits/">8-bit AVR MCU</a></div></div><div class="id-row"><div class="id-label">Core Processor</div><div class="id-value">AVR 8-bit</div></div><div class="id-row"><div class="id-label">Maximum Clock Speed</div><div class="id-value">20 MHz</div></div><div class="id-row"><div class="id-label">Supply Voltage</div><div class="id-value">5 V</div></div><div class="id-row"><div class="id-label">Package / Case</div><div class="id-value">TQFP-32</div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/microchip-technology/">Microchip Technology</a></div></div><div class="id-row"><div class="id-label">MPN</div><div class="id-value">ATmega328P-AU</div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/integrated-circuits/">8-bit AVR MCU</a></div></div><div class="id-row"><div class="id-label">Core Processor</div><div class="id-value">AVR 8-bit</div></div><div class="id-row"><div class="id-label">Maximum Clock Speed</div><div class="id-value">20 MHz</div></div><div class="id-row"><div class="id-label">Supply Voltage</div><div class="id-value">5 V</div></div><div class="id-row"><div class="id-label">Package / Case</div><div class="id-value">TQFP-32</div></div><div class="id-row"><div class="id-label">Datasheet</div><div class="id-value"><a class="doc-link" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/atmega328p-au.pdf" target="_blank" rel="nofollow noopener" download><span class="doc-ico">&#128196;</span> ATmega328P-AU Datasheet</a></div></div><div class="id-row"><div class="id-label">Key Attributes</div><div class="id-value">Microchip ATmega328P-AU - 8-bit AVR microcontroller, 20 MHz, 32 KB Flash, 2 KB SRAM, 23 I/O, TQFP-32, 1.8-5.5 V.</div></div>
         </div>
-        <p class="hero-desc">Microchip ATmega328P-AU - 8-bit AVR microcontroller, 20 MHz, 32 KB Flash, 2 KB SRAM, 23 I/O, TQFP-32, 1.8-5.5 V.</p>
       </div>
 
       
@@ -180,47 +181,54 @@
       <!-- TABS: sticky nav + scroll-spy; all panels in DOM (SEO-friendly) -->
       <div class="tab-wrap">
         <nav class="tab-nav">
-          <a href="#overview" class="tab-btn active">Overview</a>
-          <a href="#specifications" class="tab-btn">Specifications</a>
-          <a href="#documentation" class="tab-btn">Documentation</a>
+          <a href="#specifications" class="tab-btn active">Specifications</a>
+          <a href="#introduction" class="tab-btn">Introduction</a>
+          <a href="#features" class="tab-btn">Features</a>
           <a href="#applications" class="tab-btn">Applications</a>
-          <a href="#related" class="tab-btn">Related Parts</a>
+          <a href="#documentation" class="tab-btn">Datasheet</a>
           <a href="#alternative" class="tab-btn">Alternative Parts</a>
-          <a href="#faq" class="tab-btn">FAQ</a>
+          <a href="#compliance" class="tab-btn">Compliance &amp; Export Codes</a>
         </nav>
-
-        <section id="overview" class="tab-panel">
-          <h2 class="section-title">Product Overview</h2>
-          <p>Microchip ATmega328P-AU - 8-bit AVR microcontroller, 20 MHz, 32 KB Flash, 2 KB SRAM, 23 I/O, TQFP-32, 1.8-5.5 V.</p>
-        </section>
 
         <section id="specifications" class="tab-panel">
           <h2 class="section-title">Technical Specifications</h2>
-          <table class="spec-table">
-<tbody>
-<tr><th>Core Processor</th><td>AVR 8-bit</td></tr><tr><th>Maximum Clock Speed</th><td>20 MHz</td></tr><tr><th>Flash Memory</th><td>32 KB</td></tr><tr><th>SRAM</th><td>2 KB</td></tr><tr><th>Number of I/O</th><td>23</td></tr><tr><th>Supply Voltage</th><td>5 V</td></tr><tr><th>Package / Case</th><td>TQFP-32</td></tr><tr><th>ADC (Bit)</th><td>10bit</td></tr><tr><th>Number of I/O</th><td>23</td></tr><tr><th>Operating Temperature</th><td>-40℃~+85℃</td></tr><tr><th>Voltage - Supply</th><td>1.8V~5.5V</td></tr><tr><th>Program Memory Type</th><td>FLASH</td></tr><tr><th>Eeprom</th><td>1KB</td></tr><tr><th>Program Storage Size</th><td>32KB</td></tr><tr><th>CPU Core</th><td>AVR</td></tr><tr><th>Core Size</th><td>8 Bit</td></tr><tr><th>CPU Maximum Speed</th><td>20MHz</td></tr><tr><th>Oscillator Type</th><td>Built-in</td></tr></tbody>
-</table>
+          <div class="spec-grid">
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Core Processor</th><td>AVR 8-bit</td></tr><tr><th>Maximum Clock Speed</th><td>20 MHz</td></tr><tr><th>Flash Memory</th><td>32 KB</td></tr><tr><th>SRAM</th><td>2 KB</td></tr><tr><th>Number of I/O</th><td>23</td></tr><tr><th>Supply Voltage</th><td>5 V</td></tr><tr><th>Package / Case</th><td>TQFP-32</td></tr><tr><th>ADC (Bit)</th><td>10bit</td></tr><tr><th>Operating Temperature</th><td>-40℃~+85℃</td></tr></tbody></table>
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Voltage - Supply</th><td>1.8V~5.5V</td></tr><tr><th>Program Memory Type</th><td>FLASH</td></tr><tr><th>Eeprom</th><td>1KB</td></tr><tr><th>Program Storage Size</th><td>32KB</td></tr><tr><th>CPU Core</th><td>AVR</td></tr><tr><th>Core Size</th><td>8 Bit</td></tr><tr><th>CPU Maximum Speed</th><td>20MHz</td></tr><tr><th>Oscillator Type</th><td>Built-in</td></tr></tbody></table>
+</div>
         </section>
 
-        <section id="documentation" class="tab-panel">
-  <h2 class="section-title">Documentation</h2>
-  <details class="doc-acc" open>
-    <summary><span class="doc-ico">&#128196;</span> Datasheet <span class="doc-tag">PDF</span></summary>
-    <div class="doc-acc-body">
-      <a class="doc-dl" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/atmega328p-au.pdf" target="_blank" rel="nofollow noopener">Download ATmega328P-AU Datasheet (PDF)</a>
-    </div>
-  </details>
+        <section id="introduction" class="tab-panel">
+          <h2 class="section-title">Product Introduction</h2>
+          <p>Microchip ATmega328P-AU - 8-bit AVR microcontroller, 20 MHz, 32 KB Flash, 2 KB SRAM, 23 I/O, TQFP-32, 1.8-5.5 V.</p>
+        </section>
+
+        <section id="features" class="tab-panel">
+  <h2 class="section-title">Features</h2>
+  <ul class="features-list"><li>High Performance, Low Power Atmel 8-Bit Microcontroller Family</li><li>Advanced RISC Architecture – 131 Powerful Instructions – Most Single Clock Cycle Executi – 32 x 8 General Purpose Working Registers – Fully Static Operation – Up to 20 MIPS Throughput at 20MHz – On-chip 2-cycle Multiplier</li><li>High Endurance Non-volatile Memory Segments – 4/8/16/32KBytes of In-System Self-Programmable Flash program memory – 256/512/512/1KBytes EEPROM – 512/1K/1K/2KBytes Internal SRAM – Write/Erase Cycles: 10,000 Flash/100,000 EEPROM – Data retention: 20 years at 85℃/100 years at 25℃ – Optional Boot Code Section with Independent Lock Bits In-System Programming by On-chip Boot Program True Read-While-Write Operation</li><li>Programming Lock for Software Security</li><li>Atmel QTouch library support – Capacitive touch buttons, sliders and wheels – QTouch and QMatrix acquisition – Up to 64 sense channels</li><li>Peripheral Features – Two 8-bit Timer/Counters with Separate Prescaler and Compare Mode – One 16-bit Timer/Counter with Separate Prescaler, Compare Mode, and Capture Mode – Real Time Counter with Separate Oscillator – Six PWM Channels – 8-channel 10-bit ADC in TQFP and QFN/MLF package Temperature Measurement – 6-channel 10-bit ADC in PDIP Package Temperature Measurement – Programmable Serial USART – Master/Slave SPI Serial Interface – Byte-oriented 2-wire Serial Interface (Philips I2C compatible) – Programmable Watchdog Timer with Separate On-chip Oscillator – On-chip Analog Comparator – Interrupt and Wake-up on Pin Change</li><li>Special Microcontroller Features – Power-on Reset and Programmable Brown-out Detection – Internal Calibrated Oscillator – External and Internal Interrupt Sources – Six Sleep Modes: Idle, ADC Noise Reduction, Power-save, Power-down, Standby, and Extended Standby</li><li>I/O and Packages – 23 Programmable I/O Lines – 28-pin PDIP, 32-lead TQFP, 28-pad QFN/MLF and 32-pad QFN/MLF</li></ul>
 </section>
 
         <section id="applications" class="tab-panel">
-  <h2 class="section-title">Common Applications</h2>
+  <h2 class="section-title">Applications</h2>
   <ul class="app-list"><li>Arduino</li><li>Hobbyist</li><li>Embedded control</li><li>Sensors</li></ul>
 </section>
 
-        <section id="related" class="tab-panel">
-  <h2 class="section-title">Related Integrated Circuits</h2>
-  <p>Other integrated circuits we help global buyers source:</p>
-  <div class="related-grid"><div class="related-card"><a href="/products/rp2040/">RP2040</a></div><div class="related-card"><a href="/products/ad623arzr7/">AD623ARZ-R7</a></div><div class="related-card"><a href="/products/stm32f103cbt6/">STM32F103CBT6</a></div><div class="related-card"><a href="/products/stm32f407vet6/">STM32F407VET6</a></div><div class="related-card"><a href="/products/stm32f103rct6/">STM32F103RCT6</a></div><div class="related-card"><a href="/products/adum1201arzrl7/">ADUM1201ARZ-RL7</a></div></div>
+        <section id="documentation" class="tab-panel">
+  <h2 class="section-title">Datasheet</h2>
+  <details class="doc-acc" open>
+    <summary>
+      <span class="doc-acc-title" aria-label="Datasheet"><span class="doc-ico">&#128196;</span></span>
+      <span class="doc-acc-actions">
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/atmega328p-au.pdf" target="_blank" rel="nofollow noopener">Open</a>
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/atmega328p-au.pdf" target="_blank" rel="nofollow noopener" download>Download</a>
+      </span>
+    </summary>
+    <div class="doc-acc-body">
+      <div class="doc-preview"><embed src="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/atmega328p-au.pdf" type="application/pdf" title="ATmega328P-AU Datasheet Preview" aria-label="ATmega328P-AU Datasheet Preview" /></div>
+    </div>
+  </details>
 </section>
 
         <section id="alternative" class="tab-panel">
@@ -229,16 +237,35 @@
   <ul class="alt-list"><li><a href="/request-a-quote/?pn=ATMEGA328P-AUR" class="alt-link">ATMEGA328P-AUR <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ATMEGA328-AU" class="alt-link">ATMEGA328-AU <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ATMEGA328-AUR" class="alt-link">ATMEGA328-AUR <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ATMEGA328P-AN" class="alt-link">ATMEGA328P-AN <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ATMEGA328P-ANR" class="alt-link">ATMEGA328P-ANR <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=ATMEGA328P-15AZ" class="alt-link">ATMEGA328P-15AZ <span class="muted">(request quote)</span></a></li></ul>
 </section>
 
-        <section id="faq" class="tab-panel">
-  <h2 class="section-title">Frequently Asked Questions</h2>
-  <div class="faq-item"><h3>What package is ATmega328 included in</h3><p>ATmega328P-AU comes in a 32-pin TQFP surface-mount package; it is the same MCU family used on many Arduino boards.</p></div>
+        <section id="compliance" class="tab-panel">
+  <h2 class="section-title">Compliance &amp; Export Codes</h2>
+  <div class="compliance-grid">
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>RoHS</th><td>ROHS3</td></tr><tr><th>ECCN</th><td>EAR99</td></tr></tbody>
+</table>
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>CNHTS</th><td>8542319090</td></tr></tbody>
+</table>
+  </div>
 </section>
       </div>
+
+      <!-- FAQ: independent section (removed from TAB nav / scroll-spy on 2026-09-12), placed before Sourcing -->
+      <section id="faq" class="tab-panel" style="grid-column:1;margin-top:16px;margin-bottom:16px">
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq-item"><h3>What Is the Operating Voltage Range of the ATMEGA328P-AU, and How Does Its 10-Bit ADC Perform in Mixed-Signal Applications?</h3><p>The ATMEGA328P-AU operates across a wide supply voltage range of 1.8V to 5.5V, making it compatible with both 3.3V and 5V power domains without additional regulation in many designs. The integrated 10-bit ADC provides a resolution of 1/1024 of the reference voltage — on a 5V reference, this gives approximately 4.88mV per LSB. This resolution is adequate for temperature sensing, potentiometer reading, light sensing, pressure transducer interfaces, and battery monitoring. The operating temperature range is -40°C to +85°C, qualifying it for industrial and outdoor applications that experience wide ambient temperature excursions.</p></div><div class="faq-item"><h3>How Is the ATMEGA328P-AU&#x27;s On-Chip Memory Structured, and Is 32KB of FLASH Sufficient for Typical Firmware Applications?</h3><p>The ATMEGA328P-AU provides three on-chip memory types: 32KB of self-programmable in-system FLASH for firmware storage, 1KB of EEPROM for non-volatile data retention across power cycles (such as calibration constants or device configuration), and internal SRAM (refer to datasheet for SRAM size). The 32KB FLASH supports projects of significant complexity — it is the same flash capacity used in the Arduino Uno, which runs full networking stacks and sensor fusion libraries. The in-system programmability means firmware can be updated via the SPI interface without removing the device from the board, simplifying field maintenance and manufacturing programming.</p></div><div class="faq-item"><h3>What Are the Key Processing Specifications of the ATMEGA328P-AU, and What Does Its 8-Bit AVR Core Mean for Embedded Application Suitability?</h3><p>The ATMEGA328P-AU is an 8-bit microcontroller built on Microchip&#x27;s (formerly Atmel) AVR RISC architecture, operating at a maximum CPU speed of 20MHz with a built-in oscillator. It features 32KB of in-system programmable FLASH program storage, 1KB of EEPROM, and a 10-bit ADC. Housed in a TQFP-32 (7x7mm) package with 23 I/O pins, it is well-suited for embedded control, sensor acquisition, motor control, communication protocol bridging, and IoT edge applications. The wide supply voltage range of 1.8V–5.5V accommodates both 3.3V and 5V system designs without additional level-shifting.</p></div>
+</section>
 
       <!-- Sourcing (no stock/price/lead-time promises) -->
       <section class="sourcing">
         <h2>Sourcing Information</h2>
-        <p>SZ Procure is a sourcing partner for <strong>ATmega328P-AU</strong>, not a stock catalog. We help international buyers source original components from the China electronics supply chain — send your quantity and target price for a quotation.</p>
+        <p>SZ Procure is a sourcing partner for the <strong>ATmega328P-AU</strong> (Microchip Technology 8-bit AVR MCU), not a stock catalog. We help international buyers source this electronic component through the China electronics supply chain, with verified supplier sourcing and quality inspection.</p><p>For component sourcing of ATmega328P-AU, we run supplier sourcing across the China electronics supply chain, supplier verification and multi-supplier quotation comparison so you can compare offers before purchase. We coordinate purchase orders, consolidation and international logistics dispatch from Shenzhen.</p><p>Quality control focuses on supplier qualification and screening, then product, packaging and labeling checks with outgoing inspection before dispatch. These are sourcing services we perform &mdash; they are not a guarantee of any supplier's stock, price, lead time or authenticity. Tell us your required quantity, target price and sourcing requirements, then <a href="/request-a-quote/?pn=ATmega328P-AU&mfr=Microchip%20Technology&cat=Microcontrollers%20%28MCU/MPU%29&source=product&rfq_type=sku_quote">Request a Quote</a>.</p>
       </section>
     </div>
   </main>
@@ -255,7 +282,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'applications' }, { id: 'related' }, { id: 'alternative' }, { id: 'faq' } ];
+    var groups = [ { id: 'specifications' }, { id: 'introduction' }, { id: 'features' }, { id: 'applications' }, { id: 'documentation' }, { id: 'alternative' }, { id: 'compliance' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

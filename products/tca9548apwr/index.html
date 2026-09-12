@@ -82,9 +82,8 @@
         <h1 class="mpn">TCA9548APWR<span class="rohs-badge" aria-hidden="true">RoHS</span></h1>
         <p class="type">Interface IC</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/texas-instruments/">Texas Instruments</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/integrated-circuits/">Interface IC</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">TSSOP-24</div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/texas-instruments/">Texas Instruments</a></div></div><div class="id-row"><div class="id-label">MPN</div><div class="id-value">TCA9548APWR</div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/integrated-circuits/">Interface IC</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">TSSOP-24</div></div><div class="id-row"><div class="id-label">Datasheet</div><div class="id-value"><a class="doc-link" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tca9548apwr.pdf" target="_blank" rel="nofollow noopener" download><span class="doc-ico">&#128196;</span> TCA9548APWR Datasheet</a></div></div><div class="id-row"><div class="id-label">Key Attributes</div><div class="id-value">Low-voltage 8-channel I²C switch with reset support</div></div>
         </div>
-        <p class="hero-desc">Low-voltage 8-channel I²C switch with reset support</p>
       </div>
 
       
@@ -171,56 +170,83 @@
       <!-- TABS: sticky nav + scroll-spy; all panels in DOM (SEO-friendly) -->
       <div class="tab-wrap">
         <nav class="tab-nav">
-          <a href="#overview" class="tab-btn active">Overview</a>
-          <a href="#specifications" class="tab-btn">Specifications</a>
-          <a href="#documentation" class="tab-btn">Documentation</a>
+          <a href="#specifications" class="tab-btn active">Specifications</a>
+          <a href="#introduction" class="tab-btn">Introduction</a>
+          <a href="#features" class="tab-btn">Features</a>
           <a href="#applications" class="tab-btn">Applications</a>
-          <a href="#related" class="tab-btn">Related Parts</a>
+          <a href="#documentation" class="tab-btn">Datasheet</a>
+          <a href="#compliance" class="tab-btn">Compliance &amp; Export Codes</a>
         </nav>
-
-        <section id="overview" class="tab-panel">
-          <h2 class="section-title">Product Overview</h2>
-          <p>Low-voltage 8-channel I²C switch with reset support</p>
-        </section>
 
         <section id="specifications" class="tab-panel">
           <h2 class="section-title">Technical Specifications</h2>
-          <table class="spec-table">
-<tbody>
-<tr><th>Data Rate</th><td>400Kbps</td></tr><tr><th>Function</th><td>Power-On / Reset Config</td></tr><tr><th>Operating Voltage</th><td>1.65V~5.5V</td></tr><tr><th>Package</th><td>TSSOP-24</td></tr><tr><th>Voltage - Supply</th><td>1.65V~5.5V</td></tr><tr><th>Interface</th><td>I2C;SMBus</td></tr><tr><th>Operating Temperature</th><td>-40℃~+85℃</td></tr><tr><th>Quiescent Current</th><td>2uA</td></tr><tr><th>Data Rate</th><td>400Kbps</td></tr><tr><th>Supply Current</th><td>80uA</td></tr><tr><th>Function</th><td>Power-up/reset configuration</td></tr></tbody>
-</table>
+          <div class="spec-grid">
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Data Rate</th><td>400Kbps</td></tr><tr><th>Function</th><td>Power-On / Reset Config</td></tr><tr><th>Operating Voltage</th><td>1.65V~5.5V</td></tr><tr><th>Package</th><td>TSSOP-24</td></tr><tr><th>Voltage - Supply</th><td>1.65V~5.5V</td></tr></tbody></table>
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Interface</th><td>I2C;SMBus</td></tr><tr><th>Operating Temperature</th><td>-40℃~+85℃</td></tr><tr><th>Quiescent Current</th><td>2uA</td></tr><tr><th>Supply Current</th><td>80uA</td></tr><tr><th>Function</th><td>Power-up/reset configuration</td></tr></tbody></table>
+</div>
         </section>
 
+        <section id="introduction" class="tab-panel">
+          <h2 class="section-title">Product Introduction</h2>
+          <p>Low-voltage 8-channel I²C switch with reset support</p>
+        </section>
+
+        <section id="features" class="tab-panel">
+  <h2 class="section-title">Features</h2>
+  <ul class="features-list"><li>8-to-1 bidirectional switch compatible with I²C bus and SMBus</li><li>Active-low reset input</li><li>Three address pins supporting up to eight TCA9548A devices on the I²C bus</li><li>Channel selection via I²C bus in any combination</li><li>All switch channels deselected at power-up</li><li>Low RON switches</li><li>Voltage level translation between 1.8V, 2.5V, 3.3V, and 5V buses</li><li>No glitch pulses at power-up</li><li>Hot-insertion support</li><li>Low standby current</li><li>Operating supply voltage range: 1.65V to 5.5V</li><li>5V-tolerant inputs</li><li>Clock frequency: 0 to 400kHz</li><li>Latch-up performance exceeds 100mA per JESD 78 Class II</li><li>ESD protection exceeds JESD 22 requirements</li><li>±2000V Human Body Model (A114-A)</li><li>200V Machine Model (A115-A)</li><li>±1000V Charged Device Model (C101)</li></ul>
+</section>
+
+        <section id="applications" class="tab-panel">
+  <h2 class="section-title">Applications</h2>
+  <ul class="app-list"><li>Servers</li><li>Routers (telecom switching equipment)</li><li>Factory automation</li><li>Products with I²C slave address conflicts (e.g., multiple identical temperature sensors present)</li></ul>
+</section>
+
         <section id="documentation" class="tab-panel">
-  <h2 class="section-title">Documentation</h2>
+  <h2 class="section-title">Datasheet</h2>
   <details class="doc-acc" open>
-    <summary><span class="doc-ico">&#128196;</span> Datasheet <span class="doc-tag">PDF</span></summary>
+    <summary>
+      <span class="doc-acc-title" aria-label="Datasheet"><span class="doc-ico">&#128196;</span></span>
+      <span class="doc-acc-actions">
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tca9548apwr.pdf" target="_blank" rel="nofollow noopener">Open</a>
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tca9548apwr.pdf" target="_blank" rel="nofollow noopener" download>Download</a>
+      </span>
+    </summary>
     <div class="doc-acc-body">
-      <a class="doc-dl" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tca9548apwr.pdf" target="_blank" rel="nofollow noopener">Download TCA9548APWR Datasheet (PDF)</a>
+      <div class="doc-preview"><embed src="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tca9548apwr.pdf" type="application/pdf" title="TCA9548APWR Datasheet Preview" aria-label="TCA9548APWR Datasheet Preview" /></div>
     </div>
   </details>
 </section>
 
-        <section id="applications" class="tab-panel">
-  <h2 class="section-title">Common Applications</h2>
-  <ul class="app-list"><li>Servers</li><li>Routers (telecom switching equipment)</li><li>Factory automation</li><li>Products with I²C slave address conflicts (e.g., multiple identical temperature sensors present)</li></ul>
-</section>
-
-        <section id="related" class="tab-panel">
-  <h2 class="section-title">Related Integrated Circuits</h2>
-  <p>Other integrated circuits we help global buyers source:</p>
-  <div class="related-grid"><div class="related-card"><a href="/products/mcp6002tisn/">MCP6002T-I/SN</a></div><div class="related-card"><a href="/products/ina180a1idbvr/">INA180A1IDBVR</a></div><div class="related-card"><a href="/products/sn65hvd233dr/">SN65HVD233DR</a></div><div class="related-card"><a href="/products/ina180a2idbvr/">INA180A2IDBVR</a></div><div class="related-card"><a href="/products/thvd1450dr/">THVD1450DR</a></div><div class="related-card"><a href="/products/lan8720acptr/">LAN8720A-CP-TR</a></div></div>
-</section>
-
         
 
-        
+        <section id="compliance" class="tab-panel">
+  <h2 class="section-title">Compliance &amp; Export Codes</h2>
+  <div class="compliance-grid">
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>RoHS</th><td>ROHS</td></tr><tr><th>ECCN</th><td>EAR99</td></tr><tr><th>CNHTS</th><td>8542399000</td></tr><tr><th>USHTS</th><td>8542390001</td></tr><tr><th>TARIC</th><td>8542399000</td></tr></tbody>
+</table>
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>CAHTS</th><td>8542390000</td></tr><tr><th>BRHTS</th><td>85423999</td></tr><tr><th>INHTS</th><td>85423900</td></tr><tr><th>MXHTS</th><td>8542.39.99</td></tr></tbody>
+</table>
+  </div>
+</section>
       </div>
+
+      <!-- FAQ: independent section (removed from TAB nav / scroll-spy on 2026-09-12), placed before Sourcing -->
+      
 
       <!-- Sourcing (no stock/price/lead-time promises) -->
       <section class="sourcing">
         <h2>Sourcing Information</h2>
-        <p>SZ Procure is a sourcing partner for <strong>TCA9548APWR</strong>, not a stock catalog. We help international buyers source original components from the China electronics supply chain — send your quantity and target price for a quotation.</p>
+        <p>SZ Procure is a sourcing partner for the <strong>TCA9548APWR</strong> (Texas Instruments Interface IC), not a stock catalog. We help international buyers source this electronic component through the China electronics supply chain, with verified supplier sourcing and quality inspection.</p><p>For component sourcing of TCA9548APWR, we run supplier sourcing across the China electronics supply chain, supplier verification and multi-supplier quotation comparison so you can compare offers before purchase. We coordinate purchase orders, consolidation and international logistics dispatch from Shenzhen.</p><p>Quality control focuses on supplier qualification and screening, then product, packaging and labeling checks with outgoing inspection before dispatch. These are sourcing services we perform &mdash; they are not a guarantee of any supplier's stock, price, lead time or authenticity. Tell us your required quantity, target price and sourcing requirements, then <a href="/request-a-quote/?pn=TCA9548APWR&mfr=Texas%20Instruments&cat=Interface%20ICs&source=product&rfq_type=sku_quote">Request a Quote</a>.</p>
       </section>
     </div>
   </main>
@@ -237,7 +263,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'applications' }, { id: 'related' } ];
+    var groups = [ { id: 'specifications' }, { id: 'introduction' }, { id: 'features' }, { id: 'applications' }, { id: 'documentation' }, { id: 'compliance' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

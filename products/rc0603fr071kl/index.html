@@ -57,11 +57,9 @@
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-    { "@type": "Question", "name": "How Much Power Can the AMS1117-3.3 Handle in an SOT-223 Package Without Overheating", "acceptedAnswer": { "@type": "Answer", "text": "Power dissipation  is calculated as . For the SOT-223 package, the thermal resistance () is approximately . If you drop 5V to 3.3V at 500mA, the  is 0.85W, raising the junction temperature by . To reach the full 1A output, you must provide adequate PCB copper pours as a heat sink. If the differential voltage is high (e.g., 12V to 3.3V), the current must be significantly derated to prevent thermal shutdown.;" } },
-    { "@type": "Question", "name": "What Is the Minimum Input Voltage Required for the AMS1117-3.3 (C22548) to Provide a Stable 3.3V Output", "acceptedAnswer": { "@type": "Answer", "text": "The AMS1117-3.3 is a Low Dropout (LDO) regulator with a typical dropout voltage of 1.1V to 1.3V at 1A load. To ensure a regulated 3.3V output, the input voltage () must be at least 4.5V to 4.6V (). While it can technically handle up to 15V input, using a 5V supply is ideal for minimizing heat dissipation while maintaining regulation.;" } },
-    { "@type": "Question", "name": "What Are the Recommended Capacitors for the AMS1117-3.3 to Prevent Circuit Oscillation", "acceptedAnswer": { "@type": "Answer", "text": "Stability in the AMS1117-3.3 requires an output capacitor with a specific Equivalent Series Resistance (ESR). It is highly recommended to use at least a 22µF Tantalum or Electrolytic capacitor on the output. While Ceramic capacitors are popular, their ultra-low ESR can sometimes cause LDO oscillation; if using ceramics, adding a small series resistor (0.5Ω) or ensuring a minimum of 10µF is crucial for frequency compensation and transient response.;" } },
-    { "@type": "Question", "name": "Can the AMS1117-3.3 Be Used as a Direct Replacement for LM1117, LD1117, or AZ1117", "acceptedAnswer": { "@type": "Answer", "text": "Yes, the AMS1117-3.3 is a functional and pin-to-pin compatible replacement for most industry-standard 1117 series LDOs in the SOT-223 package, including the TI LM1117-3.3 and STMicroelectronics LD1117S33. The pinout is standard: Pin 1 (Adj/GND), Pin 2 (Vout/Tab), Pin 3 (Vin). Always check the maximum input voltage rating, as some variants support up to 15V while others may differ slightly in transient performance.;" } },
-    { "@type": "Question", "name": "Is the AMS1117-3.3 Suitable for Powering ESP32, ESP8266, or STM32 Microcontrollers", "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. The AMS1117-3.3 is a staple in the maker community for powering ESP32 and STM32 modules because these MCUs require a steady 3.3V supply and can have current spikes up to 400mA-600mA during Wi-Fi/Bluetooth transmission. The 1A rating of the C22548 provides ample headroom. For battery-powered IoT devices, however, consider the 5mA quiescent current, which might be higher than specialized ultra-low-power LDOs." } }
+    { "@type": "Question", "name": "How Much Power Can the AMS1117-3.3 Handle in an SOT-223 Package Without Overheating?", "acceptedAnswer": { "@type": "Answer", "text": "Power dissipation  is calculated as . For the SOT-223 package, the thermal resistance () is approximately . If you drop 5V to 3.3V at 500mA, the  is 0.85W, raising the junction temperature by . To reach the full 1A output, you must provide adequate PCB copper pours as a heat sink. If the differential voltage is high (e.g., 12V to 3.3V), the current must be significantly derated to prevent thermal shutdown." } },
+    { "@type": "Question", "name": "What Is the Minimum Input Voltage Required for the AMS1117-3.3 (C22548) to Provide a Stable 3.3V Output?", "acceptedAnswer": { "@type": "Answer", "text": "The AMS1117-3.3 is a Low Dropout (LDO) regulator with a typical dropout voltage of 1.1V to 1.3V at 1A load. To ensure a regulated 3.3V output, the input voltage () must be at least 4.5V to 4.6V (). While it can technically handle up to 15V input, using a 5V supply is ideal for minimizing heat dissipation while maintaining regulation." } },
+    { "@type": "Question", "name": "What Are the Recommended Capacitors for the AMS1117-3.3 to Prevent Circuit Oscillation?", "acceptedAnswer": { "@type": "Answer", "text": "Stability in the AMS1117-3.3 requires an output capacitor with a specific Equivalent Series Resistance (ESR). It is highly recommended to use at least a 22µF Tantalum or Electrolytic capacitor on the output. While Ceramic capacitors are popular, their ultra-low ESR can sometimes cause LDO oscillation; if using ceramics, adding a small series resistor (0.5Ω) or ensuring a minimum of 10µF is crucial for frequency compensation and transient response." } }
     ]
   }
   </script>
@@ -95,9 +93,8 @@
         <h1 class="mpn">RC0603FR-071KL<span class="rohs-badge" aria-hidden="true">RoHS</span></h1>
         <p class="type">Resistor</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/yageo/">Yageo</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/passive-components/">Resistor</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">0603</div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/yageo/">Yageo</a><span class="brand-tag">Asian Brands</span></div></div><div class="id-row"><div class="id-label">MPN</div><div class="id-value">RC0603FR-071KL</div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/passive-components/">Resistor</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">0603</div></div><div class="id-row"><div class="id-label">Datasheet</div><div class="id-value"><a class="doc-link" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/rc0603fr-071kl.pdf" target="_blank" rel="nofollow noopener" download><span class="doc-ico">&#128196;</span> RC0603FR-071KL Datasheet</a></div></div><div class="id-row"><div class="id-label">Key Attributes</div><div class="id-value">RES 1kΩ ±1% 100mW 0603</div></div>
         </div>
-        <p class="hero-desc">RES 1kΩ ±1% 100mW 0603</p>
       </div>
 
       
@@ -184,43 +181,46 @@
       <!-- TABS: sticky nav + scroll-spy; all panels in DOM (SEO-friendly) -->
       <div class="tab-wrap">
         <nav class="tab-nav">
-          <a href="#overview" class="tab-btn active">Overview</a>
-          <a href="#specifications" class="tab-btn">Specifications</a>
-          <a href="#documentation" class="tab-btn">Documentation</a>
-          <a href="#related" class="tab-btn">Related Parts</a>
+          <a href="#specifications" class="tab-btn active">Specifications</a>
+          <a href="#introduction" class="tab-btn">Introduction</a>
+          <a href="#documentation" class="tab-btn">Datasheet</a>
           <a href="#alternative" class="tab-btn">Alternative Parts</a>
-          <a href="#faq" class="tab-btn">FAQ</a>
+          <a href="#compliance" class="tab-btn">Compliance &amp; Export Codes</a>
         </nav>
-
-        <section id="overview" class="tab-panel">
-          <h2 class="section-title">Product Overview</h2>
-          <p>RES 1kΩ ±1% 100mW 0603</p>
-        </section>
 
         <section id="specifications" class="tab-panel">
           <h2 class="section-title">Technical Specifications</h2>
-          <table class="spec-table">
-<tbody>
-<tr><th>Resistor Type</th><td>Thick Film</td></tr><tr><th>Resistance</th><td>1kΩ</td></tr><tr><th>Accuracy</th><td>±1%</td></tr><tr><th>Maximum Operating Voltage</th><td>75V</td></tr><tr><th>Package</th><td>0603</td></tr><tr><th>Power(Watts)</th><td>100mW</td></tr><tr><th>Resistance</th><td>1kΩ</td></tr><tr><th>Voltage Rating</th><td>75V</td></tr><tr><th>Operating Temperature</th><td>-55℃~+155℃</td></tr><tr><th>Type</th><td>Thick Film Resistor</td></tr><tr><th>Temperature Coefficient</th><td>±100ppm/℃</td></tr><tr><th>Tolerance</th><td>±1%</td></tr></tbody>
-</table>
+          <div class="spec-grid">
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Resistor Type</th><td>Thick Film</td></tr><tr><th>Resistance</th><td>1kΩ</td></tr><tr><th>Accuracy</th><td>±1%</td></tr><tr><th>Maximum Operating Voltage</th><td>75V</td></tr><tr><th>Package</th><td>0603</td></tr><tr><th>Power(Watts)</th><td>100mW</td></tr></tbody></table>
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Voltage Rating</th><td>75V</td></tr><tr><th>Operating Temperature</th><td>-55℃~+155℃</td></tr><tr><th>Type</th><td>Thick Film Resistor</td></tr><tr><th>Temperature Coefficient</th><td>±100ppm/℃</td></tr><tr><th>Tolerance</th><td>±1%</td></tr></tbody></table>
+</div>
         </section>
 
-        <section id="documentation" class="tab-panel">
-  <h2 class="section-title">Documentation</h2>
-  <details class="doc-acc" open>
-    <summary><span class="doc-ico">&#128196;</span> Datasheet <span class="doc-tag">PDF</span></summary>
-    <div class="doc-acc-body">
-      <a class="doc-dl" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/rc0603fr-071kl.pdf" target="_blank" rel="nofollow noopener">Download RC0603FR-071KL Datasheet (PDF)</a>
-    </div>
-  </details>
-</section>
+        <section id="introduction" class="tab-panel">
+          <h2 class="section-title">Product Introduction</h2>
+          <p>RES 1kΩ ±1% 100mW 0603</p>
+        </section>
 
         
 
-        <section id="related" class="tab-panel">
-  <h2 class="section-title">Related Passive Components</h2>
-  <p>Other passive components we help global buyers source:</p>
-  <div class="related-grid"><div class="related-card"><a href="/products/rc0603jr070rl/">RC0603JR-070RL</a></div><div class="related-card"><a href="/products/frc0603f5101ts/">FRC0603F5101TS</a></div><div class="related-card"><a href="/products/rc0402fr071kl/">RC0402FR-071KL</a></div><div class="related-card"><a href="/products/erj2ge0r00x/">ERJ2GE0R00X</a></div><div class="related-card"><a href="/products/frc0805f1001ts/">FRC0805F1001TS</a></div><div class="related-card"><a href="/products/crcw060310k0fkea/">CRCW060310K0FKEA</a></div></div>
+        
+
+        <section id="documentation" class="tab-panel">
+  <h2 class="section-title">Datasheet</h2>
+  <details class="doc-acc" open>
+    <summary>
+      <span class="doc-acc-title" aria-label="Datasheet"><span class="doc-ico">&#128196;</span></span>
+      <span class="doc-acc-actions">
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/rc0603fr-071kl.pdf" target="_blank" rel="nofollow noopener">Open</a>
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/rc0603fr-071kl.pdf" target="_blank" rel="nofollow noopener" download>Download</a>
+      </span>
+    </summary>
+    <div class="doc-acc-body">
+      <div class="doc-preview"><embed src="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/rc0603fr-071kl.pdf" type="application/pdf" title="RC0603FR-071KL Datasheet Preview" aria-label="RC0603FR-071KL Datasheet Preview" /></div>
+    </div>
+  </details>
 </section>
 
         <section id="alternative" class="tab-panel">
@@ -229,16 +229,35 @@
   <ul class="alt-list"><li><a href="/request-a-quote/?pn=AC0603FR-071KL" class="alt-link">AC0603FR-071KL <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=AF0603FR-071KL" class="alt-link">AF0603FR-071KL <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=RC0603DR-071KL" class="alt-link">RC0603DR-071KL <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=AC0603DR-071KL" class="alt-link">AC0603DR-071KL <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=RT0603FRE071KL" class="alt-link">RT0603FRE071KL <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=RT0603FRE131KL" class="alt-link">RT0603FRE131KL <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=AT0603FRE071KL" class="alt-link">AT0603FRE071KL <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=RE0603FRE071KL" class="alt-link">RE0603FRE071KL <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=RC0603FR-131KL" class="alt-link">RC0603FR-131KL <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=AF0603DR-071KL" class="alt-link">AF0603DR-071KL <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=RC0603FR-071KP" class="alt-link">RC0603FR-071KP <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=SR0603FR-071KL" class="alt-link">SR0603FR-071KL <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=AC0603FR-131KL" class="alt-link">AC0603FR-131KL <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=AF0603FR-131KL" class="alt-link">AF0603FR-131KL <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=AR0603FR-071KL" class="alt-link">AR0603FR-071KL <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=AC0603FR-7W1KL" class="alt-link">AC0603FR-7W1KL <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=SR0603FR-7W1KL" class="alt-link">SR0603FR-7W1KL <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=SR0603FR-7T1KL" class="alt-link">SR0603FR-7T1KL <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=RT0603FRD071KL" class="alt-link">RT0603FRD071KL <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=AA0603FR-131KL" class="alt-link">AA0603FR-131KL <span class="muted">(request quote)</span></a></li></ul>
 </section>
 
-        <section id="faq" class="tab-panel">
-  <h2 class="section-title">Frequently Asked Questions</h2>
-  <div class="faq-item"><h3>How Much Power Can the AMS1117-3.3 Handle in an SOT-223 Package Without Overheating</h3><p>Power dissipation  is calculated as . For the SOT-223 package, the thermal resistance () is approximately . If you drop 5V to 3.3V at 500mA, the  is 0.85W, raising the junction temperature by . To reach the full 1A output, you must provide adequate PCB copper pours as a heat sink. If the differential voltage is high (e.g., 12V to 3.3V), the current must be significantly derated to prevent thermal shutdown.;</p></div><div class="faq-item"><h3>What Is the Minimum Input Voltage Required for the AMS1117-3.3 (C22548) to Provide a Stable 3.3V Output</h3><p>The AMS1117-3.3 is a Low Dropout (LDO) regulator with a typical dropout voltage of 1.1V to 1.3V at 1A load. To ensure a regulated 3.3V output, the input voltage () must be at least 4.5V to 4.6V (). While it can technically handle up to 15V input, using a 5V supply is ideal for minimizing heat dissipation while maintaining regulation.;</p></div><div class="faq-item"><h3>What Are the Recommended Capacitors for the AMS1117-3.3 to Prevent Circuit Oscillation</h3><p>Stability in the AMS1117-3.3 requires an output capacitor with a specific Equivalent Series Resistance (ESR). It is highly recommended to use at least a 22µF Tantalum or Electrolytic capacitor on the output. While Ceramic capacitors are popular, their ultra-low ESR can sometimes cause LDO oscillation; if using ceramics, adding a small series resistor (0.5Ω) or ensuring a minimum of 10µF is crucial for frequency compensation and transient response.;</p></div><div class="faq-item"><h3>Can the AMS1117-3.3 Be Used as a Direct Replacement for LM1117, LD1117, or AZ1117</h3><p>Yes, the AMS1117-3.3 is a functional and pin-to-pin compatible replacement for most industry-standard 1117 series LDOs in the SOT-223 package, including the TI LM1117-3.3 and STMicroelectronics LD1117S33. The pinout is standard: Pin 1 (Adj/GND), Pin 2 (Vout/Tab), Pin 3 (Vin). Always check the maximum input voltage rating, as some variants support up to 15V while others may differ slightly in transient performance.;</p></div><div class="faq-item"><h3>Is the AMS1117-3.3 Suitable for Powering ESP32, ESP8266, or STM32 Microcontrollers</h3><p>Absolutely. The AMS1117-3.3 is a staple in the maker community for powering ESP32 and STM32 modules because these MCUs require a steady 3.3V supply and can have current spikes up to 400mA-600mA during Wi-Fi/Bluetooth transmission. The 1A rating of the C22548 provides ample headroom. For battery-powered IoT devices, however, consider the 5mA quiescent current, which might be higher than specialized ultra-low-power LDOs.</p></div>
+        <section id="compliance" class="tab-panel">
+  <h2 class="section-title">Compliance &amp; Export Codes</h2>
+  <div class="compliance-grid">
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>RoHS</th><td>ROHS3</td></tr><tr><th>ECCN</th><td>EAR99</td></tr><tr><th>CNHTS</th><td>8533211000</td></tr><tr><th>USHTS</th><td>8533210020</td></tr><tr><th>TARIC</th><td>8533210000</td></tr></tbody>
+</table>
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>CAHTS</th><td>8533210000</td></tr><tr><th>BRHTS</th><td>85332110</td></tr><tr><th>INHTS</th><td>85332111</td></tr><tr><th>MXHTS</th><td>8533.21.01</td></tr></tbody>
+</table>
+  </div>
 </section>
       </div>
+
+      <!-- FAQ: independent section (removed from TAB nav / scroll-spy on 2026-09-12), placed before Sourcing -->
+      <section id="faq" class="tab-panel" style="grid-column:1;margin-top:16px;margin-bottom:16px">
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq-item"><h3>How Much Power Can the AMS1117-3.3 Handle in an SOT-223 Package Without Overheating?</h3><p>Power dissipation  is calculated as . For the SOT-223 package, the thermal resistance () is approximately . If you drop 5V to 3.3V at 500mA, the  is 0.85W, raising the junction temperature by . To reach the full 1A output, you must provide adequate PCB copper pours as a heat sink. If the differential voltage is high (e.g., 12V to 3.3V), the current must be significantly derated to prevent thermal shutdown.</p></div><div class="faq-item"><h3>What Is the Minimum Input Voltage Required for the AMS1117-3.3 (C22548) to Provide a Stable 3.3V Output?</h3><p>The AMS1117-3.3 is a Low Dropout (LDO) regulator with a typical dropout voltage of 1.1V to 1.3V at 1A load. To ensure a regulated 3.3V output, the input voltage () must be at least 4.5V to 4.6V (). While it can technically handle up to 15V input, using a 5V supply is ideal for minimizing heat dissipation while maintaining regulation.</p></div><div class="faq-item"><h3>What Are the Recommended Capacitors for the AMS1117-3.3 to Prevent Circuit Oscillation?</h3><p>Stability in the AMS1117-3.3 requires an output capacitor with a specific Equivalent Series Resistance (ESR). It is highly recommended to use at least a 22µF Tantalum or Electrolytic capacitor on the output. While Ceramic capacitors are popular, their ultra-low ESR can sometimes cause LDO oscillation; if using ceramics, adding a small series resistor (0.5Ω) or ensuring a minimum of 10µF is crucial for frequency compensation and transient response.</p></div>
+</section>
 
       <!-- Sourcing (no stock/price/lead-time promises) -->
       <section class="sourcing">
         <h2>Sourcing Information</h2>
-        <p>SZ Procure is a sourcing partner for <strong>RC0603FR-071KL</strong>, not a stock catalog. We help international buyers source original components from the China electronics supply chain — send your quantity and target price for a quotation.</p>
+        <p>SZ Procure is a sourcing partner for the <strong>RC0603FR-071KL</strong> (Yageo Resistor), not a stock catalog. We help international buyers source this electronic component through the China electronics supply chain, with verified supplier sourcing and quality inspection.</p><p>For RC0603FR-071KL, our electronics sourcing covers supplier sourcing across the China electronics supply chain, supplier verification and multi-supplier quotation comparison so you can compare offers before purchase. We coordinate purchase orders, consolidation and international logistics dispatch from Shenzhen.</p><p>Quality control includes supplier qualification and screening, then product, packaging and labeling checks with outgoing inspection before dispatch. These are sourcing services we perform &mdash; they are not a guarantee of any supplier's stock, price, lead time or authenticity. Tell us your required quantity, target price and sourcing requirements, then <a href="/request-a-quote/?pn=RC0603FR-071KL&mfr=Yageo&cat=Resistors&source=product&rfq_type=sku_quote">Request a Quote</a>.</p>
       </section>
     </div>
   </main>
@@ -255,7 +274,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'related' }, { id: 'alternative' }, { id: 'faq' } ];
+    var groups = [ { id: 'specifications' }, { id: 'introduction' }, { id: 'documentation' }, { id: 'alternative' }, { id: 'compliance' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

@@ -57,11 +57,9 @@
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-    { "@type": "Question", "name": "Is the BME280 Register and Performance Compatible With the BMP280", "acceptedAnswer": { "@type": "Answer", "text": "Yes, the BME280 is fully register and performance compatible with the Bosch Sensortec BMP280 digital pressure sensor. However, please note that the BME280 additionally includes a digital humidity sensor, providing comprehensive environmental data that the BMP280 does not offer.;" } },
-    { "@type": "Question", "name": "What Are the Direct Alternatives or Replacements for This Sensor", "acceptedAnswer": { "@type": "Answer", "text": "If you require similar barometric pressure and temperature measurements, the Bosch BMP280 is a direct alternative, though it lacks the humidity sensing capability. For other combined environmental tracking, you may browse the Humidity, Moisture Sensors category on our platform to find cross-brand alternatives with matching pinouts or I2C/SPI interfaces.;" } },
-    { "@type": "Question", "name": "In What Application Scenarios Can This Sensor Be Utilized", "acceptedAnswer": { "@type": "Answer", "text": "Thanks to its compact size and low power consumption, the BME280 is ideal for home automation control (HVAC), fitness monitoring, Internet of Things (IoT) devices, context awareness (e.g., room change or skin detection), weather forecasting, GPS refinement (slope detection), and indoor navigation (floor/elevator detection).;" } },
-    { "@type": "Question", "name": "What Are the Key Technical Specifications Regarding Power and Precision", "acceptedAnswer": { "@type": "Answer", "text": "The BME280 operates on a supply voltage range of 1.71V to 3.6V and features a 16-bit resolution. It delivers a humidity tolerance of ±3%RH, a temperature tolerance of ±0.5°C, and exhibits an ultra-low current consumption of just 3.6 µA at 1Hz when operating all three sensors (humidity, pressure, and temperature), dropping to 0.1 µA in sleep mode.;" } },
-    { "@type": "Question", "name": "How Do You Connect and Communicate With the Sensor During Implementation", "acceptedAnswer": { "@type": "Answer", "text": "The sensor integrates both I2C (up to 3.4 MHz) and SPI (3-wire and 4-wire, up to 10 MHz) digital interfaces, allowing easy interfacing with microcontrollers. It features three power modes (sleep, normal, and forced) and supports customizable oversampling and filter settings to tailors data rates and noise levels to your project&#x27;s specific needs." } }
+    { "@type": "Question", "name": "What Are the Direct Alternatives or Replacements for This Sensor?", "acceptedAnswer": { "@type": "Answer", "text": "If you require similar barometric pressure and temperature measurements, the Bosch BMP280 is a direct alternative, though it lacks the humidity sensing capability. For other combined environmental tracking, you may browse the Humidity, Moisture Sensors category on our platform to find cross-brand alternatives with matching pinouts or I2C/SPI interfaces." } },
+    { "@type": "Question", "name": "In What Application Scenarios Can This Sensor Be Utilized?", "acceptedAnswer": { "@type": "Answer", "text": "Thanks to its compact size and low power consumption, the BME280 is ideal for home automation control (HVAC), fitness monitoring, Internet of Things (IoT) devices, context awareness (e.g., room change or skin detection), weather forecasting, GPS refinement (slope detection), and indoor navigation (floor/elevator detection)." } },
+    { "@type": "Question", "name": "What Are the Key Technical Specifications Regarding Power and Precision?", "acceptedAnswer": { "@type": "Answer", "text": "The BME280 operates on a supply voltage range of 1.71V to 3.6V and features a 16-bit resolution. It delivers a humidity tolerance of ±3%RH, a temperature tolerance of ±0.5°C, and exhibits an ultra-low current consumption of just 3.6 µA at 1Hz when operating all three sensors (humidity, pressure, and temperature), dropping to 0.1 µA in sleep mode." } }
     ]
   }
   </script>
@@ -95,9 +93,8 @@
         <h1 class="mpn">BME280<span class="rohs-badge" aria-hidden="true">RoHS</span></h1>
         <p class="type">Sensors</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/bosch/">Bosch</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/sensors/">Sensors</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">LGA-8(2.5x2.5)</div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/bosch/">Bosch</a></div></div><div class="id-row"><div class="id-label">MPN</div><div class="id-value">BME280</div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/sensors/">Sensors</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">LGA-8(2.5x2.5)</div></div><div class="id-row"><div class="id-label">Datasheet</div><div class="id-value"><a class="doc-link" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/bme280.pdf" target="_blank" rel="nofollow noopener" download><span class="doc-ico">&#128196;</span> BME280 Datasheet</a></div></div><div class="id-row"><div class="id-label">Key Attributes</div><div class="id-value">Combined humidity and pressure sensor</div></div>
         </div>
-        <p class="hero-desc">Combined humidity and pressure sensor</p>
       </div>
 
       
@@ -184,60 +181,86 @@
       <!-- TABS: sticky nav + scroll-spy; all panels in DOM (SEO-friendly) -->
       <div class="tab-wrap">
         <nav class="tab-nav">
-          <a href="#overview" class="tab-btn active">Overview</a>
-          <a href="#specifications" class="tab-btn">Specifications</a>
-          <a href="#documentation" class="tab-btn">Documentation</a>
+          <a href="#specifications" class="tab-btn active">Specifications</a>
+          <a href="#introduction" class="tab-btn">Introduction</a>
+          <a href="#features" class="tab-btn">Features</a>
           <a href="#applications" class="tab-btn">Applications</a>
-          <a href="#related" class="tab-btn">Related Parts</a>
-          <a href="#faq" class="tab-btn">FAQ</a>
+          <a href="#documentation" class="tab-btn">Datasheet</a>
+          <a href="#compliance" class="tab-btn">Compliance &amp; Export Codes</a>
         </nav>
-
-        <section id="overview" class="tab-panel">
-          <h2 class="section-title">Product Overview</h2>
-          <p>Combined humidity and pressure sensor</p>
-        </section>
 
         <section id="specifications" class="tab-panel">
           <h2 class="section-title">Technical Specifications</h2>
-          <table class="spec-table">
-<tbody>
-<tr><th>Temperature Range</th><td>-40℃~+85℃</td></tr><tr><th>Humidity Range</th><td>0%RH~100%RH</td></tr><tr><th>Humidity Accuracy</th><td>±3%RH</td></tr><tr><th>Package</th><td>LGA-8(2.5x2.5)</td></tr><tr><th>Humidity Tolerance</th><td>±3%RH</td></tr><tr><th>Voltage - Supply</th><td>1.71V~3.6V</td></tr><tr><th>Resolution</th><td>16bit</td></tr><tr><th>Temperature Range</th><td>-40℃~+85℃</td></tr><tr><th>Humidity</th><td>0%RH~100%RH</td></tr><tr><th>Temperature Tolerance</th><td>±0.5℃</td></tr><tr><th>Current - Supply</th><td>1.8uA</td></tr><tr><th>Interface</th><td>I2C;SPI</td></tr><tr><th>Features</th><td>Temperature compensation;Factory calibration;Self-diagnosis and confidence flag</td></tr></tbody>
-</table>
+          <div class="spec-grid">
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Temperature Range</th><td>-40℃~+85℃</td></tr><tr><th>Humidity Range</th><td>0%RH~100%RH</td></tr><tr><th>Humidity Accuracy</th><td>±3%RH</td></tr><tr><th>Package</th><td>LGA-8(2.5x2.5)</td></tr><tr><th>Humidity Tolerance</th><td>±3%RH</td></tr><tr><th>Voltage - Supply</th><td>1.71V~3.6V</td></tr></tbody></table>
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Resolution</th><td>16bit</td></tr><tr><th>Humidity</th><td>0%RH~100%RH</td></tr><tr><th>Temperature Tolerance</th><td>±0.5℃</td></tr><tr><th>Current - Supply</th><td>1.8uA</td></tr><tr><th>Interface</th><td>I2C;SPI</td></tr><tr><th>Features</th><td>Temperature compensation;Factory calibration;Self-diagnosis and confidence flag</td></tr></tbody></table>
+</div>
         </section>
 
+        <section id="introduction" class="tab-panel">
+          <h2 class="section-title">Product Introduction</h2>
+          <p>Combined humidity and pressure sensor</p>
+        </section>
+
+        <section id="features" class="tab-panel">
+  <h2 class="section-title">Features</h2>
+  <ul class="features-list"><li>Package 2.5mm × 2.5mm × 0.93mm metal Id LGA</li><li>Digital interface I²C (up to 3.4 MHz) and SPI (3 and 4 wire, up to 10 MHz)</li><li>Supply voltage: VDD main supply voltage range: 1.71V to 3.6V; VDDio interface voltage range: 1.2 V to 3.6V</li><li>Current consumption: 1.8μA@1Hz humidity and temperature; 2.8μA@1Hz pressure and temperature; 3.6μA@1Hz humidity, pressure and temperature; 0.1μA in sleep mode</li><li>Operating range: 40… +85°C, 0…100% rel. humidity, 300…1100 hPa</li><li>Humidity sensor and pressure sensor can be independently enabled / disabled</li><li>Register and performance compatible to Bosch Sensortec BMP280 digital pressure sensor</li><li>RoHS compliant, halogen-free, MSL1</li><li>Response time (T63%) 1s</li><li>Accuracy tolerance ±3% relative humidity</li><li>Hysteresis ±1% relative humidity</li><li>RMS Noise 0.2Pa equiv. to 1.7cm</li><li>Offset temperature coefficient ±1.5Pa / K equiv. to ±12.6cm at 1°C temperature change</li></ul>
+</section>
+
+        <section id="applications" class="tab-panel">
+  <h2 class="section-title">Applications</h2>
+  <ul class="app-list"><li>Context awareness, e.g. skin detection, room change detection</li><li>Fitness monitoring / well-being</li><li>Warning regarding dryness or high temperatures</li><li>Measurement of volume and air flow</li><li>Home automation control, control heating, venting, air conditioning (HVAC)</li><li>Internet of things</li><li>GPS enhancement (e.g. time-to-first-fix improvement, dead reckoning, slope detection)</li><li>Indoor navigation (change of floor detection, elevator detection)</li><li>Outdoor navigation, leisure and sports applications</li><li>Weather forecast</li><li>Vertical velocity indication (rise/sink speed)</li></ul>
+</section>
+
         <section id="documentation" class="tab-panel">
-  <h2 class="section-title">Documentation</h2>
+  <h2 class="section-title">Datasheet</h2>
   <details class="doc-acc" open>
-    <summary><span class="doc-ico">&#128196;</span> Datasheet <span class="doc-tag">PDF</span></summary>
+    <summary>
+      <span class="doc-acc-title" aria-label="Datasheet"><span class="doc-ico">&#128196;</span></span>
+      <span class="doc-acc-actions">
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/bme280.pdf" target="_blank" rel="nofollow noopener">Open</a>
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/bme280.pdf" target="_blank" rel="nofollow noopener" download>Download</a>
+      </span>
+    </summary>
     <div class="doc-acc-body">
-      <a class="doc-dl" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/bme280.pdf" target="_blank" rel="nofollow noopener">Download BME280 Datasheet (PDF)</a>
+      <div class="doc-preview"><embed src="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/bme280.pdf" type="application/pdf" title="BME280 Datasheet Preview" aria-label="BME280 Datasheet Preview" /></div>
     </div>
   </details>
 </section>
 
-        <section id="applications" class="tab-panel">
-  <h2 class="section-title">Common Applications</h2>
-  <ul class="app-list"><li>Context awareness, e.g. skin detection, room change detection</li><li>Fitness monitoring / well-being</li><li>Warning regarding dryness or high temperatures</li><li>Measurement of volume and air flow</li><li>Home automation control, control heating, venting, air conditioning (HVAC)</li><li>Internet of things</li><li>GPS enhancement (e.g. time-to-first-fix improvement, dead reckoning, slope detection)</li><li>Indoor navigation (change of floor detection, elevator detection)</li><li>Outdoor navigation, leisure and sports applications</li><li>Weather forecast</li><li>Vertical velocity indication (rise/sink speed)</li></ul>
-</section>
-
-        <section id="related" class="tab-panel">
-  <h2 class="section-title">Related Sensors</h2>
-  <p>Other sensors we help global buyers source:</p>
-  <div class="related-grid"><div class="related-card"><a href="/products/acs712elctr20at/">ACS712ELCTR-20A-T</a></div><div class="related-card"><a href="/products/bmi088/">BMI088</a></div><div class="related-card"><a href="/products/aht20/">AHT20</a></div><div class="related-card"><a href="/products/hdc2010ypar/">HDC2010YPAR</a></div><div class="related-card"><a href="/products/adxl345bcczrl7/">ADXL345BCCZ-RL7</a></div><div class="related-card"><a href="/products/lsm6ds3trc/">LSM6DS3TR-C</a></div></div>
-</section>
-
         
 
-        <section id="faq" class="tab-panel">
-  <h2 class="section-title">Frequently Asked Questions</h2>
-  <div class="faq-item"><h3>Is the BME280 Register and Performance Compatible With the BMP280</h3><p>Yes, the BME280 is fully register and performance compatible with the Bosch Sensortec BMP280 digital pressure sensor. However, please note that the BME280 additionally includes a digital humidity sensor, providing comprehensive environmental data that the BMP280 does not offer.;</p></div><div class="faq-item"><h3>What Are the Direct Alternatives or Replacements for This Sensor</h3><p>If you require similar barometric pressure and temperature measurements, the Bosch BMP280 is a direct alternative, though it lacks the humidity sensing capability. For other combined environmental tracking, you may browse the Humidity, Moisture Sensors category on our platform to find cross-brand alternatives with matching pinouts or I2C/SPI interfaces.;</p></div><div class="faq-item"><h3>In What Application Scenarios Can This Sensor Be Utilized</h3><p>Thanks to its compact size and low power consumption, the BME280 is ideal for home automation control (HVAC), fitness monitoring, Internet of Things (IoT) devices, context awareness (e.g., room change or skin detection), weather forecasting, GPS refinement (slope detection), and indoor navigation (floor/elevator detection).;</p></div><div class="faq-item"><h3>What Are the Key Technical Specifications Regarding Power and Precision</h3><p>The BME280 operates on a supply voltage range of 1.71V to 3.6V and features a 16-bit resolution. It delivers a humidity tolerance of ±3%RH, a temperature tolerance of ±0.5°C, and exhibits an ultra-low current consumption of just 3.6 µA at 1Hz when operating all three sensors (humidity, pressure, and temperature), dropping to 0.1 µA in sleep mode.;</p></div><div class="faq-item"><h3>How Do You Connect and Communicate With the Sensor During Implementation</h3><p>The sensor integrates both I2C (up to 3.4 MHz) and SPI (3-wire and 4-wire, up to 10 MHz) digital interfaces, allowing easy interfacing with microcontrollers. It features three power modes (sleep, normal, and forced) and supports customizable oversampling and filter settings to tailors data rates and noise levels to your project&#x27;s specific needs.</p></div>
+        <section id="compliance" class="tab-panel">
+  <h2 class="section-title">Compliance &amp; Export Codes</h2>
+  <div class="compliance-grid">
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>RoHS</th><td>ROHS3</td></tr><tr><th>ECCN</th><td>EAR99</td></tr><tr><th>CNHTS</th><td>9025800090</td></tr><tr><th>USHTS</th><td>9025801000</td></tr><tr><th>TARIC</th><td>9025802000</td></tr></tbody>
+</table>
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>CAHTS</th><td>9025800000</td></tr><tr><th>BRHTS</th><td>90258000</td></tr><tr><th>INHTS</th><td>90258090</td></tr><tr><th>MXHTS</th><td>9025.80.01</td></tr></tbody>
+</table>
+  </div>
 </section>
       </div>
+
+      <!-- FAQ: independent section (removed from TAB nav / scroll-spy on 2026-09-12), placed before Sourcing -->
+      <section id="faq" class="tab-panel" style="grid-column:1;margin-top:16px;margin-bottom:16px">
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq-item"><h3>What Are the Direct Alternatives or Replacements for This Sensor?</h3><p>If you require similar barometric pressure and temperature measurements, the Bosch BMP280 is a direct alternative, though it lacks the humidity sensing capability. For other combined environmental tracking, you may browse the Humidity, Moisture Sensors category on our platform to find cross-brand alternatives with matching pinouts or I2C/SPI interfaces.</p></div><div class="faq-item"><h3>In What Application Scenarios Can This Sensor Be Utilized?</h3><p>Thanks to its compact size and low power consumption, the BME280 is ideal for home automation control (HVAC), fitness monitoring, Internet of Things (IoT) devices, context awareness (e.g., room change or skin detection), weather forecasting, GPS refinement (slope detection), and indoor navigation (floor/elevator detection).</p></div><div class="faq-item"><h3>What Are the Key Technical Specifications Regarding Power and Precision?</h3><p>The BME280 operates on a supply voltage range of 1.71V to 3.6V and features a 16-bit resolution. It delivers a humidity tolerance of ±3%RH, a temperature tolerance of ±0.5°C, and exhibits an ultra-low current consumption of just 3.6 µA at 1Hz when operating all three sensors (humidity, pressure, and temperature), dropping to 0.1 µA in sleep mode.</p></div>
+</section>
 
       <!-- Sourcing (no stock/price/lead-time promises) -->
       <section class="sourcing">
         <h2>Sourcing Information</h2>
-        <p>SZ Procure is a sourcing partner for <strong>BME280</strong>, not a stock catalog. We help international buyers source original components from the China electronics supply chain — send your quantity and target price for a quotation.</p>
+        <p>SZ Procure is a sourcing partner for the <strong>BME280</strong> (Bosch Sensors), not a stock catalog. We help international buyers source this electronic component through the China electronics supply chain, with verified supplier sourcing and quality inspection.</p><p>For BME280, our electronics sourcing covers supplier sourcing across the China electronics supply chain, supplier verification and multi-supplier quotation comparison so you can compare offers before purchase. We coordinate purchase orders, consolidation and international logistics dispatch from Shenzhen.</p><p>Quality control includes supplier qualification and screening, then product, packaging and labeling checks with outgoing inspection before dispatch. These are sourcing services we perform &mdash; they are not a guarantee of any supplier's stock, price, lead time or authenticity. Tell us your required quantity, target price and sourcing requirements, then <a href="/request-a-quote/?pn=BME280&mfr=Bosch&cat=Sensors&source=product&rfq_type=sku_quote">Request a Quote</a>.</p>
       </section>
     </div>
   </main>
@@ -254,7 +277,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'applications' }, { id: 'related' }, { id: 'faq' } ];
+    var groups = [ { id: 'specifications' }, { id: 'introduction' }, { id: 'features' }, { id: 'applications' }, { id: 'documentation' }, { id: 'compliance' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

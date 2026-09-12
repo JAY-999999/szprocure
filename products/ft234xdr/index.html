@@ -82,9 +82,8 @@
         <h1 class="mpn">FT234XD-R<span class="rohs-badge" aria-hidden="true">RoHS</span></h1>
         <p class="type">USB Connectors</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/ftdi/">FTDI</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/connectors-electromechanical/">USB Connectors</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">DFN-12(3x3)</div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/ftdi/">FTDI</a></div></div><div class="id-row"><div class="id-label">MPN</div><div class="id-value">FT234XD-R</div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/connectors-electromechanical/">USB Connectors</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">DFN-12(3x3)</div></div><div class="id-row"><div class="id-label">Datasheet</div><div class="id-value"><a class="doc-link" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ft234xd-r.pdf" target="_blank" rel="nofollow noopener" download><span class="doc-ico">&#128196;</span> FT234XD-R Datasheet</a></div></div><div class="id-row"><div class="id-label">Key Attributes</div><div class="id-value">USB to BASIC UART IC</div></div>
         </div>
-        <p class="hero-desc">USB to BASIC UART IC</p>
       </div>
 
       
@@ -171,56 +170,83 @@
       <!-- TABS: sticky nav + scroll-spy; all panels in DOM (SEO-friendly) -->
       <div class="tab-wrap">
         <nav class="tab-nav">
-          <a href="#overview" class="tab-btn active">Overview</a>
-          <a href="#specifications" class="tab-btn">Specifications</a>
-          <a href="#documentation" class="tab-btn">Documentation</a>
+          <a href="#specifications" class="tab-btn active">Specifications</a>
+          <a href="#introduction" class="tab-btn">Introduction</a>
+          <a href="#features" class="tab-btn">Features</a>
           <a href="#applications" class="tab-btn">Applications</a>
-          <a href="#related" class="tab-btn">Related Parts</a>
+          <a href="#documentation" class="tab-btn">Datasheet</a>
+          <a href="#compliance" class="tab-btn">Compliance &amp; Export Codes</a>
         </nav>
-
-        <section id="overview" class="tab-panel">
-          <h2 class="section-title">Product Overview</h2>
-          <p>USB to BASIC UART IC</p>
-        </section>
 
         <section id="specifications" class="tab-panel">
           <h2 class="section-title">Technical Specifications</h2>
-          <table class="spec-table">
-<tbody>
-<tr><th>Application Function</th><td>USB to UART</td></tr><tr><th>Data Rate</th><td>3Mbps</td></tr><tr><th>Package</th><td>DFN-12(3x3)</td></tr><tr><th>Voltage - Supply</th><td>2.97V~5.5V</td></tr><tr><th>Features</th><td>Programmable baud rate;Power-on reset;FIFO buffer;Hardware flow control support;Built-in clock generator</td></tr><tr><th>Operating Temperature</th><td>-40℃~+85℃</td></tr><tr><th>Applications Function</th><td>USB to UART</td></tr><tr><th>Quiescent Supply Current</th><td>125uA</td></tr><tr><th>USB Protocol</th><td>USB 2.0</td></tr><tr><th>Current - Supply</th><td>8mA</td></tr><tr><th>Number of Channels</th><td>-</td></tr><tr><th>Data Rate</th><td>3Mbps</td></tr></tbody>
-</table>
+          <div class="spec-grid">
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Application Function</th><td>USB to UART</td></tr><tr><th>Data Rate</th><td>3Mbps</td></tr><tr><th>Package</th><td>DFN-12(3x3)</td></tr><tr><th>Voltage - Supply</th><td>2.97V~5.5V</td></tr><tr><th>Features</th><td>Programmable baud rate;Power-on reset;FIFO buffer;Hardware flow control support;Built-in clock generator</td></tr><tr><th>Operating Temperature</th><td>-40℃~+85℃</td></tr></tbody></table>
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Applications Function</th><td>USB to UART</td></tr><tr><th>Quiescent Supply Current</th><td>125uA</td></tr><tr><th>USB Protocol</th><td>USB 2.0</td></tr><tr><th>Current - Supply</th><td>8mA</td></tr><tr><th>Number of Channels</th><td>-</td></tr></tbody></table>
+</div>
         </section>
 
+        <section id="introduction" class="tab-panel">
+          <h2 class="section-title">Product Introduction</h2>
+          <p>USB to BASIC UART IC</p>
+        </section>
+
+        <section id="features" class="tab-panel">
+  <h2 class="section-title">Features</h2>
+  <ul class="features-list"><li>Single chip USB to asynchronous serial data transfer interface. Entire USB protocol handled on the chip. No USB specific firmware programming required.</li><li>Fully integrated 2048 byte multi - time programmable (MTP) memory, storing device descriptors and CBUS I/O configuration.</li><li>Fully integrated clock generation with no external crystal required plus optional clock output selection enabling a glue - less interface to external MCU or FPGA.</li><li>Data transfer rates from 300 baud to 3 Mbaud (RS422, RS485, and RS232) at TTL levels.</li><li>512 byte receive buffer and 512 byte transmit buffer utilising buffer smoothing technology to allow for high data throughput.</li><li>FTDI’s royalty - free Virtual Com Port (VCP) and Direct (D2XX) drivers eliminate the requirement for USB driver development in most cases.</li><li>Configurable CBUS I/O pin.</li><li>Transmit and receive LED drive signals.</li><li>UART interface support for 7 or 8 data bits, 1 or 2 stop bits and odd / even / mark / space / no parity.</li><li>Synchronous and asynchronous bit bang interface options with RD# and WR# strobes.</li><li>USB Battery Charging Detection. Allows for USB peripheral devices to detect the presence of a higher power source to enable improved charging.</li><li>True 3.3V CMOS drive output and TTL input; Operates down to 1V8 with external pull ups.</li><li>Tolerant of 5V input.</li><li>UART signal inversion option.</li><li>Internal 3.3V/1.8V LDO regulators.</li><li>Low operating and USB suspend current; 8mA (active - typ) and 70uA (suspend - typ).</li><li>UHCI/OHCI/EHCI host controller compatible.</li><li>USB 2.0 Full Speed compatible.</li></ul>
+</section>
+
+        <section id="applications" class="tab-panel">
+  <h2 class="section-title">Applications</h2>
+  <ul class="app-list"><li>USB to RS232/RS422/RS485 Converters</li><li>Upgrading Legacy Peripherals to USB</li><li>Utilising USB to add system modularity</li><li>Incorporate USB interface to enable PC transfers for development system communication</li><li>Cellular and Cordless Phone USB data transfer cables and interfaces</li><li>Interfacing MCU/PLD/FPGA based designs to add USB connectivity</li><li>USB Audio and Low Bandwidth Video data transfer</li><li>USB Smart Card Readers</li><li>USB Instrumentation</li><li>USB Industrial Control</li><li>USB FLASH Card Reader and Writers</li><li>Set Top Box PC - USB interface</li><li>USB Wireless Modems</li><li>USB Bar Code Readers</li><li>USB dongle implementations for Software/Hardware Encryption and Wireless Modules</li><li>Detection of dedicated charging port for battery charging at higher supply currents.</li></ul>
+</section>
+
         <section id="documentation" class="tab-panel">
-  <h2 class="section-title">Documentation</h2>
+  <h2 class="section-title">Datasheet</h2>
   <details class="doc-acc" open>
-    <summary><span class="doc-ico">&#128196;</span> Datasheet <span class="doc-tag">PDF</span></summary>
+    <summary>
+      <span class="doc-acc-title" aria-label="Datasheet"><span class="doc-ico">&#128196;</span></span>
+      <span class="doc-acc-actions">
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ft234xd-r.pdf" target="_blank" rel="nofollow noopener">Open</a>
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ft234xd-r.pdf" target="_blank" rel="nofollow noopener" download>Download</a>
+      </span>
+    </summary>
     <div class="doc-acc-body">
-      <a class="doc-dl" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ft234xd-r.pdf" target="_blank" rel="nofollow noopener">Download FT234XD-R Datasheet (PDF)</a>
+      <div class="doc-preview"><embed src="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ft234xd-r.pdf" type="application/pdf" title="FT234XD-R Datasheet Preview" aria-label="FT234XD-R Datasheet Preview" /></div>
     </div>
   </details>
 </section>
 
-        <section id="applications" class="tab-panel">
-  <h2 class="section-title">Common Applications</h2>
-  <ul class="app-list"><li>USB to RS232/RS422/RS485 Converters</li><li>Upgrading Legacy Peripherals to USB</li><li>Utilising USB to add system modularity</li><li>Incorporate USB interface to enable PC transfers for development system communication</li><li>Cellular and Cordless Phone USB data transfer cables and interfaces</li><li>Interfacing MCU/PLD/FPGA based designs to add USB connectivity</li><li>USB Audio and Low Bandwidth Video data transfer</li><li>USB Smart Card Readers</li><li>USB Instrumentation</li><li>USB Industrial Control</li><li>USB FLASH Card Reader and Writers</li><li>Set Top Box PC - USB interface</li><li>USB Wireless Modems</li><li>USB Bar Code Readers</li><li>USB dongle implementations for Software/Hardware Encryption and Wireless Modules</li><li>Detection of dedicated charging port for battery charging at higher supply currents.</li></ul>
-</section>
-
-        <section id="related" class="tab-panel">
-  <h2 class="section-title">Related Connectors &amp; Electromechanical</h2>
-  <p>Other connectors &amp; electromechanical we help global buyers source:</p>
-  <div class="related-grid"><div class="related-card"><a href="/products/b2bxhalfsn/">B2B-XH-A(LF)(SN)</a></div><div class="related-card"><a href="/products/ts1088ar02016/">TS-1088-AR02016</a></div><div class="related-card"><a href="/products/uflrsmt180/">U.FL-R-SMT-1(80)</a></div><div class="related-card"><a href="/products/ft232rlreel/">FT232RL-REEL</a></div><div class="related-card"><a href="/products/b4bxhalfsn/">B4B-XH-A(LF)(SN)</a></div><div class="related-card"><a href="/products/b2bphkslfsn/">B2B-PH-K-S(LF)(SN)</a></div></div>
-</section>
-
         
 
-        
+        <section id="compliance" class="tab-panel">
+  <h2 class="section-title">Compliance &amp; Export Codes</h2>
+  <div class="compliance-grid">
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>RoHS</th><td>ROHS3</td></tr><tr><th>ECCN</th><td>EAR99</td></tr><tr><th>CNHTS</th><td>8542399000</td></tr><tr><th>USHTS</th><td>8542390001</td></tr><tr><th>TARIC</th><td>8542399000</td></tr></tbody>
+</table>
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>CAHTS</th><td>8542390000</td></tr><tr><th>BRHTS</th><td>85423999</td></tr><tr><th>INHTS</th><td>85423900</td></tr><tr><th>MXHTS</th><td>8542.39.99</td></tr></tbody>
+</table>
+  </div>
+</section>
       </div>
+
+      <!-- FAQ: independent section (removed from TAB nav / scroll-spy on 2026-09-12), placed before Sourcing -->
+      
 
       <!-- Sourcing (no stock/price/lead-time promises) -->
       <section class="sourcing">
         <h2>Sourcing Information</h2>
-        <p>SZ Procure is a sourcing partner for <strong>FT234XD-R</strong>, not a stock catalog. We help international buyers source original components from the China electronics supply chain — send your quantity and target price for a quotation.</p>
+        <p>SZ Procure is a sourcing partner for the <strong>FT234XD-R</strong> (FTDI USB Connectors), not a stock catalog. We help international buyers source this electronic component through the China electronics supply chain, with verified supplier sourcing and quality inspection.</p><p>For FT234XD-R, supplier sourcing matches your required specifications &mdash; such as pin count, pitch and mounting style &mdash; against verified China electronics supply chain suppliers, with multi-supplier quotation comparison and purchase-order coordination. We handle consolidation and international logistics dispatch from Shenzhen.</p><p>Quality control includes supplier qualification and screening, specification matching verification, and product, packaging and labeling checks with outgoing inspection. These checks are part of our sourcing service and do not constitute a guarantee of stock, price, lead time or authenticity. Tell us your required quantity, target price and sourcing requirements, then <a href="/request-a-quote/?pn=FT234XD-R&mfr=FTDI&cat=Connectors&source=product&rfq_type=sku_quote">Request a Quote</a>.</p>
       </section>
     </div>
   </main>
@@ -237,7 +263,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'applications' }, { id: 'related' } ];
+    var groups = [ { id: 'specifications' }, { id: 'introduction' }, { id: 'features' }, { id: 'applications' }, { id: 'documentation' }, { id: 'compliance' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

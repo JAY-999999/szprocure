@@ -57,11 +57,9 @@
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-    { "@type": "Question", "name": "What are the key features and operating specifications of the WCH CH340C USB-to-UART converter", "acceptedAnswer": { "@type": "Answer", "text": "The WCH CH340C is a USB 2.0 Full-Speed USB-to-UART bridge IC that converts USB communication into standard asynchronous serial (UART) signals. The CH340C features an integrated clock generator, eliminating the need for an external 12MHz crystal and associated capacitors. It supports UART communication rates from 50bps up to 2Mbps and operates with either a 3.3V or 5V supply, depending on the circuit configuration. The device is available in compact surface-mount packages and can also support RS232, RS485, and RS422 interfaces when used with appropriate external level-conversion circuitry.;" } },
-    { "@type": "Question", "name": "Can the CH340C communicate with microcontrollers", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The CH340C is designed to interface with devices that provide a standard UART interface. It converts USB communication from a host computer into UART transmit (TXD) and receive (RXD) signals, enabling programming, debugging, and serial data communication. The datasheet includes reference circuits for connecting the CH340C to MCU serial ports for USB-to-UART communication.;" } },
-    { "@type": "Question", "name": "Why would a designer choose the CH340C instead of another USB-to-UART bridge IC", "acceptedAnswer": { "@type": "Answer", "text": "The CH340C integrates a USB-to-UART interface with a built-in clock generator, eliminating the need for an external 12MHz crystal and associated capacitors. This reduces external component count and simplifies circuit design. The device supports USB 2.0 Full-Speed communication and UART data rates up to 2Mbps, making it suitable for a wide range of USB-to-serial applications.;" } },
-    { "@type": "Question", "name": "Which PCB layout practices help ensure reliable USB communication with the CH340C", "acceptedAnswer": { "@type": "Answer", "text": "For reliable USB operation, decoupling capacitors should be placed as close as possible to the CH340C power pins. The USB D+ and D− signal lines should be routed closely together, and ground wiring or copper should be provided alongside the USB data lines where practical to help reduce external interference. Following these PCB layout recommendations helps support reliable USB communication.;" } },
-    { "@type": "Question", "name": "How does the integrated clock generator benefit CH340C designs", "acceptedAnswer": { "@type": "Answer", "text": "The CH340C includes an integrated clock generator, eliminating the need for an external 12MHz crystal and associated capacitors. This reduces the number of external components required in the design and simplifies the clock circuitry while maintaining USB Full-Speed operation." } }
+    { "@type": "Question", "name": "What are the key features and operating specifications of the WCH CH340C USB-to-UART converter?", "acceptedAnswer": { "@type": "Answer", "text": "The WCH CH340C is a USB 2.0 Full-Speed USB-to-UART bridge IC that converts USB communication into standard asynchronous serial (UART) signals. The CH340C features an integrated clock generator, eliminating the need for an external 12MHz crystal and associated capacitors. It supports UART communication rates from 50bps up to 2Mbps and operates with either a 3.3V or 5V supply, depending on the circuit configuration. The device is available in compact surface-mount packages and can also support RS232, RS485, and RS422 interfaces when used with appropriate external level-conversion circuitry." } },
+    { "@type": "Question", "name": "Can the CH340C communicate with microcontrollers?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The CH340C is designed to interface with devices that provide a standard UART interface. It converts USB communication from a host computer into UART transmit (TXD) and receive (RXD) signals, enabling programming, debugging, and serial data communication. The datasheet includes reference circuits for connecting the CH340C to MCU serial ports for USB-to-UART communication." } },
+    { "@type": "Question", "name": "Why would a designer choose the CH340C instead of another USB-to-UART bridge IC?", "acceptedAnswer": { "@type": "Answer", "text": "The CH340C integrates a USB-to-UART interface with a built-in clock generator, eliminating the need for an external 12MHz crystal and associated capacitors. This reduces external component count and simplifies circuit design. The device supports USB 2.0 Full-Speed communication and UART data rates up to 2Mbps, making it suitable for a wide range of USB-to-serial applications." } }
     ]
   }
   </script>
@@ -95,9 +93,8 @@
         <h1 class="mpn">CH340C</h1>
         <p class="type">USB Connectors</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/wch/">WCH</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/connectors-electromechanical/">USB Connectors</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">SOP-16</div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/wch/">WCH</a><span class="brand-tag">Asian Brands</span></div></div><div class="id-row"><div class="id-label">MPN</div><div class="id-value">CH340C</div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/connectors-electromechanical/">USB Connectors</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">SOP-16</div></div><div class="id-row"><div class="id-label">Datasheet</div><div class="id-value"><a class="doc-link" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ch340c.pdf" target="_blank" rel="nofollow noopener" download><span class="doc-ico">&#128196;</span> CH340C Datasheet</a></div></div><div class="id-row"><div class="id-label">Key Attributes</div><div class="id-value">USB to Serial Port chip</div></div>
         </div>
-        <p class="hero-desc">USB to Serial Port chip</p>
       </div>
 
       
@@ -184,43 +181,50 @@
       <!-- TABS: sticky nav + scroll-spy; all panels in DOM (SEO-friendly) -->
       <div class="tab-wrap">
         <nav class="tab-nav">
-          <a href="#overview" class="tab-btn active">Overview</a>
-          <a href="#specifications" class="tab-btn">Specifications</a>
-          <a href="#documentation" class="tab-btn">Documentation</a>
-          <a href="#related" class="tab-btn">Related Parts</a>
+          <a href="#specifications" class="tab-btn active">Specifications</a>
+          <a href="#introduction" class="tab-btn">Introduction</a>
+          <a href="#features" class="tab-btn">Features</a>
+          <a href="#documentation" class="tab-btn">Datasheet</a>
           <a href="#alternative" class="tab-btn">Alternative Parts</a>
-          <a href="#faq" class="tab-btn">FAQ</a>
+          <a href="#compliance" class="tab-btn">Compliance &amp; Export Codes</a>
         </nav>
-
-        <section id="overview" class="tab-panel">
-          <h2 class="section-title">Product Overview</h2>
-          <p>USB to Serial Port chip</p>
-        </section>
 
         <section id="specifications" class="tab-panel">
           <h2 class="section-title">Technical Specifications</h2>
-          <table class="spec-table">
-<tbody>
-<tr><th>Application Function</th><td>Transceiver</td></tr><tr><th>Data Rate</th><td>2Mbps</td></tr><tr><th>USB Protocol Version</th><td>USB 2.0</td></tr><tr><th>Package</th><td>SOP-16</td></tr><tr><th>Operating Temperature</th><td>-20℃~+70℃</td></tr><tr><th>Voltage - Supply</th><td>3.3V;5V</td></tr><tr><th>Number of ports</th><td>-</td></tr><tr><th>Features</th><td>Programmable baud rate;Power-on reset;Built-in clock generator</td></tr><tr><th>Applications Function</th><td>Transceiver</td></tr><tr><th>Data Rate</th><td>2Mbps</td></tr><tr><th>Quiescent Supply Current</th><td>50uA</td></tr><tr><th>USB Protocol</th><td>USB 2.0</td></tr><tr><th>Current - Supply</th><td>7mA</td></tr></tbody>
-</table>
+          <div class="spec-grid">
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Application Function</th><td>Transceiver</td></tr><tr><th>Data Rate</th><td>2Mbps</td></tr><tr><th>USB Protocol Version</th><td>USB 2.0</td></tr><tr><th>Package</th><td>SOP-16</td></tr><tr><th>Operating Temperature</th><td>-20℃~+70℃</td></tr><tr><th>Voltage - Supply</th><td>3.3V;5V</td></tr></tbody></table>
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Number of ports</th><td>-</td></tr><tr><th>Features</th><td>Programmable baud rate;Power-on reset;Built-in clock generator</td></tr><tr><th>Applications Function</th><td>Transceiver</td></tr><tr><th>Quiescent Supply Current</th><td>50uA</td></tr><tr><th>USB Protocol</th><td>USB 2.0</td></tr><tr><th>Current - Supply</th><td>7mA</td></tr></tbody></table>
+</div>
         </section>
 
-        <section id="documentation" class="tab-panel">
-  <h2 class="section-title">Documentation</h2>
-  <details class="doc-acc" open>
-    <summary><span class="doc-ico">&#128196;</span> Datasheet <span class="doc-tag">PDF</span></summary>
-    <div class="doc-acc-body">
-      <a class="doc-dl" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ch340c.pdf" target="_blank" rel="nofollow noopener">Download CH340C Datasheet (PDF)</a>
-    </div>
-  </details>
+        <section id="introduction" class="tab-panel">
+          <h2 class="section-title">Product Introduction</h2>
+          <p>USB to Serial Port chip</p>
+        </section>
+
+        <section id="features" class="tab-panel">
+  <h2 class="section-title">Features</h2>
+  <ul class="features-list"><li>Full-speed USB device interface, compatible with USB V2.0.</li><li>Simulation of standard serial ports, used to upgrade original serial port peripherals, or add additional serial ports through USB.</li><li>The serial port application program under the Windows operating system on the computer side is fully compatible, no need to be modified.</li><li>Hardware full-duplex serial port, built-in transceiver buffer, supports communication baud rate of 50bps~2Mbps.</li><li>Support commonly used MODEM contact signals RTS, DTR, DCD, RI, DSR, CTS</li><li>Provide RS232, RS485, RS422 interfaces by adding level conversion devices.</li><li>CH340R supports IrDA specification SIR infrared communication, and baud rate from 2400bps to 115200bps.</li><li>Built-in firmware, and software compatible with CH341, you can use the VCP driver of CH341 directly.</li><li>Support 5V and 3.3V supply voltage.</li><li>CH340C/N/K/E/X/B has a built-in clock, requires no external crystal. CH340B also has a built-in EEPROM for configuring the serial number.</li><li>SOP-16, SOP-8 and SSOP-20, ESSOP-10, MSOP-10 lead-free packages are available, RoHS compatible.</li></ul>
 </section>
 
         
 
-        <section id="related" class="tab-panel">
-  <h2 class="section-title">Related Connectors &amp; Electromechanical</h2>
-  <p>Other connectors &amp; electromechanical we help global buyers source:</p>
-  <div class="related-grid"><div class="related-card"><a href="/products/cp2102na02gqfn28r/">CP2102N-A02-GQFN28R</a></div><div class="related-card"><a href="/products/cp2102gmr/">CP2102-GMR</a></div><div class="related-card"><a href="/products/b3bphkslfsn/">B3B-PH-K-S(LF)(SN)</a></div><div class="related-card"><a href="/products/pz254v1102p/">PZ254V-11-02P</a></div><div class="related-card"><a href="/products/g5nb1aedc5v/">G5NB-1A-E-DC5V</a></div><div class="related-card"><a href="/products/b6bxhalfsn/">B6B-XH-A(LF)(SN)</a></div></div>
+        <section id="documentation" class="tab-panel">
+  <h2 class="section-title">Datasheet</h2>
+  <details class="doc-acc" open>
+    <summary>
+      <span class="doc-acc-title" aria-label="Datasheet"><span class="doc-ico">&#128196;</span></span>
+      <span class="doc-acc-actions">
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ch340c.pdf" target="_blank" rel="nofollow noopener">Open</a>
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ch340c.pdf" target="_blank" rel="nofollow noopener" download>Download</a>
+      </span>
+    </summary>
+    <div class="doc-acc-body">
+      <div class="doc-preview"><embed src="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ch340c.pdf" type="application/pdf" title="CH340C Datasheet Preview" aria-label="CH340C Datasheet Preview" /></div>
+    </div>
+  </details>
 </section>
 
         <section id="alternative" class="tab-panel">
@@ -229,16 +233,35 @@
   <ul class="alt-list"><li><a href="/request-a-quote/?pn=CH340B" class="alt-link">CH340B <span class="muted">(request quote)</span></a></li></ul>
 </section>
 
-        <section id="faq" class="tab-panel">
-  <h2 class="section-title">Frequently Asked Questions</h2>
-  <div class="faq-item"><h3>What are the key features and operating specifications of the WCH CH340C USB-to-UART converter</h3><p>The WCH CH340C is a USB 2.0 Full-Speed USB-to-UART bridge IC that converts USB communication into standard asynchronous serial (UART) signals. The CH340C features an integrated clock generator, eliminating the need for an external 12MHz crystal and associated capacitors. It supports UART communication rates from 50bps up to 2Mbps and operates with either a 3.3V or 5V supply, depending on the circuit configuration. The device is available in compact surface-mount packages and can also support RS232, RS485, and RS422 interfaces when used with appropriate external level-conversion circuitry.;</p></div><div class="faq-item"><h3>Can the CH340C communicate with microcontrollers</h3><p>Yes. The CH340C is designed to interface with devices that provide a standard UART interface. It converts USB communication from a host computer into UART transmit (TXD) and receive (RXD) signals, enabling programming, debugging, and serial data communication. The datasheet includes reference circuits for connecting the CH340C to MCU serial ports for USB-to-UART communication.;</p></div><div class="faq-item"><h3>Why would a designer choose the CH340C instead of another USB-to-UART bridge IC</h3><p>The CH340C integrates a USB-to-UART interface with a built-in clock generator, eliminating the need for an external 12MHz crystal and associated capacitors. This reduces external component count and simplifies circuit design. The device supports USB 2.0 Full-Speed communication and UART data rates up to 2Mbps, making it suitable for a wide range of USB-to-serial applications.;</p></div><div class="faq-item"><h3>Which PCB layout practices help ensure reliable USB communication with the CH340C</h3><p>For reliable USB operation, decoupling capacitors should be placed as close as possible to the CH340C power pins. The USB D+ and D− signal lines should be routed closely together, and ground wiring or copper should be provided alongside the USB data lines where practical to help reduce external interference. Following these PCB layout recommendations helps support reliable USB communication.;</p></div><div class="faq-item"><h3>How does the integrated clock generator benefit CH340C designs</h3><p>The CH340C includes an integrated clock generator, eliminating the need for an external 12MHz crystal and associated capacitors. This reduces the number of external components required in the design and simplifies the clock circuitry while maintaining USB Full-Speed operation.</p></div>
+        <section id="compliance" class="tab-panel">
+  <h2 class="section-title">Compliance &amp; Export Codes</h2>
+  <div class="compliance-grid">
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>CNHTS</th><td>8542399000</td></tr><tr><th>USHTS</th><td>8542390001</td></tr><tr><th>TARIC</th><td>8542399000</td></tr><tr><th>CAHTS</th><td>8542390000</td></tr></tbody>
+</table>
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>BRHTS</th><td>85423999</td></tr><tr><th>INHTS</th><td>85423900</td></tr><tr><th>MXHTS</th><td>8542.39.99</td></tr></tbody>
+</table>
+  </div>
 </section>
       </div>
+
+      <!-- FAQ: independent section (removed from TAB nav / scroll-spy on 2026-09-12), placed before Sourcing -->
+      <section id="faq" class="tab-panel" style="grid-column:1;margin-top:16px;margin-bottom:16px">
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq-item"><h3>What are the key features and operating specifications of the WCH CH340C USB-to-UART converter?</h3><p>The WCH CH340C is a USB 2.0 Full-Speed USB-to-UART bridge IC that converts USB communication into standard asynchronous serial (UART) signals. The CH340C features an integrated clock generator, eliminating the need for an external 12MHz crystal and associated capacitors. It supports UART communication rates from 50bps up to 2Mbps and operates with either a 3.3V or 5V supply, depending on the circuit configuration. The device is available in compact surface-mount packages and can also support RS232, RS485, and RS422 interfaces when used with appropriate external level-conversion circuitry.</p></div><div class="faq-item"><h3>Can the CH340C communicate with microcontrollers?</h3><p>Yes. The CH340C is designed to interface with devices that provide a standard UART interface. It converts USB communication from a host computer into UART transmit (TXD) and receive (RXD) signals, enabling programming, debugging, and serial data communication. The datasheet includes reference circuits for connecting the CH340C to MCU serial ports for USB-to-UART communication.</p></div><div class="faq-item"><h3>Why would a designer choose the CH340C instead of another USB-to-UART bridge IC?</h3><p>The CH340C integrates a USB-to-UART interface with a built-in clock generator, eliminating the need for an external 12MHz crystal and associated capacitors. This reduces external component count and simplifies circuit design. The device supports USB 2.0 Full-Speed communication and UART data rates up to 2Mbps, making it suitable for a wide range of USB-to-serial applications.</p></div>
+</section>
 
       <!-- Sourcing (no stock/price/lead-time promises) -->
       <section class="sourcing">
         <h2>Sourcing Information</h2>
-        <p>SZ Procure is a sourcing partner for <strong>CH340C</strong>, not a stock catalog. We help international buyers source original components from the China electronics supply chain — send your quantity and target price for a quotation.</p>
+        <p>SZ Procure is a sourcing partner for the <strong>CH340C</strong> (WCH USB Connectors), not a stock catalog. We help international buyers source this electronic component through the China electronics supply chain, with verified supplier sourcing and quality inspection.</p><p>For CH340C, supplier sourcing matches your required specifications &mdash; such as pin count, pitch and mounting style &mdash; against verified China electronics supply chain suppliers, with multi-supplier quotation comparison and purchase-order coordination. We handle consolidation and international logistics dispatch from Shenzhen.</p><p>Quality control includes supplier qualification and screening, specification matching verification, and product, packaging and labeling checks with outgoing inspection. These checks are part of our sourcing service and do not constitute a guarantee of stock, price, lead time or authenticity. Tell us your required quantity, target price and sourcing requirements, then <a href="/request-a-quote/?pn=CH340C&mfr=WCH&cat=Connectors&source=product&rfq_type=sku_quote">Request a Quote</a>.</p>
       </section>
     </div>
   </main>
@@ -255,7 +278,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'related' }, { id: 'alternative' }, { id: 'faq' } ];
+    var groups = [ { id: 'specifications' }, { id: 'introduction' }, { id: 'features' }, { id: 'documentation' }, { id: 'alternative' }, { id: 'compliance' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

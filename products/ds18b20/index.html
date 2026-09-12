@@ -57,11 +57,9 @@
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-    { "@type": "Question", "name": "What power supply boundaries, temperature sensing limits, and measurement accuracy specifications govern the DS18B20+", "acceptedAnswer": { "@type": "Answer", "text": "The DS18B20+ is a digital temperature sensor operating across an external supply voltage (VDD) range of 3.0V to 5.5V. It measures temperatures from -55°C to +125°C with an accuracy of ±0.5°C over the -10°C to +85°C range. During temperature conversions, the active supply current is 1.5mA maximum at 5V, while standby current is 750nA typical.;" } },
-    { "@type": "Question", "name": "How does resolution selection alter temperature measurement precision and conversion timing in the DS18B20+", "acceptedAnswer": { "@type": "Answer", "text": "The DS18B20+ features a user-programmable temperature resolution of 9, 10, 11, or 12 bits, corresponding to temperature increments of 0.5°C, 0.25°C, 0.125°C, and 0.0625°C, respectively. Higher resolution increases conversion time, with maximum conversion times of 93.75ms at 9-bit resolution, 187.5ms at 10-bit, 375ms at 11-bit, and 750ms at 12-bit.;" } },
-    { "@type": "Question", "name": "How does the 1-Wire protocol handle multi-drop network architecture and individual sensor identification", "acceptedAnswer": { "@type": "Answer", "text": "The DS18B20+ uses Maxim&#x27;s proprietary 1-Wire open-drain serial interface, requiring only a single data line (DQ) and ground for communication. Each device contains a factory-programmed, unique 64-bit ROM code consisting of an 8-bit family code (28h), a 48-bit serial number, and an 8-bit CRC. This unique identifier allows multiple DS18B20+ devices to share the same 1-Wire bus while being individually addressed by the bus master. The bus requires an external pullup resistor of approximately 5kΩ.;" } },
-    { "@type": "Question", "name": "What is parasitic power mode, and how does it reduce physical wiring count in remote sensor nodes", "acceptedAnswer": { "@type": "Answer", "text": "In parasite power mode, the DS18B20+ derives operating power directly from the DQ line through an internal parasite power capacitor (CPP), allowing operation using only the DQ and GND connections while the VDD pin is connected to ground. During temperature conversions or EEPROM writes, when the operating current can reach 1.5mA, the 1-Wire bus must be pulled high using a strong pullup (typically implemented with a MOSFET) to provide sufficient operating current.;" } },
-    { "@type": "Question", "name": "Which package options and pin configurations are available for the DS18B20+", "acceptedAnswer": { "@type": "Answer", "text": "The DS18B20+ is available in three package options: a 3-pin TO-92 package (DS18B20), an 8-pin SO package (DS18B20Z), and an 8-pin µSOP package (DS18B20U). The TO-92 package uses a 3-pin configuration consisting of Pin 1: GND, Pin 2: DQ, and Pin 3: VDD." } }
+    { "@type": "Question", "name": "What power supply boundaries, temperature sensing limits, and measurement accuracy specifications govern the DS18B20+?", "acceptedAnswer": { "@type": "Answer", "text": "The DS18B20+ is a digital temperature sensor operating across an external supply voltage (VDD) range of 3.0V to 5.5V. It measures temperatures from -55°C to +125°C with an accuracy of ±0.5°C over the -10°C to +85°C range. During temperature conversions, the active supply current is 1.5mA maximum at 5V, while standby current is 750nA typical." } },
+    { "@type": "Question", "name": "How does resolution selection alter temperature measurement precision and conversion timing in the DS18B20+?", "acceptedAnswer": { "@type": "Answer", "text": "The DS18B20+ features a user-programmable temperature resolution of 9, 10, 11, or 12 bits, corresponding to temperature increments of 0.5°C, 0.25°C, 0.125°C, and 0.0625°C, respectively. Higher resolution increases conversion time, with maximum conversion times of 93.75ms at 9-bit resolution, 187.5ms at 10-bit, 375ms at 11-bit, and 750ms at 12-bit." } },
+    { "@type": "Question", "name": "How does the 1-Wire protocol handle multi-drop network architecture and individual sensor identification?", "acceptedAnswer": { "@type": "Answer", "text": "The DS18B20+ uses Maxim&#x27;s proprietary 1-Wire open-drain serial interface, requiring only a single data line (DQ) and ground for communication. Each device contains a factory-programmed, unique 64-bit ROM code consisting of an 8-bit family code (28h), a 48-bit serial number, and an 8-bit CRC. This unique identifier allows multiple DS18B20+ devices to share the same 1-Wire bus while being individually addressed by the bus master. The bus requires an external pullup resistor of approximately 5kΩ." } }
     ]
   }
   </script>
@@ -95,9 +93,8 @@
         <h1 class="mpn">DS18B20+<span class="rohs-badge" aria-hidden="true">RoHS</span></h1>
         <p class="type">Sensors</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/maxim-integrated/">Maxim Integrated</a></div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/sensors/">Sensors</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">TO-92</div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/maxim-integrated/">Maxim Integrated</a></div></div><div class="id-row"><div class="id-label">MPN</div><div class="id-value">DS18B20+</div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/sensors/">Sensors</a></div></div><div class="id-row"><div class="id-label">Package</div><div class="id-value">TO-92</div></div><div class="id-row"><div class="id-label">Datasheet</div><div class="id-value"><a class="doc-link" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ds18b20-.pdf" target="_blank" rel="nofollow noopener" download><span class="doc-ico">&#128196;</span> DS18B20+ Datasheet</a></div></div><div class="id-row"><div class="id-label">Key Attributes</div><div class="id-value">Programmable Resolution 1-Wire Digital Thermometer</div></div>
         </div>
-        <p class="hero-desc">Programmable Resolution 1-Wire Digital Thermometer</p>
       </div>
 
       
@@ -184,47 +181,54 @@
       <!-- TABS: sticky nav + scroll-spy; all panels in DOM (SEO-friendly) -->
       <div class="tab-wrap">
         <nav class="tab-nav">
-          <a href="#overview" class="tab-btn active">Overview</a>
-          <a href="#specifications" class="tab-btn">Specifications</a>
-          <a href="#documentation" class="tab-btn">Documentation</a>
+          <a href="#specifications" class="tab-btn active">Specifications</a>
+          <a href="#introduction" class="tab-btn">Introduction</a>
+          <a href="#features" class="tab-btn">Features</a>
           <a href="#applications" class="tab-btn">Applications</a>
-          <a href="#related" class="tab-btn">Related Parts</a>
+          <a href="#documentation" class="tab-btn">Datasheet</a>
           <a href="#alternative" class="tab-btn">Alternative Parts</a>
-          <a href="#faq" class="tab-btn">FAQ</a>
+          <a href="#compliance" class="tab-btn">Compliance &amp; Export Codes</a>
         </nav>
-
-        <section id="overview" class="tab-panel">
-          <h2 class="section-title">Product Overview</h2>
-          <p>Programmable Resolution 1-Wire Digital Thermometer</p>
-        </section>
 
         <section id="specifications" class="tab-panel">
           <h2 class="section-title">Technical Specifications</h2>
-          <table class="spec-table">
-<tbody>
-<tr><th>Detection Temperature</th><td>-55℃~+125℃</td></tr><tr><th>Interface Type</th><td>Single-Wire Bus</td></tr><tr><th>Accuracy</th><td>±0.5℃</td></tr><tr><th>Package</th><td>TO-92</td></tr><tr><th>Operating Temperature</th><td>-</td></tr><tr><th>Detection Temperature Range</th><td>-55℃~+125℃</td></tr><tr><th>Voltage - Supply</th><td>3V~5.5V</td></tr><tr><th>Interface</th><td>Single bus</td></tr><tr><th>Tolerance</th><td>±0.5℃</td></tr><tr><th>Standby Current</th><td>1uA</td></tr><tr><th>Temperature Conversion Time</th><td>750ms</td></tr><tr><th>Features</th><td>Temperature threshold monitoring;Configurable temperature output;On-chip non-volatile parameter storage</td></tr><tr><th>Temperature Resolution</th><td>12bit</td></tr></tbody>
-</table>
+          <div class="spec-grid">
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Detection Temperature</th><td>-55℃~+125℃</td></tr><tr><th>Interface Type</th><td>Single-Wire Bus</td></tr><tr><th>Accuracy</th><td>±0.5℃</td></tr><tr><th>Package</th><td>TO-92</td></tr><tr><th>Operating Temperature</th><td>-</td></tr><tr><th>Detection Temperature Range</th><td>-55℃~+125℃</td></tr><tr><th>Voltage - Supply</th><td>3V~5.5V</td></tr></tbody></table>
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Interface</th><td>Single bus</td></tr><tr><th>Tolerance</th><td>±0.5℃</td></tr><tr><th>Standby Current</th><td>1uA</td></tr><tr><th>Temperature Conversion Time</th><td>750ms</td></tr><tr><th>Features</th><td>Temperature threshold monitoring;Configurable temperature output;On-chip non-volatile parameter storage</td></tr><tr><th>Temperature Resolution</th><td>12bit</td></tr></tbody></table>
+</div>
         </section>
 
-        <section id="documentation" class="tab-panel">
-  <h2 class="section-title">Documentation</h2>
-  <details class="doc-acc" open>
-    <summary><span class="doc-ico">&#128196;</span> Datasheet <span class="doc-tag">PDF</span></summary>
-    <div class="doc-acc-body">
-      <a class="doc-dl" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ds18b20-.pdf" target="_blank" rel="nofollow noopener">Download DS18B20+ Datasheet (PDF)</a>
-    </div>
-  </details>
+        <section id="introduction" class="tab-panel">
+          <h2 class="section-title">Product Introduction</h2>
+          <p>Programmable Resolution 1-Wire Digital Thermometer</p>
+        </section>
+
+        <section id="features" class="tab-panel">
+  <h2 class="section-title">Features</h2>
+  <ul class="features-list"><li>Unique 1- Wire Interface Requires Only One Port Pin for Communication</li><li>Reduce Component Count with Integrated Temperature Sensor and EEPROM</li><li>Measures Temperatures from -55℃ to +125℃ (-67°F to +257°F)</li><li>±0.5℃ Accuracy from -10℃ to +85℃</li><li>Programmable Resolution from 9 Bits to 12 Bits</li><li>No External Components Required</li><li>Parasitic Power Mode Requires Only 2 Pins for Operation (DQ and GND)</li><li>Simplifies Distributed Temperature- Sensing Applications with Multidrop Capability</li><li>Each Device Has a Unique 64- Bit Serial Code Stored in On- Board ROM</li><li>Flexible User- Definable Nonvolatile (NV) Alarm Settings with Alarm Search Command</li><li>Identifies Devices with Temperatures Outside Programed Limits</li><li>Available in 8- Pin SO (150 mils), 8- Pin sSOP, and 3- Pin TO- 92 Packages</li></ul>
 </section>
 
         <section id="applications" class="tab-panel">
-  <h2 class="section-title">Common Applications</h2>
+  <h2 class="section-title">Applications</h2>
   <ul class="app-list"><li>Thermostatic Controls</li><li>Industrial Systems</li><li>Consumer Products</li><li>Thermometers</li><li>Thermally Sensitive Systems</li></ul>
 </section>
 
-        <section id="related" class="tab-panel">
-  <h2 class="section-title">Related Sensors</h2>
-  <p>Other sensors we help global buyers source:</p>
-  <div class="related-grid"><div class="related-card"><a href="/products/as5047patsm/">AS5047P-ATSM</a></div><div class="related-card"><a href="/products/as5600asot/">AS5600-ASOT</a></div><div class="related-card"><a href="/products/dps368xtsa1/">DPS368XTSA1</a></div><div class="related-card"><a href="/products/ds18b20uumw/">DS18B20U(UMW)</a></div><div class="related-card"><a href="/products/bme280/">BME280</a></div><div class="related-card"><a href="/products/acs712elctr20at/">ACS712ELCTR-20A-T</a></div></div>
+        <section id="documentation" class="tab-panel">
+  <h2 class="section-title">Datasheet</h2>
+  <details class="doc-acc" open>
+    <summary>
+      <span class="doc-acc-title" aria-label="Datasheet"><span class="doc-ico">&#128196;</span></span>
+      <span class="doc-acc-actions">
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ds18b20-.pdf" target="_blank" rel="nofollow noopener">Open</a>
+        <a class="doc-btn" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ds18b20-.pdf" target="_blank" rel="nofollow noopener" download>Download</a>
+      </span>
+    </summary>
+    <div class="doc-acc-body">
+      <div class="doc-preview"><embed src="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ds18b20-.pdf" type="application/pdf" title="DS18B20+ Datasheet Preview" aria-label="DS18B20+ Datasheet Preview" /></div>
+    </div>
+  </details>
 </section>
 
         <section id="alternative" class="tab-panel">
@@ -233,16 +237,35 @@
   <ul class="alt-list"><li><a href="/request-a-quote/?pn=DS18B20-TUDI" class="alt-link">DS18B20-TUDI <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=DS18B20+T&amp;amp" class="alt-link">DS18B20+T&amp;amp <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=R" class="alt-link">R <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=DS18B20-TD" class="alt-link">DS18B20-TD <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=DS18B20+JSM" class="alt-link">DS18B20+JSM <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=GX1820" class="alt-link">GX1820 <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=HT18B20ARTZ" class="alt-link">HT18B20ARTZ <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=HT18B20ATZ" class="alt-link">HT18B20ATZ <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=DS18B20(UMW)" class="alt-link">DS18B20(UMW) <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=DS18S20+" class="alt-link">DS18S20+ <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=MAX31820MCR+T" class="alt-link">MAX31820MCR+T <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=HX18B20-T" class="alt-link">HX18B20-T <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=DS18B20-MS" class="alt-link">DS18B20-MS <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=DS18B20B-MS" class="alt-link">DS18B20B-MS <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=DS18B20+MSK" class="alt-link">DS18B20+MSK <span class="muted">(request quote)</span></a></li><li><a href="/products/ds18b20/" class="alt-link">DS18B20</a></li><li><a href="/request-a-quote/?pn=SD5820A" class="alt-link">SD5820A <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=GX1831" class="alt-link">GX1831 <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=MAX31820MCR+" class="alt-link">MAX31820MCR+ <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=YCT1820Z" class="alt-link">YCT1820Z <span class="muted">(request quote)</span></a></li><li><a href="/request-a-quote/?pn=DS1822+" class="alt-link">DS1822+ <span class="muted">(request quote)</span></a></li></ul>
 </section>
 
-        <section id="faq" class="tab-panel">
-  <h2 class="section-title">Frequently Asked Questions</h2>
-  <div class="faq-item"><h3>What power supply boundaries, temperature sensing limits, and measurement accuracy specifications govern the DS18B20+</h3><p>The DS18B20+ is a digital temperature sensor operating across an external supply voltage (VDD) range of 3.0V to 5.5V. It measures temperatures from -55°C to +125°C with an accuracy of ±0.5°C over the -10°C to +85°C range. During temperature conversions, the active supply current is 1.5mA maximum at 5V, while standby current is 750nA typical.;</p></div><div class="faq-item"><h3>How does resolution selection alter temperature measurement precision and conversion timing in the DS18B20+</h3><p>The DS18B20+ features a user-programmable temperature resolution of 9, 10, 11, or 12 bits, corresponding to temperature increments of 0.5°C, 0.25°C, 0.125°C, and 0.0625°C, respectively. Higher resolution increases conversion time, with maximum conversion times of 93.75ms at 9-bit resolution, 187.5ms at 10-bit, 375ms at 11-bit, and 750ms at 12-bit.;</p></div><div class="faq-item"><h3>How does the 1-Wire protocol handle multi-drop network architecture and individual sensor identification</h3><p>The DS18B20+ uses Maxim&#x27;s proprietary 1-Wire open-drain serial interface, requiring only a single data line (DQ) and ground for communication. Each device contains a factory-programmed, unique 64-bit ROM code consisting of an 8-bit family code (28h), a 48-bit serial number, and an 8-bit CRC. This unique identifier allows multiple DS18B20+ devices to share the same 1-Wire bus while being individually addressed by the bus master. The bus requires an external pullup resistor of approximately 5kΩ.;</p></div><div class="faq-item"><h3>What is parasitic power mode, and how does it reduce physical wiring count in remote sensor nodes</h3><p>In parasite power mode, the DS18B20+ derives operating power directly from the DQ line through an internal parasite power capacitor (CPP), allowing operation using only the DQ and GND connections while the VDD pin is connected to ground. During temperature conversions or EEPROM writes, when the operating current can reach 1.5mA, the 1-Wire bus must be pulled high using a strong pullup (typically implemented with a MOSFET) to provide sufficient operating current.;</p></div><div class="faq-item"><h3>Which package options and pin configurations are available for the DS18B20+</h3><p>The DS18B20+ is available in three package options: a 3-pin TO-92 package (DS18B20), an 8-pin SO package (DS18B20Z), and an 8-pin µSOP package (DS18B20U). The TO-92 package uses a 3-pin configuration consisting of Pin 1: GND, Pin 2: DQ, and Pin 3: VDD.</p></div>
+        <section id="compliance" class="tab-panel">
+  <h2 class="section-title">Compliance &amp; Export Codes</h2>
+  <div class="compliance-grid">
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>RoHS</th><td>ROHS</td></tr><tr><th>ECCN</th><td>EAR99</td></tr><tr><th>CNHTS</th><td>9025191010</td></tr><tr><th>USHTS</th><td>9025194000</td></tr><tr><th>TARIC</th><td>9025190010</td></tr></tbody>
+</table>
+<table class="compliance-table">
+  <thead>
+    <tr><th>Type</th><th>Details</th></tr>
+  </thead>
+  <tbody><tr><th>CAHTS</th><td>9025190011</td></tr><tr><th>BRHTS</th><td>90251910</td></tr><tr><th>INHTS</th><td>90251910</td></tr><tr><th>MXHTS</th><td>9025.19.01</td></tr></tbody>
+</table>
+  </div>
 </section>
       </div>
+
+      <!-- FAQ: independent section (removed from TAB nav / scroll-spy on 2026-09-12), placed before Sourcing -->
+      <section id="faq" class="tab-panel" style="grid-column:1;margin-top:16px;margin-bottom:16px">
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq-item"><h3>What power supply boundaries, temperature sensing limits, and measurement accuracy specifications govern the DS18B20+?</h3><p>The DS18B20+ is a digital temperature sensor operating across an external supply voltage (VDD) range of 3.0V to 5.5V. It measures temperatures from -55°C to +125°C with an accuracy of ±0.5°C over the -10°C to +85°C range. During temperature conversions, the active supply current is 1.5mA maximum at 5V, while standby current is 750nA typical.</p></div><div class="faq-item"><h3>How does resolution selection alter temperature measurement precision and conversion timing in the DS18B20+?</h3><p>The DS18B20+ features a user-programmable temperature resolution of 9, 10, 11, or 12 bits, corresponding to temperature increments of 0.5°C, 0.25°C, 0.125°C, and 0.0625°C, respectively. Higher resolution increases conversion time, with maximum conversion times of 93.75ms at 9-bit resolution, 187.5ms at 10-bit, 375ms at 11-bit, and 750ms at 12-bit.</p></div><div class="faq-item"><h3>How does the 1-Wire protocol handle multi-drop network architecture and individual sensor identification?</h3><p>The DS18B20+ uses Maxim&#x27;s proprietary 1-Wire open-drain serial interface, requiring only a single data line (DQ) and ground for communication. Each device contains a factory-programmed, unique 64-bit ROM code consisting of an 8-bit family code (28h), a 48-bit serial number, and an 8-bit CRC. This unique identifier allows multiple DS18B20+ devices to share the same 1-Wire bus while being individually addressed by the bus master. The bus requires an external pullup resistor of approximately 5kΩ.</p></div>
+</section>
 
       <!-- Sourcing (no stock/price/lead-time promises) -->
       <section class="sourcing">
         <h2>Sourcing Information</h2>
-        <p>SZ Procure is a sourcing partner for <strong>DS18B20+</strong>, not a stock catalog. We help international buyers source original components from the China electronics supply chain — send your quantity and target price for a quotation.</p>
+        <p>SZ Procure is a sourcing partner for the <strong>DS18B20+</strong> (Maxim Integrated Sensors), not a stock catalog. We help international buyers source this electronic component through the China electronics supply chain, with verified supplier sourcing and quality inspection.</p><p>For DS18B20+, our electronics sourcing covers supplier sourcing across the China electronics supply chain, supplier verification and multi-supplier quotation comparison so you can compare offers before purchase. We coordinate purchase orders, consolidation and international logistics dispatch from Shenzhen.</p><p>Quality control includes supplier qualification and screening, then product, packaging and labeling checks with outgoing inspection before dispatch. These are sourcing services we perform &mdash; they are not a guarantee of any supplier's stock, price, lead time or authenticity. Tell us your required quantity, target price and sourcing requirements, then <a href="/request-a-quote/?pn=DS18B20%2B&mfr=Maxim%20Integrated&cat=Sensors&source=product&rfq_type=sku_quote">Request a Quote</a>.</p>
       </section>
     </div>
   </main>
@@ -259,7 +282,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'overview' }, { id: 'specifications' }, { id: 'documentation' }, { id: 'applications' }, { id: 'related' }, { id: 'alternative' }, { id: 'faq' } ];
+    var groups = [ { id: 'specifications' }, { id: 'introduction' }, { id: 'features' }, { id: 'applications' }, { id: 'documentation' }, { id: 'alternative' }, { id: 'compliance' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;
