@@ -1027,495 +1027,25 @@ def inject_hub_anchors(hub_path, groups):
     with open(hub_path, "w", encoding="utf-8") as _f:
         _f.write(html)
 
-
-def gen_part_page(row, cat_slug, mfr_slug, related=None, generated_slugs=None):
-    pn = row["mpn"].strip()
-    mfr = row["manufacturer"].strip()
-    _cat_res = resolve_native(row.get("native_l1"))
-    cat = _cat_res.get("l1_name") or (row.get("category") or "").strip()
-    subcat = (row.get("subcategory") or "").strip()
-    specs_raw = (row.get("attributes_json") or "").strip()
-    apps = (row.get("applications") or "").strip()
-    alt_raw = (row.get("alternative_parts") or "").strip()
-    supply = (row.get("availability") or "").strip()
-    faq_raw = (row.get("faq") or "").strip()
-    img = (row.get("image") or "").strip()
-    dsheet = (row.get("datasheet_url") or "").strip()
-    # Derived contract fields (kept explicit in CSV, but safe to recompute)
-    clean_mpn = (row.get("clean_mpn") or "").strip() or re.sub(r"[^A-Z0-9]", "", pn.upper())
-    url_slug = (row.get("url_slug") or "").strip() or slugify(pn)
-    # NOTE: `Source` column (CSV) is for internal data curation only — it may
-    # point to an external reference site. We NEVER render it on the page.
-    # SZ Procure is a sourcing partner, not a distributor, so SKU pages must
-    # not link out to any third-party store.
-
-    slug = url_slug
-    # ---- same-category cross-links (product spider-web) ----
-    # `related` is precomputed upstream by build_related_map() in O(n) total
-    # (replaces the old O(n^2) per-page scan over all_rows).
-    related = related or []
-    url = f"{DOMAIN}/products/{slug}/"
-    img_url = img if img else "/assets/img/hero.svg"
-    og_img = f"{DOMAIN}{img_url}" if img_url.startswith("/") else img_url
-
-    # Resolve fine category -> 6 top-level /components/ URL (breadcrumbs & links)
-    # P1-B1/I3/I4: generation-phase classifier over MASTER.native_l1 (UNMAPPED quarantined).
-    status, cat_slug, cat_top = resolve_cat_state(row["native_l1"])
-    cat_resolved = status in ("RESOLVED", "SELF_REFERENCE")
-    ps = effective_publish_status(row)
-    noindex = ps in ("hidden", "review")
-
-    # ---- SEO copy: procurement language, Shenzhen/China sourcing keywords ----
-    # Lead / overview emphasizes the BUYING scenario (global procurement from
-    # Shenzhen supply chain), not just a spec description of the part.
-    # P0-3: the VISIBLE Product Introduction now prefers the REAL description from the
-    # CSV. Only when it is blank do we fall back to the procurement template.
-    # The meta `desc` and the Product JSON-LD `description` below stay unchanged
-    # (URL / Title / Meta / Schema / H1 are frozen).
-    fallback_overview = (f"{esc(pn)} is a {esc(subcat or cat).lower()} from {esc(mfr)}. "
-                         f"SZ Procure helps global buyers source this part through verified suppliers, "
-                         f"with flexible quantity, hard-to-find support and competitive quotes.")
-    desc_csv = (row.get("description") or "").strip()
-    overview = esc(desc_csv) if desc_csv else fallback_overview
-    # Structured-data description is kept frozen (Schema unchanged).
-    schema_overview = fallback_overview
-    title = f"{esc(pn)} {esc(mfr)} — Source from Shenzhen, China | SZ Procure"
-    desc = (f"Source {esc(pn)} ({esc(mfr)} {esc(cat).lower()}) from Shenzhen, China. "
-            f"Shenzhen supplier network, hard-to-find support and BOM procurement for global buyers.")
-
-    # ---- parse repeatable fields ----
-    # Filter alternates: keep only tokens that yield a non-empty slug (real part
-    # numbers). Drops junk like "-" so we never emit alternatePart:["-"] in schema.
-    alts = [a for a in split_multi(alt_raw) if slugify(a)]
-    apps_list = split_multi(apps)
-    faq_pairs = parse_faq(faq_raw, pn)
-
-    # ---- structured attribute extraction ----
-    # attributes_json (object or array) is the canonical spec source. Falls back
-    # to infer_spec_key() when a row ships a plain comma string instead of JSON.
-    def infer_spec_key(val: str) -> str:
-        """Map a bare descriptive spec value to a real attribute name.
-        Never invents values — only derives the field label from known
-        semiconductor phrasing. Unmatched values fall back to 'Specification'."""
-        s = val.strip()
-        low = s.lower()
-        # Processor core
-        if any(t in low for t in ("cortex", "arm", "-bit", "mcu", "risc-v", "riscv", "dsp")):
-            return "Core"
-        # Clock speed
-        if "hz" in low and any(t in low for t in ("mhz", "ghz", "khz", ".")):
-            return "Clock Speed"
-        # Program memory
-        if "flash" in low or "eeprom" in low or "rom" in low:
-            return "Program Memory"
-        # RAM / data memory
-        if "ram" in low or ("kb" in low and "flash" not in low):
-            return "RAM"
-        # Package / footprint
-        if any(t in low for t in ("lqfp", "qfp", "sot", "soic", "tssop", "to-", "qfn",
-                                   "hc-", "0805", "0603", "1206", "radial", "sod",
-                                   "dip", "pitch", "qfp", "bga", "dfn", "sop")):
-            return "Package"
-        # Channel type (MOSFET / transistor)
-        if "channel" in low or "n-channel" in low or "p-channel" in low:
-            return "Channel"
-        # Output current / current rating
-        if "a" in low and any(t in low for t in ("output", "ma", "a ", "amp", "33a", "1a")):
-            return "Output Current"
-        # Current rating (bare number + A)
-        if "a" in low and any(ch.isdigit() for ch in low):
-            return "Current Rating"
-        # Voltage (bare number + V, or explicit supply/dropout/voltage)
-        if "v" in low and any(t in low for t in ("v", "voltage", "supply", "dropout", "v fixed", " ldo")):
-            return "Voltage"
-        if any(ch.isdigit() for ch in low) and "v" in low:
-            return "Voltage"
-        # Tolerance (resistor / capacitor %)
-        if "%" in low:
-            return "Tolerance"
-        # Resistance
-        if "ohm" in low or "ω" in low or ("k" in low and "o" in low):
-            return "Resistance"
-        # Capacitance (must check before Voltage — "100uF" contains 'u' not 'v')
-        if "uf" in low or "pf" in low or "nf" in low or "capacitor" in low or "farad" in low:
-            return "Capacitance"
-        # Power rating (W)
-        if "w" in low and any(t in low for t in ("0.", "w", "watt")):
-            return "Power Rating"
-        # Interface (communication bus)
-        if any(t in low for t in ("i2c", "spi", "uart", "can bus", "usb", "interface")):
-            return "Interface"
-        # Configuration / pin layout
-        if any(t in low for t in ("x", "pin", "male", "female", "position", "2x4", "pitch")):
-            return "Configuration"
-        # Technology / construction
-        if any(t in low for t in ("electrolytic", "ceramic", "film", "tantalum", "thick-film",
-                                   "switching", "ldo", "regulator", "op-amp", "gyro", "accel")):
-            return "Type"
-        # Frequency (crystal / oscillator)
-        if "ppm" in low or "load" in low or ("mhz" in low and "ghz" not in low and "khz" not in low):
-            return "Frequency"
-        # Generic amplifier / sensor type
-        if any(t in low for t in ("op-amp", "op amp", "gyro", "accel", "sensor", "ldo", "regulator")):
-            return "Type"
-        return "Specification"
-
-    spec_pairs = []
-    if specs_raw:
-        try:
-            obj = json.loads(specs_raw)
-            if isinstance(obj, dict):
-                spec_pairs = [[k, str(v)] for k, v in obj.items()]
-            elif isinstance(obj, list):
-                spec_pairs = [[str((a.get("k") if isinstance(a, dict) else (a[0] if isinstance(a, (list, tuple)) else a))),
-                               str((a.get("v") if isinstance(a, dict) else (a[1] if isinstance(a, (list, tuple)) and len(a) > 1 else "")))] for a in obj]
-        except Exception:
-            for token in split_specs(specs_raw):
-                if ":" in token:
-                    k, v = token.split(":", 1)
-                    spec_pairs.append([k.strip(), v.strip()])
-                else:
-                    spec_pairs.append([infer_spec_key(token), token.strip()])
-
-    # ---- render blocks ----
-    # 3. Technical Specifications table (Item | Value) — for Google entity
-    # understanding. Render ONLY real structured attributes from the source
-    # master; never backfill with placeholder "See datasheet" rows (P1-3 cleanup).
-    # This block lives BELOW the fold (section 3), never in the first screen.
-    # Translate raw (often Chinese) attribute keys/values to English for the
-    # public storefront. Unmappable CJK values are dropped (kept in MASTER);
-    # the visible layer stays Chinese-free (permanent CJK gate).
-    spec_pairs_en = translate_spec_pairs(spec_pairs)
-    if not spec_pairs_en:
-        # No English-renderable attributes from source — show an honest empty-state
-        # note instead of placeholder rows.
-        specs_html = (
-            '<div class="spec-empty">'
-            '<p>Detailed specifications and the official datasheet are available on request. '
-            'Send the part number and our team will provide the full parameter table and documentation.</p>'
-            '</div>'
-        )
-    else:
-        # Real attributes only (English) — capped, never invented/placeholder values.
-        all_spec_pairs = spec_pairs_en[:12]
-        specs_table = "".join(
-            f"<tr><th>{esc(human_attr_label(k))}</th><td>{esc(format_attr_value(k, v))}</td></tr>"
-            for k, v in all_spec_pairs
-        )
-        specs_html = f'<table class="spec-table">\n<tbody>\n{specs_table}</tbody>\n</table>'
-
-    # 1. Key Information table — lean, no stock/inventory wording
-    qi_rows = []
-    qi_rows.append(("Manufacturer", f'<a href="/manufacturers/{mfr_slug}/">{esc(mfr)}</a> <span class="muted small">Verified sourcing partner</span>'))
-    qi_rows.append(("Part Number", esc(pn)))
-    if cat_resolved:
-        qi_rows.append(("Product Type", f'<a href="/components/{cat_slug}/">{esc(subcat or cat_top)}</a>'))
-    else:
-        qi_rows.append(("Product Type", esc(subcat or cat_top)))
-    for k, v in spec_pairs_en:
-        if k.lower() in ("package", "core"):
-            qi_rows.append((human_attr_label(k), esc(format_attr_value(k, v))))
-    if dsheet:
-        qi_rows.append(("Datasheet", f'<a href="{esc(dsheet)}" target="_blank" rel="nofollow noopener">{esc(pn)} Datasheet (PDF) ↧</a>'))
-    quick_info = "".join(f"<tr><th>{esc(k)}</th><td>{v}</td></tr>" for k, v in qi_rows)
-
-    # Alternative Parts links: point to the real SKU page when it exists,
-    # otherwise fall back to Request-a-Quote (never a 404 dead link).
-    alts_html_items = []
-    for a in alts:
-        aslug = slugify(a)
-        if generated_slugs and aslug in generated_slugs:
-            alts_html_items.append(
-                f'<li><a href="/products/{aslug}/" class="alt-link">{esc(a)}</a></li>')
-        else:
-            alts_html_items.append(
-                f'<li><a href="/request-a-quote/?pn={esc(a)}" class="alt-link">{esc(a)} '
-                f'<span class="muted">(request quote)</span></a></li>')
-    alts_html = "".join(alts_html_items)
-    if alts_html:
-        NL = chr(10)
-        alt_section_html = (
-            "<h2>Alternative Parts</h2>" + NL +
-            f"<p>Common <strong>{esc(pn)} alternatives</strong> overseas buyers search for:</p>" + NL +
-            f'<ul class="alt-list">{alts_html}</ul>' + NL +
-            f'<p class="muted small">Looking for "{esc(pn)} alternative"? Tell us your requirement in the quote form.</p>'
-        )
-    else:
-        alt_section_html = ""
-    apps_html = "".join(f"<li>{esc(x)}</li>" for x in apps_list) or "<li>—</li>"
-    # P0-3: Common Applications block — render ONLY when REAL applications data
-    # exists in the source master. PDF/CSV has it -> show it; has nothing -> show
-    # nothing (honest degradation, never a placeholder "—" / "N/A" block).
-    if apps_list:
-        apps_items = "".join(f"<li>{esc(x)}</li>" for x in apps_list)
-        apps_section = (
-            '<section class="section apps-section">\n'
-            '  <div class="container">\n'
-            '    <h2>Applications</h2>\n'
-            f'    <ul class="alt-list">{apps_items}</ul>\n'
-            '  </div>\n'
-            '</section>'
-        )
-    else:
-        apps_section = ""
-
-    # 4. Sourcing Information — minimal, restrained service note (P0-4).
-    # No long marketing copy; no invented stock / availability / authorized-agent /
-    # lowest-price claims. PDF/CSV drives everything; nothing is fabricated.
-    sourcing_html = (
-        f"<p>SZ Procure is a sourcing partner for <strong>{esc(pn)}</strong>, not a stock "
-        f"catalog. We help international buyers source original components from the China "
-        f"electronics supply chain — send your quantity and target price for a quotation.</p>"
-    )
-
-    # FAQ block + FAQ schema
-    faq_html, faq_jsonld = render_faq(faq_pairs, pn)
-    if faq_html:
-        faq_section_html = "<h2>Frequently Asked Questions</h2>" + chr(10) + faq_html
-    else:
-        faq_section_html = ""
-
-    # Related Products (same top-category) — internal links form a product web.
-    if related and cat_resolved:
-        rel_items = "".join(
-            f'<li><a href="/products/{oslug}/" class="alt-link">{esc(opn)}</a></li>'
-            for opn, oslug in related
-        )
-        related_html = (f'<h2>Related {esc(cat_top)}</h2>'
-                        f'<p>Other {esc(cat_top).lower()} we help global buyers source:</p>'
-                        f'<ul class="alt-list">{rel_items}</ul>')
-    elif related:
-        # UNMAPPED/COLLISION: category is quarantined -> neutral "Related Parts" (no broken link)
-        related_html = '<h2>Related Parts</h2>'
-    else:
-        related_html = ""
-
-    # Reference Resources — links ONLY to the manufacturer's OWN official
-    # documentation (datasheet / technical resources). We never link to a
-    # third-party marketplace. If we don't have the manufacturer's official
-    # site mapped, we show a neutral note instead of a store link.
-    # Datasheet — show ONLY when a real datasheet URL exists (Phase B: honest
-    # degradation, never an empty link). When present, surface it both as a
-    # sticky-card button and inside Reference Resources.
-    datasheet_html = ""
-    if dsheet:
-        datasheet_html = (
-            f'<a class="btn btn-ghost btn-block" href="{esc(dsheet)}" '
-            f'target="_blank" rel="nofollow noopener">Download Datasheet ↧</a>'
-        )
-    dsheet_li = ""
-    if dsheet:
-        dsheet_li = (
-            f'<li><a href="{esc(dsheet)}" target="_blank" rel="nofollow noopener">'
-            f'{esc(pn)} Datasheet (PDF) ↧</a></li>'
-        )
-
-    ref_block = ""
-    mfr_official = MFR_OFFICIAL.get(mfr)
-    if mfr_official:
-        ref_block = (
-            f'<div class="reference-resources">'
-            f'<h3>Reference Resources</h3>'
-            f'<ul class="alt-list">'
-            f'<li><a href="{esc(mfr_official)}" target="_blank" rel="nofollow noopener">'
-            f'{esc(mfr)} Official Website ↗</a></li>'
-            f'{dsheet_li}'
-            f'</ul>'
-            f'<p class="muted small">Reference only — specifications &amp; images '
-            f'© {esc(mfr)}. SZ Procure is an independent sourcing partner, not the distributor.</p>'
-            f'</div>')
-    else:
-        ref_block = (
-            f'<div class="reference-resources">'
-            f'<h3>Reference Resources</h3>'
-            f'{dsheet_li}'
-            f'<p>For the official {esc(mfr)} datasheet and technical documentation, '
-            f'visit the manufacturer\'s website. SZ Procure sources this part through '
-            f'our supply chain — we are an independent sourcing partner, not a distributor.</p>'
-            f'</div>')
-
-    # breadcrumb: Home > Components > Category > Sub Category > MPN
-    # Adds the fine/sub-category (L3) level. The L3 page /components/<top>/<fine>/
-    # is generated for every fine category that has >=1 SKU (main loop), so the
-    # link always resolves (never a dead link). Uses `cat` (the `category` field)
-    # which is the authoritative L3 key — NOT `subcat`.
-    fine_slug = slugify_name(cat) if cat else ""
-    sub_crumb = (f'<a href="/components/{cat_slug}/{fine_slug}/">{esc(cat)}</a> › '
-                 if (cat and cat_resolved) else "")
-    crumb_items = [
-        ("Home", f"{DOMAIN}/"),
-        ("Components", f"{DOMAIN}/components/"),
-    ]
-    if cat_resolved:
-        crumb_items.append((cat_top, f"{DOMAIN}/components/{cat_slug}/"))
-    if cat and cat_resolved:
-        crumb_items.append((cat, f"{DOMAIN}/components/{cat_slug}/{fine_slug}/"))
-    crumb_items.append((pn, url))
-    crumb = breadcrumb_jsonld(crumb_items)
-    # Product JSON-LD — core fields only. NO price / NO availability / NO offers:
-    # we are a sourcing partner, not a stock catalog — inventory fields would mislead Google.
-    alt_ld = ", ".join(f'"{esc(a)}"' for a in alts)
-    product_jsonld = f"""
-  <script type="application/ld+json">
-  {{
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": "{esc(pn)}",
-    "model": "{esc(pn)}",
-    "mpn": "{esc(pn)}",
-    "category": "{esc(cat_top)}",
-    "brand": {{ "@type": "Brand", "name": "{esc(mfr)}", "@id": "https://www.szprocure.com/#szprocure-org" }},
-    "description": "{esc(schema_overview)}",
-    "url": "{url}"{(", \"alternatePart\": [" + alt_ld + "]") if alt_ld else ""}
-  }}
-  </script>"""
-
-    return f"""<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-{seo_head(title, desc, url, og_img, noindex=noindex)}
-  <link rel="stylesheet" href="/assets/styles.css" />
-{crumb}
-{product_jsonld}
-{faq_jsonld}
-{org_jsonld()}
-</head>
-<body>
-  <div id="site-header"></div>
-  <main>
-    <nav class="breadcrumb"><div class="container">
-      <a href="/">Home</a> ›
-      <a href="/components/">Components</a> ›
-      {('' if not cat_resolved else f'<a href="/components/{cat_slug}/">{esc(cat_top)}</a> ›')}
-      {sub_crumb}<span>{esc(pn)}</span>
-    </div></nav>
-
-    <!-- 1. Product Header (procurement landing — above the fold, lean) -->
-    <section class="page-head part-head">
-      <div class="container part-head-grid">
-        <div class="part-head-main">
-          <div class="sku-badge">Sourcing Partner</div>
-          <div class="eyebrow"><a href="/manufacturers/{mfr_slug}/">{esc(mfr)}</a> · {esc(subcat or cat)}</div>
-          <h1>{esc(pn)}</h1>
-          <p class="lead-sub">{esc(mfr)} {esc(subcat or cat)}</p>
-          <p class="lead">Source {esc(pn)} — we help global buyers access this part through verified suppliers with flexible quantity and competitive pricing.</p>
-          <div class="part-head-actions">
-            <a class="btn btn-primary btn-lg" href="/request-a-quote/?pn={urlquote(pn)}&mfr={urlquote(mfr)}&cat={urlquote(cat)}&source=product&rfq_type=sku_quote" data-zh="获取报价">Request a Quote</a>
-            <a class="btn btn-outline" href="https://wa.me/8613530888389?text=Hi%20SZ%20Procure,%20I%20need%20{esc(pn)}">WhatsApp</a>
-            <a class="link-cta" href="mailto:sales@szprocure.com?subject=Quote%20for%20{esc(pn)}">Email</a>
-          </div>
-        </div>
-        <aside class="part-head-aside">
-          <div class="card key-info">
-            <h2 class="quick-info-title">Key Information</h2>
-            <table class="spec-table compact"><tbody>
-{quick_info}
-            </tbody></table>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <!-- Mobile-only quote card (after first screen, no fixed overlay) -->
-    <section class="section mobile-quote-only">
-      <div class="container">
-        <div class="card sticky-card">
-          <h3>Need this component?</h3>
-          <p>Send the part number and quantity.</p>
-          <a class="btn btn-primary btn-block" href="/request-a-quote/?pn={urlquote(pn)}&mfr={urlquote(mfr)}&cat={urlquote(cat)}&source=product&rfq_type=sku_quote" data-zh="获取报价">Request a Quote</a>
-          {datasheet_html}
-          <p class="muted small">sales@szprocure.com · WhatsApp</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container two-col">
-        <div class="part-main">
-          <!-- 2. Product Introduction (SEO, not encyclopedia) -->
-          <h2>Product Introduction</h2>
-          <p>{overview}</p>
-
-          <!-- 3. Technical Specifications -->
-          <h2>Technical Specifications</h2>
-          {specs_html}
-
-          {apps_section}
-
-          <!-- 4. Sourcing Information (the moat) -->
-          <h2>Sourcing Information</h2>
-          {sourcing_html}
-
-          {alt_section_html}
-
-          <!-- 5b. Related Products (same-category spider-web) -->
-          {related_html}
-
-          {faq_section_html}
-          {ref_block}
-        </div>
-
-        <aside class="part-aside">
-          <!-- Sticky Quote Card (desktop) -->
-          <div class="card sticky-card desk-sticky">
-            <h3>Need this component?</h3>
-            <p>Send the part number and quantity.</p>
-            <a class="btn btn-primary btn-block" href="/request-a-quote/?pn={urlquote(pn)}&mfr={urlquote(mfr)}&cat={urlquote(cat)}&source=product&rfq_type=sku_quote" data-zh="获取报价">Request a Quote</a>
-            {datasheet_html}
-            <p class="muted small">sales@szprocure.com<br/>WhatsApp</p>
-          </div>
-
-          <!-- Related Categories -->
-          <div class="card">
-            <h3>Related</h3>
-            <ul class="alt-list">
-              <li><a href="/components/{cat_slug}/">{esc(cat_top)}</a></li>
-              <li><a href="/manufacturers/{mfr_slug}/">{esc(mfr)}</a></li>
-            </ul>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <!-- Bottom conversion CTA -->
-    <section class="section cta-band">
-      <div class="container">
-        <h2>Request a Quote for {esc(pn)}</h2>
-        <p>Send your quantity and target price — our sourcing team will check availability, pricing and lead time.</p>
-        <a class="btn btn-primary btn-lg" href="/request-a-quote/?pn={urlquote(pn)}&mfr={urlquote(mfr)}&cat={urlquote(cat)}&source=product&rfq_type=sku_quote" data-zh="获取报价">Request a Quote</a>
-      </div>
-    </section>
-  </main>
-  <div id="site-footer"></div>
-  <script src="/assets/site.js" defer></script>
-{ga4_script()}
-</body>
-</html>"""
-
-
 # ==============================================================================
-# PART PAGE — V3 (ADDITIVE renderer; visual-only change, data/SEO unchanged)
+# PART PAGE — V3 (the SOLE SKU page renderer for auto-publish system 03)
 # ==============================================================================
-# V3 is an ADDITIVE renderer that reuses the SAME SEO head, schema, breadcrumb,
-# global header/footer shell and RFQ business logic as V2 (gen_part_page). Only
-# the SKU content area + layout differ (left hero + right sticky RFQ + sticky
+# V3 renders every SKU page. It reuses the SAME SEO head, schema, breadcrumb,
+# global header/footer shell and RFQ business logic as prior versions; only the
+# SKU content area + layout differ (left hero + right sticky RFQ + sticky
 # scroll-spy tabs). It renders ONLY real MASTER data — no fabricated/inferred
-# specs, no price/stock/lead-time, no N/A. Route: any MPN in V3_MPNS renders via
-# this function; every other SKU keeps the V2 renderer. V2 is NEVER deleted.
+# specs, no price/stock/lead-time, no N/A. The legacy V2 renderer (gen_part_page)
+# was removed on 2026-09-12; V3 is now the only render path.
 # V3 styles come from assets/sku-v3.css (scoped to .sku-v3), linked externally.
 V3_MPNS = {"1.0-4PWB", "1909763-1", "1N4148W", "1N4148W-7-F", "1N4148WS", "1N5819HW-7-F", "1N5819WS", "2.54-1*40L=15MM", "2.54-1*40P", "2.54-1*4P", "2.54-1X6P", "2N7002", "2N7002,215", "2N7002K-T1-GE3", "2N7002LT1G", "59170-1-S-00-D", "74HC14D,653", "74HC165D,653", "74HC595D,118", "ACS712ELCTR-20A-T", "AD623ARZ-R7", "AD7192BRUZ-REEL", "AD8605ARTZ-REEL7", "ADG719BRTZ-REEL7", "ADM2582EBRWZ-REEL7", "ADM2587EBRWZ-REEL7", "ADM3251EARWZ-REEL", "ADS1015IDGSR", "ADS1115IDGSR", "ADS1115IDGST", "ADS1220IPWR", "ADUM1201ARZ-RL7", "ADUM1201BRZ-RL7", "ADUM1250ARZ-RL7", "ADUM3160BRWZ-RL", "ADUM4160BRWZ-RL", "ADXL345BCCZ-RL7", "AHT20", "AMS1117-3.3", "AMS1117-5.0", "AO3400A", "AO3401A", "AO3407A", "AO4407A", "AP2112K-3.3TRG1", "AP3012KTR-G1", "AP63203WU-7", "AP63205WU-7", "AP64350SP-13", "AS5047P-ATSM", "AS5600-ASOT", "AT24C02C-SSHM-T", "AT32F415CBT7", "AT7456E", "ATMEGA1284P-AU", "ATMEGA128A-AU", "ATMEGA2560-16AU", "ATMEGA328P-AU", "ATMEGA328P-MU", "ATMEGA328P-PU", "ATMEGA328PB-AU", "ATMEGA32A-AU", "ATMEGA64A-AU", "ATMEGA88PA-AU", "ATSAMD21G18A-AU", "ATTINY1616-MNR", "ATXMEGA64A3U-AU", "B0505S-1WR3", "B1212S-1WR3", "B2B-PH-K-S(LF)(SN)", "B2B-XH-A(LF)(SN)", "B2P-VH(LF)(SN)", "B340A-13-F", "B3B-PH-K-S(LF)(SN)", "B3B-XH-A(LF)(SN)", "B4B-PH-K-S(LF)(SN)", "B4B-XH-A(LF)(SN)", "B560C-13-F", "B5B-XH-A(LF)(SN)", "B6B-PH-K-S(LF)(SN)", "B6B-XH-A(LF)(SN)", "BAS16J,115", "BAS316,115", "BAS516,115", "BAT46WJ,115", "BAT54,215", "BAT54C,215", "BAT54S", "BAT54SLT1G", "BAV70,215", "BAV99,215", "BAV99LT1G", "BC817-40,215", "BLM15AG601SN1D", "BLM15PD121SN1D", "BLM15PX121SN1D", "BLM18AG102SN1D", "BLM18AG601SN1D", "BLM18EG221SN1D", "BLM18KG121TN1D", "BLM18KG601SN1D", "BLM18PG121SN1D", "BLM18PG471SN1D", "BLM18SG121TN1D", "BLM21AG102SN1D", "BLM21PG121SN1D", "BLM21PG221SN1D", "BLM21PG300SN1D", "BLM21PG331SN1D", "BLM31PG121SN1L", "BLM31PG601SN1L", "BM04B-SRSS-TB(LF)(SN)", "BME280", "BMI088", "BMI270", "BQ24075RGTR", "BQ25185DLHR", "BQ25798RQMR", "BSS123", "BSS138", "BSS138-7-F", "BSS138LT1G", "BSS84LT1G", "BWSMA-KWE-Z001", "CH32V103C8T6", "CH340C", "CL10B104KB8NNNC", "CLRC66303HNY", "CP2102-GMR", "CP2102N-A02-GQFN20R", "CP2102N-A02-GQFN28R", "CRCW0402100KFKED", "CRCW040210K0FKED", "CRCW06030000Z0EA", "CRCW060310K0FKEA", "CSD25402Q3A", "CUS10S30,H3F", "DFE252012F-1R0M=P2", "DFE252012P-1R0M=P2", "DLW21HN900SQ2L", "DM3AT-SF-PEJM5", "DP83848IVVX/NOPB", "DPS368XTSA1", "DRV2605LDGSR", "DRV8833PWPR", "DRV8874PWPR", "DS18B20+", "DS18B20U(UMW)", "DW01A", "ERJ2GE0R00X", "ESD5Z3.3T1G", "ESD5Z5.0T1G", "ESD9L5.0ST5G", "ESP-12F(ESP8266MOD)", "ESP32-C3-MINI-1-N4", "ESP32-C3FH4", "ESP32-S3-WROOM-1-N16R8", "ESP32-S3-WROOM-1-N8", "ESP32-S3-WROOM-1-N8R8", "ESP32-S3-WROOM-1U-N16R8", "ESP32-WROOM-32D-N4", "ESP32-WROOM-32E", "ESP32-WROOM-32E-N16", "ESP32-WROOM-32E-N4", "ESP32-WROOM-32E-N8", "ESP32-WROOM-32UE-N16", "FDV301N", "FRC0402F1002TS", "FRC0603F0000TS", "FRC0603F1000TS", "FRC0603F1001TS", "FRC0603F1002TS", "FRC0603F1003TS", "FRC0603F1004TS", "FRC0603F2002TS", "FRC0603F4701TS", "FRC0603F4702TS", "FRC0603F5101TS", "FRC0603J102 TS", "FRC0603J103 TS", "FRC0805F1001TS", "FRC0805F1002TS", "FRC0805F4701TS", "FS8205A", "FT232RL-REEL", "FT232RNQ-REEL", "FT234XD-R", "G5NB-1A-E-DC5V", "GCM155R71H104KE02D", "GCM188R71E105KA64D", "GCM21BR72A104KA37L", "GD25Q64ESIGR", "GD32F303RCT6", "GP2S+", "GRM035R60J475ME15D", "GRM1555C1H100JA01D", "GRM1555C1H101JA01D", "GRM1555C1H102JA01D", "GRM155R60J226ME11D", "GRM155R61E105KA12D", "GRM155R61H105KE05D", "GRM155R71H103KA88D", "GRM155R71H104KE14D", "GRM155Z71A105KE01D", "GRM1885C1H103JA01D", "GRM188C61E226ME01D", "GRM188R60J476ME15D", "GRM188R61A106KE69D", "GRM188R61A226ME15D", "GRM188R61E106KA73D", "GRM188R61E475KE11D", "GRM188R6YA106MA73D", "GRM188R71H104KA93D", "GRM188Z71A106KA73D", "GRM21BR60J107ME15L", "GRM21BR61A476ME15L", "GRM21BR61E106KA73L", "GRM21BR61H106KE43L", "GRM21BR6YA106KE43L", "GRM21BR71H105KA12L", "GRM21BZ71A226ME15L", "GRM21BZ71E106KE15L", "GRM31C5C1H104JA01L", "GRM31CC72A475KE11L", "GRM31CR61A107MEA8L", "GRM31CR61E476ME44L", "GRM31CR71E106KA12L", "GRM31CR71H475KA12L", "GRM32EC72A106KE05L", "GRM32ER61C476KE15L", "GRM32ER71E226KE15L", "GRM32ER71H106KA12L", "GT-USB-7010ASV", "HLK-PM01", "HR4988E", "HS96L03W2C03", "HX711", "INA180A1IDBVR", "INA180A2IDBVR", "INA219AIDCNR", "INA219AIDR", "INA226AIDGSR", "INA3221AIRGVR", "INA333AIDGKR", "IRF3205PBF", "IRF540NPBF", "IRF9540NPBF", "IRFB4110PBF", "IRFR5305TRPBF", "IRFZ44NPBF", "IRLML6344TRPBF", "IRLML6402TRPBF", "ISM330DHCXTR", "ISO1044BDR", "ISO1050DUBR", "ISO1540DR", "ISO3082DWR", "JSM6288Q", "KT-0603R", "L5973D013TR", "L7805CV", "L78L05ABUTR", "L78M05ABDT-TR", "L78M05CDT-TR", "LAN8720A-CP-TR", "LAN8720AI-CP-TR", "LAN8742A-CZ-TR", "LAN8742AI-CZ-TR", "LD1117S33CTR", "LD1117S33TR", "LDL1117S33R", "LIS2DH12TR", "LIS2DW12TR", "LIS3DHTR", "LIS3MDLTR", "LL4148-GS08", "LM1117IMPX-3.3/NOPB", "LM1117MPX-3.3/NOPB", "LM13700MX/NOPB", "LM2596SX-5.0/NOPB", "LM317AEMPX/NOPB", "LM317MDT-TR", "LM339DR", "LM358DR", "LM358DR2G", "LM358DT", "LM35DZ/NOPB", "LM393DR", "LM393DR2G", "LM5116MHX/NOPB", "LM5164DDAR", "LMV321IDBVR", "LP2985-33DBVR", "LP5907MFX-3.3/NOPB", "LPC1765FBD100K", "LPC1768FBD100K", "LPC824M201JHI33Y", "LSM303AGRTR", "LSM6DS3TR-C", "LSM6DSLTR", "LSM6DSOXTR", "LSM6DSRTR", "LSM6DSV16XTR", "LSM6DSVTR", "LT3045EDD#TRPBF", "LTC6811IG-1#3ZZTRPBF", "LTM4671EY#PBF", "MAX-M10S-00B", "MAX17048G+T10", "MAX31855KASA+T", "MAX31856MUD+T", "MAX31865AAP+T", "MAX31865ATP+T", "MAX3232CDR", "MAX3232EIPWR", "MAX6675ISA+T", "MAX98357AETE+T", "MBR0520LT1G", "MBR0540T1G", "MBRA340T3G", "MC33063ADR", "MCP1700T-3302E/TT", "MCP2551-I/SN", "MCP4725A0T-E/CH", "MCP6001T-I/OT", "MCP6002T-I/SN", "MCP73831T-2ACI/OT", "MCP9700AT-E/TT", "MFRC52202HN1,151", "MKL17Z64VFM4", "MSP430F149IPMR", "MSP430F247TPMR", "MT3608", "NCD0805G1", "NCD0805R1", "NCP1117ST33T3G", "NCP15XH103F03RC", "NCP18XH103F03RB", "NE5532DR", "NE555DR", "NE555P", "NUP2105LT1G", "OPA1612AIDR", "OPA1656IDR", "OPA197IDBVR", "P82B715DR", "PCA9306DCTR", "PCM5102APWR", "PE4312C-Z", "PESD0402-140", "PESD1CAN,215", "PESD2CAN,215", "PESD3V3S2UT,215", "PESD5Z3.3,115", "PIC16F1933-I/SS", "PMEG6010CEH,115", "PMEG6010CEJ,115", "PRTR5V0U2F,115", "PZ254V-11-02P", "PZ254V-11-03P", "PZ254V-11-04P", "Q13FC13500004", "RC0402FR-070RL", "RC0402FR-07100KL", "RC0402FR-0710KL", "RC0402FR-071KL", "RC0402FR-074K7L", "RC0402FR-075K1L", "RC0603FR-07100KL", "RC0603FR-0710KL", "RC0603FR-071KL", "RC0603FR-07330RL", "RC0603FR-074K7L", "RC0603JR-070RL", "RC0805FR-071KL", "REF3030AIDBZR", "REF3033AIDBZR", "RFX2401C", "RP2040", "RT0603BRD0710KL", "S4B-XH-A(LF)(SN)", "SC-32S32.768KHZ20PPM12.5PF", "SGT50T65FD1PN", "SI2301CDS-T1-GE3", "SI2302CDS-T1-GE3", "SK6812MINI-E", "SM02B-SRSS-TB(LF)(SN)", "SM06B-SRSS-TB(LF)(SN)", "SM08B-SRSS-TB(LF)(SN)", "SM4007PL", "SM712-02HTG", "SMAJ5.0A", "SN65HVD230DR", "SN65HVD232DR", "SN65HVD233DR", "SN65HVD75DR", "SN74HC14DR", "SN74HC595DR", "SN74LVC1G08DBVR", "SN74LVC1G14DBVR", "SN74LVC1G17DCKR", "SN74LVC1G3157DCKR", "SN74LVC1T45DBVR", "SN74LVC2G17DCKR", "SN74LVC2T45DCUR", "SN74LVC8T245PWR", "SN75176BDR", "SPX3819M5-L-3-3/TR", "SRD-05VDC-SL-C", "SRD-12VDC-SL-C", "SRV05-4.TCT", "SS14", "SS34", "SS54", "STM32F030C8T6", "STM32F030F4P6TR", "STM32F030K6T6", "STM32F072CBT6", "STM32F103C8T6", "STM32F103CBT6", "STM32F103RCT6", "STM32F103RET6", "STM32F401CCU6", "STM32F405RGT6", "STM32F407VET6", "STM32F407VGT6", "STM32F407ZGT6", "STM32F412RET6", "STM32F429IGT6", "STM32F446RCT6", "STM32F446RET6", "STM32F722RET6", "STM32G030F6P6TR", "STM32G031G8U6", "STM32G070CBT6", "STM32G070RBT6", "STM32G0B1CBT6", "STM32G431CBT6", "STM32G431KBU6", "STM32G474RET6", "STM32H723VGH6", "STM32H723VGT6", "STM32H723ZGT6", "STM32H743VIH6", "STM32H743VIT6", "STM32H743ZIT6", "STM32H750VBT6", "STM32L010F4P6", "STM8S003F3P6TR", "STM8S003K3T6CTR", "STM8S103K3T6CTR", "SWPA4030S100MT", "TCA9548APWR", "TF PUSH", "THVD1450DR", "TL072CDR", "TL431AIDBZR", "TLC555CDR", "TLP350(TP1,F)", "TLV3201AIDBVR", "TLV62569DBVR", "TLV75533PDBVR", "TLV75733PDBVR", "TLV76733DRVR", "TMC2209-LA-T", "TMC5160A-TA-T", "TMP102AIDRLR", "TMP117AIDRVR", "TMS320F28035PAGT", "TMS320F28069PZT", "TMS320F28335PGFA", "TP4056-42-ESOP8", "TPD1E10B06DPYR", "TPD4E05U06DQAR", "TPD4EUSB30DQAR", "TPL5010DDCR", "TPS2116DRLR", "TPS22810DRVR", "TPS22917DBVR", "TPS22918DBVR", "TPS22919DCKR", "TPS54202DDCR", "TPS54302DDCR", "TPS5430DDAR", "TPS54331DR", "TPS54360DDAR", "TPS54560DDAR", "TPS61023DRLR", "TPS62840DLCR", "TPS62933DRLR", "TPS63020DSJR", "TPS63070RNMR", "TPS631000DRLR", "TPS63802DLAR", "TPS63900DSKR", "TPS70933DBVR", "TPS7A2033PDBVR", "TPS7A4700RGWR", "TS-1088-AR02016", "TS-1187A-B-A-B", "TXB0102DCUR", "TXB0104PWR", "TXB0108PWR", "TXS0102DCTR", "TXS0102DCUR", "TXS0104EPWR", "TXS0108EPWR", "TYPE-C 16PIN 2MD(073)", "TYPE-C 6P(073)", "TYPE-C-31-M-12", "TYPE-C-31-M-31", "U.FL-R-SMT-1(10)", "U.FL-R-SMT-1(80)", "ULN2003ADR", "ULN2003D1013TR", "ULN2803CDWR", "USB2514BI-AEZG-TR", "USBLC6-2P6", "USBLC6-2SC6", "USBLC6-4SC6", "VL53L0CXV0DH/1", "VL53L1CXV0FY/1", "VL53L4CDV0DH/1", "W25N02KVZEIR", "W25Q128JVEIQ TR", "W25Q128JVPIM TR", "W25Q128JVSIQ", "W25Q16JVSNIQ", "W25Q16JVSSIQ", "W25Q32JVSSIQ", "W25Q64JVSSIQ", "W25Q80DVSNIG TR", "W5500", "WS2812B-B/W", "WS2812B-V5/W", "X322512MSB4SI", "X322516MLB4SI", "X322516MRB4SI", "X322525MOB4SI", "X32258MOB4SI", "XC6206P332MR-G", "XL-1608SURC-06", "XL-1608UBC-04", "XL-1608UGC-04", "XL-2012SURC", "XL-2012UGC", "YLED0603B", "YLED0603G", "YLED0603R", "ZX-PZ2.54-1-16PZZ"}
 
 
 # ---------------------------------------------------------------------------
-# Risk #1 (2026-09-08): V3 is now the DEFAULT renderer. The historical V3_MPNS
-# elected-list above is RETAINED for reference but NO LONGER drives routing.
-# A new, empty allow-list opts specific SKUs BACK to the legacy V2 renderer only
-# when explicitly required (e.g. a future legacy exception). Empty by default =>
-# every SKU renders via gen_part_page_v3. V2 is preserved, never deleted.
+# (2026-09-12) V3 is the SOLE SKU page renderer. V3_MPNS above is retained for
+# reference only and no longer drives routing. All SKUs render via
+# gen_part_page_v3. The legacy V2 renderer (gen_part_page) was removed; no
+# legacy-exception allow-list remains.
 # ---------------------------------------------------------------------------
-V2_LEGACY_EXCEPTIONS = set()
 
 # ---------------------------------------------------------------------------
 # RoHS compliance badge (V3 template rule)
@@ -4070,7 +3600,7 @@ def detect_synthetic_mpn(rows):
 # Reuses tools/factory/master_io.row_fingerprint + sha256_of (no second algorithm).
 # ===========================================================================
 MANIFEST_PATH = os.path.join(ROOT, "build_manifest.json")
-TEMPLATE_VERSION = "2026.09.v3.phase1"   # bump when gen_part_page / gen_part_page_v3 body changes
+TEMPLATE_VERSION = "2026.09.v3.phase1"   # bump when gen_part_page_v3 body changes
 SCOPE_CEILING_RATIO = 0.05              # Phase 2 Scope Guard ceiling (informational in Phase 1)
 # Page-affecting MASTER columns that feed a SKU's data_fp. Deliberately EXCLUDES
 # traceability / derived cols (source, source_url, supplier_reference, url_slug,
@@ -4191,7 +3721,7 @@ def _asset_fp_for(renderer_v):
 
 
 def _renderer_v_for(pn):
-    return "v2" if pn.upper() in V2_LEGACY_EXCEPTIONS else "v3"
+    return "v3"
 
 
 def _data_fp_for(row):
@@ -4393,12 +3923,8 @@ def _write_sku_page_atomic(args, g, cslug, mfr_slug, related, generated_slugs, o
     """
     pn = g["mpn"].strip()
     slug = g["url_slug"]
-    if pn.upper() in V2_LEGACY_EXCEPTIONS:
-        page = gen_part_page(g, cslug, mfr_slug, related=related.get(slug, []),
-                             generated_slugs=generated_slugs)
-    else:
-        page = gen_part_page_v3(g, cslug, mfr_slug, related=related.get(slug, []),
-                                generated_slugs=generated_slugs, verbose=False)
+    page = gen_part_page_v3(g, cslug, mfr_slug, related=related.get(slug, []),
+                            generated_slugs=generated_slugs, verbose=False)
     if "<html" not in page and "<!DOCTYPE" not in page.upper():
         raise RuntimeError(f"renderer produced no HTML for {slug} "
                            f"(refusing to write a broken page)")
@@ -5142,10 +4668,8 @@ def main():
     related_map = build_related_map(by_cat, k=6)
 
     # ---- generate part pages ----
-    # Risk #1 (2026-09-08): V3 is the DEFAULT renderer. SKUs listed in
-    # V2_LEGACY_EXCEPTIONS (empty by default) render via the legacy gen_part_page();
-    # every other SKU renders via the additive gen_part_page_v3(). V2 is preserved,
-    # unchanged, and still used for any explicit legacy exception.
+    # (2026-09-12) V3 is the SOLE SKU page renderer. The legacy V2 renderer
+    # (gen_part_page) was removed; every SKU renders via gen_part_page_v3().
     written = 0
     urls = []
     generated_slugs = {g["url_slug"] for g in groups if g.get("url_slug")}
@@ -5156,10 +4680,7 @@ def main():
             continue
         cslug, _ = resolve_cat((g.get("native_l1") or "").strip())
         mfr_slug = slugify_name(g["manufacturer"].strip())
-        if pn.upper() in V2_LEGACY_EXCEPTIONS:
-            page = gen_part_page(g, cslug, mfr_slug, related=related_map.get(slug, []), generated_slugs=generated_slugs)
-        else:
-            page = gen_part_page_v3(g, cslug, mfr_slug, related=related_map.get(slug, []), generated_slugs=generated_slugs, verbose=bool(args.single and args.single.strip().upper() == pn.upper()))
+        page = gen_part_page_v3(g, cslug, mfr_slug, related=related_map.get(slug, []), generated_slugs=generated_slugs, verbose=bool(args.single and args.single.strip().upper() == pn.upper()))
         # --single: skip every SKU except the target (do NOT write other pages)
         if args.single and args.single.strip().upper() != pn.upper():
             continue

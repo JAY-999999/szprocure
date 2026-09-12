@@ -12,7 +12,7 @@ How it works (no frozen-layer edit):
      (production-source guard, lexicons, synthetic-MPN guard, merge, stable
      SlugRegistry.assign). Slugs are therefore identical to a full rebuild.
   3. Render ONLY the new product pages (those whose <slug>/index.html is absent)
-     via the REAL gen_part_page. Existing 550 pages stay as copied.
+     via the REAL gen_part_page_v3 (the sole SKU renderer). Existing 550 pages stay as copied.
   4. Regenerate every GLOBAL artifact (manufacturer/component pages + hubs,
      sitemap shards, parts.json, client-side search index) from the full row set,
      reusing gen_parts' real functions and mirroring the sitemap/parts.json/search
@@ -92,9 +92,9 @@ def _write_globals(out_root, groups, by_mfr, by_cat, related_map):
         mfr_slug = gp.slugify_name(g["manufacturer"].strip())
         d = os.path.join(out_root, "products", slug)
         os.makedirs(d, exist_ok=True)
-        page = gp.gen_part_page(g, cslug, mfr_slug,
+        page = gp.gen_part_page_v3(g, cslug, mfr_slug,
                                 related=related_map.get(slug, []),
-                                generated_slugs=generated_slugs)
+                                generated_slugs=generated_slugs, verbose=False)
         prod_path = os.path.join(d, "index.html")
         if os.path.exists(prod_path):
             with open(prod_path, encoding="utf-8") as f:
