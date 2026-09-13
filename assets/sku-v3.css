@@ -36,7 +36,6 @@
 .sku-v3 .id-label{width:130px;flex-shrink:0;font-size:13px;color:var(--text-3);text-transform:capitalize}
 .sku-v3 .id-value{font-size:14px;color:var(--text);font-weight:500}
 .sku-v3 .id-value a{font-weight:500}
-.sku-v3 .id-value a::after{content:" ↧";font-size:12px}
 .sku-v3 .hero-desc{margin:18px 0 0;font-size:14px;color:var(--text-2);line-height:1.55}
 
 .sku-v3 .rfq-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px;grid-column:2;grid-row:1 / span 3;position:sticky;top:100px;align-self:start}
@@ -106,6 +105,8 @@
 .sku-v3 .doc-btn:hover{background:var(--accent-2);text-decoration:none}
 .sku-v3 .doc-link{color:var(--accent);font-size:13px;font-weight:600}
 .sku-v3 .doc-link:hover{text-decoration:underline}
+.sku-v3 .id-value a.doc-link{display:inline-flex;align-items:center;gap:4px}
+.sku-v3 .doc-ico.doc-pdf{width:13px;height:13px;flex-shrink:0}
 .sku-v3 .doc-preview{margin-top:12px}
 .sku-v3 .doc-preview embed{width:100%;aspect-ratio:1/1.414;height:auto;border:1px solid var(--border);border-radius:8px;background:#fff}
 
@@ -150,6 +151,12 @@
 @media (max-width:640px){
   .sku-v3 .rohs-badge{font-size:.66rem;margin-left:.35rem;vertical-align:baseline}
 }
+
+/* H1 + RoHS badge layout (Phase 2, 2026-09-13): keep the H1 semantic text = bare
+   MPN, with the badge as a sibling node (moved out of <h1>). Visual spacing is
+   preserved exactly — .rohs-badge keeps its own margin-left:.5rem, so gap:0 here
+   (a non-zero gap would DOUBLE the spacing vs. the original inline layout). */
+.sku-v3 .hero-title-row{display:flex;align-items:center;gap:0;flex-wrap:wrap}
 
 /* ===== Spec / Compliance two-column grids (V3 layout) ===== */
 .sku-v3 .spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}

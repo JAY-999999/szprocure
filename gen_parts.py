@@ -1758,13 +1758,13 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
     desc_csv = (row.get("description") or "").strip()
     overview = esc(desc_csv) if desc_csv else fallback_overview
     schema_overview = fallback_overview
-    title = f"{esc(pn)} {esc(mfr)} — Source from Shenzhen, China | SZ Procure"
-    desc = (f"Source {esc(pn)} ({esc(mfr)} {esc(cat).lower()}) from Shenzhen, China. "
-            f"Shenzhen supplier network, hard-to-find support and BOM procurement for global buyers.")
-
-    # ---- parse repeatable fields (same helpers as V2) ----
+    # ---- SEO copy: controlled Title / Meta optimization (Phase 2, 2026-09-13) ----
+    # Uses ONLY real MASTER fields. MPN never truncated. No Shenzhen / stock / price claims.
     alts = [a for a in split_multi(alt_raw) if slugify(a)]
     apps_list = split_multi(apps)
+    n_alt = len(alts)
+    title = _build_sku_title(pn, mfr, specs_raw, row.get("native_l1"), subcat)
+    desc = _build_sku_meta(pn, mfr, specs_raw, row.get("native_l1"), subcat, cat, n_alt, bool(dsheet))
     # FAQ is assembled below via merge_faqs() (after enrichment load) — source priority + count control.
 
     # ---- structured attribute extraction: REAL MASTER attributes only ----
@@ -1952,7 +1952,7 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
         id_rows.append(("Datasheet",
                         f'<a class="doc-link" href="{esc(dsheet)}" target="_blank" '
                         f'rel="nofollow noopener" download>'
-                        f'<span class="doc-ico">&#128196;</span> {esc(pn)} Datasheet</a>'))
+                        f'<svg class="doc-ico doc-pdf" width="13" height="13" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.5 2.5h8.2l4.3 4.3v13.7a1 1 0 0 1-1 1H6.5a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1z" fill="#e53e3e"/><path d="M14.7 2.5V6.8a1 1 0 0 0 1 1h4.3" fill="#ff8585"/><rect x="5.8" y="14" width="13.4" height="5.6" rx="1" fill="#fff"/><text x="12.5" y="18.4" font-size="4.6" font-weight="700" text-anchor="middle" fill="#e53e3e" font-family="Arial,Helvetica,sans-serif">PDF</text></svg> {esc(pn)} Datasheet</a>'))
     if overview:
         id_rows.append(("Key Attributes", overview))
     id_list_html = "".join(
@@ -2303,7 +2303,10 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
       <!-- LEFT: Product hero + key identity (real MASTER data only) -->
       <div class="hero-left">
         <p class="mfr"><a href="/manufacturers/{mfr_slug}/">{esc(mfr)}</a></p>
-        <h1 class="mpn">{esc(pn)}{rohs_html}</h1>
+        <div class="hero-title-row">
+          <h1 class="mpn">{esc(pn)}</h1>
+          {rohs_html}
+        </div>
         <p class="type">{esc(subcat or cat)}</p>
         <div class="id-list">
 {id_list_html}
@@ -3300,6 +3303,200 @@ def format_attr_value(k, v):
     if key == "tolerance":
         return _fmt_num(num) + " %"
     return v
+
+# =============================================================================
+# SKU V3 — controlled Title / Meta optimization (Phase 2, 2026-09-13)
+# ONLY real MASTER fields are used (mpn, manufacturer, attributes_json,
+# subcategory, alternative_parts, datasheet_url). No invented text, no Shenzhen
+# boilerplate, no marketing claims (stock/price/MOQ/guaranteed/authentic).
+# MPN is NEVER truncated. Up to 3 real core attributes per family.
+# =============================================================================
+def _sku_title_family(native_l1, subcat):
+    """Map MASTER native_l1 (+ subcat override) to one of 17 family buckets."""
+    nl = (native_l1 or "").strip().lower()
+    sc = (subcat or "").strip().lower()
+    if "mosfet" in sc:                      # e.g. AO3400A: native_l1=transistors, subcat=N-Channel MOSFET
+        return "MOSFET"
+    _MAP = {
+        "microcontrollers": "MCU", "microcontroller": "MCU",
+        "mosfet": "MOSFET",
+        "diodes": "Diode", "diode": "Diode",
+        "memory": "Memory",
+        "oscillators-resonators": "CrystalOsc",
+        "sensors": "Sensor",
+        "connectors": "Connector",
+        "iot-communication-modules": "Module", "functional-modules": "Module",
+        "capacitors": "Passive", "capacitor": "Passive",
+        "resistors": "Passive", "resistor": "Passive",
+        "inductors-coils-transformers": "Passive", "inductor": "Passive",
+        "amplifiers-comparators": "OpAmp", "operational amplifier": "OpAmp",
+        "logic-ics": "LogicIC", "logic ic": "LogicIC",
+        "power-management": "PMIC", "voltage regulator": "PMIC",
+        "interface-ics": "InterfaceIC", "interface ic": "InterfaceIC",
+        "transistors": "Transistor", "transistor": "Transistor",
+        "data-converters": "DataConv",
+    }
+    return _MAP.get(nl, "Other")
+
+
+_TITLE_FAMILY_ATTR_KEYS = {
+    "MCU": [["core", "CPU Core"], ["frequency_hz", "CPU Maximum Speed", "speed_hz"], ["Package", "package"]],
+    "MOSFET": [["vdss_v", "vds_v", "Drain to Source Voltage", "Drain-Source Voltage"],
+               ["id_a", "Current - Continuous Drain(Id)"],
+               ["rds_on_mohm", "RDS(on)", "Rds(On)", "Rds(on)"]],
+    "Diode": [["Current - Rectified", "forward_current_a", "Forward Current", "Forward Current(I_f)",
+               "If - Forward Current(I_f)", "if_a", "I_f"],
+              ["vreverse_v", "Voltage - DC Reverse(Vr)", "Voltage - DC Reverse (Vr) (Max)",
+               "Reverse Stand-Off Voltage (Vrwm)", "Voltage - Breakdown", "Voltage - Forward(Vf@If)"],
+              ["Package", "package"]],
+    "Memory": [["memory_bytes", "Memory Size", "Program Storage Size"],
+               ["interface", "Interface", "Interface Type"], ["Package", "package"]],
+    "CrystalOsc": [["frequency_hz", "Frequency", "frequency"],
+                   ["load_capacitance_pf", "Load Capacitance", "load capacitance"], ["Package", "package"]],
+    "Sensor": [["interface", "Interface", "Interface Type"], ["Package", "package"]],
+    "Connector": [["Number of PINs", "Pin Configuration", "Number of Positions", "positions", "Number"],
+                  ["Pitch", "pitch_mm"], ["Package", "package"]],
+    "Module": [["interface", "Interface", "Interface Type", "Wireless Standard"], ["Package", "package"],
+               ["Output Power", "Frequency Range", "Sensitivity", "data_rate"]],
+    "Passive": [["capacitance", "Capacitance", "capacitance_pf", "resistance", "Resistance",
+                 "resistance_ohm", "inductance", "Inductance", "inductance_uh"],
+                ["rated_voltage_v", "Voltage Rating", "voltage_rating_v", "Rated Voltage",
+                 "Tolerance", "tolerance", "Current Rating"], ["Package", "package"]],
+    "OpAmp": [["num_amps", "Number of Channels", "Number of Amplifiers"], ["Package", "package"]],
+    "LogicIC": [["Logic Family", "logic family"], ["supply_v", "Voltage - Supply", "Supply Voltage"], ["Package", "package"]],
+    "PMIC": [["output_voltage_v", "Output Voltage", "output voltage"],
+             ["output_current_a", "Output Current", "output current", "working_voltage_v"], ["Package", "package"]],
+    "InterfaceIC": [["interface", "Interface", "Type", "interface type"],
+                    ["data_rate", "Data Rate", "Data Rate(Max)", "number of channels", "working_voltage_v"],
+                    ["Package", "package"]],
+    "Transistor": [["type", "Type", "Configuration", "tran_type"],
+                   ["Vce Saturation(VCE(sat))", "Collector - Emitter Voltage VCEO", "vceo_v"], ["Package", "package"]],
+    "DataConv": [["Resolution (Bits)", "ADC (Bit)", "resolution"], ["interface", "Interface", "Interface Type"], ["Package", "package"]],
+    "Other": [["Package", "package"],
+              ["Forward Voltage (Vf)", "Forward Voltage", "Vf - Forward Voltage(Vf)", "vforward_v",
+               "Forward Current", "Wavelength", "Peak Wavelength", "Voltage Rating", "Operating Voltage"],
+              ["Current Rating", "Number of Pins", "Pitch", "Contact Material", "Color Temperature"]],
+}
+
+
+def _parse_title_attrs(specs_raw):
+    """Parse attributes_json (dict or list form) into a flat {k: v} dict (raw keys)."""
+    if not specs_raw:
+        return {}
+    try:
+        o = json.loads(specs_raw)
+    except Exception:
+        return {}
+    if isinstance(o, dict):
+        return {k: v for k, v in o.items()}
+    if isinstance(o, list):
+        d = {}
+        for a in o:
+            if isinstance(a, dict):
+                k, v = a.get("k"), a.get("v")
+            elif isinstance(a, (list, tuple)) and a:
+                k, v = a[0], (a[1] if len(a) > 1 else "")
+            else:
+                continue
+            if k is not None:
+                d[str(k)] = v
+        return d
+    return {}
+
+
+def _fmt_title_val(k, v):
+    """format_attr_value + conservative unit inference for translated-numeric keys
+    (so a bare '100' under a reverse-voltage key reads '100V', matching specs intent)."""
+    out = format_attr_value(k, v)
+    if out is None:
+        return out
+    s = str(out).strip()
+    if not re.fullmatch(r"-?\d+(\.\d+)?", s):
+        return out
+    kl = (k or "").lower()
+    num = float(s)
+    if any(t in kl for t in ("frequency", "clock", "speed")):
+        if num >= 1e9: return _fmt_num(num / 1e9) + " GHz"
+        if num >= 1e6: return _fmt_num(num / 1e6) + " MHz"
+        if num >= 1e3: return _fmt_num(num / 1e3) + " kHz"
+        return s + " Hz"
+    if "memory" in kl:
+        if num >= 1e6: return _fmt_num(num / 1e6) + " MB"
+        if num >= 1024: return _fmt_num(num / 1024) + " KB"
+        return s + " B"
+    if any(t in kl for t in ("voltage", "vds", "vdss", "vceo", "vgs", "vrrm", "vreverse", "vforward", "vf")) and "current" not in kl:
+        return s + " V"
+    if any(t in kl for t in ("current", "id_", "ic_", "ib_", "iq_")) and "voltage" not in kl:
+        return s + " A"
+    if "rds" in kl or "resistance" in kl or "impedance" in kl or "dcr" in kl:
+        if num < 1: return _fmt_num(num * 1000) + " mΩ"
+        return s + " Ω"
+    if "capacitance" in kl:
+        if num < 1: return _fmt_num(num * 1e6) + " pF"
+        return s + " µF"
+    if "inductance" in kl:
+        return s + " µH"
+    if "power" in kl or kl.endswith("_w"):
+        return s + " W"
+    return out
+
+
+def _select_title_attrs(specs_raw, family, max_n=3):
+    raw = _parse_title_attrs(specs_raw)
+    if not raw:
+        return []
+    rules = _TITLE_FAMILY_ATTR_KEYS.get(family, _TITLE_FAMILY_ATTR_KEYS["Other"])
+    out, used = [], set()
+    for slot in rules:
+        if len(out) >= max_n:
+            break
+        for cand in slot:
+            if cand in raw and cand not in used:
+                val = raw[cand]
+                if val is None:
+                    continue
+                sval = str(val).strip()
+                if not sval or has_cjk(sval):   # skip untranslatable CJK values (honest)
+                    continue
+                tok = sval.split(";")[0].split(",")[0].strip()   # first token of multi-value strings
+                fmt = _fmt_title_val(cand, tok)
+                fmt = ("" if fmt is None else str(fmt).strip())
+                if not fmt:
+                    continue
+                if len(fmt) > 16:               # soft cap on a single appended value (MPN never capped)
+                    fmt = fmt[:16].rstrip()
+                out.append(fmt)
+                used.add(cand)
+                break
+    return out[:max_n]
+
+
+def _build_sku_title(pn, mfr, specs_raw, native_l1, subcat):
+    fam = _sku_title_family(native_l1, subcat)
+    attrs = _select_title_attrs(specs_raw, fam)
+    parts = [esc(pn), esc(mfr)] + [esc(a) for a in attrs]
+    return " ".join(parts) + " | SZ Procure"
+
+
+def _build_sku_meta(pn, mfr, specs_raw, native_l1, subcat, cat_top, n_alt, has_ds):
+    fam = _sku_title_family(native_l1, subcat)
+    attrs = _select_title_attrs(specs_raw, fam)
+    subj = (subcat or cat_top or "").strip()
+    base = " ".join(x for x in [esc(pn), esc(mfr), esc(subj)] if x).strip()
+    extras = []
+    if has_ds:
+        extras.append("datasheet")
+    if n_alt > 0:
+        extras.append(f"{n_alt} alternative{'s' if n_alt != 1 else ''}")
+    extras.append("specs")
+    if attrs:
+        meta = f"{base} — {', '.join(esc(a) for a in attrs)}; " + ", ".join(extras) + ". Quote via SZ Procure."
+    else:
+        meta = f"{base}. " + ", ".join(extras) + ". Quote via SZ Procure."
+    if len(meta) < 50:
+        meta = f"{base}. Request a quote from SZ Procure, your sourcing partner."
+    return meta
+
 
 def build_en_attrs(raw):
     """Parse a raw attributes_json string and return an English-keyed/valued
