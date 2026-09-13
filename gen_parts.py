@@ -550,19 +550,19 @@ def _print_faq_audit(pn, audit):
 
 
 def merge_faqs(faq_raw, enrich, row):
-    """Final FAQ merge: source priority + count control (rule confirmed 2026-09-12).
+    """Final FAQ merge (rule confirmed 2026-09-12, hardened 2026-09-13).
 
-    Priority:
+    ONLY Pass A is retained. SZProcure SKU content rule: FAQ MUST come from the
+    real info source (RAW / LCSC) and MUST NOT be AI-generated or supplemented.
+
       Pass A  LCSC/RAW qualified product FAQs -> merged IN FULL, then FORCED to
               max-3 (user decision 2026-09-12: truncate to 3, any extras dropped).
-      Pass B  SZProcure self-gen (MASTER.faq)  -> used ONLY to top up to 3 when
-              LCSC qualified < 3. MASTER is never modified; only the adopted
-              count is capped at the merge layer (never fabricate to pad).
-      Pass C  enrichment FAQ                    -> minor supplement; only truly-new
-              high-value product questions, capped, NEVER appended uncontrolled
-              when LCSC>=3.
-    off-brand (LCSC/price) filtered on BOTH question+answer at merge time;
-    exact + approximate (synonym) dedup across all sources.
+              off-brand (competitor / price) filtered on BOTH question+answer.
+              internal + cross-source dedup applied.
+
+    Pass B (SZProcure self-gen from MASTER.faq) and Pass C (enrichment FAQ) were
+    REMOVED: they fabricated / supplemented FAQ content, violating the SKU
+    content rule. With real FAQ we show up to 3; with none we render none.
     Returns (pairs, audit_dict).
     """
     audit = {"lcsc_qualified": 0, "szprocure_self_gen": 0, "enrichment_used": 0,
@@ -592,36 +592,10 @@ def merge_faqs(faq_raw, enrich, row):
     audit["lcsc_qualified"] = len(lcsc_pairs)
     final = [list(p) for p in lcsc_pairs]
 
-    # ---- Pass B: SZProcure self-gen (MASTER.faq) tops up to 3 when LCSC < 3 ----
-    self_gen = []
-    if len(final) < 3:
-        for q, a in parse_faq(faq_raw, row.get("mpn", "")):
-            if _faq_is_offbrand(q) or _faq_is_offbrand(a):
-                _filt("selfgen_offbrand"); continue
-            if len(final) >= 3:
-                break
-            if any(_faq_is_dup(q, a, fq, fa) for fq, fa in final):
-                _ded("selfgen_dup_vs_lcsc"); continue
-            final.append([q, a]); self_gen.append([q, a])
-    audit["szprocure_self_gen"] = len(self_gen)
-
-    # ---- Pass C: enrichment — truly-new, capped, never uncontrolled when rich ----
-    enrich_used = []
-    if enrich and enrich.get("faq"):
-        cap = 0 if len(final) >= 3 else (3 - len(final))
-        for f in enrich["faq"]:
-            if len(enrich_used) >= cap:
-                break
-            q = f.get("question") if isinstance(f, dict) else None
-            a = f.get("answer") if isinstance(f, dict) else None
-            if not (q and a):
-                continue
-            if _faq_is_offbrand(q) or _faq_is_offbrand(a):
-                _filt("enrich_offbrand"); continue
-            if any(_faq_is_dup(q, a, fq, fa) for fq, fa in final):
-                _ded("enrich_dup"); continue
-            final.append([q, a]); enrich_used.append([q, a])
-    audit["enrichment_used"] = len(enrich_used)
+    # ---- Pass B / Pass C REMOVED (2026-09-13) ----
+    # Self-gen (MASTER.faq) and enrichment FAQ were stripped out to comply with
+    # the SKU content rule: FAQ must originate from the real info source only.
+    # audit['szprocure_self_gen'] and audit['enrichment_used'] stay 0 by design.
     # ---- FORCED max-3 (user decision 2026-09-12) ----
     # All off-brand (competitor/price) entries were already dropped during each
     # Pass above, so `final` here holds only clean pairs. Truncate to the first
@@ -1287,7 +1261,11 @@ def _get_section_extras_index():
             model = (al.get("productModel") or "").strip()
             if model:
                 alts.append(model)
-        rec = {"apps": app_list, "faqs": faqs, "alts": alts}
+        # Package fallback (P1-3, 2026-09-13): raw encapStandard is the authoritative
+        # package/case value when MASTER attributes_json has no 'package'. Cleaned so a
+        # trailing size suffix like '(7x7)' is dropped and placeholder '-'/'SMD' discarded.
+        encap = _clean_encap(mp.get("encapStandard"))
+        rec = {"apps": app_list, "faqs": faqs, "alts": alts, "encap": encap}
         if pc:
             _SECTION_EXTRAS_INDEX[pc] = rec
         if pm:
@@ -1295,8 +1273,27 @@ def _get_section_extras_index():
     return _SECTION_EXTRAS_INDEX
 
 
+def _clean_encap(v):
+    """Clean a RAW encapStandard value for use as a Package / Case fallback (P1-3).
+
+    - Strips a trailing dimension suffix, e.g. 'LQFP-48(7x7)' -> 'LQFP-48'.
+    - Discards placeholder values '-' and 'SMD' (not real packages).
+    - Returns '' when nothing usable (so no fabricated package is emitted).
+    """
+    if not v:
+        return ""
+    s = str(v).strip()
+    if not s or s in ("-", "SMD"):
+        return ""
+    if s.endswith(")") and "(" in s:
+        s = s[:s.rfind("(")].strip()
+    if not s or s in ("-", "SMD"):
+        return ""
+    return s
+
+
 def _raw_section_extras(row):
-    """Return {apps, faqs, alts} from the 01-collected scale500 RAW, or None (no fabrication)."""
+    """Return {apps, faqs, alts, encap} from the 01-collected scale500 RAW, or None (no fabrication)."""
     idx = _get_section_extras_index()
     if not idx:
         return None
@@ -1790,6 +1787,16 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
     # translate to English visible layer (CJK gate); keep ONLY real keys/values
     spec_pairs_en = translate_spec_pairs(spec_pairs)
 
+    # P1-3 (2026-09-13): Package fallback from RAW encapStandard when MASTER
+    # attributes_json carries no 'package'. Real pipeline value only; never invented.
+    # Computed up-front so it reaches BOTH the Specifications table and the hero
+    # identity row (id_rows), and dedups against enrichment specs via seen_concepts.
+    _raw_ext_pkg = _raw_section_extras(row)
+    if _raw_ext_pkg and not any(k.lower() == "package" for k, _ in spec_pairs_en):
+        encap = (_raw_ext_pkg.get("encap") or "").strip()
+        if encap:
+            spec_pairs_en.append(["package", encap])
+
     # ---- Risk #2: load PDF enrichment at generation time (optional, never blocks) ----
     enrich = load_enrichment(slug, pn)
     enrich_spec_pairs = []   # enrichment-only specs: supplemental, NEVER fed into id_rows identity
@@ -2223,9 +2230,11 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
     "@type": "Product",
     "name": "{esc(pn)}",
     "model": "{esc(pn)}",
+    "sku": "{esc(pn)}",
     "mpn": "{esc(pn)}",
     "category": "{esc(cat_top)}",
     "brand": {{ "@type": "Brand", "name": "{esc(mfr)}", "@id": "https://www.szprocure.com/#szprocure-org" }},
+    "manufacturer": {{ "@type": "Organization", "name": "{esc(mfr)}" }},
     "description": "{esc(schema_overview)}",
     "url": "{url}"{(", \"alternatePart\": [" + alt_ld + "]") if alt_ld else ""}
   }}
