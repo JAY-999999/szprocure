@@ -1623,107 +1623,121 @@ def classify_product_type(subcat, native_l1_raw):
 
 
 def build_sourcing_info(pn, mfr, cat, subcat, native_l1_raw, spec_pairs_en, apps_list):
-    """Build the Sourcing Information block: fixed 4-part framework + SKU-driven variant.
+    """Build the Sourcing Information block (03 SKU HTML render stage).
 
-    Rules enforced (per 2026-09-12 spec):
-      - Only VERIFIED SKU data (pn, mfr, cat, subcat, specs, apps) is used.
-      - No inferred use / performance / supplier / stock / price / lead time / genuine /
-        certification / quality-result claims.
-      - No absolute or guarantee language (genuine, best/lowest price, guaranteed stock/
-        delivery, official/authorized distributor).
-      - Sourcing services are kept distinct from SKU facts.
-      - 2-3 dense, readable paragraphs; SEO keywords woven where relevant (no stuffing).
+    DESIGN — deterministic template engine (no AI, no random text):
+      * 3 Header variants x 3 Body variants x 3 CTA variants (max 27 combos).
+      * Variant selection is a STABLE SHA-256 hash of the MPN, so the SAME MPN always
+        yields the SAME copy on every regeneration (idempotent, repeatable at scale).
+      * Only VERIFIED, real SKU data drives the text: pn, mfr, and (optionally) real spec
+        values already present in spec_pairs_en. No inferred use / performance / supplier /
+        stock / price / lead-time / authenticity claims.
+      * NO lifecycle (EOL / scarce) branching: Sourcing Information is a service module, not a
+        lifecycle classifier — lifecycle judgement is intentionally out of scope here.
+      * Service actions only: supplier sourcing, availability checking, quotation comparison,
+        procurement coordination, supplier screening, pre-shipment inspection, consolidation,
+        international shipping. CTA drives Request a Quote.
+      * Forbidden commercial claims (never generated): verified/guaranteed stock, ready/in stock,
+        guaranteed price/lead time/authenticity, 100% genuine, authorized/official distributor,
+        lowest/best price, guaranteed savings, "every lot undergoes inspection", same-day quote.
     Returns an HTML string of <p> blocks (the <section> wrapper is owned by the caller).
     """
+    import hashlib
     pn_e = esc(pn)
     mfr_e = esc(mfr) if mfr else ""
-    cat_e = esc(cat) if cat else ""
-    subcat_e = esc(subcat) if subcat else ""
-    # Official RFQ page URL (same standard SKU-quote deep-link used elsewhere in the site).
-    rfq_url = (f"/request-a-quote/?pn={urlquote(pn)}&mfr={urlquote(mfr)}&cat={urlquote(cat)}"
-               f"&source=product&rfq_type=sku_quote")
-    type_key, lifecycle = classify_product_type(subcat, native_l1_raw)
 
-    # product noun: prefer a specific subcategory term, else category, else "component"
-    if subcat_e:
-        product_noun = subcat_e
-    elif cat_e:
-        product_noun = cat_e
-    else:
-        product_noun = "component"
+    # ---- optional real spec fragment (only when verified values exist; never fabricated) ----
+    # Light, real differentiation for ONE body variant; never stuffed across all variants.
+    spec_frag = ""
+    if spec_pairs_en:
+        _known = {}
+        for _k, _v in spec_pairs_en:
+            if _k and _v:
+                _known[str(_k).strip().lower()] = (str(_k).strip(), str(_v).strip())
+        _cand = ["core processor", "flash memory", "package / case", "pitch",
+                 "number of positions", "mounting type", "supply voltage",
+                 "number of i/o", "memory size"]
+        _hits = []
+        for _c in _cand:
+            for _lk, (_ok, _vv) in _known.items():
+                if _c in _lk and _vv:
+                    _hits.append((_ok, _vv))
+                    break
+            if len(_hits) >= 3:
+                break
+        if _hits:
+            _parts = [f"{_ok} {_vv}" for _ok, _vv in _hits]
+            _frag = (_parts[0] if len(_parts) == 1
+                     else (_parts[0] + " and " + _parts[1] if len(_parts) == 2
+                           else ", ".join(_parts[:-1]) + " and " + _parts[-1]))
+            spec_frag = (f" Before ordering, the listed specification(s) &mdash; {_frag} &mdash; "
+                         f"can be confirmed with the supplier against the actual part.")
 
-    # ---- Paragraph 1: procurement positioning (MPN + China electronics supply chain) ----
-    if mfr_e:
-        p1 = (f"<p>SZ Procure is a sourcing partner for the <strong>{pn_e}</strong> "
-              f"({mfr_e} {product_noun}), not a stock catalog. We help international buyers "
-              f"source this electronic component through the China electronics supply chain, "
-              f"with verified supplier sourcing and quality inspection.</p>")
-    else:
-        p1 = (f"<p>SZ Procure is a sourcing partner for the <strong>{pn_e}</strong> "
-              f"({product_noun}), not a stock catalog. We help international buyers source this "
-              f"electronic component through the China electronics supply chain, with verified "
-              f"supplier sourcing and quality inspection.</p>")
+    # ---- deterministic variant selection (stable across runs / Python versions) ----
+    _seed = int(hashlib.sha256(pn.encode("utf-8")).hexdigest()[:8], 16)
+    _hv = _seed % 3
+    _bv = (_seed // 3) % 3
+    _cv = (_seed // 9) % 3
 
-    # Lifecycle disclosure — only when EXPLICIT verified keywords were present (no inference).
-    lifecycle_note = ""
-    if lifecycle == "scarce":
-        lifecycle_note = (f" Because {pn_e} may be in limited supply, we perform availability "
-                          f"investigation across multiple suppliers &mdash; a sourcing effort, not a "
-                          f"guarantee of stock or delivery date.")
-    elif lifecycle == "eol":
-        lifecycle_note = (f" Because {pn_e} is listed as end-of-life or obsolete in the supplied "
-                          f"data, we provide sourcing support and availability investigation across "
-                          f"remaining channels &mdash; a sourcing effort, not a guarantee of stock or "
-                          f"authenticity.")
+    # ---- Header variants (3) ----
+    if _hv == 0:
+        if mfr_e:
+            _header = (f"<p>Looking for a reliable source for {pn_e} from {mfr_e}? SZ Procure is a "
+                       f"China electronics sourcing partner, helping international buyers source "
+                       f"components through our supplier network in Shenzhen.</p>")
+        else:
+            _header = (f"<p>Looking for a reliable source for {pn_e}? SZ Procure is a China "
+                       f"electronics sourcing partner, helping international buyers source "
+                       f"components through our supplier network in Shenzhen.</p>")
+    elif _hv == 1:
+        if mfr_e:
+            _header = (f"<p>Need {pn_e} from {mfr_e} for your next order? SZ Procure provides local "
+                       f"sourcing support in Shenzhen &mdash; we help buyers check supplier "
+                       f"availability, compare quotations, and coordinate procurement for "
+                       f"China-sourced components.</p>")
+        else:
+            _header = (f"<p>Need {pn_e} for your next order? SZ Procure provides local sourcing "
+                       f"support in Shenzhen &mdash; we help buyers check supplier availability, "
+                       f"compare quotations, and coordinate procurement for China-sourced "
+                       f"components.</p>")
+    else:  # _hv == 2
+        _header = (f"<p>Sourcing {pn_e} from China? SZ Procure helps international buyers navigate "
+                   f"the Shenzhen electronics market and locate suitable supplier options for "
+                   f"specific component requirements.</p>")
 
-    # ---- Paragraphs 2 & 3: services & QC, varied by product type ----
-    if type_key == "mcu_ic":
-        svc = (f"For component sourcing of {pn_e}, we run supplier sourcing across the China "
-               f"electronics supply chain, supplier verification and multi-supplier quotation "
-              f"comparison so you can compare offers before purchase. We coordinate purchase "
-              f"orders, consolidation and international logistics dispatch from Shenzhen.")
-        qc = (f"Quality control focuses on supplier qualification and screening, then product, "
-              f"packaging and labeling checks with outgoing inspection before dispatch. These are "
-              f"sourcing services we perform &mdash; they are not a guarantee of any supplier's stock, "
-              f"price, lead time or authenticity. Tell us your required quantity, target price and "
-              f"sourcing requirements, then <a href=\"{rfq_url}\">Request a Quote</a>.")
-    elif type_key == "connector":
-        svc = (f"For {pn_e}, supplier sourcing matches your required specifications &mdash; such as "
-               f"pin count, pitch and mounting style &mdash; against verified China electronics supply "
-               f"chain suppliers, with multi-supplier quotation comparison and purchase-order "
-              f"coordination. We handle consolidation and international logistics dispatch from "
-              f"Shenzhen.")
-        qc = (f"Quality control includes supplier qualification and screening, specification "
-              f"matching verification, and product, packaging and labeling checks with outgoing "
-              f"inspection. These checks are part of our sourcing service and do not constitute a "
-              f"guarantee of stock, price, lead time or authenticity. Tell us your required "
-              f"quantity, target price and sourcing requirements, then "
-              f"<a href=\"{rfq_url}\">Request a Quote</a>.")
-    elif type_key == "module":
-        svc = (f"For electronics sourcing of {pn_e}, we carry out availability verification across "
-               f"suppliers in the China electronics supply chain, multi-supplier quotation comparison and "
-              f"purchase-order coordination, then consolidation and international logistics dispatch "
-              f"from Shenzhen.")
-        qc = (f"Quality control covers supplier qualification and screening, availability "
-              f"cross-check, product, packaging and labeling inspection and outgoing inspection. "
-              f"These are sourcing services we provide; they are not a guarantee of a specific "
-              f"supplier's stock, price, lead time or authenticity. Tell us your required quantity, "
-              f"target price and sourcing requirements, then "
-              f"<a href=\"{rfq_url}\">Request a Quote</a>.")
-    else:  # other
-        svc = (f"For {pn_e}, our electronics sourcing covers supplier sourcing across the China "
-               f"electronics supply chain, supplier verification and multi-supplier quotation "
-              f"comparison so you can compare offers before purchase. We coordinate purchase orders, "
-              f"consolidation and international logistics dispatch from Shenzhen.")
-        qc = (f"Quality control includes supplier qualification and screening, then product, "
-              f"packaging and labeling checks with outgoing inspection before dispatch. These are "
-              f"sourcing services we perform &mdash; they are not a guarantee of any supplier's stock, "
-              f"price, lead time or authenticity. Tell us your required quantity, target price and "
-              f"sourcing requirements, then <a href=\"{rfq_url}\">Request a Quote</a>.")
+    # ---- Body variants (3) ----
+    if _bv == 0:
+        _body = (f"<p>For {pn_e}, we can check current supplier availability, compare quotations "
+                 f"from multiple sources, coordinate purchasing, and arrange pre-shipment "
+                 f"inspection and shipment consolidation according to your requirements.</p>")
+    elif _bv == 1:
+        _body = (f"<p>Our Shenzhen sourcing team can help with supplier sourcing, availability "
+                 f"checks and quotation comparison for {pn_e}, then coordinate procurement, "
+                 f"supplier screening, inspection and international shipping based on what you "
+                 f"need.</p>")
+    else:  # _bv == 2
+        _body = (f"<p>When you need {pn_e}, SZ Procure can look into supplier options, confirm "
+                 f"current availability, compare sourcing quotes and handle purchasing, "
+                 f"pre-shipment inspection and consolidated shipment from Shenzhen.</p>")
+        if spec_frag:
+            # append the real-spec sentence inside the same <p> for body variant 2 only
+            _body = _body[:-4] + spec_frag + "</p>"
 
-    p2 = f"<p>{svc}{lifecycle_note}</p>"
-    p3 = f"<p>{qc}</p>"
-    return p1 + p2 + p3
+    # ---- CTA variants (3) ----
+    _rfq = (f"/request-a-quote/?pn={urlquote(pn)}&mfr={urlquote(mfr)}"
+            f"&cat={urlquote(cat)}&source=product&rfq_type=sku_quote")
+    if _cv == 0:
+        _cta = (f"<p>Need {pn_e}? Send us your required quantity and specifications for a "
+                f"<a href=\"{_rfq}\">sourcing check and quotation</a>.</p>")
+    elif _cv == 1:
+        _cta = (f"<p>Looking to source {pn_e}? <a href=\"{_rfq}\">Submit an RFQ</a> and let our "
+                f"Shenzhen sourcing team check available supplier options for you.</p>")
+    else:  # _cv == 2
+        _cta = (f"<p>Ready to source {pn_e}? Send your requirement through "
+                f"<a href=\"{_rfq}\">Request a Quote</a> and we'll help check sourcing options and "
+                f"procurement costs.</p>")
+
+    return _header + _body + _cta
 
 
 def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None, verbose=False):
