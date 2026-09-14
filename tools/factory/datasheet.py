@@ -35,6 +35,7 @@ marked DUPLICATE — recorded, never a failure).
 import hashlib
 import json
 import os
+import random
 import ssl
 import tempfile
 import threading
@@ -46,11 +47,72 @@ from datetime import datetime
 
 from . import pool
 
+# ---------------------------------------------------------------------------
+# static-IP egress: reuse the verified proxy + egress logic from lcsc_http_acquire
+# (01 采集阶段已验证的 .lcsc_proxy 静态 IP 通道). 任何 LCSC PDF 请求都经此代理;
+# 配置缺失或出口 IP 不符 -> fail-closed, 绝不 urllib 直连. 仅在首次 fetch 时执行
+# 一次 egress 自检 (幂等 + 线程安全).
+# ---------------------------------------------------------------------------
+import sys as _sys
+_TOOLS_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if _TOOLS_DIR not in _sys.path:
+    _sys.path.insert(0, _TOOLS_DIR)
+import lcsc_http_acquire as _lha   # noqa: E402  (import after path fix)
+
+EXPECT_EGRESS_IP = os.environ.get("LCSC_EXPECT_IP", "82.25.225.72")
+_PROXY_OPENER = None
+_PROXY_READY = False
+_PROXY_LOCK = threading.Lock()
+
+
+def _ensure_proxy():
+    """Lazily configure the static-IP proxy and verify egress. Idempotent + thread-safe.
+
+    Raises DatasheetError (fail-closed) if no .lcsc_proxy or egress != EXPECT_EGRESS_IP,
+    so no PDF is ever fetched over a direct urllib connection.
+    """
+    global _PROXY_OPENER, _PROXY_READY
+    if _PROXY_READY:
+        return
+    with _PROXY_LOCK:
+        if _PROXY_READY:
+            return
+        proxy_url = _lha._read_proxy_url_local()
+        if not proxy_url:
+            raise DatasheetError(
+                "[egress] 未找到 .lcsc_proxy (LCSC_PROXY 与 tools/.lcsc_proxy 均无) "
+                "-> 禁止直连, fail-closed")
+        _lha.configure_urllib_proxy(proxy_url)   # sets _lha._URLLIB_PROXY_OPENER (供 egress 自检)
+        egress_ip = _lha._verify_egress_urllib(proxy_url, EXPECT_EGRESS_IP)
+        if egress_ip != EXPECT_EGRESS_IP:
+            raise DatasheetError(
+                f"[egress] 出口IP={egress_ip} 期望静态IP={EXPECT_EGRESS_IP} "
+                f"-> 通道异常, fail-closed, 禁止下载")
+        _PROXY_OPENER = _lha._URLLIB_PROXY_OPENER
+        _PROXY_READY = True
+
+
 # ---------------------------------------------------------------- tunables --
-DEFAULT_WORKERS = 8          # default only; pass workers=4/8/16/32
+# 防封强化 (2026-09-14): PDF 通道默认串行 workers=1, 达到 01 采集通道礼貌水平.
+# 不要擅自设计动态并发; 提速不是目标, 安全/防封/静态 IP 保护才是.
+DEFAULT_WORKERS = 1          # 默认安全值: 串行, 礼貌采集
 DEFAULT_RETRIES = 3
 DEFAULT_TIMEOUT = 60         # seconds per attempt
 DEFAULT_BACKOFF = 1.5        # exponential base
+
+# --- 礼貌延迟 (对齐 01 通道 collector_common / lcsc_http_acquire 参数风格) ---
+SUCCESS_DELAY_MIN = 2.0      # 成功路径: 每次成功下载后随机礼貌延迟下界
+SUCCESS_DELAY_MAX = 4.5      # 成功路径: 随机礼貌延迟上界 (random.uniform(MIN,MAX))
+LONG_PAUSE_EVERY = 20        # 每处理 N 个 SKU 插入一次长暂停 (0=关闭)
+LONG_PAUSE_MIN = 5.0         # 长暂停下界
+LONG_PAUSE_MAX = 15.0        # 长暂停上界 (random.uniform(MIN,MAX))
+
+# --- 429/403/5xx 断路保护 (datasheet.py 内最小实现, 保守阈值) ---
+C429_THRESHOLD = 2           # 连续 429 达此数 -> 进入冷却
+C5XX_THRESHOLD = 5           # 连续 5xx 达此数 -> 进入冷却
+COOLDOWN_SEC = 300           # 冷却时长 (秒, 5 分钟); 冷却期间整批挂起
+# 403 无阈值: 任何 403 立即 HARD_BLOCKED 整批停止 (绝不重试/直连)
+
 MIN_PDF_BYTES = 1024         # catches empty files and HTML error pages
 MAX_PDF_BYTES = 100 * 1024 * 1024
 ALLOWED_CONTENT_TYPES = ("application/pdf", "application/octet-stream",
@@ -58,8 +120,27 @@ ALLOWED_CONTENT_TYPES = ("application/pdf", "application/octet-stream",
 REQUIRE_EOF_MARKER = True    # a PDF without %%EOF was truncated in transfer
 LEDGER_CHECKPOINT_EVERY = 25
 
-UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-      "(KHTML, like Gecko) Chrome/124.0 Safari/537.36")
+# --- UA 池轮换: 复用 01 通道 _lha.cc.UA_POOL (不修改 lcsc_http_acquire.py) ---
+# 本地兜底池: 万一 collector_common 在 _lha 中未成功导入 (cc=None), 仍不中断、不直连降级.
+_UA_FALLBACK_POOL = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0",
+]
+try:
+    _UA_POOL = list(_lha.cc.UA_POOL)   # cc 在 _lha 中成功导入时可用
+except Exception:                       # noqa: BLE001  cc=None 或 UA_POOL 缺失
+    _UA_POOL = _UA_FALLBACK_POOL
+
+
+def _pick_ua() -> str:
+    """每次请求随机抽一个 UA, 打破恒定 UA 的 bot 特征 (对齐 01 通道)."""
+    return random.choice(_UA_POOL)
 
 # ---------------------------------------------------------------- statuses --
 DISCOVERED = "DISCOVERED"
@@ -90,6 +171,9 @@ E_EMPTY = "EMPTY"
 E_TOO_SMALL = "TOO_SMALL"
 E_TOO_LARGE = "TOO_LARGE"
 E_TRUNCATED = "TRUNCATED_PDF"
+E_RATE_LIMITED = "RATE_LIMITED"       # 429 触发批量冷却/断路
+E_HARD_BLOCKED = "HARD_BLOCKED"       # 403 整批硬停
+E_ABORTED = "ABORTED"                 # 批次已被硬停/断路, 后续 SKU 中止
 
 PDF_MAGIC = b"%PDF"
 EOF_MARKER = b"%%EOF"
@@ -191,12 +275,77 @@ def save_ledger(batch_id, records, root=None):
 # =====================================================================
 # download
 # =====================================================================
+class _CircuitBreaker:
+    """PDF 通道最小断路保护 (datasheet.py 内实现, 不改 acquire_publish.py).
+
+    策略 (保守阈值, 详见顶部常量):
+      * 429 连续 >= C429_THRESHOLD  -> 进入冷却 COOLDOWN_SEC 秒 (整批挂起)
+      * 5xx 连续 >= C5XX_THRESHOLD  -> 进入冷却 COOLDOWN_SEC 秒
+      * 403 -> 立即 HARD_BLOCKED, 置 abort 事件, 后续 SKU 全部中止
+    成功或其它非限流错误会重置连续计数 (不进冷却).
+    """
+
+    def __init__(self):
+        self._lock = threading.Lock()
+        self._consec_429 = 0
+        self._consec_5xx = 0
+        self._cooling_until = 0.0
+        self.hard_blocked = False
+
+    def record_429(self):
+        with self._lock:
+            self._consec_5xx = 0
+            self._consec_429 += 1
+            if self._consec_429 >= C429_THRESHOLD:
+                self._cooling_until = time.time() + COOLDOWN_SEC
+                self._consec_429 = 0
+
+    def record_5xx(self):
+        with self._lock:
+            self._consec_429 = 0
+            self._consec_5xx += 1
+            if self._consec_5xx >= C5XX_THRESHOLD:
+                self._cooling_until = time.time() + COOLDOWN_SEC
+                self._consec_5xx = 0
+
+    def record_success_or_other(self):
+        with self._lock:
+            self._consec_429 = 0
+            self._consec_5xx = 0
+
+    def hard_block(self):
+        with self._lock:
+            self.hard_blocked = True
+
+    def is_cooling(self):
+        with self._lock:
+            return time.time() < self._cooling_until
+
+    def remaining_sec(self):
+        with self._lock:
+            rem = self._cooling_until - time.time()
+            return rem if rem > 0 else 0.0
+
+    def wait_if_cooling(self, log=print):
+        wait = self.remaining_sec()
+        if wait > 0:
+            log(f"[cooldown] PDF 通道 429/5xx 熔断冷却中, 剩余 {wait:.0f}s, 整批挂起...")
+            time.sleep(wait)
+            return wait
+        return 0.0
+
+
 class _Shared:
     """Cross-thread state: the hash -> physical-path map and its lock."""
 
     def __init__(self):
         self.lock = threading.Lock()
         self.by_hash = {}
+        # 防封: 跨线程断路状态 + 硬停事件 + 长暂停计数
+        self.cb = _CircuitBreaker()
+        self.abort = threading.Event()
+        self.req_counter = 0
+        self.req_lock = threading.Lock()
 
 
 def _validate(data, content_type):
@@ -219,10 +368,11 @@ def _validate(data, content_type):
 
 def _fetch_once(url, timeout):
     """Single GET attempt. Returns (data, http_status, content_type)."""
-    req = urllib.request.Request(url, headers={"User-Agent": UA,
+    _ensure_proxy()                                  # fail-closed: 经静态 IP 代理, 绝不直连
+    req = urllib.request.Request(url, headers={"User-Agent": _pick_ua(),
                                                "Referer": "https://www.lcsc.com/"})
     ctx = ssl.create_default_context()
-    with urllib.request.urlopen(req, timeout=timeout, context=ctx) as r:
+    with _PROXY_OPENER.open(req, timeout=timeout) as r:
         return r.read(), getattr(r, "status", 200), r.headers.get("Content-Type", "")
 
 
@@ -254,9 +404,22 @@ def _store(data, batch_id, shared, root=None):
 
 def download_one(rec, batch_id, shared, root=None, retries=DEFAULT_RETRIES,
                  timeout=DEFAULT_TIMEOUT, backoff=DEFAULT_BACKOFF):
-    """Download + verify a single asset. Mutates and returns rec."""
+    """Download + verify a single asset. Mutates and returns rec.
+
+    防封强化: 入口先做 abort/cooldown 守门; 403 触发整批硬停; 429/5xx 喂入
+    断路冷却; 成功路径加随机礼貌延迟; 每 N 请求加长暂停. 下载/校验/SHA256/
+    断点续传逻辑与既有保持一致.
+    """
     if rec.get("status") in DONE_STATES:
         return rec                                   # resume: already done
+
+    # 防封守门: 整批已被硬停(403)或断路 -> 本 SKU 立即中止, 不再触网
+    if getattr(shared, "abort", None) is not None and shared.abort.is_set():
+        rec.update(status=FAILED, error_code=E_ABORTED)
+        return rec
+    cb = getattr(shared, "cb", None)
+    if cb is not None:
+        cb.wait_if_cooling()                          # 429/5xx 冷却中则整批挂起
 
     url = (rec.get("source_url") or "").strip()
     if not url:
@@ -265,6 +428,14 @@ def download_one(rec, batch_id, shared, root=None, retries=DEFAULT_RETRIES,
 
     if rec.get("status") == DOWNLOADING:
         rec["status"] = DISCOVERED                   # recover from a crash
+
+    # 长暂停计数: 每处理 N 个 SKU 插入一次 5-15s 长暂停 (对齐 01 通道)
+    if LONG_PAUSE_EVERY and getattr(shared, "req_lock", None) is not None:
+        with shared.req_lock:
+            shared.req_counter += 1
+            n = shared.req_counter
+        if n % LONG_PAUSE_EVERY == 0:
+            time.sleep(random.uniform(LONG_PAUSE_MIN, LONG_PAUSE_MAX))
 
     last_err, last_code = "", None
     for attempt in range(1, retries + 1):
@@ -276,16 +447,44 @@ def download_one(rec, batch_id, shared, root=None, retries=DEFAULT_RETRIES,
             ok, code = _validate(data, ctype)
             if not ok:
                 rec.update(status=FAILED, error_code=code)
+                if cb is not None:
+                    cb.record_success_or_other()     # 内容级错误非限流, 重置计数
                 return rec
             path, dup = _store(data, batch_id, shared, root)
             rec.update(local_path=path, file_size=len(data),
                        sha256=sha256_bytes(data), fetched_at=_now(),
                        status=DUPLICATE if dup else VERIFIED,
                        error_code=None)
+            if cb is not None:
+                cb.record_success_or_other()
+            # 成功路径: 随机礼貌延迟 (2.0-4.5s), 不叠加 retry backoff
+            time.sleep(random.uniform(SUCCESS_DELAY_MIN, SUCCESS_DELAY_MAX))
             return rec
         except urllib.error.HTTPError as e:
-            last_err, last_code = f"HTTP {e.code}", E_HTTP
-            rec["http_status"] = e.code
+            code = e.code
+            rec["http_status"] = code
+            if code == 403:
+                # 硬停整批: 绝不重试, 绝不退化为直连
+                if cb is not None:
+                    cb.hard_block()
+                if getattr(shared, "abort", None) is not None:
+                    shared.abort.set()
+                rec.update(status=FAILED, error_code=E_HARD_BLOCKED)
+                return rec
+            if code == 429:
+                if cb is not None:
+                    cb.record_429()
+                # 限流: 标记 RATE_LIMITED, 放弃本 SKU 重试, 由断路进入冷却/停批
+                rec.update(status=FAILED, error_code=E_RATE_LIMITED)
+                return rec
+            if 500 <= code < 600:
+                if cb is not None:
+                    cb.record_5xx()
+                # 网关错误: 放弃本 SKU 重试, 连续达阈值由断路进入冷却
+                rec.update(status=FAILED, error_code=E_HTTP)
+                return rec
+            # 其它 4xx: 本 SKU 永久失败, 走既有 retry/backoff 逻辑
+            last_err, last_code = f"HTTP {code}", E_HTTP
         except Exception as e:                        # timeout / DNS / reset
             name = type(e).__name__
             last_err = f"{name}: {e}"
@@ -338,6 +537,8 @@ def download_batch(batch_id, root=None, workers=DEFAULT_WORKERS,
     """Download every non-finished asset in the batch ledger, concurrently."""
     if workers < 1:
         raise DatasheetError("workers must be >= 1")
+
+    _ensure_proxy()                                  # egress self-check before any download
 
     records = load_ledger(batch_id, root)
     if not records:

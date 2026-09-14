@@ -653,9 +653,9 @@ def acquire_one(code: str, out_dir: str, timeout: float, max_retries: int,
         "realtime_fields": len(realtime_fields),
     }
     write_runlog(runlog_path, rec, runlog_lock)
-    # 礼貌性 delay (非重试退避)
+    # 礼貌性 delay (非重试退避) — 随机抖动, 打破固定间隔机器特征
     if delay > 0:
-        time.sleep(delay)
+        time.sleep(random.uniform(delay * 0.5, delay * 1.5))
 
 
 # ----------------------------------------------------------------------------
@@ -673,6 +673,8 @@ def read_codes_file(path: str):
             if m:
                 codes.append(m.group(0).upper())
     return codes
+
+
 
 
 def main(argv=None):
@@ -724,6 +726,7 @@ def main(argv=None):
     proxy_url = args.proxy or env_proxy or file_proxy
     pw_proxy = cc.parse_proxy(proxy_url) if (cc and proxy_url) else None
     expect_ip = os.environ.get("LCSC_EXPECT_IP", "82.25.225.72")
+
 
     # ---- fail-closed 门禁 (P0#1 / P0#2 / P1) ----
     # 原则: 一旦「配置/意图是走代理匿名」, 就必须保证匿名; 任何环节无法满足 ->
@@ -813,7 +816,7 @@ def main(argv=None):
                         runlog_path, runlog_lock, date_tag,
                         fetch_fn=fetch_fn, cooldown=cooldown, abort_event=abort_event)
             if args.long_pause_every and (idx + 1) % args.long_pause_every == 0:
-                time.sleep(random.uniform(5, 15))
+                time.sleep(random.uniform(15, 30))
 
     if args.browser and cc is not None:
         handle = None
