@@ -387,7 +387,12 @@ def flatten_envelope(env):
     } for a in al if (a.get("productModel") or "").strip()]
 
     desc = (mp.get("productNameEn") or "").strip()
-    intro = (mp.get("productIntroEn") or (od.get("productIntroEn") or "")).strip()
+    # REAL Product Introduction: official narrative from the 01-collected RAW.
+    # PRIMARY source is overviewData.productIntroEn (the full prose intro); the
+    # main_product.productIntroEn short variant is kept only as a fallback.
+    # Forwarded as a separate `introduction` field so 02 no longer silently
+    # discards it (root-cause fix for the Introduction data-loss audit).
+    intro = (od.get("productIntroEn") or mp.get("productIntroEn") or "").strip()
     desc_full = (desc + " - " + intro).strip(" -") if intro else desc
     desc_norm = normalize_text(desc_full)
 
@@ -399,6 +404,7 @@ def flatten_envelope(env):
         "catalogName": (mp.get("wmCatalogNameEn") or "").strip(),
         "category": "",
         "description": desc_norm,
+        "introduction": intro,
         "attributes_json": json.dumps(attrs_canon, ensure_ascii=False),
         "attributes_json_unmapped": json.dumps(attrs_unmapped, ensure_ascii=False),
         "source_datasheet_url": (mp.get("pdfUrl") or "").strip(),

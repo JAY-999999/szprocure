@@ -40,6 +40,49 @@ CSV columns (data/sample_parts.csv) — structured contract schema:
 Usage:
   python gen_parts.py --csv "path/to/料号库.csv" --out "."
   (defaults: csv = ../芯片/料号库/料号库.csv relative to this script's dir)
+
+  ---------------------------------------------------------------------------
+  PRODUCTION CONTENT MAPPING RULES  (FORMAL — DO NOT ROLL BACK)
+  ---------------------------------------------------------------------------
+  The two mapping rules below are PERMANENT production behavior for EVERY SKU
+  page this module generates. They are applied automatically to ALL current and
+  future batches (5K / 10K / 20K / 200K SKU uploads) and to full regen — there
+  is NO per-batch opt-in and NO manual step; the code below is the only source
+  of truth. Any edit that re-introduces a fabricated / substituted value is a
+  regression, not a fix. Regression harness: szprocure_audit_tmp/phaseB_dryrun.py
+  and szprocure_audit_tmp/phaseB_keyattrs_check.py.
+
+  * Introduction
+      Source (real pipeline content, 01-collected scale500 RAW, NEVER AI-written):
+        overviewData.productIntroEn  (full prose)  ->  main_product.productIntroEn (short variant)
+      Rule: render the REAL intro when present. MASTER `description` (the
+        "{Brand} {MPN}" title-string) is ONLY the LAST-RESORT fallback used when
+        no real intro exists. NEVER present the title-string AS the Introduction
+        when a real intro exists.
+
+  * Key Attributes
+      Source (real supplier-authored highlight, 01-collected scale500 RAW):
+        main_product.productKeyAttributes
+      Rule: render the REAL value when present. When the RAW field is empty,
+        OMIT the Key Attributes row entirely. NEVER substitute with
+        `{Brand} {MPN}`, productNameEn, productDescEn, productIntroEn, or any
+        SEO / title string. "Don't manufacture content to kill an empty value."
+
+  * Product Image  (NEW — permanently fixed 2026-09-16)
+      Rule: SZProcure MUST NOT use any third-party / vendor image (LCSC product
+        photos on assets.lcsc.com, manufacturer-hosted images, distributor CDNs)
+        as a SKU product image. When SZProcure has NO real OWNED product photo
+        for a part, the page MUST NOT:
+          - emit a product <img> tag for that part,
+          - hotlink any third-party / vendor image,
+          - substitute a placeholder graphic and present it AS the product image.
+        The page simply renders WITHOUT a product photo. og:image gracefully
+        falls back to the SZProcure-OWNED hero.svg (a generic brand asset, NOT a
+        per-part image). Product JSON-LD omits the "image" field entirely. Adding
+        a real owned product-image pipeline is a SEPARATE gated task — OUT OF SCOPE
+        here. Do NOT reintroduce vendor images to "fill the gap".
+  See _raw_intro_text() / _raw_key_attributes_text(), the og:image assembly, and
+  the Product JSON-LD block below.
 """
 import csv, os, re, argparse, html, sys, json, hashlib, tempfile, subprocess
 from collections import defaultdict
@@ -1166,10 +1209,13 @@ def _get_asian_index():
 
 
 # ---------------------------------------------------------------------------
-# Features + Compliance & Export Codes: sourced from the 01-collected scale500
-# RAW at generation time (mirrors the Asian-Brands index). NEVER fabricated —
-# a section is emitted ONLY when the real field exists in the RAW.
+# Features + Compliance & Export Codes + Introduction + Key Attributes:
+# sourced from the 01-collected scale500 RAW at generation time (mirrors the
+# Asian-Brands index). NEVER fabricated — a section/row is emitted ONLY when the
+# real field exists in the RAW.  [FORMAL PRODUCTION MAPPING RULES — DO NOT ROLL BACK]
 #   Features                -> source_raw.overviewData.productFeaturesEn
+#   Introduction            -> source_raw.overviewData.productIntroEn (short: main_product.productIntroEn)
+#   Key Attributes          -> source_raw.main_product.productKeyAttributes
 #   ECCN / HTS(US) / RoHS   -> source_raw.main_product.{eccn, htsMap.US, isRohsCert}
 _FEATURES_COMPLIANCE_INDEX = None
 _FC_SRC_GLOB = "data/raw/lcsc_http_scale500/C*.json"
@@ -1201,11 +1247,16 @@ def _get_features_compliance_index():
         pc = (mp.get("productCode") or "").strip().upper()
         pm = (mp.get("productModel") or "").strip().upper()
         features = (od.get("productFeaturesEn") or "").strip()
-        # Product Introduction: official narrative from the 01-collected RAW. PRIMARY
-        # source is overviewData.productIntroEn; main_product.productIntroEn is the
-        # short variant used as a fallback when the overviewData one is empty. This is
-        # the real pipeline content (铁律: all SKU copy comes from the pipeline), NOT
-        # AI-generated — it wires the field the 01 adapter had been discarding.
+        # FORMAL PRODUCTION RULE (Introduction) — DO NOT ROLL BACK.
+        # Product Introduction = REAL pipeline narrative from the 01-collected RAW.
+        # PRIMARY source is overviewData.productIntroEn; main_product.productIntroEn
+        # is the SHORT variant used only as a fallback when the overviewData one is
+        # empty. This is the real pipeline content (铁律: all SKU copy comes from the
+        # pipeline), NOT AI-generated — it wires the field the 01 adapter had been
+        # discarding. MASTER `description` ("{Brand} {MPN}") is NEVER used as the
+        # Introduction here; it is only the LAST-RESORT fallback at render time
+        # (see the Hero/Introduction assembly). Substituting the title-string for a
+        # real intro is a regression, not a fix.
         intro = (od.get("productIntroEn") or "").strip()
         intro_short = (mp.get("productIntroEn") or "").strip()
         eccn = (mp.get("eccn") or "").strip()
@@ -1217,6 +1268,15 @@ def _get_features_compliance_index():
         hts_us = (hts_map.get("US", "") or "").strip()
         rohs = bool(mp.get("isRohsCert"))
         rohs_type = (mp.get("rohsCertType") or "").strip()
+        # FORMAL PRODUCTION RULE (Key Attributes) — DO NOT ROLL BACK.
+        # Key Attributes = the REAL, supplier-authored highlight string from the
+        # 01-collected RAW (main_product.productKeyAttributes). This is pipeline
+        # content, NOT AI-written. The 02 adapter never mapped it into MASTER, so
+        # we read it at generation time here (mirrors the intro/features wiring).
+        # NEVER substitute with `{Brand} {MPN}`, productNameEn, productDescEn,
+        # productIntroEn, or any SEO/title string; when empty, the row is OMITTED
+        # at render time (see _raw_key_attributes_text). Substituting is a regression.
+        key_attributes = (mp.get("productKeyAttributes") or "").strip()
         rec = {
             "features": features,
             "intro": intro,
@@ -1226,6 +1286,7 @@ def _get_features_compliance_index():
             "hts_us": hts_us,
             "rohs": rohs,
             "rohs_type": rohs_type,
+            "key_attributes": key_attributes,
         }
         if pc:
             _FEATURES_COMPLIANCE_INDEX[pc] = rec
@@ -1346,16 +1407,39 @@ def _raw_fc_rec(row):
 def _raw_intro_text(row):
     """Return the REAL pipeline Product Introduction for this row, or None.
 
+    FORMAL PRODUCTION RULE (Introduction) — DO NOT ROLL BACK.
     Source precedence (all from the 01-collected scale500 RAW, never AI-written):
-      main_product.productIntroEn  (intro_short, MODEL-level)  ->  overviewData.productIntroEn (intro, FAMILY-level).
-    Model-level is ALWAYS preferred over family-level so a specific SKU is never
-    overwritten by its family's generic copy (confirmed 2026-09-13).
-    Returns None when neither exists so the panel falls back to MASTER description.
+      overviewData.productIntroEn  (intro, the full prose narrative)  ->  main_product.productIntroEn (intro_short, short variant).
+    The full prose narrative is preferred; the short model-level variant is only
+    a fallback when the overviewData intro is empty. Returns None when neither
+    exists so the panel falls back to MASTER description (the "{Brand} {MPN}"
+    title-string). That title-string is the LAST-RESORT fallback ONLY — it must
+    never be presented AS the Introduction when a real intro exists.
     """
     rec = _raw_fc_rec(row)
     if not rec:
         return None
-    return rec.get("intro_short") or rec.get("intro") or None
+    return rec.get("intro") or rec.get("intro_short") or None
+
+
+def _raw_key_attributes_text(row):
+    """Return the REAL pipeline Key Attributes for this row, or None.
+
+    FORMAL PRODUCTION RULE (Key Attributes) — DO NOT ROLL BACK.
+    Source: source_raw.main_product.productKeyAttributes (01-collected RAW,
+    never AI-written). This is the supplier's own highlight string — semantically
+    DISTINCT from productNameEn / productDescEn / productIntroEn, so it is NOT
+    derived from any of those nor from MASTER.description ("{Brand} {MPN}").
+    Returns None when the field is absent in the RAW so the Key Attributes row is
+    OMITTED (never fabricated — 铁律: don't manufacture content to kill an empty value).
+    SUBSTITUTION FORBIDDEN: do NOT fall back to `{Brand} {MPN}`, productNameEn,
+    productDescEn, productIntroEn, or any SEO/title string. Doing so reintroduces
+    the original bug and is a regression. Verified by phaseB_keyattrs_check.py.
+    """
+    rec = _raw_fc_rec(row)
+    if not rec:
+        return None
+    return rec.get("key_attributes") or None
 
 
 def brand_class_html(row):
@@ -1794,6 +1878,26 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
         dsheet = _legacy_map[slug]
     related = related or []
     url = f"{DOMAIN}/products/{slug}/"
+    # ===========================================================================
+    # FORMAL PRODUCTION RULE (Product Image) — permanently fixed 2026-09-16, DO NOT ROLL BACK.
+    # Applies to EVERY SKU batch (current 5K and ALL future 10K / 20K / 200K uploads & regen).
+    #   1. NEVER use a third-party / vendor CDN image (assets.lcsc.com, LCSC product
+    #      photos, manufacturer-hosted images) as the SKU image.
+    #   2. When SZProcure has NO real OWNED product photo for a part, we MUST NOT:
+    #        - emit a product <img> tag for that part,
+    #        - hotlink any third-party / vendor image,
+    #        - substitute a placeholder graphic and present it AS the product image.
+    #      The page renders WITHOUT a product photo; og:image falls back to the
+    #      SZProcure-OWNED hero.svg (generic brand asset, NOT a per-part image).
+    #   3. Only SZProcure-OWNED assets (absolute DOMAIN url or local "/..." path) may
+    #      appear in og:image. Any external hotlink is DROPPED (not rewritten), so the
+    #      live site can never accidentally serve a vendor image.
+    # Adding a real owned product-image pipeline is a SEPARATE gated task, OUT OF SCOPE.
+    # Do not reintroduce vendor images to "fill the gap".
+    # ===========================================================================
+    _OWNED_PREFIXES = (DOMAIN, "/", "data:")
+    if img and not img.startswith(_OWNED_PREFIXES):
+        img = ""
     img_url = img if img else "/assets/img/hero.svg"
     og_img = f"{DOMAIN}{img_url}" if img_url.startswith("/") else img_url
 
@@ -1920,24 +2024,30 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
     if verbose:
         _print_faq_audit(pn, faq_audit)
 
-    # Product Introduction panel — MODEL-LEVEL priority (confirmed 2026-09-13).
-    # Resolution order (family-level MUST NEVER overwrite model-level):
-    #   MASTER description  ->  data/intro/<mpn>.html  ->  RAW intro_short (model-level)
-    #   ->  RAW intro (family-level)  ->  fallback.
+    # FORMAL PRODUCTION RULE (Introduction) — permanently fixed 2026-09-16, DO NOT ROLL BACK.
+    # Product Introduction panel — REAL-INTRO priority. The genuine pipeline
+    # Introduction MUST win over the MASTER description title-string (which is only
+    # the LAST-RESORT fallback when no real intro exists). Resolution order:
+    #   MASTER introduction (col, if persisted & real)  ->  RAW overviewData.productIntroEn
+    #   (via _raw_intro_text)  ->  MASTER description (title-string fallback)  ->  fallback.
+    # NOTE: the title-string ("{Brand} {MPN}") is NEVER shown AS the Introduction
+    # when a real intro exists. Substituting it is a regression.
+    _model_intro = (row.get("introduction") or "").strip()
     _authored_intro = load_intro_html(pn, slug)
+    _raw_intro = _raw_intro_text(row)  # prefers overviewData.productIntroEn (full prose)
     _model_desc = (row.get("description") or "").strip()
-    if _model_desc:
+    if _model_intro:
+        introduction_panel = f'<div class="intro-body"><p>{esc(_model_intro)}</p></div>'
+    elif _raw_intro:
+        _paras = [p.strip() for p in _raw_intro.split("\n") if p.strip()]
+        _intro_html = "".join(f"<p>{esc(p)}</p>" for p in _paras)
+        introduction_panel = f'<div class="intro-body">{_intro_html}</div>'
+    elif _model_desc:
         introduction_panel = f'<p>{esc(_model_desc)}</p>'
     elif _authored_intro:
         introduction_panel = f'<div class="intro-body">{render_rich_html(_authored_intro)}</div>'
     else:
-        _raw_intro = _raw_intro_text(row)  # prefers model-level intro_short over family-level intro
-        if _raw_intro:
-            _paras = [p.strip() for p in _raw_intro.split("\n") if p.strip()]
-            _intro_html = "".join(f"<p>{esc(p)}</p>" for p in _paras)
-            introduction_panel = f'<div class="intro-body">{_intro_html}</div>'
-        else:
-            introduction_panel = f'<p>{introduction_tab}</p>'
+        introduction_panel = f'<p>{introduction_tab}</p>'
 
     # V3 Specifications tab — real attributes, honest labels, NEVER invented rows.
     # MASTER specs first; enrichment specs appended as supplemental datasheet params.
@@ -2005,8 +2115,18 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
                         f'<a class="doc-link" href="{esc(dsheet)}" target="_blank" '
                         f'rel="nofollow noopener" download>'
                         f'<svg class="doc-ico doc-pdf" width="13" height="13" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.5 2.5h8.2l4.3 4.3v13.7a1 1 0 0 1-1 1H6.5a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1z" fill="#e53e3e"/><path d="M14.7 2.5V6.8a1 1 0 0 0 1 1h4.3" fill="#ff8585"/><rect x="5.8" y="14" width="13.4" height="5.6" rx="1" fill="#fff"/><text x="12.5" y="18.4" font-size="4.6" font-weight="700" text-anchor="middle" fill="#e53e3e" font-family="Arial,Helvetica,sans-serif">PDF</text></svg> {esc(pn)} Datasheet</a>'))
-    if overview:
-        id_rows.append(("Key Attributes", overview))
+    # FORMAL PRODUCTION RULE (Key Attributes) — permanently fixed 2026-09-16, DO NOT ROLL BACK.
+    # Key Attributes must come from the REAL 01-collected RAW
+    # (main_product.productKeyAttributes), never from the SEO overview / MASTER
+    # description (which degrades to "{Brand} {MPN}"). When the RAW field is
+    # absent we OMIT the row entirely — never fabricate, never fall back to a
+    # title string (铁律: don't manufacture content to kill an empty value).
+    # SUBSTITUTION FORBIDDEN: `{Brand} {MPN}`, productNameEn, productDescEn,
+    # productIntroEn, or any SEO string must never be used here. A regression that
+    # re-introduces the title-string is caught by phaseB_keyattrs_check.py.
+    _raw_ka = _raw_key_attributes_text(row)
+    if _raw_ka:
+        id_rows.append(("Key Attributes", esc(_raw_ka)))
     id_list_html = "".join(
         f'<div class="id-row"><div class="id-label">{esc(k)}</div><div class="id-value">{v}</div></div>'
         for k, v in id_rows
@@ -2275,6 +2395,12 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
 
     # Product JSON-LD — same as V2 (no price/availability/offers)
     alt_ld = ", ".join(f'"{esc(a)}"' for a in alts)
+    # FORMAL PRODUCTION RULE (Product Image) — DO NOT ROLL BACK.
+    # Product JSON-LD intentionally OMITS the "image" field. We never emit a
+    # third-party / vendor image (assets.lcsc.com, manufacturer CDN) and, when no
+    # real OWNED product photo exists, we do NOT fabricate one or substitute a
+    # placeholder AS the product image. The page renders without a product photo;
+    # og:image handles social-share branding via the SZProcure-owned hero.svg only.
     product_jsonld = f"""
   <script type="application/ld+json">
   {{
