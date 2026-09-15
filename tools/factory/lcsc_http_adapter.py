@@ -290,7 +290,12 @@ def build_en_attributes(mp):
             continue
         if name_en in HTTP_ATTR_MAP:
             canon_key, normalizer = HTTP_ATTR_MAP[name_en]
-            if normalizer is _norm_resistance or normalizer is _norm_inductance:
+            if folded_val == "-":
+                # A literal "-" is valid spec data (not-applicable / no-rating);
+                # keep it verbatim rather than letting a numeric normaliser null
+                # it. Canon is standardisation, not deletion (Section 四 2026-09-15).
+                nval = "-"
+            elif normalizer is _norm_resistance or normalizer is _norm_inductance:
                 # Omega must reach the normaliser untouched.
                 nval = normalizer(fullwidth_to_halfwidth(raw_val))
             elif normalizer is not None:
@@ -1055,13 +1060,40 @@ def http_build_category_row(record, mpn, brand):
             "signals": signals,
             "needs_review": canon == UNKNOWN_CATEGORY}
     if canon == UNKNOWN_CATEGORY or canon not in HTTP_REGISTRY:
-        return _unknown_fields(record, mpn, brand), meta
+        fields = _unknown_fields(record, mpn, brand)
+        # Fix-2 (2026-09-15): Uncategorized HTTP rows must not lose their specs
+        # to attributes_json="{}". Carry the full canon + unmapped set forward
+        # (collision-safe).
+        try:
+            _full_canon = json.loads(record.get("attributes_json") or "{}")
+            _unmap = json.loads(record.get("attributes_json_unmapped") or "{}")
+            fields["attributes_json"] = json.dumps(
+                _forward_unmapped_specs(_full_canon, _unmap), ensure_ascii=False)
+        except Exception:
+            pass
+        # FIX-A (2026-09-15): Uncategorized rows must NOT silently discard a real
+        # RAW Applications. _unknown_fields hardcodes applications="" by design;
+        # when RAW overviewData.pdfApplicationAreasEn carries real content, carry
+        # it through so MASTER is not where Applications get lost. When RAW has
+        # none, applications stays "" -- there is no family adapter to backfill.
+        _apps = (record.get("_applications_en") or "").strip()
+        if _apps:
+            fields["applications"] = _apps
+        else:
+            fields["applications"] = ""
+        return fields, meta
     adapter = HTTP_REGISTRY[canon]
     meta["min_specs"] = adapter.min_specs
     fields = adapter.build(record, mpn, brand)
+    # FIX-B (2026-09-15): never backfill Family Adapter self.APPS when RAW has no
+    # real Applications. Applications is a strict data-fidelity field:
+    #   LCSC有 -> 保留真实数据; LCSC无 -> 空/隐藏;
+    #   禁止 Family 推断 / 禁止 self.APPS 兜底.
     apps = (record.get("_applications_en") or "").strip()
     if apps:
         fields["applications"] = apps
+    else:
+        fields["applications"] = ""
     # GAP-2: the family adapters rebuild attributes_json from cherry-picked
     # canonical specs ONLY, so unmapped paramVOList specs would otherwise be
     # silently dropped. Merge the unmapped bucket back here — the single
@@ -1070,9 +1102,19 @@ def http_build_category_row(record, mpn, brand):
     try:
         _canon = json.loads(fields.get("attributes_json") or "{}")
         _unmap = json.loads(record.get("attributes_json_unmapped") or "{}")
-        if _unmap:
-            fields["attributes_json"] = json.dumps(
-                _forward_unmapped_specs(_canon, _unmap), ensure_ascii=False)
+        # Fix-1 (2026-09-15): family adapters rebuild attributes_json from a
+        # cherry-picked canonical subset only. Canon is *standardisation*, not
+        # *deletion* -- any canonical spec the adapter did not promote must still
+        # survive. Merge the full (pre-cherry-pick) canon from `record` back in,
+        # adding only keys the adapter skipped (collision-safe: never overwrites a
+        # key the adapter already emitted). Unmapped paramVOList specs are kept
+        # via _forward_unmapped_specs as before.
+        _full_canon = json.loads(record.get("attributes_json") or "{}")
+        merged = _forward_unmapped_specs(_canon, _unmap)
+        for k, v in _full_canon.items():
+            if k not in merged:
+                merged[k] = v
+        fields["attributes_json"] = json.dumps(merged, ensure_ascii=False)
     except Exception:
         pass
     return fields, meta
