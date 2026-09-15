@@ -50,6 +50,37 @@ DOMAIN = "https://www.szprocure.com"
 SITEMAP_BATCH = 45000  # urls per sitemap file (Google soft cap 50k)
 SEARCH_SHARD_SIZE = 5000  # entries per search shard (keeps each /search/N.json small)
 
+# ===========================================================================
+# HARD FROZEN LEGACY DATASHEET PROTECTION  (do NOT remove / do NOT reorder below)
+# ---------------------------------------------------------------------------
+# 2026-09-15 LIVE AUDIT: 1000 SKUs are already deployed live with real R2 PDF
+# URLs (480 C_KEY  = datasheets/C#####.pdf ; 520 MPN_KEY = datasheets/<mpn>.pdf).
+# These 1000 URLs are the EXACT values served from the live site and are the
+# single source of truth for those SKUs' datasheet links. They MUST survive:
+#   - any MASTER datasheet_url edit / clear
+#   - any new PDF-generation / R2-key / dedup rule
+#   - full or single-SKU regen
+# If a slug is in LEGACY_DSHEET, its datasheet URL is ALWAYS forced to the
+# legacy value, regardless of MASTER content or any later generation logic.
+# This is the final word on those 1000 SKUs' datasheet links.
+# ===========================================================================
+_LEGACY_DSHEET_CACHE = None
+def load_legacy_datasheet_map():
+    global _LEGACY_DSHEET_CACHE
+    if _LEGACY_DSHEET_CACHE is not None:
+        return _LEGACY_DSHEET_CACHE
+    m = {}
+    p = os.path.join(ROOT, "data", "production", "legacy_datasheet_urls.csv")
+    if os.path.exists(p):
+        with open(p, newline="", encoding="utf-8") as f:
+            for r in csv.DictReader(f):
+                slug = (r.get("slug") or "").strip()
+                url = (r.get("legacy_pdf_url") or "").strip()
+                if slug and url:
+                    m[slug] = url
+    _LEGACY_DSHEET_CACHE = m
+    return m
+
 # GA4 Measurement ID — replace with the real one from your GA4 property.
 # Format: G-XXXXXXXXXX.
 GA4_ID = "G-ZZLJH3Q2KF"
@@ -1754,6 +1785,13 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
     dsheet = (row.get("datasheet_url") or "").strip()
     url_slug = (row.get("url_slug") or "").strip() or slugify(pn)
     slug = url_slug
+    # ---- HARD FROZEN LEGACY DATASHEET OVERRIDE (see load_legacy_datasheet_map) ----
+    # Highest-priority: if this slug is one of the 1000 live-deployed SKUs, its
+    # datasheet URL is forced to the exact legacy R2 URL, ignoring MASTER and any
+    # later PDF rule. Guarantees the live datasheet link never drifts.
+    _legacy_map = load_legacy_datasheet_map()
+    if slug in _legacy_map:
+        dsheet = _legacy_map[slug]
     related = related or []
     url = f"{DOMAIN}/products/{slug}/"
     img_url = img if img else "/assets/img/hero.svg"
