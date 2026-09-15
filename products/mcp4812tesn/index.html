@@ -103,7 +103,7 @@
           <input type="hidden" name="_subject" value="New SKU RFQ — SZ Procure" />
           <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
 
-          <input type="hidden" name="category" id="rfq_category" value="uncategorized" />
+          <input type="hidden" name="category" id="rfq_category" value="Uncategorized" />
           <input type="hidden" name="source_url" id="source_url" />
           <input type="hidden" name="rfq_type" id="rfq_type" value="sku_quote" />
           <input type="hidden" name="manufacturer" id="rfq_manufacturer" value="Microchip Technology" />
@@ -176,6 +176,7 @@
           <a href="#specifications" class="tab-btn active">Specifications</a>
           <a href="#introduction" class="tab-btn">Introduction</a>
           <a href="#features" class="tab-btn">Features</a>
+          <a href="#applications" class="tab-btn">Applications</a>
           <a href="#documentation" class="tab-btn">Datasheet</a>
           <a href="#alternative" class="tab-btn">Alternative Parts</a>
           <a href="#compliance" class="tab-btn">Compliance &amp; Export Codes</a>
@@ -183,10 +184,12 @@
 
         <section id="specifications" class="tab-panel">
           <h2 class="section-title">Technical Specifications</h2>
-          <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead>
-<tbody>
-<tr><th>Package / Case</th><td>SOIC-8-150mil</td></tr></tbody>
-</table>
+          <div class="spec-grid">
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Operating Temp</th><td>-40degC~+125degC</td></tr><tr><th>Working Voltage V</th><td>4.1 V</td></tr><tr><th>Function</th><td>Programmable gain;Built-in reference source;Power-down mode;Power-on reset</td></tr><tr><th>Channels</th><td>2.0</td></tr><tr><th>Settling Time</th><td>4.5us</td></tr></tbody></table>
+  <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><th>Quiescent Current (Iq)</th><td>415uA</td></tr><tr><th>Integral non - linearity</th><td>1LSB</td></tr><tr><th>Resolution (Bits)</th><td>10;-</td></tr><tr><th>Interface Type</th><td>SPI</td></tr><tr><th>Package / Case</th><td>SOIC-8-150mil</td></tr></tbody></table>
+</div>
         </section>
 
         <section id="introduction" class="tab-panel">
@@ -199,7 +202,10 @@
   <ul class="features-list"><li>MCP4802: Dual 8-Bit Voltage Output DAC</li><li>MCP4812: Dual 10-Bit Voltage Output DAC</li><li>MCP4822: Dual 12-Bit Voltage Output DAC</li><li>Rail-to-Rail Output</li><li>SPI Interface with 20 MHz Clock Support</li><li>Simultaneous Latching of the Dual DACs with LDAC pin</li><li>Fast Settling Time of 4.5 μs</li><li>Selectable Unity or 2x Gain Output</li><li>2.048V Internal Voltage Reference</li><li>50 ppm /°C VREF Temperature Coefficient</li><li>2.7V to 5.5V Single-Supply Operation</li><li>Extended Temperature Range: -40°C to +125°C</li></ul>
 </section>
 
-        
+        <section id="applications" class="tab-panel">
+  <h2 class="section-title">Applications</h2>
+  <ul class="app-list"><li>- Set Point or Offset Trimming - Sensor Calibration - Precision Selectable Voltage Reference - Portable Instrumentation (Battery-Powered) - Calibration of Optical Communication Devices</li></ul>
+</section>
 
         <section id="documentation" class="tab-panel">
   <h2 class="section-title">Datasheet</h2>
@@ -248,7 +254,7 @@
       <!-- Sourcing (no stock/price/lead-time promises) -->
       <section class="sourcing">
         <h2>Sourcing Information</h2>
-        <p>SZ Procure is a sourcing partner for the <strong>MCP4812T-E/SN</strong> (Microchip Technology Uncategorized), not a stock catalog. We help international buyers source this electronic component through the China electronics supply chain, with verified supplier sourcing and quality inspection.</p><p>For MCP4812T-E/SN, our electronics sourcing covers supplier sourcing across the China electronics supply chain, supplier verification and multi-supplier quotation comparison so you can compare offers before purchase. We coordinate purchase orders, consolidation and international logistics dispatch from Shenzhen.</p><p>Quality control includes supplier qualification and screening, then product, packaging and labeling checks with outgoing inspection before dispatch. These are sourcing services we perform &mdash; they are not a guarantee of any supplier's stock, price, lead time or authenticity. Tell us your required quantity, target price and sourcing requirements, then <a href="/request-a-quote/?pn=MCP4812T-E/SN&mfr=Microchip%20Technology&cat=uncategorized&source=product&rfq_type=sku_quote">Request a Quote</a>.</p>
+        <p>Sourcing MCP4812T-E/SN from China? SZ Procure helps international buyers navigate the Shenzhen electronics market and locate suitable supplier options for specific component requirements.</p><p>Our Shenzhen sourcing team can help with supplier sourcing, availability checks and quotation comparison for MCP4812T-E/SN, then coordinate procurement, supplier screening, inspection and international shipping based on what you need.</p><p>Looking to source MCP4812T-E/SN? <a href="/request-a-quote/?pn=MCP4812T-E/SN&mfr=Microchip%20Technology&cat=Uncategorized&source=product&rfq_type=sku_quote">Submit an RFQ</a> and let our Shenzhen sourcing team check available supplier options for you.</p>
       </section>
     </div>
   </main>
@@ -265,7 +271,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'specifications' }, { id: 'introduction' }, { id: 'features' }, { id: 'documentation' }, { id: 'alternative' }, { id: 'compliance' } ];
+    var groups = [ { id: 'specifications' }, { id: 'introduction' }, { id: 'features' }, { id: 'applications' }, { id: 'documentation' }, { id: 'alternative' }, { id: 'compliance' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;
