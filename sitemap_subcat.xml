@@ -1,17 +1,122 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.szprocure.com/components/integrated-circuits/amplifiers-comparators/</loc>
+    <loc>https://www.szprocure.com/components/connectors-electromechanical/coaxial-connector-rf-assemblies/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.szprocure.com/components/integrated-circuits/interface-ics/</loc>
+    <loc>https://www.szprocure.com/components/connectors-electromechanical/headers-male-pins/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.szprocure.com/components/integrated-circuits/logic-ics/</loc>
+    <loc>https://www.szprocure.com/components/connectors-electromechanical/multi-purpose/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/connectors-electromechanical/rectangular-connector-accessories/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/connectors-electromechanical/rectangular-connector-contacts/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/connectors-electromechanical/rectangular-connector-housings/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/connectors-electromechanical/tactile-switches/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/connectors-electromechanical/usb-dvi-hdmi-connector-assemblies/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/integrated-circuits/adcs-dacs-special-purpose/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/integrated-circuits/analog-switches-multiplexers-demultiplexers/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/integrated-circuits/analog-to-digital-converters-adc/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/integrated-circuits/audio-amplifiers/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/integrated-circuits/buffers-drivers-receivers-transceivers/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/integrated-circuits/comparators/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/integrated-circuits/controllers/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/integrated-circuits/digital-potentiometers/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/integrated-circuits/digital-to-analog-converters-dac/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/integrated-circuits/drivers-receivers-transceivers-interface-ics/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/integrated-circuits/flip-flops/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/integrated-circuits/gate-drivers/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/integrated-circuits/gates-and-inverters/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/integrated-circuits/i-o-expanders/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/integrated-circuits/instrumentation-op-amps-buffer-amps/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/integrated-circuits/led-drivers/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -21,37 +126,237 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.szprocure.com/components/passive-components/capacitors/</loc>
+    <loc>https://www.szprocure.com/components/integrated-circuits/motor-drivers-controllers/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.szprocure.com/components/passive-components/inductors-coils-transformers/</loc>
+    <loc>https://www.szprocure.com/components/integrated-circuits/real-time-clocks/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.szprocure.com/components/passive-components/resistors/</loc>
+    <loc>https://www.szprocure.com/components/integrated-circuits/rf-transceiver-ics-rf-wireless/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.szprocure.com/components/power-management/power-management/</loc>
+    <loc>https://www.szprocure.com/components/integrated-circuits/shift-registers/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.szprocure.com/components/semiconductors-discrete/diodes/</loc>
+    <loc>https://www.szprocure.com/components/integrated-circuits/signal-switches-multiplexers-decoders-logic-ics/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.szprocure.com/components/semiconductors-discrete/transistors/</loc>
+    <loc>https://www.szprocure.com/components/integrated-circuits/special-purpose-amplifiers/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.szprocure.com/components/uncategorized/uncategorized/</loc>
+    <loc>https://www.szprocure.com/components/integrated-circuits/specialized-ics/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/integrated-circuits/translators-level-shifters/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/memory/memory/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/modules-communication/dc-dc-converters-power-modules/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/modules-communication/rf-transceiver-modules-and-modems/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/optoelectronics/led-indication-discrete/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/passive-components/aluminum-electrolytic-capacitors/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/passive-components/aluminum-polymer-capacitors/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/passive-components/ceramic-capacitors/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/passive-components/chip-resistor-surface-mount/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/passive-components/common-mode-chokes/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/passive-components/crystals/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/passive-components/ferrite-beads-and-chips/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/passive-components/fixed-inductors/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/passive-components/tantalum-capacitors/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/passive-components/tantalum-polymer-capacitors/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/power-management/battery-chargers/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/power-management/battery-management/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/power-management/dc-dc-switching-controllers/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/power-management/or-controllers-ideal-diodes/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/power-management/power-distribution-switches-load-drivers-power-management/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/power-management/power-management-specialized-power-management/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/power-management/supervisors/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/power-management/voltage-reference/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/power-management/voltage-regulators-dc-dc-switching-regulators/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/power-management/voltage-regulators-linear-low-drop-out-ldo-regulators/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/semiconductors-discrete/bipolar-transistor-arrays/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/semiconductors-discrete/digital-isolators/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/semiconductors-discrete/diode-arrays/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/semiconductors-discrete/scrs/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/semiconductors-discrete/single-bipolar-transistors-transistors/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/semiconductors-discrete/single-diodes/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/semiconductors-discrete/single-fets-mosfets/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/semiconductors-discrete/single-igbts/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/semiconductors-discrete/single-pre-biased-bipolar-transistors/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/semiconductors-discrete/single-zener-diodes/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/semiconductors-discrete/transistor-photovoltaic-output-optoisolators/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/semiconductors-discrete/tvs-diodes/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/sensors/accelerometers/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/sensors/analog-and-digital-output/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/sensors/imus-inertial-measurement-units/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>

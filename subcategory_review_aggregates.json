@@ -1,0 +1,2041 @@
+{
+  "totals": {
+    "master_sku": 4935,
+    "sku_with_raw": 4927,
+    "sku_no_raw": 8,
+    "review_catalog_count": 29,
+    "review_total_sku": 1163
+  },
+  "review": {
+    "Single Bipolar Transistors": {
+      "total_sku": 93,
+      "native_l1_list": [
+        {
+          "native_l1": "transistors",
+          "count": 92
+        },
+        {
+          "native_l1": "diodes",
+          "count": 1
+        }
+      ],
+      "native_l1_count": 2,
+      "per_l1": {
+        "transistors": {
+          "count": 92,
+          "parentCatalogName_set": [
+            "Transistors/Thyristors"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Discrete Semiconductors > Transistors > Bipolar (BJT)",
+              "count": 92
+            }
+          ]
+        },
+        "diodes": {
+          "count": 1,
+          "parentCatalogName_set": [
+            "Diodes"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Discrete Semiconductors > Transistors > Bipolar (BJT)",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "parentCatalogName_counts": [
+        {
+          "parentCatalogName": "Transistors/Thyristors",
+          "count": 92
+        },
+        {
+          "parentCatalogName": "Diodes",
+          "count": 1
+        }
+      ],
+      "parent_to_native_l1_within": {
+        "Transistors/Thyristors": [
+          "transistors"
+        ],
+        "Diodes": [
+          "diodes"
+        ]
+      },
+      "parents_ambiguous_within": {},
+      "parents_global_ambiguous": {
+        "Transistors/Thyristors": [
+          "circuit-protection",
+          "transistors"
+        ],
+        "Diodes": [
+          "circuit-protection",
+          "diodes"
+        ]
+      },
+      "empty_parent_sku": 0,
+      "split_recommendation": "UNRESOLVED"
+    },
+    "Single Diodes": {
+      "total_sku": 124,
+      "native_l1_list": [
+        {
+          "native_l1": "diodes",
+          "count": 123
+        },
+        {
+          "native_l1": "transistors",
+          "count": 1
+        }
+      ],
+      "native_l1_count": 2,
+      "per_l1": {
+        "diodes": {
+          "count": 123,
+          "parentCatalogName_set": [
+            "Diodes"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Discrete Semiconductors > Diodes > Rectifiers",
+              "count": 123
+            }
+          ]
+        },
+        "transistors": {
+          "count": 1,
+          "parentCatalogName_set": [
+            "Transistors/Thyristors"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Discrete Semiconductors > Diodes > Rectifiers",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "parentCatalogName_counts": [
+        {
+          "parentCatalogName": "Diodes",
+          "count": 123
+        },
+        {
+          "parentCatalogName": "Transistors/Thyristors",
+          "count": 1
+        }
+      ],
+      "parent_to_native_l1_within": {
+        "Diodes": [
+          "diodes"
+        ],
+        "Transistors/Thyristors": [
+          "transistors"
+        ]
+      },
+      "parents_ambiguous_within": {},
+      "parents_global_ambiguous": {
+        "Diodes": [
+          "circuit-protection",
+          "diodes"
+        ],
+        "Transistors/Thyristors": [
+          "circuit-protection",
+          "transistors"
+        ]
+      },
+      "empty_parent_sku": 0,
+      "split_recommendation": "UNRESOLVED"
+    },
+    "Analog Switches, Multiplexers, Demultiplexers": {
+      "total_sku": 51,
+      "native_l1_list": [
+        {
+          "native_l1": "interface-ics",
+          "count": 50
+        },
+        {
+          "native_l1": "logic-ics",
+          "count": 1
+        }
+      ],
+      "native_l1_count": 2,
+      "per_l1": {
+        "interface-ics": {
+          "count": 50,
+          "parentCatalogName_set": [
+            "Interface"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Interface",
+              "count": 50
+            }
+          ]
+        },
+        "logic-ics": {
+          "count": 1,
+          "parentCatalogName_set": [
+            "Logic"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Interface",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "parentCatalogName_counts": [
+        {
+          "parentCatalogName": "Interface",
+          "count": 50
+        },
+        {
+          "parentCatalogName": "Logic",
+          "count": 1
+        }
+      ],
+      "parent_to_native_l1_within": {
+        "Interface": [
+          "interface-ics"
+        ],
+        "Logic": [
+          "logic-ics"
+        ]
+      },
+      "parents_ambiguous_within": {},
+      "parents_global_ambiguous": {},
+      "empty_parent_sku": 0,
+      "split_recommendation": "SPLIT_BY_PARENT"
+    },
+    "Instrumentation, Op Amps, Buffer Amps": {
+      "total_sku": 295,
+      "native_l1_list": [
+        {
+          "native_l1": "amplifiers-comparators",
+          "count": 292
+        },
+        {
+          "native_l1": "signal-isolators",
+          "count": 3
+        }
+      ],
+      "native_l1_count": 2,
+      "per_l1": {
+        "amplifiers-comparators": {
+          "count": 292,
+          "parentCatalogName_set": [
+            "Amplifiers/Comparators"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Linear > Amplifiers",
+              "count": 292
+            }
+          ]
+        },
+        "signal-isolators": {
+          "count": 3,
+          "parentCatalogName_set": [
+            "Signal Isolation Devices"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Linear > Amplifiers",
+              "count": 3
+            }
+          ]
+        }
+      },
+      "parentCatalogName_counts": [
+        {
+          "parentCatalogName": "Amplifiers/Comparators",
+          "count": 292
+        },
+        {
+          "parentCatalogName": "Signal Isolation Devices",
+          "count": 3
+        }
+      ],
+      "parent_to_native_l1_within": {
+        "Amplifiers/Comparators": [
+          "amplifiers-comparators"
+        ],
+        "Signal Isolation Devices": [
+          "signal-isolators"
+        ]
+      },
+      "parents_ambiguous_within": {},
+      "parents_global_ambiguous": {},
+      "empty_parent_sku": 0,
+      "split_recommendation": "SPLIT_BY_PARENT"
+    },
+    "DC DC Converters": {
+      "total_sku": 57,
+      "native_l1_list": [
+        {
+          "native_l1": "power-modules",
+          "count": 51
+        },
+        {
+          "native_l1": "power-management",
+          "count": 6
+        }
+      ],
+      "native_l1_count": 2,
+      "per_l1": {
+        "power-modules": {
+          "count": 51,
+          "parentCatalogName_set": [
+            "Power Modules"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Power Supplies > Power Suppliers - Board Mount",
+              "count": 51
+            }
+          ]
+        },
+        "power-management": {
+          "count": 6,
+          "parentCatalogName_set": [
+            "Power Management (PMIC)"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Power Supplies > Power Suppliers - Board Mount",
+              "count": 6
+            }
+          ]
+        }
+      },
+      "parentCatalogName_counts": [
+        {
+          "parentCatalogName": "Power Modules",
+          "count": 51
+        },
+        {
+          "parentCatalogName": "Power Management (PMIC)",
+          "count": 6
+        }
+      ],
+      "parent_to_native_l1_within": {
+        "Power Modules": [
+          "power-modules"
+        ],
+        "Power Management (PMIC)": [
+          "power-management"
+        ]
+      },
+      "parents_ambiguous_within": {},
+      "parents_global_ambiguous": {
+        "Power Management (PMIC)": [
+          "circuit-protection",
+          "power-management"
+        ]
+      },
+      "empty_parent_sku": 0,
+      "split_recommendation": "UNRESOLVED"
+    },
+    "Single Zener Diodes": {
+      "total_sku": 109,
+      "native_l1_list": [
+        {
+          "native_l1": "diodes",
+          "count": 105
+        },
+        {
+          "native_l1": "transistors",
+          "count": 4
+        }
+      ],
+      "native_l1_count": 2,
+      "per_l1": {
+        "diodes": {
+          "count": 105,
+          "parentCatalogName_set": [
+            "Diodes"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Discrete Semiconductors > Diodes > Zener",
+              "count": 105
+            }
+          ]
+        },
+        "transistors": {
+          "count": 4,
+          "parentCatalogName_set": [
+            "Transistors/Thyristors"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Discrete Semiconductors > Diodes > Zener",
+              "count": 4
+            }
+          ]
+        }
+      },
+      "parentCatalogName_counts": [
+        {
+          "parentCatalogName": "Diodes",
+          "count": 105
+        },
+        {
+          "parentCatalogName": "Transistors/Thyristors",
+          "count": 4
+        }
+      ],
+      "parent_to_native_l1_within": {
+        "Diodes": [
+          "diodes"
+        ],
+        "Transistors/Thyristors": [
+          "transistors"
+        ]
+      },
+      "parents_ambiguous_within": {},
+      "parents_global_ambiguous": {
+        "Diodes": [
+          "circuit-protection",
+          "diodes"
+        ],
+        "Transistors/Thyristors": [
+          "circuit-protection",
+          "transistors"
+        ]
+      },
+      "empty_parent_sku": 0,
+      "split_recommendation": "UNRESOLVED"
+    },
+    "Drivers, Receivers, Transceivers": {
+      "total_sku": 162,
+      "native_l1_list": [
+        {
+          "native_l1": "interface-ics",
+          "count": 152
+        },
+        {
+          "native_l1": "signal-isolators",
+          "count": 4
+        },
+        {
+          "native_l1": "logic-ics",
+          "count": 3
+        },
+        {
+          "native_l1": "iot-communication-modules",
+          "count": 2
+        },
+        {
+          "native_l1": "data-converters",
+          "count": 1
+        }
+      ],
+      "native_l1_count": 5,
+      "per_l1": {
+        "interface-ics": {
+          "count": 152,
+          "parentCatalogName_set": [
+            "Interface"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Interface",
+              "count": 152
+            }
+          ]
+        },
+        "signal-isolators": {
+          "count": 4,
+          "parentCatalogName_set": [
+            "Signal Isolation Devices"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Interface",
+              "count": 4
+            }
+          ]
+        },
+        "data-converters": {
+          "count": 1,
+          "parentCatalogName_set": [
+            "Data Acquisition"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Interface",
+              "count": 1
+            }
+          ]
+        },
+        "iot-communication-modules": {
+          "count": 2,
+          "parentCatalogName_set": [
+            "IoT/Communication Modules"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Interface",
+              "count": 2
+            }
+          ]
+        },
+        "logic-ics": {
+          "count": 3,
+          "parentCatalogName_set": [
+            "Logic"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Interface",
+              "count": 3
+            }
+          ]
+        }
+      },
+      "parentCatalogName_counts": [
+        {
+          "parentCatalogName": "Interface",
+          "count": 152
+        },
+        {
+          "parentCatalogName": "Signal Isolation Devices",
+          "count": 4
+        },
+        {
+          "parentCatalogName": "Logic",
+          "count": 3
+        },
+        {
+          "parentCatalogName": "IoT/Communication Modules",
+          "count": 2
+        },
+        {
+          "parentCatalogName": "Data Acquisition",
+          "count": 1
+        }
+      ],
+      "parent_to_native_l1_within": {
+        "Interface": [
+          "interface-ics"
+        ],
+        "Signal Isolation Devices": [
+          "signal-isolators"
+        ],
+        "Data Acquisition": [
+          "data-converters"
+        ],
+        "IoT/Communication Modules": [
+          "iot-communication-modules"
+        ],
+        "Logic": [
+          "logic-ics"
+        ]
+      },
+      "parents_ambiguous_within": {},
+      "parents_global_ambiguous": {},
+      "empty_parent_sku": 0,
+      "split_recommendation": "SPLIT_BY_PARENT"
+    },
+    "Power Distribution Switches, Load Drivers": {
+      "total_sku": 50,
+      "native_l1_list": [
+        {
+          "native_l1": "power-management",
+          "count": 47
+        },
+        {
+          "native_l1": "logic-ics",
+          "count": 2
+        },
+        {
+          "native_l1": "transistors",
+          "count": 1
+        }
+      ],
+      "native_l1_count": 3,
+      "per_l1": {
+        "power-management": {
+          "count": 47,
+          "parentCatalogName_set": [
+            "Power Management (PMIC)"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Power Management (PMIC)",
+              "count": 47
+            }
+          ]
+        },
+        "logic-ics": {
+          "count": 2,
+          "parentCatalogName_set": [
+            "Logic"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Power Management (PMIC)",
+              "count": 2
+            }
+          ]
+        },
+        "transistors": {
+          "count": 1,
+          "parentCatalogName_set": [
+            "Transistors/Thyristors"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Power Management (PMIC)",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "parentCatalogName_counts": [
+        {
+          "parentCatalogName": "Power Management (PMIC)",
+          "count": 47
+        },
+        {
+          "parentCatalogName": "Logic",
+          "count": 2
+        },
+        {
+          "parentCatalogName": "Transistors/Thyristors",
+          "count": 1
+        }
+      ],
+      "parent_to_native_l1_within": {
+        "Power Management (PMIC)": [
+          "power-management"
+        ],
+        "Logic": [
+          "logic-ics"
+        ],
+        "Transistors/Thyristors": [
+          "transistors"
+        ]
+      },
+      "parents_ambiguous_within": {},
+      "parents_global_ambiguous": {
+        "Power Management (PMIC)": [
+          "circuit-protection",
+          "power-management"
+        ],
+        "Transistors/Thyristors": [
+          "circuit-protection",
+          "transistors"
+        ]
+      },
+      "empty_parent_sku": 0,
+      "split_recommendation": "UNRESOLVED"
+    },
+    "Power Supply Controllers, Monitors": {
+      "total_sku": 4,
+      "native_l1_list": [
+        {
+          "native_l1": "power-management",
+          "count": 3
+        },
+        {
+          "native_l1": "amplifiers-comparators",
+          "count": 1
+        }
+      ],
+      "native_l1_count": 2,
+      "per_l1": {
+        "power-management": {
+          "count": 3,
+          "parentCatalogName_set": [
+            "Power Management (PMIC)"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Power Management (PMIC)",
+              "count": 3
+            }
+          ]
+        },
+        "amplifiers-comparators": {
+          "count": 1,
+          "parentCatalogName_set": [
+            "Amplifiers/Comparators"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Power Management (PMIC)",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "parentCatalogName_counts": [
+        {
+          "parentCatalogName": "Power Management (PMIC)",
+          "count": 3
+        },
+        {
+          "parentCatalogName": "Amplifiers/Comparators",
+          "count": 1
+        }
+      ],
+      "parent_to_native_l1_within": {
+        "Power Management (PMIC)": [
+          "power-management"
+        ],
+        "Amplifiers/Comparators": [
+          "amplifiers-comparators"
+        ]
+      },
+      "parents_ambiguous_within": {},
+      "parents_global_ambiguous": {
+        "Power Management (PMIC)": [
+          "circuit-protection",
+          "power-management"
+        ]
+      },
+      "empty_parent_sku": 0,
+      "split_recommendation": "UNRESOLVED"
+    },
+    "Motor Drivers, Controllers": {
+      "total_sku": 49,
+      "native_l1_list": [
+        {
+          "native_l1": "motor-driver-ics",
+          "count": 48
+        },
+        {
+          "native_l1": "transistors",
+          "count": 1
+        }
+      ],
+      "native_l1_count": 2,
+      "per_l1": {
+        "motor-driver-ics": {
+          "count": 48,
+          "parentCatalogName_set": [
+            "Motor Driver ICs"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Power Management (PMIC)",
+              "count": 48
+            }
+          ]
+        },
+        "transistors": {
+          "count": 1,
+          "parentCatalogName_set": [
+            "Transistors/Thyristors"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Power Management (PMIC)",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "parentCatalogName_counts": [
+        {
+          "parentCatalogName": "Motor Driver ICs",
+          "count": 48
+        },
+        {
+          "parentCatalogName": "Transistors/Thyristors",
+          "count": 1
+        }
+      ],
+      "parent_to_native_l1_within": {
+        "Motor Driver ICs": [
+          "motor-driver-ics"
+        ],
+        "Transistors/Thyristors": [
+          "transistors"
+        ]
+      },
+      "parents_ambiguous_within": {},
+      "parents_global_ambiguous": {
+        "Transistors/Thyristors": [
+          "circuit-protection",
+          "transistors"
+        ]
+      },
+      "empty_parent_sku": 0,
+      "split_recommendation": "UNRESOLVED"
+    },
+    "Special Purpose Amplifiers": {
+      "total_sku": 13,
+      "native_l1_list": [
+        {
+          "native_l1": "amplifiers-comparators",
+          "count": 8
+        },
+        {
+          "native_l1": "rf-wireless",
+          "count": 3
+        },
+        {
+          "native_l1": "signal-isolators",
+          "count": 2
+        }
+      ],
+      "native_l1_count": 3,
+      "per_l1": {
+        "amplifiers-comparators": {
+          "count": 8,
+          "parentCatalogName_set": [
+            "Amplifiers/Comparators"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Linear > Amplifiers",
+              "count": 8
+            }
+          ]
+        },
+        "signal-isolators": {
+          "count": 2,
+          "parentCatalogName_set": [
+            "Signal Isolation Devices"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Linear > Amplifiers",
+              "count": 2
+            }
+          ]
+        },
+        "rf-wireless": {
+          "count": 3,
+          "parentCatalogName_set": [
+            "RF and Wireless"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Linear > Amplifiers",
+              "count": 3
+            }
+          ]
+        }
+      },
+      "parentCatalogName_counts": [
+        {
+          "parentCatalogName": "Amplifiers/Comparators",
+          "count": 8
+        },
+        {
+          "parentCatalogName": "RF and Wireless",
+          "count": 3
+        },
+        {
+          "parentCatalogName": "Signal Isolation Devices",
+          "count": 2
+        }
+      ],
+      "parent_to_native_l1_within": {
+        "Amplifiers/Comparators": [
+          "amplifiers-comparators"
+        ],
+        "Signal Isolation Devices": [
+          "signal-isolators"
+        ],
+        "RF and Wireless": [
+          "rf-wireless"
+        ]
+      },
+      "parents_ambiguous_within": {},
+      "parents_global_ambiguous": {},
+      "empty_parent_sku": 0,
+      "split_recommendation": "SPLIT_BY_PARENT"
+    },
+    "Thermal Management": {
+      "total_sku": 3,
+      "native_l1_list": [
+        {
+          "native_l1": "data-converters",
+          "count": 2
+        },
+        {
+          "native_l1": "sensors",
+          "count": 1
+        }
+      ],
+      "native_l1_count": 2,
+      "per_l1": {
+        "data-converters": {
+          "count": 2,
+          "parentCatalogName_set": [
+            "Data Acquisition"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Power Management (PMIC)",
+              "count": 2
+            }
+          ]
+        },
+        "sensors": {
+          "count": 1,
+          "parentCatalogName_set": [
+            "Sensors"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Power Management (PMIC)",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "parentCatalogName_counts": [
+        {
+          "parentCatalogName": "Data Acquisition",
+          "count": 2
+        },
+        {
+          "parentCatalogName": "Sensors",
+          "count": 1
+        }
+      ],
+      "parent_to_native_l1_within": {
+        "Data Acquisition": [
+          "data-converters"
+        ],
+        "Sensors": [
+          "sensors"
+        ]
+      },
+      "parents_ambiguous_within": {},
+      "parents_global_ambiguous": {},
+      "empty_parent_sku": 0,
+      "split_recommendation": "SPLIT_BY_PARENT"
+    },
+    "Isolators - Gate Drivers": {
+      "total_sku": 8,
+      "native_l1_list": [
+        {
+          "native_l1": "power-management",
+          "count": 5
+        },
+        {
+          "native_l1": "optocouplers",
+          "count": 3
+        }
+      ],
+      "native_l1_count": 2,
+      "per_l1": {
+        "optocouplers": {
+          "count": 3,
+          "parentCatalogName_set": [
+            "Optoisolators"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Isolators",
+              "count": 3
+            }
+          ]
+        },
+        "power-management": {
+          "count": 5,
+          "parentCatalogName_set": [
+            "Power Management (PMIC)"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Isolators",
+              "count": 5
+            }
+          ]
+        }
+      },
+      "parentCatalogName_counts": [
+        {
+          "parentCatalogName": "Power Management (PMIC)",
+          "count": 5
+        },
+        {
+          "parentCatalogName": "Optoisolators",
+          "count": 3
+        }
+      ],
+      "parent_to_native_l1_within": {
+        "Optoisolators": [
+          "optocouplers"
+        ],
+        "Power Management (PMIC)": [
+          "power-management"
+        ]
+      },
+      "parents_ambiguous_within": {},
+      "parents_global_ambiguous": {
+        "Power Management (PMIC)": [
+          "circuit-protection",
+          "power-management"
+        ]
+      },
+      "empty_parent_sku": 0,
+      "split_recommendation": "UNRESOLVED"
+    },
+    "Specialized ICs": {
+      "total_sku": 14,
+      "native_l1_list": [
+        {
+          "native_l1": "interface-ics",
+          "count": 13
+        },
+        {
+          "native_l1": "logic-ics",
+          "count": 1
+        }
+      ],
+      "native_l1_count": 2,
+      "per_l1": {
+        "interface-ics": {
+          "count": 13,
+          "parentCatalogName_set": [
+            "Interface"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs)",
+              "count": 13
+            }
+          ]
+        },
+        "logic-ics": {
+          "count": 1,
+          "parentCatalogName_set": [
+            "Logic"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs)",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "parentCatalogName_counts": [
+        {
+          "parentCatalogName": "Interface",
+          "count": 13
+        },
+        {
+          "parentCatalogName": "Logic",
+          "count": 1
+        }
+      ],
+      "parent_to_native_l1_within": {
+        "Interface": [
+          "interface-ics"
+        ],
+        "Logic": [
+          "logic-ics"
+        ]
+      },
+      "parents_ambiguous_within": {},
+      "parents_global_ambiguous": {},
+      "empty_parent_sku": 0,
+      "split_recommendation": "SPLIT_BY_PARENT"
+    },
+    "Signal Switches, Multiplexers, Decoders": {
+      "total_sku": 14,
+      "native_l1_list": [
+        {
+          "native_l1": "logic-ics",
+          "count": 11
+        },
+        {
+          "native_l1": "interface-ics",
+          "count": 3
+        }
+      ],
+      "native_l1_count": 2,
+      "per_l1": {
+        "interface-ics": {
+          "count": 3,
+          "parentCatalogName_set": [
+            "Interface"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Logic",
+              "count": 3
+            }
+          ]
+        },
+        "logic-ics": {
+          "count": 11,
+          "parentCatalogName_set": [
+            "Logic"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Logic",
+              "count": 11
+            }
+          ]
+        }
+      },
+      "parentCatalogName_counts": [
+        {
+          "parentCatalogName": "Logic",
+          "count": 11
+        },
+        {
+          "parentCatalogName": "Interface",
+          "count": 3
+        }
+      ],
+      "parent_to_native_l1_within": {
+        "Interface": [
+          "interface-ics"
+        ],
+        "Logic": [
+          "logic-ics"
+        ]
+      },
+      "parents_ambiguous_within": {},
+      "parents_global_ambiguous": {},
+      "empty_parent_sku": 0,
+      "split_recommendation": "SPLIT_BY_PARENT"
+    },
+    "Display Drivers": {
+      "total_sku": 3,
+      "native_l1_list": [
+        {
+          "native_l1": "led-display-drivers",
+          "count": 2
+        },
+        {
+          "native_l1": "logic-ics",
+          "count": 1
+        }
+      ],
+      "native_l1_count": 2,
+      "per_l1": {
+        "logic-ics": {
+          "count": 1,
+          "parentCatalogName_set": [
+            "Logic"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Power Management (PMIC)",
+              "count": 1
+            }
+          ]
+        },
+        "led-display-drivers": {
+          "count": 2,
+          "parentCatalogName_set": [
+            "LED Drivers"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Power Management (PMIC)",
+              "count": 2
+            }
+          ]
+        }
+      },
+      "parentCatalogName_counts": [
+        {
+          "parentCatalogName": "LED Drivers",
+          "count": 2
+        },
+        {
+          "parentCatalogName": "Logic",
+          "count": 1
+        }
+      ],
+      "parent_to_native_l1_within": {
+        "Logic": [
+          "logic-ics"
+        ],
+        "LED Drivers": [
+          "led-display-drivers"
+        ]
+      },
+      "parents_ambiguous_within": {},
+      "parents_global_ambiguous": {},
+      "empty_parent_sku": 0,
+      "split_recommendation": "SPLIT_BY_PARENT"
+    },
+    "Current Regulation/Management": {
+      "total_sku": 16,
+      "native_l1_list": [
+        {
+          "native_l1": "amplifiers-comparators",
+          "count": 8
+        },
+        {
+          "native_l1": "power-management",
+          "count": 8
+        }
+      ],
+      "native_l1_count": 2,
+      "per_l1": {
+        "amplifiers-comparators": {
+          "count": 8,
+          "parentCatalogName_set": [
+            "Amplifiers/Comparators"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Power Management (PMIC)",
+              "count": 8
+            }
+          ]
+        },
+        "power-management": {
+          "count": 8,
+          "parentCatalogName_set": [
+            "Power Management (PMIC)"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Power Management (PMIC)",
+              "count": 8
+            }
+          ]
+        }
+      },
+      "parentCatalogName_counts": [
+        {
+          "parentCatalogName": "Amplifiers/Comparators",
+          "count": 8
+        },
+        {
+          "parentCatalogName": "Power Management (PMIC)",
+          "count": 8
+        }
+      ],
+      "parent_to_native_l1_within": {
+        "Amplifiers/Comparators": [
+          "amplifiers-comparators"
+        ],
+        "Power Management (PMIC)": [
+          "power-management"
+        ]
+      },
+      "parents_ambiguous_within": {},
+      "parents_global_ambiguous": {
+        "Power Management (PMIC)": [
+          "circuit-protection",
+          "power-management"
+        ]
+      },
+      "empty_parent_sku": 0,
+      "split_recommendation": "UNRESOLVED"
+    },
+    "Power Management - Specialized": {
+      "total_sku": 12,
+      "native_l1_list": [
+        {
+          "native_l1": "power-management",
+          "count": 10
+        },
+        {
+          "native_l1": "interface-ics",
+          "count": 2
+        }
+      ],
+      "native_l1_count": 2,
+      "per_l1": {
+        "power-management": {
+          "count": 10,
+          "parentCatalogName_set": [
+            "Power Management (PMIC)"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Power Management (PMIC)",
+              "count": 10
+            }
+          ]
+        },
+        "interface-ics": {
+          "count": 2,
+          "parentCatalogName_set": [
+            "Interface"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Power Management (PMIC)",
+              "count": 2
+            }
+          ]
+        }
+      },
+      "parentCatalogName_counts": [
+        {
+          "parentCatalogName": "Power Management (PMIC)",
+          "count": 10
+        },
+        {
+          "parentCatalogName": "Interface",
+          "count": 2
+        }
+      ],
+      "parent_to_native_l1_within": {
+        "Power Management (PMIC)": [
+          "power-management"
+        ],
+        "Interface": [
+          "interface-ics"
+        ]
+      },
+      "parents_ambiguous_within": {},
+      "parents_global_ambiguous": {
+        "Power Management (PMIC)": [
+          "circuit-protection",
+          "power-management"
+        ]
+      },
+      "empty_parent_sku": 0,
+      "split_recommendation": "UNRESOLVED"
+    },
+    "Sensor and Detector Interfaces": {
+      "total_sku": 9,
+      "native_l1_list": [
+        {
+          "native_l1": "data-converters",
+          "count": 8
+        },
+        {
+          "native_l1": "amplifiers-comparators",
+          "count": 1
+        }
+      ],
+      "native_l1_count": 2,
+      "per_l1": {
+        "data-converters": {
+          "count": 8,
+          "parentCatalogName_set": [
+            "Data Acquisition"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Interface",
+              "count": 8
+            }
+          ]
+        },
+        "amplifiers-comparators": {
+          "count": 1,
+          "parentCatalogName_set": [
+            "Amplifiers/Comparators"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Interface",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "parentCatalogName_counts": [
+        {
+          "parentCatalogName": "Data Acquisition",
+          "count": 8
+        },
+        {
+          "parentCatalogName": "Amplifiers/Comparators",
+          "count": 1
+        }
+      ],
+      "parent_to_native_l1_within": {
+        "Data Acquisition": [
+          "data-converters"
+        ],
+        "Amplifiers/Comparators": [
+          "amplifiers-comparators"
+        ]
+      },
+      "parents_ambiguous_within": {},
+      "parents_global_ambiguous": {},
+      "empty_parent_sku": 0,
+      "split_recommendation": "SPLIT_BY_PARENT"
+    },
+    "SCRs - Modules": {
+      "total_sku": 4,
+      "native_l1_list": [
+        {
+          "native_l1": "transistors",
+          "count": 3
+        },
+        {
+          "native_l1": "diodes",
+          "count": 1
+        }
+      ],
+      "native_l1_count": 2,
+      "per_l1": {
+        "transistors": {
+          "count": 3,
+          "parentCatalogName_set": [
+            "Transistors/Thyristors"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Discrete Semiconductors > Thyristors",
+              "count": 3
+            }
+          ]
+        },
+        "diodes": {
+          "count": 1,
+          "parentCatalogName_set": [
+            "Diodes"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Discrete Semiconductors > Thyristors",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "parentCatalogName_counts": [
+        {
+          "parentCatalogName": "Transistors/Thyristors",
+          "count": 3
+        },
+        {
+          "parentCatalogName": "Diodes",
+          "count": 1
+        }
+      ],
+      "parent_to_native_l1_within": {
+        "Transistors/Thyristors": [
+          "transistors"
+        ],
+        "Diodes": [
+          "diodes"
+        ]
+      },
+      "parents_ambiguous_within": {},
+      "parents_global_ambiguous": {
+        "Transistors/Thyristors": [
+          "circuit-protection",
+          "transistors"
+        ],
+        "Diodes": [
+          "circuit-protection",
+          "diodes"
+        ]
+      },
+      "empty_parent_sku": 0,
+      "split_recommendation": "UNRESOLVED"
+    },
+    "Special Purpose Regulators": {
+      "total_sku": 4,
+      "native_l1_list": [
+        {
+          "native_l1": "power-management",
+          "count": 2
+        },
+        {
+          "native_l1": "led-display-drivers",
+          "count": 2
+        }
+      ],
+      "native_l1_count": 2,
+      "per_l1": {
+        "power-management": {
+          "count": 2,
+          "parentCatalogName_set": [
+            "Power Management (PMIC)"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Power Management (PMIC)",
+              "count": 2
+            }
+          ]
+        },
+        "led-display-drivers": {
+          "count": 2,
+          "parentCatalogName_set": [
+            "LED Drivers"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Power Management (PMIC)",
+              "count": 2
+            }
+          ]
+        }
+      },
+      "parentCatalogName_counts": [
+        {
+          "parentCatalogName": "Power Management (PMIC)",
+          "count": 2
+        },
+        {
+          "parentCatalogName": "LED Drivers",
+          "count": 2
+        }
+      ],
+      "parent_to_native_l1_within": {
+        "Power Management (PMIC)": [
+          "power-management"
+        ],
+        "LED Drivers": [
+          "led-display-drivers"
+        ]
+      },
+      "parents_ambiguous_within": {},
+      "parents_global_ambiguous": {
+        "Power Management (PMIC)": [
+          "circuit-protection",
+          "power-management"
+        ]
+      },
+      "empty_parent_sku": 0,
+      "split_recommendation": "UNRESOLVED"
+    },
+    "Quick Connects, Quick Disconnect Connectors": {
+      "total_sku": 8,
+      "native_l1_list": [
+        {
+          "native_l1": "terminals",
+          "count": 7
+        },
+        {
+          "native_l1": "industrial-control-electrical",
+          "count": 1
+        }
+      ],
+      "native_l1_count": 2,
+      "per_l1": {
+        "terminals": {
+          "count": 7,
+          "parentCatalogName_set": [
+            "Terminal"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Connectors, Interconnects > Terminals",
+              "count": 7
+            }
+          ]
+        },
+        "industrial-control-electrical": {
+          "count": 1,
+          "parentCatalogName_set": [
+            "Industrial control electrical"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Maintenance, Repair & Operations > Connectors, Interconnects > Terminals",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "parentCatalogName_counts": [
+        {
+          "parentCatalogName": "Terminal",
+          "count": 7
+        },
+        {
+          "parentCatalogName": "Industrial control electrical",
+          "count": 1
+        }
+      ],
+      "parent_to_native_l1_within": {
+        "Terminal": [
+          "terminals"
+        ],
+        "Industrial control electrical": [
+          "industrial-control-electrical"
+        ]
+      },
+      "parents_ambiguous_within": {},
+      "parents_global_ambiguous": {},
+      "empty_parent_sku": 0,
+      "split_recommendation": "SPLIT_BY_PARENT"
+    },
+    "RF Transceiver ICs": {
+      "total_sku": 16,
+      "native_l1_list": [
+        {
+          "native_l1": "rf-wireless",
+          "count": 13
+        },
+        {
+          "native_l1": "microcontrollers",
+          "count": 3
+        }
+      ],
+      "native_l1_count": 2,
+      "per_l1": {
+        "rf-wireless": {
+          "count": 13,
+          "parentCatalogName_set": [
+            "RF and Wireless"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "RF and Wireless",
+              "count": 13
+            }
+          ]
+        },
+        "microcontrollers": {
+          "count": 3,
+          "parentCatalogName_set": [
+            "Embedded Processors & Controllers"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "RF and Wireless",
+              "count": 3
+            }
+          ]
+        }
+      },
+      "parentCatalogName_counts": [
+        {
+          "parentCatalogName": "RF and Wireless",
+          "count": 13
+        },
+        {
+          "parentCatalogName": "Embedded Processors & Controllers",
+          "count": 3
+        }
+      ],
+      "parent_to_native_l1_within": {
+        "RF and Wireless": [
+          "rf-wireless"
+        ],
+        "Embedded Processors & Controllers": [
+          "microcontrollers"
+        ]
+      },
+      "parents_ambiguous_within": {},
+      "parents_global_ambiguous": {},
+      "empty_parent_sku": 0,
+      "split_recommendation": "SPLIT_BY_PARENT"
+    },
+    "DSP (Digital Signal Processors)": {
+      "total_sku": 5,
+      "native_l1_list": [
+        {
+          "native_l1": "microcontrollers",
+          "count": 4
+        },
+        {
+          "native_l1": "interface-ics",
+          "count": 1
+        }
+      ],
+      "native_l1_count": 2,
+      "per_l1": {
+        "microcontrollers": {
+          "count": 4,
+          "parentCatalogName_set": [
+            "Embedded Processors & Controllers"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Embedded",
+              "count": 4
+            }
+          ]
+        },
+        "interface-ics": {
+          "count": 1,
+          "parentCatalogName_set": [
+            "Interface"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Embedded",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "parentCatalogName_counts": [
+        {
+          "parentCatalogName": "Embedded Processors & Controllers",
+          "count": 4
+        },
+        {
+          "parentCatalogName": "Interface",
+          "count": 1
+        }
+      ],
+      "parent_to_native_l1_within": {
+        "Embedded Processors & Controllers": [
+          "microcontrollers"
+        ],
+        "Interface": [
+          "interface-ics"
+        ]
+      },
+      "parents_ambiguous_within": {},
+      "parents_global_ambiguous": {},
+      "empty_parent_sku": 0,
+      "split_recommendation": "SPLIT_BY_PARENT"
+    },
+    "RF Receivers": {
+      "total_sku": 3,
+      "native_l1_list": [
+        {
+          "native_l1": "rf-wireless",
+          "count": 2
+        },
+        {
+          "native_l1": "iot-communication-modules",
+          "count": 1
+        }
+      ],
+      "native_l1_count": 2,
+      "per_l1": {
+        "rf-wireless": {
+          "count": 2,
+          "parentCatalogName_set": [
+            "RF and Wireless"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "RF and Wireless",
+              "count": 2
+            }
+          ]
+        },
+        "iot-communication-modules": {
+          "count": 1,
+          "parentCatalogName_set": [
+            "IoT/Communication Modules"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "RF and Wireless",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "parentCatalogName_counts": [
+        {
+          "parentCatalogName": "RF and Wireless",
+          "count": 2
+        },
+        {
+          "parentCatalogName": "IoT/Communication Modules",
+          "count": 1
+        }
+      ],
+      "parent_to_native_l1_within": {
+        "RF and Wireless": [
+          "rf-wireless"
+        ],
+        "IoT/Communication Modules": [
+          "iot-communication-modules"
+        ]
+      },
+      "parents_ambiguous_within": {},
+      "parents_global_ambiguous": {},
+      "empty_parent_sku": 0,
+      "split_recommendation": "SPLIT_BY_PARENT"
+    },
+    "Signal Buffers, Repeaters, Splitters": {
+      "total_sku": 7,
+      "native_l1_list": [
+        {
+          "native_l1": "interface-ics",
+          "count": 6
+        },
+        {
+          "native_l1": "logic-ics",
+          "count": 1
+        }
+      ],
+      "native_l1_count": 2,
+      "per_l1": {
+        "interface-ics": {
+          "count": 6,
+          "parentCatalogName_set": [
+            "Interface"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Interface",
+              "count": 6
+            }
+          ]
+        },
+        "logic-ics": {
+          "count": 1,
+          "parentCatalogName_set": [
+            "Logic"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Interface",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "parentCatalogName_counts": [
+        {
+          "parentCatalogName": "Interface",
+          "count": 6
+        },
+        {
+          "parentCatalogName": "Logic",
+          "count": 1
+        }
+      ],
+      "parent_to_native_l1_within": {
+        "Interface": [
+          "interface-ics"
+        ],
+        "Logic": [
+          "logic-ics"
+        ]
+      },
+      "parents_ambiguous_within": {},
+      "parents_global_ambiguous": {},
+      "empty_parent_sku": 0,
+      "split_recommendation": "SPLIT_BY_PARENT"
+    },
+    "RF Transceiver Modules and Modems": {
+      "total_sku": 21,
+      "native_l1_list": [
+        {
+          "native_l1": "iot-communication-modules",
+          "count": 20
+        },
+        {
+          "native_l1": "microcontrollers",
+          "count": 1
+        }
+      ],
+      "native_l1_count": 2,
+      "per_l1": {
+        "iot-communication-modules": {
+          "count": 20,
+          "parentCatalogName_set": [
+            "IoT/Communication Modules"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "RF and Wireless",
+              "count": 20
+            }
+          ]
+        },
+        "microcontrollers": {
+          "count": 1,
+          "parentCatalogName_set": [
+            "Embedded Processors & Controllers"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "RF and Wireless",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "parentCatalogName_counts": [
+        {
+          "parentCatalogName": "IoT/Communication Modules",
+          "count": 20
+        },
+        {
+          "parentCatalogName": "Embedded Processors & Controllers",
+          "count": 1
+        }
+      ],
+      "parent_to_native_l1_within": {
+        "IoT/Communication Modules": [
+          "iot-communication-modules"
+        ],
+        "Embedded Processors & Controllers": [
+          "microcontrollers"
+        ]
+      },
+      "parents_ambiguous_within": {},
+      "parents_global_ambiguous": {},
+      "empty_parent_sku": 0,
+      "split_recommendation": "SPLIT_BY_PARENT"
+    },
+    "Angle, Linear Position Measuring": {
+      "total_sku": 4,
+      "native_l1_list": [
+        {
+          "native_l1": "magnetic-sensors",
+          "count": 2
+        },
+        {
+          "native_l1": "sensors",
+          "count": 2
+        }
+      ],
+      "native_l1_count": 2,
+      "per_l1": {
+        "magnetic-sensors": {
+          "count": 2,
+          "parentCatalogName_set": [
+            "Magnetic Sensors"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Sensors, Transducers > Position Sensors",
+              "count": 2
+            }
+          ]
+        },
+        "sensors": {
+          "count": 2,
+          "parentCatalogName_set": [
+            "Sensors"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Sensors, Transducers > Position Sensors",
+              "count": 2
+            }
+          ]
+        }
+      },
+      "parentCatalogName_counts": [
+        {
+          "parentCatalogName": "Magnetic Sensors",
+          "count": 2
+        },
+        {
+          "parentCatalogName": "Sensors",
+          "count": 2
+        }
+      ],
+      "parent_to_native_l1_within": {
+        "Magnetic Sensors": [
+          "magnetic-sensors"
+        ],
+        "Sensors": [
+          "sensors"
+        ]
+      },
+      "parents_ambiguous_within": {},
+      "parents_global_ambiguous": {},
+      "empty_parent_sku": 0,
+      "split_recommendation": "SPLIT_BY_PARENT"
+    },
+    "Specialized": {
+      "total_sku": 5,
+      "native_l1_list": [
+        {
+          "native_l1": "interface-ics",
+          "count": 3
+        },
+        {
+          "native_l1": "memory",
+          "count": 1
+        },
+        {
+          "native_l1": "signal-isolators",
+          "count": 1
+        }
+      ],
+      "native_l1_count": 3,
+      "per_l1": {
+        "interface-ics": {
+          "count": 3,
+          "parentCatalogName_set": [
+            "Interface"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Interface",
+              "count": 3
+            }
+          ]
+        },
+        "memory": {
+          "count": 1,
+          "parentCatalogName_set": [
+            "Memory"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Interface",
+              "count": 1
+            }
+          ]
+        },
+        "signal-isolators": {
+          "count": 1,
+          "parentCatalogName_set": [
+            "Signal Isolation Devices"
+          ],
+          "parentCatalogList_dist": [
+            {
+              "chain": "Integrated Circuits (ICs) > Interface",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "parentCatalogName_counts": [
+        {
+          "parentCatalogName": "Interface",
+          "count": 3
+        },
+        {
+          "parentCatalogName": "Memory",
+          "count": 1
+        },
+        {
+          "parentCatalogName": "Signal Isolation Devices",
+          "count": 1
+        }
+      ],
+      "parent_to_native_l1_within": {
+        "Interface": [
+          "interface-ics"
+        ],
+        "Memory": [
+          "memory"
+        ],
+        "Signal Isolation Devices": [
+          "signal-isolators"
+        ]
+      },
+      "parents_ambiguous_within": {},
+      "parents_global_ambiguous": {},
+      "empty_parent_sku": 0,
+      "split_recommendation": "SPLIT_BY_PARENT"
+    }
+  },
+  "parent_to_l1_global": {
+    "Power Management (PMIC)": [
+      "circuit-protection",
+      "power-management"
+    ],
+    "Transistors/Thyristors": [
+      "circuit-protection",
+      "transistors"
+    ],
+    "Diodes": [
+      "circuit-protection",
+      "diodes"
+    ]
+  }
+}

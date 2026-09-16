@@ -87,6 +87,7 @@ Usage:
 import csv, os, re, argparse, html, sys, json, hashlib, tempfile, subprocess
 from collections import defaultdict
 from urllib.parse import quote as urlquote
+import subcategory_final  # Phase 6 (Plan B): frozen fine-grained final_* fields for parts.json
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 DOMAIN = "https://www.szprocure.com"
@@ -2706,6 +2707,83 @@ def gen_manufacturer_page(mfr, parts, cat_slugs):
 # SEO entry + category navigation + procurement conversion. Groups SKUs that
 # resolve (via CATEGORY_MAP) to this top-level category.
 # ==============================================================================
+# ------------------------------------------------------------------------------
+# L2 fine-subcategory link injection (Phase 6 — content-preserving)
+# ------------------------------------------------------------------------------
+# The approved L2 category pages carry hand-authored, category-specific hero
+# copy (lead + checklist + featured SKUs) that is NOT derivable from a template.
+# When injecting the 189 fine subcategory links we MUST preserve that approved
+# content verbatim and only ADD the fine-subcategory cards to the existing
+# subcategory grid. We therefore read the last committed (approved) version of
+# the page as the content base, then replace ONLY the subcategory grid's inner
+# card list with [existing approved cards] + [new fine cards]. Everything else
+# (head, hero, checklist, featured, CTA) stays byte-identical to the approved
+# base. This keeps `git diff` of a regenerated L2 limited to the added fine links
+# — no unrelated content changes (frozen-rule compliant).
+
+def _load_approved_l2(cat_slug):
+    """Return the last committed (approved) L2 HTML for `cat_slug`, else None.
+
+    Prefer `git show HEAD:` (the approved baseline, independent of any
+    uncommitted working-tree edits); fall back to the on-disk file; then None
+    (caller falls back to full-template generation for brand-new categories).
+    """
+    try:
+        out = subprocess.run(
+            ["git", "show", f"HEAD:components/{cat_slug}/index.html"],
+            cwd=ROOT, capture_output=True, text=True, timeout=20,
+        )
+        if out.returncode == 0 and out.stdout.strip():
+            return out.stdout
+    except Exception:
+        pass
+    p = os.path.join(ROOT, "components", cat_slug, "index.html")
+    if os.path.isfile(p):
+        try:
+            return open(p, encoding="utf-8").read()
+        except Exception:
+            return None
+    return None
+
+
+def _patch_subcat_grid(base_html, fine_html):
+    """Inject `fine_html` cards into the subcategory grid of `base_html`.
+
+    Robust to both an existing subcat grid (Case A: preserve every existing card
+    verbatim + append fine cards) and an empty-state placeholder (Case B: replace
+    the placeholder with a fine-card grid). Only the subcategory section's card
+    list changes; head/hero/checklist/featured/CTA stay byte-identical to `base`.
+    Returns patched HTML, or None if the subcategory section is absent.
+    """
+    sec_m = re.search(
+        r'(<section[^>]*id="subcategories"[^>]*>.*?</h2>)(.*?)(</div>\s*</section>)',
+        base_html, re.DOTALL,
+    )
+    if not sec_m:
+        return None
+    content = sec_m.group(2)
+    existing = re.findall(r'<a class="card subcat-card"[^>]*>.*?</a>', content, re.DOTALL)
+    seen = set()
+
+    def _href(c):
+        mm = re.search(r'href="([^"]*)"', c)
+        return mm.group(1).rstrip("/").lower() if mm else ""
+
+    merged = []
+    for c in list(existing) + list(fine_html):
+        h = _href(c)
+        if h in seen:
+            continue
+        seen.add(h)
+        merged.append(c)
+    new_content = (
+        '\n        <div class="grid grid-4">\n          '
+        + "\n          ".join(merged)
+        + '\n        </div>\n      '
+    )
+    return base_html[:sec_m.start(2)] + new_content + base_html[sec_m.start(3):]
+
+
 def gen_component_category_page(cat_slug, cat_name, parts, all_rows=None, by_cat=None, noindex=None):
     url = f"{DOMAIN}/components/{cat_slug}/"
     n = len(parts)
@@ -2746,44 +2824,69 @@ def gen_component_category_page(cat_slug, cat_name, parts, all_rows=None, by_cat
             if os.path.isfile(os.path.join(cat_dir, _n, "index.html")):
                 existing_l3.add(_n)
     visible_subs = [(slug, name, cnt) for slug, (name, cnt) in sub_sorted if slug in existing_l3]
-    if visible_subs:
-        sub_cards = "".join(
-            f'<a class="card subcat-card" href="/components/{esc(cat_slug)}/{esc(slug)}/">'
-            f'<div class="sku-mpn">{esc(name)}</div>'
-            f'<div class="sku-mfr">{cnt} SKUs</div>'
-            f'<div class="muted small">Source {cnt} {esc(name).lower()} from the Shenzhen supply chain.</div>'
-            f'</a>'
-            for slug, name, cnt in visible_subs
-        )
+
+    # ---- 1b. Fine Subcategory aggregation (Phase 6 Plan B) ----
+    # Group parts by (final_native_l1 -> top_scope, final_slug); link only to fine
+    # pages that exist on disk (rendered by gen_subcategory.py). This discovers the
+    # 189 frozen fine subcategory pages from the L2 category page. Read-only over
+    # MASTER/RAW; never fabricates a URL. Only fine pages whose top_scope matches
+    # this L2 (cat_slug) are listed.
+    fine_counts = {}
+    for p in parts:
+        fs = (p.get("final_subcategory") or "").strip()
+        if not fs:
+            continue
+        fnl = (p.get("final_native_l1") or "").strip()
+        fsl = (p.get("final_slug") or slugify_name(fs))
+        top = (resolve_native(fnl) or {}).get("top_slug") or ""
+        if top != cat_slug:
+            continue
+        key = (fsl, fs)
+        fine_counts[key] = fine_counts.get(key, 0) + 1
+    fine_sorted = sorted(fine_counts.items(), key=lambda kv: (-kv[1], kv[0][0]))
+    fine_cards = {}
+    for (fsl, fs), cnt in fine_sorted:
+        if fsl in existing_l3:
+            fine_cards[fsl] = (fs, cnt)
+
+    # ---- Phase 6 (content-preserving fine-link injection) ----
+    # If an approved L2 base exists, preserve its exact hero/lead/checklist/
+    # featured copy and ONLY ADD the fine subcategory cards to the grid.
+    _base = _load_approved_l2(cat_slug)
+    if _base is not None:
+        _fine_html = [
+            f'<a class="card subcat-card" href="/components/{esc(cat_slug)}/{esc(fsl)}/">'
+            f'<div class="sku-mpn">{esc(fs)}</div></a>'
+            for fsl, (fs, cnt) in fine_cards.items()
+        ]
+        if _fine_html:
+            _patched = _patch_subcat_grid(_base, _fine_html)
+            if _patched is not None:
+                return _patched
+        else:
+            # No fine links to add: keep the approved page byte-identical
+            # (do NOT fall through to the generic full-template generator).
+            return _base
+    # (brand-new category with no approved base: fall through to full template)
+
+    # Merge coarse (native_l1) + fine (final_subcategory) cards. Fine cards are
+    # primary; a coarse card is kept only when its URL is NOT already covered by a
+    # fine card (avoids duplicates; preserves coarse-page discoverability per #5).
+    merged = {}
+    for fsl, (fs, cnt) in fine_cards.items():
+        merged[fsl] = (f'<a class="card subcat-card" href="/components/{esc(cat_slug)}/{esc(fsl)}/">'
+                       f'<div class="sku-mpn">{esc(fs)}</div></a>')
+    for slug, name, cnt in visible_subs:
+        if slug not in merged:
+            merged[slug] = (f'<a class="card subcat-card" href="/components/{esc(cat_slug)}/{esc(slug)}/">'
+                            f'<div class="sku-mpn">{esc(name)}</div></a>')
+    if merged:
+        sub_cards = "".join(merged.values())
     else:
         sub_cards = (f'<a class="card subcat-card" href="/request-a-quote/" data-zh="获取报价">'
-                     f'<div class="sku-mpn">{esc(cat_name)}</div>'
-                     f'<div class="sku-mfr">Request a quote</div></a>')
+                     f'<div class="sku-mpn">{esc(cat_name)}</div></a>')
 
-    # ---- 2. Category-specific sourcing copy (data-driven, unique per category) ----
-    # Built from REAL subcategory names + REAL top manufacturers in this category,
-    # so the six category pages never share identical boilerplate. No fabricated
-    # supplier/authorization/stock/price claims.
-    top_subs = [name for slug, (name, cnt) in sub_sorted[:4]]
-    mfr_counts = {}
-    for p in parts:
-        m = (p.get("manufacturer") or "").strip()
-        if m:
-            mfr_counts[m] = mfr_counts.get(m, 0) + 1
-    top_mfrs = [m for m, _ in sorted(mfr_counts.items(), key=lambda kv: (-kv[1], kv[0]))[:4]]
-    sub_phrase = ", ".join(top_subs)
-    mfr_phrase = ", ".join(top_mfrs)
-    intro = (
-        f"<p>Our {cat_lower} sourcing spans {esc(sub_phrase)} and more, from brands such as "
-        f"{esc(mfr_phrase)}. SZ Procure helps global buyers source these parts from the "
-        f"Shenzhen supply chain — covering popular families, hard-to-find versions and BOM "
-        f"consolidation with verified suppliers and competitive quotes.</p>"
-        f'<p class="muted small">Send the part number — our Shenzhen team cross-references '
-        f"availability and quotes, whether you need production-volume reels or a single "
-        f"hard-to-find variant.</p>"
-    )
-
-    # ---- 3. Representative Products (bounded 12; one per top subcategory) ----
+    # ---- 2. Representative / Featured Products (bounded 8; one per top subcategory) ----
     # V1 rule: prioritize subcats by SKU count; pick 1 deterministic rep SKU each;
     # never take global first-N-by-MPN. Future upgrade: if a part carries a
     # `representative` flag, prefer those (no popularity algorithm added this round).
@@ -2798,7 +2901,7 @@ def gen_component_category_page(cat_slug, cat_name, parts, all_rows=None, by_cat
         cands.sort(key=lambda x: x["mpn"])
         rep.append(cands[0])
         seen_sub.add(fine)
-        if len(rep) >= 12:
+        if len(rep) >= 8:
             break
     rep_cards = "".join(
         f'<a class="card sku-card" href="/products/{p.get("url_slug") or slugify(p["mpn"])}/">'
@@ -2812,6 +2915,40 @@ def gen_component_category_page(cat_slug, cat_name, parts, all_rows=None, by_cat
         ("Components", f"{DOMAIN}/components/"),
         (cat_name, url),
     ])
+
+    # L1 page-local visual tuning — matches the locked new-version reference page
+    # (components/integrated-circuits/index.html @ 61247fae). Required so the RFQ
+    # CTA sits on a white background with the correct 24px gap, not a gray band.
+    L1_CAT_STYLE = """  <style>
+    /* L1 component category page-local visual tuning (2026-09-11) */
+    .section:not(.navy) h2 { font-size: clamp(1.25rem, 2vw, 1.55rem); }
+    .page-head h1 { font-size: clamp(1.3rem, 2vw, 1.6rem); }
+    @media (max-width: 520px) { .page-head h1 { font-size: 1.1rem !important; } }
+    .subcat-card { padding: 14px 18px; display: flex; align-items: center; min-height: 74px; }
+    .sku-mfr { white-space: nowrap; }
+    .check-list li { white-space: nowrap; }
+    .cta-simple h2 { font-size: 1.3rem; }
+    .section--cta-simple { margin-top: -24px !important; padding-top: 0 !important; padding-bottom: 0 !important; background: #fff !important; }
+    .cta-simple { padding-top: 0 !important; padding-bottom: 40px !important; }
+    @media (max-width: 860px) {
+      .section--cta-simple { margin-top: -24px !important; background: #fff !important; }
+      .cta-simple { padding-bottom: 32px !important; }
+    }
+  </style>"""
+
+    # Four fixed global selling points — identical on every L1 page (locked standard).
+    # Not category-specific, not data-driven: this is the canonical L1 hero copy.
+    FOUR_POINTS = [
+        "Hard-to-find Parts Sourcing",
+        "Alternative Parts Matching",
+        "Supplier Screening &amp; Product Verification",
+        "BOM &amp; Small Quantity Orders",
+    ]
+    checklist = "".join(
+        f'<li style="margin:0; line-height:1.45;"><span style="color:var(--accent,#0A84FF)">&#10003;</span> {p}</li>'
+        for p in FOUR_POINTS
+    )
+
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -2821,54 +2958,57 @@ def gen_component_category_page(cat_slug, cat_name, parts, all_rows=None, by_cat
   <link rel="stylesheet" href="/assets/styles.css" />
 {crumb}
 {org_jsonld()}
+{L1_CAT_STYLE}
 </head>
 <body>
   <div id="site-header"></div>
   <main>
     <nav class="breadcrumb"><div class="container">
-      <a href="/">Home</a> ›
-      <a href="/components/">Components</a> ›
+      <a href="/">Home</a> &#8250;
+      <a href="/components/">Components</a> &#8250;
       <span>{esc(cat_name)}</span>
     </div></nav>
 
     <!-- 1. Hero / Category Sourcing Intro (merged) -->
-    <section class="page-head">
+    <section class="page-head" style="padding:38px 0 32px;">
       <div class="container">
-        <div class="eyebrow" data-zh="元器件分类">Component Category</div>
-        <h1>{esc(cat_name)}</h1>
-        <p class="lead">{n} {cat_lower} we help global buyers source — from the Shenzhen supply chain.</p>
-        {intro}
-        <div class="part-head-actions">
+        <h1 style="margin-bottom:4px;">{esc(cat_name)}</h1>
+        <p class="lead" style="margin-bottom:6px;">Source {cat_lower} from the Shenzhen supply chain — hard-to-find parts, alternates and BOM support for global buyers.</p>
+        <ul class="check-list" style="margin-top:8px; display:grid; grid-template-columns:1fr 1fr; column-gap:16px; row-gap:9px; padding-left:0; max-width:760px;">
+          {checklist}
+        </ul>
+        <div class="part-head-actions" style="margin-top:12px;">
           <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
-          <a class="btn btn-ghost" href="https://wa.me/8613530888389">WhatsApp</a>
-          <a class="btn btn-ghost" href="mailto:sales@szprocure.com">Email</a>
         </div>
       </div>
     </section>
 
     <!-- 2. Subcategory Navigation -->
-    <section class="section" id="subcategories">
+    <section class="section" id="subcategories" style="padding:48px 0;">
       <div class="container">
         <h2>{esc(cat_name)} Subcategories</h2>
         <div class="grid grid-4">{sub_cards}</div>
       </div>
     </section>
 
-    <!-- 3. Representative Products (bounded 12) -->
-    <section class="section">
+    <!-- 3. Featured Components (bounded 8) -->
+    <section class="section" id="featured" style="padding:48px 0;">
       <div class="container">
-        <h2>Representative {esc(cat_name)}</h2>
+        <h2>Featured Components</h2>
         <div class="grid grid-4">{rep_cards}</div>
-        <p class="muted"><a href="#subcategories">Browse the full list in each subcategory →</a></p>
       </div>
     </section>
 
     <!-- 4. RFQ / Sourcing CTA -->
-    <section class="section navy">
-      <div class="container" style="text-align:center">
-        <h2>Need {("an" if esc(cat_name)[:1].lower() in "aeiou" else "a")} {esc(cat_name)} part?</h2>
-        <p>Send us the part number and quantity for a quote.</p>
-        <a class="btn btn-white btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
+    <section class="section section--cta-simple">
+      <div class="container">
+        <div class="cta-simple">
+          <div>
+            <h2>Need a Part or BOM?</h2>
+            <p style="margin:6px 0 0; font-size:1rem; color:var(--muted,#6b7280); line-height:1.4;">Send us your part numbers and quantities for a quote.</p>
+          </div>
+          <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
+        </div>
       </div>
     </section>
   </main>
@@ -4361,6 +4501,18 @@ def regen_global_artifacts(args, groups, out_root, by_cat, related_map, generate
             "datasheet_url": g.get("datasheet_url", "").strip(),
             "product_url": f"/products/{uslug}/",
         })
+    # Phase 6 (Plan B): attach frozen fine-grained final_* fields. These are
+    # RECOMPUTED each run from MASTER + RAW + frozen Phase-5 rules via
+    # build_sr_final_map() (deterministic; no AI / no rule change / no temp
+    # deps), so newly onboarded SKUs are auto-classified without a manual
+    # --build. Falls back to the precomputed cache only if RAW is unavailable.
+    # Read-only over MASTER/RAW; no SKU HTML touched. Parts without a mapping
+    # keep falling back to the coarse `subcategory` grouping in gen_subcategory.py.
+    _final_map = subcategory_final.build_sr_final_map()
+    if not _final_map:
+        _final_map = subcategory_final.load_final_map()
+    for _p in parts_json:
+        subcategory_final.attach_final_fields(_p, _final_map)
     with open(os.path.join(out_root, "parts.json"), "w", encoding="utf-8") as f:
         f.write(json.dumps(parts_json, ensure_ascii=False, indent=2))
 
@@ -5139,6 +5291,18 @@ def main():
             "datasheet_url": g.get("datasheet_url", "").strip(),
             "product_url": f"/products/{uslug}/",
         })
+    # Phase 6 (Plan B): attach frozen fine-grained final_* fields. These are
+    # RECOMPUTED each run from MASTER + RAW + frozen Phase-5 rules via
+    # build_sr_final_map() (deterministic; no AI / no rule change / no temp
+    # deps), so newly onboarded SKUs are auto-classified without a manual
+    # --build. Falls back to the precomputed cache only if RAW is unavailable.
+    # Read-only over MASTER/RAW; no SKU HTML touched. Parts without a mapping
+    # keep falling back to the coarse `subcategory` grouping in gen_subcategory.py.
+    _final_map = subcategory_final.build_sr_final_map()
+    if not _final_map:
+        _final_map = subcategory_final.load_final_map()
+    for _p in parts_json:
+        subcategory_final.attach_final_fields(_p, _final_map)
     with open(os.path.join(out_root, "parts.json"), "w", encoding="utf-8") as f:
         f.write(json.dumps(parts_json, ensure_ascii=False, indent=2))
     print(f"parts.json: {len(parts_json)} structured records written.")

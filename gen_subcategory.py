@@ -17,20 +17,27 @@ capped at RELATED_CAP, Manufacturers sorted by SKU count desc and filtered to
 real existing pages (slugify_mfr matches gen_parts slugify_name rule).
 
 Freeze guarantees (MUST stay true):
-  * gen_parts.py / sitemap_parts.xml / vercel.json UNTOUCHED (we read parts.json +
-    data/category_taxonomy.json READ-ONLY; we write only L3 HTML + sitemap_subcat.xml)
+  * gen_parts.py / sitemap_parts.xml / vercel.json UNTOUCHED (we import gen_parts and
+    call gen_component_category_page READ-ONLY; we write only L3 HTML + L2 category HTML
+    + sitemap_subcat.xml). No edits to gen_parts.py source.
   * assets/styles.css / assets/site.js untouched
-  * all /products/ SKU pages, L2 category top pages, Hub, Search, MFR pages untouched
+  * all /products/ SKU pages UNTOUCHED — G2 (2026-09-17): --apply now ALSO regenerates
+    the L2 /components/<top>/ category pages via gen_parts.gen_component_category_page.
+    That function reads parts.json + on-disk L3 pages and emits category HTML only; it
+    NEVER writes any SKU page. L3 fine pages are generated first so L2 subcat links pick
+    them up. One command refreshes the whole category tree (L2+L3) with ZERO SKU-HTML
+    regeneration.
 
 Usage:
-  python gen_subcategory.py --dry-run     # report only, write nothing
-  python gen_subcategory.py --apply       # generate pages + sitemap
+  python gen_subcategory.py --dry-run     # report only, write nothing (incl. L2 plan)
+  python gen_subcategory.py --apply       # generate L3 + L2 category pages + sitemap
 """
 import os
 import sys
 import re
 import json
 import html
+import shutil
 import argparse
 from collections import defaultdict, Counter
 
@@ -145,6 +152,78 @@ def data_driven_groups(parts):
             groups[key] = g
         g["parts"].append(p)
     return groups
+
+
+def native_l1_to_top():
+    """native_l1 slug -> top_scope slug (from category_taxonomy.json, read-only)."""
+    path = os.path.join(ROOT, "data", "category_taxonomy.json")
+    if not os.path.exists(path):
+        return {}
+    with open(path, encoding="utf-8") as f:
+        tax = json.load(f)
+    return {l1["slug"]: l1.get("top_scope") for l1 in tax.get("l1_categories", [])}
+
+
+def top_scope_display():
+    """top_scope slug -> display name (from category_taxonomy.json, read-only)."""
+    path = os.path.join(ROOT, "data", "category_taxonomy.json")
+    if not os.path.exists(path):
+        return {}
+    with open(path, encoding="utf-8") as f:
+        tax = json.load(f)
+    return {ts["slug"]: ts.get("name", ts["slug"]) for ts in tax.get("top_scopes", [])}
+
+
+def final_driven_groups(parts, nl2top, top_name):
+    """Phase 6 (Plan B): group parts by the frozen fine subcategory.
+
+    Key = (final_top_slug, final_slug) where final_top_slug is resolved from
+    final_native_l1 via taxonomy. Parts WITHOUT final_subcategory are skipped
+    here (they fall back to the coarse grouping). Mirrors gen_parts.py's URL
+    scheme: top_slug from taxonomy, l3_slug = final_slug."""
+    groups = {}
+    for p in parts:
+        fs = p.get("final_subcategory")
+        if not fs:
+            continue
+        nl = p.get("final_native_l1") or ""
+        slug = p.get("final_slug") or slugify_name(fs)
+        top_slug = nl2top.get(nl) or slugify_name(p.get("category") or "")
+        key = (top_slug, slug)
+        g = groups.get(key)
+        if g is None:
+            g = {"parts": [], "top_display": top_name.get(top_slug, p.get("category") or top_slug),
+                 "l3_display": fs}
+            groups[key] = g
+        g["parts"].append(p)
+    return groups
+
+
+def _gate(raw, top_ps, l1_ps, use_l1=True, allow_keys=None):
+    """I3 gating. use_l1=False skips the L1 publish-status check (fine groups'
+    l3_slug is a catalogName slug, NOT a native_l1 slug, so the L1_PS lookup
+    would be wrong/over-broad).
+
+    allow_keys: optional set of (top_slug, l3_slug) permitted to pass even when
+    their top_scope publish_status != "active". This is the ONLY exception to the
+    TOP gate and is scoped by the caller to a single, explicit policy (see the
+    Option B block in main(): Phase 5 frozen BUILD fine subcats under the
+    `industrial-mechanical` top, which taxonomy marks `hidden`). It never
+    silently un-hides any other hidden top."""
+    if allow_keys is None:
+        allow_keys = set()
+    groups = {}
+    skipped = []
+    for key, g in raw.items():
+        top_slug, l3_slug = key
+        if top_ps.get(top_slug, "active") != "active" and key not in allow_keys:
+            skipped.append((key, "top_not_active"))
+            continue
+        if use_l1 and l1_ps.get(l3_slug, "active") in ("hidden", "review"):
+            skipped.append((key, "l1_hidden_review"))
+            continue
+        groups[key] = g
+    return groups, skipped
 
 
 def valid_mfr_slugs():
@@ -518,41 +597,55 @@ def main():
         ap.error("specify --dry-run or --apply")
 
     parts = load_parts()
+    import gen_parts  # G2: reuse L2 category generator (gen_component_category_page).
+                      # No circular import (gen_parts does not import gen_subcategory),
+                      # and it never writes SKU HTML.
     TOP_PS, L1_PS = load_taxonomy()
-    raw_groups = data_driven_groups(parts)
+    nl2top = native_l1_to_top()
+    top_name = top_scope_display()
 
-    # ---- I3 gating: mirror gen_parts.py L3 loop (skip non-active top / hidden|review l1) ----
-    groups = {}
-    skipped = []
-    for key, g in raw_groups.items():
-        top_slug, l3_slug = key
-        if TOP_PS.get(top_slug, "active") != "active":
-            skipped.append((key, "top_not_active"))
-            continue
-        if L1_PS.get(l3_slug, "active") in ("hidden", "review"):
-            skipped.append((key, "l1_hidden_review"))
-            continue
-        groups[key] = g
+    # Phase 6 (Plan B): fine groups from final_subcategory; coarse groups only for
+    # parts WITHOUT final_subcategory (preserves existing coarse pages for
+    # uncategorized / unmatched SKUs; fine pages supersede their coarse siblings).
+    raw_fine = final_driven_groups(parts, nl2top, top_name)
+    raw_coarse = data_driven_groups([p for p in parts if not p.get("final_subcategory")])
+    raw_groups = dict(raw_coarse); raw_groups.update(raw_fine)  # merged raw (fine wins)
 
-    # --only (PROTOTYPE) restricts which pages are WRITTEN, but sibling/manufacturer
-    # relations are still computed from the FULL gated set so Related Subcategories stays correct.
+    # I3 gating: fine groups -> TOP only (final_slug is a catalogName slug, not a
+    # native_l1 slug, so L1_PS lookup would be wrong); coarse groups -> TOP + L1 (unchanged).
+    # Phase 6 / Option B (2026-09-17): the freeze classified 3 fine subcats as BUILD
+    # whose resolved top_scope = "industrial-mechanical", which taxonomy marks
+    # `hidden`. Per explicit user decision we allow EXACTLY those BUILD fine pages
+    # through the TOP gate -- WITHOUT un-hiding the top and WITHOUT affecting any
+    # other hidden top. Scope is restricted to fine groups whose top_slug is
+    # "industrial-mechanical" (the 3 slugs: quick-connects-quick-disconnect-connectors,
+    # rfi-and-emi-contacts-fingerstock-and-gaskets, memory-cards). Coarse fallback
+    # groups are intentionally NOT excepted.
+    allow_hidden_keys = {k for k in raw_fine if k[0] == "industrial-mechanical"}
+    fine_groups, fine_skip = _gate(raw_fine, TOP_PS, L1_PS, use_l1=False,
+                                    allow_keys=allow_hidden_keys)
+    coarse_groups, coarse_skip = _gate(raw_coarse, TOP_PS, L1_PS, use_l1=True)
+    groups = dict(coarse_groups); groups.update(fine_groups)  # fine wins on URL
+    skipped = fine_skip + coarse_skip
+
+    # --only restricts which pages are WRITTEN; sibling relations are computed from
+    # the GENERATED set so Related Subcategories only links to pages written this run.
     only_set = set(args.only) if args.only else None
     if only_set:
         print(f"--only filter active: will generate only {len(only_set)} subcat(s): "
               + ", ".join(sorted(only_set)))
-
-    known_mfr = valid_mfr_slugs()
-    # index groups by top for sibling (Related Subcategories) lookup
+    gen_groups = {k: g for k, g in groups.items()
+                  if not (only_set and k[1] not in only_set)}
     by_top = defaultdict(list)
-    for key in groups:
+    for key in gen_groups:
         by_top[key[0]].append(key)
 
+    known_mfr = valid_mfr_slugs()
+
     plan = []
-    for key in sorted(groups):
-        if only_set and key[1] not in only_set:
-            continue
+    for key in sorted(gen_groups):
         top_slug, l3_slug = key
-        g = groups[key]
+        g = gen_groups[key]
         all_parts = g["parts"]
         total_n = len(all_parts)
         total_pages = max(1, (total_n + PER_PAGE - 1) // PER_PAGE)
@@ -603,17 +696,24 @@ def main():
             for pg in range(2, r["pages"] + 1):
                 urls.add(f"/components/{r['top']}/{r['l3']}/page/{pg}/")
         print(f"Unique generated URLs: {len(urls)}")
+        # G2 (2026-09-17): how many L2 category pages would be (re)generated
+        l2_by_cat = defaultdict(list)
+        for p in parts:
+            fnl = (p.get("final_native_l1") or "").strip()
+            cs, _ = gen_parts.resolve_cat(fnl)
+            if cs and cs != "__UNMAPPED__":
+                l2_by_cat[cs].append(p)
+        print(f"L2 category pages (G2): {len(gen_parts.TOP_CATEGORIES)} top scopes; "
+              f"parts mapped to L2: {sum(len(v) for v in l2_by_cat.values())}")
         print("DRY-RUN OK — no files written.")
         return
 
     # ---- APPLY ----
     written = 0
     sitemap_urls = []
-    for key in sorted(groups):
-        if only_set and key[1] not in only_set:
-            continue
+    for key in sorted(gen_groups):
         top_slug, l3_slug = key
-        g = groups[key]
+        g = gen_groups[key]
         all_parts = g["parts"]
         total_n = len(all_parts)
         if total_n == 0:
@@ -627,6 +727,15 @@ def main():
         siblings = [(groups[s]["l3_display"], f"/components/{s[0]}/{s[1]}/")
                     for s in by_top[top_slug] if s != key][:RELATED_CAP]
         base_dir = os.path.join(COMP, top_slug, l3_slug)
+        # Clear stale pagination dir so a regen with fewer pages leaves no orphans.
+        # Best-effort: deploy environments (Vercel) do clean rebuilds, but local runs
+        # may leave stale page/N dirs. Ignore failures (e.g. sandbox safe-delete).
+        page_dir = os.path.join(base_dir, "page")
+        if os.path.isdir(page_dir):
+            try:
+                shutil.rmtree(page_dir)
+            except OSError:
+                pass
         for pg in range(1, total_pages + 1):
             doc = build_page(g["l3_display"], top_slug, g["top_display"], l3_slug,
                              all_parts, pg, total_pages, mfr_options, siblings)
@@ -662,7 +771,42 @@ def main():
         with open(os.path.join(ROOT, "sitemap_subcat.xml"), "w", encoding="utf-8") as f:
             f.write("\n".join(sm) + "\n")
         print(f"Sitemap entries: {len(sitemap_urls)}")
-    print(f"APPLY done. Subcat HTML pages written: {written}")
+
+    # ---- G2 (2026-09-17): regenerate L2 category top pages ----
+    # Same function gen_parts --regen-categories uses, so L2 output is byte-identical
+    # to the production path. It reads parts.json + on-disk L3 pages and writes only
+    # category HTML — never any /products/ SKU page. L3 fine pages above are written
+    # first, so the L2 subcat link scan (existing_l3) sees them. One command now
+    # refreshes L2+L3 with ZERO SKU-HTML regeneration.
+    l2_written = 0
+    if args.only:
+        print("PROTOTYPE mode (--only): L2 category pages left untouched.")
+    else:
+        # parts.json carries final_native_l1 (NOT native_l1). Resolve the top scope
+        # from final_native_l1 (the frozen effective native L1), and synthesize a
+        # native_l1 field so gen_component_category_page's internal aggregation
+        # (subcat cards / featured products) matches gen_parts' native_l1-based path.
+        # For BUILD parts final_native_l1 == the true native_l1, so output is
+        # byte-identical to gen_parts --regen-categories; MERGE parts may shift a
+        # coarse card (still links a real on-disk page).
+        l2_by_cat = defaultdict(list)
+        for p in parts:
+            fnl = (p.get("final_native_l1") or "").strip()
+            cs, _ = gen_parts.resolve_cat(fnl)
+            if cs and cs != "__UNMAPPED__":
+                pp = dict(p)
+                pp["native_l1"] = fnl
+                l2_by_cat[cs].append(pp)
+        for cslug, cname in gen_parts.TOP_CATEGORIES.items():
+            l2_parts = l2_by_cat.get(cslug, [])
+            l2_html = gen_parts.gen_component_category_page(cslug, cname, l2_parts)
+            out = os.path.join(COMP, cslug, "index.html")
+            os.makedirs(os.path.dirname(out), exist_ok=True)
+            with open(out, "w", encoding="utf-8") as f:
+                f.write(l2_html)
+            l2_written += 1
+        print(f"L2 category pages written: {l2_written}")
+    print(f"APPLY done. L3 subcat pages written: {written} | L2 category pages: {l2_written}")
 
 
 if __name__ == "__main__":
