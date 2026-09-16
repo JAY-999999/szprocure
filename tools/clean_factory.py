@@ -41,6 +41,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, ROOT)
 import gen_parts as gp
+import native_l1_mapper as nl1  # frozen native_l1 rules — single source of truth
 
 DATE = f"{datetime.datetime.now():%Y%m%d}"
 # Phase-1 policy (2026-08-27): self-hosted assets are PARKED in the local D: ASSET
@@ -64,7 +65,7 @@ MASTER_HEADER = ["mpn", "clean_mpn", "manufacturer", "brand", "url_slug",
                  "category", "subcategory", "description", "applications",
                  "keywords", "attributes_json", "availability",
                  "alternative_parts", "datasheet_url", "faq", "image", "source",
-                 "source_url", "supplier_reference"]
+                 "source_url", "supplier_reference", "native_l1"]
 
 # Per fine-category caps (max count) — used only when --lock is NOT given.
 CAPS = {
@@ -84,129 +85,40 @@ DEFAULT_CAP = 15
 # ----------------------------------------------------------------------------- #
 # native_l1 (56-L1 taxonomy slug) — 02 Processing, deterministic remap
 # ----------------------------------------------------------------------------- #
-# Context: MASTER.native_l1 is the L1 taxonomy slug (one of the 56 slugs in
-# data/category_taxonomy.json v2) that gen_parts.py reads for every SKU.
-# It is derived deterministically from the REAL LCSC RAW classification
-# (parentCatalogName / catalogName), NOT guessed. These maps were validated
-# in szprocure_audit_tmp/fix_native_l1.py and are now the canonical 02-pipeline
-# source of truth so future recomputes are reproducible.
+# MASTER.native_l1 is the L1 taxonomy slug (one of the 56 slugs in
+# data/category_taxonomy.json v2) that gen_parts.py reads for every SKU. It is
+# derived deterministically from the REAL LCSC RAW classification
+# (parentCatalogName / catalogName), NOT guessed.
+#
+# SINGLE SOURCE OF TRUTH: the maps + helpers live in ``native_l1_mapper.py``
+# (repo root), imported below as ``nl1``. BOTH the legacy 02 pipeline
+# (clean_factory.main, via nl1.compute_native_l1_for_row) and the SKU Factory
+# (tools/factory/product_data.build_row) call the SAME module — there is no
+# second copy of the mapping logic anywhere in the production tree.
 #
 # Rule (deterministic, repeatable, no guessing):
 #   TIER 1: exact normalized catalogName (leaf) override -> specific L1 slug
-#           (Circuit-Protection leaf items whose parentCatalogName misleads)
 #   TIER 2: exact normalized parentCatalogName -> L1 slug (35-entry 1:1 map)
 #   TIER 3: if neither matches -> '' (unmapped, never guessed)
-L1_RAWDIR = os.path.join(ROOT, "data", "raw", "lcsc_http_scale500")
-L1_TAX = os.path.join(ROOT, "data", "category_taxonomy.json")
-
-# TIER 2: parentCatalogName (LCSC immediate parent) -> 56-L1 slug
-NATIVE_L1_PARENT_MAP = {
-    "power management (pmic)": "power-management",
-    "transistors/thyristors": "transistors",
-    "capacitors": "capacitors",
-    "connectors": "connectors",
-    "amplifiers/comparators": "amplifiers-comparators",
-    "interface": "interface-ics",
-    "diodes": "diodes",
-    "embedded processors & controllers": "microcontrollers",
-    "logic": "logic-ics",
-    "data acquisition": "data-converters",
-    "inductors, coils, chokes": "inductors-coils-transformers",
-    "motor driver ics": "motor-driver-ics",
-    "memory": "memory",
-    "sensors": "sensors",
-    "resistors": "resistors",
-    "rf and wireless": "rf-wireless",
-    "power modules": "power-modules",
-    "filters": "filters-emi-suppression",
-    "optoelectronics": "optoelectronics",
-    "signal isolation devices": "signal-isolators",
-    "switches": "switches",
-    "optoisolators": "optocouplers",
-    "clock/timing": "clock-timing",
-    "iot/communication modules": "iot-communication-modules",
-    "led drivers": "led-display-drivers",
-    "crystals, oscillators, resonators": "oscillators-resonators",
-    "magnetic sensors": "magnetic-sensors",
-    "circuit protection": "circuit-protection",
-    "audio products / vibration motors": "audio-signal-devices",
-    "terminal": "terminals",
-    "relays": "relays",
-    "hardware fasteners": "fasteners-hardware",
-    "office daily use": "office-supplies",
-    "displays": "displays",
-    "industrial control electrical": "industrial-control-electrical",
-}
-
-# TIER 1: leaf catalogName overrides -> L1 slug (Circuit-Protection items)
-NATIVE_L1_LEAF_OVERRIDE = {
-    "tvs diodes": "circuit-protection",
-    "varistors, movs": "circuit-protection",
-    "ptc resettable fuses": "circuit-protection",
-    "fuseholders": "circuit-protection",
-    "fuses": "circuit-protection",
-    "gas discharge tube arresters (gdt)": "circuit-protection",
-    "surge suppression ics": "circuit-protection",
-    "mixed technology": "circuit-protection",
-    "thyristors": "circuit-protection",
-}
-
-
-def _load_native_l1_taxonomy_slugs():
-    with open(L1_TAX, encoding="utf-8") as f:
-        d = json.load(f)
-    return set(x["slug"] for x in d["l1_categories"])
-
-
-def _norm_l1(s):
-    if not s:
-        return ""
-    return " ".join(str(s).strip().lower().split())
-
-
-def compute_native_l1(parent_catalog_name, catalog_name):
-    """Return the 56-L1 slug for a SKU, or '' when it cannot be determined.
-
-    Never guesses: only TIER-1 leaf overrides and TIER-2 parentCatalogName
-    matches produce a value; everything else stays empty.
-    """
-    cn = _norm_l1(catalog_name)
-    if cn in NATIVE_L1_LEAF_OVERRIDE:
-        return NATIVE_L1_LEAF_OVERRIDE[cn]
-    pc = _norm_l1(parent_catalog_name)
-    if pc in NATIVE_L1_PARENT_MAP:
-        return NATIVE_L1_PARENT_MAP[pc]
-    return ""
-
-
-def _raw_l1_categories(supplier_reference):
-    """Return (parentCatalogName, catalogName) from the JSON RAW file, or None
-    when the RAW file is missing/unreadable (caller keeps the current value)."""
-    if not supplier_reference:
-        return None
-    f = os.path.join(L1_RAWDIR, "%s.json" % supplier_reference)
-    if not os.path.exists(f):
-        return None
-    try:
-        with open(f, encoding="utf-8") as fh:
-            d = json.load(fh)
-        mp = d["source_raw"]["main_product"]
-        return (mp.get("parentCatalogName") or "", mp.get("catalogName") or "")
-    except Exception:
-        return None
 
 
 def recompute_native_l1(master_path, backup=True):
-    """02 pipeline step: deterministically (re)compute MASTER.native_l1 from RAW.
+    """LEGACY / MAINTENANCE ONLY — do NOT call from the normal production chain.
 
-    Only the native_l1 column is rewritten; every other column and the row
-    order are preserved exactly. Rows whose JSON RAW is missing keep their
-    current native_l1 (cannot re-derive; never guessed). Idempotent: running it
-    again on its own output changes nothing.
+    02 pipeline one-shot: deterministically (re)compute MASTER.native_l1 from RAW.
+    Only the native_l1 column is rewritten; every other column and the row order
+    are preserved exactly. Rows whose JSON RAW is missing keep their current
+    native_l1 (cannot re-derive; never guessed). Idempotent: running it again on
+    its own output changes nothing.
+
+    The actual rules are delegated to ``native_l1_mapper`` (the single source of
+    truth) — this function only orchestrates the read/rewrite of MASTER. Normal
+    automation does NOT need this; it runs the mapping inline via
+    nl1.compute_native_l1_for_row during the regular 02 build.
     """
-    slugs = _load_native_l1_taxonomy_slugs()
-    for s in (set(NATIVE_L1_PARENT_MAP.values())
-              | set(NATIVE_L1_LEAF_OVERRIDE.values())):
+    slugs = nl1._load_native_l1_taxonomy_slugs()
+    for s in (set(nl1.NATIVE_L1_PARENT_MAP.values())
+              | set(nl1.NATIVE_L1_LEAF_OVERRIDE.values())):
         assert s in slugs, ("native_l1 map targets a slug absent from "
                             "taxonomy v2: %s" % s)
     rows = list(csv.DictReader(open(master_path, encoding="utf-8")))
@@ -214,11 +126,11 @@ def recompute_native_l1(master_path, backup=True):
     assert "native_l1" in fieldnames, "MASTER is missing the native_l1 column"
     no_raw = 0
     for r in rows:
-        cats = _raw_l1_categories(r.get("supplier_reference") or "")
+        cats = nl1._raw_l1_categories(r.get("supplier_reference") or "")
         if cats is None:
             no_raw += 1
             continue  # keep current native_l1
-        r["native_l1"] = compute_native_l1(cats[0], cats[1])
+        r["native_l1"] = nl1.compute_native_l1(cats[0], cats[1])
     if backup:
         bak = master_path + (".bak_native_l1_%s" % DATE)
         shutil.copy2(master_path, bak)
@@ -372,15 +284,35 @@ def main():
     ap.add_argument("--out", default=os.path.join(ROOT, "data", "production", "master_parts_v2.1.csv"))
     ap.add_argument("--no-archive", action="store_true", help="skip D:/SZ Procure/02_CLEAN mirror")
     ap.add_argument("--recompute-native-l1", action="store_true",
-                   help="ONLY recompute MASTER.native_l1 from RAW (no asset "
-                        "download / full regen); idempotent, other columns "
-                        "untouched. This is the 02-pipeline native_l1 step.")
+                   help="(LEGACY / MAINTENANCE ONLY) ONE-SHOT: recompute "
+                        "MASTER.native_l1 from RAW (no asset download / full "
+                        "regen); idempotent, other columns untouched. Normal "
+                        "automation does NOT need this - native_l1 is derived "
+                        "inline via native_l1_mapper during the regular 02 "
+                        "build. Use only for an explicit one-time MASTER fix.")
     args = ap.parse_args()
 
     # --- 02 native_l1 step: targeted single-column recompute, no full regen ---
     if args.recompute_native_l1:
         recompute_native_l1(args.out, backup=not args.no_archive)
         return
+
+    # native_l1 carry-forward: snapshot the existing MASTER.native_l1 keyed by
+    # mpn. SKUs whose JSON RAW is now missing (incl. legacy rows with an empty
+    # supplier_reference, e.g. STM32F401CCU6 / ESP32-WROOM-32E) keep their
+    # previously-computed value — mirroring recompute_native_l1's "keep current
+    # when no RAW" rule so existing SKUs never regress. New SKUs with RAW are
+    # (re)derived below; SKUs with neither source keep '' (never guessed).
+    _existing_native_l1 = {}
+    if os.path.exists(args.out):
+        try:
+            with open(args.out, encoding="utf-8") as _ef:
+                for _er in csv.DictReader(_ef):
+                    _empn = (_er.get("mpn") or "").strip()
+                    if _empn:
+                        _existing_native_l1[_empn] = (_er.get("native_l1") or "").strip()
+        except Exception:
+            _existing_native_l1 = {}
 
     raw_path, by_mpn = load_raw_latest(args.raw)
 
@@ -501,6 +433,15 @@ def main():
         rw = c.get("raw") or {}
         mrow["source_url"] = (rw.get("source") or "").strip()
         mrow["supplier_reference"] = (rw.get("supplier_sku") or "").strip()
+        # native_l1: derive deterministically from JSON RAW when present (this is
+        # the automation that gives EVERY new SKU a correct native_l1 without a
+        # manual --recompute-native-l1 run). When RAW is missing, keep the
+        # existing value (keyed by mpn); never guess. Uses the frozen mapping in
+        # native_l1_mapper.
+        mrow["native_l1"] = _existing_native_l1.get((mrow.get("mpn") or "").strip(), "")
+        _nl1 = nl1.compute_native_l1_for_row(mrow["supplier_reference"])
+        if _nl1:
+            mrow["native_l1"] = _nl1
         mrow["source"] = ""
         master_rows.append(mrow)
 

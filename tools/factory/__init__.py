@@ -49,7 +49,7 @@ BACKUP_FILES = (
 MASTER_COLS = ["mpn", "clean_mpn", "manufacturer", "brand", "url_slug", "category",
                "subcategory", "description", "applications", "keywords", "attributes_json",
                "availability", "alternative_parts", "datasheet_url", "faq", "image",
-               "source", "source_url", "supplier_reference"]
+               "source", "source_url", "supplier_reference", "native_l1"]
 
 REQUIRED_FIELDS = ("mpn", "manufacturer", "category", "description")
 

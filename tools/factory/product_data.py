@@ -22,11 +22,20 @@ import csv
 import json
 import os
 import re
+import sys
 from datetime import datetime
 
 from . import MASTER_COLS, REQUIRED_FIELDS
 from . import dedup, gate, pool, category
 from .category import UNKNOWN_CATEGORY
+
+# Make the repo root importable so the frozen native_l1 rules (the single source
+# of truth in native_l1_mapper.py, shared with clean_factory.py) can be reused
+# by the factory SKU chain without a second copy of the logic.
+_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+if _ROOT not in sys.path:
+    sys.path.insert(0, _ROOT)
+import native_l1_mapper as nl1  # frozen native_l1 rules — single source of truth
 
 # RAW attribute keys (source CSV is Chinese-keyed)
 ATTR_CORE = "CPU内核"
@@ -252,6 +261,10 @@ def build_row(record, mpn, brand, mfr_map=None):
         "faq": fields["faq"], "image": (record.get("source_image_url") or "").strip(),
         "source": "", "source_url": "LCSC",
         "supplier_reference": (record.get("supplier_sku") or "").strip(),
+        # native_l1: deterministic from JSON RAW via the frozen mapper, so every
+        # factory-built SKU carries a correct native_l1 without a manual
+        # --recompute-native-l1 step. Empty when no RAW (never guessed).
+        "native_l1": nl1.compute_native_l1_for_row((record.get("supplier_sku") or "").strip()),
     }
     # final CJK guard on attribute values (defence in depth)
     aj = json.loads(fields["attributes_json"] or "{}")
