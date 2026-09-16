@@ -82,6 +82,156 @@ DEFAULT_CAP = 15
 
 
 # ----------------------------------------------------------------------------- #
+# native_l1 (56-L1 taxonomy slug) — 02 Processing, deterministic remap
+# ----------------------------------------------------------------------------- #
+# Context: MASTER.native_l1 is the L1 taxonomy slug (one of the 56 slugs in
+# data/category_taxonomy.json v2) that gen_parts.py reads for every SKU.
+# It is derived deterministically from the REAL LCSC RAW classification
+# (parentCatalogName / catalogName), NOT guessed. These maps were validated
+# in szprocure_audit_tmp/fix_native_l1.py and are now the canonical 02-pipeline
+# source of truth so future recomputes are reproducible.
+#
+# Rule (deterministic, repeatable, no guessing):
+#   TIER 1: exact normalized catalogName (leaf) override -> specific L1 slug
+#           (Circuit-Protection leaf items whose parentCatalogName misleads)
+#   TIER 2: exact normalized parentCatalogName -> L1 slug (35-entry 1:1 map)
+#   TIER 3: if neither matches -> '' (unmapped, never guessed)
+L1_RAWDIR = os.path.join(ROOT, "data", "raw", "lcsc_http_scale500")
+L1_TAX = os.path.join(ROOT, "data", "category_taxonomy.json")
+
+# TIER 2: parentCatalogName (LCSC immediate parent) -> 56-L1 slug
+NATIVE_L1_PARENT_MAP = {
+    "power management (pmic)": "power-management",
+    "transistors/thyristors": "transistors",
+    "capacitors": "capacitors",
+    "connectors": "connectors",
+    "amplifiers/comparators": "amplifiers-comparators",
+    "interface": "interface-ics",
+    "diodes": "diodes",
+    "embedded processors & controllers": "microcontrollers",
+    "logic": "logic-ics",
+    "data acquisition": "data-converters",
+    "inductors, coils, chokes": "inductors-coils-transformers",
+    "motor driver ics": "motor-driver-ics",
+    "memory": "memory",
+    "sensors": "sensors",
+    "resistors": "resistors",
+    "rf and wireless": "rf-wireless",
+    "power modules": "power-modules",
+    "filters": "filters-emi-suppression",
+    "optoelectronics": "optoelectronics",
+    "signal isolation devices": "signal-isolators",
+    "switches": "switches",
+    "optoisolators": "optocouplers",
+    "clock/timing": "clock-timing",
+    "iot/communication modules": "iot-communication-modules",
+    "led drivers": "led-display-drivers",
+    "crystals, oscillators, resonators": "oscillators-resonators",
+    "magnetic sensors": "magnetic-sensors",
+    "circuit protection": "circuit-protection",
+    "audio products / vibration motors": "audio-signal-devices",
+    "terminal": "terminals",
+    "relays": "relays",
+    "hardware fasteners": "fasteners-hardware",
+    "office daily use": "office-supplies",
+    "displays": "displays",
+    "industrial control electrical": "industrial-control-electrical",
+}
+
+# TIER 1: leaf catalogName overrides -> L1 slug (Circuit-Protection items)
+NATIVE_L1_LEAF_OVERRIDE = {
+    "tvs diodes": "circuit-protection",
+    "varistors, movs": "circuit-protection",
+    "ptc resettable fuses": "circuit-protection",
+    "fuseholders": "circuit-protection",
+    "fuses": "circuit-protection",
+    "gas discharge tube arresters (gdt)": "circuit-protection",
+    "surge suppression ics": "circuit-protection",
+    "mixed technology": "circuit-protection",
+    "thyristors": "circuit-protection",
+}
+
+
+def _load_native_l1_taxonomy_slugs():
+    with open(L1_TAX, encoding="utf-8") as f:
+        d = json.load(f)
+    return set(x["slug"] for x in d["l1_categories"])
+
+
+def _norm_l1(s):
+    if not s:
+        return ""
+    return " ".join(str(s).strip().lower().split())
+
+
+def compute_native_l1(parent_catalog_name, catalog_name):
+    """Return the 56-L1 slug for a SKU, or '' when it cannot be determined.
+
+    Never guesses: only TIER-1 leaf overrides and TIER-2 parentCatalogName
+    matches produce a value; everything else stays empty.
+    """
+    cn = _norm_l1(catalog_name)
+    if cn in NATIVE_L1_LEAF_OVERRIDE:
+        return NATIVE_L1_LEAF_OVERRIDE[cn]
+    pc = _norm_l1(parent_catalog_name)
+    if pc in NATIVE_L1_PARENT_MAP:
+        return NATIVE_L1_PARENT_MAP[pc]
+    return ""
+
+
+def _raw_l1_categories(supplier_reference):
+    """Return (parentCatalogName, catalogName) from the JSON RAW file, or None
+    when the RAW file is missing/unreadable (caller keeps the current value)."""
+    if not supplier_reference:
+        return None
+    f = os.path.join(L1_RAWDIR, "%s.json" % supplier_reference)
+    if not os.path.exists(f):
+        return None
+    try:
+        with open(f, encoding="utf-8") as fh:
+            d = json.load(fh)
+        mp = d["source_raw"]["main_product"]
+        return (mp.get("parentCatalogName") or "", mp.get("catalogName") or "")
+    except Exception:
+        return None
+
+
+def recompute_native_l1(master_path, backup=True):
+    """02 pipeline step: deterministically (re)compute MASTER.native_l1 from RAW.
+
+    Only the native_l1 column is rewritten; every other column and the row
+    order are preserved exactly. Rows whose JSON RAW is missing keep their
+    current native_l1 (cannot re-derive; never guessed). Idempotent: running it
+    again on its own output changes nothing.
+    """
+    slugs = _load_native_l1_taxonomy_slugs()
+    for s in (set(NATIVE_L1_PARENT_MAP.values())
+              | set(NATIVE_L1_LEAF_OVERRIDE.values())):
+        assert s in slugs, ("native_l1 map targets a slug absent from "
+                            "taxonomy v2: %s" % s)
+    rows = list(csv.DictReader(open(master_path, encoding="utf-8")))
+    fieldnames = list(rows[0].keys())
+    assert "native_l1" in fieldnames, "MASTER is missing the native_l1 column"
+    no_raw = 0
+    for r in rows:
+        cats = _raw_l1_categories(r.get("supplier_reference") or "")
+        if cats is None:
+            no_raw += 1
+            continue  # keep current native_l1
+        r["native_l1"] = compute_native_l1(cats[0], cats[1])
+    if backup:
+        bak = master_path + (".bak_native_l1_%s" % DATE)
+        shutil.copy2(master_path, bak)
+    with open(master_path, "w", encoding="utf-8", newline="") as o:
+        w = csv.DictWriter(o, fieldnames=fieldnames)
+        w.writeheader()
+        w.writerows(rows)
+    empties = sum(1 for r in rows if not (r["native_l1"] or "").strip())
+    print("[native_l1] recomputed: %d rows, %d kept-current (no RAW), "
+          "%d now empty" % (len(rows), no_raw, empties))
+
+
+# ----------------------------------------------------------------------------- #
 # Asset download helpers
 # ----------------------------------------------------------------------------- #
 def sha256_file(path):
@@ -221,7 +371,16 @@ def main():
     ap.add_argument("--cap", type=int, default=500, help="When no --lock: curate top-N from RAW")
     ap.add_argument("--out", default=os.path.join(ROOT, "data", "production", "master_parts_v2.1.csv"))
     ap.add_argument("--no-archive", action="store_true", help="skip D:/SZ Procure/02_CLEAN mirror")
+    ap.add_argument("--recompute-native-l1", action="store_true",
+                   help="ONLY recompute MASTER.native_l1 from RAW (no asset "
+                        "download / full regen); idempotent, other columns "
+                        "untouched. This is the 02-pipeline native_l1 step.")
     args = ap.parse_args()
+
+    # --- 02 native_l1 step: targeted single-column recompute, no full regen ---
+    if args.recompute_native_l1:
+        recompute_native_l1(args.out, backup=not args.no_archive)
+        return
 
     raw_path, by_mpn = load_raw_latest(args.raw)
 
