@@ -1008,6 +1008,122 @@ def _hub_catalog_from_groups(groups):
     return out
 
 
+def _fine_sub_anchor(top, slug, name, count):
+    """Render a single Fine subcategory <a class="cat-sub"> anchor (identical
+    styling to the existing L2 cat-sub links — no Hub redesign)."""
+    label = "%s<span class=\"cat-sub-count\">%d</span>" % (esc(name), count)
+    href = "/components/%s/%s/" % (top, slug)
+    return '                <a class="cat-sub" href="%s">%s</a>' % (href, label)
+
+
+def _hub_fine_catalog_from_parts(parts):
+    """Derive Fine subcategory entries from the frozen Phase-5 classification
+    (final_subcategory / final_native_l1 / final_slug on each SKU row).
+    Returns {top: [ {slug, name, count}, ... ]} for fines that have >=1 SKU.
+    AUTOMATIC: parts.json is rebuilt every run with final_* attached, so newly
+    onboarded SKUs whose catalogName maps to a fine auto-appear on the next
+    --regen-categories build. Fines whose final_native_l1 does not resolve to an
+    ACTIVE top are skipped (never emit a dead link). Mirrors
+    subcategory_final.build_sr_final_map()."""
+    load_taxonomy()
+    counts = {}
+    names = {}
+    for p in parts:
+        nl = (p.get("final_native_l1") or "").strip()
+        slug = (p.get("final_slug") or "").strip()
+        fs = (p.get("final_subcategory") or "").strip()
+        if not nl or not slug or not fs:
+            continue
+        res = resolve_taxonomy(nl)
+        if res["status"] != "RESOLVED":
+            continue
+        top = res["top"]
+        if top not in ACTIVE_TOP_CATEGORIES:
+            continue
+        key = (top, slug)
+        counts[key] = counts.get(key, 0) + 1
+        names[key] = fs
+    out = {}
+    for top in ACTIVE_TOP_CATEGORIES:
+        slugs = sorted({k[1] for k in counts if k[0] == top})
+        out[top] = [{"slug": s, "name": names[(top, s)], "count": counts[(top, s)]}
+                    for s in sorted(slugs, key=lambda x: names[(top, x)].lower())]
+    return out
+
+
+def _load_parts_for_hub(hub_path):
+    """Locate parts.json (repo root, relative to the hub file) for fine-catalog
+    derivation. Returns [] if unavailable so the hub build never fails on missing
+    data."""
+    repo_root = os.path.dirname(os.path.dirname(os.path.abspath(hub_path)))
+    p = os.path.join(repo_root, "parts.json")
+    if not os.path.isfile(p):
+        return []
+    try:
+        with open(p, encoding="utf-8") as _f:
+            return json.load(_f)
+    except Exception:
+        return []
+
+
+def _inject_fine_subs_into_html(html, fine_catalog):
+    """Patch the SECTIONS anchor: for each top section, append Fine cat-sub anchors
+    into its catalog-subs div, de-duplicated against existing L2 hrefs AND the top
+    slug itself (self-reference). Preserves every existing L2 entry + the NAV.
+    Idempotent: fines already present (by href) are skipped, so re-running never
+    duplicates. Used for the current-update (no full build) path."""
+    SECT_RE = re.compile(
+        r'(<!-- HUB-INJECT:SECTIONS-START -->)(.*?)(<!-- HUB-INJECT:SECTIONS-END -->)',
+        re.DOTALL)
+
+    def _section_repl(m):
+        start, body, end = m.group(1), m.group(2), m.group(3)
+        for top in ACTIVE_TOP_CATEGORIES:
+            fines = fine_catalog.get(top, [])
+            if not fines:
+                continue
+            sec_re = re.compile(
+                r'(<section class="catalog-section" data-category="%s">.*?'
+                r'<div class="catalog-subs">)(.*?)(</div>)' % re.escape(top),
+                re.DOTALL)
+
+            def _sec_repl(sm, _top=top, _fines=fines):
+                open_tag, existing, close = sm.group(1), sm.group(2).rstrip(), sm.group(3)
+                local_seen = {_top} | set(
+                    re.findall(r'/components/%s/([^"/]+)/' % re.escape(_top), existing))
+                anchors = []
+                for f in _fines:
+                    if f["slug"] in local_seen:
+                        continue
+                    local_seen.add(f["slug"])
+                    anchors.append("\n" + _fine_sub_anchor(_top, f["slug"], f["name"], f["count"]))
+                if not anchors:
+                    return sm.group(0)
+                return open_tag + existing + "".join(anchors) + close
+
+            body = sec_re.sub(_sec_repl, body)
+        return start + body + end
+
+    return SECT_RE.sub(_section_repl, html)
+
+
+def regen_hub_fines(hub_path, parts=None):
+    """Current-update helper: append Fine subcategory entries to the live Hub
+    WITHOUT recomputing the coarse L2 catalog (existing L2 links preserved
+    byte-for-byte). Returns True if the file was modified."""
+    with open(hub_path, encoding="utf-8") as _f:
+        html = _f.read()
+    if parts is None:
+        parts = _load_parts_for_hub(hub_path)
+    fine_catalog = _hub_fine_catalog_from_parts(parts) if parts else {}
+    new_html = _inject_fine_subs_into_html(html, fine_catalog)
+    if new_html != html:
+        with open(hub_path, "w", encoding="utf-8") as _f:
+            _f.write(new_html)
+        return True
+    return False
+
+
 def _render_hub_nav(catalog):
     items = []
     for top in ACTIVE_TOP_CATEGORIES:
@@ -1020,12 +1136,14 @@ def _render_hub_nav(catalog):
     return "\n".join(items)
 
 
-def _render_hub_sections(catalog):
+def _render_hub_sections(catalog, fine_catalog=None):
     sections = []
     for top in ACTIVE_TOP_CATEGORIES:
         c = catalog[top]
         subs = []
+        seen = set()
         for s in c["subs"]:
+            seen.add(s["slug"])
             label = "%s<span class=\"cat-sub-count\">%d</span>" % (esc(s["name"]), s["count"])
             if s["self_reference"] or s["slug"] == top:
                 # Non-link span: NEVER a /components/<top>/<top>/ URL (no 404).
@@ -1033,6 +1151,15 @@ def _render_hub_sections(catalog):
             else:
                 href = "/components/%s/%s/" % (top, s["slug"])
                 subs.append('                <a class="cat-sub" href="%s">%s</a>' % (href, label))
+        # Fine subcategory entries (additive; only those with >=1 SKU). De-duplicated
+        # against existing L2 slugs so a fine whose slug collides with an L2 entry
+        # (e.g. microcontrollers) is not double-linked.
+        if fine_catalog:
+            for f in fine_catalog.get(top, []):
+                if f["slug"] in seen:
+                    continue
+                seen.add(f["slug"])
+                subs.append(_fine_sub_anchor(top, f["slug"], f["name"], f["count"]))
         subs_html = "\n".join(subs)
         sections.append(
             '        <section class="catalog-section" data-category="%s">\n'
@@ -1060,15 +1187,21 @@ def _replace_hub_anchor(html, start_marker, end_marker, new_content):
     return pat.sub("%s\n%s\n%s" % (start_marker, new_content, end_marker), html, count=1)
 
 
-def inject_hub_anchors(hub_path, groups):
+def inject_hub_anchors(hub_path, groups, parts=None):
     """Inject the data-driven catalog into components/index.html BETWEEN the explicit
     HUB-INJECT anchors. Never rebuilds the file; fails (assert) if anchors are absent.
-    Self-reference subcategories render as non-link spans (no /components/<top>/<top>/)."""
+    Self-reference subcategories render as non-link spans (no /components/<top>/<top>/).
+    Fine subcategory entries (frozen Phase-5 classification, parts.json) are appended
+    automatically when parts data is available — so newly onboarded SKUs that create new
+    fine subclasses appear on the next --regen-categories build with no manual step."""
     with open(hub_path, encoding="utf-8") as _f:
         html = _f.read()
     catalog = _hub_catalog_from_groups(groups)
+    if parts is None:
+        parts = _load_parts_for_hub(hub_path)
+    fine_catalog = _hub_fine_catalog_from_parts(parts) if parts else {}
     nav = _render_hub_nav(catalog)
-    sections = _render_hub_sections(catalog)
+    sections = _render_hub_sections(catalog, fine_catalog)
     html = _replace_hub_anchor(html, "<!-- HUB-INJECT:NAV-START -->",
                                "<!-- HUB-INJECT:NAV-END -->", nav)
     html = _replace_hub_anchor(html, "<!-- HUB-INJECT:SECTIONS-START -->",
