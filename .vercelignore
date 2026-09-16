@@ -1,0 +1,77 @@
+# ============================================================================
+# .vercelignore — Phase 3.1 Preview Canary (CLEAN PREVIEW)
+# Goal: deploy ONLY the pre-generated static site. Keep every production
+# dir/file; exclude all dev / audit / test / backup / local-build artifacts.
+# This file affects ONLY the Vercel deploy bundle. It does NOT alter any
+# production code, the GitHub repo, or the live site.
+# ============================================================================
+
+# ---- Python / build tooling (site is pre-generated static; no runtime Python) ----
+__pycache__/
+.pytest_cache/
+*.py
+*.pyc
+*.pyo
+*.sh
+*.bat
+*.vbs
+*.log
+
+# ---- Dev / audit / test / backup directories (underscore-prefixed + named) ----
+_audit_*
+_audit_shots/
+audit_visual_v2/
+_phase*
+_pilot_*
+_qa_*
+_regen_backup_*
+_rollout*
+_gen_test*/
+_dryrun_audit/
+_shots/
+szbuild_verify/
+_sku-v3-prototype/
+_v2_screenshots/
+reports/
+tests/
+tools/
+enrich_manifests/
+
+# ---- Local build inputs (never deployed; site references only pre-generated HTML) ----
+data/
+assets/parts/
+
+# ---- Local preview / helper artifacts (not part of site) ----
+local_preview/
+preview/
+_rfq_preview/
+preview-home.html
+serve_local.py
+serve.bat
+打开官网预览.vbs
+打开官网预览.bat
+
+# ---- Loose dev txt / backup files ----
+_*.txt
+*.bak*
+
+# ---- Reports / working docs (per project convention: .md not deployed) ----
+*.md
+
+# ---- Vercel CLI internal config (not site content) ----
+.vercel
+
+# ---- OS / editor junk ----
+.DS_Store
+Thumbs.db
+*.swp
+
+# ============================================================================
+# EXPLICITLY KEPT (listed for clarity — NOT excluded above):
+#   index.html, robots.txt, vercel.json, sitemap*.xml,
+#   parts.json, enrich_slug_map.json, search-index.json,
+#   products/  components/  manufacturers/  assets/ (except assets/parts/)
+#   about/  ai-hardware/  contact/  how-it-works/  privacy/
+#   request-a-quote/  search/  sourcing/  sourcing-services/  terms/
+#   all *.css / *.js / images referenced by the site
+# ============================================================================

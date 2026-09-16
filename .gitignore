@@ -95,3 +95,26 @@ build_manifest.json
 
 # --- 01 采集器 SOCKS5 代理凭据 (本地仅运行用; 绝不进仓库 / 部署包) ---
 tools/.lcsc_proxy
+
+# --- Repository Hygiene (2026-09-17): local temp / scratch / audit artifacts ---
+# One-off dev, QA, audit, and backup products that must never enter the repo.
+# They are NOT part of the site and are already excluded from the Vercel deploy
+# bundle by .vercelignore. Patterns are underscore-prefixed or name-specific so
+# no real production file (e.g. subcategory_*.json, parts.json) is accidentally
+# ignored. Do NOT delete files matching these — they are only hidden from git.
+_*.py
+_*.json
+_*.csv
+_*.txt
+*.log
+*.bak*
+products/**/*.bak*
+_audit*/
+_phase*/
+_pilot*/
+_regen_backup*/
+_rollout*/
+_sku-v3-prototype/
+szprocure_audit_tmp/
+enrich_manifests/
+*.lock
