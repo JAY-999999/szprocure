@@ -860,109 +860,6 @@ COMPONENT_HUB_BLURB = {
     "modules":                  "WiFi, Bluetooth, GNSS and cellular communication modules.",
 }
 
-def generate_components_hub(generated_slugs=None):
-    # DEPRECATED (P1-B2 / M2 — 2026-09-09): replaced by inject_hub_anchors() on the
-    # normal publish path. Kept only for reference / rollback. Do NOT call from main().
-    url = f"{DOMAIN}/components/"
-    # FROZEN SEO head strings — locked by Phase D.3 freeze layer. Do not change.
-    title = "Electronic Components — Source from Shenzhen, China | SZ Procure"
-    desc = ("Browse electronic component categories we source from Shenzhen: "
-            "integrated circuits, semiconductors, passives, sensors, connectors and "
-            "modules. Request a quote for any part number.")
-    # category cards (data-driven from TOP_CATEGORIES)
-    cards = []
-    for slug, name in TOP_CATEGORIES.items():
-        blurb = COMPONENT_HUB_BLURB.get(slug, "")
-        cards.append(f'''        <a class="card cat-card" href="/components/{slug}/">
-          <h3>{esc(name)}</h3>
-          <p>{esc(blurb)}</p>
-          <span class="mfr-link">Browse {esc(name)} &rarr;</span>
-        </a>''')
-    cards_html = "\n".join(cards)
-    # popular components (real, data-driven via POPULAR_SKU_MAP; falls back to RFQ)
-    pop_items = "\n          ".join(
-        f'<li><a href="{popular_href(model, generated_slugs)}">{esc(model)}</a></li>'
-        for model in POPULAR_SKU_MAP
-    )
-    crumb = breadcrumb_jsonld([("Home", f"{DOMAIN}/"), ("Components", url)])
-    return f"""<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-{seo_head(title, desc, url)}
-  <link rel="stylesheet" href="/assets/styles.css" />
-{crumb}
-{org_jsonld()}
-</head>
-<body>
-  <div id="site-header"></div>
-  <main>
-    <!-- HERO Type B (navy commercial hero) -->
-    <section class="comp-hero">
-      <div class="container">
-        <div class="eyebrow" data-zh="元器件类别">ELECTRONIC COMPONENT CATEGORIES</div>
-        <h1 data-zh="我们采购的元器件类别">Component Categories We Source From Shenzhen</h1>
-        <p class="lead" data-zh="从已验证的深圳供应渠道，为全球买家采购各类原装元器件。浏览类别或发送料号获取报价。">We source original electronic components from verified Shenzhen supply channels for global buyers. Browse a category or send a part number to request a quote.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
-          <a class="btn btn-outline-light btn-lg" href="#categories" data-zh="浏览类别">Browse Categories</a>
-        </div>
-        <div class="trust-bar">
-          <span><b>&#10003;</b> <span data-zh="已验证供应渠道">Verified Supply Channels</span></span>
-          <span><b>&#10003;</b> <span data-zh="原装元器件">Original Components</span></span>
-          <span><b>&#10003;</b> <span data-zh="全球买家支持">Global Buyer Support</span></span>
-          <span><b>&#10003;</b> <span data-zh="快速报价响应">Fast RFQ Response</span></span>
-        </div>
-      </div>
-    </section>
-
-    <!-- CATEGORY GRID -->
-    <section class="section" id="categories">
-      <div class="container">
-        <div class="section-head">
-          <div class="eyebrow" data-zh="按类别浏览">BROWSE BY CATEGORY</div>
-          <h2 data-zh="元器件类别">Component Categories</h2>
-          <p class="lead" data-zh="点击任意类别，查看我们采购的元器件并发起询价。">Click any category to view sourced components and request a quote.</p>
-        </div>
-        <div class="grid grid-3">
-{cards_html}
-        </div>
-      </div>
-    </section>
-
-    <!-- POPULAR COMPONENTS -->
-    <section class="section soft">
-      <div class="container">
-        <div class="section-head">
-          <div class="eyebrow" data-zh="热门料号">POPULAR COMPONENTS</div>
-          <h2 data-zh="常用料号">Popular Part Numbers</h2>
-        </div>
-        <ul class="bullet-list part-index">
-          {pop_items}
-        </ul>
-      </div>
-    </section>
-
-    <!-- FINAL CTA -->
-    <section class="section soft">
-      <div class="container">
-        <div class="cta-band">
-          <div>
-            <h2 data-zh="找不到需要的料号？">Can't Find the Part You Need?</h2>
-            <p data-zh="发送准确的料号、制造商与数量，我们将核对库存并报价。">Send us the exact part number, manufacturer and quantity — we'll check availability and quote.</p>
-          </div>
-          <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
-        </div>
-      </div>
-    </section>
-  </main>
-  <div id="site-footer"></div>
-  <script src="/assets/site.js" defer></script>
-{ga4_script()}
-  </body>
-</html>"""
-
 # ===========================================================================
 # Hub Injector (P1-B2 / M2 — 2026-09-09)
 # Restricted, anchor-only injection into components/index.html. It NEVER rebuilds
@@ -972,8 +869,9 @@ def generate_components_hub(generated_slugs=None):
 #
 # Self-reference subcategories (resolve_taxonomy status SELF_REFERENCE) are rendered
 # as NON-LINK spans, so no /components/<top>/<top>/ 404 link is ever emitted.
-# generate_components_hub() above is now DEPRECATED and must NOT be called from the
-# normal publish path (main() routes to inject_hub_anchors() instead).
+# (2026-09-17) The legacy full-page renderer generate_components_hub() was DELETED:
+# it emitted a count-less legacy template that would have overwritten the V2.4 shell.
+# inject_hub_anchors() is now the ONLY writer of components/index.html.
 # ===========================================================================
 
 def _hub_catalog_from_groups(groups):
@@ -1066,64 +964,6 @@ def _load_parts_for_hub(hub_path):
         return []
 
 
-def _inject_fine_subs_into_html(html, fine_catalog):
-    """Patch the SECTIONS anchor: for each top section, append Fine cat-sub anchors
-    into its catalog-subs div, de-duplicated against existing L2 hrefs AND the top
-    slug itself (self-reference). Preserves every existing L2 entry + the NAV.
-    Idempotent: fines already present (by href) are skipped, so re-running never
-    duplicates. Used for the current-update (no full build) path."""
-    SECT_RE = re.compile(
-        r'(<!-- HUB-INJECT:SECTIONS-START -->)(.*?)(<!-- HUB-INJECT:SECTIONS-END -->)',
-        re.DOTALL)
-
-    def _section_repl(m):
-        start, body, end = m.group(1), m.group(2), m.group(3)
-        for top in ACTIVE_TOP_CATEGORIES:
-            fines = fine_catalog.get(top, [])
-            if not fines:
-                continue
-            sec_re = re.compile(
-                r'(<section class="catalog-section" data-category="%s">.*?'
-                r'<div class="catalog-subs">)(.*?)(</div>)' % re.escape(top),
-                re.DOTALL)
-
-            def _sec_repl(sm, _top=top, _fines=fines):
-                open_tag, existing, close = sm.group(1), sm.group(2).rstrip(), sm.group(3)
-                local_seen = {_top} | set(
-                    re.findall(r'/components/%s/([^"/]+)/' % re.escape(_top), existing))
-                anchors = []
-                for f in _fines:
-                    if f["slug"] in local_seen:
-                        continue
-                    local_seen.add(f["slug"])
-                    anchors.append("\n" + _fine_sub_anchor(_top, f["slug"], f["name"], f["count"]))
-                if not anchors:
-                    return sm.group(0)
-                return open_tag + existing + "".join(anchors) + close
-
-            body = sec_re.sub(_sec_repl, body)
-        return start + body + end
-
-    return SECT_RE.sub(_section_repl, html)
-
-
-def regen_hub_fines(hub_path, parts=None):
-    """Current-update helper: append Fine subcategory entries to the live Hub
-    WITHOUT recomputing the coarse L2 catalog (existing L2 links preserved
-    byte-for-byte). Returns True if the file was modified."""
-    with open(hub_path, encoding="utf-8") as _f:
-        html = _f.read()
-    if parts is None:
-        parts = _load_parts_for_hub(hub_path)
-    fine_catalog = _hub_fine_catalog_from_parts(parts) if parts else {}
-    new_html = _inject_fine_subs_into_html(html, fine_catalog)
-    if new_html != html:
-        with open(hub_path, "w", encoding="utf-8") as _f:
-            _f.write(new_html)
-        return True
-    return False
-
-
 def _render_hub_nav(catalog):
     items = []
     for top in ACTIVE_TOP_CATEGORIES:
@@ -1138,13 +978,24 @@ def _render_hub_nav(catalog):
 
 def _render_hub_sections(catalog, fine_catalog=None):
     sections = []
+    # (2026-09-17) NO DUAL-SOURCE COUNT for the same URL: when an L2 (coarse,
+    # native_l1) sub slug collides with a Fine subcategory slug, the L2 anchor is
+    # kept (no duplicate link) but the Fine count is the one displayed -- because
+    # /components/<top>/<slug>/ is GENERATED from final_* by gen_subcategory.py
+    # (fine groups override coarse groups). Without this the Hub advertised 268 for
+    # /components/integrated-circuits/microcontrollers/ while the page listed 242.
+    fine_counts = {}
+    for _top, _items in (fine_catalog or {}).items():
+        for _f in _items:
+            fine_counts[(_top, _f["slug"])] = _f["count"]
     for top in ACTIVE_TOP_CATEGORIES:
         c = catalog[top]
         subs = []
         seen = set()
         for s in c["subs"]:
             seen.add(s["slug"])
-            label = "%s<span class=\"cat-sub-count\">%d</span>" % (esc(s["name"]), s["count"])
+            _cnt = fine_counts.get((top, s["slug"]), s["count"])
+            label = "%s<span class=\"cat-sub-count\">%d</span>" % (esc(s["name"]), _cnt)
             if s["self_reference"] or s["slug"] == top:
                 # Non-link span: NEVER a /components/<top>/<top>/ URL (no 404).
                 subs.append('                <span class="cat-sub">%s</span>' % label)
@@ -1208,6 +1059,114 @@ def inject_hub_anchors(hub_path, groups, parts=None):
                                "<!-- HUB-INJECT:SECTIONS-END -->", sections)
     with open(hub_path, "w", encoding="utf-8") as _f:
         _f.write(html)
+
+
+# ===========================================================================
+# HUB / CATEGORY REFRESH — production chain closure (2026-09-17)
+# ---------------------------------------------------------------------------
+# Before this fix the static Components Hub was refreshed ONLY under
+# --regen-categories (and never at all under --single), and the full build ran
+# inject_hub_anchors() BEFORE parts.json was rewritten — so the Fine catalog was
+# always one run stale. These helpers are the single place that closes the chain,
+# and they are deliberately bound to the artefact ORDER, not to a flag.
+# ===========================================================================
+
+def refresh_components_hub(out_root, groups, parts=None):
+    """Refresh the STATIC Components Hub (components/index.html).
+
+    MUST be called AFTER parts.json has been rewritten for THIS run, and with the
+    same `parts` list that was just written:
+      * L2 (top) counts  <- groups[].native_l1   (_hub_catalog_from_groups)
+      * Fine counts      <- parts[].final_*      (_hub_fine_catalog_from_parts)
+    Same-run data on both sides => no dual-source drift, no stale counts.
+    Anchor-only injection: the V2.4 shell / SEO / visuals are never rebuilt.
+    Never touches products/*.html."""
+    hub_path = os.path.join(out_root, "components", "index.html")
+    if not os.path.isfile(hub_path):
+        print("  [HUB] components/index.html not found -> skipped (nothing to inject).")
+        return False
+    try:
+        inject_hub_anchors(hub_path, groups, parts)
+    except AssertionError as e:
+        print(f"  [HUB][WARN] {e}")
+        return False
+    print("  [HUB] components/index.html refreshed (L2 + Fine counts, same-run data).")
+    return True
+
+
+def _read_parts_json(out_root):
+    """Snapshot of the CURRENT parts.json (read BEFORE this run overwrites it).
+    Returns [] when missing/corrupt so new-fine detection degrades to 'all new'."""
+    p = os.path.join(out_root, "parts.json")
+    try:
+        with open(p, encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return []
+
+
+def _fine_keys(parts):
+    """{(top, final_slug)} for every fine subcategory that has >= 1 SKU.
+
+    Uses exactly the same resolution rules as _hub_fine_catalog_from_parts()
+    (RESOLVED status + active top + all three final_* fields present), so the
+    "is this a NEW fine?" test can never disagree with what the Hub renders.
+    A fine only exists here because a real SKU carries it -> "no SKU, no page"."""
+    load_taxonomy()
+    keys = set()
+    for p in parts or ():
+        nl = (p.get("final_native_l1") or "").strip()
+        slug = (p.get("final_slug") or "").strip()
+        fs = (p.get("final_subcategory") or "").strip()
+        if not nl or not slug or not fs:
+            continue
+        res = resolve_taxonomy(nl)
+        if res["status"] != "RESOLVED":
+            continue
+        if res["top"] not in ACTIVE_TOP_CATEGORIES:
+            continue
+        keys.add((res["top"], slug))
+    return keys
+
+
+def refresh_hub_and_categories(args, out_root, groups, by_cat, related_map,
+                               generated_slugs, parts_json, prev_fine_keys,
+                               skip_components_data=False):
+    """Shared publish tail — the ONE place that closes the Components chain.
+
+    Order is mandatory (this is the fix for the full-build ordering bug):
+      1. category publish (L3 fine pages + L2 top pages) via gen_subcategory.py
+         -- triggered by an explicit --regen-categories OR by a NEW fine key
+            (>=1 SKU, no page yet) so a new SKU auto-creates its Fine page,
+            then its L2 fine link. gen_subcategory.py writes L3 first, so the
+            L2 scan (existing_l3) sees the new fine page in the same pass.
+      2. components-data.js   (LIVE hub search source)
+      3. components/index.html (static hub, same-run counts)
+
+    Never renders products/*.html — safe from full build, --incremental and the
+    --single fast path."""
+    cur_keys = _fine_keys(parts_json)
+    new_fine_keys = cur_keys - set(prev_fine_keys or ())
+    missing_pages = sorted((t, s) for (t, s) in cur_keys
+                           if not os.path.isfile(os.path.join(out_root, "components", t, s, "index.html")))
+    if new_fine_keys:
+        print("  [CATEGORY PUBLISH] new fine subcategory(ies): "
+              + ", ".join(f"{t}/{s}" for t, s in sorted(new_fine_keys)))
+    if missing_pages:
+        print("  [CATEGORY PUBLISH] fine page(s) missing on disk: "
+              + ", ".join(f"{t}/{s}" for t, s in missing_pages))
+    if getattr(args, "regen_categories", False) or new_fine_keys or missing_pages:
+        _subcat = os.path.join(ROOT, "gen_subcategory.py")
+        if os.path.exists(_subcat):
+            print("  [CATEGORY PUBLISH] Delegating L3/L2 render to gen_subcategory.py ...")
+            _r = subprocess.run([sys.executable, _subcat, "--apply"], cwd=ROOT)
+            if _r.returncode != 0:
+                print("  [WARN] gen_subcategory.py exited non-zero; L3/L2 pages may be stale.")
+        else:
+            print("  [WARN] gen_subcategory.py not found; L3/L2 pages not re-rendered.")
+    if not skip_components_data:
+        _regen_components_data(args, groups, out_root, by_cat, related_map, generated_slugs)
+    refresh_components_hub(out_root, groups, parts=parts_json)
 
 # ==============================================================================
 # PART PAGE — V3 (the SOLE SKU page renderer for auto-publish system 03)
@@ -4028,23 +3987,64 @@ def build_merged_groups(rows, mfr_map, attr_allow, review):
 # ==============================================================================
 # These guards are the permanent backstop. Even if a synthetic-data generator
 # (human- or AI-authored) is ever invoked, the build refuses to publish it.
+# An all-digit part number is NOT inherently synthetic: connector vendors (Molex,
+# TE Connectivity, ...) number their parts with digits only. The pattern is kept
+# as a NAMED constant so the exemption in detect_synthetic_mpn() can identify
+# exactly THIS rule; every other pattern stays a hard stop for every brand.
+NUMERIC_MPN_RE = re.compile(r'^\d{6,}$')        # pure all-digit MPN
+
 SYNTHETIC_MPN_PATTERNS = [
     re.compile(r'^(MCU|MOS|RES|CAP|IND|DIO|CON|XTAL|MEM|WIFI|MOD|REG|AMP|OP|LED|PWR|IC)\d{6}', re.I),
     re.compile(r'100000\d{3}'),                 # the MCU100000xxx / MOS100000xxx family
-    re.compile(r'^\d{6,}$'),                    # pure long numeric placeholder
+    NUMERIC_MPN_RE,                             # see NUMERIC_MPN_BRANDS exemption
     re.compile(r'PLACEHOLDER', re.I),
     re.compile(r'XXX$', re.I),
     re.compile(r'_(TEST|SAMPLE|MOCK)$', re.I),
 ]
 
-# P0-2 WHITELIST: real manufacturer all-digit MPNs that match the synthetic-MPN
-# pattern (^\d{6,}$) but are legitimate production parts (Molex uses purely numeric
-# part numbers). Authorized 2026-09-11 to unblock the production build — these are
-# NOT synthetic/test data. Future legitimate numeric MPNs go here.
-SYNTHETIC_MPN_WHITELIST = {
-    "5023520200",   # Molex
-    "1054500101",   # Molex
+# ==============================================================================
+# NUMERIC MPN RULE (2026-09-17) — long-term fix, replaces per-part whitelisting.
+#
+# FACT: a pure-digit part number is a legitimate numbering scheme. "All digits"
+# alone must not be treated as synthetic.
+#
+# RULE: an all-digit MPN (^\d{6,}$) is released ONLY when its brand is one of
+# NUMERIC_MPN_BRANDS. Any other brand -> the ^\d{6,}$ check still hard-stops.
+#
+# NOT weakened — these remain hard stops for EVERY brand, including the ones here:
+#   100000\d{3} | (MCU|MOS|...|IC)\d{6} | PLACEHOLDER | XXX$ | _(TEST|SAMPLE|MOCK)$
+#   | FAKE_BRAND_TOKENS
+# Matching is EXACT on the canonical brand (set membership) — no fuzzy matching,
+# no prefix/regex brand matching, no length heuristics.
+# ==============================================================================
+NUMERIC_MPN_BRANDS = {
+    "molex",
+    "te connectivity",
 }
+
+# Escape hatch for individually authorized one-off exceptions (a specific MPN that
+# is NOT covered by NUMERIC_MPN_BRANDS). Empty by design: all-digit MPNs from the
+# vendors above are handled by the rule, not by listing every part number.
+SYNTHETIC_MPN_WHITELIST = set()
+
+
+def _canonical_brand_lower(mfr, mfr_map=None):
+    """Brand normalized through the EXISTING mfr_canonical.csv mechanism
+    (load_mfr_canonical) — no second brand-normalization system is introduced."""
+    b = (mfr or "").strip()
+    c = mfr_map.get(b.lower()) if mfr_map else None
+    return ((c or b).strip().lower())
+
+
+def _numeric_mpn_allowed(mpn, mfr, mfr_map=None):
+    r"""True ONLY for: an all-digit MPN (^\d{6,}$) whose brand is a real vendor that
+    numbers its parts numerically. Exact set membership on both the raw brand and
+    its canonical form. Nothing else is ever released by this function."""
+    if not NUMERIC_MPN_RE.match((mpn or "").strip()):
+        return False
+    raw = (mfr or "").strip().lower()
+    return (raw in NUMERIC_MPN_BRANDS
+            or _canonical_brand_lower(mfr, mfr_map) in NUMERIC_MPN_BRANDS)
 
 FAKE_BRAND_TOKENS = re.compile(
     r'(Acme|Nova|Placeholder|Synthetic|Mock|Fake|TestCorp|DemoSemi|Injected)', re.I)
@@ -4090,21 +4090,27 @@ def validate_production_source(csv_path):
             ])
     return True
 
-def detect_synthetic_mpn(rows):
+def detect_synthetic_mpn(rows, mfr_map=None):
     """P0-2: hard-stop if ANY row looks like a synthetic/test MPN or brand.
     Last line of defense — the build refuses to publish fake data even if a
-    generator produced it."""
+    generator produced it.
+
+    mfr_map (mfr_canonical.csv) is optional and used ONLY to resolve the canonical
+    brand for the NUMERIC_MPN_BRANDS exemption — it never disables a pattern."""
     bad = []
     for i, r in enumerate(rows, 1):
         mpn = (r.get("mpn") or "").strip()
         if mpn in SYNTHETIC_MPN_WHITELIST:
-            continue  # authorized legitimate all-digit MPN (see SYNTHETIC_MPN_WHITELIST)
+            continue  # authorized one-off exception (see SYNTHETIC_MPN_WHITELIST)
         mfr = (r.get("manufacturer") or "").strip()
         hit = None
         for pat in SYNTHETIC_MPN_PATTERNS:
-            if pat.search(mpn):
-                hit = f"synthetic MPN pattern '{pat.pattern}'"
-                break
+            if not pat.search(mpn):
+                continue
+            if pat is NUMERIC_MPN_RE and _numeric_mpn_allowed(mpn, mfr, mfr_map):
+                continue  # real vendor that numbers its parts numerically
+            hit = f"synthetic MPN pattern '{pat.pattern}'"
+            break
         if hit is None and FAKE_BRAND_TOKENS.search(mfr):
             hit = f"synthetic brand '{mfr}'"
         if hit:
@@ -4483,6 +4489,70 @@ def _write_sku_page_atomic(args, g, cslug, mfr_slug, related, generated_slugs, o
     return os.path.join(d, "index.html")
 
 
+def build_parts_json(groups):
+    """Structured parts.json records with the frozen Phase-6 final_* fields attached.
+
+    SINGLE SOURCE (2026-09-17): regen_global_artifacts() (incremental), the full
+    build and the --single fast path all build their records here, so every write
+    path emits byte-identical parts.json content. Read-only over MASTER/RAW."""
+    parts_json = []
+    for g in groups:
+        mpn = g["mpn"].strip()
+        if not mpn:
+            continue
+        clean = (g.get("clean_mpn") or "").strip() or re.sub(r"[^A-Z0-9]", "", mpn.upper())
+        uslug = g["url_slug"]
+        raw = (g.get("attributes_json") or "").strip()
+        attrs = build_en_attrs(raw)  # English visible-layer (CJK gate fix)
+        parts_json.append({
+            "mpn": mpn,
+            "clean_mpn": clean,
+            "manufacturer": g["manufacturer"].strip(),
+            "brand": g.get("brand", g["manufacturer"]).strip(),
+            "url_slug": uslug,
+            # I3/I4: parts.json category/subcategory use the native_l1 taxonomy (single
+            # source of truth). PROD rule 2026-09-16: native_l1 is the ONLY source -- when it
+            # cannot be resolved the fields are left EMPTY. No fallback to the legacy
+            # `category`/`subcategory` string (that path reproduced the dead Uncategorized /
+            # old-LCSC taxonomy pages and is permanently removed).
+            "category": top_scope_name(resolve_native(g.get("native_l1")).get("top_slug") or "") or "",
+            "subcategory": resolve_native(g.get("native_l1")).get("l1_name") or "",
+            "description": g.get("description", "").strip(),
+            "applications": g.get("applications", "").strip(),
+            "keywords": g.get("keywords", "").strip(),
+            "attributes": attrs,
+            "sources": g.get("sources", []),
+            "needs_review": bool(g.get("needs_review")),
+            "availability": g.get("availability", "").strip(),
+            "alternative_parts": g.get("alternative_parts", "").strip(),
+            "datasheet_url": g.get("datasheet_url", "").strip(),
+            "product_url": f"/products/{uslug}/",
+        })
+    # Phase 6 (Plan B): attach frozen fine-grained final_* fields. These are
+    # RECOMPUTED each run from MASTER + RAW + frozen Phase-5 rules via
+    # build_sr_final_map() (deterministic; no AI / no rule change / no temp
+    # deps), so newly onboarded SKUs are auto-classified without a manual
+    # --build. Falls back to the precomputed cache only if RAW is unavailable.
+    # Read-only over MASTER/RAW; no SKU HTML touched.
+    _final_map = subcategory_final.build_sr_final_map()
+    if not _final_map:
+        _final_map = subcategory_final.load_final_map()
+    for _p in parts_json:
+        subcategory_final.attach_final_fields(_p, _final_map)
+    return parts_json
+
+
+def write_parts_json(out_root, groups):
+    """Write parts.json (single source) and return the record list, so callers can
+    hand the SAME in-memory list to refresh_components_hub() — never re-read from
+    disk (that is what made the Fine catalog one run stale)."""
+    parts_json = build_parts_json(groups)
+    with open(os.path.join(out_root, "parts.json"), "w", encoding="utf-8") as f:
+        f.write(json.dumps(parts_json, ensure_ascii=False, indent=2))
+    print(f"parts.json: {len(parts_json)} structured records written.")
+    return parts_json
+
+
 def regen_global_artifacts(args, groups, out_root, by_cat, related_map, generated_slugs):
     """PHASE 2 global-artifact recompute — STRICTLY separated from SKU HTML.
 
@@ -4600,60 +4670,16 @@ def regen_global_artifacts(args, groups, out_root, by_cat, related_map, generate
     with open(os.path.join(search_dir, "manifest.json"), "w", encoding="utf-8") as f:
         f.write(json.dumps(manifest, ensure_ascii=False))
 
-    # ---- parts.json (machine-readable; carries sources + needs_review) ----
-    parts_json = []
-    for g in groups:
-        mpn = g["mpn"].strip()
-        if not mpn:
-            continue
-        clean = (g.get("clean_mpn") or "").strip() or re.sub(r"[^A-Z0-9]", "", mpn.upper())
-        uslug = g["url_slug"]
-        raw = (g.get("attributes_json") or "").strip()
-        attrs = build_en_attrs(raw)  # English visible-layer (CJK gate fix)
-        parts_json.append({
-            "mpn": mpn,
-            "clean_mpn": clean,
-            "manufacturer": g["manufacturer"].strip(),
-            "brand": g.get("brand", g["manufacturer"]).strip(),
-            "url_slug": uslug,
-            # I3/I4: parts.json category/subcategory use the native_l1 taxonomy (single
-            # source of truth). PROD rule 2026-09-16: native_l1 is the ONLY source -- when it
-            # cannot be resolved the fields are left EMPTY. No fallback to the legacy
-            # `category`/`subcategory` string (that path reproduced the dead Uncategorized /
-            # old-LCSC taxonomy pages and is permanently removed).
-            "category": top_scope_name(resolve_native(g.get("native_l1")).get("top_slug") or "") or "",
-            "subcategory": resolve_native(g.get("native_l1")).get("l1_name") or "",
-            "description": g.get("description", "").strip(),
-            "applications": g.get("applications", "").strip(),
-            "keywords": g.get("keywords", "").strip(),
-            "attributes": attrs,
-            "sources": g.get("sources", []),
-            "needs_review": bool(g.get("needs_review")),
-            "availability": g.get("availability", "").strip(),
-            "alternative_parts": g.get("alternative_parts", "").strip(),
-            "datasheet_url": g.get("datasheet_url", "").strip(),
-            "product_url": f"/products/{uslug}/",
-        })
-    # Phase 6 (Plan B): attach frozen fine-grained final_* fields. These are
-    # RECOMPUTED each run from MASTER + RAW + frozen Phase-5 rules via
-    # build_sr_final_map() (deterministic; no AI / no rule change / no temp
-    # deps), so newly onboarded SKUs are auto-classified without a manual
-    # --build. Falls back to the precomputed cache only if RAW is unavailable.
-    # Read-only over MASTER/RAW; no SKU HTML touched. Parts without a mapping
-    # keep falling back to the coarse `subcategory` grouping in gen_subcategory.py.
-    _final_map = subcategory_final.build_sr_final_map()
-    if not _final_map:
-        _final_map = subcategory_final.load_final_map()
-    for _p in parts_json:
-        subcategory_final.attach_final_fields(_p, _final_map)
-    with open(os.path.join(out_root, "parts.json"), "w", encoding="utf-8") as f:
-        f.write(json.dumps(parts_json, ensure_ascii=False, indent=2))
+    parts_json = write_parts_json(out_root, groups)
+    # (records are returned so the caller can refresh the Hub from the SAME
+    #  in-memory list -- never from a stale on-disk parts.json.)
 
     # ---- components-data.js (LIVE Components Hub search source) ----
     # Derived from the SAME in-memory `groups` that feed parts.json/sitemap/legacy-search,
     # so it can never drift from the published SKU set. Regenerated on every global
     # artifact rebuild (incremental + full); never touches SKU HTML.
     _regen_components_data(args, groups, out_root, by_cat, related_map, generated_slugs)
+    return parts_json
 
 
 def _regen_components_data(args, groups, out_root, by_cat, related_map, generated_slugs):
@@ -4990,25 +5016,18 @@ def incremental_pipeline(args, groups, out_root, manifest_path=MANIFEST_PATH):
               f"before failure; build_manifest.json is NOT updated (self-heal on next run).")
         raise
 
-    # ---- Hub: rewrite ONLY when a NEW node was created (structural change) ----
-    # Spec: "Hub only if static content actually changes; never every run." A new
-    # Brand / Category / Fine(L3) page alters the hub catalog, so both hub index files
-    # are regenerated. An existing node merely gaining a SKU changes counts only -> the
-    # hub shell is left untouched (live data is already refreshed via components-data.js).
+    # ---- Manufacturers Hub: rewrite ONLY when a NEW brand node was created ----
+    # (2026-09-17) The Components Hub is NO LONGER decided here. It used to be gated
+    # behind --regen-categories, which meant a plain SKU publish never refreshed the
+    # static Hub counts. It is now refreshed at the END of the run by
+    # refresh_hub_and_categories(), AFTER parts.json is rewritten, so L2 + Fine
+    # counts always come from THIS run's data.
     if node_created:
         # Manufacturers hub is part of the SKU pipeline (refreshed whenever a brand node changes).
         _mhub_dir = os.path.join(out_root, "manufacturers")
         os.makedirs(_mhub_dir, exist_ok=True)
         with open(os.path.join(_mhub_dir, "index.html"), "w", encoding="utf-8") as _f:
             _f.write(gen_manufacturers_hub(by_mfr))
-        # Components hub is part of the CATEGORY SYSTEM -> gated behind --regen-categories
-        # (decoupling rule, 2026-09-16). Plain SKU publish leaves the Components hub shell as-is.
-        if args.regen_categories:
-            _hub_dir = os.path.join(out_root, "components")
-            os.makedirs(_hub_dir, exist_ok=True)
-            _hub_path = os.path.join(_hub_dir, "index.html")
-            if os.path.isfile(_hub_path):
-                inject_hub_anchors(_hub_path, groups)
 
     new_skus = dict(skus)
     for s in write_set:
@@ -5031,19 +5050,21 @@ def incremental_pipeline(args, groups, out_root, manifest_path=MANIFEST_PATH):
     save_manifest(path=manifest_path, manifest=new_manifest, dry_run=False)
 
     # ---- global artifacts (separated from SKU HTML) ----
-    regen_global_artifacts(args, groups, out_root, by_cat, related_map, generated_slugs)
+    # parts.json + components-data.js + sitemap/search. Snapshot the PRE-EXISTING fine
+    # keys first, so a brand-new fine subcategory introduced by this run is detectable.
+    prev_fine_keys = _fine_keys(_read_parts_json(out_root))
+    parts_json = regen_global_artifacts(args, groups, out_root, by_cat, related_map,
+                                        generated_slugs)
 
-    # ---- CATEGORY PUBLISH: delegate L3 subcategory rendering to gen_subcategory.py (v2.1) ----
-    # Gated behind --regen-categories (decoupling rule, 2026-09-16). parts.json is refreshed by
-    # regen_global_artifacts above; L3 pages reflect the current catalog -- but only on an
-    # explicit category publish. Idempotent: re-renders all v2.1 L3 pages from current parts.json.
-    if args.regen_categories:
-        _subcat = os.path.join(ROOT, "gen_subcategory.py")
-        if os.path.exists(_subcat):
-            print("  [CATEGORY PUBLISH] Delegating L3 subcategory render to gen_subcategory.py ...")
-            _r = subprocess.run([sys.executable, _subcat, "--apply"], cwd=ROOT)
-            if _r.returncode != 0:
-                print("  [WARN] gen_subcategory.py exited non-zero; L3 pages may be stale.")
+    # ---- Components chain closure (2026-09-17) ----
+    # 1) L3 fine + L2 top pages via gen_subcategory.py when a NEW fine subcategory
+    #    appeared (or on an explicit --regen-categories) -> new SKU auto-creates its
+    #    Fine page and its L2 fine link;
+    # 2) components-data.js already refreshed by regen_global_artifacts above;
+    # 3) static Components Hub refreshed from the SAME parts_json (no stale counts).
+    refresh_hub_and_categories(args, out_root, groups, by_cat, related_map,
+                               generated_slugs, parts_json, prev_fine_keys,
+                               skip_components_data=True)
 
     print("=" * 72)
     print(f"  [INCREMENTAL] Published: CREATE={n_create} UPDATE={n_update} SKIP={n_skip}")
@@ -5125,7 +5146,8 @@ def main():
     print(f"Loaded {len(rows)} parts from {csv_path}")
 
     # ---- P0-2: hard-stop on any synthetic/test MPN or fake brand ----
-    detect_synthetic_mpn(rows)
+    # mfr_map is passed so the NUMERIC_MPN_BRANDS rule can resolve canonical brands.
+    detect_synthetic_mpn(rows, mfr_map)
 
     # ---- P0-4 + P0-2 + P0-3 : merge / canonicalize / validate ----
     review = []   # (mpn, canonical_brand, reason, detail)
@@ -5260,7 +5282,15 @@ def main():
         written += 1
         if args.single and args.single.strip().upper() == pn.upper():
             print(f"  [--single] Generated only {pn} -> products/{slug}/index.html")
-            return  # skip manufacturer/hub/category/sitemap entirely
+            # (2026-09-17) --single used to `return` here, leaving parts.json,
+            # components-data.js and the static Components Hub untouched. It now
+            # closes the SAME chain the full build closes -- still WITHOUT re-rendering
+            # any other SKU page (only products/<this slug>/ was written above).
+            prev_fine_keys = _fine_keys(_read_parts_json(out_root))
+            parts_json = write_parts_json(out_root, groups)
+            refresh_hub_and_categories(args, out_root, groups, by_cat, related_map,
+                                       generated_slugs, parts_json, prev_fine_keys)
+            return  # still skips manufacturer/category/sitemap rendering
 
     # ---- manufacturer pages ----
     for mfr, parts in by_mfr.items():
@@ -5317,10 +5347,10 @@ def main():
                 os.makedirs(d, exist_ok=True)
                 urls.append(f"{DOMAIN}/components/{cslug}/{l3_slug}/")
 
-        # ---- component hub (anchor-only injection, V2.4 shell preserved) ----
-        hub_dir = os.path.join(out_root, "components")
-        os.makedirs(hub_dir, exist_ok=True)
-        inject_hub_anchors(os.path.join(hub_dir, "index.html"), groups)
+        # (2026-09-17) The static Hub injection was REMOVED from this spot: it ran
+        # BEFORE parts.json was written below, so its Fine catalog was always one run
+        # stale. Refresh now happens at the end of main() via
+        # refresh_hub_and_categories(), after parts.json + components-data.js.
         urls.append(f"{DOMAIN}/components/")
 
     # ---- split sitemap (all generated URLs) ----
@@ -5390,72 +5420,20 @@ def main():
         f.write(json.dumps(manifest, ensure_ascii=False))
     print(f"Search index: {len(search_entries)} entries -> {len(shards)} shards under /search/.")
 
-    # ---- parts.json (machine-readable; now carries sources + needs_review) ----
-    parts_json = []
-    for g in groups:
-        mpn = g["mpn"].strip()
-        if not mpn:
-            continue
-        clean = (g.get("clean_mpn") or "").strip() or re.sub(r"[^A-Z0-9]", "", mpn.upper())
-        uslug = g["url_slug"]
-        raw = (g.get("attributes_json") or "").strip()
-        attrs = build_en_attrs(raw)  # English visible-layer (CJK gate fix)
-        parts_json.append({
-            "mpn": mpn,
-            "clean_mpn": clean,
-            "manufacturer": g["manufacturer"].strip(),
-            "brand": g.get("brand", g["manufacturer"]).strip(),
-            "url_slug": uslug,
-            # I3/I4: parts.json category/subcategory use the native_l1 taxonomy (single
-            # source of truth). PROD rule 2026-09-16: native_l1 is the ONLY source -- when it
-            # cannot be resolved the fields are left EMPTY. No fallback to the legacy
-            # `category`/`subcategory` string (that path reproduced the dead Uncategorized /
-            # old-LCSC taxonomy pages and is permanently removed).
-            "category": top_scope_name(resolve_native(g.get("native_l1")).get("top_slug") or "") or "",
-            "subcategory": resolve_native(g.get("native_l1")).get("l1_name") or "",
-            "description": g.get("description", "").strip(),
-            "applications": g.get("applications", "").strip(),
-            "keywords": g.get("keywords", "").strip(),
-            "attributes": attrs,
-            "sources": g.get("sources", []),
-            "needs_review": bool(g.get("needs_review")),
-            "availability": g.get("availability", "").strip(),
-            "alternative_parts": g.get("alternative_parts", "").strip(),
-            "datasheet_url": g.get("datasheet_url", "").strip(),
-            "product_url": f"/products/{uslug}/",
-        })
-    # Phase 6 (Plan B): attach frozen fine-grained final_* fields. These are
-    # RECOMPUTED each run from MASTER + RAW + frozen Phase-5 rules via
-    # build_sr_final_map() (deterministic; no AI / no rule change / no temp
-    # deps), so newly onboarded SKUs are auto-classified without a manual
-    # --build. Falls back to the precomputed cache only if RAW is unavailable.
-    # Read-only over MASTER/RAW; no SKU HTML touched. Parts without a mapping
-    # keep falling back to the coarse `subcategory` grouping in gen_subcategory.py.
-    _final_map = subcategory_final.build_sr_final_map()
-    if not _final_map:
-        _final_map = subcategory_final.load_final_map()
-    for _p in parts_json:
-        subcategory_final.attach_final_fields(_p, _final_map)
-    with open(os.path.join(out_root, "parts.json"), "w", encoding="utf-8") as f:
-        f.write(json.dumps(parts_json, ensure_ascii=False, indent=2))
-    print(f"parts.json: {len(parts_json)} structured records written.")
+    # Snapshot the PRE-EXISTING fine keys so a brand-new fine subcategory introduced
+    # by this run is detectable (drives the automatic Fine-page creation below).
+    prev_fine_keys = _fine_keys(_read_parts_json(out_root))
+    parts_json = write_parts_json(out_root, groups)
 
-    # ---- CATEGORY PUBLISH: delegate L3 subcategory rendering to gen_subcategory.py (v2.1) ----
-    # Gated behind --regen-categories (decoupling rule, 2026-09-16): SKU regeneration must NOT
-    # auto-render category/L3 pages. Runs AFTER parts.json above is regenerated so L3 pages
-    # reflect current SKU data -- but only when an explicit category publish is requested.
-    if args.regen_categories:
-        _subcat = os.path.join(ROOT, "gen_subcategory.py")
-        if os.path.exists(_subcat):
-            print("  [CATEGORY PUBLISH] Delegating L3 subcategory render to gen_subcategory.py ...")
-            _r = subprocess.run([sys.executable, _subcat, "--apply"], cwd=ROOT)
-            if _r.returncode != 0:
-                print("  [WARN] gen_subcategory.py exited non-zero; L3 pages may be stale.")
-        else:
-            print("  [WARN] gen_subcategory.py not found; L3 pages not re-rendered.")
-
-    # ---- components-data.js (LIVE Components Hub search source, see _regen_components_data) ----
-    _regen_components_data(args, groups, out_root, by_cat, related_map, generated_slugs)
+    # ---- Components chain closure (2026-09-17) ----
+    # 1) L3 fine + L2 top pages via gen_subcategory.py on --regen-categories OR when a
+    #    NEW fine subcategory appeared (new SKU -> Fine page -> L2 fine link);
+    # 2) components-data.js (LIVE Components Hub search source);
+    # 3) static Components Hub, refreshed from the SAME parts_json just written --
+    #    this is the fix for the old ordering bug (inject used to run before
+    #    parts.json, so Fine counts lagged one run behind).
+    refresh_hub_and_categories(args, out_root, groups, by_cat, related_map,
+                               generated_slugs, parts_json, prev_fine_keys)
 
     print(f"Generated {written} product pages under /products/")
     print(f"Manufacturer pages: {len(by_mfr)} under /manufacturers/")
