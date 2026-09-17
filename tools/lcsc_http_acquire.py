@@ -40,6 +40,12 @@
   python lcsc_http_acquire.py --out /tmp/preview                    # 指定输出目录 (隔离预览)
   python lcsc_http_acquire.py --no-browser                          # 回退 urllib (指纹弱)
   python lcsc_http_acquire.py --cooldown-threshold 5 --cooldown-sec 900
+
+采集模式 (--mode, 默认 basic):
+  python lcsc_http_acquire.py --codes-file codes.txt --mode basic              # 仅基础数据(默认, --mode 可省略)
+  python lcsc_http_acquire.py --out DIR --mode pdf                             # 仅下载 PDF (DIR 下需已有 C*.json)
+  python lcsc_http_acquire.py --codes-file codes.txt --out DIR --mode both    # 基础数据 + PDF 一起(等价今天的 01基础+PDF跟随)
+  * pdf / both 模式需设置环境变量 SZ_POOL_ROOT 指向 PDF 落盘池 (如 D:/SZ Procure/03_MASTER/pool)
 """
 from __future__ import annotations
 
@@ -716,7 +722,16 @@ def main(argv=None):
     ap.add_argument("--allow-direct", action="store_true",
                     help="破 fail-closed 铁律: 允许在代理匿名保证无法满足时直连真实IP "
                          "(仅在确认安全/本地调试时谨慎使用)")
+    ap.add_argument("--mode", choices=["basic", "pdf", "both"], default="basic",
+                    help="采集模式: basic=仅基础数据(默认); pdf=仅下载PDF(需--out下已有C*.json); "
+                         "both=基础数据+PDF 一起(等价今天的 01基础+PDF跟随)")
+    ap.add_argument("--pdf-batch", default="scale500_pdfs",
+                    help="PDF 下载 ledger 批次名 (默认 scale500_pdfs)")
     args = ap.parse_args(argv)
+
+    # ---- 模式分派: pdf 模式不进入基础数据采集流程 (无需 codes / 代理自检) ----
+    if args.mode == "pdf":
+        return _run_pdf_mode(args)
 
     # 静态 IP / SOCKS5 出口 (匿名: 不暴露真实本机 IP)
     # fail-closed 探针: 即使 collector_common 导入失败, 也要独立读代理配置,
@@ -881,6 +896,10 @@ def main(argv=None):
     if abort_event.is_set():
         print("[alert] 采集因 HTTP 403 硬封禁提前停止 (未升级对抗)。请人工核查 LCSC 状态后再续跑。")
 
+    # both 模式: 基础数据采完后, 紧跟下载 PDF (复用硬化 PDF 通道)
+    if args.mode == "both":
+        _run_pdf_mode(args)
+
     # 汇总 (从 runlog 聚合, 单一事实来源)
     if os.path.exists(runlog_path):
         with open(runlog_path, "r", encoding="utf-8") as f:
@@ -923,6 +942,37 @@ def main(argv=None):
     print(f"[01-acquire] 完成: ok={manifest['ok']} error={manifest['error']} "
           f"skip={manifest['skip']} | 错误分布={err_dist}")
     print(f"[01-acquire] 耗时 {elapsed:.1f}s | manifest: {manifest_path}")
+    return 0
+
+
+def _run_pdf_mode(args):
+    """01 采集 PDF 模式: 复用 factory 硬化 PDF 下载器 (静态 IP fail-closed, 串行礼貌)。
+
+    从 args.out 下已有 C*.json 抽取 pdfUrl 下载 PDF; 不要求 codes。
+    返回退出码 (0 成功 / 2 失败)。
+    """
+    try:
+        from factory import download_pdfs_from_scale500 as pdfmod
+    except Exception as e:  # noqa: BLE001
+        print(f"[01-acquire][pdf] 无法加载 PDF 下载模块 (factory.download_pdfs_from_scale500): {e}")
+        return 2
+    print(f"[01-acquire][pdf] 输入目录(读取 C*.json): {args.out}")
+    if not os.path.isdir(args.out):
+        print(f"[01-acquire][pdf] 目录不存在: {args.out} (请先跑 basic 或指定正确 --out)")
+        return 2
+    try:
+        pdfmod.run_pdf_download(
+            input_dir=args.out,
+            batch=args.pdf_batch or "scale500_pdfs",
+            limit=args.limit if args.limit else None,
+        )
+    except SystemExit as e:  # 单实例锁冲突会 sys.exit(1)
+        code = e.code if isinstance(e.code, int) else 1
+        print(f"[01-acquire][pdf] PDF 下载器退出 (可能单实例锁冲突): {code}")
+        return code
+    except Exception as e:  # noqa: BLE001
+        print(f"[01-acquire][pdf] PDF 下载异常: {e}")
+        return 2
     return 0
 
 
