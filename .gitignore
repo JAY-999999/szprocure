@@ -118,3 +118,53 @@ _sku-v3-prototype/
 szprocure_audit_tmp/
 enrich_manifests/
 *.lock
+
+# --- SECURITY HARDENING (2026-09-17): secret + one-off dev guardrails ---
+# 目的: 即便误用 `git add -A` / `git add .`, 也绝不会把密钥或一次性脚本扫进仓库。
+# 本段只隐藏文件, 不删除磁盘上的任何东西。
+# 若某个一次性工具日后转正为常驻工具, 请从本段删掉对应那一行再提交。
+
+# 1) 密钥 / 凭证类文件 (名称通配, 防未来误建 .env / 私钥 / 新代理文件)
+.env
+.env.*
+*.env
+.envrc
+*.pem
+*.key
+id_rsa*
+id_dsa*
+id_ecdsa*
+*.p12
+*.pfx
+*.keystore
+*.token
+credentials*
+secrets*
+*.proxy
+# (tools/.lcsc_proxy 已在上方第 97 行单独忽略; 此处 *.proxy 兜底未来的同类文件)
+
+# 2) 一次性 dev / QA / 审计 / 诊断脚本与产物 (当前未跟踪清单, 防误提交)
+#    根目录一次性脚本
+m4_pre_deploy_audit.py
+scope_guard.py
+validate_enrich_rollout.py
+review_queue.csv
+test_p0_processed.csv
+#    根目录报告 HTML
+*_AUDIT_REPORT.html
+_canary_backup*.html
+#    临时输出 / 预览 / 覆盖目录
+*.out
+_enrich_preview/
+_spec_override/
+#    tools/ 下的一次性脚本与中间产物 (常驻工具 lcsc_http_acquire.py /
+#    factory/download_pdfs_from_scale500.py / harvest_api.py 等已跟踪文件不受影响)
+tools/harvest_lcsc_*.py
+tools/diag_*.py
+tools/reconcile_*.py
+tools/verify_*.py
+tools/run_*_publish.py
+tools/monitor_progress.py
+tools/attribute_translation.json
+tools/normalize_report.json
+tools/factory/acquire_publish.py
