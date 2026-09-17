@@ -1,0 +1,1112 @@
+{
+  "schema_version": "page-manifest/1",
+  "generated_at": "2026-09-17T01:38:24Z",
+  "page_count": 221,
+  "pages": [
+    {
+      "top_slug": "audio-signal",
+      "slug": "",
+      "level": "top"
+    },
+    {
+      "top_slug": "audio-signal",
+      "slug": "alarms-buzzers-and-sirens",
+      "level": "fine"
+    },
+    {
+      "top_slug": "audio-signal",
+      "slug": "microphones",
+      "level": "fine"
+    },
+    {
+      "top_slug": "connectors-electromechanical",
+      "slug": "",
+      "level": "top"
+    },
+    {
+      "top_slug": "connectors-electromechanical",
+      "slug": "arrays-edge-type-mezzanine-board-to-board",
+      "level": "fine"
+    },
+    {
+      "top_slug": "connectors-electromechanical",
+      "slug": "blade-type-power-connector-assemblies",
+      "level": "fine"
+    },
+    {
+      "top_slug": "connectors-electromechanical",
+      "slug": "coaxial-connector-rf-adapters",
+      "level": "fine"
+    },
+    {
+      "top_slug": "connectors-electromechanical",
+      "slug": "coaxial-connector-rf-assemblies",
+      "level": "fine"
+    },
+    {
+      "top_slug": "connectors-electromechanical",
+      "slug": "connectors",
+      "level": "fine"
+    },
+    {
+      "top_slug": "connectors-electromechanical",
+      "slug": "d-sub-d-shaped-connector-accessories",
+      "level": "fine"
+    },
+    {
+      "top_slug": "connectors-electromechanical",
+      "slug": "d-sub-d-shaped-connector-backshells-hoods",
+      "level": "fine"
+    },
+    {
+      "top_slug": "connectors-electromechanical",
+      "slug": "dip-switches",
+      "level": "fine"
+    },
+    {
+      "top_slug": "connectors-electromechanical",
+      "slug": "ffc-fpc-flat-flexible-connector-assemblies",
+      "level": "fine"
+    },
+    {
+      "top_slug": "connectors-electromechanical",
+      "slug": "headers-male-pins",
+      "level": "fine"
+    },
+    {
+      "top_slug": "connectors-electromechanical",
+      "slug": "headers-plugs-and-sockets",
+      "level": "fine"
+    },
+    {
+      "top_slug": "connectors-electromechanical",
+      "slug": "headers-receptacles-female-sockets",
+      "level": "fine"
+    },
+    {
+      "top_slug": "connectors-electromechanical",
+      "slug": "multi-purpose",
+      "level": "fine"
+    },
+    {
+      "top_slug": "connectors-electromechanical",
+      "slug": "pc-card-sockets",
+      "level": "fine"
+    },
+    {
+      "top_slug": "connectors-electromechanical",
+      "slug": "power-entry-connector-accessories",
+      "level": "fine"
+    },
+    {
+      "top_slug": "connectors-electromechanical",
+      "slug": "power-relays-over-2-amps",
+      "level": "fine"
+    },
+    {
+      "top_slug": "connectors-electromechanical",
+      "slug": "quick-connects-quick-disconnect-connectors-terminals",
+      "level": "fine"
+    },
+    {
+      "top_slug": "connectors-electromechanical",
+      "slug": "rectangular-connector-accessories",
+      "level": "fine"
+    },
+    {
+      "top_slug": "connectors-electromechanical",
+      "slug": "rectangular-connector-contacts",
+      "level": "fine"
+    },
+    {
+      "top_slug": "connectors-electromechanical",
+      "slug": "rectangular-connector-housings",
+      "level": "fine"
+    },
+    {
+      "top_slug": "connectors-electromechanical",
+      "slug": "shunts-jumpers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "connectors-electromechanical",
+      "slug": "signal-relays-up-to-2-amps",
+      "level": "fine"
+    },
+    {
+      "top_slug": "connectors-electromechanical",
+      "slug": "switches",
+      "level": "fine"
+    },
+    {
+      "top_slug": "connectors-electromechanical",
+      "slug": "tactile-switches",
+      "level": "fine"
+    },
+    {
+      "top_slug": "connectors-electromechanical",
+      "slug": "terminal-accessories",
+      "level": "fine"
+    },
+    {
+      "top_slug": "connectors-electromechanical",
+      "slug": "usb-dvi-hdmi-connector-adapters",
+      "level": "fine"
+    },
+    {
+      "top_slug": "connectors-electromechanical",
+      "slug": "usb-dvi-hdmi-connector-assemblies",
+      "level": "fine"
+    },
+    {
+      "top_slug": "connectors-electromechanical",
+      "slug": "wire-to-board",
+      "level": "fine"
+    },
+    {
+      "top_slug": "development-tools-boards",
+      "slug": "",
+      "level": "top"
+    },
+    {
+      "top_slug": "industrial-mechanical",
+      "slug": "",
+      "level": "top"
+    },
+    {
+      "top_slug": "industrial-mechanical",
+      "slug": "memory-cards",
+      "level": "fine"
+    },
+    {
+      "top_slug": "industrial-mechanical",
+      "slug": "quick-connects-quick-disconnect-connectors",
+      "level": "fine"
+    },
+    {
+      "top_slug": "industrial-mechanical",
+      "slug": "rfi-and-emi-contacts-fingerstock-and-gaskets",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "",
+      "level": "top"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "adcs-dacs-special-purpose",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "amplifiers-comparators",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "analog-switches-multiplexers-demultiplexers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "analog-to-digital-converters-adc",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "attenuators",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "audio-amplifiers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "audio-special-purpose",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "balun",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "buffers-drivers-receivers-transceivers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "clock-generators-plls-frequency-synthesizers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "clock-timing",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "comparators",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "controllers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "cplds-complex-programmable-logic-devices",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "current-regulation-management",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "data-converters",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "digital-potentiometers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "digital-to-analog-converters-dac",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "display-drivers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "display-drivers-logic-ics",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "drivers-receivers-transceivers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "drivers-receivers-transceivers-interface-ics",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "drivers-receivers-transceivers-logic-ics",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "dsp-digital-signal-processors",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "dsp-digital-signal-processors-microcontrollers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "energy-metering",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "flip-flops",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "fpgas-field-programmable-gate-array",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "gate-drivers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "gates-and-inverters",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "i-o-expanders",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "instrumentation-op-amps-buffer-amps",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "interface-controllers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "interface-ics",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "led-drivers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "lighting-ballast-controllers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "logic-ics",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "microcontrollers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "microprocessors",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "motor-drivers-controllers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "multivibrators",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "power-distribution-switches-load-drivers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "power-management-specialized",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "programmable-timers-and-oscillators",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "real-time-clocks",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "rf-antennas",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "rf-detectors",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "rf-misc-ics-and-modules",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "rf-mixers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "rf-power-dividers-splitters",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "rf-receivers-rf-wireless",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "rf-switches",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "rf-transceiver-ics",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "rf-transceiver-ics-rf-wireless",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "rf-transceiver-modules-and-modems-microcontrollers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "rfid-rf-access-monitoring-ics",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "sensor-and-detector-interfaces",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "sensor-and-detector-interfaces-data-converters",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "serializers-deserializers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "shift-registers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "signal-buffers-repeaters-splitters",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "signal-switches-multiplexers-decoders",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "signal-switches-multiplexers-decoders-logic-ics",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "special-purpose-amplifiers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "special-purpose-amplifiers-rf-wireless",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "specialized-ics",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "specialized-ics-logic-ics",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "telecom",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "thermal-management",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "translators-level-shifters",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "video-amps-and-modules",
+      "level": "fine"
+    },
+    {
+      "top_slug": "memory",
+      "slug": "",
+      "level": "top"
+    },
+    {
+      "top_slug": "memory",
+      "slug": "memory",
+      "level": "fine"
+    },
+    {
+      "top_slug": "modules-communication",
+      "slug": "",
+      "level": "top"
+    },
+    {
+      "top_slug": "modules-communication",
+      "slug": "ac-dc-converters",
+      "level": "fine"
+    },
+    {
+      "top_slug": "modules-communication",
+      "slug": "dc-dc-converters-power-modules",
+      "level": "fine"
+    },
+    {
+      "top_slug": "modules-communication",
+      "slug": "drivers-receivers-transceivers-iot-communication-modules",
+      "level": "fine"
+    },
+    {
+      "top_slug": "modules-communication",
+      "slug": "functional-modules",
+      "level": "fine"
+    },
+    {
+      "top_slug": "modules-communication",
+      "slug": "iot-communication-modules",
+      "level": "fine"
+    },
+    {
+      "top_slug": "modules-communication",
+      "slug": "rf-receivers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "modules-communication",
+      "slug": "rf-transceiver-modules-and-modems",
+      "level": "fine"
+    },
+    {
+      "top_slug": "optoelectronics",
+      "slug": "",
+      "level": "top"
+    },
+    {
+      "top_slug": "optoelectronics",
+      "slug": "fiber-optic-receivers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "optoelectronics",
+      "slug": "fiber-optic-transceiver-modules",
+      "level": "fine"
+    },
+    {
+      "top_slug": "optoelectronics",
+      "slug": "irda-transceiver-modules",
+      "level": "fine"
+    },
+    {
+      "top_slug": "optoelectronics",
+      "slug": "lcd-oled-graphic",
+      "level": "fine"
+    },
+    {
+      "top_slug": "optoelectronics",
+      "slug": "led-addressable-specialty",
+      "level": "fine"
+    },
+    {
+      "top_slug": "optoelectronics",
+      "slug": "led-indication-discrete",
+      "level": "fine"
+    },
+    {
+      "top_slug": "optoelectronics",
+      "slug": "optoelectronics",
+      "level": "fine"
+    },
+    {
+      "top_slug": "passive-components",
+      "slug": "",
+      "level": "top"
+    },
+    {
+      "top_slug": "passive-components",
+      "slug": "aluminum-electrolytic-capacitors",
+      "level": "fine"
+    },
+    {
+      "top_slug": "passive-components",
+      "slug": "aluminum-polymer-capacitors",
+      "level": "fine"
+    },
+    {
+      "top_slug": "passive-components",
+      "slug": "capacitors",
+      "level": "fine"
+    },
+    {
+      "top_slug": "passive-components",
+      "slug": "ceramic-capacitors",
+      "level": "fine"
+    },
+    {
+      "top_slug": "passive-components",
+      "slug": "ceramic-filters",
+      "level": "fine"
+    },
+    {
+      "top_slug": "passive-components",
+      "slug": "chip-resistor-surface-mount",
+      "level": "fine"
+    },
+    {
+      "top_slug": "passive-components",
+      "slug": "common-mode-chokes",
+      "level": "fine"
+    },
+    {
+      "top_slug": "passive-components",
+      "slug": "crystals",
+      "level": "fine"
+    },
+    {
+      "top_slug": "passive-components",
+      "slug": "current-sense-transformers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "passive-components",
+      "slug": "ferrite-beads-and-chips",
+      "level": "fine"
+    },
+    {
+      "top_slug": "passive-components",
+      "slug": "film-capacitors",
+      "level": "fine"
+    },
+    {
+      "top_slug": "passive-components",
+      "slug": "filters-active",
+      "level": "fine"
+    },
+    {
+      "top_slug": "passive-components",
+      "slug": "fixed-inductors",
+      "level": "fine"
+    },
+    {
+      "top_slug": "passive-components",
+      "slug": "inductors-coils-transformers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "passive-components",
+      "slug": "oscillators",
+      "level": "fine"
+    },
+    {
+      "top_slug": "passive-components",
+      "slug": "oscillators-resonators",
+      "level": "fine"
+    },
+    {
+      "top_slug": "passive-components",
+      "slug": "pulse-transformers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "passive-components",
+      "slug": "resistors",
+      "level": "fine"
+    },
+    {
+      "top_slug": "passive-components",
+      "slug": "rf-filters",
+      "level": "fine"
+    },
+    {
+      "top_slug": "passive-components",
+      "slug": "tantalum-capacitors",
+      "level": "fine"
+    },
+    {
+      "top_slug": "passive-components",
+      "slug": "tantalum-polymer-capacitors",
+      "level": "fine"
+    },
+    {
+      "top_slug": "passive-components",
+      "slug": "trimmer-potentiometers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "power-management",
+      "slug": "",
+      "level": "top"
+    },
+    {
+      "top_slug": "power-management",
+      "slug": "battery-chargers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "power-management",
+      "slug": "battery-management",
+      "level": "fine"
+    },
+    {
+      "top_slug": "power-management",
+      "slug": "current-regulation-management-power-management",
+      "level": "fine"
+    },
+    {
+      "top_slug": "power-management",
+      "slug": "dc-dc-converters",
+      "level": "fine"
+    },
+    {
+      "top_slug": "power-management",
+      "slug": "dc-dc-switching-controllers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "power-management",
+      "slug": "isolators-gate-drivers-power-management",
+      "level": "fine"
+    },
+    {
+      "top_slug": "power-management",
+      "slug": "or-controllers-ideal-diodes",
+      "level": "fine"
+    },
+    {
+      "top_slug": "power-management",
+      "slug": "power-distribution-switches-load-drivers-power-management",
+      "level": "fine"
+    },
+    {
+      "top_slug": "power-management",
+      "slug": "power-management",
+      "level": "fine"
+    },
+    {
+      "top_slug": "power-management",
+      "slug": "power-management-specialized-power-management",
+      "level": "fine"
+    },
+    {
+      "top_slug": "power-management",
+      "slug": "power-over-ethernet-poe-controllers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "power-management",
+      "slug": "supervisors",
+      "level": "fine"
+    },
+    {
+      "top_slug": "power-management",
+      "slug": "voltage-reference",
+      "level": "fine"
+    },
+    {
+      "top_slug": "power-management",
+      "slug": "voltage-regulators-dc-dc-switching-regulators",
+      "level": "fine"
+    },
+    {
+      "top_slug": "power-management",
+      "slug": "voltage-regulators-linear-low-drop-out-ldo-regulators",
+      "level": "fine"
+    },
+    {
+      "top_slug": "search",
+      "slug": "",
+      "level": "top"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "",
+      "level": "top"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "bipolar-rf-transistors",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "bipolar-transistor-arrays",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "bridge-rectifiers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "digital-isolators",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "diode-arrays",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "diodes",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "drivers-receivers-transceivers-signal-isolators",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "fet-mosfet-arrays",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "fuses",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "gas-discharge-tube-arresters-gdt",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "igbt-modules",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "instrumentation-op-amps-buffer-amps-signal-isolators",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "isolators-gate-drivers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "motor-drivers-controllers-transistors",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "power-distribution-switches-load-drivers-transistors",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "ptc-resettable-fuses",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "rf-fets-mosfets",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "scrs",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "scrs-modules",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "single-bipolar-transistors",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "single-bipolar-transistors-transistors",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "single-diodes",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "single-diodes-transistors",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "single-fets-mosfets",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "single-igbts",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "single-pre-biased-bipolar-transistors",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "single-zener-diodes",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "single-zener-diodes-transistors",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "special-purpose-amplifiers-signal-isolators",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "specialized-signal-isolators",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "transistor-photovoltaic-output-optoisolators",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "transistors",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "triac-scr-output-optoisolators",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "triacs",
+      "level": "fine"
+    },
+    {
+      "top_slug": "semiconductors-discrete",
+      "slug": "tvs-diodes",
+      "level": "fine"
+    },
+    {
+      "top_slug": "sensors",
+      "slug": "",
+      "level": "top"
+    },
+    {
+      "top_slug": "sensors",
+      "slug": "accelerometers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "sensors",
+      "slug": "analog-and-digital-output",
+      "level": "fine"
+    },
+    {
+      "top_slug": "sensors",
+      "slug": "angle-linear-position-measuring",
+      "level": "fine"
+    },
+    {
+      "top_slug": "sensors",
+      "slug": "angle-linear-position-measuring-sensors",
+      "level": "fine"
+    },
+    {
+      "top_slug": "sensors",
+      "slug": "current-sensors",
+      "level": "fine"
+    },
+    {
+      "top_slug": "sensors",
+      "slug": "imus-inertial-measurement-units",
+      "level": "fine"
+    },
+    {
+      "top_slug": "sensors",
+      "slug": "magnetic-reed-switches",
+      "level": "fine"
+    },
+    {
+      "top_slug": "sensors",
+      "slug": "multifunction",
+      "level": "fine"
+    },
+    {
+      "top_slug": "sensors",
+      "slug": "ntc-thermistors",
+      "level": "fine"
+    },
+    {
+      "top_slug": "sensors",
+      "slug": "pressure-sensors-transducers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "sensors",
+      "slug": "sensors",
+      "level": "fine"
+    },
+    {
+      "top_slug": "sensors",
+      "slug": "switches-solid-state",
+      "level": "fine"
+    },
+    {
+      "top_slug": "sensors",
+      "slug": "thermal-management-sensors",
+      "level": "fine"
+    },
+    {
+      "top_slug": "sensors",
+      "slug": "thermocouples-temperature-probes",
+      "level": "fine"
+    },
+    {
+      "top_slug": "sensors",
+      "slug": "thermostats-solid-state",
+      "level": "fine"
+    },
+    {
+      "top_slug": "sensors",
+      "slug": "vibration-sensors",
+      "level": "fine"
+    },
+    {
+      "top_slug": "test-measurement",
+      "slug": "",
+      "level": "top"
+    }
+  ]
+}

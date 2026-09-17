@@ -84,7 +84,7 @@ Usage:
   See _raw_intro_text() / _raw_key_attributes_text(), the og:image assembly, and
   the Product JSON-LD block below.
 """
-import csv, os, re, argparse, html, sys, json, hashlib, tempfile, subprocess
+import csv, os, re, argparse, html, sys, json, hashlib, tempfile, subprocess, time
 from collections import defaultdict
 from urllib.parse import quote as urlquote
 import subcategory_final  # Phase 6 (Plan B): frozen fine-grained final_* fields for parts.json
@@ -976,7 +976,7 @@ def _render_hub_nav(catalog):
     return "\n".join(items)
 
 
-def _render_hub_sections(catalog, fine_catalog=None):
+def _render_hub_sections(catalog, fine_catalog=None, page_set=None):
     sections = []
     # (2026-09-17) NO DUAL-SOURCE COUNT for the same URL: when an L2 (coarse,
     # native_l1) sub slug collides with a Fine subcategory slug, the L2 anchor is
@@ -1000,6 +1000,11 @@ def _render_hub_sections(catalog, fine_catalog=None):
                 # Non-link span: NEVER a /components/<top>/<top>/ URL (no 404).
                 subs.append('                <span class="cat-sub">%s</span>' % label)
             else:
+                # PAGE MANIFEST gate (2026-09-17): never emit a link to a page
+                # that does not exist on disk (no 404). The generator records
+                # real pages; the Hub may count SKUs but must not invent URLs.
+                if page_set is not None and (top, s["slug"]) not in page_set:
+                    continue
                 href = "/components/%s/%s/" % (top, s["slug"])
                 subs.append('                <a class="cat-sub" href="%s">%s</a>' % (href, label))
         # Fine subcategory entries (additive; only those with >=1 SKU). De-duplicated
@@ -1010,6 +1015,10 @@ def _render_hub_sections(catalog, fine_catalog=None):
                 if f["slug"] in seen:
                     continue
                 seen.add(f["slug"])
+                # PAGE MANIFEST gate (2026-09-17): skip fines whose page does
+                # not exist on disk. The generator owns page existence.
+                if page_set is not None and (top, f["slug"]) not in page_set:
+                    continue
                 subs.append(_fine_sub_anchor(top, f["slug"], f["name"], f["count"]))
         subs_html = "\n".join(subs)
         sections.append(
@@ -1051,8 +1060,16 @@ def inject_hub_anchors(hub_path, groups, parts=None):
     if parts is None:
         parts = _load_parts_for_hub(hub_path)
     fine_catalog = _hub_fine_catalog_from_parts(parts) if parts else {}
+    # (2026-09-17) PAGE MANIFEST gate: the Hub only links pages that ACTUALLY
+    # exist on disk. The manifest is produced by the generator (gen_subcategory.py
+    # --apply) by scanning the real components/ tree. The Hub may count SKUs but
+    # must NOT invent page URLs. When the manifest is absent it degrades to the
+    # historical behaviour (link everything) rather than crashing.
+    _repo_root = os.path.dirname(os.path.dirname(os.path.abspath(hub_path)))
+    _mpath = os.path.join(_repo_root, PAGE_MANIFEST_NAME)
+    _page_set = load_page_manifest(_repo_root)["page_set"] if os.path.isfile(_mpath) else None
     nav = _render_hub_nav(catalog)
-    sections = _render_hub_sections(catalog, fine_catalog)
+    sections = _render_hub_sections(catalog, fine_catalog, _page_set)
     html = _replace_hub_anchor(html, "<!-- HUB-INJECT:NAV-START -->",
                                "<!-- HUB-INJECT:NAV-END -->", nav)
     html = _replace_hub_anchor(html, "<!-- HUB-INJECT:SECTIONS-START -->",
@@ -1092,6 +1109,102 @@ def refresh_components_hub(out_root, groups, parts=None):
         return False
     print("  [HUB] components/index.html refreshed (L2 + Fine counts, same-run data).")
     return True
+
+
+# ===========================================================================
+# PAGE MANIFEST — single source of truth for Hub links (2026-09-17)
+# ---------------------------------------------------------------------------
+# The Components Hub must ONLY link to pages that ACTUALLY EXIST on disk.
+# page_manifest.json is produced by the PAGE GENERATOR (gen_subcategory.py
+# --apply) by scanning the real on-disk components/ tree AFTER generation —
+# it is the generator's view of reality, NOT a re-derivation from MASTER /
+# native_l1 / final_slug. The Hub then gates every /components/<top>/<slug>/
+# link on membership in this manifest. The Hub may COUNT SKUs; it may NOT
+# invent page URLs. This is the root fix for the 13 Hub-induced 404s.
+# ===========================================================================
+
+PAGE_MANIFEST_NAME = "page_manifest.json"
+PAGE_MANIFEST_VERSION = "page-manifest/1"
+
+
+def scan_disk_pages(out_root):
+    """Scan the REAL on-disk components/ tree and return the actual pages that
+    exist. This is the GENERATOR's view of reality (NOT a re-derivation from
+    MASTER / native_l1 / final_slug). Returns a list of dicts:
+        {"top_slug": <top>, "slug": <sub-or-"" >, "level": "fine"|"top"}
+    Only index.html files under components/ are considered. Deterministic:
+    sorted, no random / hash / AI. Must match the pages gen_subcategory wrote."""
+    comp_dir = os.path.join(out_root, "components")
+    pages = []
+    if not os.path.isdir(comp_dir):
+        return pages
+    for top in sorted(os.listdir(comp_dir)):
+        top_dir = os.path.join(comp_dir, top)
+        if not os.path.isdir(top_dir):
+            continue
+        # top-level category page: components/<top>/index.html
+        if os.path.isfile(os.path.join(top_dir, "index.html")):
+            pages.append({"top_slug": top, "slug": "", "level": "top"})
+        # subcategory / fine pages: components/<top>/<slug>/index.html
+        for slug in sorted(os.listdir(top_dir)):
+            sub_dir = os.path.join(top_dir, slug)
+            if not os.path.isdir(sub_dir):
+                continue
+            if slug == "page":
+                # pagination dir, not a subcategory page
+                continue
+            if os.path.isfile(os.path.join(sub_dir, "index.html")):
+                pages.append({"top_slug": top, "slug": slug, "level": "fine"})
+    return pages
+
+
+def load_page_manifest(out_root):
+    """Load page_manifest.json if present. Returns a dict with the raw pages and
+    a precomputed membership set of (top_slug, slug). Returns an empty manifest
+    (page_set empty, pages empty) when the file is absent or corrupt so callers
+    can decide their own fallback (the Hub degrades to 'link everything')."""
+    path = os.path.join(out_root, PAGE_MANIFEST_NAME)
+    empty = {"schema_version": PAGE_MANIFEST_VERSION, "generated_at": None,
+             "pages": [], "page_set": set()}
+    if not os.path.isfile(path):
+        return empty
+    try:
+        with open(path, encoding="utf-8") as _f:
+            data = json.load(_f)
+    except Exception:
+        return empty
+    pages = data.get("pages", []) or []
+    s = set()
+    for p in pages:
+        s.add((p.get("top_slug"), p.get("slug")))
+    return {"schema_version": data.get("schema_version", PAGE_MANIFEST_VERSION),
+            "generated_at": data.get("generated_at"),
+            "pages": pages, "page_set": s}
+
+
+def write_page_manifest(out_root, pages, generated_at=None):
+    """Persist the actual on-disk page set to page_manifest.json (repo root).
+    `pages` is the list from scan_disk_pages(). Deterministic, stable ordering."""
+    if generated_at is None:
+        generated_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    # Stable, deterministic order: by (top_slug, slug)
+    ordered = sorted(pages, key=lambda p: (p.get("top_slug", ""), p.get("slug", "")))
+    data = {"schema_version": PAGE_MANIFEST_VERSION,
+            "generated_at": generated_at,
+            "page_count": len(ordered),
+            "pages": ordered}
+    path = os.path.join(out_root, PAGE_MANIFEST_NAME)
+    with open(path, "w", encoding="utf-8") as _f:
+        json.dump(data, _f, ensure_ascii=False, indent=2, sort_keys=False)
+        _f.write("\n")
+    return path
+
+
+def scan_and_write_page_manifest(out_root, generated_at=None):
+    """Convenience: scan disk THEN write manifest. Used by gen_subcategory.py
+    --apply AFTER pages are written, so the manifest reflects REAL output."""
+    pages = scan_disk_pages(out_root)
+    return write_page_manifest(out_root, pages, generated_at)
 
 
 def _read_parts_json(out_root):

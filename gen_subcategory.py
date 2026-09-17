@@ -806,6 +806,17 @@ def main():
                 f.write(l2_html)
             l2_written += 1
         print(f"L2 category pages written: {l2_written}")
+    # ---- PAGE MANIFEST (2026-09-17): record ACTUAL on-disk pages ----
+    # Scan components/ AFTER all L3+L2 pages are written so page_manifest.json
+    # reflects REAL output (NOT a re-derivation from MASTER / final_*). The Hub
+    # consumes this manifest to gate links (no 404 to non-existent pages).
+    # Skipped under --only / --dry-run (both leave the live tree untouched, so
+    # the existing manifest must remain authoritative).
+    if args.only or getattr(args, "dry_run", False):
+        print("PROTOTYPE/DRY-RUN: page_manifest.json left untouched.")
+    else:
+        mp = gen_parts.scan_and_write_page_manifest(ROOT)
+        print(f"[MANIFEST] page_manifest.json written -> {mp}")
     print(f"APPLY done. L3 subcat pages written: {written} | L2 category pages: {l2_written}")
 
 
