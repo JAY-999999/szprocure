@@ -3667,9 +3667,33 @@ def human_attr_label(k):
         return k.replace("_", " ").title()
     return k.title()
 
+def _fmt_capacitance(v):
+    """Render a capacitance value stored in farads (F) as a human-readable
+    engineering-unit string (pF / nF / µF / mF). Display-only: the numeric
+    MASTER field is never mutated."""
+    try:
+        f = float(str(v).strip())
+    except (TypeError, ValueError):
+        return v
+    if f == 0:
+        return "0 F"
+    abs_f = abs(f)
+    # pick the largest engineering unit whose value is >= 1 (mantissa in [1,1000))
+    units = [(1e-12, "pF"), (1e-9, "nF"), (1e-6, "µF"), (1e-3, "mF")]
+    chosen = None
+    for unit_f, unit in units:
+        if abs_f / unit_f >= 1.0 - 1e-9:
+            chosen = (unit_f, unit)
+    if chosen is None:
+        # below 1 pF: express fractionally in pF
+        return _fmt_num(f / 1e-12) + " pF"
+    return _fmt_num(f / chosen[0]) + " " + chosen[1]
+
 def format_attr_value(k, v):
     if v is None:
         return v
+    if (k or "").lower() == "capacitance":
+        return _fmt_capacitance(v)
     s = str(v).strip()
     if not re.fullmatch(r"-?\d+(\.\d+)?", s):
         return v
@@ -3838,8 +3862,7 @@ def _fmt_title_val(k, v):
         if num < 1: return _fmt_num(num * 1000) + " mΩ"
         return s + " Ω"
     if "capacitance" in kl:
-        if num < 1: return _fmt_num(num * 1e6) + " pF"
-        return s + " µF"
+        return _fmt_capacitance(v)
     if "inductance" in kl:
         return s + " µH"
     if "power" in kl or kl.endswith("_w"):
