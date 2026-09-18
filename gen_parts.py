@@ -3673,27 +3673,105 @@ def _fmt_capacitance(v):
         return _fmt_num(f / 1e-12) + " pF"
     return _fmt_num(f / chosen[0]) + " " + chosen[1]
 
-_TEMP_RE = re.compile(r'^(-?\d+(?:\.\d+)?)degC~(\+?)(\d+(?:\.\d+)?)degC$')
+# =============================================================================
+# Temperature display formatter — FIELD / PATTERN AWARE (NOT a blind global
+# `degC` -> `°C` string swap). Source data (RAW -> MASTER) carries "degrees
+# Celsius" in several shapes that share the unit but have DIFFERENT semantics;
+# we normalize by recognizing the PATTERN so non-temperature `degC` (e.g. a
+# model suffix) could never be corrupted and so each semantic is preserved:
+#   1. Temperature INTERVAL (range between two temps):
+#        '-40degC~+125degC'                   -> '-40°C ~ +125°C'
+#        '-40degC~+125degC@(Tj)'             -> '-40°C ~ +125°C @(Tj)'  (Tj marker kept)
+#        '+50degC~+65degC'                   -> '+50°C ~ +65°C'         (explicit '+' low)
+#        '-40degC~+85degC;-40degC~+105degC'  -> '-40°C ~ +85°C; -40°C ~ +105°C'
+#   2. Temperature CONDITION embedded in a composite (e.g. Lifetime):
+#        '6000hrs@105degC'                   -> '6000hrs @ 105°C'
+#   3. 'to' spelled intervals:
+#        '-40°C to +85°C'                     -> '-40°C ~ +85°C'
+#   4. Unit-only (coefficient / tolerance / single value) — only the unit token:
+#        '+/-100ppm/degC'                    -> '+/-100ppm/°C'   (/degC = per-°C, NOT a range)
+#        '+/-0.3degC'                        -> '+/-0.3°C'
+#        '65degC'                            -> '65°C'
+#        '5degC;10degC'                      -> '5°C;10°C'
+# Returns None when no temperature pattern is recognized, so brand / MPN / any
+# arbitrary text passes through untouched. Never alters RAW/MASTER.
+# =============================================================================
+_DEGC = "\u00b0C"
+
+# Interval: [sign]num 'degC' ~ [sign]num 'degC', optional 2nd ';'-segment,
+# optional trailing @(Tj|TJ|Ta|TA) marker. Leading/trailing junk ('-', ';-')
+# is stripped in _fmt_temperature before matching.
+_TEMP_INT_RE = re.compile(
+    r'^'
+    r'(\+?-?\d+(?:\.\d+)?)\s*degC\s*~\s*(\+?-?\d+(?:\.\d+)?)\s*degC'
+    r'(?:\s*;\s*(\+?-?\d+(?:\.\d+)?)\s*degC\s*~\s*(\+?-?\d+(?:\.\d+)?)\s*degC)?'
+    r'(@\((?:Tj|TJ|Ta|TA)\))?'
+    r'$'
+)
+_TO_RE = re.compile(r'(-?\d+(?:\.\d+)?)\s*°?C\s+to\s+(\+?-?\d+(?:\.\d+)?)\s*°?C')
 
 
-def _fmt_temp_interval(v):
-    """Solidify temperature-interval display: '-55degC~+105degC' ->
-    '-55°C ~ +105°C'. Source data carries the raw 'degC~' form; normalize to the
-    storefront convention. Never alters source data (RAW/MASTER untouched)."""
-    m = _TEMP_RE.match((v or "").strip())
-    if not m:
+def _fmt_temperature(v):
+    """Normalize a temperature value for display, by PATTERN/SEMANTICS.
+
+    Returns the formatted string, or None if the value is not a recognized
+    temperature shape (caller then leaves it untouched)."""
+    if not v or not isinstance(v, str):
         return None
-    lo, sign, hi = m.group(1), m.group(2), m.group(3)
-    # Preserve the source's explicit '+' on the high value (spec: -55°C ~ +105°C).
-    hi_disp = ("+" + hi) if sign == "+" else hi
-    return f"{lo}\u00b0C ~ {hi_disp}\u00b0C"
+    s = v.strip()
+    if "degC" not in s and _DEGC not in s:
+        return None
+
+    # Leading/trailing junk that appears on a few malformed interval strings.
+    s_int = re.sub(r'^-\s*;', '', s)          # strip leading "-;"
+    s_int = re.sub(r';?\s*-$', '', s_int)      # strip trailing ";-" / "-"
+    s_int = re.sub(r'^;\s*', '', s_int)        # strip leading ";"
+
+    # 1) temperature interval (one or two ';'-separated segments, optional @(T*) marker)
+    m = _TEMP_INT_RE.match(s_int)
+    if m:
+        lo, hi, lo2, hi2, marker = m.groups()
+
+        def _seg(a, b):
+            # a / b already carry their own sign from source; the HIGH value keeps an
+            # explicit '+' only when the source had one (b already includes it).
+            return f"{a}{_DEGC} ~ {b}{_DEGC}"
+
+        out = _seg(lo, hi)
+        if lo2 is not None:
+            out += "; " + _seg(lo2, hi2)
+        if marker:
+            out += " " + marker
+        return out
+
+    # 2) composite '@<num>degC' condition (e.g. Lifetime '6000hrs@105degC')
+    if re.search(r'\w+@\d+(?:\.\d+)?\s*degC', s):
+        return re.sub(r'(\w+)@(\d+(?:\.\d+)?)\s*degC', r'\1 @ \2' + _DEGC, s)
+
+    # 3) 'to' spelled interval
+    if _TO_RE.search(s):
+        def _to_fmt(mm):
+            a = mm.group(1)
+            b = mm.group(2)
+            b_disp = ("+" + b.lstrip("+")) if b.startswith("+") else b
+            return f"{a}{_DEGC} ~ {b_disp}{_DEGC}"
+        return _TO_RE.sub(_to_fmt, s)
+
+    # 4) unit-only normalization (coefficient / tolerance / single value).
+    #    Only swap the literal 'degC' unit token when it clearly denotes a
+    #    temperature unit (preceded by digit / sign / slash) — never arbitrary text.
+    if re.search(r'[\d±+\-]degC|/degC', s):
+        return s.replace("degC", _DEGC)
+
+    return None
 
 
 def format_attr_value(k, v):
     if v is None:
         return v
-    # Fix #6: solidify temperature-interval display before any per-key formatter.
-    _temp = _fmt_temp_interval(v)
+    # Fix #6: solidify temperature display (interval / condition / unit) before any
+    # per-key formatter. Field/pattern-aware; never a blind degC->°C swap.
+    _temp = _fmt_temperature(v)
     if _temp is not None:
         return _temp
     if (k or "").lower() == "capacitance":
