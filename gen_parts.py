@@ -152,70 +152,9 @@ STATUS_LABEL = {
 # display and SEO body copy. Breadcrumbs, internal links and category-page grouping
 # all resolve to the 6 canonical top-level categories below.
 # To add a new part later, just add its fine subcategory here — no CSV schema change.
-# DEPRECATED (P0, 2026-09-08): the taxonomy mapping has been EXTERNALIZED to
-# data/category_taxonomy.json (authoritative). Production classification now uses
-# resolve_taxonomy(); this dict is a frozen legacy mirror kept only for backward-compat
-# with historical audit scripts and MUST NOT be edited for production behavior.
-CATEGORY_MAP = {
-    # Integrated Circuits
-    "Microcontroller": "integrated-circuits",
-    "Microcontrollers": "integrated-circuits",
-    "MCU": "integrated-circuits",
-    "Memory IC": "integrated-circuits",
-    "Memory": "integrated-circuits",
-    "Power Management IC": "integrated-circuits",
-    "Voltage Regulator": "integrated-circuits",
-    "Analog IC": "integrated-circuits",
-    "Operational Amplifier": "integrated-circuits",
-    "Interface IC": "integrated-circuits",
-    "Logic IC": "integrated-circuits",
-    # Discrete Semiconductor Components
-    "Semiconductor Components": "semiconductor-components",
-    "Power MOSFET": "semiconductor-components",
-    "MOSFET": "semiconductor-components",
-    "Diode": "semiconductor-components",
-    "Rectifier Diode": "semiconductor-components",
-    "Transistor": "semiconductor-components",
-    "IGBT": "semiconductor-components",
-    "Rectifier": "semiconductor-components",
-    "Thyristor": "semiconductor-components",
-    # Passive Components
-    "Passive Components": "passive-components",
-    "Resistor": "passive-components",
-    "Resistors": "passive-components",
-    "Capacitor": "passive-components",
-    "Capacitors": "passive-components",
-    "Electrolytic Capacitor": "passive-components",
-    "Inductor": "passive-components",
-    "Inductors": "passive-components",
-    "Crystal Oscillator": "passive-components",
-    "LED Components": "passive-components",
-    # Sensors & Transducers
-    "Sensors & Transducers": "sensors",
-    "Sensors": "sensors",
-    "MEMS Sensor": "sensors",
-    "Temperature Sensors": "sensors",
-    "Pressure Sensors": "sensors",
-    "Motion Sensors": "sensors",
-    "Optical Sensors": "sensors",
-    # Connectors & Electromechanical
-    "Connectors & Electromechanical": "connectors",
-    "Connectors": "connectors",
-    "Pin Header": "connectors",
-    "USB Connectors": "connectors",
-    "FFC/FPC": "connectors",
-    "Board-to-Board": "connectors",
-    "Wire Connectors": "connectors",
-    "Switches": "connectors",
-    # Modules & Communication Modules
-    "Modules & Communication Modules": "modules",
-    "Modules": "modules",
-    "WiFi Modules": "modules",
-    "Bluetooth Modules": "modules",
-    "RF Modules": "modules",
-    "Cellular Modules": "modules",
-    "GNSS Modules": "modules",
-}
+# (2026-09-18) CATEGORY_MAP removed: dead legacy 6-top mirror, confirmed zero
+# production reads (only definition + comment existed). Classification is now driven
+# solely by native_l1 -> final_subcategory -> final_slug.
 # canonical top-level category slug -> display name (matches /components/ CollectionPage)
 # ---------------------------------------------------------------------------
 # Taxonomy resolver (I3/I4 — 2026-09-10)
@@ -682,8 +621,40 @@ def merge_faqs(faq_raw, enrich, row):
     return final, audit
 
 
+# ---- Mojibake repair (LCSC RAW GBK-vs-UTF8 artifacts) + control-char strip ----
+# These specific CJK chars are known mis-decoded SYMBOLS from LCSC source data
+# (GBK-decoded UTF-8): 卤->± 碌->µ 掳->° 惟->Ω. The English storefront must carry
+# ZERO CJK, so we repair them to their true symbols at this single text
+# chokepoint used by BOTH visible HTML and JSON-LD. This never alters source
+# data (RAW/MASTER are untouched) — only the rendered output. Defense-in-depth
+# on top of the pipeline's own normalize.
+_MOJIBAKE_MAP = {
+    '卤': '\u00b1',  # ±  plus/minus
+    '碌': '\u00b5',  # µ  micro
+    '掳': '\u00b0',  # °  degree
+    '惟': '\u03a9',  # Ω  ohm
+}
+# Raw control characters (incl. DEL) are invalid inside JSON-LD strings and must
+# never reach the rendered output. Strip them here so JSON.parse always succeeds.
+_CTRL_RE = re.compile(r'[\x00-\x1f\x7f]')
+# CJK range used only to detect non-English (e.g. Chinese) RAW intro text.
+_CJK_RE = re.compile(r'[一-鿿]')
+
+
+def _repair_mojibake(s):
+    if not _MOJIBAKE_MAP:
+        return s
+    return s.translate({ord(k): v for k, v in _MOJIBAKE_MAP.items()})
+
+
+def _contains_cjk(s):
+    return bool(_CJK_RE.search(s or ""))
+
+
 def esc(s):
-    return html.escape(str(s), quote=True)
+    s = _repair_mojibake(str(s))
+    s = _CTRL_RE.sub('', s)
+    return html.escape(s, quote=True)
 
 # ---- reusable JSON-LD blocks --------------------------------------------------
 def org_jsonld():
@@ -2065,7 +2036,7 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
     pn = row["mpn"].strip()
     mfr = row["manufacturer"].strip()
     _cat_res = resolve_native(row.get("native_l1"))
-    cat = _cat_res.get("l1_name") or (row.get("category") or "").strip()
+    cat = _cat_res.get("l1_name") or ""
     subcat = (row.get("subcategory") or "").strip()
     specs_raw = (row.get("attributes_json") or "").strip()
     apps = (row.get("applications") or "").strip()
@@ -2241,6 +2212,13 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
     _model_intro = (row.get("introduction") or "").strip()
     _authored_intro = load_intro_html(pn, slug)
     _raw_intro = _raw_intro_text(row)  # prefers overviewData.productIntroEn (full prose)
+    # RAW intro is LCSC-source and may carry non-English (e.g. a Chinese product
+    # paragraph) — the English storefront must show ZERO CJK. After mojibake
+    # repair, any residual CJK means the intro is genuinely non-English, so we
+    # drop it and fall through to the MASTER description (always clean English).
+    # Mojibake-only intros (卤/碌/掳/惟) are repaired to ±/µ/°/Ω and KEPT.
+    if _raw_intro and _contains_cjk(_repair_mojibake(_raw_intro)):
+        _raw_intro = None
     _model_desc = (row.get("description") or "").strip()
     if _model_intro:
         introduction_panel = f'<div class="intro-body"><p>{esc(_model_intro)}</p></div>'
@@ -2585,17 +2563,23 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
                 .replace("[[PN]]", esc(pn)))
 
     # breadcrumb (same items as V2)
-    fine_slug = slugify_name(cat) if cat else ""
-    sub_crumb = (f'<a href="/components/{cat_slug}/{fine_slug}/">{esc(cat)}</a> › '
-                 if (cat and cat_resolved) else "")
+    # FIX 2026-09-18: L3 classification URL now uses the canonical Fine slug
+    # (final_slug) instead of the legacy subcategory slug (slugify_name(cat)).
+    # For the 8 UNKNOWN (no final_slug mapping) fine_slug is empty -> the L3
+    # crumb is safely omitted (no guessed / broken legacy L3 link is generated).
+    fine_slug = (row.get("final_slug") or "").strip()
+    fine_name = (row.get("final_subcategory") or "").strip() or (cat or "")
+    has_fine = bool(fine_slug)
+    sub_crumb = (f'<a href="/components/{cat_slug}/{fine_slug}/">{esc(fine_name)}</a> › '
+                 if (has_fine and cat and cat_resolved) else "")
     crumb_items = [
         ("Home", f"{DOMAIN}/"),
         ("Components", f"{DOMAIN}/components/"),
     ]
     if cat_resolved:
         crumb_items.append((cat_top, f"{DOMAIN}/components/{cat_slug}/"))
-    if cat and cat_resolved:
-        crumb_items.append((cat, f"{DOMAIN}/components/{cat_slug}/{fine_slug}/"))
+    if has_fine and cat and cat_resolved:
+        crumb_items.append((fine_name, f"{DOMAIN}/components/{cat_slug}/{fine_slug}/"))
     crumb_items.append((pn, url))
     crumb = breadcrumb_jsonld(crumb_items)
 
@@ -3042,7 +3026,7 @@ def gen_component_category_page(cat_slug, cat_name, parts, all_rows=None, by_cat
         if not fs:
             continue
         fnl = (p.get("final_native_l1") or "").strip()
-        fsl = (p.get("final_slug") or slugify_name(fs))
+        fsl = (p.get("final_slug") or "").strip()
         top = (resolve_native(fnl) or {}).get("top_slug") or ""
         if top != cat_slug:
             continue
@@ -3689,9 +3673,29 @@ def _fmt_capacitance(v):
         return _fmt_num(f / 1e-12) + " pF"
     return _fmt_num(f / chosen[0]) + " " + chosen[1]
 
+_TEMP_RE = re.compile(r'^(-?\d+(?:\.\d+)?)degC~(\+?)(\d+(?:\.\d+)?)degC$')
+
+
+def _fmt_temp_interval(v):
+    """Solidify temperature-interval display: '-55degC~+105degC' ->
+    '-55°C ~ +105°C'. Source data carries the raw 'degC~' form; normalize to the
+    storefront convention. Never alters source data (RAW/MASTER untouched)."""
+    m = _TEMP_RE.match((v or "").strip())
+    if not m:
+        return None
+    lo, sign, hi = m.group(1), m.group(2), m.group(3)
+    # Preserve the source's explicit '+' on the high value (spec: -55°C ~ +105°C).
+    hi_disp = ("+" + hi) if sign == "+" else hi
+    return f"{lo}\u00b0C ~ {hi_disp}\u00b0C"
+
+
 def format_attr_value(k, v):
     if v is None:
         return v
+    # Fix #6: solidify temperature-interval display before any per-key formatter.
+    _temp = _fmt_temp_interval(v)
+    if _temp is not None:
+        return _temp
     if (k or "").lower() == "capacitance":
         return _fmt_capacitance(v)
     s = str(v).strip()
@@ -4710,11 +4714,15 @@ def regen_global_artifacts(args, groups, out_root, by_cat, related_map, generate
     except Exception:
         rows = []
 
-    # I3: exclude hidden/review SKUs from the sitemap (they already get noindex on-page)
+    # Fix #1 (2026-09-18): sitemap URL inclusion is driven by SKU-level publish
+    # status ONLY. A product whose own publish_status is active is indexed even
+    # when its category/top-scope is hidden — the product page exists and is a
+    # real, published SKU. Category hiding no longer suppresses individual
+    # product URLs (classification/taxonomy unchanged).
     urls = [
         f"{DOMAIN}/products/{g['url_slug']}/"
         for g in groups
-        if g.get("url_slug") and effective_publish_status(g) not in ("hidden", "review")
+        if g.get("url_slug") and sku_publish_status(g) not in ("hidden", "review")
     ]
     for mfr in by_mfr:
         urls.append(f"{DOMAIN}/manufacturers/{slugify_name(mfr)}/")
@@ -4724,19 +4732,41 @@ def regen_global_artifacts(args, groups, out_root, by_cat, related_map, generate
         parts = by_cat.get(cslug, [])
         if _top_ps == "active":
             urls.append(f"{DOMAIN}/components/{cslug}/")
-        l3_groups = defaultdict(list)
+        fine_base = os.path.join(ROOT, "components", cslug)
+        # FIX 2026-09-18: L2 (native_l1) + Fine (final_slug) URLs now use the
+        # canonical slugs. Every emitted URL is DISK-CHECKED against the real
+        # generated page so the sitemap can never contain a broken link. The 8
+        # UNKNOWN (no final_native_l1 / final_slug) are safely skipped.
+        # L2 landing pages — canonical final_native_l1 slug
+        l2_seen = set()
         for p in parts:
-            fine = (p.get("native_l1") or "").strip()
-            if fine:
-                l3_groups[fine].append(p)
-        for fine in sorted(l3_groups):
+            nl = (p.get("final_native_l1") or "").strip()
+            if not nl:
+                continue
             if _top_ps != "active":
                 continue
-            if l3_page_should_skip(fine):
+            if l3_page_should_skip(nl):
                 continue
-            if resolve_native(fine)["publish_status"] in ("hidden", "review"):
+            if resolve_native(nl)["publish_status"] in ("hidden", "review"):
                 continue
-            urls.append(f"{DOMAIN}/components/{cslug}/{slugify_name(fine)}/")
+            if not os.path.isfile(os.path.join(fine_base, nl, "index.html")):
+                continue
+            if nl in l2_seen:
+                continue
+            l2_seen.add(nl)
+            urls.append(f"{DOMAIN}/components/{cslug}/{nl}/")
+        # Fine (final_slug) pages — canonical Fine slug, disk-checked
+        fine_seen = set()
+        for p in parts:
+            fsl = (p.get("final_slug") or "").strip()
+            if not fsl:
+                continue
+            if not os.path.isfile(os.path.join(fine_base, fsl, "index.html")):
+                continue
+            if fsl in fine_seen:
+                continue
+            fine_seen.add(fsl)
+            urls.append(f"{DOMAIN}/components/{cslug}/{fsl}/")
     urls.append(f"{DOMAIN}/components/")
 
     # ---- split sitemap (all indexed URLs) ----
@@ -4766,7 +4796,7 @@ def regen_global_artifacts(args, groups, out_root, by_cat, related_map, generate
         pn = g["mpn"].strip()
         mfr = g["manufacturer"].strip()
         _native = resolve_native(g.get("native_l1"))
-        cat = _native.get("l1_name") or (g.get("category") or "").strip()
+        cat = _native.get("l1_name") or ""
         c_top = _native.get("top_slug") or ""
         p_slug = g["url_slug"]
         m_slug = slugify_name(mfr)
@@ -4852,18 +4882,18 @@ def _regen_components_data(args, groups, out_root, by_cat, related_map, generate
         cat_parts = by_cat.get(cslug, [])
         l3 = defaultdict(list)
         for p in cat_parts:
-            fine = (p.get("native_l1") or "").strip()
-            if fine:
-                l3[fine].append(p)
+            fsl = (p.get("final_slug") or "").strip()
+            if fsl:
+                l3[fsl].append(p)
         subcats = []
-        for fine in sorted(l3, key=lambda f: f.lower()):
-            fslug = slugify_name(fine)
-            fentry = _native_entry(fine)
+        for fsl in sorted(l3, key=lambda f: f.lower()):
+            parts_in = l3[fsl]
+            disp = (parts_in[0].get("final_subcategory") or fsl) if parts_in else fsl
             subcats.append({
-                "slug": fslug,
-                "name": (fentry["name"] if fentry else fine),
-                "url": f"/components/{cslug}/{fslug}/",
-                "count": len(l3[fine]),
+                "slug": fsl,
+                "name": disp,
+                "url": f"/components/{cslug}/{fsl}/",
+                "count": len(parts_in),
             })
         categories.append({
             "slug": cslug,
@@ -4886,8 +4916,8 @@ def _regen_components_data(args, groups, out_root, by_cat, related_map, generate
         parts_out.append({
             "mpn": pn,
             "mfr": g["manufacturer"].strip(),
-            "subcat": _cres.get("l1_name") or (g.get("category") or "").strip(),
-            "cat": top_scope_name(cslug) if cslug else (g.get("category") or "").strip(),
+            "subcat": _cres.get("l1_name") or "",
+            "cat": top_scope_name(cslug) if cslug else "",
             "url": f"/products/{slug}/",
             "slug": slug,
         })
@@ -5253,6 +5283,11 @@ def main():
                          "Subcategory pages and delegate L3 rendering to gen_subcategory.py. "
                          "SKU regeneration does NOT touch category pages unless this flag is set "
                          "(decoupling rule, 2026-09-16).")
+    ap.add_argument("--regen-global", action="store_true",
+                    help="GLOBAL ARTIFACTS ONLY: rebuild sitemap_parts.xml (+index), parts.json, "
+                         "components-data.js and search shards from the current groups, WITHOUT "
+                         "rendering any products/<slug>/index.html. Used to re-emit the sitemap "
+                         "after a URL-scope change (e.g. Fix #1) without a full SKU HTML rebuild.")
     args = ap.parse_args()
 
     csv_path = os.path.abspath(args.csv)
@@ -5288,6 +5323,20 @@ def main():
     # ---- P0-4 + P0-2 + P0-3 : merge / canonicalize / validate ----
     review = []   # (mpn, canonical_brand, reason, detail)
     groups, stats = build_merged_groups(rows, mfr_map, attr_allow, review)
+
+    # ---- Phase 6 (Plan B): attach frozen final_* fields to every group ONCE ----
+    # Makes final_slug / final_native_l1 / final_subcategory available to the SKU
+    # breadcrumb renderer AND the sitemap generator, so the L3 classification URL
+    # uses the canonical Fine slug (final_slug) instead of the legacy subcategory
+    # slug. Read-only over MASTER/RAW (deterministic via subcategory_final).
+    # Does NOT modify native_l1 / category / subcategory; for the 8 UNKNOWN (no
+    # final mapping) attach_final_fields pops the final_* keys -> safe fallback,
+    # no guessed / broken legacy L3 link is ever produced.
+    _final_map = subcategory_final.build_sr_final_map()
+    if not _final_map:
+        _final_map = subcategory_final.load_final_map()
+    for g in groups:
+        subcategory_final.attach_final_fields(g, _final_map)
 
     # ---- P0-1 : deterministic, collision-free slug assignment ----
     registry = SlugRegistry()
@@ -5391,6 +5440,22 @@ def main():
     # ---- P0-1 related-products pre-index (final slugs) ----
     related_map = build_related_map(by_cat, k=6)
 
+    # ---- GLOBAL-ONLY REGEN (--regen-global): sitemap/parts.json/hub, no SKU HTML ----
+    # Re-emits the deployable global artifacts from the current groups WITHOUT
+    # rendering any products/<slug>/index.html. Lets a URL-scope fix (e.g. Fix #1
+    # sitemap inclusion) land without a full 4935-page rebuild.
+    if args.regen_global:
+        prev_fine_keys = _fine_keys(_read_parts_json(out_root))
+        parts_json = regen_global_artifacts(args, groups, out_root, by_cat, related_map,
+                                            generated_slugs)
+        refresh_hub_and_categories(args, out_root, groups, by_cat, related_map,
+                                   generated_slugs, parts_json, prev_fine_keys,
+                                   skip_components_data=True)
+        print("=" * 72)
+        print("  [REGEN-GLOBAL] Rebuilt sitemap + parts.json + components-data.js + search.")
+        print("=" * 72)
+        return
+
     # ---- generate part pages ----
     # (2026-09-12) V3 is the SOLE SKU page renderer. The legacy V2 renderer
     # (gen_part_page) was removed; every SKU renders via gen_part_page_v3().
@@ -5412,8 +5477,10 @@ def main():
         os.makedirs(d, exist_ok=True)
         with open(os.path.join(d, "index.html"), "w", encoding="utf-8") as f:
             f.write(page)
-        # I3: exclude hidden/review SKUs from the sitemap (page already noindex)
-        if effective_publish_status(g) not in ("hidden", "review"):
+        # Fix #1 (2026-09-18): sitemap URL inclusion uses SKU-level status (see
+        # regen_global_artifacts). Product pages are still written for every SKU
+        # regardless of status.
+        if sku_publish_status(g) not in ("hidden", "review"):
             urls.append(f"{DOMAIN}/products/{slug}/")
         written += 1
         if args.single and args.single.strip().upper() == pn.upper():
@@ -5465,23 +5532,26 @@ def main():
         # AFTER parts.json is regenerated (below, also gated behind --regen-categories).
         for cslug, cname in TOP_CATEGORIES.items():
             _top_ps = load_taxonomy()["tops"].get(cslug, {}).get("publish_status", "active")
-            l3_groups = defaultdict(list)
+            # Phase 6 (Plan B): L3 Fine URLs use the canonical final_slug, never the
+            # legacy slugify_name(native_l1). Parts without final_slug (8 UNKNOWN) are
+            # skipped -- no L3 link is emitted for them.
+            fine_seen = set()
             for p in by_cat.get(cslug, []):
-                fine = (p.get("native_l1") or "").strip()
-                if fine:
-                    l3_groups[fine].append(p)
-            for fine, l3_parts in sorted(l3_groups.items()):
-                # P1-B1: SELF_REFERENCE / COLLISION / UNMAPPED -> skip (never emit broken page).
-                if l3_page_should_skip(fine):
+                fsl = (p.get("final_slug") or "").strip()
+                if not fsl:
                     continue
                 if _top_ps != "active":
                     continue
-                if resolve_native(fine)["publish_status"] in ("hidden", "review"):
+                if l3_page_should_skip(fsl):
                     continue
-                l3_slug = slugify_name(fine)
-                d = os.path.join(out_root, "components", cslug, l3_slug)
+                if resolve_native(p.get("native_l1") or "")["publish_status"] in ("hidden", "review"):
+                    continue
+                if fsl in fine_seen:
+                    continue
+                fine_seen.add(fsl)
+                d = os.path.join(out_root, "components", cslug, fsl)
                 os.makedirs(d, exist_ok=True)
-                urls.append(f"{DOMAIN}/components/{cslug}/{l3_slug}/")
+                urls.append(f"{DOMAIN}/components/{cslug}/{fsl}/")
 
         # (2026-09-17) The static Hub injection was REMOVED from this spot: it ran
         # BEFORE parts.json was written below, so its Fine catalog was always one run
@@ -5516,7 +5586,7 @@ def main():
         pn = g["mpn"].strip()
         mfr = g["manufacturer"].strip()
         _native = resolve_native(g.get("native_l1"))
-        cat = _native.get("l1_name") or (g.get("category") or "").strip()
+        cat = _native.get("l1_name") or ""
         c_top = _native.get("top_slug") or ""
         p_slug = g["url_slug"]
         m_slug = slugify_name(mfr)

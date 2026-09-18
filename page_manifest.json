@@ -1,7 +1,7 @@
 {
   "schema_version": "page-manifest/1",
-  "generated_at": "2026-09-17T01:38:24Z",
-  "page_count": 221,
+  "generated_at": "2026-09-18T09:10:17Z",
+  "page_count": 203,
   "pages": [
     {
       "top_slug": "audio-signal",
@@ -41,11 +41,6 @@
     {
       "top_slug": "connectors-electromechanical",
       "slug": "coaxial-connector-rf-assemblies",
-      "level": "fine"
-    },
-    {
-      "top_slug": "connectors-electromechanical",
-      "slug": "connectors",
       "level": "fine"
     },
     {
@@ -135,11 +130,6 @@
     },
     {
       "top_slug": "connectors-electromechanical",
-      "slug": "switches",
-      "level": "fine"
-    },
-    {
-      "top_slug": "connectors-electromechanical",
       "slug": "tactile-switches",
       "level": "fine"
     },
@@ -200,11 +190,6 @@
     },
     {
       "top_slug": "integrated-circuits",
-      "slug": "amplifiers-comparators",
-      "level": "fine"
-    },
-    {
-      "top_slug": "integrated-circuits",
       "slug": "analog-switches-multiplexers-demultiplexers",
       "level": "fine"
     },
@@ -245,11 +230,6 @@
     },
     {
       "top_slug": "integrated-circuits",
-      "slug": "clock-timing",
-      "level": "fine"
-    },
-    {
-      "top_slug": "integrated-circuits",
       "slug": "comparators",
       "level": "fine"
     },
@@ -266,11 +246,6 @@
     {
       "top_slug": "integrated-circuits",
       "slug": "current-regulation-management",
-      "level": "fine"
-    },
-    {
-      "top_slug": "integrated-circuits",
-      "slug": "data-converters",
       "level": "fine"
     },
     {
@@ -360,22 +335,12 @@
     },
     {
       "top_slug": "integrated-circuits",
-      "slug": "interface-ics",
-      "level": "fine"
-    },
-    {
-      "top_slug": "integrated-circuits",
       "slug": "led-drivers",
       "level": "fine"
     },
     {
       "top_slug": "integrated-circuits",
       "slug": "lighting-ballast-controllers",
-      "level": "fine"
-    },
-    {
-      "top_slug": "integrated-circuits",
-      "slug": "logic-ics",
       "level": "fine"
     },
     {
@@ -580,16 +545,6 @@
     },
     {
       "top_slug": "modules-communication",
-      "slug": "functional-modules",
-      "level": "fine"
-    },
-    {
-      "top_slug": "modules-communication",
-      "slug": "iot-communication-modules",
-      "level": "fine"
-    },
-    {
-      "top_slug": "modules-communication",
       "slug": "rf-receivers",
       "level": "fine"
     },
@@ -634,11 +589,6 @@
       "level": "fine"
     },
     {
-      "top_slug": "optoelectronics",
-      "slug": "optoelectronics",
-      "level": "fine"
-    },
-    {
       "top_slug": "passive-components",
       "slug": "",
       "level": "top"
@@ -651,11 +601,6 @@
     {
       "top_slug": "passive-components",
       "slug": "aluminum-polymer-capacitors",
-      "level": "fine"
-    },
-    {
-      "top_slug": "passive-components",
-      "slug": "capacitors",
       "level": "fine"
     },
     {
@@ -710,27 +655,12 @@
     },
     {
       "top_slug": "passive-components",
-      "slug": "inductors-coils-transformers",
-      "level": "fine"
-    },
-    {
-      "top_slug": "passive-components",
       "slug": "oscillators",
       "level": "fine"
     },
     {
       "top_slug": "passive-components",
-      "slug": "oscillators-resonators",
-      "level": "fine"
-    },
-    {
-      "top_slug": "passive-components",
       "slug": "pulse-transformers",
-      "level": "fine"
-    },
-    {
-      "top_slug": "passive-components",
-      "slug": "resistors",
       "level": "fine"
     },
     {
@@ -800,11 +730,6 @@
     },
     {
       "top_slug": "power-management",
-      "slug": "power-management",
-      "level": "fine"
-    },
-    {
-      "top_slug": "power-management",
       "slug": "power-management-specialized-power-management",
       "level": "fine"
     },
@@ -866,11 +791,6 @@
     {
       "top_slug": "semiconductors-discrete",
       "slug": "diode-arrays",
-      "level": "fine"
-    },
-    {
-      "top_slug": "semiconductors-discrete",
-      "slug": "diodes",
       "level": "fine"
     },
     {
@@ -1000,11 +920,6 @@
     },
     {
       "top_slug": "semiconductors-discrete",
-      "slug": "transistors",
-      "level": "fine"
-    },
-    {
-      "top_slug": "semiconductors-discrete",
       "slug": "triac-scr-output-optoisolators",
       "level": "fine"
     },
@@ -1071,11 +986,6 @@
     {
       "top_slug": "sensors",
       "slug": "pressure-sensors-transducers",
-      "level": "fine"
-    },
-    {
-      "top_slug": "sensors",
-      "slug": "sensors",
       "level": "fine"
     },
     {

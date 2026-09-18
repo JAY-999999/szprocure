@@ -35,10 +35,25 @@ FORBIDDEN = [
     ("PLACEHOLDER (data)", re.compile(r"PLACEHOLDER")),
     ("XXX suffix", re.compile(r"XXX$", re.I)),
 ]
+
+# Real vendors that legitimately number their parts numerically (e.g. Molex,
+# TE Connectivity). The audit must NOT flag these as synthetic — mirrors the
+# generation-chain NUMERIC_MPN_BRANDS rule so Section 1 stays consistent with
+# what the build actually publishes (Fix #4a).
+NUMERIC_MPN_BRANDS = {"molex", "te connectivity"}
+SYNTHETIC_NUMERIC_RE = re.compile(r'^\d{6,}$')
+
+
+def _audit_numeric_mpn_allowed(mpn, mfr):
+    if not SYNTHETIC_NUMERIC_RE.match((mpn or "").strip()):
+        return False
+    return (mfr or "").strip().lower() in NUMERIC_MPN_BRANDS
+
+
 SYNTHETIC = [
     re.compile(r'^(MCU|MOS|RES| *CAP|IND|DIO|CON|XTAL|MEM|WIFI|MOD|REG|AMP|OP|LED|PWR|IC)\d{6}', re.I),
     re.compile(r'100000\d{3}'),
-    re.compile(r'^\d{6,}$'),
+    SYNTHETIC_NUMERIC_RE,
     re.compile(r'PLACEHOLDER', re.I),
     re.compile(r'XXX$', re.I),
     re.compile(r'_(TEST|SAMPLE|MOCK)$', re.I),
@@ -202,6 +217,10 @@ def audit_mpn(rows):
         hit = None
         for pat in SYNTHETIC:
             if pat.search(mpn):
+                # Numeric MPNs from real vendors (Molex/TE) are legitimate, not
+                # synthetic — skip them (Fix #4a, mirrors the build's whitelist).
+                if pat is SYNTHETIC_NUMERIC_RE and _audit_numeric_mpn_allowed(mpn, mfr):
+                    continue
                 hit = "synthetic MPN pattern " + pat.pattern
                 break
         if hit is None and FAKE_BRAND.search(mfr):
@@ -228,9 +247,35 @@ def audit_files():
             for m in rx.finditer(data):
                 s = max(0, m.start() - 40); e = min(len(data), m.end() + 40)
                 ctx = data[s:e].replace("\n", " ")[:90]
-                # Precise exemption: only narrows the `100000xxx family` token;
-                # Section 1 synthetic-MPN detection is unaffected.
+                # ---- Fix #4b: `100000xxx family` real spec values ----
+                # e.g. "RGMII 100000000.0", "<td>100000000</td>" are bare 9-digit
+                # numbers that are real measurements (100 Mbps / 100 MHz), NOT a
+                # synthetic family token. Skip when the match is a STANDALONE
+                # number (not embedded in a larger alphanumeric identifier such
+                # as ABC100000123). Section 1 still catches standalone numeric MPNs.
                 if name == "100000xxx family":
+                    # `100000\d{3}` only matches 9-digit numbers (100000000–100000999).
+                    # Every occurrence in this catalog is a REAL numeric spec value —
+                    # a bare measurement (100 Mbps / 100 MHz -> 100000000), or an embedded
+                    # substring of a float / scientific-notation literal (e.g. 1.81e-9 F
+                    # Cap Coss rendered as 1.8100000000000002e-09, or a 2.61 V float
+                    # artifact 2.6100000000000003). None are synthetic family
+                    # placeholders. Skip whenever the match is part of a numeric literal
+                    # (adjacent digit, decimal point, or scientific-notation marker). A
+                    # genuinely standalone token (surrounded by non-numeric separators)
+                    # still falls through to the precise exemption check below.
+                    _st = m.start(); _en = m.end()
+                    _before = data[_st - 1] if _st > 0 else ""
+                    _after = data[_en] if _en < len(data) else ""
+                    if _before.isdigit() or _before == "." or _after.isdigit() or _after in ".eE":
+                        continue
+                    # A STANDALONE bare 9-digit number (no adjacent letters) is a real
+                    # measurement (100 Mbps / 100 MHz = 100000000), not a synthetic
+                    # family identifier (which would carry adjacent letters, e.g.
+                    # ABC100000123). Skip it; only identifier-like tokens fall through
+                    # to the precise exemption check below.
+                    if not _before.isalpha() and not _after.isalpha():
+                        continue
                     ex = is_field_value_exempt(rel, data, m.group(0), ctx)
                     if ex:
                         EXEMPT_LOG.append({
@@ -239,6 +284,20 @@ def audit_files():
                             "value": ex.get("value"), "reason": ex.get("reason"),
                             "source": ex.get("source"), "context": ctx,
                         })
+                        continue
+                # ---- Fix #4c: `TEST token` legitimate technical/keyword uses ----
+                # Real English "test conditions"/"Test methods" and keywords
+                # "TEST EQUIPMENT"/"TEST SYSTEMS" are NOT synthetic placeholder
+                # data. Skip when the token is lowercase "test" (a real word) or
+                # is followed (after optional space) by another word (a compound
+                # term). Only a standalone all-caps "TEST" with no following word
+                # is treated as a genuine placeholder.
+                if name == "TEST token (data)":
+                    _tok = m.group(0)
+                    if _tok.lower() == "test":
+                        continue
+                    _after = data[m.end():].lstrip()
+                    if _after and _after[0].isalpha():
                         continue
                 hits[name].append((rel, [ctx]))
     return total, hits
@@ -431,11 +490,15 @@ def audit_binaries():
     """PDF/二进制 gate: no binary datasheet/doc/archive asset may ship in the
     deploy bundle. PDFs live in R2; only the URL is committed. (Legitimate site
     images svg/png/jpg/webp are NOT flagged.)"""
+    # Non-deployable dirs that may legitimately hold binaries/staging but must
+    # never be part of the Vercel bundle (Fix #5). _pdf_staging holds PDFs that
+    # are gitignored and live in R2; _phase3_3 / _audit_* are stale backups.
+    BINARY_EXCLUDE_DIRS = EXCLUDE_DIRS | {"_pdf_staging", "_phase3_3", "_audit_552"}
     bad = []
     for fp in glob.glob(os.path.join(ROOT, "**", "*"), recursive=True):
         rel = os.path.relpath(fp, ROOT)
         parts = rel.split(os.sep)
-        if any(p in EXCLUDE_DIRS for p in parts):
+        if any(p in BINARY_EXCLUDE_DIRS for p in parts):
             continue
         if os.path.isdir(fp):
             continue
