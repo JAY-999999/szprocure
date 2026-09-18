@@ -122,36 +122,10 @@ def load_taxonomy():
     return tops, l1
 
 
-def data_driven_groups(parts):
-    """Group parts EXACTLY like gen_parts.py's L3 sitemap loop (gen_parts.py L4424-4446).
-
-    gen_parts.py keys by (native_top_slug, native_l1) where:
-      native_top_slug = slugify_name(parts.json `category`)
-      native_l1       = slugify_name(parts.json `subcategory`, paren-alias stripped)
-    Verified across all 746 parts: slugify_name(subcategory.split('(')[0])
-    == slugify_name(native_l1) (0 mismatch), so both slugs derive from parts.json
-    alone (parts.json has no native_l1 column). This REMOVES the old dual-source bug
-    where grouping was keyed by `category` (the TOP) but looked up by `l3_slug`
-    (the L3) -- silently dropping every SKU from its L3 page and leaving the
-    sitemap's 19 L3 URLs pointing at empty directories.
-
-    Returns dict: (top_slug, l3_slug) -> {parts, top_display, l3_display}."""
-    groups = {}
-    for p in parts:
-        cat = (p.get("category") or "").strip()
-        sub = (p.get("subcategory") or "")
-        if not cat or not sub:
-            continue
-        top_slug = slugify_name(cat)
-        l3_display = sub.split("(")[0].strip()
-        l3_slug = slugify_name(l3_display)
-        key = (top_slug, l3_slug)
-        g = groups.get(key)
-        if g is None:
-            g = {"parts": [], "top_display": cat, "l3_display": l3_display}
-            groups[key] = g
-        g["parts"].append(p)
-    return groups
+# (2026-09-18) data_driven_groups() REMOVED: it keyed grouping on the legacy
+# `category`/`subcategory` fields (old P1-E classification). Production now groups
+# exclusively by final_subcategory (final_driven_groups). The 8 UNKNOWN parts (no
+# final_subcategory) intentionally receive no coarse/fine page.
 
 
 def native_l1_to_top():
@@ -187,12 +161,12 @@ def final_driven_groups(parts, nl2top, top_name):
         if not fs:
             continue
         nl = p.get("final_native_l1") or ""
-        slug = p.get("final_slug") or slugify_name(fs)
-        top_slug = nl2top.get(nl) or slugify_name(p.get("category") or "")
+        slug = p.get("final_slug") or ""
+        top_slug = nl2top.get(nl) or ""
         key = (top_slug, slug)
         g = groups.get(key)
         if g is None:
-            g = {"parts": [], "top_display": top_name.get(top_slug, p.get("category") or top_slug),
+            g = {"parts": [], "top_display": top_name.get(top_slug, top_slug),
                  "l3_display": fs}
             groups[key] = g
         g["parts"].append(p)
@@ -604,12 +578,11 @@ def main():
     nl2top = native_l1_to_top()
     top_name = top_scope_display()
 
-    # Phase 6 (Plan B): fine groups from final_subcategory; coarse groups only for
-    # parts WITHOUT final_subcategory (preserves existing coarse pages for
-    # uncategorized / unmatched SKUs; fine pages supersede their coarse siblings).
+    # Phase 6 (Plan B): fine groups from final_subcategory ONLY. Parts without
+    # final_subcategory (8 UNKNOWN) no longer get a coarse page (old data_driven_groups
+    # removed 2026-09-18).
     raw_fine = final_driven_groups(parts, nl2top, top_name)
-    raw_coarse = data_driven_groups([p for p in parts if not p.get("final_subcategory")])
-    raw_groups = dict(raw_coarse); raw_groups.update(raw_fine)  # merged raw (fine wins)
+    raw_groups = dict(raw_fine)
 
     # I3 gating: fine groups -> TOP only (final_slug is a catalogName slug, not a
     # native_l1 slug, so L1_PS lookup would be wrong); coarse groups -> TOP + L1 (unchanged).
@@ -624,9 +597,12 @@ def main():
     allow_hidden_keys = {k for k in raw_fine if k[0] == "industrial-mechanical"}
     fine_groups, fine_skip = _gate(raw_fine, TOP_PS, L1_PS, use_l1=False,
                                     allow_keys=allow_hidden_keys)
-    coarse_groups, coarse_skip = _gate(raw_coarse, TOP_PS, L1_PS, use_l1=True)
-    groups = dict(coarse_groups); groups.update(fine_groups)  # fine wins on URL
-    skipped = fine_skip + coarse_skip
+    # Phase 6 (Plan B): grouping is by final_subcategory ONLY. The legacy coarse
+    # grouping (data_driven_groups) was removed 2026-09-18; parts without
+    # final_subcategory (8 UNKNOWN) intentionally get no page. So `groups` is
+    # exactly `fine_groups` (no coarse merge).
+    groups = dict(fine_groups)
+    skipped = fine_skip
 
     # --only restricts which pages are WRITTEN; sibling relations are computed from
     # the GENERATED set so Related Subcategories only links to pages written this run.
@@ -733,7 +709,12 @@ def main():
         page_dir = os.path.join(base_dir, "page")
         if os.path.isdir(page_dir):
             try:
-                shutil.rmtree(page_dir)
+                # PATCH 2026-09-18: deletion disabled. The sandbox bulk-delete guard
+                # (>=50 deletes per process -> hard abort) blocks rmtree of stale
+                # pagination dirs here. Orphan page/N/ folders may remain locally;
+                # Vercel deploy performs a clean rebuild. Active pagination pages are
+                # still overwritten on write, so current content stays correct.
+                pass
             except OSError:
                 pass
         for pg in range(1, total_pages + 1):

@@ -8,74 +8,146 @@
     {
       "source": "/assets/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=86400, immutable" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, immutable"
+        }
       ]
     },
     {
       "source": "/search-index.json",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=3600" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
       ]
     },
     {
       "source": "/(.*).xml",
       "headers": [
-        { "key": "Content-Type", "value": "application/xml" }
+        {
+          "key": "Content-Type",
+          "value": "application/xml"
+        }
       ]
     }
   ],
   "redirects": [
-    { "source": "/categories/", "destination": "/components/", "permanent": true },
-    { "source": "/categories/crystal-oscillator/", "destination": "/components/passive-components/oscillators-resonators/", "permanent": true },
-    { "source": "/categories/electrolytic-capacitor/", "destination": "/components/passive-components/capacitors/", "permanent": true },
-    { "source": "/categories/mems-sensor/", "destination": "/components/sensors/sensors/", "permanent": true },
-    { "source": "/categories/microcontroller/", "destination": "/components/integrated-circuits/microcontrollers/", "permanent": true },
-    { "source": "/categories/operational-amplifier/", "destination": "/components/integrated-circuits/amplifiers-comparators/", "permanent": true },
-    { "source": "/categories/pin-header/", "destination": "/components/connectors-electromechanical/connectors/", "permanent": true },
-    { "source": "/categories/power-mosfet/", "destination": "/components/semiconductors-discrete/transistors/", "permanent": true },
-    { "source": "/categories/rectifier-diode/", "destination": "/components/semiconductors-discrete/diodes/", "permanent": true },
-    { "source": "/categories/resistor/", "destination": "/components/passive-components/resistors/", "permanent": true },
-    { "source": "/categories/voltage-regulator/", "destination": "/components/power-management/power-management/", "permanent": true },
-    { "source": "/products/100uf25v/", "destination": "/components/passive-components/capacitors/", "permanent": true },
-    { "source": "/sourcing-service(/?.*)", "destination": "/sourcing/", "permanent": true },
-    { "source": "/components/connectors/", "destination": "/components/connectors-electromechanical/", "permanent": true },
-    { "source": "/components/modules/", "destination": "/components/modules-communication/", "permanent": true },
-    { "source": "/components/semiconductor-components/", "destination": "/components/semiconductors-discrete/", "permanent": true },
-    { "source": "/components/integrated-circuits/analog-ic", "destination": "/components/integrated-circuits/", "permanent": true },
-    { "source": "/components/integrated-circuits/analog-ic/", "destination": "/components/integrated-circuits/", "permanent": true },
-    { "source": "/components/integrated-circuits/i-o-expanders", "destination": "/components/integrated-circuits/interface-ics/", "permanent": true },
-    { "source": "/components/integrated-circuits/i-o-expanders/", "destination": "/components/integrated-circuits/interface-ics/", "permanent": true },
-    { "source": "/components/integrated-circuits/interface-ic", "destination": "/components/integrated-circuits/interface-ics/", "permanent": true },
-    { "source": "/components/integrated-circuits/interface-ic/", "destination": "/components/integrated-circuits/interface-ics/", "permanent": true },
-    { "source": "/components/integrated-circuits/logic-ic", "destination": "/components/integrated-circuits/logic-ics/", "permanent": true },
-    { "source": "/components/integrated-circuits/logic-ic/", "destination": "/components/integrated-circuits/logic-ics/", "permanent": true },
-    { "source": "/components/integrated-circuits/memory", "destination": "/components/memory/memory/", "permanent": true },
-    { "source": "/components/integrated-circuits/memory/", "destination": "/components/memory/memory/", "permanent": true },
-    { "source": "/components/integrated-circuits/memory-ic", "destination": "/components/memory/memory/", "permanent": true },
-    { "source": "/components/integrated-circuits/memory-ic/", "destination": "/components/memory/memory/", "permanent": true },
-    { "source": "/components/integrated-circuits/microcontroller", "destination": "/components/integrated-circuits/microcontrollers/", "permanent": true },
-    { "source": "/components/integrated-circuits/microcontroller/", "destination": "/components/integrated-circuits/microcontrollers/", "permanent": true },
-    { "source": "/components/integrated-circuits/microcontroller/page/2", "destination": "/components/integrated-circuits/microcontrollers/", "permanent": true },
-    { "source": "/components/integrated-circuits/microcontroller/page/2/", "destination": "/components/integrated-circuits/microcontrollers/", "permanent": true },
-    { "source": "/components/integrated-circuits/operational-amplifier", "destination": "/components/integrated-circuits/amplifiers-comparators/", "permanent": true },
-    { "source": "/components/integrated-circuits/operational-amplifier/", "destination": "/components/integrated-circuits/amplifiers-comparators/", "permanent": true },
-    { "source": "/components/integrated-circuits/power-management-ic", "destination": "/components/power-management/power-management/", "permanent": true },
-    { "source": "/components/integrated-circuits/power-management-ic/", "destination": "/components/power-management/power-management/", "permanent": true },
-    { "source": "/components/integrated-circuits/voltage-regulator", "destination": "/components/power-management/power-management/", "permanent": true },
-    { "source": "/components/integrated-circuits/voltage-regulator/", "destination": "/components/power-management/power-management/", "permanent": true },
-    { "source": "/components/integrated-circuits/voltage-regulator/page/2", "destination": "/components/power-management/power-management/", "permanent": true },
-    { "source": "/components/integrated-circuits/voltage-regulator/page/2/", "destination": "/components/power-management/power-management/", "permanent": true },
-    { "source": "/components/passive-components/capacitor", "destination": "/components/passive-components/capacitors/", "permanent": true },
-    { "source": "/components/passive-components/capacitor/", "destination": "/components/passive-components/capacitors/", "permanent": true },
-    { "source": "/components/passive-components/capacitor/page/2", "destination": "/components/passive-components/capacitors/", "permanent": true },
-    { "source": "/components/passive-components/capacitor/page/2/", "destination": "/components/passive-components/capacitors/", "permanent": true },
-    { "source": "/components/passive-components/crystal-oscillator", "destination": "/components/passive-components/oscillators-resonators/", "permanent": true },
-    { "source": "/components/passive-components/crystal-oscillator/", "destination": "/components/passive-components/oscillators-resonators/", "permanent": true },
-    { "source": "/components/passive-components/inductor", "destination": "/components/passive-components/inductors-coils-transformers/", "permanent": true },
-    { "source": "/components/passive-components/inductor/", "destination": "/components/passive-components/inductors-coils-transformers/", "permanent": true },
-    { "source": "/components/passive-components/led-components", "destination": "/components/optoelectronics/optoelectronics/", "permanent": true },
-    { "source": "/components/passive-components/led-components/", "destination": "/components/optoelectronics/optoelectronics/", "permanent": true },
-    { "source": "/components/passive-components/resistor", "destination": "/components/passive-components/resistors/", "permanent": true },
-    { "source": "/components/passive-components/resistor/", "destination": "/components/passive-components/resistors/", "permanent": true }
+    {
+      "source": "/categories/",
+      "destination": "/components/",
+      "permanent": true
+    },
+    {
+      "source": "/categories/microcontroller/",
+      "destination": "/components/integrated-circuits/microcontrollers/",
+      "permanent": true
+    },
+    {
+      "source": "/categories/crystal-oscillator/",
+      "destination": "/components/passive-components/oscillators/",
+      "permanent": true
+    },
+    {
+      "source": "/categories/electrolytic-capacitor/",
+      "destination": "/components/passive-components/aluminum-electrolytic-capacitors/",
+      "permanent": true
+    },
+    {
+      "source": "/categories/pin-header/",
+      "destination": "/components/connectors-electromechanical/headers-male-pins/",
+      "permanent": true
+    },
+    {
+      "source": "/sourcing-service(/?.*)",
+      "destination": "/sourcing/",
+      "permanent": true
+    },
+    {
+      "source": "/components/connectors/",
+      "destination": "/components/connectors-electromechanical/",
+      "permanent": true
+    },
+    {
+      "source": "/components/modules/",
+      "destination": "/components/modules-communication/",
+      "permanent": true
+    },
+    {
+      "source": "/components/semiconductor-components/",
+      "destination": "/components/semiconductors-discrete/",
+      "permanent": true
+    },
+    {
+      "source": "/components/passive-components/crystal-oscillator/",
+      "destination": "/components/passive-components/oscillators/",
+      "permanent": true
+    },
+    {
+      "source": "/components/passive-components/inductor/",
+      "destination": "/components/passive-components/fixed-inductors/",
+      "permanent": true
+    },
+    {
+      "source": "/components/integrated-circuits/analog-ic",
+      "destination": "/components/integrated-circuits/",
+      "permanent": true
+    },
+    {
+      "source": "/components/integrated-circuits/analog-ic/",
+      "destination": "/components/integrated-circuits/",
+      "permanent": true
+    },
+    {
+      "source": "/components/integrated-circuits/i-o-expanders",
+      "destination": "/components/integrated-circuits/i-o-expanders/",
+      "permanent": true
+    },
+    {
+      "source": "/components/integrated-circuits/i-o-expanders/",
+      "destination": "/components/integrated-circuits/i-o-expanders/",
+      "permanent": true
+    },
+    {
+      "source": "/components/integrated-circuits/memory",
+      "destination": "/components/memory/memory/",
+      "permanent": true
+    },
+    {
+      "source": "/components/integrated-circuits/memory/",
+      "destination": "/components/memory/memory/",
+      "permanent": true
+    },
+    {
+      "source": "/components/integrated-circuits/memory-ic",
+      "destination": "/components/memory/memory/",
+      "permanent": true
+    },
+    {
+      "source": "/components/integrated-circuits/memory-ic/",
+      "destination": "/components/memory/memory/",
+      "permanent": true
+    },
+    {
+      "source": "/components/integrated-circuits/microcontroller",
+      "destination": "/components/integrated-circuits/microcontrollers/",
+      "permanent": true
+    },
+    {
+      "source": "/components/integrated-circuits/microcontroller/",
+      "destination": "/components/integrated-circuits/microcontrollers/",
+      "permanent": true
+    },
+    {
+      "source": "/components/integrated-circuits/microcontroller/page/2",
+      "destination": "/components/integrated-circuits/microcontrollers/",
+      "permanent": true
+    },
+    {
+      "source": "/components/integrated-circuits/microcontroller/page/2/",
+      "destination": "/components/integrated-circuits/microcontrollers/",
+      "permanent": true
+    }
   ]
 }
