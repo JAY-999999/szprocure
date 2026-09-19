@@ -1,7 +1,7 @@
 {
   "schema_version": "page-manifest/1",
-  "generated_at": "2026-09-18T09:10:17Z",
-  "page_count": 203,
+  "generated_at": "2026-09-19T14:35:41Z",
+  "page_count": 206,
   "pages": [
     {
       "top_slug": "audio-signal",
@@ -96,6 +96,11 @@
     {
       "top_slug": "connectors-electromechanical",
       "slug": "power-relays-over-2-amps",
+      "level": "fine"
+    },
+    {
+      "top_slug": "connectors-electromechanical",
+      "slug": "quick-connects-quick-disconnect-connectors",
       "level": "fine"
     },
     {
@@ -524,6 +529,11 @@
       "level": "fine"
     },
     {
+      "top_slug": "memory",
+      "slug": "memory-cards",
+      "level": "fine"
+    },
+    {
       "top_slug": "modules-communication",
       "slug": "",
       "level": "top"
@@ -666,6 +676,11 @@
     {
       "top_slug": "passive-components",
       "slug": "rf-filters",
+      "level": "fine"
+    },
+    {
+      "top_slug": "passive-components",
+      "slug": "rfi-and-emi-contacts-fingerstock-and-gaskets",
       "level": "fine"
     },
     {
