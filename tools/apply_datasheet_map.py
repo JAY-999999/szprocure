@@ -9,10 +9,13 @@ exactly (Schema, URL, RFQ, SEO structure untouched). gen_parts.py already render
 a Datasheet button conditionally from this column, so populating it activates the
 feature with zero template changes.
 
-Targets (canonical build source verified = master_parts_v2.1.csv):
-  C: data/production/master_parts_v2.1.csv   (gen_parts --csv source)
-  C: data/production/master_parts_publish.csv (same 500 MPNs; kept in sync)
-  D: 03_MASTER/product_master/master_parts_v2.1.csv  (source of truth)
+Targets (PROD is the single source of truth; gen_parts reads data/production/master):
+  C: data/production/master_parts_v2.1.csv      (gen_parts --csv source — AUTHORITATIVE)
+  C: data/production/master_parts_publish.csv    (PROD publish variant; kept in sync with PROD)
+NOTE: D:/SZ Procure/03_MASTER/product_master/master_parts_v2.1.csv (TWIN) is a DOWNSTREAM
+MIRROR of PROD, reconciled from PROD by the dual-master reconcile step — it is NOT a
+datasheet-map target here, so it can never be silently treated as a source of truth or
+override PROD. (Dual-master drift root-cause fix, 2026-09-19.)
 
 ------------------------------------------------------------------------------
 P0 SAFETY FIX (SKU Factory Phase P0)
@@ -47,10 +50,12 @@ import tempfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MAP_CSV = "D:/SZ Procure/02_CLEAN/datasheet_map.csv"
+# PROD is the ONLY authoritative master. TWIN (03_MASTER/...) is intentionally EXCLUDED:
+# it is a downstream mirror reconciled from PROD, never a datasheet-map target, so it can
+# no longer be silently treated as a source of truth (dual-master drift root-cause fix).
 TARGETS = [
     os.path.join(ROOT, "data", "production", "master_parts_v2.1.csv"),
     os.path.join(ROOT, "data", "production", "master_parts_publish.csv"),
-    "D:/SZ Procure/03_MASTER/product_master/master_parts_v2.1.csv",
 ]
 
 
