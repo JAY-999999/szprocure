@@ -105,11 +105,6 @@
       "permanent": true
     },
     {
-      "source": "/components/integrated-circuits/i-o-expanders/",
-      "destination": "/components/integrated-circuits/i-o-expanders/",
-      "permanent": true
-    },
-    {
       "source": "/components/integrated-circuits/memory",
       "destination": "/components/memory/memory/",
       "permanent": true
