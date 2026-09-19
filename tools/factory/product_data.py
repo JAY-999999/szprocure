@@ -25,7 +25,7 @@ import re
 import sys
 from datetime import datetime
 
-from . import MASTER_COLS, REQUIRED_FIELDS
+from . import MASTER_COLS, REQUIRED_FIELDS, _extract_lcsc_chain
 from . import dedup, gate, pool, category
 from .category import UNKNOWN_CATEGORY
 
@@ -265,6 +265,26 @@ def build_mcu_fields(record, mpn, brand):
                          "Consumer electronics; Motor control"),
         "keywords": kw, "attributes_json": json.dumps(aj, ensure_ascii=False),
         "faq": faq,
+    }
+
+
+def _lcsc_chain_row(supplier_reference):
+    """Return the 6 P0-1 lcsc_* MASTER columns for a supplier_reference.
+
+    Wraps factory._extract_lcsc_chain; blanks every column when the RAW is
+    missing/unmapped so the row never carries a guessed chain.
+    """
+    ch = _extract_lcsc_chain(supplier_reference)
+    if not ch:
+        return {k: "" for k in ("lcsc_parent_chain", "lcsc_leaf_id", "lcsc_leaf_name",
+                                "lcsc_parent_id", "lcsc_parent_name", "lcsc_depth")}
+    return {
+        "lcsc_parent_chain": ch["parent_chain"],
+        "lcsc_leaf_id": ch["leaf_id"],
+        "lcsc_leaf_name": ch["leaf_name"],
+        "lcsc_parent_id": ch["parent_id"],
+        "lcsc_parent_name": ch["parent_name"],
+        "lcsc_depth": ch["depth"],
     }
 
 

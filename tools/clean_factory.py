@@ -40,8 +40,12 @@ import csv, os, re, sys, json, argparse, datetime, hashlib, glob, shutil, urllib
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, ROOT)
+sys.path.insert(0, os.path.join(ROOT, "tools"))  # make the factory package importable
 import gen_parts as gp
 import native_l1_mapper as nl1  # frozen native_l1 rules — single source of truth
+# P0-1 fix (2026-09-19): reuse factory._extract_lcsc_chain (single source of truth)
+# so the 02 CLEAN path and the SKU Factory produce identical parent-chain columns.
+from factory import _extract_lcsc_chain
 
 DATE = f"{datetime.datetime.now():%Y%m%d}"
 # Phase-1 policy (2026-08-27): self-hosted assets are PARKED in the local D: ASSET
@@ -65,7 +69,12 @@ MASTER_HEADER = ["mpn", "clean_mpn", "manufacturer", "brand", "url_slug",
                  "category", "subcategory", "description", "applications",
                  "keywords", "attributes_json", "availability",
                  "alternative_parts", "datasheet_url", "faq", "image", "source",
-                 "source_url", "supplier_reference", "native_l1"]
+                 "source_url", "supplier_reference", "native_l1",
+                 # P0-1 fix (2026-09-19): LCSC parent-chain captured from the REAL
+                 # scale500 JSON RAW — previously 02 CLEAN dropped it. Order MUST
+                 # stay identical to factory.MASTER_COLS above.
+                 "lcsc_parent_chain", "lcsc_leaf_id", "lcsc_leaf_name",
+                 "lcsc_parent_id", "lcsc_parent_name", "lcsc_depth"]
 
 # Per fine-category caps (max count) — used only when --lock is NOT given.
 CAPS = {
@@ -141,6 +150,71 @@ def recompute_native_l1(master_path, backup=True):
     empties = sum(1 for r in rows if not (r["native_l1"] or "").strip())
     print("[native_l1] recomputed: %d rows, %d kept-current (no RAW), "
           "%d now empty" % (len(rows), no_raw, empties))
+
+
+def recompute_lcsc_parent_chain(master_path, backup=True):
+    """LEGACY / MAINTENANCE ONLY — one-shot backfill of the 6 P0-1 parent-chain cols.
+
+    Deterministically (re)extract MASTER.lcsc_* from the scale500 JSON RAW via
+    factory._extract_lcsc_chain (single source of truth). Only the 6 lcsc_*
+    columns are rewritten; every other column and the row order are preserved
+    exactly. Rows whose JSON RAW is missing keep blank lcsc_* columns (cannot
+    re-derive; never guessed). Idempotent: running it again on its own output
+    changes nothing.
+
+    The 20 original columns are read back and rewritten verbatim (only the 6 new
+    columns are populated), so each row's original-20-column fingerprint is
+    preserved byte-for-byte in value (CSV quoting/line-ending differences aside).
+    """
+    new_cols = ["lcsc_parent_chain", "lcsc_leaf_id", "lcsc_leaf_name",
+                "lcsc_parent_id", "lcsc_parent_name", "lcsc_depth"]
+    rows = list(csv.DictReader(open(master_path, encoding="utf-8")))
+    fieldnames = list(rows[0].keys())
+    # If a partial/prior run left the columns out, append them (keeps the strict
+    # read_master header contract valid once MASTER_COLS/MASTER_HEADER are extended).
+    added = False
+    for c in new_cols:
+        if c not in fieldnames:
+            fieldnames.append(c)
+            added = True
+    missing_raw = 0
+    for r in rows:
+        ref = (r.get("supplier_reference") or "").strip()
+        ch = _extract_lcsc_chain(ref) if ref else None
+        if ch is None:
+            missing_raw += 1
+            for c in new_cols:
+                r[c] = r.get(c, "")
+            continue
+        r["lcsc_parent_chain"] = ch["parent_chain"]
+        r["lcsc_leaf_id"] = ch["leaf_id"]
+        r["lcsc_leaf_name"] = ch["leaf_name"]
+        r["lcsc_parent_id"] = ch["parent_id"]
+        r["lcsc_parent_name"] = ch["parent_name"]
+        r["lcsc_depth"] = ch["depth"]
+    if backup:
+        bak = master_path + (".bak_lcsc_chain_%s" % DATE)
+        shutil.copy2(master_path, bak)
+    with open(master_path, "w", encoding="utf-8", newline="") as o:
+        w = csv.DictWriter(o, fieldnames=fieldnames)
+        w.writeheader()
+        w.writerows(rows)
+    filled = sum(1 for r in rows if (r.get("lcsc_parent_chain") or "").strip())
+    consistent = 0
+    for r in rows:
+        pc = (r.get("lcsc_parent_chain") or "").strip()
+        if not pc:
+            continue
+        try:
+            chain = json.loads(pc)
+        except Exception:
+            continue
+        # parent_name must equal the chain's immediate parent (chain[-2]).
+        if len(chain) >= 2 and chain[-2]["name"] == (r.get("lcsc_parent_name") or ""):
+            consistent += 1
+    print("[lcsc_chain] recomputed: %d rows | %d filled | %d blank(no RAW/orphan) | "
+          "%d parent-self-consistent (expect == filled) | header_added=%s"
+          % (len(rows), filled, missing_raw, consistent, added))
 
 
 # ----------------------------------------------------------------------------- #
@@ -290,11 +364,22 @@ def main():
                         "automation does NOT need this - native_l1 is derived "
                         "inline via native_l1_mapper during the regular 02 "
                         "build. Use only for an explicit one-time MASTER fix.")
+    ap.add_argument("--recompute-lcsc-parent-chain", action="store_true",
+                   help="(LEGACY / MAINTENANCE ONLY) ONE-SHOT: backfill the 6 "
+                        "P0-1 lcsc_* parent-chain columns from the scale500 JSON "
+                        "RAW (no asset download / full regen); idempotent, other "
+                        "columns untouched. Use only for the explicit one-time "
+                        "MASTER fix that restores the dropped classification tree.")
     args = ap.parse_args()
 
     # --- 02 native_l1 step: targeted single-column recompute, no full regen ---
     if args.recompute_native_l1:
         recompute_native_l1(args.out, backup=not args.no_archive)
+        return
+
+    # --- P0-1 step: targeted 6-column parent-chain backfill, no full regen ---
+    if args.recompute_lcsc_parent_chain:
+        recompute_lcsc_parent_chain(args.out, backup=not args.no_archive)
         return
 
     # native_l1 carry-forward: snapshot the existing MASTER.native_l1 keyed by
@@ -442,6 +527,17 @@ def main():
         _nl1 = nl1.compute_native_l1_for_row(mrow["supplier_reference"])
         if _nl1:
             mrow["native_l1"] = _nl1
+        # P0-1 fix (2026-09-19): capture the full LCSC parent chain (root -> leaf)
+        # from the REAL scale500 JSON RAW so the dropped classification tree is
+        # restored at the source. Blank columns when RAW is missing (never guessed).
+        _ch = _extract_lcsc_chain(mrow["supplier_reference"])
+        if _ch:
+            mrow["lcsc_parent_chain"] = _ch["parent_chain"]
+            mrow["lcsc_leaf_id"] = _ch["leaf_id"]
+            mrow["lcsc_leaf_name"] = _ch["leaf_name"]
+            mrow["lcsc_parent_id"] = _ch["parent_id"]
+            mrow["lcsc_parent_name"] = _ch["parent_name"]
+            mrow["lcsc_depth"] = _ch["depth"]
         mrow["source"] = ""
         master_rows.append(mrow)
 

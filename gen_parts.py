@@ -2037,7 +2037,18 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
     mfr = row["manufacturer"].strip()
     _cat_res = resolve_native(row.get("native_l1"))
     cat = _cat_res.get("l1_name") or ""
-    subcat = (row.get("subcategory") or "").strip()
+    # P0-2 fix (2026-09-19): the product-page FINE category must follow the
+    # AUTHORITATIVE upstream taxonomy, NEVER the 02 heuristic `subcategory` guess.
+    # Source order:
+    #   1) final_subcategory  -- the site's curated Fine classification, derived
+    #      natively from native_l1 -> category_taxonomy.json (SAME source the
+    #      breadcrumb L3 uses), so page + breadcrumb stay on one tree.
+    #   2) lcsc_leaf_name     -- the raw LCSC leaf captured by P0-1 from
+    #      parentCatalogList (upstream data, fallback only).
+    # The legacy `subcategory` column (02 attribute/name-pattern guess, e.g.
+    # "Power Management" for an LM2596 regulator) is intentionally NOT used here.
+    subcat = (row.get("final_subcategory")
+              or (row.get("lcsc_leaf_name") or "")).strip()
     specs_raw = (row.get("attributes_json") or "").strip()
     apps = (row.get("applications") or "").strip()
     alt_raw = (row.get("alternative_parts") or "").strip()
@@ -4369,8 +4380,17 @@ SCOPE_CEILING_RATIO = 0.05              # Phase 2 Scope Guard ceiling (informati
 # Page-affecting MASTER columns that feed a SKU's data_fp. Deliberately EXCLUDES
 # traceability / derived cols (source, source_url, supplier_reference, url_slug,
 # clean_mpn, availability) so internal edits never spuriously rebuild a page.
+#
+# P0-2 cleanup (2026-09-19): the B-layer page derives its category from
+# native_l1 (-> cat) and final_subcategory / lcsc_leaf_name (-> subcat). The
+# legacy 02 guess columns `category` / `subcategory` do NOT affect the rendered
+# page, so tracking them here would (a) MISS a real page change when native_l1 or
+# final_subcategory changes, and (b) spuriously rebuild when only the guess
+# column changes. We track the ACTUAL page-affecting fields instead, keeping a
+# single source of truth end-to-end and preventing future multi-source drift.
 INCREMENTAL_DATA_COLS = [
-    "mpn", "manufacturer", "brand", "category", "subcategory",
+    "mpn", "manufacturer", "brand", "native_l1", "final_subcategory",
+    "lcsc_leaf_name",
     "description", "applications", "keywords", "attributes_json",
     "alternative_parts", "datasheet_url", "faq", "image",
 ]
@@ -5477,13 +5497,17 @@ def main():
                         "subcategory", "sources", "needs_review", "review_reasons",
                         "unknown_attr", "attributes_json"])
             for g in groups:
+                _cr = resolve_native(g.get("native_l1"))
                 w.writerow([
                     g.get("mpn", "").strip(),
                     g.get("manufacturer", "").strip(),
                     (g.get("clean_mpn") or "").strip() or re.sub(r"[^A-Z0-9]", "", (g.get("mpn") or "").upper()),
                     g.get("url_slug", ""),
-                    g.get("category", "").strip(),
-                    g.get("subcategory", "").strip(),
+                    # P0-2 cleanup (2026-09-19): report the AUTHORITATIVE native_l1
+                    # derivation, never the legacy 02 guess column, so the review
+                    # queue reflects the same single source of truth the page uses.
+                    top_scope_name(_cr.get("top_slug") or "") or "",
+                    _cr.get("l1_name") or "",
                     ";".join(g.get("sources", [])),
                     "yes" if g.get("needs_review") else "no",
                     ";".join(g.get("review_reasons", [])),

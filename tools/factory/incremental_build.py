@@ -52,6 +52,18 @@ def _preprocess(full_csv, mfr_map, attr_dict, attr_json, val_json, strict=False)
     gp.detect_synthetic_mpn(rows)
     review = []
     groups, stats = gp.build_merged_groups(rows, mfr_map_d, attr_allow, review)
+    # P0-2 cleanup (2026-09-19): attach frozen final_* fields to every group,
+    # mirroring gen_parts.main() (L5416-5428). Without this, gen_part_page_v3
+    # reads an EMPTY final_subcategory and silently falls back to the RAW
+    # lcsc_leaf_name -- a DIFFERENT source than the full build (which uses the
+    # curated final_subcategory). That would break the byte-identical guarantee
+    # this harness exists to prove, and is exactly the "future multi-source
+    # reading" the P0-2 fix must prevent. Single source of truth end-to-end.
+    _final_map = gp.subcategory_final.build_sr_final_map()
+    if not _final_map:
+        _final_map = gp.subcategory_final.load_final_map()
+    for g in groups:
+        gp.subcategory_final.attach_final_fields(g, _final_map)
     registry = gp.SlugRegistry()
     for g in groups:
         base = (g.get("url_slug") or "").strip() or gp.slugify(g["mpn"].strip())
@@ -229,14 +241,19 @@ def _write_globals(out_root, groups, by_mfr, by_cat, related_map):
         uslug = g["url_slug"]
         raw = (g.get("attributes_json") or "").strip()
         attrs = gp.build_en_attrs(raw)
+        _cat_res = gp.resolve_native(g.get("native_l1"))
         parts_json.append({
             "mpn": mpn,
             "clean_mpn": clean,
             "manufacturer": g["manufacturer"].strip(),
             "brand": g.get("brand", g["manufacturer"]).strip(),
             "url_slug": uslug,
-            "category": g.get("category", "").strip(),
-            "subcategory": g.get("subcategory", "").strip(),
+            # P0-2 cleanup (2026-09-19): derive from the SINGLE SOURCE (native_l1)
+            # exactly like gen_parts.build_parts_json (L4747-4748). Never read the
+            # legacy 02 guess columns (g["category"]/g["subcategory"]) -- that would
+            # reintroduce a second source of truth and diverge from the full build.
+            "category": gp.top_scope_name(_cat_res.get("top_slug") or "") or "",
+            "subcategory": _cat_res.get("l1_name") or "",
             "description": g.get("description", "").strip(),
             "applications": g.get("applications", "").strip(),
             "keywords": g.get("keywords", "").strip(),
@@ -248,6 +265,15 @@ def _write_globals(out_root, groups, by_mfr, by_cat, related_map):
             "datasheet_url": g.get("datasheet_url", "").strip(),
             "product_url": f"/products/{uslug}/",
         })
+    # P0-2 cleanup (2026-09-19): attach the frozen final_* fields so the incremental
+    # parts.json is BYTE-IDENTICAL to the full build (gen_parts.build_parts_json
+    # L4760-4770). Without this the mirror would omit final_subcategory/final_slug/
+    # final_native_l1 and silently drift from the production output.
+    _final_map = gp.subcategory_final.build_sr_final_map()
+    if not _final_map:
+        _final_map = gp.subcategory_final.load_final_map()
+    for _p in parts_json:
+        gp.subcategory_final.attach_final_fields(_p, _final_map)
     with open(os.path.join(out_root, "parts.json"), "w", encoding="utf-8") as f:
         f.write(json.dumps(parts_json, ensure_ascii=False, indent=2))
 
