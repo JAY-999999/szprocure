@@ -37,6 +37,43 @@ if _ROOT not in sys.path:
     sys.path.insert(0, _ROOT)
 import native_l1_mapper as nl1  # frozen native_l1 rules — single source of truth
 
+# --------------------------------------------------------------------------
+# B3 (2026-09-19): category <-> native_l1 family consistency gate
+# --------------------------------------------------------------------------
+# Maps the 11 supported canonical categories to their native_l1 family slug so
+# build_row can detect a classification that contradicts the (authoritative)
+# native_l1 taxonomy. When both sides are populated and disagree, the row is
+# forced to UNKNOWN_CATEGORY (reusing plan_release's existing stop) so it can
+# never silently enter release.
+CATEGORY_TO_NL1_FAMILY = {
+    "Microcontroller": "microcontrollers",
+    "Voltage Regulator": "power-management",
+    "Diode": "diodes",
+    "Capacitor": "capacitors",
+    "Interface IC": "interface-ics",
+    "Operational Amplifier": "amplifiers-comparators",
+    "MOSFET": "transistors",
+    "Transistor": "transistors",
+    "Logic IC": "logic-ics",
+    "Resistor": "resistors",
+    "Inductor": "inductors-coils-transformers",
+}
+
+
+def _cat_nl1_conflict(category, native_l1):
+    """True when a populated category family contradicts native_l1.
+
+    Returns False (no conflict) when native_l1 is empty (e.g. Problem A:
+    raw_dir not resolved) or the category has no known family mapping -- so the
+    gate never over-blocks during partial native_l1 coverage.
+    """
+    if not category or not native_l1:
+        return False
+    fam = CATEGORY_TO_NL1_FAMILY.get(category)
+    if not fam:
+        return False
+    return fam != native_l1
+
 # RAW attribute keys (source CSV is Chinese-keyed)
 ATTR_CORE = "CPU内核"
 ATTR_BITS = "CPU位数"
@@ -266,6 +303,16 @@ def build_row(record, mpn, brand, mfr_map=None):
         # --recompute-native-l1 step. Empty when no RAW (never guessed).
         "native_l1": nl1.compute_native_l1_for_row((record.get("supplier_sku") or "").strip()),
     }
+    # ---- category <-> native_l1 consistency gate (B3) ----
+    # A populated category that contradicts the authoritative native_l1 taxonomy
+    # is forced to UNKNOWN_CATEGORY so plan_release's existing stop blocks it
+    # from release (never silently shipped). native_l1=='' (Problem A unresolved)
+    # is skipped to avoid over-blocking.
+    _cat = row.get("category", "")
+    _nl1 = row.get("native_l1", "")
+    _conflict = _cat_nl1_conflict(_cat, _nl1)
+    if _conflict:
+        row["category"] = UNKNOWN_CATEGORY
     # final CJK guard on attribute values (defence in depth)
     aj = json.loads(fields["attributes_json"] or "{}")
     aj = {k: v for k, v in aj.items()
@@ -282,8 +329,12 @@ def build_row(record, mpn, brand, mfr_map=None):
     # Pool-only source tag so qualify() can apply source-specific guards
     # (e.g. LCSC HTTP pure-numeric MPNs are real products, not synthetic).
     row["_source_kind"] = record.get("_source_kind")
-    row[F_NEEDS_REVIEW] = bool(meta.get("needs_review", False))
-    row[F_DETECT] = json.dumps(meta.get("signals", {}), ensure_ascii=False)
+    row[F_NEEDS_REVIEW] = bool(meta.get("needs_review", False)) or _conflict
+    _detect_signals = dict(meta.get("signals", {}))
+    if _conflict:
+        _detect_signals["gate_cat_nl1_conflict"] = {
+            "category": _cat, "native_l1": _nl1}
+    row[F_DETECT] = json.dumps(_detect_signals, ensure_ascii=False)
     return row, meta
 
 

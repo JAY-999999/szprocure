@@ -734,6 +734,16 @@ _CATEGORY_TO_CANON = {
     "inductor": "Inductor",
 }
 
+# B3 (2026-09-19): parentCatalogName -> canonical (consumed as L0 in
+# detect_category). Minimal, targeted set: only mappings that (a) resolve a
+# confirmed misfire and (b) have a SUPPORTED 11-family adapter.
+# "Power Management (PMIC)" is intentionally EXCLUDED — no supported adapter
+# yet (deferred; see B3 spec).
+_PARENTCAT_TO_CANON = {
+    "logic": "Logic IC",
+    "amplifiers/comparators": "Operational Amplifier",
+}
+
 # L1: catalogName substring patterns -> canonical (ordered specific -> general)
 _CATALOG_PATTERNS = [
     (r"microcontroller", "Microcontroller"),
@@ -750,7 +760,7 @@ _CATALOG_PATTERNS = [
     (r"mosfet", "MOSFET"),
     (r"bipolar|bjt|transistor|scr|thyristor", "Transistor"),
     (r"logic gate|logic ic", "Logic IC"),
-    (r"buffer|transceiver|translator|level shift|"
+    (r"transceiver|translator|level shift|"
      r"i/?o expander|rs-?232|rs-?485|rs-?422|can transceiver|uart|"
      r"driver|expander|interface",
      "Interface IC"),
@@ -765,7 +775,6 @@ _DESC_PATTERNS = [
     (r"ceramic capacitor|mlcc|capacitor", "Capacitor"),
     (r"operational amplifier|op-?amp|comparator", "Operational Amplifier"),
     (r"inductor|choke|common mode", "Inductor"),
-    (r"resistor", "Resistor"),
     (r"transistor|bjt|\bnpn\b|\bpnp\b", "Transistor"),
     (r"mosfet", "MOSFET"),
     (r"level shifter|translator|i/?o expander|rs-?232|rs-?485|rs-?422|"
@@ -802,6 +811,15 @@ def detect_category(record):
     catname = (record.get("catalogName") or "").strip().lower()
     cat = (record.get("category") or "").strip().lower()
     desc = (record.get("description") or "").strip().lower()
+    parent_cat = (record.get("parentCatalogName") or "").strip().lower()
+
+    # L0 — parentCatalogName (authoritative structured signal; highest priority
+    #      among structured signals). Only maps to SUPPORTED 11-family canons;
+    # anything unmapped falls through to L1-L4 as before.
+    if parent_cat in _PARENTCAT_TO_CANON:
+        return _PARENTCAT_TO_CANON[parent_cat], {
+            "level": "L0_parentCatalogName",
+            "value": record.get("parentCatalogName") or ""}, "high"
 
     # L1 — catalogName substring
     for pat, canon in _CATALOG_PATTERNS:

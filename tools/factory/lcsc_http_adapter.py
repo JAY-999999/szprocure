@@ -402,6 +402,7 @@ def flatten_envelope(env):
         "mpn": (mp.get("productModel") or "").strip(),
         "manufacturer_raw": (mp.get("brandNameEn") or "").strip(),
         "catalogName": (mp.get("wmCatalogNameEn") or "").strip(),
+        "parentCatalogName": (mp.get("parentCatalogName") or "").strip(),
         "category": "",
         "description": desc_norm,
         "introduction": intro,
@@ -980,7 +981,6 @@ _HTTP_ATTR_FINGERPRINT = [
     ("ic_a", "Transistor"),
     ("tran_type", "Transistor"),
     ("data_rate", "Interface IC"),
-    ("interface", "Interface IC"),
     ("output_voltage_v", "Voltage Regulator"),
     ("output_type", "Voltage Regulator"),
     ("topology", "Voltage Regulator"),          # switching-regulator controller
