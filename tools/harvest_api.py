@@ -42,6 +42,10 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, ROOT)
 import gen_parts as gp
+try:
+    import collector_common as cc
+except Exception:  # noqa: BLE001
+    cc = None
 
 EDGE = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -163,13 +167,22 @@ def main():
                     help="skip copying to D:/SZ Procure/01_RAW")
     args = ap.parse_args()
 
+    # P0: 复用 01 静态 IP 出口 (与 lcsc_http_acquire.py 同路径, fail-closed)
+    proxy_url = cc.load_proxy() if cc else None
+    proxy_dict = cc.parse_proxy(proxy_url) if (cc and proxy_url) else None
+    expect_ip = os.environ.get("LCSC_EXPECT_IP", "82.25.225.72")
+
     # fetch ranked list (full popularity ranking)
     ranked = []
     from playwright.sync_api import sync_playwright
     with sync_playwright() as p:
-        b = p.chromium.launch(executable_path=EDGE, headless=True)
+        b = p.chromium.launch(executable_path=EDGE, headless=True,
+                               proxy=proxy_dict)
         ctx = b.new_context(user_agent=UA, locale="en-US", viewport={"width": 1366, "height": 900})
         pg = ctx.new_page()
+        # fail-closed 出口自检: 非期望静态 IP 直接抛错退出, 杜绝真实 IP 泄漏
+        if cc:
+            cc.verify_egress_ip(ctx, expected=expect_ip, require=True)
         pg.goto("https://www.lcsc.com/", wait_until="domcontentloaded", timeout=60000)
         pg.wait_for_timeout(2500)
         js = """async (body) => {

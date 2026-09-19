@@ -58,10 +58,7 @@ NATIVE_L1_PARENT_MAP = {
     "audio products / vibration motors": "audio-signal-devices",
     "terminal": "terminals",
     "relays": "relays",
-    "hardware fasteners": "fasteners-hardware",
-    "office daily use": "office-supplies",
     "displays": "displays",
-    "industrial control electrical": "industrial-control-electrical",
 }
 
 # TIER 1: leaf catalogName overrides -> L1 slug (Circuit-Protection items)
@@ -75,6 +72,13 @@ NATIVE_L1_LEAF_OVERRIDE = {
     "surge suppression ics": "circuit-protection",
     "mixed technology": "circuit-protection",
     "thyristors": "circuit-protection",
+    # --- 2026-09-19 corrective overrides ---
+    # LCSC mis-files these under industrial/hardware/office legacy buckets via
+    # parentCatalogName; the leaf catalogName below is authoritative, so we pin
+    # the correct L1 here (evaluated before TIER-2 parentCatalogName).
+    "quick connects, quick disconnect connectors": "terminals",
+    "rfi and emi - contacts, fingerstock and gaskets": "filters-emi-suppression",
+    "memory cards": "memory",
 }
 
 
