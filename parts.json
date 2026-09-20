@@ -162326,5 +162326,308 @@
     "final_subcategory": "Single FETs, MOSFETs",
     "final_native_l1": "transistors",
     "final_slug": "single-fets-mosfets"
+  },
+  {
+    "mpn": "AT32F455CET7",
+    "clean_mpn": "AT32F455CET7",
+    "manufacturer": "ARTERY",
+    "brand": "ARTERY",
+    "url_slug": "at32f455cet7",
+    "category": "Integrated Circuits",
+    "subcategory": "Microcontrollers (MCU/MPU)",
+    "description": "ARM Cortex-M4F 32 Bit 192MHz LQFP-48(7x7) Microcontrollers",
+    "applications": "",
+    "keywords": "AT32F455CET7; Microcontrollers (MCU/MPU/SOC); LQFP-48(7x7)",
+    "attributes": {
+      "DAC (Bit)": "12bit",
+      "ADC (Bit)": "12bit",
+      "Number of I/O": "39",
+      "Operating Temperature": "-40℃~+105℃",
+      "Program Memory Type": "OTP",
+      "Voltage - Supply": "2.4V~3.6V",
+      "CPU Core": "ARM Cortex-M4F",
+      "EEPROM": "-",
+      "Program Storage Size": "512KB",
+      "Core Size": "32 Bit",
+      "CPU Maximum Speed": "192MHz",
+      "Oscillator Type": "Built-in+External"
+    },
+    "sources": [
+      "LCSC"
+    ],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/at32f455cet7.pdf",
+    "product_url": "/products/at32f455cet7/"
+  },
+  {
+    "mpn": "78D12L(UMW)",
+    "clean_mpn": "78D12LUMW",
+    "manufacturer": "UMW",
+    "brand": "UMW",
+    "url_slug": "78d12lumw",
+    "category": "Power Management",
+    "subcategory": "Power Management",
+    "description": "12V Positive Fixed TO-252 Voltage Regulators - Linear, Low Drop Out (LDO) Regulators",
+    "applications": "",
+    "keywords": "78D12L(UMW); Voltage Regulators - Linear, Low Drop Out (LDO) Regulators; TO-252",
+    "attributes": {
+      "Output Voltage": "12V",
+      "Number of Outputs": "1",
+      "Operating Temperature": "-40℃~+120℃",
+      "Supply Current (Iq)": "8mA",
+      "Output Configuration": "Positive",
+      "Operating Voltage": "40V",
+      "Output Current": "1A",
+      "Output Type": "Fixed",
+      "Features": "Thermal shutdown;Short Circuit Protection"
+    },
+    "sources": [
+      "LCSC"
+    ],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/78d12l-umw-.pdf",
+    "product_url": "/products/78d12lumw/"
+  },
+  {
+    "mpn": "ASM330LHHXG1TR",
+    "clean_mpn": "ASM330LHHXG1TR",
+    "manufacturer": "STMicroelectronics",
+    "brand": "STMicroelectronics",
+    "url_slug": "asm330lhhxg1tr",
+    "category": "Sensors",
+    "subcategory": "Sensors",
+    "description": "LGA-14L(2.5x3) IMUs (Inertial Measurement Units) RoHS",
+    "applications": "",
+    "keywords": "ASM330LHHXG1TR; Accelerometers; LGA-14L(2.5x3)",
+    "attributes": {
+      "Output Bits": "-",
+      "Accelerometer Sensing Axis": "X,Y,Z",
+      "Cache Size": "3KB",
+      "Standby Current": "5uA",
+      "Acceleration Measurement Range (MAX)": "±16g"
+    },
+    "sources": [
+      "LCSC"
+    ],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/asm330lhhxg1tr.pdf",
+    "product_url": "/products/asm330lhhxg1tr/"
+  },
+  {
+    "mpn": "0.5K-A-5PBF",
+    "clean_mpn": "05KA5PBF",
+    "manufacturer": "HDGC",
+    "brand": "HDGC",
+    "url_slug": "05ka5pbf",
+    "category": "Connectors & Electromechanical",
+    "subcategory": "Connectors",
+    "description": "FFC/FPC Connector 5 Position 0.5mm Pitch Single-side Contact/Vertical Surface Mount -20℃~+85℃",
+    "applications": "",
+    "keywords": "0.5K-A-5PBF; FFC, FPC (Flat Flexible) Connector Assemblies; SMD,P=0.5mm(Staggered Pins)",
+    "attributes": {
+      "Locking Feature": "Slide Lock",
+      "Operating Temperature": "-20℃~+85℃",
+      "Number of Contacts": "5P",
+      "Pitch": "0.5mm",
+      "Current Rating": "400mA",
+      "Voltage Rating (Max)": "50V",
+      "Contact Type": "Single-side Contact/Vertical",
+      "Mounting Type": "Surface Mount,Vertical",
+      "FFC, FCB Thickness": "0.3mm",
+      "Contact Material": "Phosphor bronze"
+    },
+    "sources": [
+      "LCSC"
+    ],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/0.5k-a-5pbf.pdf",
+    "product_url": "/products/05ka5pbf/"
+  },
+  {
+    "mpn": "24AA16-I/SN",
+    "clean_mpn": "24AA16ISN",
+    "manufacturer": "Microchip Technology",
+    "brand": "Microchip Technology",
+    "url_slug": "24aa16isn",
+    "category": "Memory",
+    "subcategory": "Memory",
+    "description": "16Kbit 400kHz I2C SOIC-8 Memory RoHS",
+    "applications": "",
+    "keywords": "24AA16-I/SN; EEPROM; SOIC-8",
+    "attributes": {
+      "Operating Temperature": "-40℃~+85℃",
+      "Features": "Hardware write protection function;Noise suppression function",
+      "Memory Size": "16Kbit",
+      "Voltage - Supply": "1.7V~5.5V;3mA",
+      "Clock Frequency": "400kHz",
+      "Access Time": "900ns;3500ns",
+      "Data Retention - TDR (Year)": "200 Years",
+      "Write Cycle Time(tWC)": "5ms",
+      "Standby Supply Current": "1uA",
+      "Write Cycle Endurance": "1,000,000 cycles",
+      "Interface": "I2C"
+    },
+    "sources": [
+      "LCSC"
+    ],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/24aa16-i-sn.pdf",
+    "product_url": "/products/24aa16isn/"
+  },
+  {
+    "mpn": "74CBTLV3257PW,118-JSM",
+    "clean_mpn": "74CBTLV3257PW118JSM",
+    "manufacturer": "JSMSEMI",
+    "brand": "JSMSEMI",
+    "url_slug": "74cbtlv3257pw118jsm",
+    "category": "Integrated Circuits",
+    "subcategory": "Interface ICs",
+    "description": "2.3V~3.6V 4 60Ω TSSOP-16 Analog Switches, Multiplexers, Demultiplexers RoHS",
+    "applications": "",
+    "keywords": "74CBTLV3257PW,118-JSM; Analog Switches, Multiplexers; TSSOP-16",
+    "attributes": {
+      "Operating Temperature": "-40℃~+125℃",
+      "Features": "Power-off isolation",
+      "Voltage - Supply": "2.3V~3.6V",
+      "Number of Channels": "4",
+      "Ron": "60Ω",
+      "Propagation Delay": "250ps",
+      "Con": "-"
+    },
+    "sources": [
+      "LCSC"
+    ],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/74cbtlv3257pw-118-jsm.pdf",
+    "product_url": "/products/74cbtlv3257pw118jsm/"
+  },
+  {
+    "mpn": "LKC1218QF",
+    "clean_mpn": "LKC1218QF",
+    "manufacturer": "LKWIC",
+    "brand": "LKWIC",
+    "url_slug": "lkc1218qf",
+    "category": "Integrated Circuits",
+    "subcategory": "Clock & Timing",
+    "description": "2.5V 800MHz 8 QFN-28(5x5) Clock Buffers, Drivers RoHS",
+    "applications": "",
+    "keywords": "LKC1218QF; Clock Buffers, Drivers, Distributors; QFN-28(5x5)",
+    "attributes": {
+      "Operating Temperature": "-",
+      "Voltage - Supply": "2.5V",
+      "Features": "Multi-channel fan-out/isolation drive",
+      "Number of Inputs": "2",
+      "Output Frequency(Max)": "800MHz",
+      "Number of outputs": "8"
+    },
+    "sources": [
+      "LCSC"
+    ],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lkc1218qf.pdf",
+    "product_url": "/products/lkc1218qf/"
+  },
+  {
+    "mpn": "74AC08SCX",
+    "clean_mpn": "74AC08SCX",
+    "manufacturer": "ON Semiconductor",
+    "brand": "ON Semiconductor",
+    "url_slug": "74ac08scx",
+    "category": "Integrated Circuits",
+    "subcategory": "Logic ICs",
+    "description": "2uA 2V~6V 7.5ns@5V,50pF SOIC-14 Gates and Inverters RoHS",
+    "applications": "",
+    "keywords": "74AC08SCX; Logic Gates; SOIC-14",
+    "attributes": {
+      "Features": "-",
+      "Input Logic Level - Low": "900mV~1.65V",
+      "Input Logic Level - High": "2.1V~3.85V",
+      "Logic Family": "74AC Series",
+      "Operating Temperature": "-40℃~+85℃",
+      "Output Logic Level - High": "2.46V;3.76V;4.76V",
+      "Quiescent Current(Iq)": "2uA",
+      "Voltage - Supply": "2V~6V",
+      "Current - Output High(IOH)": "24mA",
+      "Number of Channels": "4;2",
+      "Output Logic Level - Low": "440mV",
+      "Propagation Delay": "7.5ns@5V,50pF",
+      "Current - Output Low(IOL)": "24mA"
+    },
+    "sources": [
+      "LCSC"
+    ],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/74ac08scx.pdf",
+    "product_url": "/products/74ac08scx/"
+  },
+  {
+    "mpn": "0132M4-25.000F12DTNLL",
+    "clean_mpn": "0132M425000F12DTNLL",
+    "manufacturer": "HCI",
+    "brand": "HCI",
+    "url_slug": "0132m425000f12dtnll",
+    "category": "Passive Components",
+    "subcategory": "Oscillators & Resonators",
+    "description": "Crystal 25MHz ±10ppm 12pF 60Ω SMD3225-4P",
+    "applications": "",
+    "keywords": "0132M4-25.000F12DTNLL; Crystals; SMD3225-4P",
+    "attributes": {
+      "Frequency Stability": "±20ppm",
+      "Operating Temperature": "-40℃~+85℃",
+      "Load Capacitance": "12pF",
+      "Equivalent Series Resistance(ESR)": "60Ω",
+      "Normal temperature Frequency Tolerance": "±10ppm",
+      "Frequency": "25MHz"
+    },
+    "sources": [
+      "LCSC"
+    ],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/0132m4-25.000f12dtnll.pdf",
+    "product_url": "/products/0132m425000f12dtnll/"
+  },
+  {
+    "mpn": "0201X105M6R3NT",
+    "clean_mpn": "0201X105M6R3NT",
+    "manufacturer": "FH",
+    "brand": "FH",
+    "url_slug": "0201x105m6r3nt",
+    "category": "Passive Components",
+    "subcategory": "Capacitors",
+    "description": "1uF ±20% 6.3V Ceramic Capacitor X5R 0201",
+    "applications": "",
+    "keywords": "0201X105M6R3NT; Multilayer Ceramic Capacitors MLCC - SMD/SMT; 0201",
+    "attributes": {
+      "Capacitance": "1uF",
+      "Temperature Coefficient": "X5R",
+      "Tolerance": "±20%",
+      "Voltage Rating": "6.3V"
+    },
+    "sources": [
+      "LCSC"
+    ],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/0201x105m6r3nt.pdf",
+    "product_url": "/products/0201x105m6r3nt/"
   }
 ]
