@@ -2176,7 +2176,19 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
     # ---- SEO copy: controlled Title / Meta optimization (Phase 2, 2026-09-13) ----
     # Uses ONLY real MASTER fields. MPN never truncated. No Shenzhen / stock / price claims.
     alts = [a for a in split_multi(alt_raw) if slugify(a)]
-    apps_list = split_multi(apps)
+    # Applications — FORMAL PRODUCTION RULE (Applications display fix, 2026-09-21).
+    # The authoritative source is source_raw.overviewData.pdfApplicationAreasEn:
+    # ONE application area per LINE, each line prefixed with '- ' (the section-extras
+    # index at line 1522 already splits these correctly and strips the bullet marker).
+    # MASTER.applications is a LOSSY flatten of those same lines where the join
+    # separator ' - ' is IDENTICAL to hyphens that occur INSIDE area names
+    # (e.g. 'E - Book', 'TV: High - Definition', 'Simple High - Efficiency Step -
+    # Down'), so it CANNOT be re-split without false splits. We therefore render from
+    # the unambiguous RAW per-line list, falling back to the legacy MASTER ';' split
+    # ONLY when RAW provides no application areas. Deterministic; area text preserved
+    # verbatim; no keyword / semantic / AI guessing. DO NOT ROLL BACK.
+    _raw_ext_apps = (_raw_section_extras(row) or {}).get("apps") or []
+    apps_list = list(_raw_ext_apps) if _raw_ext_apps else split_multi(apps)
     n_alt = len(alts)
     title = _build_sku_title(pn, mfr, specs_raw, row.get("native_l1"), subcat)
     desc = _build_sku_meta(pn, mfr, specs_raw, row.get("native_l1"), subcat, cat, n_alt, bool(dsheet))
