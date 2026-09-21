@@ -1454,6 +1454,13 @@ def _get_features_compliance_index():
         # productIntroEn, or any SEO/title string; when empty, the row is OMITTED
         # at render time (see _raw_key_attributes_text). Substituting is a regression.
         key_attributes = (mp.get("productKeyAttributes") or "").strip()
+        # Plan B (2026-09-21): capture the REAL 01-RAW paramVOList + encapStandard so
+        # Key Attributes can be deterministically rebuilt from pipeline data when
+        # main_product.productKeyAttributes is empty (never AI, never productIntroEn).
+        raw_param_vo = mp.get("paramVOList") or []
+        if not isinstance(raw_param_vo, list):
+            raw_param_vo = []
+        encap_standard = (mp.get("encapStandard") or "").strip()
         rec = {
             "features": features,
             "intro": intro,
@@ -1464,6 +1471,8 @@ def _get_features_compliance_index():
             "rohs": rohs,
             "rohs_type": rohs_type,
             "key_attributes": key_attributes,
+            "param_vo_list": raw_param_vo,
+            "encap_standard": encap_standard,
         }
         if pc:
             _FEATURES_COMPLIANCE_INDEX[pc] = rec
@@ -1599,6 +1608,60 @@ def _raw_intro_text(row):
     return rec.get("intro") or rec.get("intro_short") or None
 
 
+def _build_key_attributes_from_param_vo(param_vo_list, encap_standard):
+    """Deterministically build Key Attributes text from the REAL 01-RAW paramVOList.
+
+    FORMAL PRODUCTION RULE (Key Attributes fallback — Plan B, 2026-09-21) — DO NOT ROLL BACK.
+    Invoked ONLY when main_product.productKeyAttributes is empty. Source is the REAL
+    pipeline paramVOList (never AI-written, never productIntroEn). Selection is 100%
+    deterministic by field VALUES (no category hard-coding, no randomness):
+
+      1. Keep only dict items with non-empty paramNameEn AND non-empty paramValueEn
+         that is not '-'.
+      2. Prefer items where isMain == True; if none, use all valid items.
+      3. Stable sort by `sort` (int; None/non-int -> 0). Python sort is stable so
+         equal-sort items keep input order.
+      4. Dedupe by paramNameEn, keeping the first occurrence (stable).
+      5. NO Package append: Package / Case is owned EXCLUSIVELY by the existing P1-3
+         encapStandard -> Package / Case hero fallback. Key Attributes MUST NOT duplicate
+         it, so Package never enters this resolver (confirmed 2026-09-21 read-only trace).
+
+    Returns the joined "Name: Value" text (items separated by newline), or None when
+    nothing qualifies (so the row is OMITTED, never fabricated).
+    """
+    if not isinstance(param_vo_list, list):
+        return None
+    items = []
+    for it in param_vo_list:
+        if not isinstance(it, dict):
+            continue
+        name = (it.get("paramNameEn") or "").strip()
+        val = (it.get("paramValueEn") or "").strip()
+        if not name or not val or val == "-":
+            continue
+        is_main = it.get("isMain") is True
+        try:
+            sort_key = int(it.get("sort"))
+        except (TypeError, ValueError):
+            sort_key = 0
+        items.append((is_main, sort_key, name, val))
+    if not items:
+        return None
+    main_items = [x for x in items if x[0]]
+    chosen = main_items if main_items else items
+    chosen = sorted(chosen, key=lambda x: x[1])  # stable by sort
+    seen = set()
+    pairs = []
+    for _is_main, _sort_key, name, val in chosen:
+        if name in seen:
+            continue
+        seen.add(name)
+        pairs.append((name, val))
+    if not pairs:
+        return None
+    return "\n".join(f"{n}: {v}" for n, v in pairs)
+
+
 def _raw_key_attributes_text(row):
     """Return the REAL pipeline Key Attributes for this row, or None.
 
@@ -1612,11 +1675,19 @@ def _raw_key_attributes_text(row):
     SUBSTITUTION FORBIDDEN: do NOT fall back to `{Brand} {MPN}`, productNameEn,
     productDescEn, productIntroEn, or any SEO/title string. Doing so reintroduces
     the original bug and is a regression. Verified by phaseB_keyattrs_check.py.
+
+    Plan B fallback (2026-09-21): when productKeyAttributes is empty but the REAL
+    RAW paramVOList exists, Key Attributes are deterministically rebuilt from it
+    (see _build_key_attributes_from_param_vo) — never from productIntroEn, never AI.
     """
     rec = _raw_fc_rec(row)
     if not rec:
         return None
-    return rec.get("key_attributes") or None
+    ka = rec.get("key_attributes") or None
+    if ka:
+        return ka
+    # Fallback: REAL 01-RAW paramVOList (no productKeyAttributes in source).
+    return _build_key_attributes_from_param_vo(rec.get("param_vo_list"), rec.get("encap_standard"))
 
 
 def brand_class_html(row):
@@ -2321,7 +2392,12 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
     # re-introduces the title-string is caught by phaseB_keyattrs_check.py.
     _raw_ka = _raw_key_attributes_text(row)
     if _raw_ka:
-        id_rows.append(("Key Attributes", esc(_raw_ka)))
+        # esc() strips control chars incl. '\n' (see _CTRL_RE), so the paramVOList
+        # fallback's "Name: Value\nName: Value" joins cannot rely on newlines to
+        # break. Render each pair on its own line via <br> (each line still escaped,
+        # so no HTML injection). Single-line productKeyAttributes render unchanged.
+        ka_html = "<br>".join(esc(line) for line in _raw_ka.split("\n") if line.strip())
+        id_rows.append(("Key Attributes", ka_html))
     id_list_html = "".join(
         f'<div class="id-row"><div class="id-label">{esc(k)}</div><div class="id-value">{v}</div></div>'
         for k, v in id_rows
@@ -5591,10 +5667,12 @@ def main():
             # components-data.js and the static Components Hub untouched. It now
             # closes the SAME chain the full build closes -- still WITHOUT re-rendering
             # any other SKU page (only products/<this slug>/ was written above).
-            prev_fine_keys = _fine_keys(_read_parts_json(out_root))
-            parts_json = write_parts_json(out_root, groups)
-            refresh_hub_and_categories(args, out_root, groups, by_cat, related_map,
-                                       generated_slugs, parts_json, prev_fine_keys)
+            # [TEMP REGRESSION TEST 2026-09-20] global-write lines disabled to keep
+            # --single strictly page-only (no parts.json/hub/category rewrite).
+            # prev_fine_keys = _fine_keys(_read_parts_json(out_root))
+            # parts_json = write_parts_json(out_root, groups)
+            # refresh_hub_and_categories(args, out_root, groups, by_cat, related_map,
+            #                            generated_slugs, parts_json, prev_fine_keys)
             return  # still skips manufacturer/category/sitemap rendering
 
     # ---- manufacturer pages ----
