@@ -143,6 +143,16 @@
       "source": "/components/integrated-circuits/microcontroller/page/2/",
       "destination": "/components/integrated-circuits/microcontrollers/",
       "permanent": true
+    },
+    {
+      "source": "/how-it-works(/?.*)",
+      "destination": "/sourcing/",
+      "permanent": true
+    },
+    {
+      "source": "/sourcing-services(/?.*)",
+      "destination": "/sourcing/",
+      "permanent": true
     }
   ]
 }

@@ -9,3 +9,6 @@ Sitemap: https://www.szprocure.com/sitemap_parts_index.xml
 # sitemap_parts_index.xml only references sitemap_parts.xml; without this line these
 # pages are not auto-discovered by crawlers / GSC.
 Sitemap: https://www.szprocure.com/sitemap_subcat.xml
+# Static marketing pages (non-010203). Declared explicitly so crawlers/GSC
+# discover the core pages without relying solely on internal links.
+Sitemap: https://www.szprocure.com/sitemap_static.xml
