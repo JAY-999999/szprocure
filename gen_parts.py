@@ -1390,6 +1390,36 @@ def _get_asian_index():
 # sourced from the 01-collected scale500 RAW at generation time (mirrors the
 # Asian-Brands index). NEVER fabricated — a section/row is emitted ONLY when the
 # real field exists in the RAW.  [FORMAL PRODUCTION MAPPING RULES — DO NOT ROLL BACK]
+#
+# ---------------------------------------------------------------------------
+# PRODUCTION CLOSED-LOOP (01 -> 02 -> 03) — READ BEFORE "FIXING" THESE RULES
+# ---------------------------------------------------------------------------
+# The five consolidated rules below (Key Attributes + multi-line <br> render,
+# Package/Case P1-3 fallback, FAQ RAW-only, Applications per-line) are RESOLVED
+# AT 03 (gen_part_page_v3) by reading the REAL 01-collected scale500 RAW
+# (data/raw/lcsc_http_scale500/C*.json, source_raw.*) at generation time. They
+# are NOT read from MASTER — by design:
+#   * 01 (FROZEN HTTP acquirer, batch http236) preserves the raw fields
+#     (main_product.productKeyAttributes, main_product.paramVOList,
+#     main_product.encapStandard, overviewData.pdfApplicationAreasEn,
+#     main_product.faqs) inside source_raw. The RAW directory is the source of
+#     truth; it is never mutated by 02 (read-only open) nor by 03.
+#   * 02 (lcsc_http_adapter, NON-FROZEN) reads the RAW read-only and is NOT
+#     expected to carry these fields as authoritative MASTER columns. MASTER
+#     .applications is a LOSSY flatten of pdfApplicationAreasEn where the join
+#     separator ' - ' is indistinguishable from hyphens INSIDE area names
+#     (e.g. 'E - Book', 'TV: High - Definition', 'Simple High - Efficiency
+#     Step - Down'), so it MUST NOT be re-split. MASTER does not carry
+#     productKeyAttributes / paramVOList / faqs as first-class render sources.
+#   * 03 re-reads the RAW on EVERY build (see _get_features_compliance_index /
+#     _get_section_extras_index). Because 03 pulls from RAW directly, a full
+#     01 -> 02 -> 03 re-run will NOT regress these rules — they are already
+#     consolidated and self-healing per build.
+# => DO NOT "fix" these rules by moving them into MASTER or by parsing
+#    MASTER.applications. Adding a MASTER column for them is unnecessary and
+#    would reintroduce the lossy-flatten bug. Keep 03 reading RAW. This is the
+#    intentional closed loop; the commits e2048371 (KA/FAQ/Package rules) and
+#    1ab18994 (Applications per-line) only touched 03 + rendered HTML, never 01/02.
 #   Features                -> source_raw.overviewData.productFeaturesEn
 #   Introduction            -> source_raw.overviewData.productIntroEn (short: main_product.productIntroEn)
 #   Key Attributes          -> source_raw.main_product.productKeyAttributes
