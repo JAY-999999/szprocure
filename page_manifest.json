@@ -1,7 +1,7 @@
 {
   "schema_version": "page-manifest/1",
-  "generated_at": "2026-09-19T14:35:41Z",
-  "page_count": 206,
+  "generated_at": "2026-09-22T10:46:57Z",
+  "page_count": 207,
   "pages": [
     {
       "top_slug": "audio-signal",
@@ -226,6 +226,11 @@
     {
       "top_slug": "integrated-circuits",
       "slug": "buffers-drivers-receivers-transceivers",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
+      "slug": "clock-buffers-drivers",
       "level": "fine"
     },
     {
