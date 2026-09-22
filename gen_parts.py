@@ -1621,21 +1621,82 @@ def _raw_fc_rec(row):
 
 
 def _raw_intro_text(row):
-    """Return the REAL pipeline Product Introduction for this row, or None.
+    """Legacy intro lookup via the scale500 Features/Compliance index.
 
-    FORMAL PRODUCTION RULE (Introduction) — DO NOT ROLL BACK.
-    Source precedence (all from the 01-collected scale500 RAW, never AI-written):
-      overviewData.productIntroEn  (intro, the full prose narrative)  ->  main_product.productIntroEn (intro_short, short variant).
-    The full prose narrative is preferred; the short model-level variant is only
-    a fallback when the overviewData intro is empty. Returns None when neither
-    exists so the panel falls back to MASTER description (the "{Brand} {MPN}"
-    title-string). That title-string is the LAST-RESORT fallback ONLY — it must
-    never be presented AS the Introduction when a real intro exists.
+    DEPRECATED for the Product Introduction panel (2026-09-22): the panel now
+    reads overviewData.productIntroEn directly from the SKU's own RAW envelope
+    via _raw_intro_en(), which also covers the daily ingestion source. Kept for
+    backward compatibility / other callers.
     """
     rec = _raw_fc_rec(row)
     if not rec:
         return None
     return rec.get("intro") or rec.get("intro_short") or None
+
+
+_OWN_RAW_CACHE = {}
+
+
+def _load_own_raw(row):
+    """Read THIS SKU's own RAW envelope (source_raw) directly from disk.
+
+    Covers BOTH the scale500 snapshot and the daily ingestion source so the
+    Product Introduction renders from the real pipeline RAW regardless of which
+    collection dir the SKU's RAW landed in (FINAL 10 SKUs live in the daily
+    source, not scale500). Returns the inner `source_raw` dict, or None.
+    """
+    global _OWN_RAW_CACHE
+    key = (row.get("supplier_reference") or "").strip().upper()
+    if not key:
+        key = (row.get("mpn") or "").strip().upper()
+    if not key:
+        return None
+    if key in _OWN_RAW_CACHE:
+        return _OWN_RAW_CACHE[key]
+    here = os.path.dirname(os.path.abspath(__file__))
+    parent = os.path.dirname(here)
+    names = [f"{key}.json"]
+    if not key.startswith("C"):
+        names.append(f"C{key}.json")
+    dirs = [
+        os.path.join(here, "data", "raw", "lcsc_http_scale500"),
+        os.path.join(parent, "采集流水线", "基础数据"),
+    ]
+    result = None
+    for d in dirs:
+        for nm in names:
+            fp = os.path.join(d, nm)
+            try:
+                with open(fp, encoding="utf-8") as fh:
+                    data = json.load(fh)
+            except (FileNotFoundError, OSError, json.JSONDecodeError):
+                continue
+            if isinstance(data, dict):
+                result = data.get("source_raw", data)
+                break
+        if result is not None:
+            break
+    _OWN_RAW_CACHE[key] = result
+    return result
+
+
+def _raw_intro_en(row):
+    """Return overviewData.productIntroEn for this SKU's own RAW, or None.
+
+    STRICT RULE (2026-09-22): Product Introduction is sourced EXCLUSIVELY from
+    the 01-collected RAW field overviewData.productIntroEn. NO fallback to
+    main_product.productIntroEn (short variant) and NO fallback to the MASTER
+    description. When overviewData.productIntroEn is absent/empty, the caller
+    HIDES the entire Product Introduction block (see the panel assembly).
+    """
+    src = _load_own_raw(row)
+    if not isinstance(src, dict):
+        return None
+    od = src.get("overviewData", {}) or {}
+    if not isinstance(od, dict):
+        return None
+    intro = (od.get("productIntroEn") or "").strip()
+    return intro or None
 
 
 def _build_key_attributes_from_param_vo(param_vo_list, encap_standard):
@@ -2325,37 +2386,23 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
     if verbose:
         _print_faq_audit(pn, faq_audit)
 
-    # FORMAL PRODUCTION RULE (Introduction) — permanently fixed 2026-09-16, DO NOT ROLL BACK.
-    # Product Introduction panel — REAL-INTRO priority. The genuine pipeline
-    # Introduction MUST win over the MASTER description title-string (which is only
-    # the LAST-RESORT fallback when no real intro exists). Resolution order:
-    #   MASTER introduction (col, if persisted & real)  ->  RAW overviewData.productIntroEn
-    #   (via _raw_intro_text)  ->  MASTER description (title-string fallback)  ->  fallback.
-    # NOTE: the title-string ("{Brand} {MPN}") is NEVER shown AS the Introduction
-    # when a real intro exists. Substituting it is a regression.
-    _model_intro = (row.get("introduction") or "").strip()
-    _authored_intro = load_intro_html(pn, slug)
-    _raw_intro = _raw_intro_text(row)  # prefers overviewData.productIntroEn (full prose)
-    # RAW intro is LCSC-source and may carry non-English (e.g. a Chinese product
-    # paragraph) — the English storefront must show ZERO CJK. After mojibake
-    # repair, any residual CJK means the intro is genuinely non-English, so we
-    # drop it and fall through to the MASTER description (always clean English).
-    # Mojibake-only intros (卤/碌/掳/惟) are repaired to ±/µ/°/Ω and KEPT.
+    # STRICT PRODUCTION RULE (Product Introduction) — 2026-09-22, DO NOT ROLL BACK.
+    # Product Introduction is sourced EXCLUSIVELY from the 01-collected RAW field
+    # overviewData.productIntroEn (the full English prose narrative for this SKU).
+    # There is NO fallback to main_product.productIntroEn (short variant) and NO
+    # fallback to the MASTER description title-string ("{Brand} {MPN}"). When
+    # overviewData.productIntroEn is absent/empty (or is genuinely non-English
+    # CJK after mojibake repair), the ENTIRE Product Introduction block — heading,
+    # tab nav entry, and scroll-spy entry — is HIDDEN.
+    _raw_intro = _raw_intro_en(row)
     if _raw_intro and _contains_cjk(_repair_mojibake(_raw_intro)):
         _raw_intro = None
-    _model_desc = (row.get("description") or "").strip()
-    if _model_intro:
-        introduction_panel = f'<div class="intro-body"><p>{esc(_model_intro)}</p></div>'
-    elif _raw_intro:
+    introduction_panel = None
+    if _raw_intro:
         _paras = [p.strip() for p in _raw_intro.split("\n") if p.strip()]
-        _intro_html = "".join(f"<p>{esc(p)}</p>" for p in _paras)
-        introduction_panel = f'<div class="intro-body">{_intro_html}</div>'
-    elif _model_desc:
-        introduction_panel = f'<p>{esc(_model_desc)}</p>'
-    elif _authored_intro:
-        introduction_panel = f'<div class="intro-body">{render_rich_html(_authored_intro)}</div>'
-    else:
-        introduction_panel = f'<p>{introduction_tab}</p>'
+        if _paras:
+            _intro_html = "".join(f"<p>{esc(p)}</p>" for p in _paras)
+            introduction_panel = f'<div class="intro-body">{_intro_html}</div>'
 
     # V3 Specifications tab — real attributes, honest labels, NEVER invented rows.
     # MASTER specs first; enrichment specs appended as supplemental datasheet params.
@@ -2551,8 +2598,9 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
         comp_rows = []
         if fc.get("rohs"):
             comp_rows.append(("RoHS", fc.get("rohs_type") or "Compliant"))
-        if fc.get("eccn"):
-            comp_rows.append(("ECCN", fc["eccn"]))
+        _eccn = (fc.get("eccn") or "").strip()
+        if _eccn and _eccn != "-":
+            comp_rows.append(("ECCN", _eccn))
         # HTS country variants, in the LCSC order shown in the reference screenshot:
         # CN, US, TARIC, CA, BR, IN, MX. Any extra country codes fall to the end.
         hts_map = fc.get("hts_map") or {}
@@ -2738,8 +2786,9 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
   </script>"""
 
     # tab nav — only real sections present
-    tabs = ['<a href="#specifications" class="tab-btn active">Specifications</a>',
-            '<a href="#introduction" class="tab-btn">Introduction</a>']
+    tabs = ['<a href="#specifications" class="tab-btn active">Specifications</a>']
+    if introduction_panel:
+        tabs.append('<a href="#introduction" class="tab-btn">Introduction</a>')
     if features_section:
         tabs.append('<a href="#features" class="tab-btn">Features</a>')
     if apps_section:
@@ -2753,7 +2802,9 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
     tab_nav = "\n          ".join(tabs)
 
     # scroll-spy group ids (presentational only)
-    spy_ids = ["specifications", "introduction"]
+    spy_ids = ["specifications"]
+    if introduction_panel:
+        spy_ids.append("introduction")
     if features_section:
         spy_ids.append("features")
     if apps_section:
@@ -2764,6 +2815,16 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
         spy_ids.append("alternative")
     if compliance_section:
         spy_ids.append("compliance")
+    # Product Introduction section is emitted only when a real intro exists.
+    if introduction_panel:
+        introduction_section = (
+            '\n        <section id="introduction" class="tab-panel">\n'
+            '          <h2 class="section-title">Product Introduction</h2>\n'
+            f'          {introduction_panel}\n'
+            '        </section>\n'
+        )
+    else:
+        introduction_section = ""
     spy_groups = ", ".join(f"{{ id: '{i}' }}" for i in spy_ids)
 
     return f"""<!DOCTYPE html>
@@ -2823,10 +2884,7 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
           {specs_html}
         </section>
 
-        <section id="introduction" class="tab-panel">
-          <h2 class="section-title">Product Introduction</h2>
-          {introduction_panel}
-        </section>
+        {introduction_section}
 
         {features_section}
 
