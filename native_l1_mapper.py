@@ -22,7 +22,7 @@ import os
 
 # Project root = the directory that contains this file (szprocure-site/).
 ROOT = os.path.dirname(os.path.abspath(__file__))
-L1_RAWDIR = os.path.join(ROOT, "data", "raw", "lcsc_http_scale500")
+L1_RAWDIR = r"D:\SZ Procure\采集流水线\基础数据"  # unified daily 01 intake RAW source
 L1_TAX = os.path.join(ROOT, "data", "category_taxonomy.json")
 
 # TIER 2: parentCatalogName (LCSC immediate parent) -> 56-L1 slug

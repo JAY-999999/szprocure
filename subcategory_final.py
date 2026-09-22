@@ -66,7 +66,7 @@ MAP_PATH = os.path.join(HERE, "final_subcategory_map.json")
 REVIEW_AGG_PATH = os.path.join(HERE, "subcategory_review_aggregates.json")
 
 MASTER = os.path.join(HERE, "data", "production", "master_parts_v2.1.csv")
-RAWGLOB = os.path.join(HERE, "data", "raw", "lcsc_http_scale500", "C*.json")
+RAWGLOB = os.path.join(r"D:\SZ Procure\采集流水线\基础数据", "C*.json")  # unified daily 01 intake RAW source
 
 # ---------------------------------------------------------------------------
 # Frozen Phase-5 V1 constants (verbatim from subcategory_mapping_freeze_v1).
