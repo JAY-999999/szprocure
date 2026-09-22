@@ -66,8 +66,8 @@ REF_HEADERS = {
 }
 
 MASTER_HEADER = ["mpn", "clean_mpn", "manufacturer", "brand", "url_slug",
-                 "category", "subcategory", "description", "applications",
-                 "keywords", "attributes_json", "availability",
+                 "description", "applications", "keywords", "attributes_json",
+                 "availability",
                  "alternative_parts", "datasheet_url", "faq", "image", "source",
                  "source_url", "supplier_reference", "native_l1",
                  # P0-1 fix (2026-09-19): LCSC parent-chain captured from the REAL

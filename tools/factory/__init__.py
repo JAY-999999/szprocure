@@ -49,8 +49,8 @@ BACKUP_FILES = (
     ("build_datasheet_map_py", r"C:\Users\Administrator.SC-202105071542\Desktop\szprocure-site\tools\build_datasheet_map.py"),
 )
 
-MASTER_COLS = ["mpn", "clean_mpn", "manufacturer", "brand", "url_slug", "category",
-               "subcategory", "description", "applications", "keywords", "attributes_json",
+MASTER_COLS = ["mpn", "clean_mpn", "manufacturer", "brand", "url_slug",
+               "description", "applications", "keywords", "attributes_json",
                "availability", "alternative_parts", "datasheet_url", "faq", "image",
                "source", "source_url", "supplier_reference", "native_l1",
                # P0-1 fix (2026-09-19): LCSC parent-chain captured from the REAL
@@ -59,7 +59,7 @@ MASTER_COLS = ["mpn", "clean_mpn", "manufacturer", "brand", "url_slug", "categor
                "lcsc_parent_chain", "lcsc_leaf_id", "lcsc_leaf_name",
                "lcsc_parent_id", "lcsc_parent_name", "lcsc_depth"]
 
-REQUIRED_FIELDS = ("mpn", "manufacturer", "category", "description")
+REQUIRED_FIELDS = ("mpn", "manufacturer", "description")
 
 
 # ----------------------------------------------------------------------------- #
