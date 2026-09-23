@@ -269,7 +269,7 @@ def save_ledger(batch_id, records, root=None):
         "batch_id": batch_id,
         "updated_at": _now(),
         "records": records,
-    })
+    }, tmp_dir=pool.DATASHEET_TMP)
 
 
 # =====================================================================
@@ -376,13 +376,14 @@ def _fetch_once(url, timeout):
         return r.read(), getattr(r, "status", 200), r.headers.get("Content-Type", "")
 
 
-def _store(data, batch_id, shared, root=None):
-    """Write the PDF content-addressed. Returns (local_path, is_duplicate)."""
+def _store(data, batch_id, shared, root=None, mpn=None, fetch_date=None):
+    """Write the PDF dated + mpn-named. Returns (local_path, is_duplicate)."""
     digest = sha256_bytes(data)
-    final = pool.pdf_path(digest, root)
+    final = pool.pdf_path(digest, mpn=mpn, fetch_date=fetch_date, root=root)
     os.makedirs(os.path.dirname(final), exist_ok=True)
-
-    fd, tmp = tempfile.mkstemp(dir=os.path.dirname(final),
+    # work temp lives in the central 资料PDF/_tmp cache (decision #4), not beside
+    # the final file, so a crash can never leave frozen .tmp in the datasheets tree.
+    fd, tmp = tempfile.mkstemp(dir=pool.DATASHEET_TMP,
                                prefix=".ds_", suffix=".tmp")
     try:
         with os.fdopen(fd, "wb") as f:
@@ -393,7 +394,7 @@ def _store(data, batch_id, shared, root=None):
             if os.path.exists(final) and os.path.getsize(final) == len(data):
                 os.unlink(tmp)               # identical bytes already stored
                 return final, True
-            os.replace(tmp, final)           # atomic promote within same dir
+            os.replace(tmp, final)           # atomic promote (cross-dir, same FS)
             shared.by_hash[digest] = final
             return final, False
     except Exception:
@@ -450,7 +451,9 @@ def download_one(rec, batch_id, shared, root=None, retries=DEFAULT_RETRIES,
                 if cb is not None:
                     cb.record_success_or_other()     # 内容级错误非限流, 重置计数
                 return rec
-            path, dup = _store(data, batch_id, shared, root)
+            path, dup = _store(data, batch_id, shared, root,
+                                mpn=rec.get("mpn"),
+                                fetch_date=rec.get("fetched_at"))
             rec.update(local_path=path, file_size=len(data),
                        sha256=sha256_bytes(data), fetched_at=_now(),
                        status=DUPLICATE if dup else VERIFIED,

@@ -56,6 +56,9 @@ IMG_DIR = os.path.join(ASSET_ROOT, "images")
 DS_DIR = os.path.join(ASSET_ROOT, "datasheets")
 CLEAN_DIR = os.path.join(ROOT, "data", "clean")
 ARCHIVE_DIR = r"D:\SZ Procure\02_CLEAN"
+# 原始下载 CSV 候选池已收口进 采集流水线\索引\原始下载（2026-09-22 决策 #3）。
+# clean_factory 同时扫描 site/data/raw 与本目录，向后兼容。
+INDEX_RAW_DIR = r"D:\SZ Procure\采集流水线\索引\原始下载"
 
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/124.0 Safari/537.36")
@@ -68,7 +71,8 @@ REF_HEADERS = {
 MASTER_HEADER = ["mpn", "clean_mpn", "manufacturer", "brand", "url_slug",
                  "description", "applications", "keywords", "attributes_json",
                  "availability",
-                 "alternative_parts", "datasheet_url", "faq", "image", "source",
+                 "alternative_parts", "alternative_parts_detail", "datasheet_url",
+               "faq", "image", "source",
                  "source_url", "supplier_reference", "native_l1",
                  # P0-1 fix (2026-09-19): LCSC parent-chain captured from the REAL
                  # scale500 JSON RAW — previously 02 CLEAN dropped it. Order MUST
@@ -304,6 +308,8 @@ def load_raw_latest(raw_arg):
         candidates = [raw_arg]
     else:
         candidates = sorted(glob.glob(os.path.join(ROOT, "data", "raw", "lcsc_api_FULL_*.csv")))
+        # 收口进 索引/原始下载 的候选池（2026-09-22 决策 #3）
+        candidates += sorted(glob.glob(os.path.join(INDEX_RAW_DIR, "lcsc_api_FULL_*.csv")))
     if not candidates:
         sys.exit("ERROR: no RAW csv found. Run harvest_api.py first.")
     path = candidates[-1]

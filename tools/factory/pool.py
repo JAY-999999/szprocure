@@ -42,17 +42,37 @@ from datetime import datetime
 
 DEFAULT_POOL_ROOT = r"D:\SZ Procure\03_MASTER\pool"
 
+# Datasheets live under a dedicated 资料PDF root, date-partitioned and sha256+mpn
+# named. This decouples PDF storage from the product staging pool and satisfies
+# the "future PDFs go to a dated folder + dedup" requirement (2026-09-22 migration).
+DATASHEET_ROOT = r"D:\SZ Procure\资料PDF"
+DATASHEET_TMP = os.path.join(DATASHEET_ROOT, "_tmp")   # central .tmp work-cache (decision #4)
+
 RAW = "products/raw"
 CANDIDATES = "products/candidates"
 READY = "products/ready"
 DATASHEETS = "datasheets"
-PDF = "datasheets/pdf"
-DS_INDEX = "datasheets/index"
+PDF = "datasheets"          # relative to DATASHEET_ROOT
+DS_INDEX = "index"           # relative to DATASHEET_ROOT
 REPORTS = "reports"
 # RESERVED: the future Content Factory writes content/<slug>.json side-cars.
 # Nothing in P1-A/P1-B reads or writes it; it exists so the path stays stable.
 CONTENT = "content"
-SUBDIRS = (RAW, CANDIDATES, READY, PDF, DS_INDEX, REPORTS, CONTENT)
+SUBDIRS = (RAW, CANDIDATES, READY, REPORTS, CONTENT)
+
+# characters illegal in Windows filenames -> underscore (for mpn-based naming)
+_ILLEGAL_FN = '/\\:*?"<>|,'
+
+
+def sanitize_mpn(s):
+    """Make an MPN safe + short for use inside a PDF filename."""
+    if not s:
+        return "unknown"
+    s = str(s).strip()
+    for ch in _ILLEGAL_FN:
+        s = s.replace(ch, "_")
+    s = s.strip("_. ")
+    return (s[:50] or "unknown")
 
 
 class PoolError(Exception):
@@ -68,6 +88,9 @@ def ensure(root=None):
     r = pool_root(root)
     for d in SUBDIRS:
         os.makedirs(os.path.join(r, d), exist_ok=True)
+    # datasheet root is separate from the product staging pool
+    for d in (PDF, DS_INDEX, "_tmp"):
+        os.makedirs(os.path.join(DATASHEET_ROOT, d), exist_ok=True)
     return r
 
 
@@ -92,14 +115,26 @@ def index_path(root=None):
 
 
 # --------------------------------------------------- datasheets / reports --
-def pdf_path(sha256_hex, root=None):
-    """Content-addressed physical PDF path: pdf/<first 2 hex>/<sha256>.pdf."""
+def pdf_path(sha256_hex, mpn=None, fetch_date=None, root=None):
+    """Dated, dedup-friendly PDF path inside DATASHEET_ROOT.
+
+    Layout: <DATASHEET_ROOT>/datasheets/<YYYY-MM-DD>/<sha256>__<mpn>.pdf
+    - sha256 prefix => content-addressed, dedup-safe (same bytes => same name)
+    - __<mpn> suffix => human-identifiable when browsing / 上架
+    """
     h = (sha256_hex or "").lower()
-    return os.path.join(pool_root(root), PDF, h[:2], f"{h}.pdf")
+    base = root or DATASHEET_ROOT
+    if fetch_date:
+        date = str(fetch_date)[:10]
+    else:
+        date = datetime.now().strftime("%Y-%m-%d")
+    safe = sanitize_mpn(mpn)
+    return os.path.join(base, PDF, date, f"{h}__{safe}.pdf")
 
 
 def datasheet_index_path(batch_id, root=None):
-    return os.path.join(pool_root(root), DS_INDEX, f"{batch_id}.json")
+    base = root or DATASHEET_ROOT
+    return os.path.join(base, DS_INDEX, f"{batch_id}.json")
 
 
 def report_dir(batch_id, root=None):
@@ -133,11 +168,18 @@ def ensure_report_dir(batch_id, root=None):
 
 
 # ------------------------------------------------------------ atomic json --
-def atomic_write_json(path, obj):
-    """Write JSON atomically: temp in the SAME directory -> os.replace."""
+def atomic_write_json(path, obj, tmp_dir=None):
+    """Write JSON atomically: temp -> os.replace.
+
+    tmp_dir, when given, centralises the .tmp work-cache (e.g. DATASHEET_TMP)
+    instead of leaving it beside the target. The final os.replace still lands the
+    file at `path`.
+    """
+    parent = tmp_dir or (os.path.dirname(path) or ".")
+    os.makedirs(parent, exist_ok=True)
     os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
     payload = json.dumps(obj, ensure_ascii=False, indent=2)
-    fd, tmp = tempfile.mkstemp(dir=os.path.dirname(path) or ".",
+    fd, tmp = tempfile.mkstemp(dir=parent,
                                prefix=".pool_", suffix=".tmp")
     try:
         with os.fdopen(fd, "w", encoding="utf-8") as f:
