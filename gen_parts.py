@@ -5585,7 +5585,7 @@ def main():
     print(f"Loaded attr key-translation ({len(_ATTR_KEY_TRANS)} keys) + "
           f"value-translation ({len(_VAL_TRANS)} values) for EN storefront")
 
-    with open(csv_path, encoding="utf-8") as f:
+    with open(csv_path, encoding="utf-8-sig") as f:
         rows = [r for r in csv.DictReader(f) if r.get("mpn", "").strip()]
 
     print(f"Loaded {len(rows)} parts from {csv_path}")
