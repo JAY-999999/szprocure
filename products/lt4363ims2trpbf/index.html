@@ -187,16 +187,18 @@
           <h2 class="section-title">Technical Specifications</h2>
           <div class="spec-grid">
   <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
-<tr><th>Operating Temp</th><td>-40°C ~ +85°C</td></tr><tr><th>Working Voltage V</th><td>42 V</td></tr><tr><th>Width Mm</th><td>3.0</td></tr><tr><th>Features</th><td>Overcurrent Protection;Overvoltage clamping protection;Under-voltage lockout</td></tr><tr><th>Length Mm</th><td>4.0</td></tr></tbody></table>
+<tr><th>Width</th><td>3mm</td></tr><tr><th>Mounting Type</th><td>Surface Mount</td></tr><tr><th>Length</th><td>4mm</td></tr><tr><th>Threshold Voltage</th><td>50mV</td></tr><tr><th>Height</th><td>1.1mm</td></tr></tbody></table>
   <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
-<tr><th>Height Mm</th><td>1.1</td></tr><tr><th>Channels</th><td>1.0</td></tr><tr><th>Threshold Voltage</th><td>50mV</td></tr><tr><th>Package / Case</th><td>MSOP-12</td></tr></tbody></table>
+<tr><th>Operating Temp</th><td>-40°C~+85°C</td></tr><tr><th>Working Voltage V</th><td>4V~80V</td></tr><tr><th>Features</th><td>Overcurrent Protection;Overvoltage clamping protection;Under-voltage lockout</td></tr><tr><th>Channels</th><td>1</td></tr><tr><th>Package / Case</th><td>MSOP-12</td></tr></tbody></table>
 </div>
         </section>
 
+        
         <section id="introduction" class="tab-panel">
           <h2 class="section-title">Product Introduction</h2>
           <div class="intro-body"><p>The LT4363 surge stopper protects loads from high voltage transients. It regulates the output during an overvoltage event, such as load dump in vehicles, by controlling the gate of an external N-channel MOSFET. The output is limited to a safe value allowing the loads to continue functioning. The LT4363 also monitors the voltage drop between the SNS and OUT pins to protect against overcurrent faults. An internal amplifier limits the voltage across the current sense resistor to 50mV. In either fault condition, a timer is started inversely proportional to MOSFET stress. Before the timer expires, the FLT pin pulls low to warn of an impending power down. If the condition persists, the MOSFET is turned off. The LT4363-1 remains off until reset whereas the LT4363-2 restarts after a cool down period.</p><p>Two precision comparators can monitor the input supply for overvoltage (OV) and undervoltage (UV) conditions. When the potential is below the UV threshold, the external MOSFET is kept off. If the input supply voltage is above the OV threshold, the MOSFET is not allowed to turn back on. Back-to-back MOSFETs can be used in lieu of a Schottky diode for reverse input protection, reducing voltage drop and power loss. A shutdown pin reduces the quiescent current to less than 7μA during shutdown.</p></div>
         </section>
+
 
         <section id="features" class="tab-panel">
   <h2 class="section-title">Features</h2>
@@ -205,7 +207,7 @@
 
         <section id="applications" class="tab-panel">
   <h2 class="section-title">Applications</h2>
-  <ul class="app-list"><li>- Automotive/Industrial Surge Protection - Hot SwapTM/Live Insertion - High Side Switch for Battery Powered Systems - Intrinsic Safety Applications</li></ul>
+  <ul class="app-list"><li>Automotive/Industrial Surge Protection</li><li>Hot SwapTM/Live Insertion</li><li>High Side Switch for Battery Powered Systems</li><li>Intrinsic Safety Applications</li></ul>
 </section>
 
         <section id="documentation" class="tab-panel">
