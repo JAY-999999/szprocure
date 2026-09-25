@@ -25,7 +25,7 @@ import re
 import sys
 from datetime import datetime
 
-from . import MASTER_COLS, REQUIRED_FIELDS, _extract_lcsc_chain
+from . import MASTER_COLS, REQUIRED_FIELDS, _extract_lcsc_chain, has_illegal_text
 from . import dedup, gate, pool, category
 from .category import UNKNOWN_CATEGORY
 
@@ -228,7 +228,7 @@ def build_mcu_fields(record, mpn, brand):
     if e["package"]:
         aj["package"] = e["package"]
     aj = {k: v for k, v in aj.items()
-          if not (isinstance(v, str) and any(ord(ch) > 127 for ch in v))}
+          if not (isinstance(v, str) and has_illegal_text(v))}
 
     parts = [f"{brand} {mpn}"]
     if e["core"]:
@@ -288,6 +288,29 @@ def _lcsc_chain_row(supplier_reference):
     }
 
 
+def _as_text_field(v):
+    """Coerce a MASTER text column to str without stringifying containers.
+
+    ``(v or "").strip()`` turns a possibly-empty list into the literal '[]',
+    which then lands in MASTER. Empty / missing -> ""; a real list -> JSON.
+    """
+    if v is None:
+        return ""
+    if isinstance(v, str):
+        s = v.strip()
+        # An empty JSON container is the same as no data: never persist '[]'
+        # or '{}' into a MASTER text column that shows nothing.
+        if s in ("[]", "{}", "null", "None", "undefined"):
+            return ""
+        return s
+    if isinstance(v, (list, tuple)):
+        v = [x for x in v if str(x).strip()]
+        return json.dumps(v, ensure_ascii=False) if v else ""
+    if isinstance(v, dict):
+        return json.dumps(v, ensure_ascii=False) if v else ""
+    return str(v).strip()
+
+
 def build_row(record, mpn, brand, mfr_map=None):
     """Build one MASTER-shaped row from a RAW record.
 
@@ -314,6 +337,8 @@ def build_row(record, mpn, brand, mfr_map=None):
         "attributes_json": fields["attributes_json"],
         "availability": "active",
         "alternative_parts": (record.get("alternative_parts") or "").strip(),
+        "alternative_parts_detail": _as_text_field(
+            record.get("alternative_parts_detail")),
         "datasheet_url": (record.get("source_datasheet_url") or "").strip(),
         "faq": fields["faq"], "image": (record.get("source_image_url") or "").strip(),
         "source": "", "source_url": "LCSC",
@@ -336,7 +361,7 @@ def build_row(record, mpn, brand, mfr_map=None):
     # final CJK guard on attribute values (defence in depth)
     aj = json.loads(fields["attributes_json"] or "{}")
     aj = {k: v for k, v in aj.items()
-          if not (isinstance(v, str) and any(ord(ch) > 127 for ch in v))}
+          if not (isinstance(v, str) and has_illegal_text(v))}
     row["attributes_json"] = json.dumps(aj, ensure_ascii=False)
     row[F_DATASHEET_SRC] = (record.get("source_datasheet_url") or "").strip()
     row[F_ASSET_KEY] = asset_key(mpn)
@@ -391,7 +416,9 @@ def has_cjk(row):
     blob = "".join(str(row.get(f) or "") for f in
                    ("description", "subcategory", "attributes_json", "keywords",
                     "manufacturer", "brand"))
-    return any(ord(ch) > 127 for ch in blob)
+    # Round 6 (2026-09-24): legal tech symbols (± °) are NOT a leak — RAW
+    # carries '±10%' / '±250ppm/℃' verbatim and the page must show them.
+    return has_illegal_text(blob)
 
 
 def qualify(row, mfr_map=None):

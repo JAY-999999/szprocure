@@ -37,7 +37,11 @@ class MasterWriteError(RuntimeError):
 def read_master(path, expected_cols=None):
     if not os.path.exists(path):
         raise MasterWriteError(f"master not found: {path}")
-    with open(path, encoding="utf-8", newline="") as f:
+    # utf-8-sig transparently strips a UTF-8 BOM when present and behaves
+    # exactly like utf-8 when it is not. Without this the production MASTER
+    # (which carries a BOM) reads its first column name as "\ufeffmpn" and
+    # fails the header check -> the release chain cannot even open the file.
+    with open(path, encoding="utf-8-sig", newline="") as f:
         reader = csv.DictReader(f)
         cols = list(reader.fieldnames or [])
         rows = list(reader)
@@ -68,7 +72,8 @@ def row_fingerprint(rows, cols):
 # --------------------------------------------------------------------------
 # validation
 # --------------------------------------------------------------------------
-def validate_rows(cols, old_rows, new_rows, allow_extra_rows=True):
+def validate_rows(cols, old_rows, new_rows, allow_extra_rows=True,
+                  allow_row_update_mpns=None):
     """Return (ok, problems).
 
     Hard requirements:
@@ -79,7 +84,16 @@ def validate_rows(cols, old_rows, new_rows, allow_extra_rows=True):
                       be modified by adding a batch
       * no duplicate MPN
       * required fields non-empty for every row
+
+    ESCAPE HATCH (2026-09-25, default OFF = today's behaviour)
+      ``allow_row_update_mpns`` is a set of MPNs the human operator has
+      EXPLICITLY authorised for an in-place correction. Rows at index <
+      len(old_rows) whose MPN is in that set are exempt from the
+      "pre-existing rows unchanged" assertion (columns/row-count/duplicate/required
+      checks still apply). Authorising a row update is a deliberate act: the
+      caller must pass the MPN list, so nothing changes unless someone asks.
     """
+    allow = {(m or "").strip().upper() for m in (allow_row_update_mpns or [])}
     problems = []
 
     if len(new_rows) < len(old_rows):
@@ -89,13 +103,25 @@ def validate_rows(cols, old_rows, new_rows, allow_extra_rows=True):
 
     n = min(len(old_rows), len(new_rows))
     diffs = 0
+    changed_allowed = 0
     for i in range(n):
-        if {k: (v or "") for k, v in old_rows[i].items()} != \
-           {k: (v or "") for k, v in new_rows[i].items()}:
-            diffs += 1
-            if diffs <= 5:
-                problems.append(f"pre-existing row #{i} was modified (mpn="
-                                f"{old_rows[i].get('mpn')!r})")
+        old_r = old_rows[i]
+        new_r = new_rows[i]
+        same = ({k: (v or "") for k, v in old_r.items()} ==
+                {k: (v or "") for k, v in new_r.items()})
+        if same:
+            continue
+        if (old_r.get("mpn") or "").strip().upper() in allow:
+            changed_allowed += 1
+            continue
+        diffs += 1
+        if diffs <= 5:
+            problems.append(f"pre-existing row #{i} was modified (mpn="
+                            f"{old_r.get('mpn')!r})")
+    # NOTE: changed_allowed rows are NOT appended to `problems`. An authorised
+    # in-place correction is a *succeeding* operation by design; adding it to
+    # problems would make validate_rows report failure for a legitimate
+    # release. The count is surfaced separately by _count_authorised_updates().
     if diffs:
         problems.append(f"total pre-existing rows modified: {diffs}")
 
@@ -125,11 +151,32 @@ def validate_rows(cols, old_rows, new_rows, allow_extra_rows=True):
     return (not problems), problems
 
 
+def _count_authorised_updates(old_rows, new_rows, allow_row_update_mpns=None):
+    """How many pre-existing rows differ *within the authorised set*.
+
+    Mirrors the exemption logic of validate_rows(). Used for reporting so the
+    release can state explicitly which historical rows it rewrote and why.
+    """
+    allow = {(m or "").strip().upper() for m in (allow_row_update_mpns or [])}
+    changed = 0
+    n = min(len(old_rows), len(new_rows))
+    for i in range(n):
+        old_r, new_r = old_rows[i], new_rows[i]
+        same = ({k: (v or "") for k, v in old_r.items()} ==
+                {k: (v or "") for k, v in new_r.items()})
+        if same:
+            continue
+        if (old_r.get("mpn") or "").strip().upper() in allow:
+            changed += 1
+    return changed
+
+
 # --------------------------------------------------------------------------
 # atomic write
 # --------------------------------------------------------------------------
 def atomic_write_master(path, cols, new_rows, old_rows=None, lineterminator=None,
-                        dry_run=False):
+                        dry_run=False, allow_row_update_mpns=None,
+                        keep_bom=True):
     """Write `new_rows` to `path` atomically.
 
     old_rows: the rows read from the current file. When provided, the
@@ -140,12 +187,22 @@ def atomic_write_master(path, cols, new_rows, old_rows=None, lineterminator=None
     """
     if old_rows is None:
         old_rows = []
-    ok, problems = validate_rows(cols, old_rows, new_rows)
+    ok, problems = validate_rows(cols, old_rows, new_rows,
+                                 allow_row_update_mpns=allow_row_update_mpns)
+    authorised = _count_authorised_updates(old_rows, new_rows, allow_row_update_mpns)
     if not ok:
         raise MasterWriteError("validation failed, MASTER not modified:\n  - "
                                + "\n  - ".join(problems))
 
     lt = lineterminator or (detect_lineterminator(path) if os.path.exists(path) else "\r\n")
+
+    # Preserve the byte-order-mark convention of the file we replace, so a
+    # release does not silently change the encoding of the production MASTER.
+    enc = "utf-8"
+    if keep_bom and os.path.exists(path):
+        with open(path, "rb") as _f:
+            if _f.read(3) == b"\xef\xbb\xbf":
+                enc = "utf-8-sig"
 
     if dry_run:
         return {"written": False, "dry_run": True, "path": path,
@@ -155,7 +212,7 @@ def atomic_write_master(path, cols, new_rows, old_rows=None, lineterminator=None
     fd, tmp = tempfile.mkstemp(dir=directory, prefix=os.path.basename(path) + ".", suffix=".tmp")
     os.close(fd)
     try:
-        with open(tmp, "w", newline="", encoding="utf-8") as f:
+        with open(tmp, "w", newline="", encoding=enc) as f:
             w = csv.DictWriter(f, fieldnames=cols, lineterminator=lt)
             w.writeheader()
             w.writerows(new_rows)
@@ -164,7 +221,10 @@ def atomic_write_master(path, cols, new_rows, old_rows=None, lineterminator=None
         t_cols, t_rows = read_master(tmp)
         if t_cols != cols:
             raise MasterWriteError("temp file header mismatch")
-        ok2, problems2 = validate_rows(cols, old_rows, t_rows)
+        ok2, problems2 = validate_rows(cols, old_rows, t_rows,
+                                       allow_row_update_mpns=allow_row_update_mpns)
+        authorised += _count_authorised_updates(old_rows, t_rows,
+                                                allow_row_update_mpns)
         if not ok2:
             raise MasterWriteError("temp file failed validation:\n  - "
                                    + "\n  - ".join(problems2))
@@ -176,10 +236,12 @@ def atomic_write_master(path, cols, new_rows, old_rows=None, lineterminator=None
         raise
 
     return {"written": True, "dry_run": False, "path": path,
-            "rows": len(new_rows), "cols": len(cols), "lineterminator": repr(lt)}
+            "rows": len(new_rows), "cols": len(cols), "lineterminator": repr(lt),
+            "authorised_row_updates": authorised}
 
 
-def append_rows_atomically(path, appended_rows, expected_cols=None, dry_run=False):
+def append_rows_atomically(path, appended_rows, expected_cols=None, dry_run=False,
+                           allow_row_update_mpns=None, keep_bom=True):
     """Read -> append in memory -> atomic write. Never uses mode 'a'."""
     cols, rows = read_master(path, expected_cols)
     for r in appended_rows:
@@ -190,7 +252,9 @@ def append_rows_atomically(path, appended_rows, expected_cols=None, dry_run=Fals
                 f"appended row {r.get('mpn')!r} column mismatch "
                 f"(missing={missing}, extra={extra})")
     new_rows = rows + list(appended_rows)
-    return atomic_write_master(path, cols, new_rows, old_rows=rows, dry_run=dry_run)
+    return atomic_write_master(path, cols, new_rows, old_rows=rows, dry_run=dry_run,
+                              allow_row_update_mpns=allow_row_update_mpns,
+                              keep_bom=keep_bom)
 
 
 def sha256_of(path):

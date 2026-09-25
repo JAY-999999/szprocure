@@ -40,10 +40,13 @@ _MICRO_G = "\u03bc"   # μ greek mu
 # numeric normalisation helpers (SI base units)
 # --------------------------------------------------------------------------
 def _norm(s, table):
-    """Generic unit parser. Returns averaged base value or None.
+    """Generic unit parser.
 
-    Handles a leading number directly followed by a unit, AND bare-number
-    ranges where the unit appears only at the end (e.g. '0.8-5V').
+    RANGE GUARD (Step-2 fix): a value that is a *range* (e.g. '4V~80V',
+    '0.8-5V', '1kOhm~10kOhm') is NEVER averaged into a single synthetic
+    number. It is preserved verbatim as a range STRING (units kept) so the
+    downstream page shows the real operating window. Single values are still
+    normalised to an SI-base float exactly as before.
     """
     if not s:
         return None
@@ -51,6 +54,18 @@ def _norm(s, table):
     if not s:
         return None
     alt = "|".join(table.keys())
+    # canonicalise en/em-dash and digit-dash-digit to '~' for uniform detection
+    canon = s.replace("\u2013", "~").replace("\u2014", "~")
+    canon = re.sub(r"(\d)\s*-\s*(?=\d)", r"\1~", canon)
+    rm = re.search(
+        r"([\d.]+)\s*(" + alt + r")?\s*~\s*([\d.]+)\s*(" + alt + r")?",
+        canon, re.I)
+    if rm:
+        lo, lo_u, hi, hi_u = rm.groups()
+        lo_u = lo_u or hi_u or ""
+        hi_u = hi_u or lo_u or ""
+        return f"{lo}{lo_u}~{hi}{hi_u}"
+    # --- single-value path (unchanged behaviour) ---
     pairs = [(float(n), table[u.lower()])
              for n, u in re.findall(r"([\d.]+)\s*(" + alt + r")", s, re.I)]
     if pairs:
@@ -99,7 +114,13 @@ def _norm_resistance(s):
 
 
 def _norm_capacitance(s):
-    return _norm(s, _CAP)
+    v = _norm(s, _CAP)
+    if isinstance(v, float):
+        # Kill binary float noise: 100nF parsed to 1.0000000000000001e-07 is
+        # stored as clean 1e-07 (unit conversion stays correct, display and
+        # MASTER stay readable). Range strings pass through untouched.
+        v = _r(v, 12)
+    return v
 
 
 def _norm_inductance(s):
@@ -115,16 +136,46 @@ def _norm_power(s):
     s = str(s).strip()
     m = re.search(r"(\d+)\s*/\s*(\d+)\s*W", s, re.I)
     if m:
-        return int(m.group(1)) / int(m.group(2))
+        return _i(m.group(1)) / _i(m.group(2))
     return _norm(s, _PWR)
 
 
 def _num_first(s):
-    """First numeric token in a string (handles '90dB' -> 90, '50ns' -> 50)."""
+    """First numeric token in a string (handles '90dB' -> 90, '50ns' -> 50).
+
+    Integer-valued results are returned as int so counts such as Channels=1
+    never render as '1.0' (LCSC parity, Section 2026-09-24 batch audit).
+    """
     if not s:
         return None
     m = re.search(r"[\d.]+", str(s))
-    return float(m.group()) if m else None
+    if not m:
+        return None
+    v = float(m.group())
+    return _i(v) if v.is_integer() else v
+
+
+# --------------------------------------------------------------------------
+# range-safe numeric guards (Step-2 fix)
+# _norm() may now return a RANGE STRING such as "4V~80V" instead of a single
+# float. Callers that round()/int() must NOT crash and must NOT silently drop
+# the range. For genuine numeric input behaviour is identical to before.
+# --------------------------------------------------------------------------
+import builtins as _blt
+_def_round = _blt.round
+_def_int = _blt.int
+
+
+def _r(v, n=None):
+    """Range-safe round: numeric -> round(v[,n]); range string -> unchanged."""
+    if isinstance(v, (int, float)):
+        return _def_round(v) if n is None else _def_round(v, n)
+    return v
+
+
+def _i(v):
+    """Range-safe int: numeric -> int(v); range string -> unchanged."""
+    return _def_int(v) if isinstance(v, (int, float)) else v
 
 
 # Chinese-enum -> English translation (only applied to string enum values).
@@ -183,11 +234,14 @@ def _desc(parts):
 
 def _assemble(brand, mpn, category, subcategory, specs, desc_parts,
               applications, faq):
+    from . import has_illegal_text
     aj = {}
     for k, v in specs.items():
         if v is None:
             continue
-        if isinstance(v, str) and not v.isascii():
+        # Round 6 (2026-09-24): keep legal tech symbols (± °) verbatim —
+        # '±10%' / '±250ppm/°C' are real LCSC spec data, not residue.
+        if isinstance(v, str) and has_illegal_text(v):
             continue
         aj[k] = v
     description = _desc(desc_parts) or f"{brand} {mpn}"
@@ -253,31 +307,31 @@ class VoltageRegulatorAdapter(CategoryAdapter):
             specs["output_type"] = ot
         ov = _norm_voltage(_g(a, "输出电压"))
         if ov is not None:
-            specs["output_voltage_v"] = round(ov, 4)
+            specs["output_voltage_v"] = _r(ov, 4)
         pol = _enum(_g(a, "输出极性"))
         if pol:
             specs["polarity"] = pol
         oc = _norm_current(_g(a, "输出电流"))
         if oc is not None:
-            specs["output_current_a"] = round(oc, 5)
+            specs["output_current_a"] = _r(oc, 5)
         fn = _enum(_g(a, "功能类型"))
         if fn:
             specs["function"] = fn
         wv = _norm_voltage(_g(a, "工作电压"))
         if wv is not None:
-            specs["working_voltage_v"] = round(wv, 4)
+            specs["working_voltage_v"] = _r(wv, 4)
         sf = _norm_freq(_g(a, "开关频率"))
         if sf is not None:
-            specs["switching_freq_hz"] = int(sf)
+            specs["switching_freq_hz"] = _i(sf)
         ch = _num_first(_g(a, "通道数"))
         if ch is not None:
-            specs["channels"] = int(ch)
+            specs["channels"] = _i(ch)
         tol = _num_first(_g(a, "精度"))
         if tol is not None:
             specs["tolerance"] = tol
         iq = _norm_current(_g(a, "静态电流(Iq)"))
         if iq is not None:
-            specs["iq_a"] = round(iq, 7)
+            specs["iq_a"] = _r(iq, 7)
         sub = ot or "Voltage Regulator"
         parts = [f"{brand} {mpn}", ot,
                  (f"{ov:.2f} V" if ov is not None else ""),
@@ -305,35 +359,35 @@ class DiodeAdapter(CategoryAdapter):
             specs["config"] = cfg
         fc = _norm_current(_g(a, "整流电流"))
         if fc is not None:
-            specs["forward_current_a"] = round(fc, 5)
+            specs["forward_current_a"] = _r(fc, 5)
         vf = _norm_voltage(_g(a, "正向压降(Vf)"))
         if vf is not None:
-            specs["vf_v"] = round(vf, 4)
+            specs["vf_v"] = _r(vf, 4)
         vrwm = _norm_voltage(_g(a, "反向截止电压(Vrwm)"))
         if vrwm is not None:
-            specs["vreverse_v"] = round(vrwm, 3)
+            specs["vreverse_v"] = _r(vrwm, 3)
         else:
             vr = (_norm_voltage(_g(a, "直流反向耐压（Vr）"))
                   or _norm_voltage(_g(a, "直流反向耐压(Vr)")))
             if vr is not None:
-                specs["vreverse_v"] = round(vr, 3)
+                specs["vreverse_v"] = _r(vr, 3)
         clamp = _norm_voltage(_g(a, "钳位电压"))
         if clamp is not None:
-            specs["clamp_v"] = round(clamp, 3)
+            specs["clamp_v"] = _r(clamp, 3)
         pol = _enum(_g(a, "极性"))
         if pol:
             specs["polarity"] = pol
         ppp = _num_first(_g(a, "峰值脉冲功率(Ppp)"))
         if ppp is not None:
-            specs["ppp_w"] = int(ppp)
+            specs["ppp_w"] = _i(ppp)
         vz = (_norm_voltage(_g(a, "稳压值(范围值)"))
               or _norm_voltage(_g(a, "稳压值(标称值)")))
         if vz is not None:
-            specs["vzener_v"] = round(vz, 3)
+            specs["vzener_v"] = _r(vz, 3)
         trr = (_num_first(_g(a, "反向恢复时间（trr）"))
                or _num_first(_g(a, "反向恢复时间(trr)")))
         if trr is not None:
-            specs["trr_ns"] = int(trr)
+            specs["trr_ns"] = _i(trr)
         sub = cfg or "Diode"
         parts = [f"{brand} {mpn}", cfg,
                  (f"{vf:.2f} V Vf" if vf is not None else ""),
@@ -364,16 +418,16 @@ class CapacitorAdapter(CategoryAdapter):
             specs["tolerance"] = tol
         rv = _norm_voltage(_g(a, "额定电压"))
         if rv is not None:
-            specs["rated_voltage_v"] = round(rv, 3)
+            specs["rated_voltage_v"] = _r(rv, 3)
         tc = _enum(_g(a, "温度系数"))
         if tc:
             specs["temp_coef"] = tc
         esr = _norm_resistance(_g(a, "等效串联电阻(ESR)"))
         if esr is not None:
-            specs["esr_ohm"] = round(esr, 6)
+            specs["esr_ohm"] = _r(esr, 6)
         ripple = _norm_current(_g(a, "纹波电流"))
         if ripple is not None:
-            specs["ripple_current_a"] = round(ripple, 5)
+            specs["ripple_current_a"] = _r(ripple, 5)
         sub = (tc + " Capacitor") if tc else "Ceramic Capacitor"
         parts = [f"{brand} {mpn}",
                  (f"{cap} F" if cap is not None else ""),
@@ -399,19 +453,19 @@ class InterfaceICAdapter(CategoryAdapter):
         specs = {}
         wv = _norm_voltage(_g(a, "工作电压"))
         if wv is not None:
-            specs["working_voltage_v"] = round(wv, 4)
+            specs["working_voltage_v"] = _r(wv, 4)
         dr = _norm_data_rate(_g(a, "数据速率"))
         if dr is not None:
-            specs["data_rate"] = int(dr)
+            specs["data_rate"] = _i(dr)
         t = _enum(_g(a, "类型"))
         if t:
             specs["interface"] = t
         ec = _num_first(_g(a, "元件数"))
         if ec is not None:
-            specs["elem_count"] = int(ec)
+            specs["elem_count"] = _i(ec)
         bpe = _num_first(_g(a, "每个元件位数"))
         if bpe is not None:
-            specs["bits_per_elem"] = int(bpe)
+            specs["bits_per_elem"] = _i(bpe)
         it = _enum(_g(a, "输入类型"))
         if it:
             specs["input_type"] = it
@@ -421,13 +475,13 @@ class InterfaceICAdapter(CategoryAdapter):
             specs["interface"] = itype
         ioc = _num_first(_g(a, "I/O 数量"))
         if ioc is not None:
-            specs["io_count"] = int(ioc)
+            specs["io_count"] = _i(ioc)
         iq = _norm_current(_g(a, "静态电流(Iq)"))
         if iq is not None:
-            specs["iq_a"] = round(iq, 7)
+            specs["iq_a"] = _r(iq, 7)
         nodes = _num_first(_g(a, "节点数"))
         if nodes is not None:
-            specs["nodes"] = int(nodes)
+            specs["nodes"] = _i(nodes)
         cmti = _num_first(_g(a, "CMTI(kV/us)"))
         if cmti is not None:
             specs["cmti_kvus"] = cmti
@@ -455,44 +509,44 @@ class OpAmpAdapter(CategoryAdapter):
         specs = {}
         na = _num_first(_g(a, "放大器数"))
         if na is not None:
-            specs["num_amps"] = int(na)
+            specs["num_amps"] = _i(na)
         ib = _norm_current(_g(a, "输入偏置电流(Ib)"))
         if ib is not None:
-            specs["ibias_a"] = round(ib, 9)
+            specs["ibias_a"] = _r(ib, 9)
         cmrr = _num_first(_g(a, "共模抑制比(CMRR)"))
         if cmrr is not None:
             specs["cmrr_db"] = cmrr
         gbw = _norm_freq(_g(a, "增益带宽积(GBW)"))
         if gbw is not None:
-            specs["gbw_hz"] = int(gbw)
+            specs["gbw_hz"] = _i(gbw)
         vos = _norm_voltage(_g(a, "输入失调电压(Vos)"))
         if vos is not None:
-            specs["voffset_v"] = round(vos, 6)
+            specs["voffset_v"] = _r(vos, 6)
         iq = _norm_current(_g(a, "静态电流(Iq)"))
         if iq is not None:
-            specs["iq_a"] = round(iq, 7)
+            specs["iq_a"] = _r(iq, 7)
         # LNA / current-sense / generic amplifiers expose these under raw CN keys
         gain = _num_first(_g(a, "增益"))
         if gain is not None:
             specs["gain_db"] = gain
         freq = _norm_freq(_g(a, "频率"))
         if freq is not None:
-            specs["frequency_hz"] = int(freq)
+            specs["frequency_hz"] = _i(freq)
         sv = _norm_voltage(_g(a, "工作电压"))
         if sv is not None:
-            specs["supply_v"] = round(sv, 4)
+            specs["supply_v"] = _r(sv, 4)
         icur = _norm_current(_g(a, "工作电流"))
         if icur is not None:
-            specs["current_a"] = round(icur, 6)
+            specs["current_a"] = _r(icur, 6)
         ocur = _norm_current(_g(a, "输出电流"))
         if ocur is not None:
-            specs["output_current_a"] = round(ocur, 6)
+            specs["output_current_a"] = _r(ocur, 6)
         r2r = _enum(_g(a, "轨到轨"))
         if r2r:
             specs["rail_to_rail"] = r2r
-        sub = (f"{int(na)}-Channel Op Amp" if na is not None else "Operational Amplifier")
+        sub = (f"{_i(na)}-Channel Op Amp" if na is not None else "Operational Amplifier")
         parts = [f"{brand} {mpn}",
-                 (f"{int(na)}-channel" if na is not None else ""),
+                 (f"{_i(na)}-channel" if na is not None else ""),
                  (f"GBW {gbw} Hz" if gbw is not None else "")]
         faq = _faq(mpn, f"What is the gain bandwidth product of {mpn}",
                    (f"{mpn} has a GBW of {gbw} Hz" if gbw is not None else ""))
@@ -514,23 +568,23 @@ class MOSFETAdapter(CategoryAdapter):
         specs = {}
         vdss = _norm_voltage(_g(a, "漏源电压(Vdss)"))
         if vdss is not None:
-            specs["vdss_v"] = round(vdss, 3)
+            specs["vdss_v"] = _r(vdss, 3)
         idc = _norm_current(_g(a, "连续漏极电流(Id)"))
         if idc is not None:
-            specs["id_a"] = round(idc, 4)
+            specs["id_a"] = _r(idc, 4)
         ct = _enum(_g(a, "类型"))
         if ct:
             specs["chan_type"] = ct
         pd = _norm_power(_g(a, "耗散功率(Pd)"))
         if pd is not None:
-            specs["pd_w"] = round(pd, 5)
+            specs["pd_w"] = _r(pd, 5)
         vgsth = _norm_voltage(_g(a, "阈值电压(Vgs(th))"))
         if vgsth is not None:
-            specs["vgs_th_v"] = round(vgsth, 4)
+            specs["vgs_th_v"] = _r(vgsth, 4)
         rds = (_norm_resistance(_g(a, "导通电阻(RDS(on))"))
                or _norm_resistance(_g(a, "导通电阻")))
         if rds is not None:
-            specs["rds_on_ohm"] = round(rds, 6)
+            specs["rds_on_ohm"] = _r(rds, 6)
         sub = (ct or "MOS") + " MOSFET"
         parts = [f"{brand} {mpn}", ct,
                  (f"{vdss:.1f} V" if vdss is not None else ""),
@@ -555,13 +609,13 @@ class TransistorAdapter(CategoryAdapter):
         specs = {}
         ic = _norm_current(_g(a, "集电极电流(Ic)"))
         if ic is not None:
-            specs["ic_a"] = round(ic, 4)
+            specs["ic_a"] = _r(ic, 4)
         tt = _enum(_g(a, "晶体管类型"))
         if tt:
             specs["tran_type"] = tt
         vceo = _norm_voltage(_g(a, "集射极击穿电压(Vceo)"))
         if vceo is not None:
-            specs["vceo_v"] = round(vceo, 3)
+            specs["vceo_v"] = _r(vceo, 3)
         st = _enum(_g(a, "可控硅类型"))
         if st:
             specs["scr_type"] = st
@@ -592,25 +646,25 @@ class LogicICAdapter(CategoryAdapter):
         specs = {}
         sv = _norm_voltage(_g(a, "工作电压"))
         if sv is not None:
-            specs["supply_v"] = round(sv, 4)
+            specs["supply_v"] = _r(sv, 4)
         iol = _norm_current(_g(a, "灌电流(IOL)"))
         if iol is not None:
-            specs["iol_a"] = round(iol, 5)
+            specs["iol_a"] = _r(iol, 5)
         tpd = _num_first(_g(a, "传播延迟(tpd)"))
         if tpd is not None:
             specs["tpd_ns"] = tpd
         ioh = _norm_current(_g(a, "拉电流(IOH)"))
         if ioh is not None:
-            specs["ioh_a"] = round(ioh, 5)
+            specs["ioh_a"] = _r(ioh, 5)
         iq = _norm_current(_g(a, "静态电流(Iq)"))
         if iq is not None:
-            specs["iq_a"] = round(iq, 7)
+            specs["iq_a"] = _r(iq, 7)
         fn = _enum(_g(a, "功能"))
         if fn:
             specs["function"] = fn
         gates = _num_first(_g(a, "逻辑单元数"))
         if gates is not None:
-            specs["gates"] = int(gates)
+            specs["gates"] = _i(gates)
         sub = fn or "Logic IC"
         parts = [f"{brand} {mpn}", fn,
                  (f"{sv:.2f} V" if sv is not None else ""),
@@ -644,10 +698,10 @@ class ResistorAdapter(CategoryAdapter):
             specs["rtype"] = rt
         mv = _norm_voltage(_g(a, "最大工作电压"))
         if mv is not None:
-            specs["max_voltage_v"] = round(mv, 3)
+            specs["max_voltage_v"] = _r(mv, 3)
         p = _norm_power(_g(a, "功率"))
         if p is not None:
-            specs["power_w"] = round(p, 5)
+            specs["power_w"] = _r(p, 5)
         sub = (rt or "Chip") + " Resistor"
         parts = [f"{brand} {mpn}",
                  (f"{r} \u03a9" if r is not None else ""),
@@ -679,20 +733,20 @@ class InductorAdapter(CategoryAdapter):
             specs["tolerance"] = tol
         rc = _norm_current(_g(a, "额定电流"))
         if rc is not None:
-            specs["rated_current_a"] = round(rc, 4)
+            specs["rated_current_a"] = _r(rc, 4)
         # Common-mode / EMI filters expose impedance + line count, not L
         z = _norm_resistance(_g(a, "阻抗@频率"))
         if z is not None:
-            specs["impedance_ohm"] = round(z, 3)
+            specs["impedance_ohm"] = _r(z, 3)
         lines = _num_first(_g(a, "线路数"))
         if lines is not None:
-            specs["lines"] = int(lines)
+            specs["lines"] = _i(lines)
         isat = _norm_current(_g(a, "饱和电流(Isat)"))
         if isat is not None:
-            specs["isat_a"] = round(isat, 4)
+            specs["isat_a"] = _r(isat, 4)
         dcr = _norm_resistance(_g(a, "直流电阻(DCR)"))
         if dcr is not None:
-            specs["dcr_ohm"] = round(dcr, 6)
+            specs["dcr_ohm"] = _r(dcr, 6)
         sub = "Power Inductor"
         parts = [f"{brand} {mpn}",
                  (f"{L} H" if L is not None else ""),

@@ -2,7 +2,7 @@
 
 This NEW module lets the 02 product-data line consume the 236 LCSC English
 HTTP JSON envelopes produced by the FROZEN 01 acquirer (batch ``http236``,
-source ``data/raw/lcsc_http_scale500/``).
+source ``D:/SZ Procure/采集流水线/基础数据``).
 
 Design basis: ``02_LCSC_HTTP_ADAPTER_DESIGN.md`` (§4). It is a NON-FROZEN
 layer. It reuses proven helpers from ``factory.category`` (``_norm_*``,
@@ -23,19 +23,37 @@ Key principles (from the design, do NOT violate):
 """
 
 import json
+import logging
 import os
 import re
 
-from . import category, product_data, pool, gate
+from . import LEGAL_TECH_SYMBOLS, has_illegal_text
+from . import alternates, category, product_data, pool, gate
 from .category import (
     UNKNOWN_CATEGORY,
     _norm_voltage, _norm_current, _norm_freq, _norm_data_rate,
     _norm_resistance, _norm_inductance, _norm_capacitance, _norm_power, _num_first,
+    _r, _i,
     _enum, _attrs, _assemble, _faq, _unknown_fields, detect_category,
 )
 from .product_data import ProductDataError, IntakeResult
 
-DEFAULT_HTTP_RAW = "data/raw/lcsc_http_scale500"
+_LOG = logging.getLogger(__name__)
+
+
+def _norm_voltage_cond(s):
+    """Condition-preserving voltage normalizer.
+
+    LCSC condition-bearing values (e.g. ``1.25V@150mA``) carry a test condition
+    that a plain numeric normalization would silently destroy, so they are kept
+    VERBATIM. Plain values (``75V``, ``1.25V``) go through ``_norm_voltage``.
+    """
+    if isinstance(s, str) and "@" in s:
+        return s.strip()
+    return _norm_voltage(s)
+
+
+DEFAULT_HTTP_RAW = r"D:\SZ Procure\采集流水线\基础数据"  # 金水流单源：与 01 采集落盘/intake_collect.SOURCE 一致
 
 # --------------------------------------------------------------------------
 # text normalisation: legal-symbol fold -> fullwidth fold -> ASCII gate
@@ -45,20 +63,23 @@ DEFAULT_HTTP_RAW = "data/raw/lcsc_http_scale500"
 # mojibake) are dropped by the final ASCII gate -- which is exactly the CJK
 # guard the pipeline requires (``has_cjk`` hard-stops on ord > 127).
 _UNIT_FOLD = {
-    "\u2103": "degC",   # ℃  degree C
+    "\u2103": "\u00b0C",  # ℃  degree C  -> °C (kept as real symbol, Round 6)
     "\u00b5": "u",       # µ  micro sign
     "\u03bc": "u",       # μ  greek mu
     "\u03a9": "Ohm",     # Ω  ohm
     "\u2126": "Ohm",     # Ω  ohm sign
     "\u00d7": "x",       # ×  multiplication
-    "\u00b1": "+/-",     # ±  plus-minus
-    "\u00b0": "deg",     # °  degree
     "\u221a": "sqrt",    # √  square root
     "\u00b2": "2",       # ²  superscript two
     "\u00b3": "3",       # ³  superscript three
     "\u00b7": "-",       # ·  middle dot
     "\u2009": " ",       # thin space
     "\u202f": " ",       # narrow no-break space
+    # NOTE (Round 6, 2026-09-24): ± (U+00B1) and ° (U+00B0) are NO LONGER
+    # folded ('±10%' -> '+/-10%' and '45°' -> '45deg' destroyed information
+    # the LCSC page carries verbatim). They are legal tech symbols — kept
+    # verbatim and whitelisted in ascii_gate / every has_cjk-style guard via
+    # factory.LEGAL_TECH_SYMBOLS. Raw '±10%' now reaches the page as '±10%'.
 }
 
 
@@ -90,13 +111,17 @@ def fullwidth_to_halfwidth(s):
 
 
 def ascii_gate(s):
-    """Drop any residue that is still non-ASCII (real CJK / mojibake)."""
-    s = "".join(ch if ord(ch) < 128 else " " for ch in s)
+    """Drop non-ASCII residue (real CJK / mojibake); keep legal tech symbols."""
+    s = "".join(ch if (ord(ch) < 128 or ch in LEGAL_TECH_SYMBOLS) else " "
+                for ch in s)
     return re.sub(r"\s+", " ", s).strip()
 
 
 def normalize_text(s):
-    """fold_units -> fullwidth -> ASCII gate. Output is pure ASCII or ''."""
+    """fold_units -> fullwidth -> ASCII gate.
+
+    Output is pure ASCII plus the whitelisted legal tech symbols (± °), or ''.
+    """
     if not s:
         return ""
     s = fold_units(s)
@@ -115,7 +140,7 @@ def _norm_memory(s):
         return None
     n = float(m.group(1))
     mult = {"KB": 1024, "MB": 1024 ** 2, "GB": 1024 ** 3}[m.group(2).upper()]
-    return int(n * mult)
+    return _i(n * mult)
 
 
 # --------------------------------------------------------------------------
@@ -139,7 +164,13 @@ HTTP_ATTR_MAP = {
     "Frequency - Switching": ("switching_freq_hz", _norm_freq),
     "Number of Channels": ("channels", _num_first),
     "Number of Outputs": ("channels", _num_first),
-    "Tolerance": ("tolerance", _num_first),
+    # "Tolerance" intentionally NOT mapped: _num_first strips the +/- sign and
+    # '%' (±10% -> 10). Unmapped-forwarded keeps the verbatim ASCII-folded
+    # string '+/-10%' so the unit and sign survive to the page (Section
+    # 2026-09-24 unit-safety audit).
+    # "Pitch"/"Height"/"Length"/"Width" intentionally NOT mapped: numeric mm
+    # loses the unit and the display layer has no _mm suffix handler (bare
+    # '3' instead of '3mm'). Unmapped-forwarded keeps '3mm' verbatim.
     "Quiescent Current": ("iq_a", _norm_current),
     "Quiescent Supply Current": ("iq_a", _norm_current),
     "Supply Current (Iq)": ("iq_a", _norm_current),
@@ -148,13 +179,19 @@ HTTP_ATTR_MAP = {
     # --- Diode -----------------------------------------------------------
     "Diode Configuration": ("config", None),
     "Current - Rectified": ("forward_current_a", _norm_current),
-    "Voltage - Forward(Vf@If)": ("vf_v", _norm_voltage),
-    "Reverse Leakage Current (Ir)": ("vreverse_v", _norm_voltage),
-    "Non-Repetitive Peak Forward Surge Current": ("forward_current_a", _norm_current),
+    "Voltage - Forward(Vf@If)": ("vf_v", _norm_voltage_cond),
+    # Ir is a CURRENT: the old mapping sent it to vreverse_v/_norm_voltage which
+    # always returned None -> the whole parameter was silently dropped.
+    "Reverse Leakage Current (Ir)": ("reverse_leakage_current", None),
+    # Surge current kept verbatim ('2.5A'): a bare normalized number loses the
+    # unit at render time (the display key is label-substituted, so the `_a`
+    # suffix unit-appender never fires).
+    "Non-Repetitive Peak Forward Surge Current": ("surge_current_a", None),
     "Clamp Voltage": ("clamp_v", _norm_voltage),
     "Zener Voltage": ("vzener_v", _norm_voltage),
-    "Reverse Recovery Time (trr)": ("trr_ns", _num_first),
-    "Reverse Recovery Time(trr)": ("trr_ns", _num_first),
+    # trr kept verbatim ('6ns') for the same unit-preservation reason.
+    "Reverse Recovery Time (trr)": ("trr_ns", None),
+    "Reverse Recovery Time(trr)": ("trr_ns", None),
     # --- Capacitor -------------------------------------------------------
     "Capacitance": ("capacitance", _norm_capacitance),
     "Temperature Coefficient": ("temp_coef", None),
@@ -194,7 +231,10 @@ HTTP_ATTR_MAP = {
     "Gate Threshold Voltage": ("vgs_th_v", _norm_voltage),
     "RDS(on)": ("rds_on_ohm", _norm_resistance),
     "Gate Charge(Qg)": ("gate_charge_c", _num_first),
-    "Output Capacitance(Coss)": ("output_cap_coss", _norm_capacitance),
+    # "Output Capacitance(Coss)" intentionally NOT mapped: letting it fall to
+    # unmapped-forwarded keeps the raw string (e.g. '80pF') instead of a
+    # Farad float like 8e-11 — consistent with Ciss/Crss which forward raw.
+
     # --- Transistor ------------------------------------------------------
     "Collector Current(Ic)": ("ic_a", _norm_current),
     "Transistor Type": ("tran_type", None),
@@ -233,10 +273,6 @@ HTTP_ATTR_MAP = {
     "EEPROM": ("eeprom_bytes", _norm_memory),
     # --- generic / mechanical (preserved, family-agnostic) ---------------
     "Voltage Rating": ("rated_voltage_v", _norm_voltage),
-    "Pitch": ("pitch_mm", _num_first),
-    "Height": ("height_mm", _num_first),
-    "Length": ("length_mm", _num_first),
-    "Width": ("width_mm", _num_first),
     "Row Spacing": ("row_spacing_mm", _num_first),
     "Number of Rows": ("num_rows", _num_first),
     "Number of PINs Per Row": ("pins_per_row", _num_first),
@@ -295,6 +331,13 @@ def build_en_attributes(mp):
                 # keep it verbatim rather than letting a numeric normaliser null
                 # it. Canon is standardisation, not deletion (Section 四 2026-09-15).
                 nval = "-"
+            elif "@" in folded_val:
+                # Value carries a test condition (e.g. 1.25V@150mA,
+                # 14nC@10V, 47mOhm@10V;60mOhm@4.5V). A numeric normaliser
+                # would flatten/average it and lose the condition — keep
+                # the verbatim ASCII-folded string instead (rule-level,
+                # applies to ALL mapped keys, Section 2026-09-24 batch).
+                nval = folded_val
             elif normalizer is _norm_resistance or normalizer is _norm_inductance:
                 # Omega must reach the normaliser untouched.
                 nval = normalizer(fullwidth_to_halfwidth(raw_val))
@@ -315,7 +358,7 @@ def build_en_attributes(mp):
 # behaviour, and the pipeline already captures brand/manufacturer elsewhere).
 _IDENTITY_KEY_BLACKLIST = {
     "brand", "manufacturer", "series", "part number", "part status",
-    "packaging", "package", "package / case", "mounting type",
+    "packaging", "package", "package / case",
     "supplier device package", "base product number", "rohs",
     "lead free", "lead-free",
 }
@@ -336,7 +379,7 @@ def _forward_unmapped_specs(canon, unmapped):
     for name_en, val in unmapped.items():
         if not name_en or not val:
             continue
-        if any(ord(ch) > 127 for ch in name_en):
+        if has_illegal_text(name_en):
             continue  # CJK-only key — not a usable spec label
         if name_en.lower().strip() in _IDENTITY_KEY_BLACKLIST:
             continue
@@ -372,19 +415,23 @@ def flatten_envelope(env):
     sr = env.get("source_raw", {}) or {}
     mp = sr.get("main_product", {}) or {}
     od = sr.get("overviewData") or {}
-    al = sr.get("alternatePartList") or []
+    # --- Alternative Parts -------------------------------------------------
+    # FORMAL PRODUCTION RULE, 2026-09-25. The RAW alternate list is replayed
+    # AS-IS (no brand gate, no self-exclusion, no de-duplication) by
+    # tools/factory/alternates.py, which the 03 renderer calls too, so 02 and
+    # 03 can never drift apart.
+    #
+    # Root cause of the previous defect: this block read only
+    # `source_raw.substitutes`, which the 01 acquire layer never captures — so
+    # from 02 onwards every SKU was written with an EMPTY alternates list while
+    # the pages still showed the historical MASTER value. MASTER and the
+    # renderer therefore disagreed for the entire site.
+    alt_detail = alternates.real_alternates(sr, mp)
+    alternative_parts_detail = json.dumps(alt_detail, ensure_ascii=False)
+    # Backward-compatible MPN string derived from the SAME canonical source.
+    alts = "; ".join(s["mpn"] for s in alt_detail)
 
     attrs_canon, attrs_unmapped = build_en_attributes(mp)
-
-    alts = "; ".join(a["productModel"] for a in al
-                     if (a.get("productModel") or "").strip())
-    # Richer relationship structure preserved for a future parts network.
-    related_raw = [{
-        "productModel": a.get("productModel"),
-        "brandNameEn": a.get("brandNameEn"),
-        "encapStandard": a.get("encapStandard"),
-        "productCode": a.get("productCode"),
-    } for a in al if (a.get("productModel") or "").strip()]
 
     desc = (mp.get("productNameEn") or "").strip()
     # REAL Product Introduction: official narrative from the 01-collected RAW.
@@ -412,7 +459,7 @@ def flatten_envelope(env):
         "source_image_url": _first_image_url(mp),
         "supplier_sku": (mp.get("productCode") or "").strip(),
         "alternative_parts": alts,
-        "related_parts_raw": related_raw,
+        "alternative_parts_detail": alternative_parts_detail,
         "_applications_en": apps_en,
         "_source_kind": "lcsc_http_json",
         # --- extensions forwarded from the RAW envelope (pool-only; NOT in the
@@ -453,19 +500,19 @@ class HTTPMCUAdapter(HTTPCategoryAdapter):
             specs["core"] = core
         cb = a.get("core_bits")
         if isinstance(cb, (int, float)):
-            specs["core_bits"] = int(cb)
+            specs["core_bits"] = _i(cb)
         freq = a.get("frequency_hz")
         if isinstance(freq, (int, float)):
-            specs["frequency_hz"] = int(freq)
+            specs["frequency_hz"] = _i(freq)
         flash = a.get("flash_bytes")
         if isinstance(flash, (int, float)):
-            specs["flash_bytes"] = int(flash)
+            specs["flash_bytes"] = _i(flash)
         ram = a.get("ram_bytes")
         if isinstance(ram, (int, float)):
-            specs["ram_bytes"] = int(ram)
+            specs["ram_bytes"] = _i(ram)
         io = a.get("io_count")
         if isinstance(io, (int, float)):
-            specs["io_count"] = int(io)
+            specs["io_count"] = _i(io)
         volt = a.get("voltage_v")
         if isinstance(volt, (int, float)):
             specs["voltage_v"] = volt
@@ -488,19 +535,19 @@ class HTTPMCUAdapter(HTTPCategoryAdapter):
         if isinstance(ram, (int, float)):
             parts.append(f"{ram / 1024:.0f} KB SRAM")
         if isinstance(io, (int, float)):
-            parts.append(f"{int(io)} I/O")
+            parts.append(f"{_i(io)} I/O")
         if isinstance(volt, (int, float)):
             parts.append(f"operating voltage {volt} V")
         description = normalize_text(" - ".join(parts)) + "."
         if len(parts) <= 1:
             description = normalize_text((record.get("description") or f"{brand} {mpn}"))
-        sub = (f"{int(cb)}-bit MCU" if isinstance(cb, (int, float))
+        sub = (f"{_i(cb)}-bit MCU" if isinstance(cb, (int, float))
                else (f"{core} MCU" if core else "Microcontroller"))
         kw = "; ".join(str(p) for p in [mpn, sub, self.canonical] if p)
         faq = ""
         if isinstance(io, (int, float)):
             faq = _faq(mpn, f"How many I/O pins does {mpn} have",
-                       f"{mpn} provides {int(io)} I/O pins")
+                       f"{mpn} provides {_i(io)} I/O pins")
         elif core:
             faq = _faq(mpn, f"What core does {mpn} use",
                        f"{mpn} is based on a {core} core")
@@ -522,31 +569,31 @@ class HTTPVoltageRegulatorAdapter(HTTPCategoryAdapter):
             specs["output_type"] = ot
         ov = a.get("output_voltage_v")
         if isinstance(ov, (int, float)):
-            specs["output_voltage_v"] = round(ov, 4)
+            specs["output_voltage_v"] = _r(ov, 4)
         pol = _enum(a.get("polarity") or "")
         if pol:
             specs["polarity"] = pol
         oc = a.get("output_current_a")
         if isinstance(oc, (int, float)):
-            specs["output_current_a"] = round(oc, 5)
+            specs["output_current_a"] = _r(oc, 5)
         fn = _enum(a.get("function") or "")
         if fn:
             specs["function"] = fn
         wv = a.get("working_voltage_v")
         if isinstance(wv, (int, float)):
-            specs["working_voltage_v"] = round(wv, 4)
+            specs["working_voltage_v"] = _r(wv, 4)
         sf = a.get("switching_freq_hz")
         if isinstance(sf, (int, float)):
-            specs["switching_freq_hz"] = int(sf)
+            specs["switching_freq_hz"] = _i(sf)
         ch = a.get("channels")
         if isinstance(ch, (int, float)):
-            specs["channels"] = int(ch)
+            specs["channels"] = _i(ch)
         tol = a.get("tolerance")
         if isinstance(tol, (int, float)):
             specs["tolerance"] = tol
         iq = a.get("iq_a")
         if isinstance(iq, (int, float)):
-            specs["iq_a"] = round(iq, 7)
+            specs["iq_a"] = _r(iq, 7)
         sub = ot or "Voltage Regulator"
         parts = [f"{brand} {mpn}", ot,
                  (f"{ov:.2f} V" if isinstance(ov, (int, float)) else ""),
@@ -571,28 +618,28 @@ class HTTPDiodeAdapter(HTTPCategoryAdapter):
             specs["config"] = cfg
         fc = a.get("forward_current_a")
         if isinstance(fc, (int, float)):
-            specs["forward_current_a"] = round(fc, 5)
+            specs["forward_current_a"] = _r(fc, 5)
         vf = a.get("vf_v")
         if isinstance(vf, (int, float)):
-            specs["vf_v"] = round(vf, 4)
+            specs["vf_v"] = _r(vf, 4)
         vr = a.get("vreverse_v")
         if isinstance(vr, (int, float)):
-            specs["vreverse_v"] = round(vr, 3)
+            specs["vreverse_v"] = _r(vr, 3)
         clamp = a.get("clamp_v")
         if isinstance(clamp, (int, float)):
-            specs["clamp_v"] = round(clamp, 3)
+            specs["clamp_v"] = _r(clamp, 3)
         pol = _enum(a.get("polarity") or "")
         if pol:
             specs["polarity"] = pol
         ppp = a.get("ppp_w")
         if isinstance(ppp, (int, float)):
-            specs["ppp_w"] = int(ppp)
+            specs["ppp_w"] = _i(ppp)
         vz = a.get("vzener_v")
         if isinstance(vz, (int, float)):
-            specs["vzener_v"] = round(vz, 3)
+            specs["vzener_v"] = _r(vz, 3)
         trr = a.get("trr_ns")
         if isinstance(trr, (int, float)):
-            specs["trr_ns"] = int(trr)
+            specs["trr_ns"] = _i(trr)
         sub = cfg or "Diode"
         parts = [f"{brand} {mpn}", cfg,
                  (f"{vf:.2f} V Vf" if isinstance(vf, (int, float)) else ""),
@@ -620,16 +667,16 @@ class HTTPCapacitorAdapter(HTTPCategoryAdapter):
             specs["tolerance"] = tol
         rv = a.get("rated_voltage_v")
         if isinstance(rv, (int, float)):
-            specs["rated_voltage_v"] = round(rv, 3)
+            specs["rated_voltage_v"] = _r(rv, 3)
         tc = _enum(a.get("temp_coef") or "")
         if tc:
             specs["temp_coef"] = tc
         esr = a.get("esr_ohm")
         if isinstance(esr, (int, float)):
-            specs["esr_ohm"] = round(esr, 6)
+            specs["esr_ohm"] = _r(esr, 6)
         ripple = a.get("ripple_current_a")
         if isinstance(ripple, (int, float)):
-            specs["ripple_current_a"] = round(ripple, 5)
+            specs["ripple_current_a"] = _r(ripple, 5)
         sub = (tc + " Capacitor") if tc else "Ceramic Capacitor"
         parts = [f"{brand} {mpn}",
                  (f"{cap} F" if isinstance(cap, (int, float)) else ""),
@@ -653,37 +700,37 @@ class HTTPInterfaceICAdapter(HTTPCategoryAdapter):
         specs = {}
         wv = a.get("working_voltage_v")
         if isinstance(wv, (int, float)):
-            specs["working_voltage_v"] = round(wv, 4)
+            specs["working_voltage_v"] = _r(wv, 4)
         dr = a.get("data_rate")
         if isinstance(dr, (int, float)):
-            specs["data_rate"] = int(dr)
+            specs["data_rate"] = _i(dr)
         t = _enum(a.get("interface") or "")
         if t:
             specs["interface"] = t
         ec = a.get("elem_count")
         if isinstance(ec, (int, float)):
-            specs["elem_count"] = int(ec)
+            specs["elem_count"] = _i(ec)
         bpe = a.get("bits_per_elem")
         if isinstance(bpe, (int, float)):
-            specs["bits_per_elem"] = int(bpe)
+            specs["bits_per_elem"] = _i(bpe)
         it = _enum(a.get("input_type") or "")
         if it:
             specs["input_type"] = it
         ioc = a.get("io_count")
         if isinstance(ioc, (int, float)):
-            specs["io_count"] = int(ioc)
+            specs["io_count"] = _i(ioc)
         iq = a.get("iq_a")
         if isinstance(iq, (int, float)):
-            specs["iq_a"] = round(iq, 7)
+            specs["iq_a"] = _r(iq, 7)
         nodes = a.get("nodes")
         if isinstance(nodes, (int, float)):
-            specs["nodes"] = int(nodes)
+            specs["nodes"] = _i(nodes)
         cmti = a.get("cmti_kvus")
         if isinstance(cmti, (int, float)):
             specs["cmti_kvus"] = cmti
         vrms = a.get("isolation_vrms_v")
         if isinstance(vrms, (int, float)):
-            specs["isolation_vrms_v"] = round(vrms, 3)
+            specs["isolation_vrms_v"] = _r(vrms, 3)
         sub = t or "Interface IC"
         parts = [f"{brand} {mpn}", t,
                  (f"{dr} bps" if isinstance(dr, (int, float)) else ""),
@@ -705,47 +752,47 @@ class HTTPOpAmpAdapter(HTTPCategoryAdapter):
         specs = {}
         na = a.get("num_amps")
         if isinstance(na, (int, float)):
-            specs["num_amps"] = int(na)
+            specs["num_amps"] = _i(na)
         ib = a.get("ibias_a")
         if isinstance(ib, (int, float)):
-            specs["ibias_a"] = round(ib, 9)
+            specs["ibias_a"] = _r(ib, 9)
         cmrr = a.get("cmrr_db")
         if isinstance(cmrr, (int, float)):
             specs["cmrr_db"] = cmrr
         gbw = a.get("gbw_hz")
         if isinstance(gbw, (int, float)):
-            specs["gbw_hz"] = int(gbw)
+            specs["gbw_hz"] = _i(gbw)
         vos = a.get("voffset_v")
         if isinstance(vos, (int, float)):
-            specs["voffset_v"] = round(vos, 6)
+            specs["voffset_v"] = _r(vos, 6)
         iq = a.get("iq_a")
         if isinstance(iq, (int, float)):
-            specs["iq_a"] = round(iq, 7)
+            specs["iq_a"] = _r(iq, 7)
         gain = a.get("gain_db")
         if isinstance(gain, (int, float)):
             specs["gain_db"] = gain
         freq = a.get("frequency_hz")
         if isinstance(freq, (int, float)):
-            specs["frequency_hz"] = int(freq)
+            specs["frequency_hz"] = _i(freq)
         # op-amp supply voltage arrives via either supply_v or working_voltage_v
         sv = a.get("supply_v")
         if sv is None:
             sv = a.get("working_voltage_v")
         if isinstance(sv, (int, float)):
-            specs["supply_v"] = round(sv, 4)
+            specs["supply_v"] = _r(sv, 4)
         icur = a.get("current_a")
         if isinstance(icur, (int, float)):
-            specs["current_a"] = round(icur, 6)
+            specs["current_a"] = _r(icur, 6)
         ocur = a.get("output_current_a")
         if isinstance(ocur, (int, float)):
-            specs["output_current_a"] = round(ocur, 6)
+            specs["output_current_a"] = _r(ocur, 6)
         r2r = _enum(a.get("rail_to_rail") or "")
         if r2r:
             specs["rail_to_rail"] = r2r
-        sub = (f"{int(na)}-Channel Op Amp" if isinstance(na, (int, float))
+        sub = (f"{_i(na)}-Channel Op Amp" if isinstance(na, (int, float))
                else "Operational Amplifier")
         parts = [f"{brand} {mpn}",
-                 (f"{int(na)}-channel" if isinstance(na, (int, float)) else ""),
+                 (f"{_i(na)}-channel" if isinstance(na, (int, float)) else ""),
                  (f"GBW {gbw} Hz" if isinstance(gbw, (int, float)) else "")]
         faq = _faq(mpn, f"What is the gain bandwidth product of {mpn}",
                    (f"{mpn} has a GBW of {gbw} Hz" if isinstance(gbw, (int, float)) else ""))
@@ -764,22 +811,22 @@ class HTTPMOSFETAdapter(HTTPCategoryAdapter):
         specs = {}
         vdss = a.get("vdss_v")
         if isinstance(vdss, (int, float)):
-            specs["vdss_v"] = round(vdss, 3)
+            specs["vdss_v"] = _r(vdss, 3)
         idc = a.get("id_a")
         if isinstance(idc, (int, float)):
-            specs["id_a"] = round(idc, 4)
+            specs["id_a"] = _r(idc, 4)
         ct = _enum(a.get("type") or "")
         if ct:
             specs["chan_type"] = ct
         pd = a.get("pd_w")
         if isinstance(pd, (int, float)):
-            specs["pd_w"] = round(pd, 5)
+            specs["pd_w"] = _r(pd, 5)
         vgsth = a.get("vgs_th_v")
         if isinstance(vgsth, (int, float)):
-            specs["vgs_th_v"] = round(vgsth, 4)
+            specs["vgs_th_v"] = _r(vgsth, 4)
         rds = a.get("rds_on_ohm")
         if isinstance(rds, (int, float)):
-            specs["rds_on_ohm"] = round(rds, 6)
+            specs["rds_on_ohm"] = _r(rds, 6)
         qg = a.get("gate_charge_c")
         if isinstance(qg, (int, float)):
             specs["gate_charge_c"] = qg
@@ -805,13 +852,13 @@ class HTTPTransistorAdapter(HTTPCategoryAdapter):
         specs = {}
         ic = a.get("ic_a")
         if isinstance(ic, (int, float)):
-            specs["ic_a"] = round(ic, 4)
+            specs["ic_a"] = _r(ic, 4)
         tt = _enum(a.get("tran_type") or "")
         if tt:
             specs["tran_type"] = tt
         vceo = a.get("vceo_v")
         if isinstance(vceo, (int, float)):
-            specs["vceo_v"] = round(vceo, 3)
+            specs["vceo_v"] = _r(vceo, 3)
         st = _enum(a.get("scr_type") or "")
         if st:
             specs["scr_type"] = st
@@ -842,25 +889,25 @@ class HTTPLogicICAdapter(HTTPCategoryAdapter):
         if sv is None:
             sv = a.get("working_voltage_v")
         if isinstance(sv, (int, float)):
-            specs["supply_v"] = round(sv, 4)
+            specs["supply_v"] = _r(sv, 4)
         iol = a.get("iol_a")
         if isinstance(iol, (int, float)):
-            specs["iol_a"] = round(iol, 5)
+            specs["iol_a"] = _r(iol, 5)
         tpd = a.get("tpd_ns")
         if isinstance(tpd, (int, float)):
             specs["tpd_ns"] = tpd
         ioh = a.get("ioh_a")
         if isinstance(ioh, (int, float)):
-            specs["ioh_a"] = round(ioh, 5)
+            specs["ioh_a"] = _r(ioh, 5)
         iq = a.get("iq_a")
         if isinstance(iq, (int, float)):
-            specs["iq_a"] = round(iq, 7)
+            specs["iq_a"] = _r(iq, 7)
         fn = _enum(a.get("function") or "")
         if fn:
             specs["function"] = fn
         gates = a.get("gates")
         if isinstance(gates, (int, float)):
-            specs["gates"] = int(gates)
+            specs["gates"] = _i(gates)
         sub = fn or "Logic IC"
         parts = [f"{brand} {mpn}", fn,
                  (f"{sv:.2f} V" if isinstance(sv, (int, float)) else ""),
@@ -893,10 +940,10 @@ class HTTPResistorAdapter(HTTPCategoryAdapter):
         if mv is None:
             mv = a.get("rated_voltage_v")
         if isinstance(mv, (int, float)):
-            specs["max_voltage_v"] = round(mv, 3)
+            specs["max_voltage_v"] = _r(mv, 3)
         p = a.get("power_w")
         if isinstance(p, (int, float)):
-            specs["power_w"] = round(p, 5)
+            specs["power_w"] = _r(p, 5)
         sub = (rt or "Chip") + " Resistor"
         parts = [f"{brand} {mpn}",
                  (f"{r} Ohm" if isinstance(r, (int, float)) else ""),
@@ -925,19 +972,19 @@ class HTTPInductorAdapter(HTTPCategoryAdapter):
             specs["tolerance"] = tol
         rc = a.get("rated_current_a")
         if isinstance(rc, (int, float)):
-            specs["rated_current_a"] = round(rc, 4)
+            specs["rated_current_a"] = _r(rc, 4)
         z = a.get("impedance_ohm")
         if isinstance(z, (int, float)):
-            specs["impedance_ohm"] = round(z, 3)
+            specs["impedance_ohm"] = _r(z, 3)
         lines = a.get("lines")
         if isinstance(lines, (int, float)):
-            specs["lines"] = int(lines)
+            specs["lines"] = _i(lines)
         isat = a.get("isat_a")
         if isinstance(isat, (int, float)):
-            specs["isat_a"] = round(isat, 4)
+            specs["isat_a"] = _r(isat, 4)
         dcr = a.get("dcr_ohm")
         if isinstance(dcr, (int, float)):
-            specs["dcr_ohm"] = round(dcr, 6)
+            specs["dcr_ohm"] = _r(dcr, 6)
         sub = "Power Inductor"
         parts = [f"{brand} {mpn}",
                  (f"{L} H" if isinstance(L, (int, float)) else ""),
@@ -1075,8 +1122,11 @@ def http_build_category_row(record, mpn, brand):
             _unmap = json.loads(record.get("attributes_json_unmapped") or "{}")
             fields["attributes_json"] = json.dumps(
                 _forward_unmapped_specs(_full_canon, _unmap), ensure_ascii=False)
-        except Exception:
-            pass
+        except Exception as _exc:  # R7: tracked, not silent
+            _LOG.warning(
+                "unmapped-merge FAILED (uncategorized path): mpn=%r brand=%r "
+                "category=%r error=%r -- attributes_json left as _unknown_fields "
+                "built it (possible spec loss)", mpn, brand, canon, _exc)
         # FIX-A (2026-09-15): Uncategorized rows must NOT silently discard a real
         # RAW Applications. _unknown_fields hardcodes applications="" by design;
         # when RAW overviewData.pdfApplicationAreasEn carries real content, carry
@@ -1121,8 +1171,12 @@ def http_build_category_row(record, mpn, brand):
             if k not in merged:
                 merged[k] = v
         fields["attributes_json"] = json.dumps(merged, ensure_ascii=False)
-    except Exception:
-        pass
+    except Exception as _exc:  # R7: tracked, not silent
+        _LOG.warning(
+            "unmapped-merge FAILED (family-adapter path): mpn=%r brand=%r "
+            "category=%r error=%r -- attributes_json left as adapter built it "
+            "(possible spec loss, run spec_integrity_check)", mpn, brand,
+            canon, _exc)
     return fields, meta
 
 

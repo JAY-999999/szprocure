@@ -51,7 +51,8 @@ BACKUP_FILES = (
 
 MASTER_COLS = ["mpn", "clean_mpn", "manufacturer", "brand", "url_slug",
                "description", "applications", "keywords", "attributes_json",
-               "availability", "alternative_parts", "datasheet_url", "faq", "image",
+               "availability", "alternative_parts", "alternative_parts_detail",
+               "datasheet_url", "faq", "image",
                "source", "source_url", "supplier_reference", "native_l1",
                # P0-1 fix (2026-09-19): LCSC parent-chain captured from the REAL
                # scale500 JSON RAW — previously 02 CLEAN dropped it. Order MUST
@@ -60,6 +61,26 @@ MASTER_COLS = ["mpn", "clean_mpn", "manufacturer", "brand", "url_slug",
                "lcsc_parent_id", "lcsc_parent_name", "lcsc_depth"]
 
 REQUIRED_FIELDS = ("mpn", "manufacturer", "description")
+
+# --------------------------------------------------------------------------- #
+# Unit-safety rule (2026-09-24, Round 6): legal technical symbols that MUST
+# survive normalisation verbatim. RAW carries e.g. '±10%' / '±250ppm/℃' /
+# '45°'; folding these to '+/-10%' / 'deg' destroyed information the LCSC
+# page (and customers) expect. Everything else non-ASCII (real CJK, mojibake)
+# remains illegal and is still dropped / rejected by every gate below.
+# --------------------------------------------------------------------------- #
+LEGAL_TECH_SYMBOLS = frozenset("\u00b1\u00b0")   # ±  °
+
+
+def has_illegal_text(s):
+    """True if s contains non-ASCII residue that is NOT a legal tech symbol.
+
+    Used by every non-ASCII gate in the pipeline (adapter ascii_gate /
+    _forward_unmapped_specs, product_data CJK guards, spec_integrity_check)
+    so the whitelist is defined ONCE and stays consistent everywhere.
+    """
+    return any(ord(ch) > 127 and ch not in LEGAL_TECH_SYMBOLS
+               for ch in str(s or ""))
 
 
 # ----------------------------------------------------------------------------- #

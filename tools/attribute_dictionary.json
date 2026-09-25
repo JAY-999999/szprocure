@@ -12,6 +12,10 @@
     ]
   },
   "keys": {
+    "surge_current_a": "Surge Current",
+    "reverse_leakage_current": "Reverse Leakage Current (Ir)",
+    "trr_ns": "Reverse Recovery Time (trr)",
+    "config": "Diode Configuration",
     "B值(25℃/50℃)": "B-Value (25°C/50°C)",
     "CPU位数": "CPU Bit Width",
     "CPU内核": "CPU Core",
