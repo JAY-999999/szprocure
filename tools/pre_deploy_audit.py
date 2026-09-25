@@ -152,8 +152,46 @@ EXCLUDE_DIRS = {".git", "node_modules", "tools", ".workbuddy", "data",
 # is desired.
 BINARY_EXT = {".pdf", ".PDF", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx",
                ".zip", ".rar", ".7z", ".bin", ".dat", ".exe", ".dll"}
-DATASHEET_FORBIDDEN_HOSTS = re.compile(r"lcsc\.com", re.I)
-DATASHEET_BAD_TOKENS = re.compile(r"placeholder|example\.com|#$|\bTEST\b", re.I)
+# --- Datasheet HOST policy (R23, 2026-09-24, operator rule) ---------------
+#     "以后 原厂链接可以直接豁免，LCSC链接只能R2"
+#
+# Up to R23 this was a ONE-HOST BLACKLIST (``lcsc.com``), which could never
+# catch a *new* third-party vendor and silently passed anything that was not
+# literally lcsc.com. It is now an ALLOW-LIST, so the safe failure mode is
+# "unrecognised -> flagged" rather than "unrecognised -> shipped".
+#
+# The allow-list lives in tools/factory/datasheet_hosts.py, which is the single
+# source of truth for this policy (the release gate reads it too). Importing it
+# instead of re-declaring the patterns here keeps release-time and deploy-time
+# enforcement from drifting apart.
+#
+#   * R2 (*.r2.dev)                      -> OK  (object storage)
+#   * official/manufacturer (OEM) host   -> OK  (exempt)
+#   * LCSC                               -> FAIL (must be R2-hosted)
+#   * anything else                      -> FAIL (unapproved third party)
+#   * empty datasheet_url                -> OK  (no PDF bound; not a violation)
+_TOOLS = os.path.dirname(os.path.abspath(__file__))
+if _TOOLS not in sys.path:
+    sys.path.insert(0, _TOOLS)
+from factory import datasheet_hosts as _DSHOST
+
+DATASHEET_BAD_TOKENS = _DSHOST.BAD_URL_TOKENS
+
+# DATASHEET_FORBIDDEN_HOSTS used to be ``re.compile(r"lcsc\\.com")``. It is gone:
+# a one-host blacklist cannot fail on a *new* vendor, which is exactly how an
+# unapproved third-party datasheet would have reached production. The verdict is
+# now datasheet_hosts.classify() — see datasheet_url_problem().
+
+
+def datasheet_url_problem(url):
+    """Return None when *url* may be rendered, else the human-readable reason.
+
+    Delegates to the policy module so the deploy audit and the release gate can
+    never disagree about what "allowed" means."""
+    _v, _host, why = _DSHOST.classify(url)
+    if _DSHOST.shippable(_v):
+        return None
+    return why
 
 # ---- CJK / English-layer gate (PERMANENT) ----
 # The English storefront must carry ZERO *visible* Chinese characters.
@@ -197,7 +235,11 @@ def iter_deploy_files():
 
 
 def load_master():
-    with open(MASTER, encoding="utf-8") as f:
+    # utf-8-sig is mandatory: PROD MASTER carries a BOM, and with plain utf-8 the
+    # first column name decodes as '\ufeffmpn' — every r.get("mpn") returns None
+    # and the slug reconciliation collapses to 2 keys, falsely reporting ~4955
+    # live SKU pages as "orphans". Matches master_io.read_master.
+    with open(MASTER, encoding="utf-8-sig") as f:
         return list(csv.DictReader(f))
 
 
@@ -509,9 +551,14 @@ def audit_binaries():
 
 
 def audit_datasheet_urls():
-    """Datasheet-URL integrity: every non-empty datasheet_url must be a real
-    HTTPS link on the object store (no LCSC, no placeholder/#/test fake link).
-    11 SKUs intentionally have an EMPTY datasheet_url (no PDF) — that is valid."""
+    """Datasheet-URL HOST policy (R23): every non-empty datasheet_url must be
+    either R2-hosted or an official OEM link. No LCSC, no unapproved third
+    party, no placeholder/#/test fake link, no plain http.
+
+    SKUs with an EMPTY datasheet_url are valid (no PDF bound yet) and are not
+    counted as violations. Permitted hosts are an ALLOW-LIST — see
+    factory/datasheet_hosts.py; the measured baseline is R2 (4756) plus
+    nxp.com / nxp.com.cn / molex.com (80 official links)."""
     rows = load_master()
     stats = {"rows": len(rows), "populated": 0, "empty": 0, "invalid": 0,
              "hosts": {}}
@@ -530,13 +577,9 @@ def audit_datasheet_urls():
         except Exception:
             pass
         stats["hosts"][host] = stats["hosts"].get(host, 0) + 1
-        why = None
-        if not url.lower().startswith("https://"):
-            why = "not https"
-        elif DATASHEET_FORBIDDEN_HOSTS.search(url):
-            why = "points to lcsc.com (third-party leak)"
-        elif DATASHEET_BAD_TOKENS.search(url):
-            why = "placeholder/#/test fake link"
+        # classify() decides the HOST first and only then narrows on URL shape,
+        # so these messages describe the actual policy failure.
+        why = datasheet_url_problem(url)
         if why:
             stats["invalid"] += 1
             bad.append((i, mpn, why, url))
@@ -674,8 +717,8 @@ def main():
         lines.append("- ✅ **0 binary/datasheet assets** in the deploy bundle. All PDFs are external (R2) URLs; none are committed or shipped.")
     lines.append("")
 
-    # 9 datasheet URL integrity
-    lines.append("## 9. Datasheet URL Integrity (datasheet_url)")
+    # 9 datasheet URL HOST policy (R23)
+    lines.append("## 9. Datasheet URL Host Policy (R23 — 原厂豁免 / LCSC 只能 R2)")
     lines.append(f"- Master rows: **{ds_stats['rows']}** | populated (have PDF URL): **{ds_stats['populated']}** | empty (no PDF, valid): **{ds_stats['empty']}** | invalid: **{ds_stats['invalid']}**")
     if ds_stats["hosts"]:
         lines.append("- URL hosts in use: " + ", ".join(f"`{h}` ({n})" for h, n in sorted(ds_stats["hosts"].items())))
@@ -684,7 +727,9 @@ def main():
         for i, mpn, why, url in ds_bad[:15]:
             lines.append(f"    - row {i}: {mpn} — {why} ({url})")
     else:
-        lines.append("- ✅ All populated datasheet_url values are real HTTPS links on the object store (no LCSC leak, no placeholder/#/test fake links). 11 SKUs correctly keep an EMPTY datasheet_url.")
+        lines.append("- ✅ Every populated datasheet_url is R2-hosted or an official OEM link "
+                     "(allow-list, so an unapproved third party would be reported here). "
+                     f"{ds_stats['empty']} SKUs correctly keep an EMPTY datasheet_url.")
     lines.append("")
 
     # verdict
