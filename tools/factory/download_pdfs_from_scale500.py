@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""从 4960 scale500 RAW 批量下载 PDF —— 复用 datasheet.py 的硬化下载器。
+"""从 基础数据（金水流单源 RAW）批量下载 PDF —— 复用 datasheet.py 的硬化下载器。
 
 与 01 基础数据采集「同一套方式」:
   * 静态 IP SOCKS 代理出口 (lcsc_http_acquire.configure_urllib_proxy)
@@ -7,7 +7,7 @@
   * 串行 workers=1 + 随机礼貌延迟 + 429/5xx 断路冷却 + 403 整批硬停
   * 原子落盘 (temp + validate + os.replace); 内容寻址去重
 
-输入: data/raw/lcsc_http_scale500/C*.json 里的 source_raw.main_product.pdfUrl
+输入: 采集流水线\基础数据\C*.json 里的 source_raw.main_product.pdfUrl
 输出: SZ_POOL_ROOT/datasheets/pdf/<aa>/<sha256>.pdf (内容寻址) + ledger/index
 
 用法 (在 tools/ 目录):
@@ -28,7 +28,7 @@ for p in (TOOLS, HERE):
 
 from . import datasheet as ds  # noqa: E402  (包相对导入, 配合 python -m factory.*)
 
-SCALE500_DIR = r"C:\Users\Administrator.SC-202105071542\Desktop\szprocure-site\data\raw\lcsc_http_scale500"
+RAW_DIR = r"D:\SZ Procure\采集流水线\基础数据"  # 金水流单源：与 01 采集/clean_factory/native_l1_mapper 一致（2026-09-24 统一，原 Desktop\szprocure-site\data\raw\lcsc_http_scale500 已废弃）
 DEFAULT_BATCH = "scale500_pdfs"
 
 # --- 单实例锁: 防止重复双击 _run_pdf.cmd 起多个进程抢同一 ledger (曾出 7 进程并发) ---
@@ -90,10 +90,19 @@ def _acquire_single_instance():
 
 def _pdf_url_of(d):
     mp = (d.get("source_raw") or {}).get("main_product") or {}
-    return (mp.get("pdfUrl") or "").strip()
+    u = (mp.get("pdfUrl") or "").strip()
+    if not u:
+        return ""
+    # 只下载 LCSC 自有链接 (datasheet.lcsc.com / *.lcsc.com)，跳过原厂链接
+    # 原厂链接 (nxp.com / ti.com / 等) 一律视为"无 pdfUrl" -> 跳过, 不下载
+    from urllib.parse import urlparse
+    host = (urlparse(u).netloc or "").lower()
+    if "lcsc" not in host:
+        return ""  # 原厂链接, 记为无 pdfUrl -> SKIP
+    return u
 
 
-def build_rows(input_dir=SCALE500_DIR):
+def build_rows(input_dir=RAW_DIR):
     rows = []
     for f in sorted(glob.glob(os.path.join(input_dir, "C*.json"))):
         try:
@@ -118,7 +127,7 @@ def _on_record(rec):
         print(f"[pdf][SKIP] {mpn} (无 pdfUrl)", flush=True)
 
 
-def run_pdf_download(input_dir=SCALE500_DIR, batch=DEFAULT_BATCH, limit=None):
+def run_pdf_download(input_dir=RAW_DIR, batch=DEFAULT_BATCH, limit=None):
     """从 input_dir 下 C*.json 抽 pdfUrl, 经 datasheet.py 硬化下载器落盘 PDF。
 
     复用: 单实例锁 / 静态 IP fail-closed / 串行礼貌延迟 / 内容寻址去重。
@@ -143,13 +152,12 @@ def run_pdf_download(input_dir=SCALE500_DIR, batch=DEFAULT_BATCH, limit=None):
 
 
 def main():
-    ap = argparse.ArgumentParser(description="scale500 RAW -> PDF 批量下载")
+    ap = argparse.ArgumentParser(description=r"基础数据 RAW -> PDF 批量下载")
     ap.add_argument("--limit", type=int, default=None,
                     help="仅下载前 N 个候选 (冒烟测试, ledger 仍记全量)")
     ap.add_argument("--batch", default=DEFAULT_BATCH)
-    ap.add_argument("--input-dir", default=SCALE500_DIR,
-                    help="RAW JSON 目录 (默认 data/raw/lcsc_http_scale500)。"
-                         "本批 01 采集输出在 D 盘时用此参数指向该目录。")
+    ap.add_argument("--input-dir", default=RAW_DIR,
+                    help=r"RAW JSON 目录 (默认 采集流水线\基础数据)。")
     a = ap.parse_args()
     run_pdf_download(input_dir=a.input_dir, batch=a.batch, limit=a.limit)
 

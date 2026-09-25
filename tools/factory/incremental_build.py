@@ -262,6 +262,7 @@ def _write_globals(out_root, groups, by_mfr, by_cat, related_map):
             "needs_review": bool(g.get("needs_review")),
             "availability": g.get("availability", "").strip(),
             "alternative_parts": g.get("alternative_parts", "").strip(),
+            "alternative_parts_detail": (g.get("alternative_parts_detail") or "").strip(),
             "datasheet_url": g.get("datasheet_url", "").strip(),
             "product_url": f"/products/{uslug}/",
         })

@@ -9,7 +9,7 @@
 数据流:  LCSC English HTTP -> 01 采集 -> RAW
 禁止:    01 -> CLEAN / MASTER / HTML / SKU / PUBLISHED
 
-落盘 (默认 <repo>/data/raw/lcsc_http/):
+落盘 (默认 D:/SZ Procure/采集流水线/基础数据 — 金水流单源):
   <Cxxxx>.json                      结构化 RAW (source_raw / internal_raw / real_time_snapshot)
   _next_data/<Cxxxx>.json           原始 __NEXT_DATA__ payload 备份 (可追溯, 默认开启)
   _catalog_snapshot_<DATE>.json     全局类目树快照 (跨产品去重, 避免每页重复 57KB)
@@ -66,11 +66,12 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 
 # ----------------------------------------------------------------------------
-# 路径解析: 默认输出目录锚定到仓库 data/raw/lcsc_http (脚本在 <repo>/tools/ 下)
+# 路径解析: 金水流单源统一（2026-09-24）：01 采集落盘唯一目录 = 采集流水线\基础数据
+# 与 intake_collect.SOURCE 保持一致，消灭 scale500 / lcsc_http 双源读取。
 # ----------------------------------------------------------------------------
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT = os.path.dirname(SCRIPT_DIR)
-DEFAULT_OUT = os.path.join(REPO_ROOT, "data", "raw", "lcsc_http")
+DEFAULT_OUT = r"D:\SZ Procure\采集流水线\基础数据"
 
 PARSER_NAME = "lcsc_http_acquire"
 PARSER_VERSION = "1.0.1"
@@ -417,6 +418,106 @@ def maybe_write_catalog_snapshot(out_dir: str, date_tag: str, catalog_list) -> s
 # ----------------------------------------------------------------------------
 # 单产品采集 (worker)
 # ----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
+# LCSC Substitute (cross-reference) capture — REAL alternates source
+# ----------------------------------------------------------------------------
+def _norm_substitute(it):
+    """Normalize one LCSC substitute item to the canonical 5-field shape
+    {mpn, manufacturer, lcsc, type, package}. Returns None if no MPN."""
+    if not isinstance(it, dict):
+        return None
+    mpn = (it.get("mpn") or it.get("productModel") or it.get("substituteProductModel")
+           or it.get("partNumber") or "").strip()
+    if not mpn:
+        return None
+    return {
+        "mpn": mpn,
+        "manufacturer": (it.get("manufacturer") or it.get("brandNameEn")
+                         or it.get("brandName") or "").strip(),
+        "lcsc": (it.get("lcsc") or it.get("productCode") or it.get("cNum")
+                 or it.get("lcscCode") or "").strip(),
+        "type": (it.get("type") or it.get("substituteType") or "Similar").strip() or "Similar",
+        "package": (it.get("package") or it.get("encapStandard")
+                    or it.get("encapsulation") or "").strip(),
+    }
+
+
+def fetch_substitutes(code, web_data=None, pp=None, timeout=15.0, fetch_fn=None):
+    """Best-effort capture of LCSC Substitute (cross-reference) alternates.
+
+    ROOT SOURCE = LCSC's "Substitute / Alternative Parts" cross-reference: REAL
+    alternates carrying {mpn, manufacturer, lcsc, type, package}. This is NOT the
+    `alternatePartList` embedded in __NEXT_DATA__ (that is a list of SAME-BRAND
+    *parameter variants*, a different concept). Returns a list of 5-field dicts;
+    [] on any failure — acquisition of the primary product must never break.
+
+    Strategy A: scan the already-parsed pageProps / main_product for a substitute
+      list under a known candidate key (no extra network request).
+    Strategy B: if A yields nothing, attempt a secondary live fetch. THE EXACT
+      ENDPOINT / SELECTOR IS UNVERIFIED in this sandbox (no egress). The stub
+      below is fail-soft and returns []; replace it with the VERIFIED endpoint
+      after a live egress test via the static IP (82.25.225.72). Do NOT assume it
+      works unverified — see _fetch_substitutes_live().
+
+    This function is wired into acquire_one(); the isolated pipeline test injects
+    synthetic `substitutes` directly because the live source needs egress to verify.
+    """
+    subs = []
+    _candidates = ("substitutePartList", "substituteList", "substitutes",
+                   "relateProductList", "recommendList", "similarProductList",
+                   "exchangeProductList")
+    _roots = [r for r in (web_data, pp) if isinstance(r, dict)]
+    for root in _roots:
+        for key in _candidates:
+            items = root.get(key)
+            if isinstance(items, list) and items:
+                for it in items:
+                    s = _norm_substitute(it)
+                    if s:
+                        subs.append(s)
+        # one level deeper (some LCSC builds nest under a single object)
+        for v in root.values():
+            if isinstance(v, dict):
+                for key in _candidates:
+                    items = v.get(key)
+                    if isinstance(items, list) and items:
+                        for it in items:
+                            s = _norm_substitute(it)
+                            if s:
+                                subs.append(s)
+    # Strategy B — secondary live fetch (fail-soft; VERIFY ENDPOINT LIVE).
+    if not subs and fetch_fn is not None:
+        try:
+            subs = _fetch_substitutes_live(code, timeout, fetch_fn)
+        except Exception:
+            subs = []
+    # de-dup by MPN (keep first occurrence)
+    seen = set()
+    out = []
+    for s in subs:
+        k = s["mpn"].upper()
+        if k in seen:
+            continue
+        seen.add(k)
+        out.append(s)
+    return out
+
+
+def _fetch_substitutes_live(code, timeout, fetch_fn):
+    """Placeholder for the live LCSC Substitute endpoint fetch.
+
+    VERIFY before use: the real endpoint / response shape for LCSC's Substitute
+    module is NOT confirmed in this sandbox (no egress). A dedicated endpoint fetch
+    belongs here. Until the verified endpoint exists, return [] so acquisition is
+    never blocked. After a live egress test, implement the actual request + parse
+    (the served HTML from fetch_page_browser includes JS-rendered content, so a
+    DOM/table parse of the returned html_str is the likely path).
+    """
+    # TODO(verify-live): confirm the real LCSC Substitute endpoint + response shape
+    # via the static-IP egress, then fetch + parse here (fail-soft).
+    return []
+
+
 def acquire_one(code: str, out_dir: str, timeout: float, max_retries: int,
                 delay: float, backoff_base: float, keep_raw_backup: bool,
                 force: bool, runlog_path: str, runlog_lock: threading.Lock,
@@ -605,6 +706,11 @@ def acquire_one(code: str, out_dir: str, timeout: float, max_retries: int,
 
     catalog_ref = maybe_write_catalog_snapshot(out_dir, date_tag, catalog_list)
 
+    # 采集 LCSC Substitute 模块（真实替代料 cross-reference）；fail-soft：
+    # 缺失 / 解析失败一律返回 []，绝不阻塞主产品采集。
+    substitutes = fetch_substitutes(code, web_data=web_data, pp=pp,
+                                    timeout=timeout, fetch_fn=fetch_fn)
+
     raw = {
         "source": "lcsc",
         "source_url": url,
@@ -621,6 +727,7 @@ def acquire_one(code: str, out_dir: str, timeout: float, max_retries: int,
             "main_product": public_main,
             "overviewData": overview_data,
             "alternatePartList": alt_list,
+            "substitutes": substitutes,
             "real_time_snapshot": {
                 "captured_at": captured_at,
                 "note": "volatile business data (price/stock/availability); "
@@ -689,7 +796,7 @@ def main(argv=None):
                     "(LCSC English HTTP -> RAW, 礼貌化/反封禁)")
     ap.add_argument("codes", nargs="*", help="C-numbers, 例如 C578299")
     ap.add_argument("--codes-file", help="每行一个 C-number 的文件")
-    ap.add_argument("--out", default=DEFAULT_OUT, help="RAW 输出目录 (默认 <repo>/data/raw/lcsc_http)")
+    ap.add_argument("--out", default=DEFAULT_OUT, help="RAW 输出目录 (默认 D:\\SZ Procure\\采集流水线\\基础数据 — 金水流单源)")
     ap.add_argument("--concurrency", type=int, default=1,
                     help="urllib 模式并发线程数 (默认 1; 浏览器模式恒串行)")
     ap.add_argument("--delay", type=float, default=3.0,

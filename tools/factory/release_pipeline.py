@@ -21,12 +21,15 @@ The pipeline produces, but does not execute, the Build and Deploy artifacts.
 from __future__ import annotations
 
 import os
+import re
 import shutil
 from dataclasses import dataclass, field
 from datetime import datetime
 
 from . import MASTER_COLS, REQUIRED_FIELDS, manifest as MAN
 from . import master_io, dedup, gate, pool, product_data, category
+from . import datasheet_hosts
+from . import datasheet_clones
 from .product_data import master_row
 from .category import UNKNOWN_CATEGORY
 
@@ -38,6 +41,17 @@ NO_HUMAN_APPROVAL = "NO_HUMAN_APPROVAL"
 MASTER_HASH_MISMATCH = "MASTER_HASH_MISMATCH"
 CONSISTENCY_FAIL = "CONSISTENCY_FAIL"
 BUILD_GATE_FAIL = "BUILD_GATE_FAIL"
+SPEC_INTEGRITY_FAIL = "SPEC_INTEGRITY_FAIL"
+DATASHEET_IDENTITY_FAIL = "DATASHEET_IDENTITY_FAIL"
+DATASHEET_NOT_R2_FAIL = "DATASHEET_NOT_R2_FAIL"
+ALT_PARTS_ASIS_FAIL = "ALT_PARTS_ASIS_FAIL"
+CLONE_PART_MPN_KEY_FAIL = "CLONE_PART_MPN_KEY_FAIL"
+
+# Fields an authorised in-place MASTER correction is allowed to change.
+# 02 owns the spec payload and the classification; everything else belongs to
+# another stage (brand canonicalisation, R2 datasheet binding, native_l1 chain,
+# copywriting) and must not be reverted by a spec fix.
+ROW_UPDATE_FIELDS = ("attributes_json",)
 
 RELEASE_SCOPE = (
     "Release = append READY candidates to MASTER under a human gate. "
@@ -85,6 +99,16 @@ class ReleasePlan:
     gate_ok: bool = True
     stops: list = field(default_factory=list)            # [{code,mpn,message}]
     warnings: list = field(default_factory=list)
+    spec_integrity_report: list = field(default_factory=list)
+    update_mpns: list = field(default_factory=list)   # authorised corrections
+    datasheet_identity: list = field(default_factory=list)  # [level,kind,msg]
+    # R23 host policy (原厂豁免 / LCSC -> R2 only): [level,kind,msg]. The
+    # gate commits rewrites itself; these entries are its audit trail.
+    datasheet_host_policy: list = field(default_factory=list)
+    # R24 clone-part gate: [level,kind,msg] for "same MPN, several raw
+    # manufacturers, bound through an MPN-derived R2 object".
+    clone_part_key: list = field(default_factory=list)
+    alternate_parts_report: list = field(default_factory=list)  # AS-IS gate log
 
     def add_stop(self, code, message, mpn=None):
         self.stops.append({"code": code, "mpn": mpn, "message": message})
@@ -108,6 +132,12 @@ class ReleasePlan:
             "gate_ok": self.gate_ok,
             "stops": self.stops,
             "warnings": self.warnings,
+            "spec_integrity_report": self.spec_integrity_report,
+            "update_mpns": self.update_mpns,
+            "datasheet_identity": self.datasheet_identity,
+            "datasheet_host_policy": self.datasheet_host_policy,
+            "clone_part_key": self.clone_part_key,
+            "alternate_parts_report": self.alternate_parts_report,
         }
 
 
@@ -122,6 +152,9 @@ class MasterStagingResult:
     new_mpns: list
     old_rows_unchanged: bool
     atomic_write: bool
+    # 2026-09-25: number of pre-existing rows the human explicitly authorised
+    # for an in-place correction (0 unless allow_row_update_mpns was passed).
+    authorised_row_updates: int = 0
 
 
 @dataclass
@@ -165,6 +198,193 @@ class ReleaseOutcome:
 
 
 # --------------------------------------------------------------------------
+# datasheet identity gate (2026-09-25, formal production rule)
+# --------------------------------------------------------------------------
+# Binding identity is the TRIPLE (mpn, manufacturer, supplier_reference).
+# A datasheet may only be bound to one identity, and one identity may only
+# ever resolve to ONE datasheet. The historical datasheet_map.csv is keyed by
+# MPN alone, which is exactly what lets a clone part (same MPN, different
+# manufacturer) inherit somebody else's PDF. This gate makes that failure
+# IMPOSSIBLE to ship: it stops the release instead of relying on a human
+# noticing the mismatch.
+#
+#   R1  same (mpn, manufacturer) -> >1 datasheet           -> STOP
+#   R2  same mpn, different manufacturers, but they all
+#       resolve to the SAME datasheet file (MPN-only
+#       binding leaking across manufacturers)              -> STOP
+#   R3  same mpn under >1 manufacturer (legitimate clone
+#       family) -> reported as a WARNING; each member must
+#       carry its own (manufacturer, datasheet) pair
+# --------------------------------------------------------------------------
+_DS_FIELDS = ("datasheet_url", "source_datasheet_url", "local_file",
+              "r2_url", "r2_key", "pdf_url")
+
+
+def _ds_ref(r):
+    for f in _DS_FIELDS:
+        v = (r.get(f) or "").strip()
+        if v:
+            return f, v
+    return None, ""
+
+
+def check_datasheet_identity(rows, old_rows=None):
+    """Return a list of (level, kind, message). Levels: STOP | WARN.
+
+    Pure function: reads rows, touches nothing."""
+    out = []
+
+    def norm_mpn(pn):
+        return re.sub(r"\s+", "", (pn or "").strip().lower())
+
+    def norm_mfr(b):
+        return re.sub(r"[^a-z0-9]", "", (b or "").strip().lower())
+
+    # mpn -> {manufacturer -> {(field, ref) -> set(cid)}}
+    grouped = {}
+    cid_by_identity = {}
+    for r in rows:
+        m = norm_mpn(r.get("mpn"))
+        if not m:
+            continue
+        b = norm_mfr(r.get("manufacturer") or r.get("brand"))
+        cid = (r.get("supplier_reference") or "").strip()
+        f, ref = _ds_ref(r)
+        slot = grouped.setdefault(m, {}).setdefault(b, {})
+        if ref:
+            slot.setdefault((f, ref), set()).add(cid)
+        cid_by_identity[(m, b, f, ref)] = cid
+
+    for m, by_mfr in sorted(grouped.items()):
+        if len(by_mfr) > 1:
+            # R3 - clone family: legitimate, but every member must own its ds
+            for b, slot in by_mfr.items():
+                if len(slot) > 1:
+                    refs = "; ".join(sorted(f"{k[0]}={k[1]} (cid={','.join(sorted(v))})"
+                                            for k, v in slot.items()))
+                    out.append(("WARN", "DATASHEET_CLONE_MPN",
+                                f"mpn={m!r} manufacturer={b!r} binds "
+                                f"{len(slot)} different datasheets: {refs}"))
+            # Union of refs across ALL manufacturers: exactly one => a single
+            # datasheet is being shared by identities that are NOT identical
+            # (the MPN-only binding hazard). More than one => each manufacturer
+            # genuinely owns its own PDF, which is the correct state.
+            all_refs = {f"{k[0]}:{k[1]}"
+                        for _b, slot in by_mfr.items() for k in slot}
+            mfrs = sorted(by_mfr)
+            if len(all_refs) == 1:
+                # R2 - all manufacturers point at the SAME datasheet file
+                ref = next(iter(next(iter(by_mfr.values()))))
+                out.append(("STOP", "DATASHEET_IDENTITY_FAIL",
+                            f"mpn={m!r} is split across manufacturers "
+                            f"{mfrs} but all resolve to the same datasheet "
+                            f"{ref[0]}={ref[1]!r} -- MPN-only binding would "
+                            f"cross-contaminate manufacturers"))
+            else:
+                # R3 - each manufacturer owns a distinct datasheet (correct), but
+                # the operator must still see that datasheet_map.csv keys by MPN
+                # alone and would collapse these identities.
+                detail = "; ".join(
+                    f"{b} -> " + (", ".join(sorted(f"{k[1]}" for k in slot)) or "<none>")
+                    for b, slot in sorted(by_mfr.items()))
+                out.append(("WARN", "DATASHEET_CLONE_MPN",
+                            f"mpn={m!r} is split across {len(mfrs)} manufacturers "
+                            f"({detail}); each owns its own datasheet (OK) but "
+                            f"datasheet_map.csv is MPN-keyed -- bind by "
+                            f"(mpn, manufacturer) instead"))
+        else:
+            # single manufacturer -> R1
+            b = next(iter(by_mfr))
+            slot = by_mfr[b]
+            if len(slot) > 1:
+                refs = "; ".join(sorted(f"{k[0]}={k[1]}" for k in slot))
+                out.append(("STOP", "DATASHEET_IDENTITY_FAIL",
+                            f"mpn={m!r} manufacturer={b!r} binds "
+                            f"{len(slot)} datasheets: {refs} -- one identity "
+                            f"cannot have two datasheets"))
+
+    # historical rows already in MASTER: report only (cannot block the past)
+    for r in (old_rows or []):
+        m = norm_mpn(r.get("mpn"))
+        if not m or m not in grouped:
+            continue
+        b = norm_mfr(r.get("manufacturer") or r.get("brand"))
+        if b in grouped[m] and len(grouped[m]) > 1:
+            out.append(("WARN", "DATASHEET_CLONE_IN_MASTER",
+                        f"mpn={m!r} already in MASTER under "
+                        f"{len(grouped[m])} manufacturers: "
+                        f"{sorted(grouped[m])}"))
+            break
+    return out
+
+
+# --------------------------------------------------------------------------
+# datasheet HOST policy gate (R23, 2026-09-24)
+# --------------------------------------------------------------------------
+# Formal production rule, decided by the operator:
+#
+#     "以后 原厂链接可以直接豁免，LCSC链接只能R2"
+#
+# i.e. an official/manufacturer link stays verbatim (it is the authority, the
+# third party is not), while an LCSC link may only exist as an R2-hosted copy.
+# Anything else is an unapproved third party and must be looked at, not
+# shipped. This is an ALLOW-LIST on purpose: the previous guard was a one-host
+# blacklist (lcsc.com) which silently passed every other vendor.
+#
+# It is deliberately a SEPARATE gate from check_datasheet_identity(). Identity
+# asks "which PDF belongs to this part"; HOST asks "may this URL be rendered".
+# Conflating them is how a wrong-but-R2 PDF would slip through, and vice
+# versa.
+#
+# The rewrite is written back into the row under the SAME key it was read
+# from (`source_datasheet_url` for 02 candidates). That is not incidental:
+# product_data.master_row() derives the MASTER column from that key
+# (product_data.py:342), so writing the R2 URL anywhere else would be
+# overwritten on the way into MASTER and the LCSC link would survive.
+# --------------------------------------------------------------------------
+def check_datasheet_host_policy(rows, index=None):
+    """Return a list of (level, kind, message). Levels: STOP | WARN.
+
+    Side effect: a proven LCSC->R2 rewrite is committed into the row. Returns
+    STOP for an LCSC link with no verified R2 mapping, for any unapproved
+    third-party host, and for a broken URL shape. An official/OEM link SHIPs
+    untouched. A row with no datasheet at all is ignored (matches the old
+    "only non-empty URLs are policed" semantics)."""
+    out = []
+    for r in rows or ():
+        res = datasheet_hosts.check_row(r, index,
+                                        fields=datasheet_hosts.CANDIDATE_DS_FIELDS)
+        mpn = (r.get("mpn") or "").strip()
+        cid = (r.get("supplier_reference") or "").strip()
+        who = "%s / %s" % (mpn, cid)
+        act = res["action"]
+
+        if act == "NODATA":
+            continue
+
+        if act == "REWRITE":
+            f = res["field"]
+            if f:
+                r[f] = res["rewritten"]           # master_row() picks this up
+            if res["rewrite_path"] == "mpn":
+                out.append(("WARN", "DATASHEET_R2_BY_MPN",
+                            f"{who}: {res['url']} -> {res['rewritten']}; R2 "
+                            f"proven by MPN only, confirm the manufacturer "
+                            f"owns that PDF"))
+            else:
+                out.append(("WARN", "DATASHEET_R2_BY_CID",
+                            f"{who}: {res['url']} -> {res['rewritten']}; "
+                            f"C#-exact R2 mapping"))
+            continue
+
+        if act == "STOP":
+            out.append(("STOP", DATASHEET_NOT_R2_FAIL,
+                        f"{who}: {res['why']} "
+                        f"({res['field'] or 'datasheet_url'}={res['url']})"))
+    return out
+
+
+# --------------------------------------------------------------------------
 # collect candidates
 # --------------------------------------------------------------------------
 def collect_candidates(batch_id, root=None):
@@ -180,7 +400,7 @@ def collect_candidates(batch_id, root=None):
 # plan_release — build the Release Candidate (no writes)
 # --------------------------------------------------------------------------
 def plan_release(master_path, rows, subset_mpns=None, batch_id="",
-                allow_uncategorized_mpns=None):
+                allow_uncategorized_mpns=None, allow_row_update_mpns=None):
     """Validate + project candidates into a ReleasePlan.
 
     Guarantees encoded here:
@@ -192,8 +412,25 @@ def plan_release(master_path, rows, subset_mpns=None, batch_id="",
         rescued pure-numeric MPN that cleared the synthetic guard but carries no
         11-family signal). Those are released as Uncategorized with a WARNING.
       * SPEC_THIN / BRAND_UNMAPPED -> WARNING (non-blocking, per readiness review).
+      * datasheet identity (mpn, manufacturer, supplier_reference): a split
+        identity that would cross-bind datasheets -> STOP (DATASHEET_IDENTITY_FAIL).
+      * datasheet HOST policy (R23): official/OEM links ship as-is, an LCSC link
+        that has a proven R2 mapping is rewritten in place, and any remaining
+        non-R2 / unapproved third-party / broken-URL datasheet -> STOP
+        (DATASHEET_NOT_R2_FAIL).
+      * clone-part datasheet ownership (R24): a MPN that RAW shows under more
+        than one manufacturer may not be bound through an MPN-derived R2 key,
+        because that object is shared with the other manufacturers -> STOP
+        (CLONE_PART_MPN_KEY_FAIL). This is the AO3401A defect (AOS page
+        rendering the UMW PDF) made impossible to ship again.
+      * ``allow_row_update_mpns``: MPNs the human explicitly authorised for an
+        in-place MASTER correction (e.g. a mapping-rule fix on an already
+        released SKU). Default None = append-only, identical to previous
+        behaviour. Authorised rows are exempt from the "pre-existing rows
+        unchanged" assertion but still pass every other check.
     """
     allow_unc = {(m or "").strip().upper() for m in (allow_uncategorized_mpns or [])}
+    allow_upd = {(m or "").strip().upper() for m in (allow_row_update_mpns or [])}
     cols, old_rows = master_io.read_master(master_path, MASTER_COLS)
     before_mpns = master_io.mpn_set(old_rows)
     before_count = len(old_rows)
@@ -209,6 +446,92 @@ def plan_release(master_path, rows, subset_mpns=None, batch_id="",
         selected = [r for r in selected
                     if (r.get("mpn") or "").strip().upper() in want]
     plan.selected_count = len(selected)
+
+    # ---- spec-integrity pre-gate (Round 6, 2026-09-24: wired INTO the flow) --
+    # The 5-check guard (completeness / collision / range / condition / identity
+    # + unit-safety) is part of THIS pipeline, not a separate manual step.
+    # Any FAIL stops the release before MASTER staging; WARNs (clone parts)
+    # are recorded on the plan for the human gate to see.
+    from .spec_integrity_check import check_cids
+    cids = sorted({(r.get("supplier_reference") or "").strip()
+                   for r in selected
+                   if (r.get("supplier_reference") or "").strip()})
+    if cids:
+        fails, _warns, report = check_cids(cids)
+        plan.spec_integrity_report = report
+        if fails:
+            plan.add_stop(
+                SPEC_INTEGRITY_FAIL,
+                "spec_integrity_check: %d FAIL across %d C#; report on "
+                "plan.spec_integrity_report / rerun CLI: python "
+                "tools/factory/spec_integrity_check.py --cids %s"
+                % (fails, len(cids), ",".join(cids)))
+        else:
+            for ln in report:
+                s = ln.strip()
+                if s.startswith("WARN"):
+                    plan.add_warning("SPEC_INTEGRITY_WARN", s)
+
+    # ---- datasheet identity gate (in-flow, not a side script) ------------
+    # Runs on the same candidates as spec_integrity so a cross-manufacturer
+    # clone can never ship with someone else's datasheet.
+    for level, kind, msg in check_datasheet_identity(selected, old_rows):
+        plan.datasheet_identity.append((level, kind, msg))
+        if level == "STOP":
+            plan.add_stop(DATASHEET_IDENTITY_FAIL, f"{kind}: {msg}")
+
+    # ---- datasheet HOST policy gate (R23, 2026-09-24) --------------------
+    # "原厂链接可以直接豁免，LCSC 链接只能 R2"
+    # The rewrite table is built from what is ALREADY in MASTER (existing R2
+    # rows) plus datasheet_map.csv, i.e. only mappings that have been proven.
+    # An LCSC candidate whose PDF is not (yet) on R2 stops the batch instead of
+    # rendering a third-party link, so the fix is "upload the PDF", never
+    # "delete the link".
+    if selected:
+        _ds_idx = datasheet_hosts.build_r2_index(old_rows)
+        for level, kind, msg in check_datasheet_host_policy(selected, _ds_idx):
+            plan.datasheet_host_policy.append((level, kind, msg))
+            if level == "STOP":
+                plan.add_stop(kind, msg)
+
+    # ---- clone-part datasheet gate (R24, 2026-09-25) --------------------
+    # "datasheets/<mpn>.pdf" is ONE R2 object shared by every manufacturer of
+    # that MPN; whoever uploaded last owns it. check_datasheet_identity() only
+    # compares candidates WITHIN one batch, so a clone family released across
+    # different batches never collides and sails through. This gate asks RAW
+    # instead: if the MPN belongs to >1 brand in the RAW envelope, the row may
+    # not be bound through an MPN-derived key -> STOP before staging.
+    # Runs AFTER the host policy so the URL it inspects is the FINAL one (the
+    # host gate may have rewritten an LCSC link into its R2 mapping).
+    for level, kind, msg in datasheet_clones.check_clone_part_key(selected):
+        plan.clone_part_key.append((level, kind, msg))
+        if level == "STOP":
+            plan.add_stop(CLONE_PART_MPN_KEY_FAIL, f"{kind}: {msg}")
+
+    # ---- Alternative Parts AS-IS gate (2026-09-25) ----------------------
+    # The FORMAL rule is a pure AS-IS replay of the RAW alternatePartList, with
+    # NO filter layer (no brand gate, no LCSC stock gate, no hasAlternatePart
+    # gate, no self-exclusion, no de-duplication). This gate proves the 02
+    # candidate really carries that replay: if it does not, the SKU would be
+    # released into MASTER with a WRONG alternate list, so the batch stops
+    # before staging. Candidates whose RAW file is absent elsewhere are only
+    # warned about — a missing RAW must never block a release.
+    from . import alternates as _alts
+    _alt_fails, _alt_warns, _alt_report = _alts.audit_release_rows(selected)
+    plan.alternate_parts_report = _alt_report
+    if _alt_fails:
+        plan.add_stop(
+            ALT_PARTS_ASIS_FAIL,
+            "alternate_parts is not the RAW AS-IS replay for %d C#; the "
+            "alternative list would be wrong on the page. Fix the 02 adapter "
+            "(it must call alternates.real_alternates) and re-plan. Report on "
+            "plan.alternate_parts_report. Offending C#: %s"
+            % (len(_alt_fails), ", ".join(c for c, _w, _g, _n in _alt_fails[:10])))
+    else:
+        for ln in _alt_report:
+            s = ln.strip()
+            if s.startswith("WARN"):
+                plan.add_warning("ALT_PARTS_ASIS_WARN", s)
 
     # ---- release-specific qualification (rejects -> STOP) ----------------
     qualified = []
@@ -273,7 +596,27 @@ def plan_release(master_path, rows, subset_mpns=None, batch_id="",
 
     plan.new_rows = truly_new
     plan.new_mpns = [r["mpn"] for r in truly_new]
-    plan.projected_master_rows = old_rows + truly_new
+
+    # Authorised in-place corrections: an already-released SKU whose spec
+    # mapping was wrong. Only MPNs explicitly listed in allow_row_update_mpns
+    # are substituted; every other pre-existing row stays byte-identical.
+    updated_old = []
+    row_by_mpn_up = {(r["mpn"] or "").strip().upper(): r for r in new_rows}
+    for old_r in old_rows:
+        key = (old_r.get("mpn") or "").strip().upper()
+        if key in allow_upd and key in row_by_mpn_up:
+            new_r = dict(row_by_mpn_up[key])
+            # Scope the correction: only 02-owned spec/classification fields move.
+            for f in set(new_r) - set(ROW_UPDATE_FIELDS):
+                if (old_r.get(f) or "").strip():
+                    new_r[f] = old_r.get(f)
+            updated_old.append(new_r)
+            plan.update_mpns.append(old_r.get("mpn"))
+        else:
+            updated_old.append(old_r)
+    plan.update_mpns = [m for m in plan.update_mpns if m]
+
+    plan.projected_master_rows = updated_old + truly_new
     plan.after_count = before_count + len(truly_new)
     plan.after_mpns = before_mpns | {(m or "").strip().upper() for m in plan.new_mpns}
     return plan
@@ -282,7 +625,8 @@ def plan_release(master_path, rows, subset_mpns=None, batch_id="",
 # --------------------------------------------------------------------------
 # stage_master — atomic append under human approval (the only MASTER writer)
 # --------------------------------------------------------------------------
-def stage_master(plan, master_path, approved_by, backup_dir=None):
+def stage_master(plan, master_path, approved_by, backup_dir=None,
+                 allow_row_update_mpns=None):
     """Append plan.new_rows to master_path atomically.
 
     Pre-conditions (any failure -> ReleaseStop, MASTER untouched):
@@ -291,6 +635,10 @@ def stage_master(plan, master_path, approved_by, backup_dir=None):
       * master still matches plan.before_sha256 (no concurrent modification)
     A backup copy is taken before the write so a later consistency failure can
     roll back.
+
+    ``allow_row_update_mpns`` is forwarded to master_io so MPNs explicitly
+    authorised by the human may be corrected in place; the default (None)
+    keeps MASTER append-only.
     """
     if not approved_by:
         raise ReleaseStop(NO_HUMAN_APPROVAL,
@@ -313,8 +661,10 @@ def stage_master(plan, master_path, approved_by, backup_dir=None):
     shutil.copy2(master_path, bak)
 
     try:
-        master_io.append_rows_atomically(master_path, plan.new_rows,
-                                         expected_cols=MASTER_COLS)
+        written = master_io.append_rows_atomically(
+            master_path, plan.new_rows,
+            expected_cols=MASTER_COLS,
+            allow_row_update_mpns=allow_row_update_mpns)
     except master_io.MasterWriteError as e:
         # validation failed inside append -> restore backup, MASTER untouched
         if os.path.exists(bak):
@@ -328,7 +678,10 @@ def stage_master(plan, master_path, approved_by, backup_dir=None):
         master_path=master_path, backup_path=bak,
         before_count=plan.before_count, after_count=plan.after_count,
         before_sha256=plan.before_sha256, after_sha256=after_sha,
-        new_mpns=plan.new_mpns, old_rows_unchanged=True, atomic_write=True)
+        new_mpns=plan.new_mpns,
+        old_rows_unchanged=not plan.update_mpns, atomic_write=True,
+        authorised_row_updates=int((written or {}).get("authorised_row_updates", 0)
+                                  or 0))
 
 
 # --------------------------------------------------------------------------

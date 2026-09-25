@@ -89,6 +89,11 @@ from collections import defaultdict
 from urllib.parse import quote as urlquote
 import subcategory_final  # Phase 6 (Plan B): frozen fine-grained final_* fields for parts.json
 
+# Alternative Parts rule — single source of truth, shared with the 02 layer so
+# MASTER and the rendered page can never disagree about what a "real alternate" is.
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools"))
+from factory import alternates  # noqa: E402
+
 ROOT = os.path.dirname(os.path.abspath(__file__))
 DOMAIN = "https://www.szprocure.com"
 SITEMAP_BATCH = 45000  # urls per sitemap file (Google soft cap 50k)
@@ -606,10 +611,29 @@ def merge_faqs(faq_raw, enrich, row):
     audit["lcsc_qualified"] = len(lcsc_pairs)
     final = [list(p) for p in lcsc_pairs]
 
-    # ---- Pass B / Pass C REMOVED (2026-09-13) ----
-    # Self-gen (MASTER.faq) and enrichment FAQ were stripped out to comply with
-    # the SKU content rule: FAQ must originate from the real info source only.
-    # audit['szprocure_self_gen'] and audit['enrichment_used'] stay 0 by design.
+    # ---- Pass B (controlled fallback, 2026-09-22, re-enabled for 10-SKU audit) ----
+    # RAW (Pass A) is always primary. ONLY when RAW provides no qualified FAQ do we
+    # fall back to MASTER.faq. MASTER.faq is the production's OWN curated field and
+    # holds SPEC-DERIVED, verifiable Q/A (e.g. "What is the drain-source voltage of
+    # AO3400? 30.0 V DS" computed from real attributes_json -- NOT free-form AI prose),
+    # so surfacing it introduces NO fabrication. The same off-brand + LCSC-platform
+    # filters and max-3 cap apply. Pass C (enrichment FAQ) stays REMOVED.
+    if not final and faq_raw:
+        _pn = (row.get("mpn") or "").strip()
+        seen = set()
+        for q, a in parse_faq(faq_raw, _pn):
+            if _faq_is_offbrand(q) or _faq_is_offbrand(a):
+                _filt("offbrand"); continue
+            if _lcsc_faq_is_platform(q, a):
+                _filt("lcsc_platform_business"); continue
+            key = _enrich_norm_text(q)
+            if key in seen:
+                _ded("master_internal_dup"); continue
+            seen.add(key)
+            final.append([q, a])
+        audit["szprocure_self_gen"] = len(final)
+    # Pass C (enrichment FAQ) REMAINS REMOVED: 04 enrichment is not wired into the
+    # formal 02->03 production path. audit['enrichment_used'] stays 0 by design.
     # ---- FORCED max-3 (user decision 2026-09-12) ----
     # All off-brand (competitor/price) entries were already dropped during each
     # Pass above, so `final` here holds only clean pairs. Truncate to the first
@@ -1287,7 +1311,7 @@ V3_MPNS = {"1.0-4PWB", "1909763-1", "1N4148W", "1N4148W-7-F", "1N4148WS", "1N581
 # exists. Every other state (missing / unknown / unmatched / evidence
 # insufficient) returns '' (no badge).
 _ROHS_INDEX = None
-_ROHS_SRC_GLOB = "data/raw/lcsc_http_scale500/C*.json"
+_ROHS_SRC_GLOB = "D:/SZ Procure/采集流水线/基础数据/C*.json"
 
 
 def _get_rohs_index():
@@ -1352,7 +1376,7 @@ def rohs_badge_html(row):
 # — mirrors the RoHS index pattern. NEVER self-classifies: emits "Asian Brands"
 # ONLY when isAsianBrand is literally true; every other state returns '' (no tag).
 _ASIAN_INDEX = None
-_ASIAN_SRC_GLOB = "data/raw/lcsc_http_scale500/C*.json"
+_ASIAN_SRC_GLOB = "D:/SZ Procure/采集流水线/基础数据/C*.json"
 
 
 def _get_asian_index():
@@ -1425,7 +1449,7 @@ def _get_asian_index():
 #   Key Attributes          -> source_raw.main_product.productKeyAttributes
 #   ECCN / HTS(US) / RoHS   -> source_raw.main_product.{eccn, htsMap.US, isRohsCert}
 _FEATURES_COMPLIANCE_INDEX = None
-_FC_SRC_GLOB = "data/raw/lcsc_http_scale500/C*.json"
+_FC_SRC_GLOB = "D:/SZ Procure/采集流水线/基础数据/C*.json"
 
 
 def _get_features_compliance_index():
@@ -1512,18 +1536,22 @@ def _get_features_compliance_index():
 
 
 # ---------------------------------------------------------------------------
-# Applications / FAQ / Alternative Parts: sourced from the 01-collected scale500
-# RAW at generation time (mirrors the Features/Compliance index). NEVER fabricated
-# — a section is emitted ONLY when the real field exists in the RAW.
+# Applications / FAQ: sourced from the 01-collected scale500 RAW at generation
+# time (mirrors the Features/Compliance index). NEVER fabricated — a section is
+# emitted ONLY when the real field exists in the RAW.
 #   Applications  -> source_raw.overviewData.pdfApplicationAreasEn (non-empty lines)
 #   FAQ           -> source_raw.main_product.faqs[] (question+answer, real pipeline copy)
-#   Alternatives  -> alternatePartList[] where hasAlternatePart is True (real MPN only)
+#   (Alternatives are NOT resolved here any more — see the FORMAL PRODUCTION RULE
+#   (Alternative Parts) block above `resolve_alternatives`. This index used to
+#   keep a private second `alts` list read straight out of RAW alternatePartList
+#   — an un-gated channel that could feed the Alternative Parts section. Removed
+#   so that exactly ONE gated path remains.)
 _SECTION_EXTRAS_INDEX = None
-_SEXTRA_SRC_GLOB = "data/raw/lcsc_http_scale500/C*.json"
+_SEXTRA_SRC_GLOB = "D:/SZ Procure/采集流水线/基础数据/C*.json"
 
 
 def _get_section_extras_index():
-    """Lazy-load scale500 RAW -> {CODE_or_MPN_upper: dict(apps, faqs, alts)}."""
+    """Lazy-load scale500 RAW -> {CODE_or_MPN_upper: dict(apps, faqs)}."""
     global _SECTION_EXTRAS_INDEX
     if _SECTION_EXTRAS_INDEX is not None:
         return _SECTION_EXTRAS_INDEX
@@ -1559,26 +1587,173 @@ def _get_section_extras_index():
             a = (f.get("answer") or "").strip().rstrip(";").strip()
             if q and a:
                 faqs.append([q, a])
-        # Alternatives — ONLY verified alternates (hasAlternatePart True) with a real MPN.
-        alts = []
-        for al in (src.get("alternatePartList") or mp.get("alternatePartList") or []):
-            if not isinstance(al, dict):
-                continue
-            if al.get("hasAlternatePart") is not True:
-                continue
-            model = (al.get("productModel") or "").strip()
-            if model:
-                alts.append(model)
+        # Alternatives are resolved exclusively by resolve_alternatives() (RAW-gated
+        # single path). Deliberately NOT collected here any more.
         # Package fallback (P1-3, 2026-09-13): raw encapStandard is the authoritative
         # package/case value when MASTER attributes_json has no 'package'. Cleaned so a
         # trailing size suffix like '(7x7)' is dropped and placeholder '-'/'SMD' discarded.
         encap = _clean_encap(mp.get("encapStandard"))
-        rec = {"apps": app_list, "faqs": faqs, "alts": alts, "encap": encap}
+        rec = {"apps": app_list, "faqs": faqs, "encap": encap}
         if pc:
             _SECTION_EXTRAS_INDEX[pc] = rec
         if pm:
             _SECTION_EXTRAS_INDEX[pm] = rec
     return _SECTION_EXTRAS_INDEX
+
+
+# ===========================================================================
+# FORMAL PRODUCTION RULE (Alternative Parts) — permanently fixed 2026-09-24,
+# revised 2026-09-25 to an AS-IS replay of the RAW alternate list.
+# DO NOT ROLL BACK. Applies to EVERY SKU (current ~4,957 and ALL future
+# batches). This is a pipeline rule, NOT a per-SKU patch: no SKU may opt out,
+# and no SKU may be special-cased in any other place.
+#
+#   1. The ALTERNATIVE PARTS SOURCE OF TRUTH is the 01-collected RAW file
+#      (`D:/SZ Procure/采集流水线/基础数据/C*.json`); the only channel is
+#      `source_raw.alternatePartList[]` (`main_product.alternatePartList` as
+#      fallback). Channel role, fixed 2026-09-25 in line with the 2026-09-22
+#      acceptance table (`Alternative | RAW alternatePartList |
+#      alternative_parts | split_multi + RAW alts`):
+#          02 source  -> RAW alternatePartList
+#          MASTER col -> `alternative_parts`
+#          03 source  -> split_multi(alternative_parts) + RAW alts
+#
+#   2. THE LIST IS REPLAYED AS-IS — whatever the RAW list carries is what the
+#      page shows, in RAW order. There is deliberately NO filter layer on top
+#      of the RAW list:
+#
+#        * no manufacturer gate — cross-brand entries belong to LCSC's own
+#          Alternative Parts list and are shown with it;
+#        * no LCSC STOCK GATE — an out-of-stock alternate is still an
+#          alternate. LCSC's own page hides zero-stock entries, but we are not
+#          LCSC: what LCSC cannot supply we source from Huaqiangbei, so
+#          dropping zero-stock entries would hide exactly the scarce / EOL
+#          opportunities we sell (business decision 2026-09-25);
+#        * no `hasAlternatePart` gate — over all 8,701 RAW files the flag is
+#          the string 'False' for 44,138/44,138 entries and 'True' for none,
+#          so it carries no signal and gating on it would switch the whole
+#          feature off rather than filter anything;
+#        * no self-exclusion — if LCSC lists the part itself, that is what the
+#          source says (cf. AO3400 -> "AO3400; FS3402; ...");
+#        * no de-duplication — the page mirrors the RAW list 1:1.
+#      Only non-dict entries and entries with an empty `productModel` are
+#      skipped. The implementation lives in `tools/factory/alternates.py` and
+#      is shared with the 02 layer.
+#
+#   3. KNOWN LIMITATION (snapshot drift, NOT a filter). The RAW snapshot is a
+#      point-in-time capture (2026-09-14 batch). Entries LCSC added AFTER the
+#      capture (e.g. C2931360 / 62684-402100ALF now also lists
+#      HC-FPC-0.5-40P-CSH20, absent from our RAW) cannot appear until the SKU
+#      is re-collected. The pipeline must NEVER fabricate them.
+#
+#   4. RAW HAS an alternate list  -> the section is rendered from those entries.
+#      RAW HAS NO alternate list   -> NOTHING is rendered: no "Alternative
+#      Parts" section, no tab button, no scroll-spy id, no "N alternatives"
+#      in the meta description. Neither the legacy `alternative_parts` string
+#      nor any other leftover field may resurrect a section on its own.
+#
+#   5. FORBIDDEN, permanently: AI auto-generation, inferring alternates from
+#      similar parameters, guessing from the MPN name, filling an otherwise
+#      empty page, and any hard-coded per-SKU alternate list.
+#
+# The single Alternative Parts gate of the 03 renderer is
+# `resolve_alternatives(row)`; it answers from `_RAW_ALT_INDEX` (keyed by the
+# C# / `supplier_reference` of this very SKU, never by MPN alone). A SKU whose
+# RAW file is missing or carries no real alternates yields [] -> no render.
+# ===========================================================================
+_RAW_ALT_INDEX = None
+_RAW_ALT_MPN_CLAIMS = None
+
+
+def _real_alternates(src, mp):
+    """Thin forward to tools.factory.alternates.real_alternates (single source)."""
+    return alternates.real_alternates(src, mp)
+
+def _raw_alt_index():
+    """RAW -> {C# or MPN upper: [authorized alternate detail dicts]} (lazy, cached).
+
+    Identity rule (supplier_reference only, never MPN alone): a C# key maps to
+    exactly one RAW file, but an MPN key can be shared by several C# files that
+    belong to DIFFERENT manufacturers — AO3401A exists as AOS C15127 and as UMW
+    C347476. When that happens the MPN key is ambiguous and is deliberately NOT
+    published, so a row can never pick up another manufacturer's alternates.
+    """
+    global _RAW_ALT_MPN_CLAIMS
+    if _RAW_ALT_MPN_CLAIMS is None:
+        _RAW_ALT_MPN_CLAIMS = {}
+    global _RAW_ALT_INDEX
+    if _RAW_ALT_INDEX is not None:
+        return _RAW_ALT_INDEX
+    _RAW_ALT_INDEX = {}
+    import glob as _glob
+    for fp in _glob.glob(_SEXTRA_SRC_GLOB):
+        try:
+            with open(fp, encoding="utf-8") as fh:
+                d = json.load(fh)
+        except (FileNotFoundError, OSError, json.JSONDecodeError):
+            continue
+        if not isinstance(d, dict):
+            continue
+        src = d.get("source_raw", d)
+        if not isinstance(src, dict):
+            continue
+        mp = src.get("main_product", {}) or {}
+        if not isinstance(mp, dict):
+            continue
+        ok = alternates.real_alternates(src, mp)
+        cid = (mp.get("productCode") or "").strip().upper()
+        mpn_k = (mp.get("productModel") or "").strip().upper()
+        # Claim the MPN BEFORE looking at whether this file has alternates. An
+        # empty result still proves the C# owns the MPN, and skipping the claim
+        # for empty files would leave a single-claimant MPN key holding the one
+        # manufacturer that DID have alternates.
+        ambiguous_mpn = False
+        if cid and mpn_k:
+            claims = _RAW_ALT_MPN_CLAIMS.setdefault(mpn_k, set())
+            claims.add(cid)
+            if len(claims) > 1:
+                ambiguous_mpn = True
+                _RAW_ALT_INDEX.pop(mpn_k, None)
+        if not ok:
+            continue
+        # C# key: unambiguous, this RAW file is the only owner.
+        _RAW_ALT_INDEX[cid] = ok
+        # MPN key: publish only for a single manufacturer's own file. A shared
+        # MPN (AOS AO3401A vs UMW AO3401A) yields NO key, so a row can never
+        # inherit another manufacturer's alternates through the MPN fallback.
+        if mpn_k and not ambiguous_mpn:
+            _RAW_ALT_INDEX[mpn_k] = ok
+    return _RAW_ALT_INDEX
+
+
+def resolve_alternatives(row):
+    """The single Alternative Parts gate. Returns (detail_list, mpn_list).
+
+    detail_list : the RAW alternatePartList replayed AS-IS (5-field dicts,
+                  in RAW order, no filtering).
+    mpn_list    : the same MPN strings, used by the plain alt-list rendering.
+    Both are empty when the RAW file carries no alternatePartList.
+
+    The RAW index decides — it is keyed by C# (supplier_reference) with an
+    identity-safe MPN fallback, so a row can never inherit another
+    manufacturer's list. MASTER `alternative_parts` is written from this very
+    same source by the 02 layer, so it is an equal copy rather than an
+    independent authority and is deliberately not used as a second opinion.
+    """
+    index = _raw_alt_index()
+    # The C# (supplier_reference) is authoritative. `in` rather than truthiness:
+    # a C# may legitimately map to an EMPTY list (the RAW exists but carries no
+    # alternatePartList), and an empty hit must not silently fall through to
+    # the MPN key — that fall-through is exactly how the UMW C347476 file once
+    # served its alternates to the AOS AO3401A row.
+    for key in ((row.get("supplier_reference") or "").strip().upper(),
+                (row.get("mpn") or "").strip().upper()):
+        if not key:
+            continue
+        if key in index:
+            hit = index[key]
+            return list(hit), [d["mpn"] for d in hit]
+    return [], []
 
 
 def _clean_encap(v):
@@ -1788,16 +1963,21 @@ def brand_class_html(row):
     Site policy: classification is NEVER inferred from the brand name. When the
     flag is missing / false / unmatched, returns '' (no tag, no fabrication).
     Loaded at generation time from scale500 RAW; MASTER schema is untouched.
+
+    Identity rule (2026-09-26, AO3401A): lookup uses `supplier_reference` (the
+    LCSC C#) ONLY — there is deliberately no MPN fallback. One MPN can be sold
+    by several manufacturers (clone parts) and each carry its own isAsianBrand
+    flag; an MPN fallback lets the last clone to be indexed win, so a US-brand
+    row (AO3401A/C15127, AOS, flag None) inherited the tag from its Chinese
+    clone (C347476/UMW, flag True). 8 MASTER rows were tagged this way.
+    Keep this C#-only: if the C# is absent from the RAW we render no tag rather
+    than borrowing a sibling clone's flag.
     """
     idx = _get_asian_index()
     if not idx:
         return ""
     lcsc = (row.get("supplier_reference") or "").strip().upper()
-    mpn = (row.get("mpn") or "").strip().upper()
-    flag = idx.get(lcsc)
-    if flag is None:
-        flag = idx.get(mpn)
-    if flag is not True:
+    if idx.get(lcsc) is not True:
         return ""
     return '<span class="brand-tag">Asian Brands</span>'
 
@@ -2266,7 +2446,12 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
     schema_overview = fallback_overview
     # ---- SEO copy: controlled Title / Meta optimization (Phase 2, 2026-09-13) ----
     # Uses ONLY real MASTER fields. MPN never truncated. No Shenzhen / stock / price claims.
-    alts = [a for a in split_multi(alt_raw) if slugify(a)]
+    # FORMAL PRODUCTION RULE (Alternative Parts) — RAW-gated single path.
+    # Every alternate used below (section, tab button, scroll-spy id and the
+    # "N alternatives" meta description) comes from this one call. When RAW has
+    # no alternatePartList both lists are empty and nothing is rendered anywhere.
+    alt_detail, alts = resolve_alternatives(row)
+    alts = [a for a in alts if slugify(a)]
     # Applications — FORMAL PRODUCTION RULE (Applications display fix, 2026-09-21).
     # The authoritative source is source_raw.overviewData.pdfApplicationAreasEn:
     # ONE application area per LINE, each line prefixed with '- ' (the section-extras
@@ -2361,13 +2546,16 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
                 seen_apps.add(_enrich_norm_text(app))
                 apps_list.append(app)
             # FAQ already merged in via merge_faqs() (Pass A: LCSC/RAW qualified).
-            # Alternatives: extend with REAL verified MPNs (dedup)
-            seen_alt = {a.lower() for a in alts}
-            for model in (raw_ext.get("alts") or []):
-                if model.lower() in seen_alt:
-                    continue
-                seen_alt.add(model.lower())
-                alts.append(model)
+            # ----------------------------------------------------------------
+            # ALTERNATIVES: there is deliberately NO extension here.
+            #
+            # An earlier revision let `_raw_section_extras()['alts']` append onto
+            # the list, i.e. the RAW alternate list was merged twice from two
+            # different places. `alts` now comes from resolve_alternatives() and
+            # from nowhere else: one channel, one authorisation check, and no
+            # possibility that the section and the tab button / scroll-spy /
+            # meta count drift apart.
+            # ----------------------------------------------------------------
         # keywords -> data asset ONLY (NOT injected into meta/visible SEO, per Risk #2)
         enrich_keywords = [k.get("value") for k in (enrich.get("keywords") or [])
                            if isinstance(k, dict) and k.get("value")]
@@ -2523,11 +2711,11 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
     # Related tab/section from all 746 SKU pages (internal-link product web).
     related_section = ""
 
-    # Alternative Parts — HIDDEN unless real, verified alternates exist.
-    # Source of truth = MASTER `alternative_parts` (verified cross-brand cross-references,
-    # e.g. STM32F103C8T6 -> CH32F103C8T6 / AO3400A -> AO3404A / RC0402FR-0710KL -> AC0402FR-1310KL).
-    # LCSC-confirmed alternates (rawExt.alts where hasAlternatePart==True) are appended when present
-    # — but in scale500 every hasAlternatePart is False, so the loose "also-viewed" list is excluded.
+    # Alternative Parts — HIDDEN when the RAW alternate list is empty/absent.
+    # Source of truth = the 01-collected RAW (see the FORMAL PRODUCTION RULE
+    # block above `resolve_alternatives`). Display code restored to the ORIGINAL
+    # site rendering (2026-09-25): a plain alt-list of MPN links — the layout is
+    # NOT part of any data-rule change and must not be redesigned.
     # NEVER fabricate/infer alternates from series or package.
     alt_section = ""
     if alts:
@@ -3826,6 +4014,32 @@ def _fmt_num(x):
         return str(int(x))
     return f"{x:.3f}".rstrip("0").rstrip(".")
 
+
+# ===========================================================================
+# FORMAL PRODUCTION RULE (Resistance unit) — permanently fixed 2026-09-24,
+# DO NOT ROLL BACK. Applies to EVERY SKU batch (current ~5K and all future
+# uploads & regenerations) because it lives in the single shared formatter
+# used by the whole 03 renderer.
+#   Decimal ohms are the MASTER storage unit (e.g. `resistance_ohm = 10000`).
+#   DISPLAY rules (this function is the ONLY place that decides them):
+#     10000 Ω -> 10kΩ        1000 Ω -> 1kΩ        50000 Ω -> 50kΩ
+#      999 Ω  -> 999Ω         50 Ω  -> 50Ω         100 Ω   -> 100Ω
+#      < 1 Ω  ->  <val> mΩ   (sub-ohm keeps the milli prefix, never kΩ)
+#   Only values >= 1000 Ω are rewritten into kΩ. Values below 1000 Ω are NEVER
+#   scaled. No other unit is inferred. No per-SKU override exists anywhere.
+# ===========================================================================
+def _fmt_ohm(num):
+    """Canonical ohm display formatting (single source of truth).
+
+    The value is always glued to the unit (``10000 Ω`` -> ``10kΩ``, ``50 Ω`` ->
+    ``50Ω``) so one SKU never shows two different spacing conventions at once.
+    """
+    if num >= 1000:
+        return _fmt_num(num / 1000) + "kΩ"
+    if num < 1:
+        return _fmt_num(num * 1000) + "mΩ"
+    return _fmt_num(num) + "Ω"
+
 def human_attr_label(k):
     k = (k or "").strip()
     if not k:
@@ -3992,7 +4206,8 @@ def format_attr_value(k, v):
     if key.endswith("_mohm"):
         return _fmt_num(num) + " mΩ"
     if key.endswith("_ohm"):
-        return _fmt_num(num) + " Ω"
+        # FORMAL RULE (Resistance unit, 2026-09-24): >=1000Ω -> kΩ, see _fmt_ohm.
+        return _fmt_ohm(num)
     if key.endswith("_pf"):
         return _fmt_num(num) + " pF"
     if key.endswith("_uh"):
@@ -4128,8 +4343,9 @@ def _fmt_title_val(k, v):
     if any(t in kl for t in ("current", "id_", "ic_", "ib_", "iq_")) and "voltage" not in kl:
         return s + " A"
     if "rds" in kl or "resistance" in kl or "impedance" in kl or "dcr" in kl:
-        if num < 1: return _fmt_num(num * 1000) + " mΩ"
-        return s + " Ω"
+        # FORMAL RULE (Resistance unit, 2026-09-24): same kΩ/mΩ/Ω decision as
+        # format_attr_value so spec table and title never disagree.
+        return _fmt_ohm(num)
     if "capacitance" in kl:
         return _fmt_capacitance(v)
     if "inductance" in kl:
@@ -4344,6 +4560,15 @@ def build_merged_groups(rows, mfr_map, attr_allow, review):
                 if newones:
                     g["alternative_parts"] = (g.get("alternative_parts") or "").strip() \
                         + ";" + ";".join(newones)
+            # Merge structured alternative_parts_detail by mpn (dedup).
+            _r_detail = _parse_alt_detail(r.get("alternative_parts_detail"))
+            if _r_detail:
+                _g_detail = _parse_alt_detail(g.get("alternative_parts_detail"))
+                _seen = {d["mpn"] for d in _g_detail}
+                _added = [d for d in _r_detail if d["mpn"] not in _seen]
+                if _added:
+                    _g_detail.extend(_added)
+                    g["alternative_parts_detail"] = json.dumps(_g_detail, ensure_ascii=False)
         if src and src not in g["_sources"]:
             g["_sources"].append(src)
         raw = (r.get("attributes_json") or "").strip()
@@ -4568,8 +4793,40 @@ INCREMENTAL_DATA_COLS = [
     "mpn", "manufacturer", "brand", "native_l1", "final_subcategory",
     "lcsc_leaf_name",
     "description", "applications", "keywords", "attributes_json",
-    "alternative_parts", "datasheet_url", "faq", "image",
+    "alternative_parts", "alternative_parts_detail", "datasheet_url", "faq", "image",
 ]
+
+
+def _parse_alt_detail(raw):
+    """Parse MASTER alternative_parts_detail JSON -> validated 5-field list; [] on empty/invalid.
+
+    Each entry: {mpn, manufacturer, lcsc, type, package}. `type` defaults to
+    "Similar" when missing/empty. Used by the renderer's Verified Alternatives
+    table and the reverse-edge index. Never raises.
+    """
+    if not (raw or "").strip():
+        return []
+    try:
+        data = json.loads(raw)
+    except Exception:
+        return []
+    if not isinstance(data, list):
+        return []
+    out = []
+    for d in data:
+        if not isinstance(d, dict):
+            continue
+        mpn = (d.get("mpn") or "").strip()
+        if not mpn:
+            continue
+        out.append({
+            "mpn": mpn,
+            "manufacturer": (d.get("manufacturer") or "").strip(),
+            "lcsc": (d.get("lcsc") or "").strip(),
+            "type": (d.get("type") or "Similar").strip() or "Similar",
+            "package": (d.get("package") or "").strip(),
+        })
+    return out
 
 
 class ManifestError(RuntimeError):
@@ -4860,10 +5117,21 @@ def _build_alt_reverse(groups, slug_set, slug_by_mpn):
         src = g.get("url_slug")
         if not src:
             continue
-        alt_raw = (g.get("alternative_parts") or "").strip()
-        if not alt_raw:
+        # Back-links: prefer structured detail mpns, fall back to legacy string.
+        _detail = (g.get("alternative_parts_detail") or "").strip()
+        _mpns = []
+        if _detail:
+            try:
+                for _d in json.loads(_detail):
+                    if isinstance(_d, dict) and (_d.get("mpn") or "").strip():
+                        _mpns.append(_d["mpn"].strip())
+            except Exception:
+                _mpns = []
+        if not _mpns:
+            _mpns = [a for a in split_multi(g.get("alternative_parts") or "") if slugify(a)]
+        if not _mpns:
             continue
-        for a in split_multi(alt_raw):
+        for a in _mpns:
             if not slugify(a):
                 continue
             tgt = slugify(a)
@@ -4939,6 +5207,7 @@ def build_parts_json(groups):
             "needs_review": bool(g.get("needs_review")),
             "availability": g.get("availability", "").strip(),
             "alternative_parts": g.get("alternative_parts", "").strip(),
+            "alternative_parts_detail": (g.get("alternative_parts_detail") or "").strip(),
             "datasheet_url": g.get("datasheet_url", "").strip(),
             "product_url": f"/products/{uslug}/",
         })
@@ -5723,6 +5992,10 @@ def main():
     # rendering any products/<slug>/index.html. Lets a URL-scope fix (e.g. Fix #1
     # sitemap inclusion) land without a full 4935-page rebuild.
     if args.regen_global:
+        # FIX (2026-09-26): `generated_slugs` was only bound in the page-generation
+        # path below, so --regen-global died with UnboundLocalError. Bind it here with
+        # the same expression the full run uses: every group's final url_slug.
+        generated_slugs = {g["url_slug"] for g in groups if g.get("url_slug")}
         prev_fine_keys = _fine_keys(_read_parts_json(out_root))
         parts_json = regen_global_artifacts(args, groups, out_root, by_cat, related_map,
                                             generated_slugs)
