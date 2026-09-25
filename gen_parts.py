@@ -93,6 +93,9 @@ import subcategory_final  # Phase 6 (Plan B): frozen fine-grained final_* fields
 # MASTER and the rendered page can never disagree about what a "real alternate" is.
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools"))
 from factory import alternates  # noqa: E402
+# FAQ provenance policy - a FAQ may render only if it comes from the LCSC RAW
+# record, or from a MPN a human verified and recorded in faq_policy.VERIFIED_MPNS.
+from factory import faq_policy  # noqa: E402
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 DOMAIN = "https://www.szprocure.com"
@@ -611,14 +614,21 @@ def merge_faqs(faq_raw, enrich, row):
     audit["lcsc_qualified"] = len(lcsc_pairs)
     final = [list(p) for p in lcsc_pairs]
 
-    # ---- Pass B (controlled fallback, 2026-09-22, re-enabled for 10-SKU audit) ----
-    # RAW (Pass A) is always primary. ONLY when RAW provides no qualified FAQ do we
-    # fall back to MASTER.faq. MASTER.faq is the production's OWN curated field and
-    # holds SPEC-DERIVED, verifiable Q/A (e.g. "What is the drain-source voltage of
-    # AO3400? 30.0 V DS" computed from real attributes_json -- NOT free-form AI prose),
-    # so surfacing it introduces NO fabrication. The same off-brand + LCSC-platform
-    # filters and max-3 cap apply. Pass C (enrichment FAQ) stays REMOVED.
-    if not final and faq_raw:
+    # ---- Pass B CLOSED (2026-09-26) -----------------------------------------
+    # A MASTER.faq fallback was re-enabled on 2026-09-22 on the argument that
+    # "MASTER.faq is the production's OWN curated field holding SPEC-DERIVED,
+    # verifiable Q/A, so surfacing it introduces NO fabrication". That argument
+    # is FALSE: MASTER.faq was filled by 02-cleaning TEMPLATE factories
+    # (category.py::_faq), i.e. f-strings over the spec values. The audit proved
+    # it on the 10 test SKUs - '9.999999999999999e-06 F capacitor', '10000.0
+    # ohm resistor', 'is a Inner hole interface device' - none of which exist in
+    # the LCSC source. Fabricated copy shipped to 8 real pages.
+    #
+    # New rule: FAQ comes from the LCSC RAW record or nowhere. The ONLY way a
+    # non-source FAQ may render is a MPN listed in factory.faq_policy.
+    # VERIFIED_MPNS - human-verified, reason + approver + date recorded.
+    # The same off-brand + LCSC-platform filters and max-3 cap still apply.
+    if not final and faq_raw and faq_policy.is_verified(row.get("mpn")):
         _pn = (row.get("mpn") or "").strip()
         seen = set()
         for q, a in parse_faq(faq_raw, _pn):
@@ -631,7 +641,7 @@ def merge_faqs(faq_raw, enrich, row):
                 _ded("master_internal_dup"); continue
             seen.add(key)
             final.append([q, a])
-        audit["szprocure_self_gen"] = len(final)
+        audit["szprocure_verified_curated"] = len(final)
     # Pass C (enrichment FAQ) REMAINS REMOVED: 04 enrichment is not wired into the
     # formal 02->03 production path. audit['enrichment_used'] stays 0 by design.
     # ---- FORCED max-3 (user decision 2026-09-12) ----

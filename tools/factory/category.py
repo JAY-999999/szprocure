@@ -259,9 +259,22 @@ def _assemble(brand, mpn, category, subcategory, specs, desc_parts,
 
 
 def _faq(mpn, question, answer):
-    if not answer:
-        return ""
-    return f"Q: {question}?A: {answer}"
+    """DISABLED 2026-09-26 — never fabricate a FAQ.
+
+    This used to template a sentence out of the spec values (e.g.
+    "3296W-1-103 is a 10000.0 ohm resistor", "HGC0805R5106K500NSLJ is a
+    9.999999999999999e-06 F capacitor") and hand it to ``_assemble``, which
+    wrote it into MASTER.faq. ``gen_parts.py`` then rendered that column to the
+    page as if it were sourced copy. The text was machine-composed prose, not a
+    datasheet fact, and the float artifacts above prove it.
+
+    Per the standing rule — FAQ only ever comes from the LCSC RAW record, we
+    never generate what the source does not carry — this now returns "" so the
+    02/03 layer writes an EMPTY faq column instead of invented prose. Callers
+    keep working unchanged; ``lcsc_http_adapter`` imports this same function,
+    so both adapters are closed by this one edit.
+    """
+    return ""
 
 
 # ==========================================================================

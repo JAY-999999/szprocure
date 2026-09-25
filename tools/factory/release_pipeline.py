@@ -20,6 +20,7 @@ The pipeline produces, but does not execute, the Build and Deploy artifacts.
 """
 from __future__ import annotations
 
+import json
 import os
 import re
 import shutil
@@ -27,7 +28,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 
 from . import MASTER_COLS, REQUIRED_FIELDS, manifest as MAN
-from . import master_io, dedup, gate, pool, product_data, category
+from . import master_io, dedup, gate, pool, product_data, category, faq_policy
 from . import datasheet_hosts
 from . import datasheet_clones
 from .product_data import master_row
@@ -46,6 +47,12 @@ DATASHEET_IDENTITY_FAIL = "DATASHEET_IDENTITY_FAIL"
 DATASHEET_NOT_R2_FAIL = "DATASHEET_NOT_R2_FAIL"
 ALT_PARTS_ASIS_FAIL = "ALT_PARTS_ASIS_FAIL"
 CLONE_PART_MPN_KEY_FAIL = "CLONE_PART_MPN_KEY_FAIL"
+FAQ_FABRICATED_FAIL = "FAQ_FABRICATED_FAIL"
+
+# 01-collection output holding the per-SKU RAW envelopes (the only place the
+# real LCSC `faqs` field lives). Overridable so a future move of the RAW tree
+# does not silently turn this gate into a blanket STOP.
+FAQ_RAW_DIR = os.environ.get("SZP_RAW_DIR", r"D:\SZ Procure\采集流水线\基础数据")
 
 # Fields an authorised in-place MASTER correction is allowed to change.
 # 02 owns the spec payload and the classification; everything else belongs to
@@ -109,6 +116,10 @@ class ReleasePlan:
     # manufacturers, bound through an MPN-derived R2 object".
     clone_part_key: list = field(default_factory=list)
     alternate_parts_report: list = field(default_factory=list)  # AS-IS gate log
+    # R25 FAQ provenance: [level,kind,msg] for "non-empty faq that RAW cannot
+    # trace back to source_raw.main_product.faqs" (STOP) or a human-verified
+    # MPN sitting in faq_policy.VERIFIED_MPNS (WARN).
+    faq_provenance: list = field(default_factory=list)
 
     def add_stop(self, code, message, mpn=None):
         self.stops.append({"code": code, "mpn": mpn, "message": message})
@@ -138,6 +149,7 @@ class ReleasePlan:
             "datasheet_host_policy": self.datasheet_host_policy,
             "clone_part_key": self.clone_part_key,
             "alternate_parts_report": self.alternate_parts_report,
+            "faq_provenance": self.faq_provenance,
         }
 
 
@@ -385,6 +397,86 @@ def check_datasheet_host_policy(rows, index=None):
 
 
 # --------------------------------------------------------------------------
+# FAQ provenance gate (R25, 2026-09-26)
+# --------------------------------------------------------------------------
+# "Frequently Asked Questions 主要就是根据 LCSC 的数据源，没有的我们自己不
+#  生成." A candidate may enter MASTER with a non-empty `faq` only when that
+#  text is traceable to `source_raw.main_product.faqs` of the SAME C#.
+#
+# The historical hole: 02 cleaned the column with f-string template factories
+# (category.py::_faq -> also used by lcsc_http_adapter), and gen_parts.py's
+# "Pass B" then rendered MASTER.faq whenever RAW had no real FAQ. That is how
+# 'HGC0805R5106K500NSLJ is a 9.999999999999999e-06 F capacitor' and '3296W-1-103
+# is a 10000.0 ohm resistor' reached 8 live pages. Both ends are now closed;
+# this gate is the third end, so re-opening either end stops the batch.
+#
+# Scoped to the CANDIDATES of this batch on purpose: 2540 already-published
+# MASTER rows still carry the fabricated text (clearing them is a separate,
+# batch-by-batch job), and a candidate that is already in MASTER is AUTO_SKIP'd
+# anyway. Nobody can re-ship a fabricated FAQ through a new batch.
+_RAW_FAQ_INDEX = None
+
+
+def _raw_faq_index(raw_dir=None):
+    """{C#: True, productModel-upper: True} for every RAW record carrying faqs."""
+    global _RAW_FAQ_INDEX
+    if _RAW_FAQ_INDEX is not None:
+        return _RAW_FAQ_INDEX
+    idx = {}
+    base = raw_dir or FAQ_RAW_DIR
+    try:
+        entries = os.listdir(base)
+    except OSError:
+        _RAW_FAQ_INDEX = idx
+        return idx
+    for fn in entries:
+        if not fn.lower().endswith(".json"):
+            continue
+        cid = fn[:-5].upper()
+        try:
+            with open(os.path.join(base, fn), "r", encoding="utf-8",
+                      errors="replace") as fh:
+                d = json.load(fh)
+        except Exception:
+            continue
+        mp = ((d.get("source_raw", {}) or {}).get("main_product", {}) or {})
+        if mp.get("faqs"):
+            idx[cid] = True
+            model = mp.get("productModel")
+            if model:
+                idx[str(model).strip().upper()] = True
+    _RAW_FAQ_INDEX = idx
+    return idx
+
+
+def check_faq_provenance(rows, raw_dir=None):
+    """Return a list of (level, kind, message). Levels: STOP | WARN."""
+    out = []
+    todo = [r for r in (rows or ())
+            if (r.get("faq") or "").strip()]
+    if not todo:
+        return out
+    idx = _raw_faq_index(raw_dir)
+    for r in todo:
+        mpn = (r.get("mpn") or "").strip()
+        cid = (r.get("supplier_reference") or "").strip().upper()
+        who = "%s / %s" % (mpn, cid)
+        if faq_policy.is_verified(mpn):
+            out.append(("WARN", "FAQ_CURATED_VERIFIED",
+                        f"{who}: non-source FAQ kept under faq_policy."
+                        f".VERIFIED_MPNS ({mpn}) — human-verified, not a "
+                        f"generated sentence"))
+            continue
+        if cid and idx.get(cid):
+            continue                                    # sourced, ship it
+        out.append(("STOP", FAQ_FABRICATED_FAIL,
+                    f"{who}: non-empty faq but RAW has no 'faqs' for this C# "
+                    f"— text is self-generated. FAQ must come from the LCSC "
+                    f"source or be listed in faq_policy.VERIFIED_MPNS"))
+    return out
+
+
+# --------------------------------------------------------------------------
 # collect candidates
 # --------------------------------------------------------------------------
 def collect_candidates(batch_id, root=None):
@@ -423,6 +515,10 @@ def plan_release(master_path, rows, subset_mpns=None, batch_id="",
         because that object is shared with the other manufacturers -> STOP
         (CLONE_PART_MPN_KEY_FAIL). This is the AO3401A defect (AOS page
         rendering the UMW PDF) made impossible to ship again.
+      * FAQ provenance (R25): a candidate with a non-empty `faq` that RAW
+        cannot trace back to `source_raw.main_product.faqs` -> STOP
+        (FAQ_FABRICATED_FAIL). A MPN listed in factory.faq_policy.VERIFIED_MPNS
+        is the only allowed exception and comes back as a WARNING.
       * ``allow_row_update_mpns``: MPNs the human explicitly authorised for an
         in-place MASTER correction (e.g. a mapping-rule fix on an already
         released SKU). Default None = append-only, identical to previous
@@ -507,6 +603,18 @@ def plan_release(master_path, rows, subset_mpns=None, batch_id="",
         plan.clone_part_key.append((level, kind, msg))
         if level == "STOP":
             plan.add_stop(CLONE_PART_MPN_KEY_FAIL, f"{kind}: {msg}")
+
+    # ---- FAQ provenance gate (R25, 2026-09-26) ---------------------------
+    # "FAQ 只能来自 LCSC 数据源，没有的我们自己不生成". A candidate carrying a
+    # non-empty `faq` that RAW cannot trace back to `source_raw.main_product.
+    # faqs` stops the batch (FAQ_FABRICATED_FAIL). The only escape is a MPN a
+    # human verified and recorded in faq_policy.VERIFIED_MPNS, which comes back
+    # as a WARN instead. Runs after the datasheet gates because it is the last
+    # text-level gate before MASTER staging.
+    for level, kind, msg in check_faq_provenance(selected):
+        plan.faq_provenance.append((level, kind, msg))
+        if level == "STOP":
+            plan.add_stop(kind, msg)
 
     # ---- Alternative Parts AS-IS gate (2026-09-25) ----------------------
     # The FORMAL rule is a pure AS-IS replay of the RAW alternatePartList, with
