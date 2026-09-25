@@ -4955,26 +4955,8 @@
   <url><loc>https://www.szprocure.com/products/74ac08scx/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/products/0132m425000f12dtnll/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/products/0201x105m6r3nt/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/products/mc34063adr/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/products/mc14106bdr2g/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/products/cl21b106kqqnnne/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/products/lpc2468fbd208k/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/products/lpc1759fbd80k/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/products/lpc2136fbd6401el/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/products/sn74lvc2g04dbvr/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/products/p6ke200a/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/products/sn74avc8t245rhlr/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/products/1206x226k160nt/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/products/1206x106k250nt/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/products/0805x225k250nt/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/products/cl10b474ko8nnnc/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/products/cc0603jrnpo9bn200/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/products/cc0805jrnpo9bn220/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/products/c1206x102k202t/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/products/c1206x472k202t/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/products/cc0402jrnpo9bn180/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/products/cc0402krx5r7bb104/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/products/cc0603krx5r6bb105/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/manufacturers/texas-instruments/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/manufacturers/nexperia/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/manufacturers/yageo/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
@@ -5182,7 +5164,6 @@
   <url><loc>https://www.szprocure.com/manufacturers/pni/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/manufacturers/fosan/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/manufacturers/r-o/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/manufacturers/ihhec/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/manufacturers/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/passive-components/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/passive-components/ceramic-capacitors/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
@@ -5212,9 +5193,10 @@
   <url><loc>https://www.szprocure.com/components/connectors-electromechanical/pc-card-sockets/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/connectors-electromechanical/tactile-switches/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/connectors-electromechanical/usb-dvi-hdmi-connector-assemblies/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.szprocure.com/components/connectors-electromechanical/quick-connects-quick-disconnect-connectors/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/components/connectors-electromechanical/quick-connects-quick-disconnect-connectors-terminals/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/connectors-electromechanical/coaxial-connector-rf-assemblies/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/connectors-electromechanical/rectangular-connector-accessories/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/components/connectors-electromechanical/quick-connects-quick-disconnect-connectors/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/connectors-electromechanical/terminal-accessories/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/connectors-electromechanical/headers-receptacles-female-sockets/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/connectors-electromechanical/arrays-edge-type-mezzanine-board-to-board/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
