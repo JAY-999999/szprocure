@@ -96,6 +96,14 @@ from factory import alternates  # noqa: E402
 # FAQ provenance policy - a FAQ may render only if it comes from the LCSC RAW
 # record, or from a MPN a human verified and recorded in faq_policy.VERIFIED_MPNS.
 from factory import faq_policy  # noqa: E402
+# Datasheet host identity (R2 / LCSC / OEM).  Used only to decide whether an
+# inline <embed> preview can work at all: a manufacturer-hosted PDF serves
+# X-Frame-Options / CSP frame-ancestors, so the browser refuses to paint it
+# inside our page and the buyer just sees a "connection refused" box.
+try:  # noqa: E402  -- optional: fall back to today's behaviour if unavailable
+    from factory import datasheet_hosts  # noqa: E402
+except Exception:  # pragma: no cover
+    datasheet_hosts = None
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 DOMAIN = "https://www.szprocure.com"
@@ -689,6 +697,47 @@ def esc(s):
     s = _repair_mojibake(str(s))
     s = _CTRL_RE.sub('', s)
     return html.escape(s, quote=True)
+
+
+# ---- Datasheet preview --------------------------------------------------------
+# An inline <embed> only paints when the PDF host allows cross-origin framing.
+# Manufacturer sites serve X-Frame-Options: SAMEORIGIN (or a CSP
+# frame-ancestors list), so Chrome paints nothing and the buyer sees a
+# "connection refused" box on OUR page -- worse than offering no preview.
+# Only our own R2 bucket is embeddable; everything else gets an explicit,
+# honest fallback card that still links straight to the official PDF.
+def _dsheet_preview_block(dsheet, pn):
+    """Return the Datasheet preview markup for *dsheet* (embed or fallback)."""
+    embeddable = False
+    host = ""
+    if datasheet_hosts is not None:
+        try:
+            host = datasheet_hosts.host_of(dsheet)
+            embeddable = datasheet_hosts.is_r2(dsheet, host)
+        except Exception:
+            embeddable = False
+            host = ""
+    if embeddable:
+        return ('<div class="doc-preview"><embed src="%s" type="application/pdf" '
+                'title="%s Datasheet Preview" aria-label="%s Datasheet Preview" /></div>'
+                % (esc(dsheet), esc(pn), esc(pn)))
+    label = host or "manufacturer"
+    return (
+        '<div class="doc-preview">'
+        '<div class="doc-xhost" style="border:1px dashed var(--border-2,#d8dee6);'
+        'border-radius:8px;background:#fff;min-height:190px;padding:26px 18px;'
+        'display:flex;flex-direction:column;align-items:center;justify-content:center;'
+        'text-align:center">'
+        '<span class="doc-ico" aria-hidden="true">&#128196;</span>'
+        '<p style="margin:10px 0 0;font-size:14px;font-weight:600;color:var(--text,#1a1a1a)">'
+        'Inline preview not available</p>'
+        '<p class="doc-note" style="margin:8px 0 0">This datasheet is hosted by the '
+        f'manufacturer, who does not allow it to be embedded. Open the official PDF on {esc(label)}:</p>'
+        '<a class="doc-btn" style="margin-top:16px" href="%s" target="_blank" '
+        'rel="nofollow noopener">Open on %s</a>'
+        '</div></div>' % (esc(dsheet), esc(label))
+    )
+
 
 # ---- reusable JSON-LD blocks --------------------------------------------------
 def org_jsonld():
@@ -1603,7 +1652,9 @@ def _get_section_extras_index():
         # package/case value when MASTER attributes_json has no 'package'. Cleaned so a
         # trailing size suffix like '(7x7)' is dropped and placeholder '-'/'SMD' discarded.
         encap = _clean_encap(mp.get("encapStandard"))
-        rec = {"apps": app_list, "faqs": faqs, "encap": encap}
+        # C2 Phase 5A: keep the full RAW body size for the package spec row.
+        rec = {"apps": app_list, "faqs": faqs, "encap": encap,
+               "encap_full": _pkg_display(mp.get("encapStandard"))}
         if pc:
             _SECTION_EXTRAS_INDEX[pc] = rec
         if pm:
@@ -1783,6 +1834,23 @@ def _clean_encap(v):
     if not s or s in ("-", "SMD"):
         return ""
     return s
+
+
+def _pkg_display(v):
+    """Display form of RAW encapStandard for the Specifications table.
+
+    C2 Phase 5A (2026-09-26): the industry-standard body size is KEPT, e.g.
+    'LQFP-100(14x14)' rather than the truncated 'LQFP-100' (LCSC/Digi-Key both
+    publish the body size). The '-' / 'SMD' placeholder guard is still applied.
+    Hero / Key-Attributes text is untouched — it keeps _clean_encap()'s short
+    form, so nothing outside the Specifications table changes.
+    """
+    s = str(v or "").strip()
+    if not s or s in ("-", "SMD"):
+        return ""
+    if "(" in s and s.endswith(")"):
+        return s
+    return _clean_encap(s)
 
 
 def _raw_section_extras(row):
@@ -2506,9 +2574,31 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
     # identity row (id_rows), and dedups against enrichment specs via seen_concepts.
     _raw_ext_pkg = _raw_section_extras(row)
     if _raw_ext_pkg and not any(k.lower() == "package" for k, _ in spec_pairs_en):
-        encap = (_raw_ext_pkg.get("encap") or "").strip()
+        # C2 Phase 5A: prefer the full RAW body size ('LQFP-100(14x14)'); fall
+        # back to the cleaned short form when the RAW carries none.
+        encap = (_raw_ext_pkg.get("encap_full") or _raw_ext_pkg.get("encap") or "").strip()
         if encap:
             spec_pairs_en.append(["package", encap])
+
+    # C2 Phase 4 (2026-09-26): canonical-key view for the Specifications TABLE.
+    # The value MUST be formatted by the CANONICAL MASTER key (e.g. `trr_ns`,
+    # `output_cap_coss`, `data_rate`, `cmrr_db`) so engineering-unit suffixes are
+    # honoured; the visible label uses the English translation (`translate_attr_key`).
+    # This replaces the old specs_rows logic that formatted by the translated label
+    # key (whose unit suffix was stripped -> bare `4` instead of `4 ns`). Drop rules
+    # mirror translate_spec_pairs (skip CJK-only / unmappable keys). spec_pairs_en is
+    # left untouched for its other consumers (sourcing tab, enrichment dedup, etc.).
+    spec_pairs_canon = []
+    for _ck, _cv in spec_pairs:
+        _ek = translate_attr_key(_ck)
+        if has_cjk(_ek):
+            continue
+        spec_pairs_canon.append([_ck, _cv, _ek, translate_attr_value(_cv)])
+    if _raw_ext_pkg and not any(k.lower() == "package" for k, _ in spec_pairs):
+        # C2 Phase 5A: same full-RAW body size as the Specifications table above.
+        _encap = (_raw_ext_pkg.get("encap_full") or _raw_ext_pkg.get("encap") or "").strip()
+        if _encap:
+            spec_pairs_canon.append(["package", _encap, "Package / Case", _encap])
 
     # ---- Risk #2: load PDF enrichment at generation time (optional, never blocks) ----
     enrich = load_enrichment(slug, pn)
@@ -2604,10 +2694,16 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
 
     # V3 Specifications tab — real attributes, honest labels, NEVER invented rows.
     # MASTER specs first; enrichment specs appended as supplemental datasheet params.
-    if spec_pairs_en:
+    # FORMAT FIX (C2 Phase 4, 2026-09-26): values are formatted by the CANONICAL
+    # MASTER key (see spec_pairs_canon above) so unit suffixes are honoured; the
+    # visible label is the English translation. This fixes bare values like
+    # `Reverse Recovery Time (trr) = 4` (now `4 ns`) that the old code produced when
+    # it formatted by the unit-stripped translated label key.
+    if spec_pairs_canon:
         specs_rows = "".join(
-            f"<tr><th>{esc(human_attr_label(k))}</th><td>{esc(format_attr_value(k, v))}</td></tr>"
-            for k, v in spec_pairs_en
+            f"<tr><th>{esc(human_attr_label(ek))}</th>"
+            f"<td>{esc(format_attr_value(ck, cv))}</td></tr>"
+            for ck, cv, ek, ev in spec_pairs_canon
         )
     else:
         specs_rows = ""
@@ -2760,8 +2856,7 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
             '      </span>\n'
             '    </summary>\n'
             '    <div class="doc-acc-body">\n'
-            f'      <div class="doc-preview"><embed src="{esc(dsheet)}" type="application/pdf" '
-            f'title="{esc(pn)} Datasheet Preview" aria-label="{esc(pn)} Datasheet Preview" /></div>\n'
+            f'      {_dsheet_preview_block(dsheet, pn)}\n'
             '    </div>\n'
             '  </details>\n'
             '</section>'
@@ -3969,9 +4064,15 @@ attribute_label_map = {
     "speed_hz": "Clock Speed",
     "core": "Core Processor",
     "package": "Package / Case",
-    "flash_bytes": "Flash Memory",
+    "flash_bytes": "Program Storage Size",
     "ram_bytes": "SRAM",
     "memory_bytes": "Memory Size",
+    "eeprom_bytes": "EEPROM",
+    "core_bits": "Core Size",
+    "adc_bits": "ADC (Bit)",
+    "dac_bits": "DAC (Bit)",
+    "operating_temp": "Operating Temperature",
+    "working_voltage_v": "Supply Voltage",
     "voltage_v": "Supply Voltage",
     "io_count": "Number of I/O",
     "id_a": "Continuous Drain Current",
@@ -3991,6 +4092,7 @@ attribute_label_map = {
     "ic_a": "Collector Current",
     "output_current_a": "Output Current",
     "ibias_a": "Input Bias Current",
+    "iq_a": "Quiescent Current",
     "resistance_ohm": "Resistance",
     "impedance_ohm": "Impedance",
     "dcr_ohm": "DC Resistance (DCR)",
@@ -4050,6 +4152,102 @@ def _fmt_ohm(num):
         return _fmt_num(num * 1000) + "mΩ"
     return _fmt_num(num) + "Ω"
 
+# --------------------------------------------------------------------------
+# Verbatim (RAW-phrasing) label overrides — C2 Phase 5A follow-up 2026-09-26
+#
+# 02 forwards unmapped LCSC parameters through as-is, so an attribute key can be
+# English prose containing spaces (`number of channels`, `output type`) that used
+# to render verbatim, breaking the capitalisation of the whole table.
+#
+#
+# HOW TO ADD AN EXCEPTION: a token that must survive byte-for-byte (a vendor
+# abbreviation the title-caser would otherwise rewrite) is covered automatically
+# by the mixed-case / digit / separator rules in `_verbatim_is_protected()`.
+# Only add a hard override here if a label still comes out wrong.
+# --------------------------------------------------------------------------
+_VERBATIM_LOWER_WORDS = frozenset(
+    {"a", "an", "as", "at", "and", "by", "de", "for", "from", "in", "into",
+     "of", "on", "or", "per", "the", "to", "via", "with"}
+)
+
+
+def _verbatim_is_protected(t):
+    """True when a token must survive byte-for-byte. A plain title-caser turns
+    `Maximum I2C Clock` into `I2c`, `Support PoE standard` into `Poe`,
+    `Number of LAB/CLBs` into `Clbs`, `Static dv/dt` into `Dv/Dt` and
+    `Propagation Delay tpHL` into `Tphl` — all real damage. Every token that is
+    not plain lower-case prose is therefore left alone."""
+    if not t:
+        return True
+    if t.isupper():                       # IOH, VEBO, ADC, DAC, ESD, RAM
+        return True
+    if any(ch.isdigit() for ch in t):     # I2C, FCLK, mm2, PIN (numeric)
+        return True
+    if "/" in t or "-" in t:              # dv/dt, H-bridges, 2-Wire, VCE(sat)
+        return True
+    if not t.islower() and not t.isupper():  # PoE, tpHL, Vr, Ios, PINs, Eon
+        return True
+    return False
+
+
+def _verbatim_protected_spans(s):
+    """Character spans (paired parentheses + every protected token) that must be
+    copied verbatim instead of re-cased."""
+    spans = []
+    stack = []
+    for i, ch in enumerate(s):
+        if ch == "(":
+            stack.append(i)
+        elif ch == ")":
+            if stack:
+                spans.append((stack.pop(), i + 1))
+    spans.extend(m.span() for m in re.finditer(r"\S+", s)
+                 if _verbatim_is_protected(m.group(0)))
+    spans.sort()
+    merged = []
+    for a, b in spans:                    # drop spans nested inside an outer span
+        if merged and a >= merged[-1][0]:
+            continue
+        merged.append((a, b))
+    return merged
+
+
+def _norm_verbatim_label(k):
+    """Title-case a RAW prose label while keeping vendor abbreviations intact.
+    Function words stay lower-case mid-phrase (`Number of Channels`) unless they
+    open the label (`With Bracket`), and anything in parentheses is untouched."""
+    s = (k or "").strip()
+    if not s:
+        return s
+    pieces = []
+    pos = 0
+    for a, b in _verbatim_protected_spans(s):
+        pieces.append(s[pos:a])
+        pieces.append(s[a:b])
+        pos = b
+    pieces.append(s[pos:])
+    out = []
+    for p in pieces:
+        if p.startswith("(") or not p.strip():
+            out.append(p)
+            continue
+        buf = []
+        # Split on separators too, so `Emitter-Base Voltage VEBO` keeps `Base`.
+        # NOTE: hyphen only — splitting on "/" would shred protected tokens such
+        # as `dv/dt` and the `(built-in/external)` group.
+        for i, t in enumerate(re.split(r"(\s+|[-])", p)):
+            if not t or not t[0].isalpha():
+                buf.append(t)
+            elif _verbatim_is_protected(t):
+                buf.append(t)
+            elif i > 0 and i % 2 == 0 and len(t) <= 3 and t.lower() in _VERBATIM_LOWER_WORDS:
+                buf.append(t.lower())
+            else:
+                buf.append(t[0].upper() + t[1:].lower())
+        out.append("".join(buf))
+    return "".join(out)
+
+
 def human_attr_label(k):
     k = (k or "").strip()
     if not k:
@@ -4057,7 +4255,7 @@ def human_attr_label(k):
     if k in attribute_label_map:
         return attribute_label_map[k]
     if " " in k:
-        return k
+        return _norm_verbatim_label(k)
     if "_" in k:
         return k.replace("_", " ").title()
     return k.title()
@@ -4083,6 +4281,78 @@ def _fmt_capacitance(v):
         # below 1 pF: express fractionally in pF
         return _fmt_num(f / 1e-12) + " pF"
     return _fmt_num(f / chosen[0]) + " " + chosen[1]
+
+
+# =============================================================================
+# Engineering-unit display formatters (P0 fix 2026-09-26, C2 system repair
+# Phase 1). MASTER stores these fields in BASE SI units; the DISPLAY layer (these
+# functions — the single source of truth for their units) scales to the most
+# readable engineering prefix. The numeric MASTER field is NEVER mutated.
+# =============================================================================
+def _fmt_data_rate(num):
+    """Render a data-rate value stored in bits-per-second (bps).
+
+        5000000   -> "5 Mbps"      100000000 -> "100 Mbps"
+        2000000   -> "2 Mbps"      1e9       -> "1 Gbps"
+    """
+    if num >= 1_000_000_000:
+        return _fmt_num(num / 1_000_000_000) + " Gbps"
+    if num >= 1_000_000:
+        return _fmt_num(num / 1_000_000) + " Mbps"
+    if num >= 1000:
+        return _fmt_num(num / 1000) + " kbps"
+    return _fmt_num(num) + " bps"
+
+
+def _fmt_current(num):
+    """Render a current value stored in amperes (A) as µA / mA / A.
+
+    Auto-scales so sub-amp values never lose precision to 3-decimal rounding
+    (e.g. 0.0025 A -> "2.5 mA", NOT "0.003 A"; 1e-6 A -> "1 µA", NOT "0.000 A").
+    This also covers iq_a (quiescent current), which the caller routes here.
+    """
+    if num == 0:
+        return "0 A"
+    if abs(num) < 1e-3:
+        return _fmt_num(num * 1e6) + " µA"
+    if abs(num) < 1:
+        return _fmt_num(num * 1e3) + " mA"
+    return _fmt_num(num) + " A"
+
+
+def _fmt_time_ns(num):
+    """Render a time value stored in nanoseconds (ns) as a readable unit.
+
+        4 -> "4 ns"      1500 -> "1.5 µs"      1e6 -> "1 ms"
+    Display-only; MASTER field never mutated.
+    """
+    if num >= 1_000_000:
+        return _fmt_num(num / 1_000_000) + " ms"
+    if num >= 1000:
+        return _fmt_num(num / 1000) + " µs"
+    return _fmt_num(num) + " ns"
+
+
+def _fmt_inductance(num):
+    """Render an inductance value stored in henries (H) as mH / µH / nH / H.
+
+    Mirrors _fmt_capacitance: scales to the most readable prefix and rounds away
+    float-representation noise (e.g. 0.00011999999999999999 H -> "120 µH").
+    Display-only; MASTER field never mutated.
+    """
+    if num == 0:
+        return "0 µH"
+    abs_f = abs(num)
+    if abs_f >= 1:
+        return _fmt_num(num) + " H"
+    if abs_f >= 1e-3:
+        return _fmt_num(round(num * 1e3, 9)) + " mH"
+    if abs_f >= 1e-6:
+        return _fmt_num(round(num * 1e6, 6)) + " µH"
+    if abs_f >= 1e-9:
+        return _fmt_num(round(num * 1e9, 6)) + " nH"
+    return _fmt_num(num) + " H"
+
 
 # =============================================================================
 # Temperature display formatter — FIELD / PATTERN AWARE (NOT a blind global
@@ -4187,17 +4457,43 @@ def format_attr_value(k, v):
         return _temp
     if (k or "").lower() == "capacitance":
         return _fmt_capacitance(v)
-    s = str(v).strip()
-    if not re.fullmatch(r"-?\d+(\.\d+)?", s):
+    # C2 Phase 4 (2026-09-26): `output_cap_coss` is a 02-forwarded capacitance
+    # key stored in FARADS as a bare float (e.g. 7.5e-11 -> 75 pF, 2.3e-09 ->
+    # 2.3 nF). It carries no unit suffix so it would otherwise render verbatim as
+    # scientific notation. Route it through the same Farad->engineering formatter
+    # as `capacitance`. Key-pattern based (any *_coss), NOT a per-SKU patch.
+    if (k or "").lower().endswith("_coss"):
+        return _fmt_capacitance(v)
+    # C2 Phase 5A: RAW verbatim bit strings ('DAC (Bit)' = '8bit') must not be
+    # returned unformatted — they render beside canonical `*_bits` values ("12 bit"),
+    # so one page could show three different bit styles. Normalise the space only;
+    # the underlying value is untouched (display layer never mutates MASTER).
+    _s = str(v).strip()
+    _bit_v = re.fullmatch(r"[+]?-?\d+(?:\.\d+)?\s*bit", _s, re.I)
+    if _bit_v:
+        return _fmt_num(float(re.sub(r"\s*bit$", "", _bit_v.group(0), flags=re.I))) + " bit"
+    s = _s
+    # Accept scientific notation (e.g. 1.5e-05) so tiny currents/capacitances are
+    # parsed by float() and routed to the proper engineering-unit formatter
+    # (otherwise they would render verbatim as "1.5e-05").
+    if not re.fullmatch(r"-?\d+(\.\d+)?([eE][+-]?\d+)?", s):
         return v
     try:
         num = float(s)
     except ValueError:
         return v
     key = (k or "").lower()
+    if key == "data_rate":
+        return _fmt_data_rate(num)
     if key.endswith("_bytes"):
-        if num >= 1_000_000:
-            return _fmt_num(num / 1_000_000) + " MB"
+        # C2 Phase 5A (2026-09-26): FIX mixed radix. The MB branch divided by
+        # 1_000_000 while the KB branch divided by 1024, so 1048576 B (1 MiB,
+        # which LCSC states natively as "1MB") rendered as "1.049 MB". Binary
+        # radix throughout: 1048576 -> "1 MB", 4096 -> "4 KB".
+        if num >= 1024 ** 3:
+            return _fmt_num(num / 1024 ** 3) + " GB"
+        if num >= 1024 ** 2:
+            return _fmt_num(num / 1024 ** 2) + " MB"
         if num >= 1024:
             return _fmt_num(num / 1024) + " KB"
         return _fmt_num(num) + " B"
@@ -4209,10 +4505,42 @@ def format_attr_value(k, v):
         if num >= 1000:
             return _fmt_num(num / 1000) + " kHz"
         return _fmt_num(num) + " Hz"
+    if key.endswith("_ns"):
+        return _fmt_time_ns(num)
+    if key.endswith("_bits"):
+        # C2 Phase 5A (2026-09-26): bit-widths are stored as bare integers
+        # (core_bits=32, adc_bits=12) and used to render with no unit at all.
+        # Render them exactly like LCSC/Digi-Key do: "32 bit", "12 bit".
+        return _fmt_num(num) + " bit"
+    # RAW verbatim bit strings ('DAC (Bit)' = '8bit') get the same space-separated
+    # unit mark so one page never shows three different bit styles.
+    _bit_v = re.fullmatch(r"[+]?-?\d+(?:\.\d+)?bit", str(v).strip(), re.I)
+    if _bit_v:
+        return _fmt_num(float(_bit_v.group(0)[:-3])) + " bit"
+    # C2 Phase 4 (2026-09-26): suffixed measurement keys whose value is stored
+    # DIRECTLY in the display unit (NOT base SI) — append the unit literally.
+    # These are placed BEFORE the generic `_v` branch on purpose: `_uv` / `_nv`
+    # would otherwise be mis-caught by `key.endswith("_v")` and rendered as volts.
+    if key == "gate_charge_c":
+        # Stored in nC (not C) — SI2301=10 nC, IPT015N10N5=211 nC are typical Qg.
+        return _fmt_num(num) + " nC"
+    if key.endswith("_db"):
+        return _fmt_num(num) + " dB"
+    if key.endswith("_mm"):
+        return _fmt_num(num) + " mm"
+    if key.endswith("_nv"):
+        return _fmt_num(num) + " nV"
+    if key.endswith("_uv"):
+        return _fmt_num(num) + " µV"
+    if key.endswith("_vus"):
+        return _fmt_num(num) + " V/µs"
     if key.endswith("_v") or key.endswith("_volt"):
         return _fmt_num(num) + " V"
     if key.endswith("_a"):
-        return _fmt_num(num) + " A"
+        # C2 repair Phase 1 (2026-09-26): currents auto-scale to µA/mA/A so
+        # sub-amp values never render as "0.000 A" / "0.003 A". iq_a (quiescent
+        # current) is included here.
+        return _fmt_current(num)
     if key.endswith("_mohm"):
         return _fmt_num(num) + " mΩ"
     if key.endswith("_ohm"):
@@ -4222,6 +4550,8 @@ def format_attr_value(k, v):
         return _fmt_num(num) + " pF"
     if key.endswith("_uh"):
         return _fmt_num(num) + " µH"
+    if key.endswith("_h"):
+        return _fmt_inductance(num)
     if key.endswith("_w"):
         return _fmt_num(num) + " W"
     if key == "tolerance":
@@ -4504,7 +4834,7 @@ LEGACY_ATTR_MAP = {
     "number of positions": "positions", "pin count": "positions", "number of pins": "positions",
     "pitch": "pitch_mm", "pin pitch": "pitch_mm",
     "current rating": "current_rating_a",
-    "data rate": "data_rate_bps", "baud rate": "data_rate_bps",
+    "data rate": "data_rate", "baud rate": "data_rate",
     "output power": "output_power_dbm", "transmit power": "output_power_dbm",
     "sensitivity": "sensitivity_dbm", "receiver sensitivity": "sensitivity_dbm",
 }
