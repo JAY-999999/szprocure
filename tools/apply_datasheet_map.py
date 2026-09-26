@@ -29,10 +29,12 @@ silently wiped. The map is generated from the current master, so this fires
 whenever the map lags behind the master (e.g. new SKUs added, map not rebuilt).
 
 New semantics:
-  * MPN present in map, status=mapped  -> write the R2 URL
-  * MPN present in map, status=missing -> write ""   (legitimately has no PDF)
-  * MPN ABSENT from map                -> KEEP the existing datasheet_url
-                                          (unless --prune is given)
+  * C# (supplier_reference) present in map, status=mapped  -> write the R2 URL
+    (MPN fallback for legacy rows that have no C# in the map)
+  * C#/MPN present in map, status=missing                 -> write "" (no PDF)
+  * C#/MPN ABSENT from map                                -> KEEP the existing
+                                                          datasheet_url
+                                                          (unless --prune is given)
 
 Writes are now atomic: <file>.tmp -> validate (row count, column count, header
 identity) -> os.replace. A failed validation never touches the real file.
@@ -60,29 +62,43 @@ TARGETS = [
 
 
 def load_mapping(map_csv):
-    """Return {mpn: r2_url}. Entries with status != 'mapped' map to ''."""
+    """Return (cid_url, mpn_url). Entries with status != 'mapped' map to ''.
+
+    Joined by C# (supplier_reference) first, with an MPN fallback for legacy
+    rows that have no C# in the map. A clone family (same MPN, several C#) thus
+    resolves to a DISTINCT url per C#, never collapsing to one shared object.
+    """
+    cid_url = {}
     mpn_url = {}
     with open(map_csv, encoding="utf-8") as f:
         for r in csv.DictReader(f):
+            if r.get("status") != "mapped":
+                continue
+            url = (r.get("r2_url") or "").strip()
+            cid = (r.get("supplier_reference") or "").strip()
             mpn = (r.get("mpn") or "").strip()
-            mpn_url[mpn] = (r.get("r2_url") or "").strip() if r.get("status") == "mapped" else ""
-    return mpn_url
+            if cid:
+                cid_url[cid] = url
+            if mpn:
+                mpn_url[mpn] = url
+    return cid_url, mpn_url
 
 
-def compute_rows(rows, mpn_url, prune=False):
+def compute_rows(rows, cid_url, mpn_url, prune=False):
     """Apply the mapping. Returns (out_rows, stats)."""
     out_rows = []
     stats = {"set": 0, "empty": 0, "preserved": 0, "pruned": 0}
     for r in rows:
+        cid = (r.get("supplier_reference") or "").strip()
         mpn = (r.get("mpn") or "").strip()
-        if mpn in mpn_url:
+        if cid in cid_url:
+            url = cid_url[cid]
+        elif mpn in mpn_url:
             url = mpn_url[mpn]
-            if url:
-                stats["set"] += 1
-            else:
-                stats["empty"] += 1
         else:
-            # MPN not covered by the mapping -> keep whatever is already there
+            url = "__UNCOVERED__"
+        if url == "__UNCOVERED__":
+            # Not covered by the mapping -> keep whatever is already there.
             existing = (r.get("datasheet_url") or "").strip()
             if prune:
                 url = ""
@@ -96,6 +112,11 @@ def compute_rows(rows, mpn_url, prune=False):
                     stats["preserved"] += 1
                 else:
                     stats["empty"] += 1
+        else:
+            if url:
+                stats["set"] += 1
+            else:
+                stats["empty"] += 1
         r["datasheet_url"] = url
         out_rows.append(r)
     return out_rows, stats
@@ -144,8 +165,8 @@ def main(argv=None):
     args = ap.parse_args(argv)
 
     targets = args.target or TARGETS
-    mpn_url = load_mapping(args.map)
-    print(f"Loaded {len(mpn_url)} mappings from map. "
+    cid_url, mpn_url = load_mapping(args.map)
+    print(f"Loaded {len(cid_url)} C# mappings ({len(mpn_url)} MPN fallback) from map. "
           f"mode={'DRY-RUN' if args.dry_run else 'APPLY'}"
           f"{' +PRUNE' if args.prune else ''}")
 
@@ -160,7 +181,7 @@ def main(argv=None):
             print(f"SKIP (no datasheet_url col): {path}")
             continue
         cols = list(rows[0].keys())
-        out_rows, stats = compute_rows(rows, mpn_url, prune=args.prune)
+        out_rows, stats = compute_rows(rows, cid_url, mpn_url, prune=args.prune)
         written = atomic_write_csv(path, cols, out_rows, dry_run=args.dry_run)
         for k in totals:
             totals[k] += stats[k]

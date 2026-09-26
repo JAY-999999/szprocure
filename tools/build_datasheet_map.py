@@ -1,22 +1,34 @@
-"""Build the authoritative MPN -> Datasheet(PDF) unique mapping for SZ Procure.
+"""Build the authoritative MPN/C# -> Datasheet(PDF) unique mapping for SZ Procure.
 
-Shadow-only tool. Reads the 489 local PDFs in the asset mirror + the 500-row
-master, computes SHA256/size live, and produces a single source-of-truth map:
+Shadow-only tool. Reads the local PDF library + the master, computes
+SHA256/size live, and produces a single source-of-truth map:
 
     D:/SZ Procure/02_CLEAN/datasheet_map.csv
     D:/SZ Procure/04_Audit_Report/datasheet_map_report.md
 
-Matching rule (per project convention, 2026-08-27):
-  * key = MPN (the canonical part number in the master).
-  * A PDF is matched to a row when its FILENAME STEM equals the row's `mpn`
-    (case-insensitive) or, failing that, the row's `clean_mpn`.
-  * The R2 object KEY is always derived from `mpn` (lower-cased, alnum/./-/_),
-    never from the source filename -- so one deterministic URL per SKU,
-    regardless of whether the local file was named by mpn or clean_mpn.
-  * 11 SKUs with no local PDF keep an EMPTY r2_url (no fake link, no placeholder).
+Matching rule (per project convention, 2026-09-27 R24-followup):
+  * key = the LCSC C# (``supplier_reference``), NOT the MPN.
+    A clone part (same MPN, several manufacturers) therefore gets ONE R2
+    object per LCSC part -- no two manufacturers ever share an object, so the
+    last-uploader-wins overwrite (the AO3401A AOS/UMW cross-contamination bug)
+    cannot recur. MPN is only a fallback key, used for legacy rows that have no
+    C# in the master.
+  * The R2 object KEY is always derived from the C#
+    (``KEY_SAFE(supplier_reference)``, e.g. ``c15127``), never from the source
+    filename -- so one deterministic URL per LCSC part regardless of how the
+    local file was named.
+  * Local PDFs live under ``资料PDF/datasheets`` and are named
+    ``<sha256>__<id>.pdf`` where ``<id>`` is either an MPN or a C#. We index
+    them by that ``<id>`` (and its alnum-normalised form) so a row can be
+    matched by C# first, then by MPN.
+  * FORWARD-ONLY preservation (2026-09-27): a master row that already carries a
+    valid R2 ``datasheet_url`` keeps it EXACTLY as-is. We never re-derive a new
+    key for an already-published SKU, so existing live datasheet links are never
+    disturbed. Only rows with an empty/absent datasheet_url get a freshly derived
+    C#-keyed URL.
 
 The mapping is the ONLY thing that decides which SKU gets a datasheet button.
-gen_parts.py already renders the button conditionally from `datasheet_url`,
+gen_parts.py already renders the button conditionally from ``datasheet_url``,
 which apply_datasheet_map.py fills from this map.
 
 Run:  python tools/build_datasheet_map.py
@@ -25,7 +37,9 @@ Exit 0 = built (mapping always built; report lists mismatches/dupes/missing).
 import csv, os, re, hashlib, sys, json
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PDF_DIR = "D:/SZ Procure/01_RAW/ASSET/datasheets"
+# Real PDF library (2026-09-27: the legacy 01_RAW/ASSET/datasheets was empty;
+# the 5017 PDFs actually live here, named <sha>__<mpn|c#|unknown>.pdf).
+PDF_DIR = "D:/SZ Procure/资料PDF/datasheets"
 MASTER_C = os.path.join(ROOT, "data", "production", "master_parts_v2.1.csv")
 MASTER_D = "D:/SZ Procure/03_MASTER/product_master/master_parts_v2.1.csv"
 OUT_CSV = "D:/SZ Procure/02_CLEAN/datasheet_map.csv"
@@ -37,8 +51,24 @@ R2_PUBLIC_BASE = os.environ.get("SZ_R2_PUBLIC_BASE", "https://static.szprocure.c
 KEY_SAFE = re.compile(r"[^a-z0-9._-]")
 
 
-def r2_key(mpn: str) -> str:
-    return KEY_SAFE.sub("-", mpn.strip().lower())
+def r2_key(cid=None, mpn=None) -> str:
+    """R2 object name, derived from the LCSC C# (supplier_reference).
+
+    Per-LCSC-part, so clone families (same MPN, different C#) never share one
+    object. Falls back to MPN only when no C# is present (legacy rows).
+    """
+    src = (cid or "").strip() or (mpn or "").strip()
+    if not src:
+        return ""
+    return KEY_SAFE.sub("-", src.strip().lower())
+
+
+def is_r2_url(u: str) -> bool:
+    """A URL we treat as an already-published R2 datasheet link."""
+    if not u:
+        return False
+    u = u.strip().lower()
+    return ".r2.dev" in u or R2_PUBLIC_BASE.rstrip("/").lower() in u
 
 
 def sha256_of(path: str) -> str:
@@ -49,116 +79,145 @@ def sha256_of(path: str) -> str:
     return h.hexdigest()
 
 
+def _ident_of(stem: str) -> str:
+    """The '<id>' portion of a '<sha>__<id>' PDF filename stem."""
+    return stem.split("__")[-1] if "__" in stem else stem
+
+
 def main():
-    # 1. index local PDFs: stem(lower) -> [(realpath, size)]
-    pdf_files = [f for f in os.listdir(PDF_DIR) if f.lower().endswith(".pdf")]
-    stem_map = {}
-    norm_stem_map = {}  # alphanumeric-only normalized stem -> [paths]
-    for f in pdf_files:
+    # 1. index local PDFs by stem, normalised stem, and the <id> portion.
+    # PDFs live in date sub-directories (资料PDF/datasheets/<YYYY-MM-DD>/...),
+    # so walk recursively.
+    pdf_files = []
+    for root, _dirs, files in os.walk(PDF_DIR):
+        for f in files:
+            if f.lower().endswith(".pdf"):
+                pdf_files.append(os.path.join(root, f))
+    stem_map = {}        # full filename stem (no .pdf) lower -> [paths]
+    norm_stem_map = {}   # alnum-only full stem -> [paths]
+    id_map = {}          # <id> (mpn or C#) lower -> [paths]
+    norm_id_map = {}     # alnum-only <id> -> [paths]
+    for fp in pdf_files:
+        f = os.path.basename(fp)
         stem = f[:-4].lower()
-        stem_map.setdefault(stem, []).append(os.path.join(PDF_DIR, f))
+        stem_map.setdefault(stem, []).append(fp)
         nstem = re.sub(r"[^a-z0-9]", "", stem)
-        norm_stem_map.setdefault(nstem, []).append(os.path.join(PDF_DIR, f))
+        norm_stem_map.setdefault(nstem, []).append(fp)
+        ident = _ident_of(stem)
+        id_map.setdefault(ident, []).append(fp)
+        nident = re.sub(r"[^a-z0-9]", "", ident)
+        if nident:
+            norm_id_map.setdefault(nident, []).append(fp)
     # detect duplicate stems (two files, same stem)
     dup_stems = {s: ps for s, ps in stem_map.items() if len(ps) > 1}
 
     # 2. read master
     rows = list(csv.DictReader(open(MASTER_C, encoding="utf-8")))
-    # sort stable by original order; we also key by mpn
-    mpn_to_rows = {}
-    for r in rows:
-        mpn_to_rows.setdefault((r.get("mpn") or "").strip().lower(), []).append(r)
-
-    # 3. match
-    out = []
-    missing = []
-    matched = 0
-    method_mpn = 0
-    method_clean = 0
-    method_mpn_norm = 0
-    method_clean_norm = 0
-    filedup_groups = {}  # sha256 -> [stems]
-    file_seen_sha = {}
-    collisions = []  # mpn collision: same mpn normalized key used by 2 different files
-    norm_collisions = []  # two master mpns normalize to the same alnum string
-
     # detect master mpn normalization collisions (two distinct parts collapse)
     norm_mpn_seen = {}
     for r in rows:
         n = re.sub(r"[^a-z0-9]", "", (r.get("mpn") or "").strip().lower())
         if n:
             norm_mpn_seen.setdefault(n, []).append((r.get("mpn") or "").strip())
-    for n, ms in norm_mpn_seen.items():
-        if len(ms) > 1:
-            norm_collisions.append((n, ms))
+    norm_collisions = [(n, ms) for n, ms in norm_mpn_seen.items() if len(ms) > 1]
+
+    # 3. match
+    out = []
+    missing = []
+    matched = 0
+    method_cid = 0
+    method_mpn = 0
+    method_mpn_norm = 0
+    filedup_groups = {}
+    file_seen_sha = {}
+    collisions = []  # id collision: same id normalized key used by 2 different files
 
     for r in rows:
+        cid = (r.get("supplier_reference") or "").strip()
         mpn = (r.get("mpn") or "").strip()
         clean = (r.get("clean_mpn") or "").strip()
-        key = r2_key(mpn)
+        existing = (r.get("datasheet_url") or "").strip()
+
+        # ---- FORWARD-ONLY: preserve an already-published R2 link ----
+        if is_r2_url(existing):
+            key = r2_key(cid, mpn)
+            out.append({
+                "supplier_reference": cid, "mpn": mpn, "clean_mpn": clean,
+                "match_method": "preserved", "local_file": "",
+                "r2_key": key, "r2_url": existing,
+                "sha256": "", "size_bytes": "", "status": "mapped",
+            })
+            continue
+
+        # ---- derive a fresh C#-keyed URL for rows with no datasheet ----
+        key = r2_key(cid, mpn)
+        if not key:
+            missing.append(mpn)
+            out.append({
+                "supplier_reference": cid, "mpn": mpn, "clean_mpn": clean,
+                "match_method": "", "local_file": "", "r2_key": "",
+                "r2_url": "", "sha256": "", "size_bytes": "", "status": "missing",
+            })
+            continue
+
         local = None
         method = ""
-        # priority: mpn stem -> clean_mpn stem -> mpn normalized -> clean_mpn normalized
-        if mpn and mpn.lower() in stem_map:
-            local = stem_map[mpn.lower()]
-            method = "mpn"
-        elif clean and clean.lower() in stem_map:
-            local = stem_map[clean.lower()]
-            method = "clean_mpn"
-        elif mpn and re.sub(r"[^a-z0-9]", "", mpn.lower()) in norm_stem_map:
-            local = norm_stem_map[re.sub(r"[^a-z0-9]", "", mpn.lower())]
+        # priority: C# id -> MPN id -> MPN norm id -> clean_mpn id
+        cid_l = cid.lower()
+        mpn_l = mpn.lower()
+        cln_l = clean.lower()
+        if cid and cid_l in id_map:
+            local = id_map[cid_l]; method = "cid"
+        elif mpn and mpn_l in id_map:
+            local = id_map[mpn_l]; method = "mpn"
+        elif mpn and re.sub(r"[^a-z0-9]", "", mpn.lower()) in norm_id_map:
+            local = norm_id_map[re.sub(r"[^a-z0-9]", "", mpn.lower())]
             method = "mpn_norm"
-        elif clean and re.sub(r"[^a-z0-9]", "", clean.lower()) in norm_stem_map:
-            local = norm_stem_map[re.sub(r"[^a-z0-9]", "", clean.lower())]
-            method = "clean_mpn_norm"
+        elif clean and cln_l in id_map:
+            local = id_map[cln_l]; method = "clean_mpn"
         if local is None:
             missing.append(mpn)
             out.append({
-                "mpn": mpn, "clean_mpn": clean, "match_method": "",
-                "local_file": "", "r2_key": key, "r2_url": "",
-                "sha256": "", "size_bytes": "", "status": "missing",
+                "supplier_reference": cid, "mpn": mpn, "clean_mpn": clean,
+                "match_method": "", "local_file": "", "r2_key": key,
+                "r2_url": "", "sha256": "", "size_bytes": "", "status": "missing",
             })
             continue
         # pick first file if dup stem (report later)
         path = local[0]
         if len(local) > 1:
-            collisions.append((mpn, [os.path.basename(p) for p in local]))
+            collisions.append((mpn or cid, [os.path.basename(p) for p in local]))
         sha = sha256_of(path)
         size = os.path.getsize(path)
         url = f"{R2_PUBLIC_BASE}/{key}.pdf"
-        # content duplication tracking
-        filedup_groups.setdefault(sha, []).append(mpn)
-        prev = file_seen_sha.get(sha)
-        if prev is not None and prev != key:
-            # same content already mapped under a different key -> duplicate content
-            pass
+        filedup_groups.setdefault(sha, []).append(mpn or cid)
         file_seen_sha[sha] = key
         matched += 1
-        if method == "mpn":
+        if method == "cid":
+            method_cid += 1
+        elif method == "mpn":
             method_mpn += 1
-        elif method == "clean_mpn":
-            method_clean += 1
-        elif method == "mpn_norm":
-            method_mpn_norm += 1
         else:
-            method_clean_norm += 1
+            method_mpn_norm += 1
         out.append({
-            "mpn": mpn, "clean_mpn": clean, "match_method": method,
-            "local_file": os.path.basename(path), "r2_key": key, "r2_url": url,
+            "supplier_reference": cid, "mpn": mpn, "clean_mpn": clean,
+            "match_method": method, "local_file": os.path.basename(path),
+            "r2_key": key, "r2_url": url,
             "sha256": sha, "size_bytes": size, "status": "mapped",
         })
 
     # write CSV
     os.makedirs(os.path.dirname(OUT_CSV), exist_ok=True)
     with open(OUT_CSV, "w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=["mpn", "clean_mpn", "match_method",
-                                          "local_file", "r2_key", "r2_url",
-                                          "sha256", "size_bytes", "status"])
+        w = csv.DictWriter(f, fieldnames=["supplier_reference", "mpn", "clean_mpn",
+                                          "match_method", "local_file", "r2_key",
+                                          "r2_url", "sha256", "size_bytes", "status"])
         w.writeheader()
         w.writerows(out)
 
     # duplicate content groups (content-identical PDFs across different SKUs)
     dup_content = {sha: ms for sha, ms in filedup_groups.items() if len(ms) > 1}
+    preserved = sum(1 for o in out if o["match_method"] == "preserved")
 
     # report
     lines = []
@@ -168,10 +227,12 @@ def main():
     lines.append("")
     lines.append(f"- Master rows: **{len(rows)}**")
     lines.append(f"- Local PDFs: **{len(pdf_files)}**")
-    lines.append(f"- Mapped (have PDF): **{matched}**  (exact mpn: {method_mpn}, exact clean_mpn: {method_clean}, norm mpn: {method_mpn_norm}, norm clean_mpn: {method_clean_norm})")
+    lines.append(f"- Already-published (preserved, untouched): **{preserved}**")
+    lines.append(f"- Mapped (fresh C#-keyed, have PDF): **{matched}**  "
+                 f"(by C#: {method_cid}, by mpn: {method_mpn}, by mpn_norm: {method_mpn_norm})")
     lines.append(f"- Missing (no PDF, kept empty): **{len(missing)}**")
-    cover = matched / len(rows) * 100
-    lines.append(f"- **PDF coverage: {cover:.1f}%** ({matched}/{len(rows)})")
+    cover = (preserved + matched) / len(rows) * 100 if rows else 0
+    lines.append(f"- **Datasheet coverage: {cover:.1f}%** ({preserved + matched}/{len(rows)})")
     lines.append("")
     lines.append(f"- Duplicate filename stems (2 files same name): {len(dup_stems)}")
     for s, ps in list(dup_stems.items())[:10]:
@@ -180,11 +241,11 @@ def main():
     for sha, ms in list(dup_content.items())[:10]:
         lines.append(f"    - sha256 {sha[:12]}… -> {ms[:6]}")
     if collisions:
-        lines.append(f"- MPN filename collisions (2 files for one mpn): {len(collisions)}")
+        lines.append(f"- ID filename collisions (2 files for one id): {len(collisions)}")
         for mpn, fs in collisions[:10]:
             lines.append(f"    - `{mpn}`: {fs}")
     if norm_collisions:
-        lines.append(f"- ⚠️ Master MPN normalization collisions (two distinct parts collapse to same alnum key): {len(norm_collisions)} — review before trusting norm matches")
+        lines.append(f"- ⚠️ Master MPN normalization collisions: {len(norm_collisions)}")
         for n, ms in norm_collisions[:10]:
             lines.append(f"    - `{n}` -> {ms}")
     lines.append("")
@@ -204,12 +265,11 @@ def main():
         "r2_public_base": R2_PUBLIC_BASE,
         "master_rows": len(rows),
         "local_pdfs": len(pdf_files),
-        "mapped": matched, "missing": len(missing),
+        "preserved": preserved, "mapped": matched, "missing": len(missing),
         "coverage_pct": round(cover, 1),
-        "method_mpn": method_mpn, "method_clean": method_clean,
-        "method_mpn_norm": method_mpn_norm, "method_clean_norm": method_clean_norm,
+        "method_cid": method_cid, "method_mpn": method_mpn, "method_mpn_norm": method_mpn_norm,
         "dup_stems": len(dup_stems), "dup_content_groups": len(dup_content),
-        "mpn_collisions": len(collisions), "norm_collisions": len(norm_collisions),
+        "id_collisions": len(collisions), "norm_collisions": len(norm_collisions),
         "missing_mpns": missing,
     }, open(sum_path, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
     print(f"Summary written: {sum_path}")

@@ -60,10 +60,15 @@ import json
 import os
 import re
 
-# Must stay byte-identical to ``build_datasheet_map.KEY_SAFE`` / ``r2_key``:
-# the gate decides "is this URL MPN-derived" by reproducing the very function
-# that produced it. If that function is ever re-keyed (e.g. by C#), this
-# module WILL have to follow, otherwise the gate silently passes everything.
+# ``clone_r2_key`` is DELIBERATELY the LEGACY MPN-derived key (what
+# ``build_datasheet_map.r2_key`` used to produce before 2026-09-27). It is NOT
+# meant to stay byte-identical to the current ``r2_key`` (which is now
+# C#-derived). The gate uses it only to detect DANGEROUS LEGACY bindings: a
+# clone-family SKU whose datasheet still resolves to a bare ``<mpn>.pdf`` object
+# (which every other manufacturer of that MPN also resolves to). C#-derived keys
+# are per-LCSC-part and are therefore never flagged (rule C2). If this function
+# is ever changed to match the new C# key, the gate would silently stop catching
+# legacy MPN collisions -- do NOT "fix" it to match.
 KEY_SAFE = re.compile(r"[^a-z0-9._-]")
 
 # Same field order as release_pipeline._DS_FIELDS: first non-empty wins.
