@@ -29,6 +29,7 @@ import re
 
 from . import LEGAL_TECH_SYMBOLS, has_illegal_text
 from . import alternates, category, product_data, pool, gate
+import native_l1_mapper as nl1
 from .category import (
     UNKNOWN_CATEGORY,
     _norm_voltage, _norm_current, _norm_freq, _norm_data_rate,
@@ -321,6 +322,20 @@ def build_en_attributes(mp):
             else:
                 name_en = name_cn
         raw_val = item.get("paramValueEn") or item.get("paramValue") or ""
+        # RANGE SAFETY (defence-in-depth for "ranges must stay ranges, never
+        # averaged to a single value"): normalize_text's ascii_gate would turn an
+        # en/em dash (U+2013/U+2014) between two numbers into a SPACE, after which
+        # the numeric normalisers can no longer see the range and would AVERAGE
+        # the two extremes (e.g. an LCSC "4V-80V" / "4V-80V" style range -> 42V).
+        # Normalise dash ranges to '~' BEFORE normalize_text so the range survives
+        # and is preserved verbatim. The pattern is unit-aware: it matches
+        # "4V-80V", "0.8V-5.5V", "100Ohm-1kOhm" (digit+unit on BOTH sides), not a
+        # leading minus sign (e.g. "-40C" has no digit before the dash) nor a
+        # hyphen inside a word.
+        raw_val = re.sub(
+            r"(\d[\d.]*\s*[A-Za-z\u00b5\u03a9%\u00b0]*)\s*[\u2013\u2014-]\s*"
+            r"(\d[\d.]*\s*[A-Za-z\u00b5\u03a9%\u00b0]*)",
+            r"\1~\2", raw_val)
         folded_val = normalize_text(raw_val)
         if not name_en or not folded_val:
             continue
@@ -342,7 +357,14 @@ def build_en_attributes(mp):
                 # Omega must reach the normaliser untouched.
                 nval = normalizer(fullwidth_to_halfwidth(raw_val))
             elif normalizer is not None:
-                nval = normalizer(normalize_text(raw_val))
+                # A numeric range that survived as '~' must NOT be collapsed by a
+                # first-token normaliser: _num_first would take "4V~80V" -> 4.
+                # _norm_* already preserve ranges; only _num_first would truncate,
+                # so guard it explicitly (rule: ranges stay ranges).
+                if normalizer is _num_first and "~" in folded_val:
+                    nval = folded_val
+                else:
+                    nval = normalizer(normalize_text(raw_val))
             else:
                 nval = folded_val  # string spec, already ASCII
             if nval is None or nval == "":
@@ -1099,6 +1121,8 @@ def _detect_by_en_attrs(record):
 def http_build_category_row(record, mpn, brand):
     """English-key mirror of category.build_category_row."""
     canon, signals, confidence = detect_category(record)
+    nl1_slug = nl1.compute_native_l1_for_row(
+        (record.get("supplier_sku") or "").strip())
     if canon == UNKNOWN_CATEGORY:
         canon2, det_meta = _detect_by_en_attrs(record)
         if canon2:
@@ -1109,9 +1133,9 @@ def http_build_category_row(record, mpn, brand):
                        "classification_source": "en_attr_fingerprint",
                        "matched_keys": det_meta["matched_keys"],
                        "reason": det_meta["reason"]}
-    meta = {"category": canon, "confidence": confidence,
+    meta = {"category": nl1_slug or canon, "confidence": confidence,
             "signals": signals,
-            "needs_review": canon == UNKNOWN_CATEGORY}
+            "needs_review": not nl1_slug}
     if canon == UNKNOWN_CATEGORY or canon not in HTTP_REGISTRY:
         fields = _unknown_fields(record, mpn, brand)
         # Fix-2 (2026-09-15): Uncategorized HTTP rows must not lose their specs
@@ -1137,6 +1161,9 @@ def http_build_category_row(record, mpn, brand):
             fields["applications"] = _apps
         else:
             fields["applications"] = ""
+        if nl1_slug:
+            fields["category"] = nl1_slug
+            fields["subcategory"] = nl1_slug
         return fields, meta
     adapter = HTTP_REGISTRY[canon]
     meta["min_specs"] = adapter.min_specs
@@ -1177,6 +1204,9 @@ def http_build_category_row(record, mpn, brand):
             "category=%r error=%r -- attributes_json left as adapter built it "
             "(possible spec loss, run spec_integrity_check)", mpn, brand,
             canon, _exc)
+    if nl1_slug:
+        fields["category"] = nl1_slug
+        fields["subcategory"] = nl1_slug
     return fields, meta
 
 

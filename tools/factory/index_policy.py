@@ -137,7 +137,7 @@ def classify_part_record(rec: dict) -> PartClassification:
     only consulted during duplicate primary selection in classify_parts()).
     """
     slug = (rec.get("url_slug") or "").strip()
-    category = rec.get("category")
+    category = rec.get("native_l1")  # single-tree: classify by native_l1, not legacy family
     mpn = (rec.get("mpn") or "").strip()
 
     # 1) unknown category -> noindex, follow (crawler should not index an

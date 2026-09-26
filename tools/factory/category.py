@@ -26,6 +26,7 @@ Design constraints (approved P1-E decisions):
 import json
 import re
 from abc import ABC, abstractmethod
+import native_l1_mapper as nl1
 
 # --------------------------------------------------------------------------
 # shared constants
@@ -829,7 +830,8 @@ _CATALOG_PATTERNS = [
     (r"logic gate|logic ic", "Logic IC"),
     (r"transceiver|translator|level shift|"
      r"i/?o expander|rs-?232|rs-?485|rs-?422|can transceiver|uart|"
-     r"driver|expander|interface",
+     r"driver|expander|interface|"
+     r"signal buffer|repeater|splitter",
      "Interface IC"),
 ]
 
@@ -935,19 +937,32 @@ def _unknown_fields(record, mpn, brand):
 def build_category_row(record, mpn, brand):
     """Return (fields_dict, meta_dict).
 
-    fields_dict has the 7 category-shaped keys. meta carries the detected
-    category, confidence, signals and a ``needs_review`` flag for unmapped
-    rows (so a later release gate can hold them).
+    SINGLE TREE (2026-09-27): the published ``category`` column is the
+    authoritative native_l1 slug -- NOT the legacy 11-family detection. The
+    11-family ``detect_category`` is retained ONLY as an internal hint for
+    picking the right spec-formatting adapter; its output is never written to
+    the published classification. Rows whose native_l1 is empty keep
+    UNKNOWN_CATEGORY so downstream gates/render quarantine them.
     """
+    nl1_slug = nl1.compute_native_l1_for_row(
+        (record.get("supplier_sku") or "").strip())
+    if not nl1_slug:
+        meta = {"category": UNKNOWN_CATEGORY, "confidence": "none",
+                "signals": {"level": "native_l1_empty"}, "needs_review": True}
+        return _unknown_fields(record, mpn, brand), meta
     canon, signals, confidence = detect_category(record)
-    meta = {"category": canon, "confidence": confidence,
+    meta = {"category": nl1_slug, "confidence": confidence,
             "signals": signals, "needs_review": False}
     if canon == UNKNOWN_CATEGORY or canon not in REGISTRY:
-        meta["needs_review"] = True
-        return _unknown_fields(record, mpn, brand), meta
-    adapter = REGISTRY[canon]
-    meta["min_specs"] = adapter.min_specs
-    return adapter.build(record, mpn, brand), meta
+        fields = _unknown_fields(record, mpn, brand)
+    else:
+        adapter = REGISTRY[canon]
+        meta["min_specs"] = adapter.min_specs
+        fields = adapter.build(record, mpn, brand)
+    # Unify published classification onto the single native_l1 tree.
+    fields["category"] = nl1_slug
+    fields["subcategory"] = nl1_slug
+    return fields, meta
 
 
 def supported_canonicals():

@@ -553,7 +553,7 @@ def plan_release(master_path, rows, subset_mpns=None, batch_id="",
                    for r in selected
                    if (r.get("supplier_reference") or "").strip()})
     if cids:
-        fails, _warns, report = check_cids(cids)
+        fails, _warns, report = check_cids(cids, candidate_rows=selected)
         plan.spec_integrity_report = report
         if fails:
             plan.add_stop(
@@ -662,10 +662,10 @@ def plan_release(master_path, rows, subset_mpns=None, batch_id="",
             plan.add_stop(gate.SPEC_THIN,
                           f"missing required field '{bad_field}'", mpn)
             continue
-        if r.get("category") == UNKNOWN_CATEGORY:
+        if not (r.get("native_l1") or "").strip():
             if (mpn.strip().upper() not in allow_unc):
                 plan.add_stop(gate.UNMAPPED_CATEGORY,
-                              f"category not mapped to an adapter: {r.get('category')}", mpn)
+                              f"native_l1 not mapped (single-tree gate): {r.get('native_l1')!r}", mpn)
                 continue
             # Explicitly approved hold-for-review record (rescued pure-numeric MPN
             # that cleared the synthetic guard but has no 11-family signal). Released
@@ -674,7 +674,7 @@ def plan_release(master_path, rows, subset_mpns=None, batch_id="",
                              "Uncategorized but explicitly approved for release "
                              "(allow_uncategorized_mpns)", mpn)
         # non-blocking warnings
-        cat_name = r.get("category", "")
+        cat_name = r.get("native_l1", "")
         adapter = category.REGISTRY.get(cat_name)
         min_specs = adapter.min_specs if adapter else 2
         if (r.get(product_data.F_SPEC_KEYS) or 0) < min_specs:

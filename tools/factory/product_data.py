@@ -348,16 +348,6 @@ def build_row(record, mpn, brand, mfr_map=None):
         # --recompute-native-l1 step. Empty when no RAW (never guessed).
         "native_l1": nl1.compute_native_l1_for_row((record.get("supplier_sku") or "").strip()),
     }
-    # ---- category <-> native_l1 consistency gate (B3) ----
-    # A populated category that contradicts the authoritative native_l1 taxonomy
-    # is forced to UNKNOWN_CATEGORY so plan_release's existing stop blocks it
-    # from release (never silently shipped). native_l1=='' (Problem A unresolved)
-    # is skipped to avoid over-blocking.
-    _cat = row.get("category", "")
-    _nl1 = row.get("native_l1", "")
-    _conflict = _cat_nl1_conflict(_cat, _nl1)
-    if _conflict:
-        row["category"] = UNKNOWN_CATEGORY
     # final CJK guard on attribute values (defence in depth)
     aj = json.loads(fields["attributes_json"] or "{}")
     aj = {k: v for k, v in aj.items()
@@ -374,12 +364,8 @@ def build_row(record, mpn, brand, mfr_map=None):
     # Pool-only source tag so qualify() can apply source-specific guards
     # (e.g. LCSC HTTP pure-numeric MPNs are real products, not synthetic).
     row["_source_kind"] = record.get("_source_kind")
-    row[F_NEEDS_REVIEW] = bool(meta.get("needs_review", False)) or _conflict
-    _detect_signals = dict(meta.get("signals", {}))
-    if _conflict:
-        _detect_signals["gate_cat_nl1_conflict"] = {
-            "category": _cat, "native_l1": _nl1}
-    row[F_DETECT] = json.dumps(_detect_signals, ensure_ascii=False)
+    row[F_NEEDS_REVIEW] = bool(meta.get("needs_review", False))
+    row[F_DETECT] = json.dumps(meta.get("signals", {}), ensure_ascii=False)
     return row, meta
 
 
