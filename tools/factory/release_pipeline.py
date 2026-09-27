@@ -726,7 +726,12 @@ def plan_release(master_path, rows, subset_mpns=None, batch_id="",
 
     plan.projected_master_rows = updated_old + truly_new
     plan.after_count = before_count + len(truly_new)
-    plan.after_mpns = before_mpns | {(m or "").strip().upper() for m in plan.new_mpns}
+    # Fixed 2026-09-27: was `.strip().upper()` which broke the comparison
+    # against master_io.mpn_set() (line 62) that preserves raw case. A mixed-case
+    # MPN like SC-32S32.768kHz20PPM7pF (32.768 kHz crystal, "kHz"/"pF" must stay
+    # mixed) was stored verbatim but the plan upper-cased it, so verify_consistency
+    # raised a false CONSISTENCY_FAIL. Match mpn_set's normalization.
+    plan.after_mpns = before_mpns | {(m or "").strip() for m in plan.new_mpns}
     return plan
 
 
