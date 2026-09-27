@@ -1,1 +1,1 @@
-{"version": 1, "shardSize": 5000, "shardCount": 2, "total": 5690, "shards": [{"file": "/search/0.json", "n": 5000, "from": "0.3k-hx-15pwb", "to": "tja1043tk/1y"}, {"file": "/search/1.json", "n": 690, "from": "tja1044gt/1z", "to": "zx-pz2.54-1-16pzz"}]}
+{"version": 1, "shardSize": 5000, "shardCount": 2, "total": 5888, "shards": [{"file": "/search/0.json", "n": 5000, "from": "0.3k-hx-15pwb", "to": "t520b107m006ate035"}, {"file": "/search/1.json", "n": 888, "from": "t520b107m010ate070", "to": "zx-pz2.54-1-16pzz"}]}
