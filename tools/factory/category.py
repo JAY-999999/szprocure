@@ -75,6 +75,12 @@ def _norm(s, table):
         nums = [float(x) for x in re.findall(r"[\d.]+", s)]
         if nums:
             return sum(nums) / len(nums)
+    # Unit-less pure number (e.g. LCSC "1500" for Isolation Voltage(Vrms)):
+    # keep the numeric instead of silently dropping it. The unit is implied by
+    # the parameter name such as "(Vrms)". Text that merely contains a digit
+    # (e.g. "Level 3") still returns None so we don't invent a measurement.
+    if re.fullmatch(r"\s*[\d.]+\s*", s):
+        return float(s)
     return None
 
 

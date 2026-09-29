@@ -194334,5 +194334,31 @@
     "alternative_parts_detail": "[{\"mpn\": \"ACS712ELCTR-30A-T-TUDI\", \"manufacturer\": \"Tudi\", \"lcsc\": \"C55214281\", \"type\": \"Similar\", \"package\": \"SOP-8\"}, {\"mpn\": \"HX712-30-S\", \"manufacturer\": \"ZHHXDZ\", \"lcsc\": \"C19186036\", \"type\": \"Similar\", \"package\": \"SOP-8\"}, {\"mpn\": \"HT8712R-30A\", \"manufacturer\": \"HTCSEMI\", \"lcsc\": \"C19192934\", \"type\": \"Similar\", \"package\": \"SOP-8\"}, {\"mpn\": \"GT712LBDTR-30A\", \"manufacturer\": \"XBLW\", \"lcsc\": \"C19267457\", \"type\": \"Similar\", \"package\": \"SOP-8\"}, {\"mpn\": \"ACS712ELCTR-30A-T-JSM\", \"manufacturer\": \"JSMSEMI\", \"lcsc\": \"C19673781\", \"type\": \"Similar\", \"package\": \"SOP-8\"}]",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C9932.pdf",
     "product_url": "/products/acs712elctr30at/"
+  },
+  {
+    "mpn": "LTC6820HMS#3ZZTRPBF",
+    "clean_mpn": "LTC6820HMS3ZZTRPBF",
+    "manufacturer": "Analog Devices",
+    "brand": "Analog Devices",
+    "url_slug": "ltc6820hms3zztrpbf",
+    "category": "Semiconductors & Discrete",
+    "subcategory": "Signal Isolators",
+    "description": "Analog Devices LTC6820HMS#3ZZTRPBF",
+    "applications": "- Industrial Networking - Battery Monitoring Systems - Remote Sensors - Microcontroller to SPI Slave Isolated Interface",
+    "keywords": "LTC6820HMS#3ZZTRPBF; Operational Amplifier; Operational Amplifier",
+    "attributes": {
+      "Data Rate(Max)": "1Mbps",
+      "working_voltage_v": "2.7V~5.5V",
+      "features": "Bidirectional channel configurable;Low-power standby;Wake-up support",
+      "operating_temp": "-40°C~+125°C",
+      "cmti_kvus": "-"
+    },
+    "sources": [],
+    "needs_review": true,
+    "availability": "active",
+    "alternative_parts": "LTC6820HMS#3ZZPBF; LTC6820HMS#TRPBF; LTC6820HMS#PBF",
+    "alternative_parts_detail": "[{\"mpn\": \"LTC6820HMS#3ZZPBF\", \"manufacturer\": \"ADI\", \"lcsc\": \"C689578\", \"type\": \"Similar\", \"package\": \"MSOP-16\"}, {\"mpn\": \"LTC6820HMS#TRPBF\", \"manufacturer\": \"ADI\", \"lcsc\": \"C689580\", \"type\": \"Similar\", \"package\": \"MSOP-16\"}, {\"mpn\": \"LTC6820HMS#PBF\", \"manufacturer\": \"ADI\", \"lcsc\": \"C82925\", \"type\": \"Similar\", \"package\": \"MSOP-16\"}]",
+    "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C514444.pdf",
+    "product_url": "/products/ltc6820hms3zztrpbf/"
   }
 ]
