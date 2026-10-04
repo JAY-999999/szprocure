@@ -18,11 +18,24 @@
   var WHATSAPP = "+86 13530888389";
   var ADDRESS = "14th Floor, Guangye Building, 110 Fuhua Road, Futian District, Shenzhen, Guangdong, China";
 
-  var LOGO = '<svg class="logo-mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
-    + '<rect x="3" y="3" width="26" height="26" rx="7" fill="#0b1b33"/>'
-    + '<rect x="9" y="9" width="14" height="14" rx="3" fill="#0A84FF"/>'
-    + '<path d="M16 3v5M16 24v5M3 16h5M24 16h5" stroke="#0A84FF" stroke-width="2" stroke-linecap="round"/>'
-    + '<circle cx="16" cy="16" r="2.4" fill="#fff"/></svg>';
+  // Hexagon supply-network mark. Geometry follows the brand reference (60x64 artboard),
+  // with viewBox padded by 2 on every side so the r=4 vertex nodes are never clipped.
+  // Blue = #0A84FF (iOS system blue — single source of truth, matches buttons/search icon);
+  // inner lattice = light grey #E2E8F0 (overridden to #24405f on dark footer background).
+  var LOGO = '<svg class="logo-mark" viewBox="-2 -2 64 68" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">'
+    + '<path d="M30 3 L55 17 L55 47 L30 61 L5 47 L5 17 Z" stroke="#0A84FF" stroke-width="4" stroke-linejoin="round"/>'
+    + '<path class="lm-grid" d="M30 3 L30 61" stroke="#E2E8F0" stroke-width="2"/>'
+    + '<path class="lm-grid" d="M5 17 L55 47" stroke="#E2E8F0" stroke-width="2"/>'
+    + '<path class="lm-grid" d="M55 17 L5 47" stroke="#E2E8F0" stroke-width="2"/>'
+    + '<line x1="30" y1="32" x2="30" y2="3" stroke="#0A84FF" stroke-width="2.5"/>'
+    + '<line x1="30" y1="32" x2="55" y2="17" stroke="#0A84FF" stroke-width="2.5"/>'
+    + '<line x1="30" y1="32" x2="5" y2="17" stroke="#0A84FF" stroke-width="2.5"/>'
+    + '<circle cx="30" cy="32" r="7" fill="#0A84FF"/>'
+    + '<circle cx="30" cy="32" r="3" fill="#FFFFFF"/>'
+    + '<circle cx="30" cy="3" r="4" fill="#0A84FF"/>'
+    + '<circle cx="55" cy="17" r="4" fill="#0A84FF"/>'
+    + '<circle cx="5" cy="17" r="4" fill="#0A84FF"/>'
+    + '</svg>';
 
   function isLocalHost() {
     var h = location.hostname;
@@ -34,19 +47,30 @@
     + '</div>'
   ) : ''); // English-only on production host; underlying data-zh multilingual capability retained (masked in EN view)
 
+  var SEARCH_ICON = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'
+    + '<circle cx="10.5" cy="10.5" r="6.5"></circle>'
+    + '<path d="M15.5 15.5L21 21"></path></svg>';
+
   var NAV = ''
-    + '<header class="site-header"><div class="container nav">'
+    + '<header class="site-header">'
+    + '<div class="container nav-grid">'
+    + '<form class="nav-search" id="globalSearch" role="search" action="/components/">'
+    +   '<input type="search" name="q" placeholder="Search Part Number, MPN or Keyword" aria-label="Search Part Number, MPN or Keyword" data-zh-ph="搜索料号、型号或关键词" />'
+    +   '<button class="nav-search-btn" type="submit" aria-label="Search">' + SEARCH_ICON + '</button>'
+    + '</form>'
     + '<a class="brand" href="/" aria-label="' + BRAND + ' home">' + LOGO
-    +   '<span>SZ Procure</span></a>'
+    +   '<span class="brand-text">'
+    +     '<span class="brand-name">SZPROCURE</span>'
+    +     '<small class="brand-tag">Electronics &amp; AI Hardware</small>'
+    +   '</span></a>'
     + '<nav class="nav-links" aria-label="Primary">'
+    +   '<a href="/" data-zh="首页">Home</a>'
     +   '<a href="/components/" data-zh="元器件">Components</a>'
     +   '<a href="/ai-hardware/" data-zh="AI 硬件">AI Hardware</a>'
     +   '<a href="/sourcing/" data-zh="采购服务">Sourcing Service</a>'
-    +   '<a href="/about/" data-zh="关于我们">About</a>'
+    +   '<a href="/about/" data-zh="关于我们">About us</a>'
+    +   '<a href="/contact/" data-zh="联系我们">Contact US</a>'
     + '</nav>'
-    + '<form class="nav-search" id="globalSearch" role="search" action="/components/">'
-    +   '<input type="search" name="q" placeholder="Search Part Number, MPN or Keyword" aria-label="Search Part Number, MPN or Keyword" data-zh-ph="搜索料号、型号或关键词" />'
-    + '</form>'
     + '<div class="nav-cta">'
     +   LANG_SWITCH
     +   '<a class="btn btn-primary" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>'
@@ -56,11 +80,14 @@
     +   LANG_SWITCH
     +   '<form class="nav-search mobile" role="search" action="/components/">'
     +     '<input type="search" name="q" placeholder="Search Part Number, MPN or Keyword" aria-label="Search Part Number, MPN or Keyword" data-zh-ph="搜索料号、型号或关键词" />'
+    +     '<button class="nav-search-btn" type="submit" aria-label="Search">' + SEARCH_ICON + '</button>'
     +   '</form>'
+    +   '<a href="/" data-zh="首页">Home</a>'
     +   '<a href="/components/" data-zh="元器件">Components</a>'
     +   '<a href="/ai-hardware/" data-zh="AI 硬件">AI Hardware</a>'
     +   '<a href="/sourcing/" data-zh="采购服务">Sourcing Service</a>'
-    +   '<a href="/about/" data-zh="关于我们">About</a>'
+    +   '<a href="/about/" data-zh="关于我们">About us</a>'
+    +   '<a href="/contact/" data-zh="联系我们">Contact US</a>'
     +   '<a class="btn btn-primary btn-block" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>'
     + '</div></header>';
 

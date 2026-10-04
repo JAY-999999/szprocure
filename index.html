@@ -11,6 +11,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/styles.css" />
 
+  <!-- Favicons: /favicon.ico is also picked up implicitly on every other page; SVG is the crisp modern one -->
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
 <!-- SEO-FOUNDATION -->
   <link rel="canonical" href="https://www.szprocure.com/" />
   <link rel="alternate" hreflang="x-default" href="https://www.szprocure.com/" />
@@ -19,15 +24,22 @@
   <meta property="og:title" content="Electronics & AI Hardware Sourcing from China | SZ Procure" />
   <meta property="og:description" content="Source electronic components and AI hardware directly from Shenzhen. BOM sourcing, component sourcing and AI hardware sourcing for overseas businesses." />
   <meta property="og:url" content="https://www.szprocure.com/" />
-  <meta property="og:image" content="https://www.szprocure.com/assets/img/hero.svg" />
+  <meta property="og:image" content="https://www.szprocure.com/assets/img/og-image.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="SZ Procure — Electronics Components Sourcing Partner in China" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Electronics & AI Hardware Sourcing from China | SZ Procure" />
+  <meta name="twitter:description" content="Source electronic components and AI hardware directly from Shenzhen. BOM sourcing, component sourcing and AI hardware sourcing for overseas businesses." />
+  <meta name="twitter:image" content="https://www.szprocure.com/assets/img/og-image.png" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "SZ Procure",
     "url": "https://www.szprocure.com/",
-    "logo": "https://www.szprocure.com/assets/img/hero.svg",
+    "logo": "https://www.szprocure.com/assets/img/logo.png",
     "email": "sales@szprocure.com",
     "description": "Shenzhen-based electronics and AI hardware sourcing service helping overseas businesses access China's supply chain for scarce, long-lead-time and end-of-life electronic components.",
     "address": {
@@ -45,155 +57,157 @@
   <div id="site-header"></div>
 
   <main>
-    <!-- SECTION 1 — HERO -->
-    <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <h1 data-zh="来自中国的电子元器件与 AI 硬件采购">Electronic Components &amp; AI Hardware Sourcing from China</h1>
-          <p class="lead" data-zh="SZ Procure 帮助全球买家采购电子元器件和最新 AI 硬件，通过可信供应渠道提供快速、灵活的采购解决方案。">SZ Procure helps global buyers source electronic components and the latest AI hardware through trusted supply channels, providing fast and flexible procurement solutions.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
-            <a class="btn btn-outline btn-lg" href="/components/" data-zh="探索元器件">Explore Components</a>
-          </div>
-          <div class="trust-bar">
-            <span><b>&#10003;</b> <span data-zh="难找料与缺货料采购支持">Hard-to-find &amp; Shortage Parts Support</span></span>
-            <span><b>&#10003;</b> <span data-zh="替代料匹配解决方案">Replacement Parts Matching</span></span>
-            <span><b>&#10003;</b> <span data-zh="灵活 BOM 与小批量订单">Flexible BOM &amp; Small Quantity Orders</span></span>
-            <span><b>&#10003;</b> <span data-zh="快速报价响应">Fast RFQ Response</span></span>
-          </div>
+    <!-- SECTION 1 — HERO (Full-width brand Hero, V2) -->
+    <section class="hero hero-full">
+      <div class="hero-background" aria-hidden="true"></div>
+      <div class="container hero-content">
+        <div class="hero-eyebrow" data-zh="深圳电子元器件采购">SHENZHEN ELECTRONICS SOURCING</div>
+        <h1 data-zh="来自中国的电子元器件采购伙伴">Your Electronics<br><span class="gradient-highlight">Sourcing Partner</span><br>in China</h1>
+        <p class="lead" data-zh="帮助全球买家通过中国供应链采购电子元器件、难找料与 BOM 项目。">Helping global buyers source electronic components, hard-to-find parts and BOM projects through China's supply chain.</p>
+        <div class="trust-tags">
+          <span class="trust-tag" data-zh="供应商验证">Supplier Verification</span>
+          <span class="trust-tag" data-zh="元器件采购">Component Sourcing</span>
+          <span class="trust-tag" data-zh="全球运输">Global Shipping</span>
         </div>
-        <div class="hero-visual">
-          <img src="/assets/img/hero.svg" alt="Shenzhen electronics and AI hardware supply chain" width="800" height="600" />
+        <div class="hero-actions">
+          <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
+          <a class="btn btn-outline btn-lg" href="/components/" data-zh="探索元器件">Explore Components</a>
         </div>
-      </div>
-    </section>
-
-    <!-- SECTION 2 — WHAT WE HELP GLOBAL BUYERS SOURCE -->
-    <section class="section">
-      <div class="container">
-        <div class="section-head">
-          <div class="eyebrow" data-zh="我们采购什么">What We Source</div>
-          <h2 data-zh="从电子元器件到最新 AI 硬件">From Electronic Components to the Latest AI Hardware</h2>
-          <p class="lead" data-zh="我们帮助全球买家通过可靠供应渠道，获得快速、灵活的采购解决方案。">We help global buyers access fast and flexible sourcing solutions through reliable supply channels.</p>
-        </div>
-
-        <div class="grid grid-2" style="margin-top:8px">
-          <div class="card scope-card">
-            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div>
-            <h3 data-zh="电子元器件采购">Electronic Components Sourcing</h3>
-            <p class="slogan" data-zh="没有难找的料号">No Part Is Too Difficult To Source</p>
-            <p class="service-tags" data-zh="常规料 · 难找料 · 缺货料 · 替代料 · BOM与小批量采购">Standard Parts · Hard-to-Find Parts · Shortages · Replacements · BOM &amp; Small Orders</p>
-            <a class="btn btn-outline" href="/components/" data-zh="浏览元器件">Browse Components</a>
-          </div>
-          <div class="card scope-card">
-            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 4v16M15 4v16M4 9h16M4 15h16"/></svg></div>
-            <h3 data-zh="最新 AI 硬件采购">Latest AI Hardware Sourcing</h3>
-            <p data-zh="获取深圳快速迭代的最新 AI 硬件产品、开发板和智能设备。">Source the latest AI hardware products, development boards and smart devices from Shenzhen's fast-moving electronics ecosystem.</p>
-            <a class="btn btn-outline" href="/ai-hardware/" data-zh="探索 AI 硬件">Explore AI Hardware</a>
-          </div>
+        <div class="hero-cap-bar">
+          <span class="cap-item" data-zh="认证供应商">Verified Suppliers</span>
+          <span class="cap-item" data-zh="元器件采购">Component Sourcing</span>
+          <span class="cap-item" data-zh="检验支持">Inspection Support</span>
+          <span class="cap-item" data-zh="全球运输">Global Shipping</span>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 3 — WHY CHOOSE SZ PROCURE -->
+    <!-- SECTION 2 — WHY CHOOSE SZ PROCURE -->
     <section class="section soft">
       <div class="container">
         <div class="section-head">
           <div class="eyebrow" data-zh="为何选择我们">WHY SZ PROCURE</div>
-          <h2 data-zh="为什么全球买家选择我们">Why Global Buyers Choose SZ Procure</h2>
-          <p class="lead" data-zh="我们不仅提供采购服务，更希望成为全球买家值得信赖的长期供应链伙伴。">More than a sourcing provider, we aim to become a trusted long-term supply chain partner for global buyers.</p>
+          <h2 data-zh="为何与 SZ Procure 合作">Why Partner With SZ Procure</h2>
+          <p class="lead" data-zh="我们连接海外买家与中国电子供应链，提供验证、检验与端到端采购支持。">We connect overseas buyers with China's electronics supply chain — with verification, inspection and end-to-end procurement support.</p>
         </div>
         <div class="grid grid-4">
-          <div class="card">
-            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="7" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M8 7l8 0M7 8l4 8M17 9l-4 7"/></svg></div>
-            <h3 data-zh="丰富供应资源">Extensive Supply Network</h3>
-            <p data-zh="1000+供应渠道，提供可靠采购资源。">1000+ supplier channels providing reliable sourcing options.</p>
+          <div class="card value-card">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></div>
+            <h3 data-zh="接入中国电子供应链">Access China's Electronics Supply Chain</h3>
+            <p data-zh="通过一个可信伙伴，接入深圳及更广的中国电子生态。">Tap into Shenzhen and the broader Chinese electronics ecosystem through one trusted partner.</p>
           </div>
-          <div class="card">
-            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 21l-4.3-4.3M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14z"/></svg></div>
-            <h3 data-zh="快速响应">Fast RFQ Response</h3>
-            <p data-zh="数小时内快速响应询价需求，帮助项目更快推进。">RFQ responses within hours to keep your projects moving faster.</p>
+          <div class="card value-card">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10" cy="10" r="6"/><path d="M15 15l5 5"/></svg></div>
+            <h3 data-zh="难找元器件">Hard-to-Find Components</h3>
+            <p data-zh="通过供应网络采购 EOL、停产与缺货料。">EOL, obsolete and shortage parts sourced via our supplier network.</p>
           </div>
-          <div class="card">
-            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5z"/><path d="M9 12l2 2 4-4"/></svg></div>
-            <h3 data-zh="质量保障">Quality Assurance</h3>
-            <p data-zh="筛选可靠供应渠道，确保产品质量与供应可靠性，降低采购风险。">Carefully selecting reliable sourcing channels to ensure product quality and supply reliability while reducing procurement risks.</p>
+          <div class="card value-card">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
+            <h3 data-zh="供应商验证与检验">Supplier Verification &amp; Inspection</h3>
+            <p data-zh="出货前可提供验证与检验，助力降低风险。">Verification and inspection available to help ensure component authenticity before shipment.</p>
           </div>
-          <div class="card">
-            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg></div>
-            <h3 data-zh="长期合作">Long-Term Partnership</h3>
-            <p data-zh="通过可靠服务与持续支持，致力于与客户建立长期合作关系。">Committed to building long-term partnerships through reliable service and continuous support.</p>
+          <div class="card value-card">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg></div>
+            <h3 data-zh="完整采购支持">Complete Procurement Support</h3>
+            <p data-zh="从询盘到合并出货，我们处理全流程。">From RFQ to consolidated shipping, we handle the full process.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 4 — OUR PROCUREMENT PROCESS -->
+    <!-- SECTION 3 — ELECTRONICS SOURCING SERVICES -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow" data-zh="采购服务">SOURCING SERVICES</div>
+          <h2 data-zh="电子元器件采购服务">Electronics Sourcing Services</h2>
+          <p class="lead" data-zh="三种方式，让您安心从中国制造采购。">Three ways we help you buy from China with confidence.</p>
+        </div>
+        <div class="service-grid">
+          <div class="card service-card">
+            <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div>
+            <h3 data-zh="元器件采购">Component Sourcing</h3>
+            <p data-zh="跨主要品类寻找标准、难找与替代元器件。">Find standard, hard-to-find and replacement electronic components across major categories.</p>
+          </div>
+          <div class="card service-card">
+            <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 9h6M9 13h6M9 17h4"/></svg></div>
+            <h3 data-zh="BOM 采购">BOM Procurement</h3>
+            <p data-zh="发送您的物料清单；我们报价、采购并合并发货。">Send your bill of materials; we quote, source and consolidate in one shipment.</p>
+          </div>
+          <div class="card service-card">
+            <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h11v8H3z"/><path d="M14 10h4l3 3v2h-7z"/><circle cx="7" cy="17" r="1.6"/><circle cx="17" cy="17" r="1.6"/></svg></div>
+            <h3 data-zh="供应链支持">Supply Chain Support</h3>
+            <p data-zh="供应商验证、检验与物流端到端处理。">Supplier verification, inspection and logistics handled end to end.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4 — HOW WE WORK -->
     <section class="section section--compact">
       <div class="container">
         <div class="section-head">
-          <div class="eyebrow" data-zh="采购流程">Our Procurement Process</div>
-          <h2 data-zh="我们如何处理您的询盘">How We Handle Your Request</h2>
-          <p class="lead" data-zh="提交询盘后，我们的深圳采购团队会按以下流程为您推进。">Here's exactly what happens after you submit a request to our Shenzhen sourcing team.</p>
+          <div class="eyebrow" data-zh="合作流程">HOW WE WORK</div>
+          <h2 data-zh="我们如何处理您的需求">How We Handle Your Request</h2>
+          <p class="lead" data-zh="从首次询盘到交付元器件，流程清晰透明。">A clear, transparent process from first inquiry to delivered parts.</p>
         </div>
-        <div class="steps">
-          <div class="step"><div class="num">01</div><h3 data-zh="提交需求">Submit Requirements</h3><p data-zh="提交料号、BOM 或规格需求。">Send part numbers, BOM or specifications through our RFQ form.</p></div>
-          <div class="step"><div class="num">02</div><h3 data-zh="资源匹配">Source Matching</h3><p data-zh="匹配符合需求的供应资源。">Match your requirements with suitable supply resources.</p></div>
-          <div class="step"><div class="num">03</div><h3 data-zh="供应商验证">Supplier Verification</h3><p data-zh="筛选可靠供应渠道，确保产品质量与供应可靠性。">Evaluate sourcing channels to ensure product quality and reliability.</p></div>
-          <div class="step"><div class="num">04</div><h3 data-zh="报价确认">Quote Confirmation</h3><p data-zh="获取包含价格与交期的整合报价。">Receive a consolidated quote with pricing and lead time.</p></div>
-          <div class="step"><div class="num">05</div><h3 data-zh="交付支持">Delivery Support</h3><p data-zh="支持订单协调与物流安排。">Support order coordination and shipment arrangements.</p></div>
+        <div class="process-flow">
+          <div class="process-step"><div class="process-num">01</div><h3 data-zh="提交需求">Submit Request</h3><p data-zh="通过 RFQ 表单发送料号、BOM 或规格。">Send part numbers, BOM or specs via our RFQ form.</p></div>
+          <div class="process-step"><div class="process-num">02</div><h3 data-zh="元器件分析">Component Analysis</h3><p data-zh="我们审阅需求并确认采购选项。">We review your requirements and identify sourcing options.</p></div>
+          <div class="process-step"><div class="process-num">03</div><h3 data-zh="供应商匹配">Supplier Matching</h3><p data-zh="为需求匹配合适的供应渠道。">We match your needs with suitable supply channels.</p></div>
+          <div class="process-step"><div class="process-num">04</div><h3 data-zh="报价对比">Quote Comparison</h3><p data-zh="获取含价格与交期的整合报价。">Receive a consolidated quote with pricing and lead time.</p></div>
+          <div class="process-step"><div class="process-num">05</div><h3 data-zh="检验">Inspection</h3><p data-zh="出货前可提供检验，助力验证元器件。">Inspection available to help verify components before shipping.</p></div>
+          <div class="process-step"><div class="process-num">06</div><h3 data-zh="出货">Shipment</h3><p data-zh="合并包装与全球配送到家。">Consolidated packing and global delivery to your door.</p></div>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 5 — COMPONENT CATEGORIES (replaces Popular SKU) -->
+    <!-- SECTION 5 — COMPONENT DATABASE (SEO entry, no search box) -->
     <section class="section soft">
       <div class="container">
-        <div class="section-head">
-          <div class="eyebrow" data-zh="元器件分类">COMPONENT CATEGORIES</div>
-          <h2 data-zh="电子元器件分类">Electronic Components Categories</h2>
-          <p class="lead" data-zh="按分类浏览电子元器件，快速找到您需要的产品。">Browse electronic components by category and quickly find the parts you need.</p>
-        </div>
-        <div class="grid grid-3">
-          <a class="category-card" href="/components/integrated-circuits/">
-            <h3 data-zh="集成电路">Integrated Circuits</h3>
-            <p data-zh="MCU、存储器、逻辑与模拟 IC。">MCU, Memory, Logic and analog ICs.</p>
-            <span class="cat-link"><span class="cat-link-text" data-zh="浏览分类">Browse Category</span><svg class="cat-arrow" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </a>
-          <a class="category-card" href="/components/semiconductors-discrete/">
-            <h3 data-zh="半导体元件">Semiconductor Components</h3>
-            <p data-zh="MOSFET、二极管与功率器件。">MOSFETs, diodes and power devices.</p>
-            <span class="cat-link"><span class="cat-link-text" data-zh="浏览分类">Browse Category</span><svg class="cat-arrow" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </a>
-          <a class="category-card" href="/components/passive-components/">
-            <h3 data-zh="被动元件">Passive Components</h3>
-            <p data-zh="电阻、电容与电感。">Resistors, capacitors and inductors.</p>
-            <span class="cat-link"><span class="cat-link-text" data-zh="浏览分类">Browse Category</span><svg class="cat-arrow" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </a>
-          <a class="category-card" href="/components/sensors/">
-            <h3 data-zh="传感器与换能器">Sensors &amp; Transducers</h3>
-            <p data-zh="MEMS 传感器与工业传感元件。">MEMS sensors and industrial sensing parts.</p>
-            <span class="cat-link"><span class="cat-link-text" data-zh="浏览分类">Browse Category</span><svg class="cat-arrow" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </a>
-          <a class="category-card" href="/components/connectors-electromechanical/">
-            <h3 data-zh="连接器与机电">Connectors &amp; Electromechanical</h3>
-            <p data-zh="排针、连接器与接插件。">Headers, connectors and interconnect parts.</p>
-            <span class="cat-link"><span class="cat-link-text" data-zh="浏览分类">Browse Category</span><svg class="cat-arrow" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </a>
-          <a class="category-card" href="/components/modules-communication/">
-            <h3 data-zh="模块">Modules</h3>
-            <p data-zh="无线与通信模块。">Wireless and communication modules.</p>
-            <span class="cat-link"><span class="cat-link-text" data-zh="浏览分类">Browse Category</span><svg class="cat-arrow" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </a>
+        <div class="db-hero">
+          <div class="eyebrow" data-zh="元器件采购资源">COMPONENT SOURCING RESOURCES</div>
+          <h2 data-zh="浏览电子元器件">Explore Electronic Components</h2>
+          <p class="db-desc" data-zh="用于采购支持的可检索元器件参考库。">Searchable component references for sourcing support.</p>
+          <a class="btn btn-primary btn-lg" href="/components/" data-zh="浏览元器件">Explore Components</a>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 6 — BOM / RFQ CTA (final single conversion module) -->
+    <!-- SECTION 6 — HARD-TO-FIND COMPONENTS -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow" data-zh="难找料">HARD-TO-FIND</div>
+          <h2 data-zh="难找元器件">Hard-to-Find Components</h2>
+          <p class="lead" data-zh="当常规渠道说“没有”，我们继续找。">When standard distribution says no, we keep looking.</p>
+        </div>
+        <div class="htf-grid">
+          <div class="card htf-card"><span class="htf-badge">EOL</span><h3 data-zh="停产料">EOL Parts</h3><p data-zh="从可信的旧库存中采购停产元器件。">End-of-life components sourced from trusted legacy stock.</p></div>
+          <div class="card htf-card"><span class="htf-badge">OBSOLETE</span><h3 data-zh="停产元件">Obsolete Components</h3><p data-zh="用于维护与维修的停产器件。">Discontinued devices for maintenance and repair.</p></div>
+          <div class="card htf-card"><span class="htf-badge">SHORTAGE</span><h3 data-zh="缺货料">Shortage Parts</h3><p data-zh="供应紧张时期的配货与缺货料。">Allocation and shortage parts during supply crunches.</p></div>
+          <div class="card htf-card"><span class="htf-badge">REPLACEMENT</span><h3 data-zh="替代方案">Replacement Solutions</h3><p data-zh="原型号不可用时提供交叉参考与替代匹配。">Cross-reference and alternative matching when originals are unavailable.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7 — AI HARDWARE (Additional Capability, downgraded) -->
+    <section class="ai-cap">
+      <div class="container">
+        <div class="ai-cap-inner">
+          <div class="eyebrow" data-zh="超越元器件">BEYOND COMPONENTS</div>
+          <h2 data-zh="AI 硬件与智能设备采购">AI Hardware &amp; Smart Device Sourcing</h2>
+          <p data-zh="源自同一深圳生态——将 AI 硬件、开发板与智能设备作为附加能力探索。">From the same Shenzhen ecosystem — explore AI hardware, dev boards and smart devices as an additional capability.</p>
+          <a class="btn btn-outline" href="/ai-hardware/" data-zh="探索 AI 硬件">Explore AI Hardware</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8 — FINAL RFQ CTA -->
     <section class="section soft section--cta-simple">
       <div class="container">
         <div class="cta-simple">
-          <h2 data-zh="需要采购协助吗？">Need Help With Your Sourcing?</h2>
+          <h2 data-zh="有元器件需求？">Have a Component Requirement?</h2>
           <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
         </div>
       </div>
