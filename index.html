@@ -60,29 +60,99 @@
     <!-- SECTION 1 — HERO (Full-width brand Hero, V2) -->
     <section class="hero hero-full">
       <div class="hero-background" aria-hidden="true"></div>
+      <!-- Hero map nodes: pure-CSS pulsing supply-chain network.
+           Coordinates are % of the world-map.svg viewBox (1000x500 equirectangular). -->
+      <div class="hero-map-nodes" aria-hidden="true">
+        <span class="map-node map-node--origin" style="--nx:81.68%; --ny:37.48%; --d:0s"><i class="map-node__ripple"></i><i class="map-node__dot"></i></span>
+        <span class="map-node" style="--nx:17.16%; --ny:31.08%; --d:.35s"><i class="map-node__ripple"></i><i class="map-node__dot"></i></span>
+        <span class="map-node" style="--nx:52.41%; --ny:22.16%; --d:.7s"><i class="map-node__ripple"></i><i class="map-node__dot"></i></span>
+        <span class="map-node" style="--nx:65.35%; --ny:36.00%; --d:1.05s"><i class="map-node__ripple"></i><i class="map-node__dot"></i></span>
+        <span class="map-node" style="--nx:78.84%; --ny:49.26%; --d:1.4s"><i class="map-node__ripple"></i><i class="map-node__dot"></i></span>
+      </div>
       <div class="container hero-content">
-        <div class="hero-eyebrow" data-zh="深圳电子元器件采购">SHENZHEN ELECTRONICS SOURCING</div>
-        <h1 data-zh="来自中国的电子元器件采购伙伴">Your Electronics<br><span class="gradient-highlight">Sourcing Partner</span><br>in China</h1>
-        <p class="lead" data-zh="帮助全球买家通过中国供应链采购电子元器件、难找料与 BOM 项目。">Helping global buyers source electronic components, hard-to-find parts and BOM projects through China's supply chain.</p>
-        <div class="trust-tags">
-          <span class="trust-tag" data-zh="供应商验证">Supplier Verification</span>
-          <span class="trust-tag" data-zh="元器件采购">Component Sourcing</span>
-          <span class="trust-tag" data-zh="全球运输">Global Shipping</span>
-        </div>
+        <div class="hero-eyebrow" data-zh="深圳电子元器件供应链">SHENZHEN ELECTRONICS SUPPLY CHAIN</div>
+        <h1 data-zh="您值得信赖的中国电子元器件采购伙伴">Your Trusted Electronic Components<br><span class="gradient-highlight">Sourcing Partner in China</span></h1>
+        <p class="lead" data-zh="帮助全球买家采购电子元器件与 AI 硬件。">Helping global buyers source electronic components and AI hardware.</p>
         <div class="hero-actions">
           <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
-          <a class="btn btn-outline btn-lg" href="/components/" data-zh="探索元器件">Explore Components</a>
         </div>
         <div class="hero-cap-bar">
-          <span class="cap-item" data-zh="认证供应商">Verified Suppliers</span>
-          <span class="cap-item" data-zh="元器件采购">Component Sourcing</span>
-          <span class="cap-item" data-zh="检验支持">Inspection Support</span>
-          <span class="cap-item" data-zh="全球运输">Global Shipping</span>
+          <span class="cap-item">
+            <span class="cap-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 3l7 3v5.6c0 4.2-2.9 7.9-7 9-4.1-1.1-7-4.8-7-9V6l7-3z"/><path d="M9.2 12.1l2 2 3.6-3.7"/></svg></span>
+            <span data-zh="认证供应商">Verified Suppliers</span>
+          </span>
+          <span class="cap-item">
+            <span class="cap-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="7" y="7" width="10" height="10" rx="2.2"/><path d="M10 3v3.2M14 3v3.2M10 17.8V21M14 17.8V21M3 10h3.2M3 14h3.2M17.8 10H21M17.8 14H21"/></svg></span>
+            <span data-zh="IC 与元器件采购">IC &amp; Component Sourcing</span>
+          </span>
+          <span class="cap-item">
+            <span class="cap-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.4 15.4L21 21"/><path d="M8.2 10.6l1.7 1.7 3.4-3.6"/></svg></span>
+            <span data-zh="检验支持">Inspection Support</span>
+          </span>
+          <span class="cap-item">
+            <span class="cap-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M3.2 12h17.6"/><path d="M12 3c2.6 2.7 3.9 5.7 3.9 9s-1.3 6.3-3.9 9c-2.6-2.7-3.9-5.7-3.9-9S9.4 5.7 12 3z"/></svg></span>
+            <span data-zh="全球运输">Global Shipping</span>
+          </span>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 2 — WHY CHOOSE SZ PROCURE -->
+    <!-- SECTION 2 — CORE CAPABILITIES (dual entry: Components + AI Hardware) -->
+    <section class="section capabilities-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="kicker-badge" data-zh="核心能力">CORE CAPABILITIES</div>
+          <h2 class="section-title" data-zh="从元器件到 AI 硬件">From Components to <span class="highlight-blue" data-zh="AI 硬件">AI Hardware</span></h2>
+          <p class="section-subtitle" data-zh="探索我们面向全球 OEM、EMS 与企业买家的核心采购能力。">Explore our sourcing capabilities across electronic components and AI hardware solutions.</p>
+        </div>
+
+        <div class="capabilities-grid">
+          <a href="/components/" class="capability-card" data-zh="电子元器件">
+            <div class="card-image-wrapper">
+              <picture>
+                <source type="image/webp" sizes="(max-width: 860px) calc(100vw - 44px), 600px" srcset="/assets/img/ic-components-photo-640.webp 640w, /assets/img/ic-components-photo-768.webp 768w, /assets/img/ic-components-photo-1164.webp 1164w" />
+                <img src="/assets/img/ic-components-photo.jpg" alt="Macro photo of QFP integrated circuits mounted on a blue printed circuit board" class="card-image" width="1164" height="655" loading="lazy" decoding="async" />
+              </picture>
+              <div class="image-overlay"></div>
+            </div>
+            <div class="card-content">
+              <div class="card-tag" data-zh="半导体">SEMICONDUCTORS</div>
+              <h3 class="card-title" data-zh="IC 与元器件">IC &amp; Components</h3>
+              <p class="card-description" data-zh="经过验证的主动与被动器件、稀缺 IC，以及实验室级质检支持。">Hard-to-find, shortage and replacement components sourced through Shenzhen's electronics supply chain.</p>
+              <div class="card-cta">
+                <span data-zh="探索元器件采购">Explore IC Sourcing</span>
+                <svg class="cta-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+          </a>
+
+          <a href="/ai-hardware/" class="capability-card" data-zh="AI 硬件">
+            <div class="card-image-wrapper">
+              <picture>
+                <source type="image/webp" sizes="(max-width: 860px) calc(100vw - 44px), 600px" srcset="/assets/img/ai-hardware-640.webp 640w, /assets/img/ai-hardware-768.webp 768w, /assets/img/ai-hardware-1164.webp 1164w" />
+                <img src="/assets/img/ai-hardware.jpg" alt="Engineer assembling a quadruped robot next to an edge AI compute unit" class="card-image" width="1164" height="655" loading="lazy" decoding="async" />
+              </picture>
+              <div class="image-overlay"></div>
+            </div>
+            <div class="card-content">
+              <div class="card-tag" data-zh="企业级算力">AI HARDWARE</div>
+              <h3 class="card-title" data-zh="AI 硬件方案">AI Hardware Solutions</h3>
+              <p class="card-description" data-zh="企业级 AI GPU 服务器、高密度算力节点与定制硬件供应链采购。">Source intelligent devices, embedded systems and AI hardware products through Shenzhen's electronics ecosystem.</p>
+              <div class="card-cta">
+                <span data-zh="探索 AI 硬件">Explore AI Hardware</span>
+                <svg class="cta-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3 — WHY CHOOSE SZ PROCURE -->
     <section class="section soft">
       <div class="container">
         <div class="section-head">
@@ -115,7 +185,7 @@
       </div>
     </section>
 
-    <!-- SECTION 3 — ELECTRONICS SOURCING SERVICES -->
+    <!-- SECTION 4 — ELECTRONICS SOURCING SERVICES -->
     <section class="section">
       <div class="container">
         <div class="section-head">
@@ -143,7 +213,7 @@
       </div>
     </section>
 
-    <!-- SECTION 4 — HOW WE WORK -->
+    <!-- SECTION 5 — HOW WE WORK -->
     <section class="section section--compact">
       <div class="container">
         <div class="section-head">
@@ -162,7 +232,7 @@
       </div>
     </section>
 
-    <!-- SECTION 5 — COMPONENT DATABASE (SEO entry, no search box) -->
+    <!-- SECTION 6 — COMPONENT DATABASE (SEO entry, no search box) -->
     <section class="section soft">
       <div class="container">
         <div class="db-hero">
@@ -174,7 +244,7 @@
       </div>
     </section>
 
-    <!-- SECTION 6 — HARD-TO-FIND COMPONENTS -->
+    <!-- SECTION 7 — HARD-TO-FIND COMPONENTS -->
     <section class="section">
       <div class="container">
         <div class="section-head">
@@ -191,7 +261,7 @@
       </div>
     </section>
 
-    <!-- SECTION 7 — AI HARDWARE (Additional Capability, downgraded) -->
+    <!-- SECTION 8 — AI HARDWARE (Additional Capability, downgraded) -->
     <section class="ai-cap">
       <div class="container">
         <div class="ai-cap-inner">
@@ -203,7 +273,7 @@
       </div>
     </section>
 
-    <!-- SECTION 8 — FINAL RFQ CTA -->
+    <!-- SECTION 9 — FINAL RFQ CTA -->
     <section class="section soft section--cta-simple">
       <div class="container">
         <div class="cta-simple">

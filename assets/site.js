@@ -134,10 +134,17 @@
   }
   function applyLang(lang) {
     document.documentElement.lang = (lang === "zh") ? "zh-CN" : "en";
-    document.querySelectorAll("[data-zh]").forEach(function (el) {
-      if (el.__orig === undefined) el.__orig = el.textContent;
+    /* NOTE: write back via innerHTML (not textContent) so inline markup —
+       e.g. the hero H1 <br> line breaks and the .gradient-highlight <span> —
+       survives the round-trip. Children are handled before parents so that
+       replacing a parent's HTML can never orphan a pending child update. */
+    var nodes = Array.prototype.slice.call(document.querySelectorAll("[data-zh]"));
+    nodes.reverse().forEach(function (el) {
+      if (el.querySelector("[data-zh]")) return; /* has its own i18n owners — leave subtree intact */
+      if (el.__origHTML === undefined) el.__origHTML = el.innerHTML;
       var zh = el.getAttribute("data-zh");
-      el.textContent = (lang === "zh") ? (zh || el.__orig) : el.__orig;
+      var next = (lang === "zh") ? (zh || el.__origHTML) : el.__origHTML;
+      if (el.innerHTML !== next) el.innerHTML = next;
     });
     document.querySelectorAll("[data-zh-ph]").forEach(function (el) {
       if (el.__ph === undefined) el.__ph = el.getAttribute("placeholder") || "";

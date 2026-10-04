@@ -117,7 +117,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   backdrop-filter: saturate(160%) blur(10px); border-bottom: 1px solid var(--border);
 }
 /* header height token — sticky offsets below reference this, so they follow any header change */
-:root { --header-h: 124px; }
+:root { --header-h: 132px; }
 /* Header grid — 3 columns × 2 rows (方案 A).
    row 1: brand (col 1) | search (col 2, flex-fill) | lang/CTA (col 3)
    row 2: primary nav, full-width band (col 1 → -1)
@@ -128,7 +128,9 @@ ul { margin: 0; padding: 0; list-style: none; }
   align-items: center;
   column-gap: 24px;
   row-gap: 10px;
-  padding: 16px 24px;
+  /* horizontal 24px matches .hero-content's 24px → nav and hero text share
+     the same left/right alignment line; vertical 20px gives the bar more air */
+  padding: 20px 24px;
 }
 .nav-search { grid-area: 1 / 2; }
 /* brand sits in row 1, column 1 (top-aligned) so row 2 can span full width */
@@ -298,6 +300,137 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 .section-head { max-width: 68ch; margin-bottom: 44px; }
 .section-head.center { margin-left: auto; margin-right: auto; text-align: center; }
+
+/* =========================================================
+   SECTION 2 — CORE CAPABILITIES (dual entry cards)
+   Built from the user's supplied design (2026-10-05).
+   Five deliberate deviations from that stylesheet:
+   1. NO `.capabilities-container` — the markup keeps the site's
+      `.container` (max-width 1240). The supplied 1200px wrapper
+      would shift the text rail to x=144 and break alignment with
+      the Hero H1 (measured rail = 124px @1440).
+   2. Section stays WHITE. The supplied #FAFAFC sits only 4 units
+      from the next section's #f6f8fb, which would erase that
+      boundary; cards are defined by border + shadow instead.
+   3. Top padding 72px (not 100px): the Hero already contributes
+      72px of bottom padding, so 100px would open a 172px chasm.
+   4. `.card-image-wrapper` uses `aspect-ratio: 16/9` instead of a
+      fixed `height: 240px`. Both images are pre-cropped to 16:9 on
+      disk, so `object-fit: cover` now crops nothing at all —
+      a fixed 240px would have cut ~12% off the IC artwork and
+      ~21% off the AI photo.
+   5. `.card-tag` colour is #64748B, not #94A3B8: the supplied grey
+      is only 2.6:1 on white (fails WCAG AA); #64748B is 4.8:1.
+   ========================================================= */
+.capabilities-section { padding: 72px 0 100px; }
+.section-header { max-width: 68ch; margin-bottom: 56px; text-align: left; }
+
+.kicker-badge {
+  display: inline-block;
+  padding: 5px 12px;
+  background: #E0F2FE;
+  color: #0284C7;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 1.5px; line-height: 1.35;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+.section-title {
+  font-size: clamp(1.875rem, 3.1vw, 2.375rem);   /* 30px → 38px */
+  font-weight: 800; color: #0F172A;
+  letter-spacing: -1px; line-height: 1.2;
+  margin-bottom: 12px;
+}
+/* H2 emphasis word — now plain black so the whole headline reads as one colour.
+   `inherit` keeps a single source of truth: it always matches .section-title (#0F172A). */
+.highlight-blue { color: inherit; }
+.section-subtitle {
+  font-size: 17px; color: #64748B;
+  max-width: 600px; line-height: 1.5; margin: 0;
+}
+
+/* ---------- 2-column grid & cards ---------- */
+.capabilities-grid {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
+}
+.capability-card {
+  display: flex; flex-direction: column;
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid rgba(226, 232, 240, .9);
+  border-radius: 20px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;                 /* beat the global a:hover accent */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, .03);
+  transition: transform .4s cubic-bezier(.16, 1, .3, 1),
+              box-shadow .4s cubic-bezier(.16, 1, .3, 1),
+              border-color .4s cubic-bezier(.16, 1, .3, 1);
+}
+.capability-card:hover, .capability-card:focus-visible { color: inherit; }
+.capability-card:hover, .capability-card:focus-visible {
+  transform: translateY(-8px);
+  border-color: rgba(0, 122, 255, .3);
+  box-shadow: 0 20px 40px -15px rgba(0, 122, 255, .12), 0 0 0 1px rgba(0, 122, 255, .1);
+}
+.capability-card:focus-visible { outline: 2px solid #007AFF; outline-offset: 3px; }
+
+.card-image-wrapper {
+  position: relative; width: 100%; overflow: hidden;
+  aspect-ratio: 16 / 9;            /* matches the pre-cropped source files */
+  background: #F1F5F9;
+}
+/* <picture> must carry the box so .card-image height:100% still resolves */
+.card-image-wrapper picture { display: block; width: 100%; height: 100%; }
+.card-image {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform .6s cubic-bezier(.16, 1, .3, 1);
+}
+.capability-card:hover .card-image { transform: scale(1.05); }
+.image-overlay {
+  position: absolute; inset: 0; pointer-events: none;
+  /* Neutralised: both cards now use WHITE-GROUND vector artwork, so a bottom
+     scrim has no legibility job — on a pure-white canvas its leading edge reads
+     as an unintended grey smear across the card. Kept as a hook: drop a gradient
+     back in here if the cards ever swap to photography. */
+  background: none;
+}
+
+.card-content {
+  padding: 32px; display: flex; flex-direction: column; flex-grow: 1;
+}
+.card-tag {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.2px;
+  color: #64748B; margin-bottom: 8px;
+}
+.card-title {
+  font-size: 24px; font-weight: 700; color: #0F172A;
+  margin-bottom: 12px; transition: color .3s ease;
+}
+.capability-card:hover .card-title { color: #007AFF; }
+.card-description {
+  font-size: 15px; color: #475569; line-height: 1.6;
+  margin-bottom: 24px; flex-grow: 1;
+}
+.card-cta {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 15px; font-weight: 600; color: #007AFF;
+}
+.cta-arrow { transition: transform .3s cubic-bezier(.16, 1, .3, 1); }
+.capability-card:hover .cta-arrow { transform: translateX(6px); }
+
+@media (max-width: 768px) {
+  .capabilities-grid { grid-template-columns: 1fr; gap: 24px; }
+  .section-header { margin-bottom: 36px; }
+  .card-content { padding: 26px 24px 28px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .capability-card, .card-image, .cta-arrow { transition: none; }
+  .capability-card:hover { transform: none; }
+  .capability-card:hover .card-image { transform: none; }
+}
 
 /* ---------- Category chips ---------- */
 .chips { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0 0; }
@@ -983,9 +1116,8 @@ ul.part-index li {
    ============================================================ */
 .hero.hero-full {
   position: relative;
-  min-height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   overflow: hidden;
   padding: 0;
@@ -995,77 +1127,228 @@ ul.part-index li {
   position: absolute; inset: 0; z-index: 0; pointer-events: none;
   background-image: url("/assets/img/world-map.svg");
   background-repeat: no-repeat;
-  background-position: center center;
-  background-size: 58%;
-  opacity: 0.5;
+  background-position: right 6px center;
+  background-size: 46%;
+  /* elegant, low-weight background accent — never competes with the title */
+  opacity: 0.18;
+  /* two masks combined (intersection):
+     1) vertical: fade the lower band (Antarctica) so it never hits the cards
+     2) horizontal: dissolve the map's LEFT edge into the text column so the
+        continents melt away before they could collide with the copy/cards */
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 54%, rgba(0,0,0,0) 80%),
+                      linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 50%, #000 80%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 54%, rgba(0,0,0,0) 80%),
+              linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 50%, #000 80%);
+}
+/* === Hero map: pulsing supply-chain nodes (pure CSS / GPU) ==================
+   The map is a background-image, NOT inline SVG — so the nodes need their own
+   layer positioned to match the background box EXACTLY:
+     width  tracks background-size (46%)   · right/top tracks background-position
+     aspect-ratio mirrors the viewBox 1000x500
+   ⚠️ If you ever change .hero-background's size/position, mirror it here.
+   Coordinates: % of viewBox, equirectangular projection
+     x% = (lon + 180) / 360 * 100   ·   y% = (90 - lat) / 180 * 100
+   No JS, no canvas, no libs — @keyframes + transform/opacity only.            */
+.hero-map-nodes {
+  position: absolute; z-index: 0; pointer-events: none;
+  right: 6px; top: 50%;
+  transform: translateY(-50%);          /* matches background-position: center */
+  width: 46%; aspect-ratio: 1000 / 500;
+  /* identical mask to the map layer, so nodes fade exactly where continents do */
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 54%, rgba(0,0,0,0) 80%),
+                      linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 50%, #000 80%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 54%, rgba(0,0,0,0) 80%),
+              linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 50%, #000 80%);
+}
+.map-node {
+  position: absolute;
+  left: var(--nx); top: var(--ny);
+  width: 5px; height: 5px;
+  margin: -2.5px 0 0 -2.5px;            /* centre the dot on the coordinate */
+  border-radius: 50%;
+}
+.map-node--origin { width: 8px; height: 8px; margin: -4px 0 0 -4px; }
+.map-node__dot {
+  position: absolute; inset: 0; border-radius: 50%;
+  background: #007AFF;                  /* iOS blue — matches the H1 gradient start */
+  box-shadow: 0 0 0 2.5px rgba(0, 122, 255, 0.16);
+}
+.map-node--origin .map-node__dot { box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.18); }
+.map-node__ripple {
+  position: absolute; inset: 0; border-radius: 50%;
+  /* a true expanding RING, not a filled blob: only a whisper of fill so the
+     disc still reads as a glow while the border stays crisply readable */
+  border: 1.5px solid rgba(0, 122, 255, 0.60);
+  background: rgba(0, 122, 255, 0.08);
+  will-change: transform, opacity;
+  animation: heroNodePulse 2.5s ease-out infinite;
+  animation-delay: var(--d, 0s);        /* stagger: the ping travels out from Shenzhen */
+}
+@keyframes heroNodePulse {
+  0%   { transform: scale(1); opacity: 0.7; }
+  70%  { transform: scale(4); opacity: 0; }   /* expansion ends at ~1.75s */
+  100% { transform: scale(4); opacity: 0; }   /* 0.75s calm pause before the next ping */
+}
+@media (prefers-reduced-motion: reduce) {
+  .map-node__ripple { animation: none; opacity: 0; will-change: auto; }
 }
 .hero.hero-full::after {
   content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  background: radial-gradient(58% 52% at 50% 44%, rgba(247,250,253,0.82) 0%, rgba(247,250,253,0.30) 46%, rgba(247,250,253,0) 80%);
+  background: radial-gradient(58% 52% at 50% 44%, rgba(247,250,253,0.55) 0%, rgba(247,250,253,0.22) 46%, rgba(247,250,253,0) 80%);
 }
 .hero-content {
   position: relative; z-index: 1;
-  text-align: center;
-  max-width: 880px; margin: 0 auto;
-  padding: 100px 0 56px;
+  text-align: left;
+  padding: 52px 24px 72px;
 }
-.hero-content > .hero-eyebrow,
-.hero-content > h1,
-.hero-content > .lead,
-.hero-content > .trust-tags,
-.hero-content > .hero-actions,
-.hero-content > .hero-cap-bar { margin-left: auto; margin-right: auto; }
 .hero-eyebrow {
   display: inline-flex; align-items: center; gap: 9px;
-  font-size: .8rem; font-weight: 700; letter-spacing: .14em;
-  color: var(--accent); text-transform: uppercase; margin-bottom: 18px;
+  padding: 8px 15px 8px 13px;
+  background: rgba(10,132,255,0.09);
+  border: 1px solid rgba(10,132,255,0.16);
+  border-radius: 999px;
+  font-size: .72rem; font-weight: 700; letter-spacing: 1px;
+  color: var(--accent); text-transform: uppercase;
+  /* V9 spacing: generous breathing room above the H1 (asked for 60–70px optical gap) */
+  margin-bottom: 66px;
 }
 .hero-eyebrow::before {
   content: ""; width: 7px; height: 7px; border-radius: 50%;
-  background: var(--accent); display: inline-block;
+  background: var(--accent); display: inline-block; flex: none;
 }
 .hero.hero-full h1 {
-  font-size: clamp(2.6rem, 6vw, 4.6rem);
-  font-weight: 800; line-height: 1.08; letter-spacing: -0.01em;
-  max-width: 18ch; margin: 0 auto 18px; color: var(--navy, #0b1b33);
+  font-size: clamp(2rem, 4.1vw, 3.65rem);
+  font-weight: 800; line-height: 1.14; letter-spacing: -0.015em;
+  /* V9 spacing: 18px -> 32px so the buyer reads the title first, then glides down */
+  max-width: 100%; margin: 0 0 32px; color: var(--navy, #0b1b33);
 }
 .gradient-highlight {
-  background: linear-gradient(90deg, #0A84FF 0%, #4DB8FF 100%);
+  /* Blue unified with the homepage RFQ / Hero CTA (.btn-primary = var(--accent) #0A84FF).
+     Start stop is now exactly the button blue; the old end stop #0052FF read as a
+     visibly deeper blue, which is what made H1 look off-brand next to the buttons. */
+  background: linear-gradient(90deg, #0A84FF 0%, #0071E3 100%);
   -webkit-background-clip: text; background-clip: text;
   -webkit-text-fill-color: transparent; color: #0A84FF;
 }
-.hero-content > .lead { max-width: 660px; margin: 0 auto; }
+.hero-content > .lead { max-width: 620px; margin: 0; }
 .hero.hero-full .trust-tags {
   display: flex; flex-wrap: wrap; gap: 10px 12px;
   justify-content: center; margin: 24px auto 0; max-width: 560px;
 }
 .hero.hero-full .hero-actions {
-  display: flex; flex-wrap: wrap; gap: 14px;
-  justify-content: center; margin-top: 28px;
+  display: flex; flex-wrap: wrap; gap: 16px; align-items: center;
+  justify-content: flex-start;
+  /* V11: push the CTAs down (+14px) so they sit centred between the lead and the footer rule */
+  margin-top: 44px;
+}
+/* V11: Apple-style full-pill CTAs — fuller / more tappable beside the large H1.
+   Scoped to the hero ONLY: .btn-lg is shared across the rest of the site. */
+.hero.hero-full .hero-actions .btn {
+  min-height: 50px; padding: 15px 28px; border-radius: 25px;
+}
+.hero.hero-full .hero-actions .btn-primary { box-shadow: 0 10px 22px rgba(10,132,255,0.26); }
+.hero.hero-full .hero-actions .btn-primary::after {
+  content: ""; width: 6px; height: 6px; margin-left: 10px; flex: none;
+  border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg) translate(-1px, 1px);
 }
 .hero.hero-full .hero-cap-bar {
-  display: flex; flex-wrap: wrap; gap: 10px 22px;
-  justify-content: center; margin: 32px auto 0; padding-top: 20px;
-  border-top: 1px solid rgba(11,27,51,0.10); max-width: 720px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 24px 38px;
+  /* V11: 56px -> 48px — user found the post-CTA void too large; now balances the
+     44px above the CTA row (optical ~48.7px) for a vertically centred button band */
+  margin: 48px 0 0; padding-top: 26px;
+  border-top: 1px solid rgba(11,27,51,0.10);
+  /* de-buttoned: a single elegant 1×4 service footer line, kept clear of the right-side map.
+     Item width is tuned so the longest label ("IC & Component Sourcing") stays on ONE line. */
+  max-width: 680px;
 }
 .cap-item {
-  position: relative; padding-left: 16px;
-  font-size: .82rem; font-weight: 600; color: var(--muted, #5b6b80);
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 11px;
+  /* fully de-buttoned: no card, no border, no pill — pure icon + label */
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  font-size: .8125rem;          /* 13px */
+  font-weight: 700;             /* bold label below icon */
+  /* high-contrast near-black trust label (≈16:1 on white) — crisper than slate */
+  color: #0F172A;
   letter-spacing: .01em;
+  line-height: 1.3;
+  white-space: normal;
+  max-width: 172px;
 }
-.cap-item::before {
-  content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
-  width: 6px; height: 6px; border-radius: 50%; background: rgba(10,132,255,0.55);
+.cap-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  /* trust badge: a tinted disc behind a thin-line glyph — reads as a badge,
+     not a button (buttons are rounded rectangles, this is a circle) */
+  width: 42px; height: 42px; flex: none;
+  border-radius: 50%;
+  background: #E0F2FE;
+  /* iOS classic blue = same hue as the H1 gradient start; #0A84FF reads grey here */
+  color: #007AFF;
+}
+.cap-icon svg { width: 21px; height: 21px; display: block; }
+/* Apple-style thin line: thin the stroke on every shape inside the icon */
+.cap-icon svg * { stroke-width: 1.5; }
+/* 3rd item (Inspection Support) → "quality passed" green check */
+.hero-cap-bar .cap-item:nth-child(3) .cap-icon {
+  background: #DCFCE7;
+  color: #16A34A;
+}
+@media (max-width: 900px) {
+  /* narrow desktop / tablet: keep the map clear of the left-aligned copy */
+  .hero-background {
+    background-size: 34%;
+    background-position: right 0 center;
+    opacity: 0.16;
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 48%, rgba(0,0,0,0) 76%);
+    mask-image: linear-gradient(180deg, #000 0%, #000 48%, rgba(0,0,0,0) 76%);
+  }
+  /* mirror the tablet map geometry so the nodes stay glued to the continents */
+  .hero-map-nodes {
+    width: 34%; right: 0;
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 48%, rgba(0,0,0,0) 76%);
+    mask-image: linear-gradient(180deg, #000 0%, #000 48%, rgba(0,0,0,0) 76%);
+  }
+}
+@media (max-width: 768px) {
+  /* phones/tablets: kill the ripple, keep the static dots (perf + calm) */
+  .map-node__ripple { animation: none; opacity: 0; will-change: auto; }
 }
 @media (max-width: 720px) {
-  .hero.hero-full { min-height: auto; }
-  .hero-content { padding: 64px 0 40px; }
-  .hero.hero-full h1 { font-size: clamp(2.0rem, 8vw, 2.8rem); }
+  .hero-content { padding: 40px 24px 52px; }
+  /* H1 mobile typography (2026-10-05 r2): restore brand-scale headline.
+     The slope 7.7vw - 4px (not plain vw) is deliberate: it guarantees the 2nd
+     <br> segment "Sourcing Partner in China" fits on ONE line at every width
+     >=320px in BOTH the Inter webfont and the wider fallback metrics (verified
+     with fonts blocked), so "China" can never strand however the font loads.
+     text-wrap: balance evens the 1st segment's wrap (no lone "Components").
+     Capped at 2rem so ~470-720px matches the 768px desktop size. */
+  .hero.hero-full h1 { font-size: clamp(1.25rem, 7.7vw - 4px, 2rem); text-wrap: balance; margin-bottom: 22px; }
+  .hero.hero-full .lead { font-size: clamp(0.9375rem, 4.2vw, 1.0625rem); }
+  .hero-eyebrow { font-size: .66rem; letter-spacing: .08em; margin-bottom: 16px; padding: 5px 12px 5px 11px; }
   .hero-content > h1,
   .hero-content > .lead,
   .hero-content > .trust-tags,
   .hero-content > .hero-cap-bar { max-width: 100%; }
-  .hero.hero-full .hero-cap-bar { gap: 8px 16px; }
+  .hero.hero-full .hero-actions { margin-top: 24px; gap: 12px; }
+  /* on phones the 1×4 footer wraps into a tidy 2×2 centered row */
+  .hero.hero-full .hero-cap-bar { max-width: 100%; gap: 22px 34px; justify-content: center; margin-top: 28px; padding-top: 22px; }
+  .cap-item { font-size: .78rem; gap: 9px; max-width: 130px; }
+  .hero-background { background-size: 96%; background-position: center 90%; opacity: 0.2; }
+  /* the phone map sits at "center 90%" — its box can't be mirrored reliably, so
+     drop the overlay and let world-map.svg's own static dots do the job */
+  .hero-map-nodes { display: none; }
 }
 
 /* S3 services */
