@@ -1,12 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.szprocure.com/components/audio-signal/alarms-buzzers-and-sirens/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/connectors-electromechanical/arrays-edge-type-mezzanine-board-to-board/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.szprocure.com/components/connectors-electromechanical/coaxial-connector-rf-assemblies/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://www.szprocure.com/components/connectors-electromechanical/ffc-fpc-flat-flexible-connector-assemblies/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/connectors-electromechanical/ffc-fpc-flat-flexible-connector-housings/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/connectors-electromechanical/flat-flex-cables-ffc-fpc/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.szprocure.com/components/connectors-electromechanical/headers-male-pins/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/connectors-electromechanical/headers-receptacles-female-sockets/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/connectors-electromechanical/modular-ethernet-connector-rj45-rj11-jacks/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -31,12 +66,27 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://www.szprocure.com/components/connectors-electromechanical/signal-relays-up-to-2-amps/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.szprocure.com/components/connectors-electromechanical/tactile-switches/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://www.szprocure.com/components/connectors-electromechanical/usb-dvi-hdmi-connector-adapters/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.szprocure.com/components/connectors-electromechanical/usb-dvi-hdmi-connector-assemblies/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/connectors-electromechanical/wire-to-board/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -66,12 +116,27 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://www.szprocure.com/components/integrated-circuits/clock-buffers-drivers/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/integrated-circuits/clock-generators-plls-frequency-synthesizers/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.szprocure.com/components/integrated-circuits/comparators/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.szprocure.com/components/integrated-circuits/controllers/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/integrated-circuits/current-regulation-management/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -92,6 +157,11 @@
   </url>
   <url>
     <loc>https://www.szprocure.com/components/integrated-circuits/flip-flops/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/integrated-circuits/fpgas-field-programmable-gate-array/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -136,12 +206,37 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://www.szprocure.com/components/integrated-circuits/rf-antennas/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/integrated-circuits/rf-switches/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.szprocure.com/components/integrated-circuits/rf-transceiver-ics-rf-wireless/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://www.szprocure.com/components/integrated-circuits/sensor-and-detector-interfaces-data-converters/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/integrated-circuits/serializers-deserializers/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.szprocure.com/components/integrated-circuits/shift-registers/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/integrated-circuits/signal-buffers-repeaters-splitters/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -246,6 +341,16 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://www.szprocure.com/components/power-management/current-regulation-management-power-management/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/power-management/dc-dc-converters/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.szprocure.com/components/power-management/dc-dc-switching-controllers/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -291,12 +396,22 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://www.szprocure.com/components/semiconductors-discrete/bridge-rectifiers/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.szprocure.com/components/semiconductors-discrete/digital-isolators/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.szprocure.com/components/semiconductors-discrete/diode-arrays/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/semiconductors-discrete/igbt-modules/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -336,6 +451,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://www.szprocure.com/components/semiconductors-discrete/solid-state-relays-ssr/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.szprocure.com/components/semiconductors-discrete/transistor-photovoltaic-output-optoisolators/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -356,7 +476,22 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://www.szprocure.com/components/sensors/current-sensors/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.szprocure.com/components/sensors/imus-inertial-measurement-units/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/sensors/linear-compass-ics/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/sensors/switches-solid-state/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
