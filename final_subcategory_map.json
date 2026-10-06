@@ -36783,5 +36783,2055 @@
     "final_subcategory": "Voltage Reference",
     "final_native_l1": "power-management",
     "final_slug": "voltage-reference"
+  },
+  "0402B222K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402B223K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CL10B102KC8NNNC": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402B331K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402B332K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402B471K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402B472K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402B561K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402B681K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402B682K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG0R5C500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG100J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG101J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG150J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG180J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG1R0C500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG1R2C500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG1R5C500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG1R8C500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG200J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CL05B104KA5NNNC": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG220J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG270J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG2R0C500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG2R2C500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG2R7C500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG330J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG390J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG3R0C500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG3R3C500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG3R9C500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG470J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG4R7C500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG300J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG5R0C500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402X105K100NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG5R6C500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG6R0C500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG6R8C500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0805CG100J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0805CG330J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG7R0C500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG8R0C500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG8R2C500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG9R0C500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603B151K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603B152K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CL10B222KB8NNNC": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603B222K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603B224K250NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CL10A225KP8NNNC": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CL03A104KQ3NNNC": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603B272K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603B331K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603B333K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603B391K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603B471K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603B562K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603B681K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603B682K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603B821K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603CG0R5C500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603CG101J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CL10C102JB8NNNC": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402X106M6R3NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0805B224K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603CG1R5C500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603CG1R8C500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603CG120J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603CG121J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603CG151J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603CG2R2C500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "1206B106K100NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603CG240J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603CG300J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603B225K100NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603CG3R9C500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603CG390J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603CG4R7C500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603CG500J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603CG5R0C500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402X105K160NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603CG5R6C500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603CG560J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603CG750J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CL03A105MQ3CSNC": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CL03A105MP3NSNC": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0805B151K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CL21B222KBANNNC": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CL21B223KBANNNC": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0805B331K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0805B471K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0805B472K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0805B473K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0805B681K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0805CG1R0C500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0805CG120J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0805CG180J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0805CG270J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG120F500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG200F500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0805CG560J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "1206B102K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "1206B103K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "1206B222K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "1206X226K100NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CL21B103KCANNNC": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CC0201KRX7R5BB104": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG220F500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CC0201KRX5R6BB104": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "AMC1301DWVR": {
+    "final_subcategory": "Instrumentation, Op Amps, Buffer Amps",
+    "final_native_l1": "signal-isolators",
+    "final_slug": "instrumentation-op-amps-buffer-amps-signal-isolators"
+  },
+  "0402CG680J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603B104K500AT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0805B104K500AT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603X225K160NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402B224K160NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "1206B102K102NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CC0805KKX7R6BB106": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CSA0603X5R225K160JT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "AM03B104K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0805B105K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "UMK325BJ106KMHP": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CC0805MKX5R6BB476": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "HGC0805R5226M350NSLJ": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CGA0201C0G8R2C500ET": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CGA1206X7R104K501NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CL10B471KB8NNNC": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CGA0402X5R105M100GT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CGA0201X7R104K160ET": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CGA0402X5R104K250GT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CGA0402X7R104K6R3GT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CC1206KKX7RDBB102": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0805CG220J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0805CG470J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "LRS-75-24": {
+    "final_subcategory": "AC DC Converters",
+    "final_native_l1": "power-modules",
+    "final_slug": "ac-dc-converters"
+  },
+  "CL05C120JB5NNNC": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CC0402JRX7R9BB103": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CL10C221JB8NNNC": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CL10C471JB8NNNC": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CC0603KRX5R7BB475": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CC1206KKX7R9BB474": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "AC0805KRX7R9BB104": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CL21B105MBFNNNE": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "TCC0603COG101J101CT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "TCC0603X7R103K101CT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "TCC0603X7R104J500CT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "TCC0603X7R104M500CT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "TCC0603X7R124K500CT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "TCC0603X7R331K500CT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "TCC0603X7R334K500CT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "TCC0805X7R103K101DT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "TCC0805X7R103K500DT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "TCC0805X7R104J500DT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "TCC1206X7R102K102DTS": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "TCC1206X7R102K500DT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "TCC1206X7R105K101HT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "TCC1206X7R225K500FT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0201B821K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "ISO6731DWR": {
+    "final_subcategory": "Digital Isolators",
+    "final_native_l1": "signal-isolators",
+    "final_slug": "digital-isolators"
+  },
+  "0201X104K160NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402X106M100NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402B223K160NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402B103K160NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402B103K250NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402B152K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0201X104M6R3NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0201B103K250NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG1R0B500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0201CG1R2B500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG0R5B500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402B473K250NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG0R8B500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402X474K160NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402B223K250NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0201B332K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0201X225M6R3NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603B473K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0201B102K250NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0201CG101J250NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "LRS-100-12": {
+    "final_subcategory": "AC DC Converters",
+    "final_native_l1": "power-modules",
+    "final_slug": "ac-dc-converters"
+  },
+  "1206X226M250NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603B104M500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "ISO7741FDBQR": {
+    "final_subcategory": "Digital Isolators",
+    "final_native_l1": "signal-isolators",
+    "final_slug": "digital-isolators"
+  },
+  "0805B475K250NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "1206B225K250NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "AC0402KRX7R9BB104": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "PESD3V3W1BCSFYL": {
+    "final_subcategory": "TVS Diodes",
+    "final_native_l1": "circuit-protection",
+    "final_slug": "tvs-diodes"
+  },
+  "KLXES15AAA1": {
+    "final_subcategory": "TVS Diodes",
+    "final_native_l1": "circuit-protection",
+    "final_slug": "tvs-diodes"
+  },
+  "KPESDC2FD3V3B": {
+    "final_subcategory": "TVS Diodes",
+    "final_native_l1": "circuit-protection",
+    "final_slug": "tvs-diodes"
+  },
+  "KESD5311X": {
+    "final_subcategory": "TVS Diodes",
+    "final_native_l1": "circuit-protection",
+    "final_slug": "tvs-diodes"
+  },
+  "0402B103J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CC0805KKX5R9BB475": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "1206B104K251NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402X474K250NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603X475K250NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "SMF26A": {
+    "final_subcategory": "TVS Diodes",
+    "final_native_l1": "circuit-protection",
+    "final_slug": "tvs-diodes"
+  },
+  "SMF30CA": {
+    "final_subcategory": "TVS Diodes",
+    "final_native_l1": "circuit-protection",
+    "final_slug": "tvs-diodes"
+  },
+  "SMF33CA": {
+    "final_subcategory": "TVS Diodes",
+    "final_native_l1": "circuit-protection",
+    "final_slug": "tvs-diodes"
+  },
+  "SMF22A": {
+    "final_subcategory": "TVS Diodes",
+    "final_native_l1": "circuit-protection",
+    "final_slug": "tvs-diodes"
+  },
+  "SMF15CA": {
+    "final_subcategory": "TVS Diodes",
+    "final_native_l1": "circuit-protection",
+    "final_slug": "tvs-diodes"
+  },
+  "SMF12A": {
+    "final_subcategory": "TVS Diodes",
+    "final_native_l1": "circuit-protection",
+    "final_slug": "tvs-diodes"
+  },
+  "MMBZ9V1A": {
+    "final_subcategory": "TVS Diodes",
+    "final_native_l1": "circuit-protection",
+    "final_slug": "tvs-diodes"
+  },
+  "CL10C101JC8NNNC": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402B101K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402X224K250NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0805CG102J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0805B104J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "ESD5Z3.3T1G-MS": {
+    "final_subcategory": "TVS Diodes",
+    "final_native_l1": "circuit-protection",
+    "final_slug": "tvs-diodes"
+  },
+  "ESD5Z5.0T1G-MS": {
+    "final_subcategory": "TVS Diodes",
+    "final_native_l1": "circuit-protection",
+    "final_slug": "tvs-diodes"
+  },
+  "0201B103K100NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402B104J250NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402B334K160NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0402CG5R6D500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "RCLAMP0521P.TCT-MS": {
+    "final_subcategory": "TVS Diodes",
+    "final_native_l1": "circuit-protection",
+    "final_slug": "tvs-diodes"
+  },
+  "CL10B104KB8WPNC": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CL10C100JB81PNC": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CL03A104KO3NNNC": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CL05B105KQ5NQNC": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CL05C102JB5NNNC": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CL10C681JB8NNNC": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "TCC1206X7R104K500DT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "TCC0805COG200J500BT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "TCC0805X7R334K500DT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CC0603FRNPO9BN102": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CC0805KRX7RCBB102": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CL10B683KB8NNNC": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CL03A225MP3CRNC": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CL05A105MQ5NNNC": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CL05B103KA5NNNC": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CL21A226KPCLRNC": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CC0402KRX5R7BB105": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CC0603KRX7R8BB474": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CC0603KRX5R8BB475": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CC0402KRX5R6BB475": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CC0805KKX7R7BB106": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CC0402KRX5R6BB225": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CC0603FRNPO9BN200": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CC0402KRX5R8BB224": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CC0603FRNPO9BN220": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603CG101J250NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CL05B223KB5NNNC": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "C2012X5R1V106KT000E": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "TCC0805X7R104K101DT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "TCC1206X7R222K102DTS": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "TCC0603X7R224K500CT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "TCC0805X7R333K500DT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "TCC1206X7R104K451HT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "TCC1206M3L104J500FT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603CG471J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603B221K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "SMAJ6.0A": {
+    "final_subcategory": "TVS Diodes",
+    "final_native_l1": "circuit-protection",
+    "final_slug": "tvs-diodes"
+  },
+  "SMBJ10CA": {
+    "final_subcategory": "TVS Diodes",
+    "final_native_l1": "circuit-protection",
+    "final_slug": "tvs-diodes"
+  },
+  "0805B222K500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603CG1R0C500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "SMF3.3A": {
+    "final_subcategory": "TVS Diodes",
+    "final_native_l1": "circuit-protection",
+    "final_slug": "tvs-diodes"
+  },
+  "0805CG101J101NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "0603CG6R0C500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "TCC0603COG100J500CT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "TCC0603COG220J500CT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "TCC0603X7R474K500CT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "TCC0805COG101J500BT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "TCC0805COG220J500BT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "TCC0805X7R104K500DTS": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "TCC0805X7R124K500DT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "PXN012-60QLJ": {
+    "final_subcategory": "Single FETs, MOSFETs",
+    "final_native_l1": "transistors",
+    "final_slug": "single-fets-mosfets-transistors"
+  },
+  "OPA569AIDWPR": {
+    "final_subcategory": "Instrumentation, Op Amps, Buffer Amps",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "instrumentation-op-amps-buffer-amps"
+  },
+  "BSC360N15NS3 G": {
+    "final_subcategory": "Single FETs, MOSFETs",
+    "final_native_l1": "transistors",
+    "final_slug": "single-fets-mosfets-transistors"
+  },
+  "LAIL-PHC3.96-4P-01-VH-L": {
+    "final_subcategory": "Headers, Male Pins",
+    "final_native_l1": "connectors",
+    "final_slug": "headers-male-pins"
+  },
+  "LAIL-PZ2.0-3P-L": {
+    "final_subcategory": "Headers, Male Pins",
+    "final_native_l1": "connectors",
+    "final_slug": "headers-male-pins"
+  },
+  "LAIL-PZ2.54-2P-W": {
+    "final_subcategory": "Headers, Male Pins",
+    "final_native_l1": "connectors",
+    "final_slug": "headers-male-pins"
+  },
+  "LAIL-PZ2.54-8P-W": {
+    "final_subcategory": "Headers, Male Pins",
+    "final_native_l1": "connectors",
+    "final_slug": "headers-male-pins"
+  },
+  "LAIL-PZ2.54-4P-L": {
+    "final_subcategory": "Headers, Male Pins",
+    "final_native_l1": "connectors",
+    "final_slug": "headers-male-pins"
+  },
+  "LAIL-PZ2.54-2P-L": {
+    "final_subcategory": "Headers, Male Pins",
+    "final_native_l1": "connectors",
+    "final_slug": "headers-male-pins"
+  },
+  "LAIL-PZ2.54-3P-L": {
+    "final_subcategory": "Headers, Male Pins",
+    "final_native_l1": "connectors",
+    "final_slug": "headers-male-pins"
+  },
+  "LAIL-PZ2.54-5P-L": {
+    "final_subcategory": "Headers, Male Pins",
+    "final_native_l1": "connectors",
+    "final_slug": "headers-male-pins"
+  },
+  "LAIL-PZ2.54-3PX2-L": {
+    "final_subcategory": "Headers, Male Pins",
+    "final_native_l1": "connectors",
+    "final_slug": "headers-male-pins"
+  },
+  "LAIL-PZ2.54-6P-L": {
+    "final_subcategory": "Headers, Male Pins",
+    "final_native_l1": "connectors",
+    "final_slug": "headers-male-pins"
+  },
+  "LAIL-PZ2.54-8P-L": {
+    "final_subcategory": "Headers, Male Pins",
+    "final_native_l1": "connectors",
+    "final_slug": "headers-male-pins"
+  },
+  "LAIL-PZ2.54-1P-L": {
+    "final_subcategory": "Headers, Male Pins",
+    "final_native_l1": "connectors",
+    "final_slug": "headers-male-pins"
+  },
+  "LAIL-PZ2.54-10PX2-L": {
+    "final_subcategory": "Headers, Male Pins",
+    "final_native_l1": "connectors",
+    "final_slug": "headers-male-pins"
+  },
+  "LAIL-PZ2.54-6PX2-L": {
+    "final_subcategory": "Headers, Male Pins",
+    "final_native_l1": "connectors",
+    "final_slug": "headers-male-pins"
+  },
+  "LAIL-PZ2.54-16P-L": {
+    "final_subcategory": "Headers, Male Pins",
+    "final_native_l1": "connectors",
+    "final_slug": "headers-male-pins"
+  },
+  "BUK9Y2R8-40HX": {
+    "final_subcategory": "Single FETs, MOSFETs",
+    "final_native_l1": "transistors",
+    "final_slug": "single-fets-mosfets-transistors"
+  },
+  "KW2-2-02CR-30-3": {
+    "final_subcategory": "Limit Switches",
+    "final_native_l1": "switches",
+    "final_slug": "limit-switches"
+  },
+  "KW2-2-04P-30-3": {
+    "final_subcategory": "Limit Switches",
+    "final_native_l1": "switches",
+    "final_slug": "limit-switches"
+  },
+  "KW2-2-00P-60-3": {
+    "final_subcategory": "Limit Switches",
+    "final_native_l1": "switches",
+    "final_slug": "limit-switches"
+  },
+  "PESD5V0G1BLYL": {
+    "final_subcategory": "TVS Diodes",
+    "final_native_l1": "circuit-protection",
+    "final_slug": "tvs-diodes"
+  },
+  "PESD5Z12,115": {
+    "final_subcategory": "TVS Diodes",
+    "final_native_l1": "circuit-protection",
+    "final_slug": "tvs-diodes"
+  },
+  "NCV4264-2CST33T3G": {
+    "final_subcategory": "Voltage Regulators - Linear, Low Drop Out (LDO) Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-linear-low-drop-out-ldo-regulators"
+  },
+  "MCP6232T-E/SN": {
+    "final_subcategory": "Instrumentation, Op Amps, Buffer Amps",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "instrumentation-op-amps-buffer-amps"
+  },
+  "PIC18F97J60-I/PT": {
+    "final_subcategory": "Microcontrollers",
+    "final_native_l1": "microcontrollers",
+    "final_slug": "microcontrollers"
+  },
+  "DPBW03F-12": {
+    "final_subcategory": "DC DC Converters",
+    "final_native_l1": "power-management",
+    "final_slug": "dc-dc-converters"
+  },
+  "C1608X7R1H104KT000N": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "TLV316IDBVR": {
+    "final_subcategory": "Instrumentation, Op Amps, Buffer Amps",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "instrumentation-op-amps-buffer-amps"
+  },
+  "AD8220BRMZ-R7": {
+    "final_subcategory": "Instrumentation, Op Amps, Buffer Amps",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "instrumentation-op-amps-buffer-amps"
+  },
+  "AD8250ARMZ-R7": {
+    "final_subcategory": "Instrumentation, Op Amps, Buffer Amps",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "instrumentation-op-amps-buffer-amps"
+  },
+  "AD8512ARZ": {
+    "final_subcategory": "Instrumentation, Op Amps, Buffer Amps",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "instrumentation-op-amps-buffer-amps"
+  },
+  "AD8656ARZ-REEL7": {
+    "final_subcategory": "Instrumentation, Op Amps, Buffer Amps",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "instrumentation-op-amps-buffer-amps"
+  },
+  "MCP1700T-3002E/MB": {
+    "final_subcategory": "Voltage Regulators - Linear, Low Drop Out (LDO) Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-linear-low-drop-out-ldo-regulators"
+  },
+  "ADA4930-1YCPZ-R7": {
+    "final_subcategory": "Instrumentation, Op Amps, Buffer Amps",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "instrumentation-op-amps-buffer-amps"
+  },
+  "ADP7104ACPZ-3.3-R7": {
+    "final_subcategory": "Voltage Regulators - Linear, Low Drop Out (LDO) Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-linear-low-drop-out-ldo-regulators"
+  },
+  "ADUM5211ARSZ-RL7": {
+    "final_subcategory": "Digital Isolators",
+    "final_native_l1": "signal-isolators",
+    "final_slug": "digital-isolators"
+  },
+  "ADUM7642CRQZ-RL7": {
+    "final_subcategory": "Digital Isolators",
+    "final_native_l1": "signal-isolators",
+    "final_slug": "digital-isolators"
+  },
+  "LT1763CS8-5#TRPBF": {
+    "final_subcategory": "Voltage Regulators - Linear, Low Drop Out (LDO) Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-linear-low-drop-out-ldo-regulators"
+  },
+  "LT1764AEQ#TRPBF": {
+    "final_subcategory": "Voltage Regulators - Linear, Low Drop Out (LDO) Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-linear-low-drop-out-ldo-regulators"
+  },
+  "LT6202IS5#TRMPBF": {
+    "final_subcategory": "Instrumentation, Op Amps, Buffer Amps",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "instrumentation-op-amps-buffer-amps"
+  },
+  "INA199A1DCKR": {
+    "final_subcategory": "Instrumentation, Op Amps, Buffer Amps",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "instrumentation-op-amps-buffer-amps"
+  },
+  "ADM2484EBRWZ-REEL7": {
+    "final_subcategory": "Digital Isolators",
+    "final_native_l1": "signal-isolators",
+    "final_slug": "digital-isolators"
+  },
+  "IMZA120R007M1HXKSA1": {
+    "final_subcategory": "Single FETs, MOSFETs",
+    "final_native_l1": "transistors",
+    "final_slug": "single-fets-mosfets"
+  },
+  "WS03DLC-B": {
+    "final_subcategory": "TVS Diodes",
+    "final_native_l1": "circuit-protection",
+    "final_slug": "tvs-diodes"
+  },
+  "MCP6L04T-E/SL": {
+    "final_subcategory": "Instrumentation, Op Amps, Buffer Amps",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "instrumentation-op-amps-buffer-amps"
+  },
+  "IRM-30-24": {
+    "final_subcategory": "AC DC Converters",
+    "final_native_l1": "power-modules",
+    "final_slug": "ac-dc-converters"
+  },
+  "MIC5236YMM-TR": {
+    "final_subcategory": "Voltage Regulators - Linear, Low Drop Out (LDO) Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-linear-low-drop-out-ldo-regulators"
+  },
+  "MIC69153YME-TR": {
+    "final_subcategory": "Voltage Regulators - Linear, Low Drop Out (LDO) Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-linear-low-drop-out-ldo-regulators"
+  },
+  "MIC29152WU-TR": {
+    "final_subcategory": "Voltage Regulators - Linear, Low Drop Out (LDO) Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-linear-low-drop-out-ldo-regulators"
+  },
+  "LM324DR2G": {
+    "final_subcategory": "Instrumentation, Op Amps, Buffer Amps",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "instrumentation-op-amps-buffer-amps"
+  },
+  "IRM-15-12": {
+    "final_subcategory": "AC DC Converters",
+    "final_native_l1": "power-modules",
+    "final_slug": "ac-dc-converters"
+  },
+  "PIC16F15355-E/SS": {
+    "final_subcategory": "Microcontrollers",
+    "final_native_l1": "microcontrollers",
+    "final_slug": "microcontrollers"
+  },
+  "RS-75-24": {
+    "final_subcategory": "AC DC Converters",
+    "final_native_l1": "power-modules",
+    "final_slug": "ac-dc-converters"
+  },
+  "AD8052ARZ-REEL7": {
+    "final_subcategory": "Instrumentation, Op Amps, Buffer Amps",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "instrumentation-op-amps-buffer-amps"
+  },
+  "AD8542ARZ-REEL": {
+    "final_subcategory": "Instrumentation, Op Amps, Buffer Amps",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "instrumentation-op-amps-buffer-amps"
+  },
+  "AD8572ARZ-REEL": {
+    "final_subcategory": "Instrumentation, Op Amps, Buffer Amps",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "instrumentation-op-amps-buffer-amps"
+  },
+  "AD8617ARZ-REEL": {
+    "final_subcategory": "Instrumentation, Op Amps, Buffer Amps",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "instrumentation-op-amps-buffer-amps"
+  },
+  "ADP7142ACPZN3.3-R7": {
+    "final_subcategory": "Voltage Regulators - Linear, Low Drop Out (LDO) Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-linear-low-drop-out-ldo-regulators"
+  },
+  "IRM-03-12": {
+    "final_subcategory": "AC DC Converters",
+    "final_native_l1": "power-modules",
+    "final_slug": "ac-dc-converters"
+  },
+  "IRM-05-12": {
+    "final_subcategory": "AC DC Converters",
+    "final_native_l1": "power-modules",
+    "final_slug": "ac-dc-converters"
+  },
+  "LM324ADR": {
+    "final_subcategory": "Instrumentation, Op Amps, Buffer Amps",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "instrumentation-op-amps-buffer-amps"
+  },
+  "IXTH1N200P3HV": {
+    "final_subcategory": "Single FETs, MOSFETs",
+    "final_native_l1": "transistors",
+    "final_slug": "single-fets-mosfets-transistors"
+  },
+  "MPM-20-24": {
+    "final_subcategory": "AC DC Converters",
+    "final_native_l1": "power-modules",
+    "final_slug": "ac-dc-converters"
+  },
+  "SPBW06F-05": {
+    "final_subcategory": "DC DC Converters",
+    "final_native_l1": "power-management",
+    "final_slug": "dc-dc-converters"
+  },
+  "LT3065EDD#TRPBF": {
+    "final_subcategory": "Voltage Regulators - Linear, Low Drop Out (LDO) Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-linear-low-drop-out-ldo-regulators"
+  },
+  "LT3991EMSE#TRPBF": {
+    "final_subcategory": "Voltage Regulators - DC DC Switching Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-dc-dc-switching-regulators"
+  },
+  "TPS631010YBGR": {
+    "final_subcategory": "Voltage Regulators - DC DC Switching Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-dc-dc-switching-regulators"
+  },
+  "LT8609AEMSE#TRPBF": {
+    "final_subcategory": "Voltage Regulators - DC DC Switching Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-dc-dc-switching-regulators"
+  },
+  "LT8643SIV#PBF": {
+    "final_subcategory": "Voltage Regulators - DC DC Switching Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-dc-dc-switching-regulators"
+  },
+  "LT8301ES5#TRMPBF": {
+    "final_subcategory": "Voltage Regulators - DC DC Switching Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-dc-dc-switching-regulators"
+  },
+  "LTC3638EMSE#TRPBF": {
+    "final_subcategory": "Voltage Regulators - DC DC Switching Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-dc-dc-switching-regulators"
+  },
+  "LTC6910-2CTS8#TRPBF": {
+    "final_subcategory": "Instrumentation, Op Amps, Buffer Amps",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "instrumentation-op-amps-buffer-amps"
+  },
+  "OP162GSZ-REEL7": {
+    "final_subcategory": "Instrumentation, Op Amps, Buffer Amps",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "instrumentation-op-amps-buffer-amps"
+  },
+  "DCWN06B-12": {
+    "final_subcategory": "DC DC Converters",
+    "final_native_l1": "power-management",
+    "final_slug": "dc-dc-converters"
+  },
+  "MSASJ21GBC6476MTNA01": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "LT3042EMSE#PBF": {
+    "final_subcategory": "Voltage Regulators - Linear, Low Drop Out (LDO) Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-linear-low-drop-out-ldo-regulators"
+  },
+  "OPA1602AIDR": {
+    "final_subcategory": "Instrumentation, Op Amps, Buffer Amps",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "instrumentation-op-amps-buffer-amps"
+  },
+  "2N7002ET1G": {
+    "final_subcategory": "Single FETs, MOSFETs",
+    "final_native_l1": "transistors",
+    "final_slug": "single-fets-mosfets-transistors"
+  },
+  "MC78M12ABDTRKG": {
+    "final_subcategory": "Voltage Regulators - Linear, Low Drop Out (LDO) Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-linear-low-drop-out-ldo-regulators"
+  },
+  "IRM-02-12": {
+    "final_subcategory": "AC DC Converters",
+    "final_native_l1": "power-modules",
+    "final_slug": "ac-dc-converters"
+  },
+  "STM32G071G8U6": {
+    "final_subcategory": "Microcontrollers",
+    "final_native_l1": "microcontrollers",
+    "final_slug": "microcontrollers"
+  },
+  "MC33078DR2G": {
+    "final_subcategory": "Instrumentation, Op Amps, Buffer Amps",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "instrumentation-op-amps-buffer-amps"
+  },
+  "STM32H750IBK6": {
+    "final_subcategory": "Microcontrollers",
+    "final_native_l1": "microcontrollers",
+    "final_slug": "microcontrollers"
+  },
+  "MC78L05ABDR2G": {
+    "final_subcategory": "Voltage Regulators - Linear, Low Drop Out (LDO) Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-linear-low-drop-out-ldo-regulators"
+  },
+  "RK3588S": {
+    "final_subcategory": "Microcontrollers",
+    "final_native_l1": "microcontrollers",
+    "final_slug": "microcontrollers"
+  },
+  "PZ254-3-03-W-2.5-G0": {
+    "final_subcategory": "Headers, Male Pins",
+    "final_native_l1": "connectors",
+    "final_slug": "headers-male-pins"
+  },
+  "N32G003F5S7": {
+    "final_subcategory": "Microcontrollers",
+    "final_native_l1": "microcontrollers",
+    "final_slug": "microcontrollers"
+  },
+  "LM337IMPX/NOPB": {
+    "final_subcategory": "Voltage Regulators - Linear, Low Drop Out (LDO) Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-linear-low-drop-out-ldo-regulators"
+  },
+  "LM358ADR": {
+    "final_subcategory": "Instrumentation, Op Amps, Buffer Amps",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "instrumentation-op-amps-buffer-amps"
+  },
+  "TPS61288LRQQR": {
+    "final_subcategory": "Voltage Regulators - DC DC Switching Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-dc-dc-switching-regulators"
+  },
+  "PESD24VL1BA-QX": {
+    "final_subcategory": "TVS Diodes",
+    "final_native_l1": "circuit-protection",
+    "final_slug": "tvs-diodes"
+  },
+  "PMV65XP,215": {
+    "final_subcategory": "Single FETs, MOSFETs",
+    "final_native_l1": "transistors",
+    "final_slug": "single-fets-mosfets-transistors"
+  },
+  "C2012X5R1A476MTJ00E": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "C3216X7R1V106KT000E": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "CGA5L1X7R1E106KT0Y0E": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "GRM033R60J105MEA2D": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "TPS61040DBVR": {
+    "final_subcategory": "Voltage Regulators - DC DC Switching Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-dc-dc-switching-regulators"
+  },
+  "TPS76301DBVR": {
+    "final_subcategory": "Voltage Regulators - Linear, Low Drop Out (LDO) Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-linear-low-drop-out-ldo-regulators"
+  },
+  "MMBTA06LT1G": {
+    "final_subcategory": "Single Bipolar Transistors",
+    "final_native_l1": "transistors",
+    "final_slug": "single-bipolar-transistors-transistors"
+  },
+  "GMK325BJ226MM-P": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "GD32F103CBT6": {
+    "final_subcategory": "Microcontrollers",
+    "final_native_l1": "microcontrollers",
+    "final_slug": "microcontrollers"
+  },
+  "S9S08DZ128F2MLH": {
+    "final_subcategory": "Microcontrollers",
+    "final_native_l1": "microcontrollers",
+    "final_slug": "microcontrollers"
+  },
+  "LM317LDR2G": {
+    "final_subcategory": "Voltage Regulators - Linear, Low Drop Out (LDO) Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-linear-low-drop-out-ldo-regulators"
+  },
+  "STM32L071CBT6": {
+    "final_subcategory": "Microcontrollers",
+    "final_native_l1": "microcontrollers",
+    "final_slug": "microcontrollers"
+  },
+  "BC850C,215": {
+    "final_subcategory": "Single Bipolar Transistors",
+    "final_native_l1": "transistors",
+    "final_slug": "single-bipolar-transistors-transistors"
+  },
+  "STM32F072C8T6": {
+    "final_subcategory": "Microcontrollers",
+    "final_native_l1": "microcontrollers",
+    "final_slug": "microcontrollers"
+  },
+  "FDV303N": {
+    "final_subcategory": "Single FETs, MOSFETs",
+    "final_native_l1": "transistors",
+    "final_slug": "single-fets-mosfets-transistors"
+  },
+  "2N7002P,215": {
+    "final_subcategory": "Single FETs, MOSFETs",
+    "final_native_l1": "transistors",
+    "final_slug": "single-fets-mosfets-transistors"
+  },
+  "STM32F030CCT6": {
+    "final_subcategory": "Microcontrollers",
+    "final_native_l1": "microcontrollers",
+    "final_slug": "microcontrollers"
+  },
+  "BC807-40LT1G": {
+    "final_subcategory": "Single Bipolar Transistors",
+    "final_native_l1": "transistors",
+    "final_slug": "single-bipolar-transistors-transistors"
+  },
+  "STM32F103ZET6": {
+    "final_subcategory": "Microcontrollers",
+    "final_native_l1": "microcontrollers",
+    "final_slug": "microcontrollers"
+  },
+  "TMS320F28377DPTPT": {
+    "final_subcategory": "Microcontrollers",
+    "final_native_l1": "microcontrollers",
+    "final_slug": "microcontrollers"
+  },
+  "0402B104K160CT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "GRM32ER71A476KE15L": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "MMBTA56LT1G": {
+    "final_subcategory": "Single Bipolar Transistors",
+    "final_native_l1": "transistors",
+    "final_slug": "single-bipolar-transistors-transistors"
+  },
+  "OPA1611AIDR": {
+    "final_subcategory": "Instrumentation, Op Amps, Buffer Amps",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "instrumentation-op-amps-buffer-amps"
+  },
+  "LMK105BJ105KV-F": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "MAX17220ELT+T": {
+    "final_subcategory": "Voltage Regulators - DC DC Switching Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-dc-dc-switching-regulators"
+  },
+  "TMS320F28027FPTT": {
+    "final_subcategory": "Microcontrollers",
+    "final_native_l1": "microcontrollers",
+    "final_slug": "microcontrollers"
+  },
+  "MSP430FG4618IPZR": {
+    "final_subcategory": "Microcontrollers",
+    "final_native_l1": "microcontrollers",
+    "final_slug": "microcontrollers"
+  },
+  "MCP1702T-3302E/MB": {
+    "final_subcategory": "Voltage Regulators - Linear, Low Drop Out (LDO) Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-linear-low-drop-out-ldo-regulators"
+  },
+  "STM32H743IIT6": {
+    "final_subcategory": "Microcontrollers",
+    "final_native_l1": "microcontrollers",
+    "final_slug": "microcontrollers"
+  },
+  "KSP13BU": {
+    "final_subcategory": "Single Bipolar Transistors",
+    "final_native_l1": "transistors",
+    "final_slug": "single-bipolar-transistors-transistors"
+  },
+  "HK32F103CBT6A": {
+    "final_subcategory": "Microcontrollers",
+    "final_native_l1": "microcontrollers",
+    "final_slug": "microcontrollers"
+  },
+  "TLV71333PDBVR": {
+    "final_subcategory": "Voltage Regulators - Linear, Low Drop Out (LDO) Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-linear-low-drop-out-ldo-regulators"
+  },
+  "TPS70933QDBVRQ1": {
+    "final_subcategory": "Voltage Regulators - Linear, Low Drop Out (LDO) Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-linear-low-drop-out-ldo-regulators"
+  },
+  "TPS62177DQCR": {
+    "final_subcategory": "Voltage Regulators - DC DC Switching Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-dc-dc-switching-regulators"
+  },
+  "TM4C1294NCPDTI3R": {
+    "final_subcategory": "Microcontrollers",
+    "final_native_l1": "microcontrollers",
+    "final_slug": "microcontrollers"
+  },
+  "LPC1758FBD80K": {
+    "final_subcategory": "Microcontrollers",
+    "final_native_l1": "microcontrollers",
+    "final_slug": "microcontrollers"
+  },
+  "STM32F446VET6": {
+    "final_subcategory": "Microcontrollers",
+    "final_native_l1": "microcontrollers",
+    "final_slug": "microcontrollers"
+  },
+  "EMK105B7104KV-F": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "EMK105BJ105KV-F": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "HMK325B7225KN-T": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "UMK107BJ105KA-T": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "UMK316AB7475KL-T": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "INA240A1PWR": {
+    "final_subcategory": "Instrumentation, Op Amps, Buffer Amps",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "instrumentation-op-amps-buffer-amps"
+  },
+  "BC817-16LT1G": {
+    "final_subcategory": "Single Bipolar Transistors",
+    "final_native_l1": "transistors",
+    "final_slug": "single-bipolar-transistors-transistors"
+  },
+  "TL052CDR": {
+    "final_subcategory": "Instrumentation, Op Amps, Buffer Amps",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "instrumentation-op-amps-buffer-amps"
+  },
+  "LRS-100-24": {
+    "final_subcategory": "AC DC Converters",
+    "final_native_l1": "power-modules",
+    "final_slug": "ac-dc-converters"
+  },
+  "LRS-50-24": {
+    "final_subcategory": "AC DC Converters",
+    "final_native_l1": "power-modules",
+    "final_slug": "ac-dc-converters"
+  },
+  "INA163UA/2K5": {
+    "final_subcategory": "Instrumentation, Op Amps, Buffer Amps",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "instrumentation-op-amps-buffer-amps"
+  },
+  "TPS563200DDCR": {
+    "final_subcategory": "Voltage Regulators - DC DC Switching Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-dc-dc-switching-regulators"
+  },
+  "GD32F450VIT6": {
+    "final_subcategory": "Microcontrollers",
+    "final_native_l1": "microcontrollers",
+    "final_slug": "microcontrollers"
+  },
+  "GD32F405RGT6": {
+    "final_subcategory": "Microcontrollers",
+    "final_native_l1": "microcontrollers",
+    "final_slug": "microcontrollers"
   }
 }

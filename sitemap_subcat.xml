@@ -266,6 +266,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://www.szprocure.com/components/modules-communication/ac-dc-converters/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.szprocure.com/components/modules-communication/dc-dc-converters-power-modules/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
