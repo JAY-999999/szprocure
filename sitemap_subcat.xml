@@ -51,6 +51,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://www.szprocure.com/components/connectors-electromechanical/pc-card-sockets/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.szprocure.com/components/connectors-electromechanical/rectangular-connector-accessories/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -197,6 +202,11 @@
   </url>
   <url>
     <loc>https://www.szprocure.com/components/integrated-circuits/motor-drivers-controllers/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/integrated-circuits/programmable-timers-and-oscillators/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -421,6 +431,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://www.szprocure.com/components/semiconductors-discrete/ptc-resettable-fuses/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.szprocure.com/components/semiconductors-discrete/scrs/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -432,6 +447,11 @@
   </url>
   <url>
     <loc>https://www.szprocure.com/components/semiconductors-discrete/single-diodes/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.szprocure.com/components/semiconductors-discrete/single-fets-mosfets-transistors/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>

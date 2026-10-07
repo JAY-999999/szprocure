@@ -38833,5 +38833,990 @@
     "final_subcategory": "Microcontrollers",
     "final_native_l1": "microcontrollers",
     "final_slug": "microcontrollers"
+  },
+  "RC0603DR-071KL": {
+    "final_subcategory": "Chip Resistor - Surface Mount",
+    "final_native_l1": "resistors",
+    "final_slug": "chip-resistor-surface-mount"
+  },
+  "RC0805DR-071KL": {
+    "final_subcategory": "Chip Resistor - Surface Mount",
+    "final_native_l1": "resistors",
+    "final_slug": "chip-resistor-surface-mount"
+  },
+  "CBG160808U600T": {
+    "final_subcategory": "Ferrite Beads and Chips",
+    "final_native_l1": "filters-emi-suppression",
+    "final_slug": "ferrite-beads-and-chips"
+  },
+  "SN74HC245DWR": {
+    "final_subcategory": "Buffers, Drivers, Receivers, Transceivers",
+    "final_native_l1": "logic-ics",
+    "final_slug": "buffers-drivers-receivers-transceivers"
+  },
+  "TPS5420DR": {
+    "final_subcategory": "Voltage Regulators - DC DC Switching Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-dc-dc-switching-regulators"
+  },
+  "ETST00327000JE": {
+    "final_subcategory": "Crystals",
+    "final_native_l1": "oscillators-resonators",
+    "final_slug": "crystals"
+  },
+  "TXS0108EQPWRQ1": {
+    "final_subcategory": "Translators, Level Shifters",
+    "final_native_l1": "logic-ics",
+    "final_slug": "translators-level-shifters"
+  },
+  "RTT021003FTH": {
+    "final_subcategory": "Chip Resistor - Surface Mount",
+    "final_native_l1": "resistors",
+    "final_slug": "chip-resistor-surface-mount"
+  },
+  "RTT031001FTP": {
+    "final_subcategory": "Chip Resistor - Surface Mount",
+    "final_native_l1": "resistors",
+    "final_slug": "chip-resistor-surface-mount"
+  },
+  "SN74HC573ADWR": {
+    "final_subcategory": "Latches",
+    "final_native_l1": "logic-ics",
+    "final_slug": "latches"
+  },
+  "SN74LVC2G241DCUR": {
+    "final_subcategory": "Buffers, Drivers, Receivers, Transceivers",
+    "final_native_l1": "logic-ics",
+    "final_slug": "buffers-drivers-receivers-transceivers"
+  },
+  "IKW30N60T": {
+    "final_subcategory": "Single IGBTs",
+    "final_native_l1": "transistors",
+    "final_slug": "single-igbts"
+  },
+  "WST3401": {
+    "final_subcategory": "Single FETs, MOSFETs",
+    "final_native_l1": "transistors",
+    "final_slug": "single-fets-mosfets-transistors"
+  },
+  "WST3400S": {
+    "final_subcategory": "Single FETs, MOSFETs",
+    "final_native_l1": "transistors",
+    "final_slug": "single-fets-mosfets-transistors"
+  },
+  "TPS3801L30DCKR": {
+    "final_subcategory": "Supervisors",
+    "final_native_l1": "power-management",
+    "final_slug": "supervisors"
+  },
+  "TF-02A": {
+    "final_subcategory": "PC Card Sockets",
+    "final_native_l1": "connectors",
+    "final_slug": "pc-card-sockets"
+  },
+  "LM397MF/NOPB": {
+    "final_subcategory": "Comparators",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "comparators"
+  },
+  "B540CQ-13-F": {
+    "final_subcategory": "Single Diodes",
+    "final_native_l1": "diodes",
+    "final_slug": "single-diodes"
+  },
+  "MIC2104YML-TR": {
+    "final_subcategory": "DC DC Switching Controllers",
+    "final_native_l1": "power-management",
+    "final_slug": "dc-dc-switching-controllers"
+  },
+  "STP55NF06": {
+    "final_subcategory": "Single FETs, MOSFETs",
+    "final_native_l1": "transistors",
+    "final_slug": "single-fets-mosfets-transistors"
+  },
+  "DSK36": {
+    "final_subcategory": "Single Diodes",
+    "final_native_l1": "diodes",
+    "final_slug": "single-diodes"
+  },
+  "MMZ1608R601ATA00": {
+    "final_subcategory": "Ferrite Beads and Chips",
+    "final_native_l1": "filters-emi-suppression",
+    "final_slug": "ferrite-beads-and-chips"
+  },
+  "MPZ1005S121CT000": {
+    "final_subcategory": "Ferrite Beads and Chips",
+    "final_native_l1": "filters-emi-suppression",
+    "final_slug": "ferrite-beads-and-chips"
+  },
+  "HFY100505T-121Y-NP": {
+    "final_subcategory": "Ferrite Beads and Chips",
+    "final_native_l1": "filters-emi-suppression",
+    "final_slug": "ferrite-beads-and-chips"
+  },
+  "ADUM3160BRWZ": {
+    "final_subcategory": "Digital Isolators",
+    "final_native_l1": "signal-isolators",
+    "final_slug": "digital-isolators"
+  },
+  "IS42S32400F-6TLI": {
+    "final_subcategory": "Memory",
+    "final_native_l1": "memory",
+    "final_slug": "memory"
+  },
+  "16TQC100MYF": {
+    "final_subcategory": "Tantalum - Polymer Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "tantalum-polymer-capacitors"
+  },
+  "SN74AHCT245PWR": {
+    "final_subcategory": "Buffers, Drivers, Receivers, Transceivers",
+    "final_native_l1": "logic-ics",
+    "final_slug": "buffers-drivers-receivers-transceivers"
+  },
+  "CP2105-F01-GMR": {
+    "final_subcategory": "Controllers",
+    "final_native_l1": "interface-ics",
+    "final_slug": "controllers"
+  },
+  "MAX488CSA+T": {
+    "final_subcategory": "Drivers, Receivers, Transceivers",
+    "final_native_l1": "interface-ics",
+    "final_slug": "drivers-receivers-transceivers-interface-ics"
+  },
+  "293D106X9025B2TE3": {
+    "final_subcategory": "Tantalum Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "tantalum-capacitors"
+  },
+  "293D226X9016B2TE3": {
+    "final_subcategory": "Tantalum Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "tantalum-capacitors"
+  },
+  "293D106X9016A2TE3": {
+    "final_subcategory": "Tantalum Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "tantalum-capacitors"
+  },
+  "NC7WZ08K8X": {
+    "final_subcategory": "Gates and Inverters",
+    "final_native_l1": "logic-ics",
+    "final_slug": "gates-and-inverters"
+  },
+  "ADM803SAKSZ-REEL7": {
+    "final_subcategory": "Supervisors",
+    "final_native_l1": "power-management",
+    "final_slug": "supervisors"
+  },
+  "AP2151WG-7": {
+    "final_subcategory": "Power Distribution Switches, Load Drivers",
+    "final_native_l1": "power-management",
+    "final_slug": "power-distribution-switches-load-drivers-power-management"
+  },
+  "AP2171WG-7": {
+    "final_subcategory": "Power Distribution Switches, Load Drivers",
+    "final_native_l1": "power-management",
+    "final_slug": "power-distribution-switches-load-drivers-power-management"
+  },
+  "AFC07-S06ECC-00": {
+    "final_subcategory": "FFC, FPC (Flat Flexible) Connector Assemblies",
+    "final_native_l1": "connectors",
+    "final_slug": "ffc-fpc-flat-flexible-connector-assemblies"
+  },
+  "AFC07-S40ECC-00": {
+    "final_subcategory": "FFC, FPC (Flat Flexible) Connector Assemblies",
+    "final_native_l1": "connectors",
+    "final_slug": "ffc-fpc-flat-flexible-connector-assemblies"
+  },
+  "EG393": {
+    "final_subcategory": "Linear Comparators",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "linear-comparators"
+  },
+  "UC2843BD1013TR": {
+    "final_subcategory": "DC DC Switching Controllers",
+    "final_native_l1": "power-management",
+    "final_slug": "dc-dc-switching-controllers"
+  },
+  "SP3232EEA-L/TR": {
+    "final_subcategory": "Drivers, Receivers, Transceivers",
+    "final_native_l1": "interface-ics",
+    "final_slug": "drivers-receivers-transceivers-interface-ics"
+  },
+  "FSUSB30MUX": {
+    "final_subcategory": "Analog Switches, Multiplexers, Demultiplexers",
+    "final_native_l1": "interface-ics",
+    "final_slug": "analog-switches-multiplexers-demultiplexers"
+  },
+  "AiP74HC4053": {
+    "final_subcategory": "Analog Switches, Multiplexers, Demultiplexers",
+    "final_native_l1": "interface-ics",
+    "final_slug": "analog-switches-multiplexers-demultiplexers"
+  },
+  "MCP6542T-I/MS": {
+    "final_subcategory": "Comparators",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "comparators"
+  },
+  "BD2051AFJ-E2": {
+    "final_subcategory": "Power Distribution Switches, Load Drivers",
+    "final_native_l1": "power-management",
+    "final_slug": "power-distribution-switches-load-drivers-power-management"
+  },
+  "DTC123JKAT146": {
+    "final_subcategory": "Single, Pre-Biased Bipolar Transistors",
+    "final_native_l1": "transistors",
+    "final_slug": "single-pre-biased-bipolar-transistors"
+  },
+  "MIC29302WT": {
+    "final_subcategory": "Voltage Regulators - Linear, Low Drop Out (LDO) Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-linear-low-drop-out-ldo-regulators"
+  },
+  "UC3845AD8TR": {
+    "final_subcategory": "Power Management - Specialized",
+    "final_native_l1": "power-management",
+    "final_slug": "power-management-specialized-power-management"
+  },
+  "3296X-1-103LF": {
+    "final_subcategory": "Trimmer Potentiometers",
+    "final_native_l1": "resistors",
+    "final_slug": "trimmer-potentiometers"
+  },
+  "UC2843AD8TR": {
+    "final_subcategory": "Power Management - Specialized",
+    "final_native_l1": "power-management",
+    "final_slug": "power-management-specialized-power-management"
+  },
+  "2N7002KQ-7": {
+    "final_subcategory": "Single FETs, MOSFETs",
+    "final_native_l1": "transistors",
+    "final_slug": "single-fets-mosfets-transistors"
+  },
+  "MAX5401EKA+T": {
+    "final_subcategory": "Digital Potentiometers",
+    "final_native_l1": "data-converters",
+    "final_slug": "digital-potentiometers"
+  },
+  "X05B20U40T": {
+    "final_subcategory": "FFC, FPC (Flat Flexible) Connector Assemblies",
+    "final_native_l1": "connectors",
+    "final_slug": "ffc-fpc-flat-flexible-connector-assemblies"
+  },
+  "MM1Z5V1": {
+    "final_subcategory": "Single Zener Diodes",
+    "final_native_l1": "diodes",
+    "final_slug": "single-zener-diodes"
+  },
+  "KIA431AM-RTK/H": {
+    "final_subcategory": "Voltage Reference",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-reference"
+  },
+  "MAX3232ECPWR": {
+    "final_subcategory": "Drivers, Receivers, Transceivers",
+    "final_native_l1": "interface-ics",
+    "final_slug": "drivers-receivers-transceivers-interface-ics"
+  },
+  "REF3025AIDBZR": {
+    "final_subcategory": "Voltage Reference",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-reference"
+  },
+  "RT9702AGB": {
+    "final_subcategory": "Power Distribution Switches, Load Drivers",
+    "final_native_l1": "power-management",
+    "final_slug": "power-distribution-switches-load-drivers-power-management"
+  },
+  "SN74AHCT1G08DCKR": {
+    "final_subcategory": "Gates and Inverters",
+    "final_native_l1": "logic-ics",
+    "final_slug": "gates-and-inverters"
+  },
+  "TL431ILP": {
+    "final_subcategory": "Voltage Reference",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-reference"
+  },
+  "AD5541AARMZ-REEL7": {
+    "final_subcategory": "Digital to Analog Converters (DAC)",
+    "final_native_l1": "data-converters",
+    "final_slug": "digital-to-analog-converters-dac"
+  },
+  "AD5621AKSZ-500RL7": {
+    "final_subcategory": "Digital to Analog Converters (DAC)",
+    "final_native_l1": "data-converters",
+    "final_slug": "digital-to-analog-converters-dac"
+  },
+  "DAC7750IPWPR": {
+    "final_subcategory": "Digital to Analog Converters (DAC)",
+    "final_native_l1": "data-converters",
+    "final_slug": "digital-to-analog-converters-dac"
+  },
+  "WS2812C": {
+    "final_subcategory": "LED Addressable, Specialty",
+    "final_native_l1": "optoelectronics",
+    "final_slug": "led-addressable-specialty"
+  },
+  "WS2812C-B": {
+    "final_subcategory": "LED Addressable, Specialty",
+    "final_native_l1": "optoelectronics",
+    "final_slug": "led-addressable-specialty"
+  },
+  "NE555L-D08-T": {
+    "final_subcategory": "Programmable Timers and Oscillators",
+    "final_native_l1": "clock-timing",
+    "final_slug": "programmable-timers-and-oscillators"
+  },
+  "M24M02-DRMN6TP": {
+    "final_subcategory": "Memory",
+    "final_native_l1": "memory",
+    "final_slug": "memory"
+  },
+  "STM1001RWX6F": {
+    "final_subcategory": "Supervisors",
+    "final_native_l1": "power-management",
+    "final_slug": "supervisors"
+  },
+  "W25Q80DVSNIG": {
+    "final_subcategory": "Memory",
+    "final_native_l1": "memory",
+    "final_slug": "memory"
+  },
+  "MCP3421A1T-E/CH": {
+    "final_subcategory": "Analog to Digital Converters (ADC)",
+    "final_native_l1": "data-converters",
+    "final_slug": "analog-to-digital-converters-adc"
+  },
+  "UCD1H221MNL1GS": {
+    "final_subcategory": "Aluminum Electrolytic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "aluminum-electrolytic-capacitors"
+  },
+  "UCS2E221MHD": {
+    "final_subcategory": "Aluminum Electrolytic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "aluminum-electrolytic-capacitors"
+  },
+  "ICM7555CBAZ-T": {
+    "final_subcategory": "Programmable Timers and Oscillators",
+    "final_native_l1": "clock-timing",
+    "final_slug": "programmable-timers-and-oscillators"
+  },
+  "MAX31856MUD+": {
+    "final_subcategory": "Sensor and Detector Interfaces",
+    "final_native_l1": "data-converters",
+    "final_slug": "sensor-and-detector-interfaces-data-converters"
+  },
+  "SN74LVC1T45DBVT": {
+    "final_subcategory": "Translators, Level Shifters",
+    "final_native_l1": "logic-ics",
+    "final_slug": "translators-level-shifters"
+  },
+  "TCM809SENB713": {
+    "final_subcategory": "Supervisors",
+    "final_native_l1": "power-management",
+    "final_slug": "supervisors"
+  },
+  "T520B107M006ATE040": {
+    "final_subcategory": "Tantalum - Polymer Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "tantalum-polymer-capacitors"
+  },
+  "T520D227M010ATE018": {
+    "final_subcategory": "Tantalum - Polymer Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "tantalum-polymer-capacitors"
+  },
+  "LTC1871EMS#PBF": {
+    "final_subcategory": "DC DC Switching Controllers",
+    "final_native_l1": "power-management",
+    "final_slug": "dc-dc-switching-controllers"
+  },
+  "CSD88537ND": {
+    "final_subcategory": "FET, MOSFET Arrays",
+    "final_native_l1": "transistors",
+    "final_slug": "fet-mosfet-arrays"
+  },
+  "SN74AHC86PWR": {
+    "final_subcategory": "Gates and Inverters",
+    "final_native_l1": "logic-ics",
+    "final_slug": "gates-and-inverters"
+  },
+  "DS1337C#T&R": {
+    "final_subcategory": "Real Time Clocks",
+    "final_native_l1": "clock-timing",
+    "final_slug": "real-time-clocks"
+  },
+  "RHRG30120": {
+    "final_subcategory": "Single Diodes",
+    "final_native_l1": "diodes",
+    "final_slug": "single-diodes"
+  },
+  "RHRG75120": {
+    "final_subcategory": "Single Diodes",
+    "final_native_l1": "diodes",
+    "final_slug": "single-diodes"
+  },
+  "DRDNB16W-7": {
+    "final_subcategory": "Single, Pre-Biased Bipolar Transistors",
+    "final_native_l1": "transistors",
+    "final_slug": "single-pre-biased-bipolar-transistors"
+  },
+  "S25FL256SAGMFIG01": {
+    "final_subcategory": "Memory",
+    "final_native_l1": "memory",
+    "final_slug": "memory"
+  },
+  "DAC7571IDBVR": {
+    "final_subcategory": "Digital to Analog Converters (DAC)",
+    "final_native_l1": "data-converters",
+    "final_slug": "digital-to-analog-converters-dac"
+  },
+  "NA556DR": {
+    "final_subcategory": "Programmable Timers and Oscillators",
+    "final_native_l1": "clock-timing",
+    "final_slug": "programmable-timers-and-oscillators"
+  },
+  "DS1340U-33+T&R": {
+    "final_subcategory": "Real Time Clocks",
+    "final_native_l1": "clock-timing",
+    "final_slug": "real-time-clocks"
+  },
+  "3296X-1-103": {
+    "final_subcategory": "Trimmer Potentiometers",
+    "final_native_l1": "resistors",
+    "final_slug": "trimmer-potentiometers"
+  },
+  "ADUM5401WCRWZ-1": {
+    "final_subcategory": "Digital Isolators",
+    "final_native_l1": "signal-isolators",
+    "final_slug": "digital-isolators"
+  },
+  "ISL81487EIBZ-T": {
+    "final_subcategory": "Drivers, Receivers, Transceivers",
+    "final_native_l1": "interface-ics",
+    "final_slug": "drivers-receivers-transceivers-interface-ics"
+  },
+  "mSMD010-60V": {
+    "final_subcategory": "PTC Resettable Fuses",
+    "final_native_l1": "circuit-protection",
+    "final_slug": "ptc-resettable-fuses"
+  },
+  "LMBT3906LT1G": {
+    "final_subcategory": "Single Bipolar Transistors",
+    "final_native_l1": "transistors",
+    "final_slug": "single-bipolar-transistors-transistors"
+  },
+  "UHE1V102MHD": {
+    "final_subcategory": "Aluminum Electrolytic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "aluminum-electrolytic-capacitors"
+  },
+  "SN65LVPE502ARGER": {
+    "final_subcategory": "Signal Buffers, Repeaters, Splitters",
+    "final_native_l1": "interface-ics",
+    "final_slug": "signal-buffers-repeaters-splitters"
+  },
+  "CC2640R2FRGZR": {
+    "final_subcategory": "RF Transceiver ICs",
+    "final_native_l1": "rf-wireless",
+    "final_slug": "rf-transceiver-ics-rf-wireless"
+  },
+  "DTA143ZUAT106": {
+    "final_subcategory": "Single, Pre-Biased Bipolar Transistors",
+    "final_native_l1": "transistors",
+    "final_slug": "single-pre-biased-bipolar-transistors"
+  },
+  "AD7792BRUZ": {
+    "final_subcategory": "Analog to Digital Converters (ADC)",
+    "final_native_l1": "data-converters",
+    "final_slug": "analog-to-digital-converters-adc"
+  },
+  "3362X-1-103LF": {
+    "final_subcategory": "Trimmer Potentiometers",
+    "final_native_l1": "resistors",
+    "final_slug": "trimmer-potentiometers"
+  },
+  "MCP41050-I/SN": {
+    "final_subcategory": "Digital Potentiometers",
+    "final_native_l1": "data-converters",
+    "final_slug": "digital-potentiometers"
+  },
+  "ICM-20600": {
+    "final_subcategory": "IMUs (Inertial Measurement Units)",
+    "final_native_l1": "sensors",
+    "final_slug": "imus-inertial-measurement-units"
+  },
+  "SBAT54CLT1G": {
+    "final_subcategory": "Diode Arrays",
+    "final_native_l1": "diodes",
+    "final_slug": "diode-arrays"
+  },
+  "LMV761MFX/NOPB": {
+    "final_subcategory": "Comparators",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "comparators"
+  },
+  "TP1961-TR": {
+    "final_subcategory": "Linear Comparators",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "linear-comparators"
+  },
+  "NCP18XH103J03RB": {
+    "final_subcategory": "NTC Thermistors",
+    "final_native_l1": "sensors",
+    "final_slug": "ntc-thermistors"
+  },
+  "AiP74HC165SA.TB": {
+    "final_subcategory": "Shift Registers",
+    "final_native_l1": "logic-ics",
+    "final_slug": "shift-registers"
+  },
+  "LTST-C190TBKT": {
+    "final_subcategory": "LED Indication - Discrete",
+    "final_native_l1": "optoelectronics",
+    "final_slug": "led-indication-discrete"
+  },
+  "LTST-C193TBKT-5A": {
+    "final_subcategory": "LED Indication - Discrete",
+    "final_native_l1": "optoelectronics",
+    "final_slug": "led-indication-discrete"
+  },
+  "SLM1302": {
+    "final_subcategory": "Real Time Clocks",
+    "final_native_l1": "clock-timing",
+    "final_slug": "real-time-clocks"
+  },
+  "DS1822+": {
+    "final_subcategory": "Analog and Digital Output",
+    "final_native_l1": "sensors",
+    "final_slug": "analog-and-digital-output"
+  },
+  "TF-001B": {
+    "final_subcategory": "PC Card Sockets",
+    "final_native_l1": "connectors",
+    "final_slug": "pc-card-sockets"
+  },
+  "TPL5010DDCT": {
+    "final_subcategory": "Programmable Timers and Oscillators",
+    "final_native_l1": "clock-timing",
+    "final_slug": "programmable-timers-and-oscillators"
+  },
+  "TS5A22364QDGSRQ1": {
+    "final_subcategory": "Analog Switches, Multiplexers, Demultiplexers",
+    "final_native_l1": "interface-ics",
+    "final_slug": "analog-switches-multiplexers-demultiplexers"
+  },
+  "UWT1V101MCL1GS": {
+    "final_subcategory": "Aluminum Electrolytic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "aluminum-electrolytic-capacitors"
+  },
+  "LMC6482AIMX/NOPB": {
+    "final_subcategory": "Instrumentation, Op Amps, Buffer Amps",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "instrumentation-op-amps-buffer-amps"
+  },
+  "CS1232-TS": {
+    "final_subcategory": "Analog to Digital Converters (ADC)",
+    "final_native_l1": "data-converters",
+    "final_slug": "analog-to-digital-converters-adc"
+  },
+  "LBC846BLT1G": {
+    "final_subcategory": "Single Bipolar Transistors",
+    "final_native_l1": "transistors",
+    "final_slug": "single-bipolar-transistors-transistors"
+  },
+  "LBC807-40LT1G": {
+    "final_subcategory": "Single Bipolar Transistors",
+    "final_native_l1": "transistors",
+    "final_slug": "single-bipolar-transistors-transistors"
+  },
+  "LBZX84C6V8LT1G": {
+    "final_subcategory": "Single Zener Diodes",
+    "final_native_l1": "diodes",
+    "final_slug": "single-zener-diodes"
+  },
+  "LBZX84C15LT1G": {
+    "final_subcategory": "Single Zener Diodes",
+    "final_native_l1": "diodes",
+    "final_slug": "single-zener-diodes"
+  },
+  "LBZX84C12LT1G": {
+    "final_subcategory": "Single Zener Diodes",
+    "final_native_l1": "diodes",
+    "final_slug": "single-zener-diodes"
+  },
+  "NC7SZ74K8X": {
+    "final_subcategory": "Flip Flops",
+    "final_native_l1": "logic-ics",
+    "final_slug": "flip-flops"
+  },
+  "NC7SZ57P6X": {
+    "final_subcategory": "Gates and Inverters",
+    "final_native_l1": "logic-ics",
+    "final_slug": "gates-and-inverters"
+  },
+  "16SEPC100M": {
+    "final_subcategory": "Aluminum - Polymer Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "aluminum-polymer-capacitors"
+  },
+  "16SEPF1000M": {
+    "final_subcategory": "Aluminum - Polymer Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "aluminum-polymer-capacitors"
+  },
+  "6SEPC470MX+TSS": {
+    "final_subcategory": "Aluminum - Polymer Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "aluminum-polymer-capacitors"
+  },
+  "AD7608BSTZ": {
+    "final_subcategory": "ADCs/DACs - Special Purpose",
+    "final_native_l1": "data-converters",
+    "final_slug": "adcs-dacs-special-purpose"
+  },
+  "BQ24072TRGTR": {
+    "final_subcategory": "Battery Chargers",
+    "final_native_l1": "power-management",
+    "final_slug": "battery-chargers"
+  },
+  "LM5050MK-1/NOPB": {
+    "final_subcategory": "OR Controllers, Ideal Diodes",
+    "final_native_l1": "power-management",
+    "final_slug": "or-controllers-ideal-diodes"
+  },
+  "LMV761MF/NOPB": {
+    "final_subcategory": "Comparators",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "comparators"
+  },
+  "TXBN0304RSVR": {
+    "final_subcategory": "Translators, Level Shifters",
+    "final_native_l1": "logic-ics",
+    "final_slug": "translators-level-shifters"
+  },
+  "74LVC1G14SE-7": {
+    "final_subcategory": "Gates and Inverters",
+    "final_native_l1": "logic-ics",
+    "final_slug": "gates-and-inverters"
+  },
+  "PCM5100APWR": {
+    "final_subcategory": "ADCs/DACs - Special Purpose",
+    "final_native_l1": "data-converters",
+    "final_slug": "adcs-dacs-special-purpose"
+  },
+  "TPL0501-100DCNR": {
+    "final_subcategory": "Digital Potentiometers",
+    "final_native_l1": "data-converters",
+    "final_slug": "digital-potentiometers"
+  },
+  "SN65LVDS93ADGGR": {
+    "final_subcategory": "Serializers, Deserializers",
+    "final_native_l1": "interface-ics",
+    "final_slug": "serializers-deserializers"
+  },
+  "1P1G3157QDBVRQ1": {
+    "final_subcategory": "Analog Switches, Multiplexers, Demultiplexers",
+    "final_native_l1": "interface-ics",
+    "final_slug": "analog-switches-multiplexers-demultiplexers"
+  },
+  "TCA9539PWR": {
+    "final_subcategory": "I/O Expanders",
+    "final_native_l1": "interface-ics",
+    "final_slug": "i-o-expanders"
+  },
+  "ADS1014IDGST": {
+    "final_subcategory": "Analog to Digital Converters (ADC)",
+    "final_native_l1": "data-converters",
+    "final_slug": "analog-to-digital-converters-adc"
+  },
+  "LM74CIM-3/NOPB": {
+    "final_subcategory": "Analog and Digital Output",
+    "final_native_l1": "sensors",
+    "final_slug": "analog-and-digital-output"
+  },
+  "FT230XS-U": {
+    "final_subcategory": "Controllers",
+    "final_native_l1": "interface-ics",
+    "final_slug": "controllers"
+  },
+  "SN74HC139DR": {
+    "final_subcategory": "Signal Switches, Multiplexers, Decoders",
+    "final_native_l1": "logic-ics",
+    "final_slug": "signal-switches-multiplexers-decoders-logic-ics"
+  },
+  "SN74HC373PWR": {
+    "final_subcategory": "Latches",
+    "final_native_l1": "logic-ics",
+    "final_slug": "latches"
+  },
+  "LQM21PZ4R7NGRD": {
+    "final_subcategory": "Fixed Inductors",
+    "final_native_l1": "inductors-coils-transformers",
+    "final_slug": "fixed-inductors"
+  },
+  "ASPIAIG-FLR4020-2R2M-T": {
+    "final_subcategory": "Fixed Inductors",
+    "final_native_l1": "inductors-coils-transformers",
+    "final_slug": "fixed-inductors"
+  },
+  "CD74HC4538M": {
+    "final_subcategory": "Multivibrators",
+    "final_native_l1": "logic-ics",
+    "final_slug": "multivibrators"
+  },
+  "CD74HC123M96": {
+    "final_subcategory": "Multivibrators",
+    "final_native_l1": "logic-ics",
+    "final_slug": "multivibrators"
+  },
+  "CD74HC221M96": {
+    "final_subcategory": "Multivibrators",
+    "final_native_l1": "logic-ics",
+    "final_slug": "multivibrators"
+  },
+  "BAS70-04-7-F": {
+    "final_subcategory": "Diode Arrays",
+    "final_native_l1": "diodes",
+    "final_slug": "diode-arrays"
+  },
+  "TPS54160DGQR": {
+    "final_subcategory": "Voltage Regulators - DC DC Switching Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-dc-dc-switching-regulators"
+  },
+  "ASMD1812-050": {
+    "final_subcategory": "PTC Resettable Fuses",
+    "final_native_l1": "circuit-protection",
+    "final_slug": "ptc-resettable-fuses"
+  },
+  "ADUM1411BRWZ": {
+    "final_subcategory": "Digital Isolators",
+    "final_native_l1": "signal-isolators",
+    "final_slug": "digital-isolators"
+  },
+  "LM2576SX-3.3/NOPB": {
+    "final_subcategory": "Voltage Regulators - DC DC Switching Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-dc-dc-switching-regulators"
+  },
+  "MIC4425YM": {
+    "final_subcategory": "Gate Drivers",
+    "final_native_l1": "motor-driver-ics",
+    "final_slug": "gate-drivers"
+  },
+  "AFA07-S12FCC-00": {
+    "final_subcategory": "FFC, FPC (Flat Flexible) Connector Assemblies",
+    "final_native_l1": "connectors",
+    "final_slug": "ffc-fpc-flat-flexible-connector-assemblies"
+  },
+  "SN74LVC2G34DCKR": {
+    "final_subcategory": "Buffers, Drivers, Receivers, Transceivers",
+    "final_native_l1": "logic-ics",
+    "final_slug": "buffers-drivers-receivers-transceivers"
+  },
+  "SBAT54SLT1G": {
+    "final_subcategory": "Diode Arrays",
+    "final_native_l1": "diodes",
+    "final_slug": "diode-arrays"
+  },
+  "TC77-5.0MOA": {
+    "final_subcategory": "Analog and Digital Output",
+    "final_native_l1": "sensors",
+    "final_slug": "analog-and-digital-output"
+  },
+  "MCP7940NT-I/SN": {
+    "final_subcategory": "Real Time Clocks",
+    "final_native_l1": "clock-timing",
+    "final_slug": "real-time-clocks"
+  },
+  "MMBD2004S-7-F": {
+    "final_subcategory": "Diode Arrays",
+    "final_native_l1": "diodes",
+    "final_slug": "diode-arrays"
+  },
+  "AD9833BRMZ": {
+    "final_subcategory": "Direct Digital Synthesis (DDS)",
+    "final_native_l1": "data-converters",
+    "final_slug": "direct-digital-synthesis-dds"
+  },
+  "MAX8521ETP+": {
+    "final_subcategory": "Power Management - Specialized",
+    "final_native_l1": "power-management",
+    "final_slug": "power-management-specialized-power-management"
+  },
+  "TPS65105PWP": {
+    "final_subcategory": "LED Drivers",
+    "final_native_l1": "led-display-drivers",
+    "final_slug": "led-drivers"
+  },
+  "CP2105-F01-GM": {
+    "final_subcategory": "Controllers",
+    "final_native_l1": "interface-ics",
+    "final_slug": "controllers"
+  },
+  "FT4232HQ-TRAY": {
+    "final_subcategory": "Controllers",
+    "final_native_l1": "interface-ics",
+    "final_slug": "controllers"
+  },
+  "SN74LS74AN": {
+    "final_subcategory": "Flip Flops",
+    "final_native_l1": "logic-ics",
+    "final_slug": "flip-flops"
+  },
+  "XTR115UA": {
+    "final_subcategory": "ADCs/DACs - Special Purpose",
+    "final_native_l1": "data-converters",
+    "final_slug": "adcs-dacs-special-purpose"
+  },
+  "MAX31855KASA+": {
+    "final_subcategory": "Sensor and Detector Interfaces",
+    "final_native_l1": "data-converters",
+    "final_slug": "sensor-and-detector-interfaces-data-converters"
+  },
+  "ADIS16477-3BMLZ": {
+    "final_subcategory": "IMUs (Inertial Measurement Units)",
+    "final_native_l1": "sensors",
+    "final_slug": "imus-inertial-measurement-units"
+  },
+  "MCP23009-E/SS": {
+    "final_subcategory": "I/O Expanders",
+    "final_native_l1": "interface-ics",
+    "final_slug": "i-o-expanders"
+  },
+  "PCM5100AQPWRQ1": {
+    "final_subcategory": "ADCs/DACs - Special Purpose",
+    "final_native_l1": "data-converters",
+    "final_slug": "adcs-dacs-special-purpose"
+  },
+  "UCC27511DBVT": {
+    "final_subcategory": "Gate Drivers",
+    "final_native_l1": "motor-driver-ics",
+    "final_slug": "gate-drivers"
+  },
+  "MAX9927AEE/V+": {
+    "final_subcategory": "Sensor and Detector Interfaces",
+    "final_native_l1": "data-converters",
+    "final_slug": "sensor-and-detector-interfaces-data-converters"
+  },
+  "TLC5922DAP": {
+    "final_subcategory": "LED Drivers",
+    "final_native_l1": "led-display-drivers",
+    "final_slug": "led-drivers"
+  },
+  "ADUM1401CRWZ-RL": {
+    "final_subcategory": "Digital Isolators",
+    "final_native_l1": "signal-isolators",
+    "final_slug": "digital-isolators"
+  },
+  "IRM-60-24": {
+    "final_subcategory": "AC DC Converters",
+    "final_native_l1": "power-modules",
+    "final_slug": "ac-dc-converters-power-modules"
+  },
+  "PESD5V0F1BL,315": {
+    "final_subcategory": "TVS Diodes",
+    "final_native_l1": "circuit-protection",
+    "final_slug": "tvs-diodes"
+  },
+  "SMBJ6.8CA": {
+    "final_subcategory": "TVS Diodes",
+    "final_native_l1": "circuit-protection",
+    "final_slug": "tvs-diodes"
+  },
+  "IRM-05-5": {
+    "final_subcategory": "AC DC Converters",
+    "final_native_l1": "power-modules",
+    "final_slug": "ac-dc-converters-power-modules"
+  },
+  "OPA2348AIDCNR": {
+    "final_subcategory": "Instrumentation, Op Amps, Buffer Amps",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "instrumentation-op-amps-buffer-amps"
+  },
+  "IRM-03-24": {
+    "final_subcategory": "AC DC Converters",
+    "final_native_l1": "power-modules",
+    "final_slug": "ac-dc-converters-power-modules"
+  },
+  "SPBW06F-12": {
+    "final_subcategory": "DC DC Converters",
+    "final_native_l1": "power-management",
+    "final_slug": "dc-dc-converters-power-management"
+  },
+  "TL082IDR": {
+    "final_subcategory": "Instrumentation, Op Amps, Buffer Amps",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": "instrumentation-op-amps-buffer-amps"
+  },
+  "IRM-03-5": {
+    "final_subcategory": "AC DC Converters",
+    "final_native_l1": "power-modules",
+    "final_slug": "ac-dc-converters-power-modules"
+  },
+  "MC78L05ACDR2G": {
+    "final_subcategory": "Voltage Regulators - Linear, Low Drop Out (LDO) Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-linear-low-drop-out-ldo-regulators"
+  },
+  "MC78L12ACDR2G": {
+    "final_subcategory": "Voltage Regulators - Linear, Low Drop Out (LDO) Regulators",
+    "final_native_l1": "power-management",
+    "final_slug": "voltage-regulators-linear-low-drop-out-ldo-regulators"
+  },
+  "STM32F417ZGT6": {
+    "final_subcategory": "Microcontrollers",
+    "final_native_l1": "microcontrollers",
+    "final_slug": "microcontrollers"
+  },
+  "STM32F103VCT6": {
+    "final_subcategory": "Microcontrollers",
+    "final_native_l1": "microcontrollers",
+    "final_slug": "microcontrollers"
+  },
+  "STM32F107VCT6": {
+    "final_subcategory": "Microcontrollers",
+    "final_native_l1": "microcontrollers",
+    "final_slug": "microcontrollers"
+  },
+  "STM32F105RBT6": {
+    "final_subcategory": "Microcontrollers",
+    "final_native_l1": "microcontrollers",
+    "final_slug": "microcontrollers"
+  },
+  "PESD5V0S1UL,315": {
+    "final_subcategory": "TVS Diodes",
+    "final_native_l1": "circuit-protection",
+    "final_slug": "tvs-diodes"
+  },
+  "PMBT3904,215": {
+    "final_subcategory": "Single Bipolar Transistors",
+    "final_native_l1": "transistors",
+    "final_slug": "single-bipolar-transistors-transistors"
+  },
+  "0603B102J500NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "1206CG101J102NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "1206B222K102NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
+  },
+  "1206B103K102NT": {
+    "final_subcategory": "Ceramic Capacitors",
+    "final_native_l1": "capacitors",
+    "final_slug": "ceramic-capacitors"
   }
 }

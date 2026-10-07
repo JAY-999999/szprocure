@@ -1,7 +1,7 @@
 {
   "schema_version": "page-manifest/1",
-  "generated_at": "2026-10-06T21:43:42Z",
-  "page_count": 249,
+  "generated_at": "2026-10-07T18:06:26Z",
+  "page_count": 252,
   "pages": [
     {
       "top_slug": "audio-signal",
@@ -460,6 +460,11 @@
     },
     {
       "top_slug": "integrated-circuits",
+      "slug": "linear-comparators",
+      "level": "fine"
+    },
+    {
+      "top_slug": "integrated-circuits",
       "slug": "microcontrollers",
       "level": "fine"
     },
@@ -680,6 +685,11 @@
     },
     {
       "top_slug": "modules-communication",
+      "slug": "ac-dc-converters-power-modules",
+      "level": "fine"
+    },
+    {
+      "top_slug": "modules-communication",
       "slug": "dc-dc-converters-power-modules",
       "level": "fine"
     },
@@ -871,6 +881,11 @@
     {
       "top_slug": "power-management",
       "slug": "dc-dc-converters",
+      "level": "fine"
+    },
+    {
+      "top_slug": "power-management",
+      "slug": "dc-dc-converters-power-management",
       "level": "fine"
     },
     {
