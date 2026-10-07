@@ -51,6 +51,14 @@
     + '<circle cx="10.5" cy="10.5" r="6.5"></circle>'
     + '<path d="M15.5 15.5L21 21"></path></svg>';
 
+  var MAIL_ICON = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'
+    + '<rect x="3" y="5" width="18" height="14" rx="2"></rect>'
+    + '<path d="M3 7l9 6 9-6"></path></svg>';
+
+  var WA_ICON = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'
+    + '<path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7A8.5 8.5 0 1 1 21 11.5z"></path>'
+    + '<path d="M8.5 9.5c0 4 3 7 7 7"></path></svg>';
+
   var NAV = ''
     + '<header class="site-header">'
     + '<div class="container nav-grid">'
@@ -68,11 +76,13 @@
     +   '<a href="/components/" data-zh="元器件">Components</a>'
     +   '<a href="/ai-hardware/" data-zh="AI 硬件">AI Hardware</a>'
     +   '<a href="/sourcing/" data-zh="采购服务">Sourcing Service</a>'
-    +   '<a href="/about/" data-zh="关于我们">About us</a>'
-    +   '<a href="/contact/" data-zh="联系我们">Contact US</a>'
+    +   '<a href="/about/" data-zh="关于我们">About Us</a>'
+    +   '<a href="/contact/" data-zh="联系我们">Contact Us</a>'
     + '</nav>'
     + '<div class="nav-cta">'
-    +   LANG_SWITCH
+    +   '<a class="hdr-mail" href="mailto:' + EMAIL + '" aria-label="Email ' + EMAIL + '">'
+    +     '<span class="hdr-mail-label">' + MAIL_ICON + 'Email Sales</span>'
+    +     '<b>' + EMAIL + '</b></a>'
     +   '<a class="btn btn-primary" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>'
     +   '<button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>'
     + '</div></div>'
@@ -86,8 +96,8 @@
     +   '<a href="/components/" data-zh="元器件">Components</a>'
     +   '<a href="/ai-hardware/" data-zh="AI 硬件">AI Hardware</a>'
     +   '<a href="/sourcing/" data-zh="采购服务">Sourcing Service</a>'
-    +   '<a href="/about/" data-zh="关于我们">About us</a>'
-    +   '<a href="/contact/" data-zh="联系我们">Contact US</a>'
+    +   '<a href="/about/" data-zh="关于我们">About Us</a>'
+    +   '<a href="/contact/" data-zh="联系我们">Contact Us</a>'
     +   '<a class="btn btn-primary btn-block" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>'
     + '</div></header>';
 

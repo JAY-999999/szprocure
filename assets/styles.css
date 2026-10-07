@@ -25,6 +25,16 @@
   --shadow-lg: 0 18px 48px rgba(15,23,42,.12);
   --container: 1240px;
   --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+  /* ---- Vertical rhythm scale (homepage unification, 2026-10-07) ----
+     L1 section-to-section : --r-section (desktop) / --r-section-m (mobile)
+     L2 header-to-content  : --r-head (every top-level section title)
+     L3 card grid row gap   : --r-grid (small strips: cat / cap / brand / process)
+     Nesting: gap between stacked sub-blocks inside one section reuses --r-head
+     for a single cadence. Hero (first screen) is intentionally excluded. */
+  --r-section: 28px;      /* L1 desktop: ~56px combined section-to-section gap (was 80 → 160px doubled) */
+  --r-section-m: 32px;    /* L1 mobile: ~64px combined section gap */
+  --r-head: 22px;         /* L2 header-to-content: 20-24px (title keeps intimacy with content) */
+  --r-grid: 18px;         /* L3 card grid row gap: 16-20px */
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -75,12 +85,12 @@ img, svg { max-width: 100%; display: block; }
 ul { margin: 0; padding: 0; list-style: none; }
 
 .container { width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 24px; }
-.section { padding: 84px 0; }
+.section { padding: var(--r-section) 0; }
 .section.soft { background: var(--bg-soft); }
 .section.navy { background: var(--navy); color: #dbe4f0; }
 .section.navy h2, .section.navy h3 { color: #fff; }
 .section.navy p { color: #b7c4d6; }
-.section--compact { padding: 64px 0; }
+.section--compact { padding: var(--r-section) 0; }
 .eyebrow { text-transform: uppercase; letter-spacing: .12em; font-size: .8rem; font-weight: 600; color: var(--accent); margin-bottom: 12px; }
 .lead { font-size: 1.12rem; color: #475569; max-width: 64ch; }
 
@@ -116,6 +126,23 @@ ul { margin: 0; padding: 0; list-style: none; }
   position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.92);
   backdrop-filter: saturate(160%) blur(10px); border-bottom: 1px solid var(--border);
 }
+/* Top utility bar — global contact strip, sticky with header, always visible */
+/* header email lockup: icon on the label line, email address aligned below */
+.hdr-mail {
+  display: inline-flex; flex-direction: column; text-decoration: none;
+  color: var(--navy); white-space: nowrap; line-height: 1.3;
+}
+.hdr-mail-label {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 11px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase;
+  color: #64748B;
+}
+.hdr-mail-label svg { flex: none; color: #475569; transition: color .15s; }
+.hdr-mail:hover .hdr-mail-label svg { color: #2563EB; }
+.hdr-mail b { font-size: 13px; font-weight: 500; color: #334155; }
+.hdr-mail:hover b { color: #2563EB; }
+@media (max-width: 1100px) { .hdr-mail-label { display: none; } }
+@media (max-width: 860px) { .hdr-mail { display: none; } }
 /* header height token — sticky offsets below reference this, so they follow any header change */
 :root { --header-h: 132px; }
 /* Header grid — 3 columns × 2 rows (方案 A).
@@ -127,10 +154,13 @@ ul { margin: 0; padding: 0; list-style: none; }
   grid-template-columns: auto 1fr auto;
   align-items: center;
   column-gap: 24px;
-  row-gap: 10px;
+  /* push the 2nd-row nav band down so it sits centered under the logo/search row
+     (row-gap 14 + link padding 6 ≈ 20px above the nav text) */
+  row-gap: 14px;
   /* horizontal 24px matches .hero-content's 24px → nav and hero text share
-     the same left/right alignment line; vertical 20px gives the bar more air */
-  padding: 20px 24px;
+     the same left/right alignment line; top keeps row-1 air, bottom tightened
+     to 14px so the nav band is vertically centered (≈20px above / ≈20px below) */
+  padding: 20px 24px 14px;
 }
 .nav-search { grid-area: 1 / 2; }
 /* brand sits in row 1, column 1 (top-aligned) so row 2 can span full width */
@@ -149,7 +179,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .nav-links a::after { content: ""; position: absolute; left: 2px; right: 2px; bottom: 0; height: 2px; background: var(--accent, #0A84FF); transform: scaleX(0); transform-origin: left; transition: transform .18s ease; }
 .nav-links a:hover { color: var(--accent, #0A84FF); }
 .nav-links a:hover::after { transform: scaleX(1); }
-.nav-cta { grid-area: 1 / 3; display: flex; align-items: center; gap: 14px; white-space: nowrap; }
+.nav-cta { grid-area: 1 / 3; display: flex; align-items: center; gap: 28px; white-space: nowrap; }
 /* mid-desktop: tighten spacing so brand + nav + CTA still hold one line */
 @media (max-width: 1100px) {
   .nav-grid { column-gap: 16px; }
@@ -298,7 +328,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .link-cta { font-weight: 600; color: var(--accent); display: inline-flex; align-items: center; gap: 6px; }
 .card-actions { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; flex-wrap: wrap; }
 
-.section-head { max-width: 68ch; margin-bottom: 44px; }
+.section-head { max-width: 68ch; margin-bottom: var(--r-head); }
 .section-head.center { margin-left: auto; margin-right: auto; text-align: center; }
 
 /* =========================================================
@@ -322,8 +352,8 @@ ul { margin: 0; padding: 0; list-style: none; }
    5. `.card-tag` colour is #64748B, not #94A3B8: the supplied grey
       is only 2.6:1 on white (fails WCAG AA); #64748B is 4.8:1.
    ========================================================= */
-.capabilities-section { padding: 72px 0 100px; }
-.section-header { max-width: 68ch; margin-bottom: 56px; text-align: left; }
+.capabilities-section { padding: var(--r-section) 0; }
+.section-header { max-width: 68ch; margin-bottom: var(--r-head); text-align: left; }
 
 .kicker-badge {
   display: inline-block;
@@ -423,7 +453,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 @media (max-width: 768px) {
   .capabilities-grid { grid-template-columns: 1fr; gap: 24px; }
-  .section-header { margin-bottom: 36px; }
+  .section-header { margin-bottom: var(--r-head); }
   .card-content { padding: 26px 24px 28px; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -468,12 +498,12 @@ ul { margin: 0; padding: 0; list-style: none; }
 .cta-band.navy-soft { background: linear-gradient(135deg, #0f2547, #14306a); }
 
 /* Simple bottom CTA (homepage only) */
-.section--cta-simple { padding: 0; margin-top: -64px; }
+.section--cta-simple { padding: 0; margin-top: 0; }
 .cta-simple { display: flex; align-items: center; justify-content: center; gap: 40px; flex-wrap: wrap; padding: 40px 0; }
 .cta-simple h2 { margin: 0; font-size: 1.5rem; font-weight: 600; line-height: 1.3; }
 
 @media (max-width: 640px) {
-  .section--cta-simple { margin-top: -84px; }
+  .section--cta-simple { margin-top: 0; }
   .cta-simple { padding: 32px 0; gap: 18px; }
   .cta-simple h2 { font-size: 1.25rem; }
 }
@@ -546,7 +576,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 @media (max-width: 720px) {
   .nav-links, .nav-cta .btn { display: none; }
   .nav-toggle { display: block; }
-  .section { padding: 60px 0; }
+  .section { padding: var(--r-section-m) 0; }
   .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
   .steps { grid-template-columns: 1fr; }
   .form-grid { grid-template-columns: 1fr; }
@@ -1199,18 +1229,19 @@ ul.part-index li {
 .hero-content {
   position: relative; z-index: 1;
   text-align: left;
-  padding: 52px 24px 72px;
+  padding: 38px 24px 72px;
 }
 .hero-eyebrow {
   display: inline-flex; align-items: center; gap: 9px;
   padding: 8px 15px 8px 13px;
-  background: rgba(10,132,255,0.09);
-  border: 1px solid rgba(10,132,255,0.16);
+  background: rgba(239, 246, 255, 0.6);
+  border: 1px solid #DBEAFE;
   border-radius: 999px;
   font-size: .72rem; font-weight: 700; letter-spacing: 1px;
-  color: var(--accent); text-transform: uppercase;
-  /* V9 spacing: generous breathing room above the H1 (asked for 60–70px optical gap) */
-  margin-bottom: 66px;
+  color: #2563EB; text-transform: uppercase;
+  /* gap below the badge matches the H1→subtitle gap (40px) so the big title
+     is vertically balanced — equal breathing room above and below */
+  margin-bottom: 40px;
 }
 .hero-eyebrow::before {
   content: ""; width: 7px; height: 7px; border-radius: 50%;
@@ -1220,7 +1251,7 @@ ul.part-index li {
   font-size: clamp(2rem, 4.1vw, 3.65rem);
   font-weight: 800; line-height: 1.14; letter-spacing: -0.015em;
   /* V9 spacing: 18px -> 32px so the buyer reads the title first, then glides down */
-  max-width: 100%; margin: 0 0 32px; color: var(--navy, #0b1b33);
+  max-width: 100%; margin: 0 0 40px; color: var(--navy, #0b1b33);
 }
 .gradient-highlight {
   /* Blue unified with the homepage RFQ / Hero CTA (.btn-primary = var(--accent) #0A84FF).
@@ -1241,17 +1272,6 @@ ul.part-index li {
   /* V11: push the CTAs down (+14px) so they sit centred between the lead and the footer rule */
   margin-top: 44px;
 }
-/* V11: Apple-style full-pill CTAs — fuller / more tappable beside the large H1.
-   Scoped to the hero ONLY: .btn-lg is shared across the rest of the site. */
-.hero.hero-full .hero-actions .btn {
-  min-height: 50px; padding: 15px 28px; border-radius: 25px;
-}
-.hero.hero-full .hero-actions .btn-primary { box-shadow: 0 10px 22px rgba(10,132,255,0.26); }
-.hero.hero-full .hero-actions .btn-primary::after {
-  content: ""; width: 6px; height: 6px; margin-left: 10px; flex: none;
-  border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
-  transform: rotate(-45deg) translate(-1px, 1px);
-}
 .hero.hero-full .hero-cap-bar {
   display: flex;
   flex-wrap: wrap;
@@ -1260,8 +1280,8 @@ ul.part-index li {
   gap: 24px 38px;
   /* V11: 56px -> 48px — user found the post-CTA void too large; now balances the
      44px above the CTA row (optical ~48.7px) for a vertically centred button band */
-  margin: 48px 0 0; padding-top: 26px;
-  border-top: 1px solid rgba(11,27,51,0.10);
+  margin: 30px 0 0; padding-top: 0;
+  /* divider removed (2026-10-07): user wants CTA and cap bar as one tight group */
   /* de-buttoned: a single elegant 1×4 service footer line, kept clear of the right-side map.
      Item width is tuned so the longest label ("IC & Component Sourcing") stays on ONE line. */
   max-width: 680px;
@@ -1336,14 +1356,14 @@ ul.part-index li {
      Capped at 2rem so ~470-720px matches the 768px desktop size. */
   .hero.hero-full h1 { font-size: clamp(1.25rem, 7.7vw - 4px, 2rem); text-wrap: balance; margin-bottom: 22px; }
   .hero.hero-full .lead { font-size: clamp(0.9375rem, 4.2vw, 1.0625rem); }
-  .hero-eyebrow { font-size: .66rem; letter-spacing: .08em; margin-bottom: 16px; padding: 5px 12px 5px 11px; }
+  .hero-eyebrow { font-size: .66rem; letter-spacing: .08em; margin-bottom: 22px; padding: 5px 12px 5px 11px; }
   .hero-content > h1,
   .hero-content > .lead,
   .hero-content > .trust-tags,
   .hero-content > .hero-cap-bar { max-width: 100%; }
   .hero.hero-full .hero-actions { margin-top: 24px; gap: 12px; }
   /* on phones the 1×4 footer wraps into a tidy 2×2 centered row */
-  .hero.hero-full .hero-cap-bar { max-width: 100%; gap: 22px 34px; justify-content: center; margin-top: 28px; padding-top: 22px; }
+  .hero.hero-full .hero-cap-bar { max-width: 100%; gap: 22px 34px; justify-content: center; margin-top: 28px; padding-top: 0; }
   .cap-item { font-size: .78rem; gap: 9px; max-width: 130px; }
   .hero-background { background-size: 96%; background-position: center 90%; opacity: 0.2; }
   /* the phone map sits at "center 90%" — its box can't be mirrored reliably, so
@@ -1361,20 +1381,34 @@ ul.part-index li {
 }
 .service-icon svg { width: 26px; height: 26px; }
 
-/* S4 process flow */
-.process-flow { display: flex; flex-wrap: wrap; gap: 14px; align-items: stretch; }
+/* S4 process flow — flat steps with connector arrows */
+.process-flow { display: flex; flex-wrap: wrap; gap: var(--r-grid); align-items: stretch; }
 .process-step {
   flex: 1 1 150px; min-width: 150px; text-align: center;
-  background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 22px 16px;
+  position: relative;
+  background: none; border: none; border-radius: var(--radius);
+  padding: 6px 18px;
+}
+.process-step:not(:last-child)::after {
+  content: "\203A";
+  position: absolute; top: 15px; right: -13px;
+  color: var(--accent); opacity: .5;
+  font-size: 1.3rem; font-weight: 700; line-height: 1;
 }
 .process-num {
-  width: 40px; height: 40px; margin: 0 auto 12px; border-radius: 50%;
-  background: var(--navy); color: #fff; font-weight: 700; font-size: .95rem;
+  width: 42px; height: 42px; margin: 0 auto 12px; border-radius: 11px;
+  background: var(--accent-soft); color: var(--accent); font-weight: 700; font-size: .95rem;
   display: flex; align-items: center; justify-content: center;
 }
 .process-step h3 { margin: 0 0 6px; font-size: 1.02rem; }
 .process-step p { color: var(--muted); font-size: .88rem; margin: 0; }
+.process-section { background: var(--bg-soft); padding-bottom: 0; }
+@media (max-width: 640px) {
+  .process-section { padding-bottom: 0; }
+}
+@media (max-width: 1024px) {
+  .process-step:not(:last-child)::after { display: none; }
+}
 
 /* S5 component database (SEO entry, no search box) */
 .db-hero { text-align: center; max-width: 720px; margin: 0 auto; }
@@ -1403,3 +1437,73 @@ ul.part-index li {
 @media (max-width: 720px) {
   .service-grid, .htf-grid { grid-template-columns: 1fr; }
 }
+
+/* Homepage category hub — 5-column variant of the 6-card icon format */
+.cat-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--r-grid); margin-top: 0; }
+a.cat-icon-card { text-decoration: none; color: inherit; }
+/* header: title block left, View All button top-right */
+.cat-hub-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: var(--r-head); }
+.cat-hub-head .section-head { margin-bottom: 0; max-width: none; flex: 1 1 auto; }
+/* Unify section-title sizes (except the hero first screen, which keeps its own h1) */
+.section-head h2,
+.section-header h2,
+.section-title { font-size: 1.5rem; }
+/* Brand identity: a thin iOS-blue vertical bar to the LEFT of each section title.
+   Text stays black (premium); the bar marks "this is a SZ Procure section" without
+   competing with the blue brand logos / links. Hero h1 excluded.
+   Pixel detail: bar height = 0.85em (80-90% of the title font, never taller than
+   the text), 2px top/bottom rounded corners so it reads soft, 9px gap to the text. */
+.section-head h2::before,
+.section-header h2::before,
+.section-title::before,
+.brand-strip-title::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 0.85em;
+  background: var(--accent);
+  border-radius: 2px;
+  margin-right: 9px;
+  vertical-align: -0.13em;
+}
+/* "View All Categories ›" — same plain text-link format as "All manufacturers ›" */
+.cat-hub-more { font-size: .85rem; color: var(--accent); text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+.cat-hub-more:hover { text-decoration: underline; }
+/* 4 small capability cards replacing the lead line */
+.cap-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--r-grid); margin-top: var(--r-head); }
+/* IMPORTANT: scope homepage overrides to .cap-strip — the bare .cap-card class is
+   shared with ~284 manufacturer pages (base style at line 998). Never restyle it globally. */
+/* Service cards: faint blue wash + blue-tinted border to read as "sourcing services",
+   visually distinct from the plain product-category cards above. */
+.cap-strip .cap-card { border: 1px solid rgba(10,132,255,.22); border-radius: 10px; padding: 14px 13px; background: #F4F8FC; }
+/* Not links: suppress the generic .cap-card hover lift (line 1004) so the
+   service cards don't fake clickability; deepen the blue tint slightly instead. */
+.cap-strip .cap-card:hover { transform: none; box-shadow: none; border-color: rgba(10,132,255,.38); background: #EAF2FB; }
+/* Icon replaces the removed badge — matches the .cat-icon-card look above */
+.cap-strip .cap-icon { display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 11px; background: var(--accent-soft); color: var(--accent); margin-bottom: 12px; }
+.cap-strip .cap-icon svg { width: 22px; height: 22px; display: block; }
+.cap-strip .cap-card h3 { font-size: .92rem; margin: 0 0 4px; }
+.cap-strip .cap-card p { font-size: .78rem; margin: 0; color: var(--muted); line-height: 1.35; }
+@media (max-width: 1024px) { .cap-strip { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .cap-strip { grid-template-columns: 1fr; } }
+/* Featured Manufacturers strip — one-row wordmark row under the capability cards */
+.brand-strip { margin-top: 56px; }  /* checklist #3: 4 service cards → brand strip = 56px */
+.brand-strip-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: var(--r-head); }
+.brand-strip-title { font-size: 1.5rem; font-weight: 700; margin: 0; }
+.brand-strip-more { font-size: .85rem; color: var(--accent); text-decoration: none; white-space: nowrap; }
+.brand-strip-more:hover { text-decoration: underline; }
+.brand-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--r-grid); }
+/* Logo cards: flex-centered per spec; grayscale by default, brand color on hover */
+.brand-card { display: flex; align-items: center; justify-content: center; min-height: 84px; padding: 16px 10px; border: 1px solid var(--border); border-radius: 10px; background: #fff; text-decoration: none; transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease; }
+/* Visual balance: cap HEIGHT (not width) so square TI and wide ADI logos feel equal */
+.brand-logo { display: block; max-height: 50px; max-width: 88%; width: auto; height: auto; object-fit: contain; filter: grayscale(1); opacity: .55; transition: filter .18s ease, opacity .18s ease; }
+.brand-card:hover { border-color: rgba(10,132,255,.35); box-shadow: 0 2px 10px rgba(10,132,255,.10); transform: translateY(-2px); }
+.brand-card:hover .brand-logo { filter: none; opacity: 1; }
+@media (max-width: 1024px) { .brand-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 560px) { .brand-grid { grid-template-columns: repeat(2, 1fr); } }
+.cat-grid .cat-icon-card { padding: 18px 14px; }
+.cat-grid .cat-icon-card .cat-icon { width: 42px; height: 42px; border-radius: 11px; margin-bottom: 12px; background: var(--accent-soft); color: var(--accent); }
+.cat-grid .cat-icon-card .cat-icon svg { width: 22px; height: 22px; }
+.cat-grid .cat-icon-card h3 { font-size: 1rem; margin: 0 0 6px; }
+.cat-grid .cat-icon-card p { font-size: .82rem; margin: 0 0 12px; line-height: 1.4; }
+@media (max-width: 1024px) { .cat-grid { grid-template-columns: repeat(2, 1fr); } }
