@@ -176,7 +176,6 @@
       <div class="tab-wrap">
         <nav class="tab-nav">
           <a href="#specifications" class="tab-btn active">Specifications</a>
-          <a href="#introduction" class="tab-btn">Introduction</a>
           <a href="#features" class="tab-btn">Features</a>
           <a href="#applications" class="tab-btn">Applications</a>
           <a href="#documentation" class="tab-btn">Datasheet</a>
@@ -187,16 +186,13 @@
           <h2 class="section-title">Technical Specifications</h2>
           <div class="spec-grid">
   <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
-<tr><th>Output Voltage</th><td>12 V</td></tr><tr><th>Working Voltage V</th><td>22.5 V</td></tr><tr><th>Switching Freq Hz</th><td>500 kHz</td></tr><tr><th>Channels</th><td>2</td></tr><tr><th>Ripple Noise</th><td>75mVp-p</td></tr><tr><th>Capacitive Load(Max)</th><td>1000uF</td></tr><tr><th>Iout</th><td>416mA</td></tr><tr><th>Conversion Efficiency</th><td>86%</td></tr><tr><th>Output Power</th><td>10W</td></tr></tbody></table>
+<tr><th>Output Voltage</th><td>12V;-12V</td></tr><tr><th>Supply Voltage</th><td>22.5 V</td></tr><tr><th>Switching Freq Hz</th><td>500 kHz</td></tr><tr><th>Channels</th><td>2</td></tr><tr><th>Ripple Noise</th><td>75mVp-p</td></tr><tr><th>Capacitive Load(Max)</th><td>1000uF</td></tr><tr><th>Iout</th><td>416mA</td></tr><tr><th>Conversion Efficiency</th><td>86%</td></tr><tr><th>Output Power</th><td>10W</td></tr></tbody></table>
   <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
-<tr><th>Type</th><td>-</td></tr><tr><th>Operating Temp</th><td>-40°C ~ +85°C</td></tr><tr><th>Iq A</th><td>-</td></tr><tr><th>Height Mm</th><td>12.0</td></tr><tr><th>Isolation Vrms V</th><td>1.5 V</td></tr><tr><th>Features</th><td>Under Voltage Protection;Short Circuit Protection;Over Current Protection</td></tr><tr><th>Length Mm</th><td>22.0</td></tr><tr><th>Width Mm</th><td>9.5</td></tr><tr><th>Package / Case</th><td>SIP,22x9.5mm</td></tr></tbody></table>
+<tr><th>Type</th><td>-</td></tr><tr><th>Operating Temperature</th><td>-40°C ~ +85°C</td></tr><tr><th>Quiescent Current</th><td>-</td></tr><tr><th>Height Mm</th><td>12 mm</td></tr><tr><th>Isolation Vrms V</th><td>1.5 V</td></tr><tr><th>Features</th><td>Under Voltage Protection;Short Circuit Protection;Over Current Protection</td></tr><tr><th>Length Mm</th><td>22 mm</td></tr><tr><th>Width Mm</th><td>9.5 mm</td></tr><tr><th>Package / Case</th><td>SIP,22x9.5mm</td></tr></tbody></table>
 </div>
         </section>
 
-        <section id="introduction" class="tab-panel">
-          <h2 class="section-title">Product Introduction</h2>
-          <div class="intro-body"><p>Isolated Module DC DC Converter Buck 2 Output 12V -12V ±416mA 9V~36V Input</p></div>
-        </section>
+        
 
         <section id="features" class="tab-panel">
   <h2 class="section-title">Features</h2>
@@ -205,7 +201,7 @@
 
         <section id="applications" class="tab-panel">
   <h2 class="section-title">Applications</h2>
-  <ul class="app-list"><li>- Power - Industrial Control - Communications - IoT - Automotive</li></ul>
+  <ul class="app-list"><li>Power</li><li>Industrial Control</li><li>Communications</li><li>IoT</li><li>Automotive</li></ul>
 </section>
 
         <section id="documentation" class="tab-panel">
@@ -235,12 +231,6 @@
   </thead>
   <tbody><tr><th>RoHS</th><td>ROHS</td></tr></tbody>
 </table>
-<table class="compliance-table">
-  <thead>
-    <tr><th>Type</th><th>Details</th></tr>
-  </thead>
-  <tbody><tr><th>ECCN</th><td>-</td></tr></tbody>
-</table>
   </div>
 </section>
       </div>
@@ -268,7 +258,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'specifications' }, { id: 'introduction' }, { id: 'features' }, { id: 'applications' }, { id: 'documentation' }, { id: 'compliance' } ];
+    var groups = [ { id: 'specifications' }, { id: 'features' }, { id: 'applications' }, { id: 'documentation' }, { id: 'compliance' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

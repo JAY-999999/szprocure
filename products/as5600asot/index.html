@@ -187,22 +187,24 @@
           <h2 class="section-title">Technical Specifications</h2>
           <div class="spec-grid">
   <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
-<tr><th>Operating Temp</th><td>-40°C ~ +125°C</td></tr><tr><th>Features</th><td>Programmable transmission;Zero position programming;Automatic gain control;Signal filtering processing</td></tr><tr><th>Working Voltage V</th><td>4.15 V</td></tr><tr><th>Current - Supply</th><td>6.5mA</td></tr></tbody></table>
+<tr><th>Operating Temperature</th><td>-40°C ~ +125°C</td></tr><tr><th>Features</th><td>Programmable transmission;Zero position programming;Automatic gain control;Signal filtering processing</td></tr><tr><th>Supply Voltage</th><td>3.3V;5V</td></tr><tr><th>Current - Supply</th><td>6.5mA</td></tr></tbody></table>
   <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
-<tr><th>Linear Range</th><td>-</td></tr><tr><th>output Type</th><td>I2C</td></tr><tr><th>Package / Case</th><td>SOIC-8</td></tr></tbody></table>
+<tr><th>Linear Range</th><td>-</td></tr><tr><th>Output Type</th><td>I2C</td></tr><tr><th>Package / Case</th><td>SOIC-8</td></tr></tbody></table>
 </div>
         </section>
 
+        
         <section id="introduction" class="tab-panel">
           <h2 class="section-title">Product Introduction</h2>
           <div class="intro-body"><p>The AS5600 is an easy to program magnetic rotary position sensor with a high-resolution 12-bit analog or PWM output. This contactless system measures the absolute angle of a diametric magnetized on-axis magnet. This AS5600 is designed for contactless potentiometer applications and its robust design eliminates the influence of any homogenous external stray magnetic fields.</p><p>The AS5600 is a Hall-based rotary magnetic position sensor using planar sensors that convert the magnetic field component perpendicular to the surface of the chip into a voltage.</p><p>The signals coming from the Hall sensors are first amplified and filtered before being converted by the analog-to-digital converter (ADC). The output of the ADC is processed by the hardwired CORDIC block (Coordinate Rotation Digital Computer) to compute the angle and magnitude of the magnetic field vector. The intensity of the magnetic field is used by the automatic gain control (AGC) to adjust the amplification level to compensate for temperature and magnetic field variations.</p><p>The angle value provided by the CORDIC algorithm is used by the output stage. The user can choose between an analog output and a PWM-encoded digital output. The former provides an output voltage which represents the angle as a ratiometric linear absolute value. The latter provides a digital output which represents the angle as the pulse width.</p><p>The AS5600 is programmed through an industry-standard I²C interface to write an on-chip non-volatile memory. This interface can be used to program a zero angle (start position) and a maximum angle (stop position) which maps the full resolution of the output to a subset of the entire 0 to 360 degree range.</p></div>
         </section>
 
+
         
 
         <section id="applications" class="tab-panel">
   <h2 class="section-title">Applications</h2>
-  <ul class="app-list"><li>- contactless potentiometers - contactless knobs - pedals - RC servos - other angular position measurement solutions</li></ul>
+  <ul class="app-list"><li>contactless potentiometers</li><li>contactless knobs</li><li>pedals</li><li>RC servos</li><li>other angular position measurement solutions</li></ul>
 </section>
 
         <section id="documentation" class="tab-panel">

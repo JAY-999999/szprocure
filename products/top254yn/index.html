@@ -176,7 +176,6 @@
       <div class="tab-wrap">
         <nav class="tab-nav">
           <a href="#specifications" class="tab-btn active">Specifications</a>
-          <a href="#introduction" class="tab-btn">Introduction</a>
           <a href="#features" class="tab-btn">Features</a>
           <a href="#documentation" class="tab-btn">Datasheet</a>
           <a href="#compliance" class="tab-btn">Compliance &amp; Export Codes</a>
@@ -186,16 +185,13 @@
           <h2 class="section-title">Technical Specifications</h2>
           <div class="spec-grid">
   <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
-<tr><th>Switching Freq Hz</th><td>99 kHz</td></tr><tr><th>Voltage - Breakdown</th><td>700V</td></tr><tr><th>Duty Cycle(Max)</th><td>78%</td></tr><tr><th>Feedback System</th><td>Secondary-Side Feedback</td></tr></tbody></table>
+<tr><th>Switching Freq Hz</th><td>66kHz;132kHz</td></tr><tr><th>Voltage - Breakdown</th><td>700V</td></tr><tr><th>Duty Cycle(Max)</th><td>78%</td></tr><tr><th>Feedback System</th><td>Secondary-Side Feedback</td></tr></tbody></table>
   <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
-<tr><th>Operating Temp</th><td>-40°C ~ +150°C</td></tr><tr><th>Features</th><td>Light load efficient mode;Brown-in/Brown-out detection;Adjustable current limiting;EMI optimization (spread spectrum);Over Voltage Protection;Short Circuit Protection;Overtemperature protection (OTP);Soft-start</td></tr><tr><th>Topology</th><td>Flyback</td></tr><tr><th>Package / Case</th><td>TO-220</td></tr></tbody></table>
+<tr><th>Operating Temperature</th><td>-40°C ~ +150°C</td></tr><tr><th>Features</th><td>Light load efficient mode;Brown-in/Brown-out detection;Adjustable current limiting;EMI optimization (spread spectrum);Over Voltage Protection;Short Circuit Protection;Overtemperature protection (OTP);Soft-start</td></tr><tr><th>Topology</th><td>Flyback</td></tr><tr><th>Package / Case</th><td>TO-220</td></tr></tbody></table>
 </div>
         </section>
 
-        <section id="introduction" class="tab-panel">
-          <h2 class="section-title">Product Introduction</h2>
-          <div class="intro-body"><p>Converter Offline Flyback Topology 66kHz;;;132kHz TO-220</p></div>
-        </section>
+        
 
         <section id="features" class="tab-panel">
   <h2 class="section-title">Features</h2>
@@ -264,7 +260,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'specifications' }, { id: 'introduction' }, { id: 'features' }, { id: 'documentation' }, { id: 'compliance' } ];
+    var groups = [ { id: 'specifications' }, { id: 'features' }, { id: 'documentation' }, { id: 'compliance' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

@@ -176,7 +176,6 @@
       <div class="tab-wrap">
         <nav class="tab-nav">
           <a href="#specifications" class="tab-btn active">Specifications</a>
-          <a href="#introduction" class="tab-btn">Introduction</a>
           <a href="#applications" class="tab-btn">Applications</a>
           <a href="#documentation" class="tab-btn">Datasheet</a>
           <a href="#alternative" class="tab-btn">Alternative Parts</a>
@@ -187,22 +186,19 @@
           <h2 class="section-title">Technical Specifications</h2>
           <div class="spec-grid">
   <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
-<tr><th>Working Voltage V</th><td>22.5 V</td></tr><tr><th>Cmti Kvus</th><td>15.0</td></tr><tr><th>Isolation Vrms V</th><td>3.75 V</td></tr><tr><th>Reverse Voltage</th><td>5V</td></tr><tr><th>Rise Time</th><td>15ns</td></tr><tr><th>Fall Time</th><td>8ns</td></tr><tr><th>Load Type</th><td>MOSFET;IGBT</td></tr><tr><th>Voltage - Forward(Vf)</th><td>1.6V</td></tr></tbody></table>
+<tr><th>Supply Voltage</th><td>22.5 V</td></tr><tr><th>Cmti Kvus</th><td>15.0</td></tr><tr><th>Isolation Vrms V</th><td>3.75 V</td></tr><tr><th>Reverse Voltage</th><td>5V</td></tr><tr><th>Rise Time</th><td>15ns</td></tr><tr><th>Fall Time</th><td>8ns</td></tr><tr><th>Load Type</th><td>MOSFET;IGBT</td></tr><tr><th>Voltage - Forward(Vf)</th><td>1.6V</td></tr></tbody></table>
   <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
-<tr><th>Power W</th><td>-</td></tr><tr><th>Output Current</th><td>2.5 A</td></tr><tr><th>Operating Temp</th><td>-40°C ~ +100°C</td></tr><tr><th>Channels</th><td>1.0</td></tr><tr><th>Tpd Ns</th><td>500.0</td></tr><tr><th>Features</th><td>Under-voltage lockout with hysteresis</td></tr><tr><th>Package / Case</th><td>SOP-8-2.54mm</td></tr></tbody></table>
+<tr><th>Power W</th><td>-</td></tr><tr><th>Output Current</th><td>2.5 A</td></tr><tr><th>Operating Temperature</th><td>-40°C ~ +100°C</td></tr><tr><th>Channels</th><td>1.0</td></tr><tr><th>Tpd Ns</th><td>500ns;500ns</td></tr><tr><th>Features</th><td>Under-voltage lockout with hysteresis</td></tr><tr><th>Package / Case</th><td>SOP-8-2.54mm</td></tr></tbody></table>
 </div>
         </section>
 
-        <section id="introduction" class="tab-panel">
-          <h2 class="section-title">Product Introduction</h2>
-          <div class="intro-body"><p>2.5A 5V 15ns 15V~30V 8ns 1.6V SOP-8-2.54mm Isolators - Gate Drivers</p></div>
-        </section>
+        
 
         
 
         <section id="applications" class="tab-panel">
   <h2 class="section-title">Applications</h2>
-  <ul class="app-list"><li>- Industrial inverters - Air conditioning inverters - MOSFET gate drivers - IGBT gate drivers - Induction cookers and home appliances</li></ul>
+  <ul class="app-list"><li>Industrial inverters</li><li>Air conditioning inverters</li><li>MOSFET gate drivers</li><li>IGBT gate drivers</li><li>Induction cookers and home appliances</li></ul>
 </section>
 
         <section id="documentation" class="tab-panel">
@@ -263,7 +259,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'specifications' }, { id: 'introduction' }, { id: 'applications' }, { id: 'documentation' }, { id: 'alternative' }, { id: 'compliance' } ];
+    var groups = [ { id: 'specifications' }, { id: 'applications' }, { id: 'documentation' }, { id: 'alternative' }, { id: 'compliance' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

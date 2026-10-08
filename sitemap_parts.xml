@@ -8389,6 +8389,7 @@
   <url><loc>https://www.szprocure.com/components/power-management/ac-dc-converters-offline-switchers/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/power-management/voltage-regulators-linear-switching/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/power-management/specialized-ics-power-management/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/components/power-management/dc-dc-converters-power-management/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/optoelectronics/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/optoelectronics/led-addressable-specialty/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/optoelectronics/led-indication-discrete/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
@@ -8427,6 +8428,7 @@
   <url><loc>https://www.szprocure.com/components/modules-communication/rf-transceiver-modules-and-modems/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/modules-communication/drivers-receivers-transceivers-iot-communication-modules/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/modules-communication/rf-receivers/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/components/modules-communication/ac-dc-converters-power-modules/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/integrated-circuits/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/integrated-circuits/microcontrollers/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/integrated-circuits/buffers-drivers-receivers-transceivers/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
@@ -8509,6 +8511,7 @@
   <url><loc>https://www.szprocure.com/components/integrated-circuits/latches/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/integrated-circuits/uarts-universal-asynchronous-receiver-transmitter/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/integrated-circuits/specialty-logic/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.szprocure.com/components/integrated-circuits/linear-comparators/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/audio-signal/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/audio-signal/microphones/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.szprocure.com/components/audio-signal/alarms-buzzers-and-sirens/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>

@@ -176,7 +176,6 @@
       <div class="tab-wrap">
         <nav class="tab-nav">
           <a href="#specifications" class="tab-btn active">Specifications</a>
-          <a href="#introduction" class="tab-btn">Introduction</a>
           <a href="#features" class="tab-btn">Features</a>
           <a href="#documentation" class="tab-btn">Datasheet</a>
           <a href="#compliance" class="tab-btn">Compliance &amp; Export Codes</a>
@@ -186,16 +185,13 @@
           <h2 class="section-title">Technical Specifications</h2>
           <div class="spec-grid">
   <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
-<tr><th>Output Voltage</th><td>5 V</td></tr><tr><th>Function</th><td>Buck-Boost</td></tr><tr><th>Working Voltage V</th><td>21.25 V</td></tr><tr><th>Channels</th><td>1</td></tr><tr><th>Iq A</th><td>0 A</td></tr><tr><th>Switching Frequency</th><td>850kHz</td></tr><tr><th>Ripple Noise</th><td>20mVp-p</td></tr><tr><th>Output Current(Max)</th><td>500mA;-300mA</td></tr><tr><th>Capacitive Load(Max)</th><td>680uF;330uF</td></tr></tbody></table>
+<tr><th>Output Voltage</th><td>5V;-5V</td></tr><tr><th>Function</th><td>Buck-Boost</td></tr><tr><th>Supply Voltage</th><td>21.25 V</td></tr><tr><th>Channels</th><td>1</td></tr><tr><th>Quiescent Current</th><td>200 µA</td></tr><tr><th>Switching Frequency</th><td>850kHz</td></tr><tr><th>Ripple Noise</th><td>20mVp-p</td></tr><tr><th>Output Current(Max)</th><td>500mA;-300mA</td></tr><tr><th>Capacitive Load(Max)</th><td>680uF;330uF</td></tr></tbody></table>
   <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
-<tr><th>Conversion Efficiency</th><td>90%;81%</td></tr><tr><th>Operating Temperature Range</th><td>-40°C ~ +85°C</td></tr><tr><th>Output Voltage Accuracy</th><td>+/-2%</td></tr><tr><th>Height Mm</th><td>10.2</td></tr><tr><th>Features</th><td>Short Circuit Protection;Automatic fault recovery;Over-temperature protection</td></tr><tr><th>Type</th><td>-</td></tr><tr><th>Length Mm</th><td>11.5</td></tr><tr><th>Width Mm</th><td>7.55</td></tr><tr><th>Package / Case</th><td>DIP,11.5x7.6mm</td></tr></tbody></table>
+<tr><th>Conversion Efficiency</th><td>90%;81%</td></tr><tr><th>Operating Temperature Range</th><td>-40°C ~ +85°C</td></tr><tr><th>Output Voltage Accuracy</th><td>+/-2%</td></tr><tr><th>Height Mm</th><td>10.2 mm</td></tr><tr><th>Features</th><td>Short Circuit Protection;Automatic fault recovery;Over-temperature protection</td></tr><tr><th>Type</th><td>-</td></tr><tr><th>Length Mm</th><td>11.5 mm</td></tr><tr><th>Width Mm</th><td>7.55 mm</td></tr><tr><th>Package / Case</th><td>DIP,11.5x7.6mm</td></tr></tbody></table>
 </div>
         </section>
 
-        <section id="introduction" class="tab-panel">
-          <h2 class="section-title">Product Introduction</h2>
-          <div class="intro-body"><p>Buck-Boost DC DC Converter 1 Output 5V -5V 500mA -300mA 6.5V~36V Input</p></div>
-        </section>
+        
 
         <section id="features" class="tab-panel">
   <h2 class="section-title">Features</h2>
@@ -264,7 +260,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'specifications' }, { id: 'introduction' }, { id: 'features' }, { id: 'documentation' }, { id: 'compliance' } ];
+    var groups = [ { id: 'specifications' }, { id: 'features' }, { id: 'documentation' }, { id: 'compliance' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

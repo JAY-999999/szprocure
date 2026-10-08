@@ -187,16 +187,18 @@
           <h2 class="section-title">Technical Specifications</h2>
           <div class="spec-grid">
   <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
-<tr><th>Working Voltage V</th><td>3.5 V</td></tr><tr><th>Interface</th><td>-</td></tr><tr><th>Iq A</th><td>1e-07</td></tr><tr><th>Number of H-bridges</th><td>-</td></tr><tr><th>Technology</th><td>Yes</td></tr><tr><th>Peak Current</th><td>2.5A</td></tr></tbody></table>
+<tr><th>Supply Voltage</th><td>3.5 V</td></tr><tr><th>Interface</th><td>-</td></tr><tr><th>Quiescent Current</th><td>0.1 µA</td></tr><tr><th>Number of H-Bridges</th><td>-</td></tr><tr><th>Technology</th><td>Yes</td></tr><tr><th>Peak Current</th><td>2.5A</td></tr></tbody></table>
   <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
-<tr><th>Features</th><td>Interleaved conduction protection;Motor stall protection;Active braking function</td></tr><tr><th>Operating Temp</th><td>-20°C ~ +85°C</td></tr><tr><th>Output Current</th><td>1.2 A</td></tr><tr><th>Rds On Ohm</th><td>0.425 Ω</td></tr><tr><th>Package / Case</th><td>SOP-8</td></tr></tbody></table>
+<tr><th>Features</th><td>Interleaved conduction protection;Motor stall protection;Active braking function</td></tr><tr><th>Operating Temperature</th><td>-20°C ~ +85°C</td></tr><tr><th>Output Current</th><td>1.2 A</td></tr><tr><th>Rds On Ohm</th><td>500mOhm;350mOhm</td></tr><tr><th>Package / Case</th><td>SOP-8</td></tr></tbody></table>
 </div>
         </section>
 
+        
         <section id="introduction" class="tab-panel">
           <h2 class="section-title">Product Introduction</h2>
           <div class="intro-body"><p>- H-bridge circuit topology with integrated N-channel and P-channel power MOSFETs, optimized for driving inductive loads such as coils and motors.</p><p>- Integrated over-temperature protection: shuts off load current when internal temperature exceeds the set threshold (typical 150°C); resumes normal operation when junction temperature drops back to the preset level (typical 130°C). Note: no short-circuit protection is provided — output-to-GND, output-to-supply, or output-to-output shorts may cause device damage. Avoid short-circuit conditions during use, or implement current-limiting measures to prevent such damage.</p><p>- Logic supply VCC and power supply VDD are fully independent internally. Route them separately in layout; do NOT connect VCC and VDD directly together, as the high voltage on VDD may damage the VCC rail.</p></div>
         </section>
+
 
         <section id="features" class="tab-panel">
   <h2 class="section-title">Features</h2>
@@ -205,7 +207,7 @@
 
         <section id="applications" class="tab-panel">
   <h2 class="section-title">Applications</h2>
-  <ul class="app-list"><li>- Toy motor driver powered by 2 4 AA/AAA dry cell batteries - Toy motor driver powered by 2 5 NiMH/NiCd rechargeable batteries - Motor driver powered by 2-cell lithium battery</li></ul>
+  <ul class="app-list"><li>Toy motor driver powered by 2–4 AA/AAA dry cell batteries</li><li>Toy motor driver powered by 2–5 NiMH/NiCd rechargeable batteries</li><li>Motor driver powered by 2-cell lithium battery</li></ul>
 </section>
 
         <section id="documentation" class="tab-panel">
@@ -234,12 +236,6 @@
     <tr><th>Type</th><th>Details</th></tr>
   </thead>
   <tbody><tr><th>RoHS</th><td>ROHS</td></tr></tbody>
-</table>
-<table class="compliance-table">
-  <thead>
-    <tr><th>Type</th><th>Details</th></tr>
-  </thead>
-  <tbody><tr><th>ECCN</th><td>-</td></tr></tbody>
 </table>
   </div>
 </section>

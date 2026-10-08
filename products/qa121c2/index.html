@@ -176,7 +176,6 @@
       <div class="tab-wrap">
         <nav class="tab-nav">
           <a href="#specifications" class="tab-btn active">Specifications</a>
-          <a href="#introduction" class="tab-btn">Introduction</a>
           <a href="#features" class="tab-btn">Features</a>
           <a href="#applications" class="tab-btn">Applications</a>
           <a href="#documentation" class="tab-btn">Datasheet</a>
@@ -187,16 +186,13 @@
           <h2 class="section-title">Technical Specifications</h2>
           <div class="spec-grid">
   <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
-<tr><th>Chan Type</th><td>-</td></tr><tr><th>Ripple Noise</th><td>120mVp-p</td></tr><tr><th>Capacitive Load(Max)</th><td>220uF</td></tr><tr><th>Iout</th><td>111mA</td></tr><tr><th>Conversion Efficiency</th><td>81%</td></tr><tr><th>Output Power</th><td>-</td></tr><tr><th>Output Voltage</th><td>9.25 V</td></tr><tr><th>Type</th><td>-</td></tr><tr><th>Operating Temp</th><td>-40°C ~ +105°C</td></tr><tr><th>Iq A</th><td>-</td></tr></tbody></table>
+<tr><th>Chan Type</th><td>-</td></tr><tr><th>Ripple Noise</th><td>120mVp-p</td></tr><tr><th>Capacitive Load(Max)</th><td>220uF</td></tr><tr><th>Iout</th><td>111mA</td></tr><tr><th>Conversion Efficiency</th><td>81%</td></tr><tr><th>Output Power</th><td>-</td></tr><tr><th>Output Voltage</th><td>15V;-3.5V</td></tr><tr><th>Type</th><td>-</td></tr><tr><th>Operating Temperature</th><td>-40°C ~ +105°C</td></tr><tr><th>Quiescent Current</th><td>-</td></tr></tbody></table>
   <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
-<tr><th>Working Voltage V</th><td>12 V</td></tr><tr><th>Channels</th><td>2.0</td></tr><tr><th>Height Mm</th><td>12.5</td></tr><tr><th>Switching Freq Hz</th><td>67 kHz</td></tr><tr><th>Isolation Vrms V</th><td>3.5 V</td></tr><tr><th>Features</th><td>Short Circuit Protection;Automatic fault recovery</td></tr><tr><th>Length Mm</th><td>19.5</td></tr><tr><th>Width Mm</th><td>9.8</td></tr><tr><th>Package / Case</th><td>SIP,19.5x9.8mm</td></tr></tbody></table>
+<tr><th>Supply Voltage</th><td>12 V</td></tr><tr><th>Channels</th><td>2.0</td></tr><tr><th>Height Mm</th><td>12.5 mm</td></tr><tr><th>Switching Freq Hz</th><td>67 kHz</td></tr><tr><th>Isolation Vrms V</th><td>3.5 V</td></tr><tr><th>Features</th><td>Short Circuit Protection;Automatic fault recovery</td></tr><tr><th>Length Mm</th><td>19.5 mm</td></tr><tr><th>Width Mm</th><td>9.8 mm</td></tr><tr><th>Package / Case</th><td>SIP,19.5x9.8mm</td></tr></tbody></table>
 </div>
         </section>
 
-        <section id="introduction" class="tab-panel">
-          <h2 class="section-title">Product Introduction</h2>
-          <div class="intro-body"><p>Isolated Module DC DC Converter 2 Output 15V -3.5V 111mA -111mA 10.8V~13.2V Input</p></div>
-        </section>
+        
 
         <section id="features" class="tab-panel">
   <h2 class="section-title">Features</h2>
@@ -205,7 +201,7 @@
 
         <section id="applications" class="tab-panel">
   <h2 class="section-title">Applications</h2>
-  <ul class="app-list"><li>- General-purpose variable frequency drives - AC servo drive systems - Electric welding machines - Uninterruptible power supplies (UPS)</li></ul>
+  <ul class="app-list"><li>General-purpose variable frequency drives</li><li>AC servo drive systems</li><li>Electric welding machines</li><li>Uninterruptible power supplies (UPS)</li></ul>
 </section>
 
         <section id="documentation" class="tab-panel">
@@ -262,7 +258,7 @@
   <!-- Page-scoped scroll-spy: toggles .active pill on V3 tabs (presentational only). -->
   <script>
   (function(){
-    var groups = [ { id: 'specifications' }, { id: 'introduction' }, { id: 'features' }, { id: 'applications' }, { id: 'documentation' }, { id: 'compliance' } ];
+    var groups = [ { id: 'specifications' }, { id: 'features' }, { id: 'applications' }, { id: 'documentation' }, { id: 'compliance' } ];
     var btns = Array.prototype.slice.call(document.querySelectorAll('.sku-v3 .tab-btn'));
     function onScroll(){
       var offset = 160;

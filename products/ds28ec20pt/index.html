@@ -87,7 +87,7 @@
         </div>
         <p class="type">Memory</p>
         <div class="id-list">
-<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/maxim-integrated/">Maxim Integrated</a></div></div><div class="id-row"><div class="id-label">MPN</div><div class="id-value">DS28EC20P+T</div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/memory/">Memory</a></div></div><div class="id-row"><div class="id-label">Maximum Clock Speed</div><div class="id-value">52.7 kHz</div></div><div class="id-row"><div class="id-label">Package / Case</div><div class="id-value">TSOC-6</div></div><div class="id-row"><div class="id-label">Datasheet</div><div class="id-value"><a class="doc-link" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ds28ec20p-t.pdf" target="_blank" rel="nofollow noopener" download><svg class="doc-ico doc-pdf" width="13" height="13" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.5 2.5h8.2l4.3 4.3v13.7a1 1 0 0 1-1 1H6.5a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1z" fill="#e53e3e"/><path d="M14.7 2.5V6.8a1 1 0 0 0 1 1h4.3" fill="#ff8585"/><rect x="5.8" y="14" width="13.4" height="5.6" rx="1" fill="#fff"/><text x="12.5" y="18.4" font-size="4.6" font-weight="700" text-anchor="middle" fill="#e53e3e" font-family="Arial,Helvetica,sans-serif">PDF</text></svg> DS28EC20P+T Datasheet</a></div></div><div class="id-row"><div class="id-label">Key Attributes</div><div class="id-value">20Kb 1-Wire EEPROM</div></div>
+<div class="id-row"><div class="id-label">Manufacturer</div><div class="id-value"><a href="/manufacturers/maxim-integrated/">Maxim Integrated</a></div></div><div class="id-row"><div class="id-label">MPN</div><div class="id-value">DS28EC20P+T</div></div><div class="id-row"><div class="id-label">Product Type</div><div class="id-value"><a href="/components/memory/">Memory</a></div></div><div class="id-row"><div class="id-label">Maximum Clock Speed</div><div class="id-value">15.4kHz;90kHz</div></div><div class="id-row"><div class="id-label">Package / Case</div><div class="id-value">TSOC-6</div></div><div class="id-row"><div class="id-label">Datasheet</div><div class="id-value"><a class="doc-link" href="https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ds28ec20p-t.pdf" target="_blank" rel="nofollow noopener" download><svg class="doc-ico doc-pdf" width="13" height="13" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.5 2.5h8.2l4.3 4.3v13.7a1 1 0 0 1-1 1H6.5a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1z" fill="#e53e3e"/><path d="M14.7 2.5V6.8a1 1 0 0 0 1 1h4.3" fill="#ff8585"/><rect x="5.8" y="14" width="13.4" height="5.6" rx="1" fill="#fff"/><text x="12.5" y="18.4" font-size="4.6" font-weight="700" text-anchor="middle" fill="#e53e3e" font-family="Arial,Helvetica,sans-serif">PDF</text></svg> DS28EC20P+T Datasheet</a></div></div><div class="id-row"><div class="id-label">Key Attributes</div><div class="id-value">20Kb 1-Wire EEPROM</div></div>
         </div>
       </div>
 
@@ -188,16 +188,18 @@
           <h2 class="section-title">Technical Specifications</h2>
           <div class="spec-grid">
   <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
-<tr><th>Maximum Clock Speed</th><td>52.7 kHz</td></tr><tr><th>Memory Size</th><td>20Kbit</td></tr><tr><th>Data Retention - TDR (Year)</th><td>40 Years</td></tr><tr><th>Write Cycle Time(tWC)</th><td>10ms</td></tr><tr><th>Write Cycle Endurance</th><td>200,000 cycles</td></tr></tbody></table>
+<tr><th>Maximum Clock Speed</th><td>15.4kHz;90kHz</td></tr><tr><th>Memory Size</th><td>20Kbit</td></tr><tr><th>Data Retention - TDR (Year)</th><td>40 Years</td></tr><tr><th>Write Cycle Time(tWC)</th><td>10ms</td></tr><tr><th>Write Cycle Endurance</th><td>200,000 cycles</td></tr></tbody></table>
   <table class="spec-table"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody>
-<tr><th>Operating Temp</th><td>-40°C ~ +85°C</td></tr><tr><th>Features</th><td>Page write protection function;Noise suppression function</td></tr><tr><th>Working Voltage V</th><td>4.625 V</td></tr><tr><th>Interface</th><td>Single bus</td></tr><tr><th>Package / Case</th><td>TSOC-6</td></tr></tbody></table>
+<tr><th>Operating Temperature</th><td>-40°C ~ +85°C</td></tr><tr><th>Features</th><td>Page write protection function;Noise suppression function</td></tr><tr><th>Supply Voltage</th><td>4.625 V</td></tr><tr><th>Interface</th><td>Single bus</td></tr><tr><th>Package / Case</th><td>TSOC-6</td></tr></tbody></table>
 </div>
         </section>
 
+        
         <section id="introduction" class="tab-panel">
           <h2 class="section-title">Product Introduction</h2>
           <div class="intro-body"><p>The DS28EC20 is a 20480-bit, 1-Wire EEPROM organized as 80 memory pages of 256 bits each. An additional page is set aside for control functions. Data is written to a 32-byte scratchpad, verified, and then copied to the EEPROM memory. As a special feature, blocks of eight memory pages can be write protected or put in EPROM-Emulation mode, where bits can only be changed from a 1 to a 0 state. The DS28EC20 communicates over the single-conductor 1-Wire bus. The communication follows the standard 1-Wire protocol. Each device has its own unalterable and unique 64-bit ROM registration number. The registration number is used to address the device in a multidrop 1-Wire net environment.</p></div>
         </section>
+
 
         <section id="features" class="tab-panel">
   <h2 class="section-title">Features</h2>
@@ -206,7 +208,7 @@
 
         <section id="applications" class="tab-panel">
   <h2 class="section-title">Applications</h2>
-  <ul class="app-list"><li>- Device Authentication - IEEE 1451.4 Sensor TEDS - Ink/Toner Cartridges - Medical Sensors - PCB Identification - Wireless Base Stations</li></ul>
+  <ul class="app-list"><li>Device Authentication</li><li>IEEE 1451.4 Sensor TEDS</li><li>Ink/Toner Cartridges</li><li>Medical Sensors</li><li>PCB Identification</li><li>Wireless Base Stations</li></ul>
 </section>
 
         <section id="documentation" class="tab-panel">
