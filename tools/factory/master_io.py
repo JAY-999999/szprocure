@@ -62,6 +62,27 @@ def mpn_set(rows):
     return {(r.get("mpn") or "").strip() for r in rows}
 
 
+def identity_set(rows):
+    """Release-pipeline identity = (normalized MPN, canonical brand).
+
+    Same MPN across different brands are DISTINCT SKUs (cross-brand
+    multi-source); they MUST NOT collide on this key. Two rows collide only
+    when BOTH the normalized MPN and the brand match.
+    """
+    out = set()
+    for r in rows:
+        m = (r.get("mpn") or "").strip().upper()
+        b = (r.get("manufacturer") or "").strip()
+        out.add((m, b))
+    return out
+
+
+def cid_set(rows):
+    """Set of non-empty supplier_reference (C#) values in rows."""
+    return {(r.get("supplier_reference") or "").strip() for r in rows
+            if (r.get("supplier_reference") or "").strip()}
+
+
 def row_fingerprint(rows, cols):
     """Stable field-by-field fingerprint (order sensitive)."""
     import hashlib
@@ -128,11 +149,13 @@ def validate_rows(cols, old_rows, new_rows, allow_extra_rows=True,
     seen, dups = set(), []
     for r in new_rows:
         m = (r.get("mpn") or "").strip()
-        if m in seen:
-            dups.append(m)
-        seen.add(m)
+        b = (r.get("manufacturer") or "").strip()
+        key = (m, b)
+        if key in seen:
+            dups.append(f"{m}/{b}")
+        seen.add(key)
     if dups:
-        problems.append(f"duplicate MPN(s): {sorted(set(dups))[:10]}")
+        problems.append(f"duplicate (MPN,manufacturer) identity(s): {sorted(set(dups))[:10]}")
 
     # Required-field check applies to NEWLY ADDED rows only.
     # Pre-existing rows are grandfathered: the audit already reports 10 legacy

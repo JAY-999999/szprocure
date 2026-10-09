@@ -529,6 +529,7 @@ def plan_release(master_path, rows, subset_mpns=None, batch_id="",
     allow_upd = {(m or "").strip().upper() for m in (allow_row_update_mpns or [])}
     cols, old_rows = master_io.read_master(master_path, MASTER_COLS)
     before_mpns = master_io.mpn_set(old_rows)
+    before_ident = master_io.identity_set(old_rows)
     before_count = len(old_rows)
     before_sha = master_io.sha256_of(master_path)
 
@@ -683,14 +684,16 @@ def plan_release(master_path, rows, subset_mpns=None, batch_id="",
                              f"structured specs (min {min_specs}) for {cat_name}", mpn)
         qualified.append(r)
 
-    # ---- project to MASTER shape + dedup -------------------------------
+    # ---- project to MASTER shape + dedup (identity = (MPN, manufacturer)) ----
     new_rows = [master_row(r) for r in qualified]
-    mpns = [r["mpn"] for r in new_rows]
-    dres = dedup.guard(mpns, before_mpns)
+    cands = [(r["mpn"], r["manufacturer"], r["supplier_reference"]) for r in new_rows]
+    dres = dedup.guard(cands, before_ident)
 
-    row_by_mpn = {(r["mpn"] or "").strip().upper(): r for r in new_rows}
-    truly_new = [row_by_mpn[m.upper()] for m in dres.new]
-    plan.already_released_mpns = list(dres.duplicates)
+    row_by_identity = {((r["mpn"] or "").strip().upper(),
+                        (r["manufacturer"] or "").strip()): r for r in new_rows}
+    truly_new = [row_by_identity[(c[0].strip().upper(), (c[1] or "").strip())]
+                 for c in dres.new]
+    plan.already_released_mpns = [(dedup._ident(c)[0]) for c in dres.duplicates]
 
     # intra-batch / mass duplicate -> hard stop (overrides any append)
     for it in dres.exceptions:
@@ -827,18 +830,26 @@ def verify_consistency(master_path, plan):
     if not old_unchanged:
         problems.append("pre-existing rows modified after staging")
 
-    # every new row present and field-identical to projection
-    proj_by_mpn = {(r["mpn"] or "").strip().upper(): r
-                  for r in plan.projected_master_rows}
-    for r in rows:
-        m = (r.get("mpn") or "").strip().upper()
-        if m in proj_by_mpn:
-            p = proj_by_mpn[m]
-            for c in MASTER_COLS:
-                if (r.get(c) or "") != (p.get(c) or ""):
-                    problems.append(f"row {r.get('mpn')} field {c} mismatch "
-                                    f"after staging")
-                    break
+    # every new/updated row present and field-identical to projection.
+    # Keyed by (MPN, manufacturer) identity so same-MPN / different-brand
+    # rows do not collapse onto each other (Phase 2 cross-brand SKUs).
+    proj_by_ident = {((r["mpn"] or "").strip().upper(),
+                      (r.get("manufacturer") or "").strip()): r
+                     for r in plan.projected_master_rows}
+    rows_by_ident = {((r.get("mpn") or "").strip().upper(),
+                      (r.get("manufacturer") or "").strip()): r
+                     for r in rows}
+    for ident, p in proj_by_ident.items():
+        r = rows_by_ident.get(ident)
+        if r is None:
+            problems.append(f"projected row {p.get('mpn')}/{p.get('manufacturer')} "
+                            f"missing after staging")
+            continue
+        for c in MASTER_COLS:
+            if (r.get(c) or "") != (p.get(c) or ""):
+                problems.append(f"row {r.get('mpn')}/{r.get('manufacturer')} "
+                                f"field {c} mismatch after staging")
+                break
 
     if problems:
         raise ReleaseStop(CONSISTENCY_FAIL, "; ".join(problems))
