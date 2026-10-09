@@ -231,6 +231,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://www.szprocure.com/components/integrated-circuits/rfid-rf-access-monitoring-ics/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.szprocure.com/components/integrated-circuits/sensor-and-detector-interfaces-data-converters/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
