@@ -23,42 +23,45 @@
   <style>
   /* Components Hub V2.4 — local styles only (global styles.css untouched) */
   .catalog-layout { display:grid; grid-template-columns: 260px 1fr; gap:32px; align-items:start; }
-  .catalog-nav { position:sticky; top:24px; align-self:start; padding-right:24px; border-right:1px solid #ececf0; }
-  .catalog-nav-title { font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#86868b; margin:0 0 8px 4px; font-weight:700; }
+  .catalog-nav { position:sticky; top:calc(var(--header-h, 132px) + 14px); align-self:start; padding-right:24px; border-right:1px solid #ececf0; max-height:calc(100vh - var(--header-h, 132px) - 28px); overflow-y:auto; }
+  .catalog-nav-title { font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:0 0 8px 4px; font-weight:700; }
   .catalog-nav-item { display:flex; align-items:center; justify-content:space-between; width:100%; text-align:left; background:transparent; border:none; border-left:3px solid transparent;
-    padding:11px 14px; margin:0; font-size:14px; font-weight:600; color:#1d1d1f; cursor:pointer; transition:all .15s; }
+    padding:11px 14px; margin:0; font-size:16px; font-weight:400; color:#1d1d1f; cursor:pointer; transition:all .15s; }
   .catalog-nav-item:hover { background:#e8f1ff; color:#0a84ff; }
   .catalog-nav-item:hover .cat-nav-count { background:#cfe5ff; color:#0a84ff; }
-  .catalog-nav-item.active { background:#0a84ff; color:#fff; border-left-color:#0a84ff; }
-  .cat-nav-count { font-size:12px; font-weight:700; color:#86868b; background:#f5f5f7; border-radius:20px; padding:2px 8px; margin-left:8px; }
-  .catalog-nav-item.active .cat-nav-count { background:rgba(255,255,255,.25); color:#fff; }
-  .catalog-section { background:#fff; border:1px solid #ececf0; border-radius:12px; box-shadow:0 1px 3px rgba(0,0,0,.04); padding:22px 24px; margin:0 0 20px 0; }
+  .cat-nav-count { font-size:12px; font-weight:700; color:var(--muted); background:#f5f5f7; border-radius:20px; padding:2px 8px; margin-left:8px; }
+  .catalog-section { background:#fff; border:1px solid #ececf0; border-radius:12px; box-shadow:0 1px 3px rgba(0,0,0,.04); padding:22px 24px; margin:0 0 20px 0; scroll-margin-top:calc(var(--header-h, 132px) + 14px); }
   .catalog-section:last-child { margin-bottom:0; }
   .catalog-section-head { display:flex; align-items:center; justify-content:space-between; gap:16px; margin:0 0 18px 0; }
   .catalog-section-head h3 { margin:0; font-size:20px; font-weight:700; display:flex; align-items:center; gap:10px; }
   .catalog-section-head h3 a { color:#1d1d1f; text-decoration:none; }
   .catalog-section-head h3 a:hover { color:#0a84ff; }
-  .cat-count { font-size:12px; font-weight:700; color:#86868b; background:#f5f5f7; border-radius:20px; padding:3px 10px; }
+  .cat-count { font-size:12px; font-weight:700; color:var(--muted); background:#f5f5f7; border-radius:20px; padding:3px 10px; }
   .catalog-toggle { background:none; border:1px solid #e2e2e7; border-radius:8px; width:34px; height:34px; font-size:14px; color:#1d1d1f; cursor:pointer; transition:all .15s; flex:0 0 auto; }
   .catalog-toggle:hover { background:#f5f5f7; border-color:#0a84ff; color:#0a84ff; }
-  .catalog-subs { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:14px 18px; }
+  .catalog-subs { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:6px 18px; }
   .catalog-subs.collapsed { display:none; }
-  .cat-sub { display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:#1d1d1f; background:none; font-size:14px; font-weight:500; transition:all .15s; }
-  .cat-sub:hover { color:#0a84ff; }
-  .cat-sub-count { font-size:12px; font-weight:700; color:#86868b; background:#f5f5f7; border-radius:20px; padding:2px 8px; }
+  .cat-sub { display:flex; align-items:flex-start; gap:8px; text-decoration:none; color:#1d1d1f; background:none; font-size:14px; font-weight:500; padding:7px 10px; border-radius:8px; transition:all .15s; }
+  .cat-sub:hover { color:#0a84ff; background:#f0f7ff; }
+  .cat-sub-count { margin-left:auto; flex:0 0 auto; font-size:12px; font-weight:700; color:var(--muted); background:#f5f5f7; border-radius:20px; padding:2px 8px; }
   .cat-sub:hover .cat-sub-count { color:#0a84ff; background:#e8f1ff; }
-  .comp-search { display:flex; gap:10px; max-width:640px; }
-  .section .comp-search input { flex:1; min-width:0; padding:13px 16px; font-size:15px; color:var(--ink); border:1px solid #d2d2d7; border-radius:10px; background:#fff; }
-  .section .comp-search input::placeholder { color:var(--muted); }
-  .section .comp-search input:focus { outline:none; border-color:#0a84ff; box-shadow:0 0 0 3px rgba(10,132,255,.15); }
+  /* Connected input-group search (方案B: 一体化搜索框) */
+  .comp-search { display:flex; align-items:stretch; gap:0; max-width:none; }
+  .comp-search-field { display:flex; align-items:center; flex:1 1 auto; min-width:0; background:#fff; border:1.5px solid #d2d2d7; border-right:none; border-radius:12px 0 0 12px; padding:0 12px 0 16px; color:var(--muted); }
+  .comp-search-field svg { flex:0 0 auto; width:18px; height:18px; }
+  .comp-search-field input { flex:1; min-width:0; border:none; outline:none; background:transparent; padding:16px 10px; font-size:15px; color:var(--ink); }
+  .comp-search-field input::placeholder { color:var(--muted); }
+  .comp-search:focus-within .comp-search-field { border-color:#0a84ff; box-shadow:0 0 0 3px rgba(10,132,255,.15); }
+  .comp-search .btn-primary { border-radius:0 12px 12px 0; padding:16px 28px; flex:0 0 auto; font-weight:600; }
+  .comp-search:focus-within .btn-primary { background:#0a73e0; }
   .search-results { margin-top:18px; }
   .search-results[hidden] { display:none; }
   .sr-group { margin-bottom:18px; }
-  .sr-group-head { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:#86868b; margin-bottom:8px; }
+  .sr-group-head { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin-bottom:8px; }
   .sr-item { display:flex; align-items:center; gap:10px; padding:11px 14px; border:1px solid #ececf0; border-radius:10px; text-decoration:none; color:#1d1d1f; margin-bottom:6px; background:#fff; }
   .sr-item:hover { border-color:#0a84ff; background:#f0f7ff; }
   .sr-label { font-weight:600; }
-  .sr-sub { color:#86868b; font-size:13px; }
+  .sr-sub { color:var(--muted); font-size:13px; }
   .sr-go { margin-left:auto; color:#0a84ff; }
   .sr-empty { padding:14px 16px; border:1px dashed #d2d2d7; border-radius:10px; color:#1d1d1f; background:#fafafa; }
   .sr-empty a { color:#0a84ff; font-weight:600; }
@@ -71,7 +74,32 @@
   .search-layout .eyebrow { text-align:center; }
   .search-layout h2 { font-size: clamp(1.4rem, 2.2vw, 1.85rem); line-height:1.25; }
   .comp-search { margin:0 auto; }
-  .bom-cta { background:transparent; border-radius:0; padding:0; }
+  /* Final CTA: same simple layout as L2 pages; background continues the canvas bottom tone */
+  .section--cta-simple { background: var(--bg-soft, #f6f8fb); }
+  /* WHAT WE CAN DO FOR YOU block: same unifying tone as the canvas bottom and the CTA below, so no white seam between screens */
+  .section--capabilities { background: var(--bg-soft, #f6f8fb); }
+  /* Browse header: title block + search box on the same row (方案B follow-up) */
+  .browse-head { display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap; max-width:100%; }
+  .browse-head__text { flex:0 1 auto; min-width:0; }
+  .browse-head .comp-search { flex:1 1 560px; max-width:none; margin:0; }
+  /* Sticky browse header (desktop): title + search stay pinned below the site
+     header while the catalog scrolls, so the search box never scrolls away.
+     margin-bottom is replaced by padding so the tinted background covers the
+     full strip (a margin gap would let cards show through while stuck). */
+  @media (min-width: 900px) {
+    .browse-head { position:sticky; top:var(--header-h, 132px); z-index:20; background:rgba(246,248,251,.86); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); margin-bottom:0; padding:12px 0 22px; box-shadow:0 12px 16px -16px rgba(15,23,42,.22); }
+    .catalog-nav { top:calc(var(--header-h, 132px) + 98px); max-height:calc(100vh - var(--header-h, 132px) - 112px); }
+    .catalog-section { scroll-margin-top:calc(var(--header-h, 132px) + 112px); }
+  }
+  @media (max-width: 720px) {
+    .browse-head { flex-direction:column; align-items:stretch; }
+    .browse-head .comp-search { flex:1 1 auto; }
+    .comp-search-field { border-right:1.5px solid #d2d2d7; border-radius:12px 12px 0 0; }
+    .comp-search .btn-primary { border-radius:0 0 12px 12px; }
+  }
+  /* Hero eyebrow now reuses the homepage capsule (.hero-eyebrow); tighten its
+     gap for the compact components hero instead of the homepage's 40px. */
+  .comp-hero .hero-eyebrow { margin-bottom: 22px; }
   /* UI micro-adjust (scope-limited to Components Hub): lighten H1 weight, widen hero text region */
   .comp-hero h1 { max-width:24ch; font-size:clamp(1.9rem, 3.2vw, 2.55rem); line-height:1.18; letter-spacing:-.01em; margin:0 0 .45em; }
   .comp-hero .lead { margin-top:10px; }
@@ -81,6 +109,37 @@
     .catalog-section { padding:18px 20px; }
     .catalog-subs { grid-template-columns:1fr; }
     .search-layout { max-width:100%; }
+  }
+  /* ===== Unified continuous canvas (hero + catalog = one surface) ===== */
+  .components-canvas {
+    position: relative;
+    background: linear-gradient(180deg, #F6FAFD 0%, #F8FBFE 38%, #fafcfe 74%, var(--bg-soft, #f6f8fb) 100%);
+  }
+  .components-canvas .comp-hero { background: transparent; border-bottom: none; }
+  .components-canvas .section.soft { background: transparent; position: relative; }
+  .components-canvas .section.soft .container { position: relative; z-index: 1; }
+  /* echo the world map into the top of the catalog so the texture flows
+     down continuously instead of being chopped at the hero's lower mask */
+  .components-canvas .section.soft::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 0; height: 360px;
+    background-image: url("/assets/img/world-map.svg");
+    background-repeat: no-repeat; background-position: right 6px top;
+    background-size: 46%; opacity: 0.08; pointer-events: none; z-index: 0;
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, rgba(0,0,0,0) 92%);
+            mask-image: linear-gradient(180deg, #000 0%, rgba(0,0,0,0) 92%);
+  }
+  /* Floating cards: white panels lifted off the unified canvas (SaaS look) */
+  .components-canvas .catalog-section {
+    background: #fff;
+    border: 1px solid rgba(226,232,240,.7);
+    box-shadow: 0 1px 3px rgba(15,23,42,.04), 0 12px 30px -18px rgba(15,23,42,.20);
+  }
+  .components-canvas .catalog-nav {
+    background: #fff;
+    border: 1px solid rgba(226,232,240,.7);
+    border-radius: 14px;
+    padding: 18px 14px 18px 16px;
+    box-shadow: 0 1px 3px rgba(15,23,42,.04), 0 12px 30px -18px rgba(15,23,42,.20);
   }
   </style>
 
@@ -110,16 +169,22 @@
 <body>
   <div id="site-header"></div>
   <main>
-    <!-- HERO Type B (navy commercial hero) -->
+    <!-- UNIFIED CANVAS: hero + catalog share one continuous gradient (no hard seam) -->
+    <div class="components-canvas">
+    <!-- HERO — mirrors homepage map hero, compact, search-first -->
     <section class="comp-hero">
+      <div class="hero-background" aria-hidden="true"></div>
+      <div class="hero-map-nodes" aria-hidden="true">
+        <span class="map-node map-node--origin" style="--nx:81.68%; --ny:37.48%; --d:0s"><i class="map-node__ripple"></i><i class="map-node__dot"></i></span>
+        <span class="map-node" style="--nx:17.16%; --ny:31.08%; --d:.35s"><i class="map-node__ripple"></i><i class="map-node__dot"></i></span>
+        <span class="map-node" style="--nx:52.41%; --ny:22.16%; --d:.7s"><i class="map-node__ripple"></i><i class="map-node__dot"></i></span>
+        <span class="map-node" style="--nx:65.35%; --ny:36.00%; --d:1.05s"><i class="map-node__ripple"></i><i class="map-node__dot"></i></span>
+        <span class="map-node" style="--nx:78.84%; --ny:49.26%; --d:1.4s"><i class="map-node__ripple"></i><i class="map-node__dot"></i></span>
+      </div>
       <div class="container">
-        <div class="eyebrow" data-zh="元器件采购 · 中国深圳">ELECTRONIC COMPONENTS SOURCING · SHENZHEN, CHINA</div>
-        <h1>Find Original Electronic Components from Shenzhen</h1>
-        <p class="lead" data-zh="从已验证的深圳供应渠道，为全球买家采购各类原装元器件。浏览类别或发送料号获取报价。">We source original electronic components from verified Shenzhen supply channels for global buyers. Browse a category or send a part number to request a quote.</p>
-        <p class="hero-aux-cn" data-zh="覆盖集成电路、半导体、被动元件、传感器、连接器与模组，支持小批量采购与长期稳定供货。">Covering integrated circuits, semiconductors, passives, sensors, connectors and modules — with low-volume buying and stable long-term supply.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
-        </div>
+        <div class="hero-eyebrow" data-zh="电子元器件采购">ELECTRONIC COMPONENTS SOURCING</div>
+        <h1 data-zh="电子元器件与难寻料号">Electronic Components &amp; Hard-to-Find Parts</h1>
+        <p class="lead" data-zh="专注于稀缺与停产（EOL）元器件、高性价比的国产替代方案，以及全品类标准电子元件的供应。依托全球供应网络，为您所需的每一个料号提供快速、稳定的采购保障。">Specializing in rare &amp; obsolete EOL components, cost-effective Chinese brand alternatives, and full-spectrum sourcing for all standard electronics. Leveraging our global supply network to ensure fast, stable procurement for every part you need.</p>
         <div class="trust-bar">
           <span><b>&#10003;</b> <span data-zh="已验证供应渠道">Verified Supply Channels</span></span>
           <span><b>&#10003;</b> <span data-zh="原装元器件">Original Components</span></span>
@@ -129,32 +194,22 @@
       </div>
     </section>
 
-    <!-- SEARCH (hub.js search core: #compSearch / #compSearchInput / #searchResults) -->
-    <section class="section" id="search">
-      <div class="container search-layout">
-        <div class="search-main">
-          <div class="section-head">
-            <div class="eyebrow" data-zh="搜索元器件">SEARCH COMPONENTS</div>
-            <h2 data-zh="搜索元器件、制造商与分类">Search Components, Manufacturers &amp; Categories</h2>
-            <p class="lead" data-zh="按料号、制造商或类别搜索，快速定位深圳可采购的元器件。">Search by part number, manufacturer or category to quickly locate components sourced from Shenzhen.</p>
-          </div>
-          <form id="compSearch" class="comp-search" role="search" action="/search/">
-            <input id="compSearchInput" type="search" placeholder="Search STM32, Texas Instruments, Voltage Regulator…" autocomplete="off" />
-            <button type="submit" class="btn btn-primary btn-lg">Search</button>
-          </form>
-          <div id="searchResults" class="search-results" hidden></div>
-        </div>
-      </div>
-    </section>
-
     <!-- BROWSE: V2.4 left nav + right sections -->
     <section class="section soft" id="categories">
       <div class="container">
-        <div class="section-head">
-          <div class="eyebrow" data-zh="按类别浏览元器件">BROWSE COMPONENTS</div>
-          <h2 data-zh="按类别浏览元器件">Browse Components</h2>
-          <p class="lead" data-zh="点击左侧类别跳转到对应分区，或展开下方任意分区查看子分类。">Click a category on the left to jump to its section, or expand any section below to view subcategories.</p>
+        <div class="section-head browse-head">
+          <div class="browse-head__text">
+            <h2 data-zh="浏览与搜索中心">Browse &amp; Search Hub</h2>
+          </div>
+          <form id="compSearch" class="comp-search" role="search" action="/search/">
+            <div class="comp-search-field">
+              <svg class="comp-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input id="compSearchInput" type="search" placeholder="Search STM32, Texas Instruments, Voltage Regulator, MPN…" autocomplete="off" />
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+          </form>
         </div>
+        <div id="searchResults" class="search-results" hidden></div>
         <div id="catBrowse" class="catalog-layout">
           <aside class="catalog-nav">
             <div class="catalog-nav-title">Categories</div>
@@ -494,47 +549,49 @@
         </div>
       </div>
     </section>
+    </div>
+    <!-- /components-canvas -->
 
     <!-- WHAT WE CAN DO FOR YOU -->
-    <section class="section">
+    <section class="section section--capabilities">
       <div class="container">
         <div class="section-head">
           <div class="eyebrow" data-zh="我们能为你做什么">WHAT WE CAN DO FOR YOU</div>
-          <h2 data-zh="真实的采购能力，不止是报价">Real sourcing capabilities beyond a quote</h2>
-          <p class="lead" data-zh="从难寻料号到整份 BOM，我们提供端到端的深圳采购支持。">From hard-to-find parts to full BOMs, we provide end-to-end Shenzhen sourcing support.</p>
+          <h2 data-zh="超越报价之外的真实采购能力">Real Sourcing Capabilities Beyond a Quote</h2>
+          <p class="lead" data-zh="从难寻元器件到整份 BOM，提供端到端的供应链支持。">From hard-to-find components to full BOMs, delivering end-to-end supply chain support.</p>
         </div>
         <div class="cap-grid">
           <div class="cap-card">
-            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><path d="M8 11h6"/></svg></div>
-            <h3 data-zh="难寻与停产料号">Hard-to-Find &amp; Obsolete</h3>
-            <p data-zh="帮你定位停产、长交期与冷门元器件，核实渠道与批次。">Locate obsolete, long-lead and rare components with verified channels and batches.</p>
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+            <h3 data-zh="停产料">EOL Parts</h3>
+            <p data-zh="从可信的旧库存中采购停产元器件。">End-of-life components from trusted legacy stock.</p>
           </div>
           <div class="cap-card">
-            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v18"/><path d="M16 3v18"/><path d="M8 8h8"/><path d="M8 14h8"/><path d="M3 8h5"/><path d="M16 8h5"/><path d="M3 14h5"/><path d="M16 14h5"/></svg></div>
-            <h3 data-zh="替代交叉参考">Alternative Cross-Reference</h3>
-            <p data-zh="提供引脚兼容、参数相当的替代料号，缓解缺货与涨价风险。">Pin-compatible, spec-equivalent alternatives to ease shortages and cost spikes.</p>
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4M12 17h.01"/></svg></div>
+            <h3 data-zh="停产元件">Obsolete Components</h3>
+            <p data-zh="用于维护与维修的停产器件。">Discontinued devices for maintenance &amp; repair.</p>
           </div>
           <div class="cap-card">
-            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v4H4z"/><path d="M4 12h16v8H4z"/><path d="M8 16h.01"/><path d="M12 16h.01"/><path d="M16 16h.01"/></svg></div>
-            <h3 data-zh="BOM 采购与配单">BOM Sourcing &amp; Kitting</h3>
-            <p data-zh="整份 BOM 统一询价、配单与齐套出货，减少多家对接成本。">One quote for the whole BOM, with kitting and consolidated shipment.</p>
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg></div>
+            <h3 data-zh="缺货料">Shortage Solutions</h3>
+            <p data-zh="供应紧张时期的配货与缺货料。">Allocation &amp; shortage parts in supply crunches.</p>
           </div>
           <div class="cap-card">
-            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l3-3 3 3 5-6"/></svg></div>
-            <h3 data-zh="供应商对比">Supplier Comparison</h3>
-            <p data-zh="对比多家供应商的价格、交期与品质，给出最优采购建议。">Compare suppliers on price, lead time and quality for the best buy.</p>
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/></svg></div>
+            <h3 data-zh="替代方案">Replacement Solutions</h3>
+            <p data-zh="原型号不可用时提供交叉参考与替代匹配。">Cross-reference &amp; alternative matching.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- FINAL CTA -->
-    <section class="section navy">
+    <!-- FINAL CTA — same simple layout as L2 pages (passive-components) -->
+    <section class="section section--cta-simple">
       <div class="container">
-        <div class="cta-band bom-cta">
+        <div class="cta-simple">
           <div>
-            <h2 data-zh="需要采购整份 BOM？">Have a BOM to Source?</h2>
-            <p data-zh="把整份 BOM 或料号清单发给我们，我们将核对库存、比价并给出报价。">Send us your full BOM or part list — we'll check stock, compare suppliers and quote.</p>
+            <h2 data-zh="需要采购料号或 BOM？">Need a Part or BOM?</h2>
+            <p data-zh="把料号和数量发给我们，即可获取报价。" style="margin:6px 0 0; font-size:1rem; color:var(--muted,#6b7280); line-height:1.4;">Send us your part numbers and quantities for a quote.</p>
           </div>
           <a class="btn btn-primary btn-lg" href="/request-a-quote/" data-zh="获取报价">Request a Quote</a>
         </div>
@@ -542,8 +599,8 @@
     </section>
   </main>
   <div id="site-footer"></div>
-  <script src="/components/components-data.js"></script>
-  <script src="/components/hub.js"></script>
+  <script src="/components/components-data.js" defer></script>
+  <script src="/components/hub.js" defer></script>
   <script src="/assets/site.js" defer></script>
   <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZLJH3Q2KF"></script>

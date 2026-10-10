@@ -226,14 +226,14 @@
   function renderCatalog(root) {
     if (!root) return;
 
-    // Left nav -> smooth-scroll to the section + mark active (never navigates)
+    // --- nav click -> smooth-scroll to section (scroll-margin-top in CSS
+    //     keeps the section clear of the sticky header + search bar).
+    //     No click highlight and no scroll-spy: the left nav is a plain,
+    //     non-stateful table of contents. ----------------------------------
     root.querySelectorAll(".catalog-nav-item").forEach(function (btn) {
       btn.addEventListener("click", function () {
         var cat = btn.getAttribute("data-category");
         var sec = root.querySelector('.catalog-section[data-category="' + cat + '"]');
-        root.querySelectorAll(".catalog-nav-item").forEach(function (b) {
-          b.classList.toggle("active", b === btn);
-        });
         if (sec) {
           sec.scrollIntoView({ behavior: "smooth", block: "start" });
           var subs = sec.querySelector(".catalog-subs");
