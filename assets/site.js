@@ -62,7 +62,7 @@
   var NAV = ''
     + '<header class="site-header">'
     + '<div class="container nav-grid">'
-    + '<form class="nav-search" id="globalSearch" role="search" action="/components/">'
+    + '<form class="nav-search" id="globalSearch" role="search" action="/search/">'
     +   '<input type="search" name="q" placeholder="Search Part Number, MPN or Keyword" aria-label="Search Part Number, MPN or Keyword" data-zh-ph="搜索料号、型号或关键词" />'
     +   '<button class="nav-search-btn" type="submit" aria-label="Search">' + SEARCH_ICON + '</button>'
     + '</form>'
@@ -88,7 +88,7 @@
     + '</div></div>'
     + '<div class="mobile-menu" id="mobileMenu">'
     +   LANG_SWITCH
-    +   '<form class="nav-search mobile" role="search" action="/components/">'
+    +   '<form class="nav-search mobile" role="search" action="/search/">'
     +     '<input type="search" name="q" placeholder="Search Part Number, MPN or Keyword" aria-label="Search Part Number, MPN or Keyword" data-zh-ph="搜索料号、型号或关键词" />'
     +     '<button class="nav-search-btn" type="submit" aria-label="Search">' + SEARCH_ICON + '</button>'
     +   '</form>'
@@ -217,7 +217,7 @@
 
   /* Global nav search -> /search/?q= (form action handles submit; guard empty) */
   function bindGlobalSearch() {
-    document.querySelectorAll("#globalSearch").forEach(function (form) {
+    document.querySelectorAll(".nav-search").forEach(function (form) {
       form.addEventListener("submit", function (e) {
         var input = form.querySelector("input");
         if (!input || !input.value.trim()) {
