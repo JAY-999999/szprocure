@@ -993,35 +993,35 @@ ul.part-index li {
    ========================================================= */
 
 /* ---- Components Hero (search-first) ---- */
+/* ---- Components Hero — mirrors homepage map hero, compact, search-first ---- */
 .comp-hero {
   position: relative;
-  overflow: hidden;
-  background:
-    radial-gradient(1100px 480px at 82% -12%, rgba(10,132,255,.22), transparent 60%),
-    linear-gradient(160deg, #0b1b33 0%, #0f2547 58%, #102a52 100%);
-  color: #e8eef8;
-  padding: 78px 0 84px;
-  border-bottom: 1px solid rgba(255,255,255,.08);
+  overflow: visible;
+  background: #F7FAFD;
+  color: var(--ink);
+  padding: 34px 0 38px;
+  border-bottom: 1px solid var(--border);
 }
-.comp-hero .eyebrow { color: #7dd3fc; }
-.comp-hero h1 { color: #fff; max-width: 18ch; }
-.comp-hero .lead { color: #b9c6db; max-width: 60ch; margin-top: 12px; }
-.comp-search { display: flex; gap: 10px; margin-top: 30px; max-width: 660px; }
+.comp-hero .container { position: relative; z-index: 1; }
+.comp-hero .eyebrow { color: var(--accent); }
+.comp-hero h1 { color: var(--ink); max-width: 20ch; }
+.comp-hero .lead { color: var(--muted); max-width: 60ch; margin-top: 10px; }
+.comp-hero .comp-search { display: flex; gap: 10px; margin: 22px 0 0; max-width: 660px; }
 .comp-search input {
   flex: 1; min-width: 0;
-  padding: 16px 18px; border-radius: 12px;
-  border: 1px solid rgba(255,255,255,.18);
-  background: rgba(255,255,255,.06); color: #fff;
+  padding: 15px 18px; border-radius: 12px;
+  border: 1px solid var(--border-strong);
+  background: #fff; color: var(--ink);
   font-size: 1.02rem; font-family: var(--font);
 }
-.comp-search input::placeholder { color: #93a4c2; }
-.comp-search input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(10,132,255,.28); }
+.comp-search input::placeholder { color: var(--muted); }
+.comp-search input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(10,132,255,.18); }
 .comp-search .btn { flex: none; }
-.comp-search-alt { margin: 14px 0 0; font-size: .95rem; color: #c6d2e6; }
-.comp-search-alt .link-cta { color: #7dd3fc; }
-.comp-hero .hero-actions { margin-top: 20px; }
-.comp-hero .trust-bar { margin-top: 32px; color: #c6d2e6; }
-.comp-hero .trust-bar b { color: #7dd3fc; }
+.comp-search-alt { margin: 14px 0 0; font-size: .95rem; color: var(--muted); }
+.comp-search-alt .link-cta { color: var(--accent); }
+.comp-hero .hero-actions { margin-top: 16px; }
+.comp-hero .trust-bar { margin-top: 22px; color: var(--muted); }
+.comp-hero .trust-bar b { color: var(--accent); }
 
 /* ---- Capability strip (4 differentiation pillars) ---- */
 .cap-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
