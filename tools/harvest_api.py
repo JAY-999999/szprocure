@@ -170,7 +170,7 @@ def main():
     # P0: 复用 01 静态 IP 出口 (与 lcsc_http_acquire.py 同路径, fail-closed)
     proxy_url = cc.load_proxy() if cc else None
     proxy_dict = cc.parse_proxy(proxy_url) if (cc and proxy_url) else None
-    expect_ip = os.environ.get("LCSC_EXPECT_IP", "82.25.225.72")
+    expect_ip = os.environ.get("LCSC_EXPECT_IP", "82.26.234.172")
 
     # fetch ranked list (full popularity ranking)
     ranked = []

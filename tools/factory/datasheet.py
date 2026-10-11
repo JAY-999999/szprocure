@@ -59,7 +59,7 @@ if _TOOLS_DIR not in _sys.path:
     _sys.path.insert(0, _TOOLS_DIR)
 import lcsc_http_acquire as _lha   # noqa: E402  (import after path fix)
 
-EXPECT_EGRESS_IP = os.environ.get("LCSC_EXPECT_IP", "82.25.225.72")
+EXPECT_EGRESS_IP = os.environ.get("LCSC_EXPECT_IP", "82.26.234.172")
 _PROXY_OPENER = None
 _PROXY_READY = False
 _PROXY_LOCK = threading.Lock()
@@ -70,12 +70,28 @@ def _ensure_proxy():
 
     Raises DatasheetError (fail-closed) if no .lcsc_proxy or egress != EXPECT_EGRESS_IP,
     so no PDF is ever fetched over a direct urllib connection.
+
+    直连 override (LCSC_DIRECT=1): 仅当运营显式设环境变量时启用, 临时突破红线。
+    仍校验出口IP==EXPECT_EGRESS_IP (应为本机真实IP), 不符则 fail-closed。默认不启用。
     """
     global _PROXY_OPENER, _PROXY_READY
     if _PROXY_READY:
         return
     with _PROXY_LOCK:
         if _PROXY_READY:
+            return
+        # --- 直连 override (LCSC_DIRECT=1, 运营显式授权, 临时突破红线) ---
+        if os.environ.get("LCSC_DIRECT") == "1":
+            print("[egress][DIRECT-MODE] 运营已授权直连(LCSC_DIRECT=1); 出口IP将暴露为 "
+                  + EXPECT_EGRESS_IP, flush=True)
+            _lha.configure_urllib_proxy(None)   # 不装代理 handler -> 直连
+            egress_ip = _lha._verify_egress_urllib(None, EXPECT_EGRESS_IP)
+            if egress_ip != EXPECT_EGRESS_IP:
+                raise DatasheetError(
+                    "[egress][DIRECT-MODE] 直连出口IP=" + str(egress_ip)
+                    + " 期望=" + EXPECT_EGRESS_IP + " -> 与授权不符, fail-closed")
+            _PROXY_OPENER = urllib.request.build_opener()   # 直连 opener (无代理 handler)
+            _PROXY_READY = True
             return
         proxy_url = _lha._read_proxy_url_local()
         if not proxy_url:

@@ -36,9 +36,12 @@ EVIDENCE BITES (measured on the production MASTER, 2026-09-24)
 There is currently **zero** lcsc.com row in the live MASTER, so tightening the
 gate cannot regress an already-listed SKU.
 
-OEM_HOST_PATTERNS below carries ONLY the three hosts above, because those are
-the only hosts the evidence supports. Do not add a host "just in case": an
-unseen host is supposed to STOP here so that it gets looked at.
+OEM_HOST_PATTERNS below carries the official manufacturer domains we trust to
+host their own datasheets verbatim (2026-09-26: expanded to the major
+semiconductor vendors). An OFFICIAL manufacturer domain is EXEMPT; everything
+else stays fail-closed. Do not add a host "just in case": an unseen host (even
+an unknown manufacturer) is supposed to STOP here so that it gets looked at, and
+third-party mirrors / unverified PDF hosts are never whitelisted.
 """
 from __future__ import annotations
 
@@ -71,13 +74,28 @@ R2_HOST_SUFFIX = ".r2.dev"
 # subdomain (datasheet.lcsc.com / www.lcsc.com / <cdn>.lcsc.com ...).
 LCSC_HOST_SUFFIXES = (".lcsc.com",)
 
-# Official / manufacturer hosts that are permanently EXEMPT.
-# Measured evidence (see module docstring): nxp.com 33, molex.com 28,
-# nxp.com.cn 19.
+# Official / manufacturer hosts that are permanently EXEMPT (verbatim link kept).
+# Curated set of the major semiconductor / component manufacturers whose own
+# datasheet domains we trust (2026-09-26, user decision). Each entry is a bare
+# host; _matches() also accepts any subdomain (www.nxp.com, www.ti.com, ...).
+# Policy stays FAIL-CLOSED: any host NOT listed here -- including new/unknown
+# manufacturer domains and ALL third-party mirrors -- still STOPs at BAD_UNKNOWN
+# and must be reviewed before it can ship. We only ever ADD officially-recognised
+# manufacturer roots here; we never relax the unknown-host rejection.
 OEM_HOST_PATTERNS = (
     "nxp.com",
     "nxp.com.cn",
     "molex.com",
+    "ti.com",
+    "texasinstruments.com",
+    "analog.com",
+    "microchip.com",
+    "st.com",
+    "infineon.com",
+    "onsemi.com",
+    "renesas.com",
+    "intel.com",
+    "amd.com",
 )
 
 # A datasheet URL is only meaningful if it is https and looks like a file.

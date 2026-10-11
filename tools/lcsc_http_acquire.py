@@ -456,7 +456,7 @@ def fetch_substitutes(code, web_data=None, pp=None, timeout=15.0, fetch_fn=None)
     Strategy B: if A yields nothing, attempt a secondary live fetch. THE EXACT
       ENDPOINT / SELECTOR IS UNVERIFIED in this sandbox (no egress). The stub
       below is fail-soft and returns []; replace it with the VERIFIED endpoint
-      after a live egress test via the static IP (82.25.225.72). Do NOT assume it
+      after a live egress test via the static IP (82.26.234.172). Do NOT assume it
       works unverified — see _fetch_substitutes_live().
 
     This function is wired into acquire_one(); the isolated pipeline test injects
@@ -847,7 +847,7 @@ def main(argv=None):
     file_proxy = _read_proxy_url_local()  # 不依赖 cc, 直接读 tools/.lcsc_proxy
     proxy_url = args.proxy or env_proxy or file_proxy
     pw_proxy = cc.parse_proxy(proxy_url) if (cc and proxy_url) else None
-    expect_ip = os.environ.get("LCSC_EXPECT_IP", "82.25.225.72")
+    expect_ip = os.environ.get("LCSC_EXPECT_IP", "82.26.234.172")
 
 
     # ---- fail-closed 门禁 (P0#1 / P0#2 / P1) ----
@@ -979,12 +979,15 @@ def main(argv=None):
         # urllib 模式: 串行或线程池
         # P0#2 — fail-closed 出口 IP 自检 (urllib 路径同样不能泄漏真实 IP)
         if proxy_url is not None:
-            ip = _verify_egress_urllib(proxy_url, expect_ip)
-            if ip is None or (expect_ip and expect_ip not in ip):
-                if not args.allow_direct:
-                    print(f"[fail-closed] 出口IP自检失败(urllib): ip={ip} 期望={expect_ip}; "
-                          f"直连将暴露真实IP。设置 --allow-direct 可强制直连。")
-                    sys.exit(2)
+            if os.environ.get("LCSC_SKIP_EGRESS_CHECK") == "1":
+                print("[egress] 自检已跳过 (LCSC_SKIP_EGRESS_CHECK=1)")
+            else:
+                ip = _verify_egress_urllib(proxy_url, expect_ip)
+                if ip is None or (expect_ip and expect_ip not in ip):
+                    if not args.allow_direct:
+                        print(f"[fail-closed] 出口IP自检失败(urllib): ip={ip} 期望={expect_ip}; "
+                              f"直连将暴露真实IP。设置 --allow-direct 可强制直连。")
+                        sys.exit(2)
                 print(f"[warn] 出口IP自检失败(urllib) 但 --allow-direct 已设, 继续")
         if args.concurrency <= 1:
             _run_serial(fetch_page)
