@@ -36,6 +36,7 @@ from .category import (
     _norm_resistance, _norm_inductance, _norm_capacitance, _norm_power, _num_first,
     _r, _i,
     _enum, _attrs, _assemble, _faq, _unknown_fields, detect_category,
+    is_multi_value,
 )
 from .product_data import ProductDataError, IntakeResult
 
@@ -352,6 +353,14 @@ def build_en_attributes(mp):
                 # would flatten/average it and lose the condition — keep
                 # the verbatim ASCII-folded string instead (rule-level,
                 # applies to ALL mapped keys, Section 2026-09-24 batch).
+                nval = folded_val
+            elif is_multi_value(folded_val):
+                # MULTI-VALUE GUARD (2026-10-09): a list of measurements is
+                # NOT a single value. '3V;5V' must never be averaged to 4,
+                # '1.8V;2.5V;3.3V' never to 2.533, '5.5A;4A' never to 4.75,
+                # '16/32 Bit' never truncated to 16, '1;2' never to 1.
+                # Rule-level (applies to EVERY mapped canonical key, not just
+                # voltage): keep the verbatim ASCII-folded string.
                 nval = folded_val
             elif normalizer is _norm_resistance or normalizer is _norm_inductance:
                 # Omega must reach the normaliser untouched.

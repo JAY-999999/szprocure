@@ -38,6 +38,49 @@ _MICRO_G = "\u03bc"   # μ greek mu
 
 
 # --------------------------------------------------------------------------
+# MULTI-VALUE GUARD (2026-10-09 fix)
+# A value that lists SEVERAL independent measurements separated by ';' ',' or
+# '/' (e.g. '3V;5V', '1.8V;2.5V;3.3V', '5.5A;4A', '16/32 Bit', '1;2') is NEVER
+# averaged or truncated into one synthetic number -- it is preserved VERBATIM.
+# Same discipline as the RANGE guard: a SET is not a single value, and
+# inventing '3V;5V -> 4V' fabricates a rating the datasheet does not state.
+# --------------------------------------------------------------------------
+# A "measurement fragment": starts with a number, optionally followed by a unit
+# or extra word ('3V', '32 Bit', '100mW' qualify; 'Level 3' and 'us' do not).
+_MEASURE_FRAGMENT_RE = re.compile(
+    r"^\s*[-+]?[\d.]+\s*[\w\u00b5\u03bc\u03a9\u2126%^\u00b0/*\s]*$")
+# Fractional power '1/4W' is ONE value (0.25 W), not two measurements.
+_FRACTIONAL_POWER_RE = re.compile(r"\d+\s*/\s*\d+\s*W(?![A-Za-z])", re.I)
+
+
+def is_multi_value(s):
+    """True when ``s`` carries TWO OR MORE independent measurements.
+
+    Multi-value != single value: '3V;5V' must never become '4V',
+    '1.8V;2.5V;3.3V' must never become '2.533V', '16/32 Bit' must never
+    become '16'. Ranges ('4V~80V') and test conditions ('1.25V@150mA') are
+    NOT multi-values -- they have their own dedicated guards.
+    """
+    if not s:
+        return False
+    t = str(s).strip()
+    if not t:
+        return False
+    # Thousands separators are not value separators: '1,000V' -> '1000V'
+    t = re.sub(r"(?<=\d),(?=\d{3}(?!\d))", "", t)
+    # ';' and ',' separate values whenever >=2 fragments are measurements
+    for sep in (";", ","):
+        if sum(1 for p in t.split(sep) if _MEASURE_FRAGMENT_RE.match(p)) >= 2:
+            return True
+    # '/' counts only when BOTH sides carry a number, so unit ratios
+    # ('1.5V/us', '100mW/C', '25C/W') stay single values while '16/32 Bit'
+    # is correctly seen as two. Fractional power ('1/4W') is excluded.
+    t2 = _FRACTIONAL_POWER_RE.sub("", t)
+    return sum(1 for p in t2.split("/")
+               if re.search(r"\d", p) and _MEASURE_FRAGMENT_RE.match(p)) >= 2
+
+
+# --------------------------------------------------------------------------
 # numeric normalisation helpers (SI base units)
 # --------------------------------------------------------------------------
 def _norm(s, table):
@@ -66,6 +109,10 @@ def _norm(s, table):
         lo_u = lo_u or hi_u or ""
         hi_u = hi_u or lo_u or ""
         return f"{lo}{lo_u}~{hi}{hi_u}"
+    # --- MULTI-VALUE GUARD (2026-10-09): a list of measurements is never
+    # averaged into one synthetic number. '3V;5V' stays '3V;5V', never '4V'. ---
+    if is_multi_value(s):
+        return s
     # --- single-value path (unchanged behaviour) ---
     pairs = [(float(n), table[u.lower()])
              for n, u in re.findall(r"([\d.]+)\s*(" + alt + r")", s, re.I)]
@@ -141,9 +188,19 @@ def _norm_power(s):
     if not s:
         return None
     s = str(s).strip()
+    # Multi-value guard BEFORE the fractional-power branch, so '1/4W;1/2W'
+    # is preserved instead of collapsing to 0.25. Single '1/4W' is NOT a
+    # multi-value (is_multi_value excludes fractional power) -> unchanged.
+    if is_multi_value(s):
+        return s
     m = re.search(r"(\d+)\s*/\s*(\d+)\s*W", s, re.I)
     if m:
-        return _i(m.group(1)) / _i(m.group(2))
+        # _i() is range-safe and only converts real numbers; regex groups are
+        # strings, so cast first (the previous call raised TypeError on '1/4W').
+        try:
+            return _i(float(m.group(1))) / _i(float(m.group(2)))
+        except (ValueError, ZeroDivisionError):
+            return None
     return _norm(s, _PWR)
 
 
@@ -152,9 +209,14 @@ def _num_first(s):
 
     Integer-valued results are returned as int so counts such as Channels=1
     never render as '1.0' (LCSC parity, Section 2026-09-24 batch audit).
+
+    MULTI-VALUE GUARD (2026-10-09): '16/32 Bit' must NOT become 16 and '1;2'
+    must NOT become 1 -- a value list is returned verbatim as a string.
     """
     if not s:
         return None
+    if is_multi_value(s):
+        return str(s).strip()
     m = re.search(r"[\d.]+", str(s))
     if not m:
         return None
