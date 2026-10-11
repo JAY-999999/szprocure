@@ -167,7 +167,7 @@ def build_sr_final():
     # 1. MASTER: mpn -> sr, native_l1
     mpn2sr = {}
     sr_info = {}
-    with open(MASTER, encoding="utf-8", errors="replace") as f:
+    with open(MASTER, encoding="utf-8-sig", errors="replace") as f:
         for row in csv.DictReader(f):
             sr = (row.get("supplier_reference") or "").strip()
             nl = (row.get("native_l1") or "").strip()

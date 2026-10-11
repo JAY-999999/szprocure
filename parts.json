@@ -2200,9 +2200,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/hef4017bt-653.pdf",
     "product_url": "/products/hef4017bt653/",
-    "final_subcategory": "Flip Flops",
+    "final_subcategory": "Counters, Dividers",
     "final_native_l1": "logic-ics",
-    "final_slug": "flip-flops"
+    "final_slug": "counters-dividers"
   },
   {
     "mpn": "LM2664M6X/NOPB",
@@ -4276,9 +4276,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/fsusb42mux.pdf",
     "product_url": "/products/fsusb42mux/",
-    "final_subcategory": "Analog Switches, Multiplexers, Demultiplexers",
+    "final_subcategory": "Analog Switches - Special Purpose",
     "final_native_l1": "interface-ics",
-    "final_slug": "analog-switches-multiplexers-demultiplexers"
+    "final_slug": "analog-switches-special-purpose"
   },
   {
     "mpn": "TAJA226K010RNJ",
@@ -6671,9 +6671,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/hr911105a.pdf",
     "product_url": "/products/hr911105a/",
-    "final_subcategory": "Multi Purpose",
+    "final_subcategory": "Modular/Ethernet Connector (RJ45) Jacks With Magnetics",
     "final_native_l1": "connectors",
-    "final_slug": "multi-purpose"
+    "final_slug": "modular-ethernet-connector-rj45-jacks-with-magnetics"
   },
   {
     "mpn": "ADM2587EBRWZ-REEL7",
@@ -8943,9 +8943,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ts3usb221arser.pdf",
     "product_url": "/products/ts3usb221arser/",
-    "final_subcategory": "Analog Switches, Multiplexers, Demultiplexers",
+    "final_subcategory": "Analog Switches - Special Purpose",
     "final_native_l1": "interface-ics",
-    "final_slug": "analog-switches-multiplexers-demultiplexers"
+    "final_slug": "analog-switches-special-purpose"
   },
   {
     "mpn": "TS3A4751PWR",
@@ -9938,9 +9938,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ts3usb221rser.pdf",
     "product_url": "/products/ts3usb221rser/",
-    "final_subcategory": "Analog Switches, Multiplexers, Demultiplexers",
+    "final_subcategory": "Analog Switches - Special Purpose",
     "final_native_l1": "interface-ics",
-    "final_slug": "analog-switches-multiplexers-demultiplexers"
+    "final_slug": "analog-switches-special-purpose"
   },
   {
     "mpn": "TCAN337GDCNR",
@@ -11084,9 +11084,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ts3usb30edgsr.pdf",
     "product_url": "/products/ts3usb30edgsr/",
-    "final_subcategory": "Analog Switches, Multiplexers, Demultiplexers",
+    "final_subcategory": "Analog Switches - Special Purpose",
     "final_native_l1": "interface-ics",
-    "final_slug": "analog-switches-multiplexers-demultiplexers"
+    "final_slug": "analog-switches-special-purpose"
   },
   {
     "mpn": "CD74HC4051M96",
@@ -13121,9 +13121,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ad9837bcpz-rl7.pdf",
     "product_url": "/products/ad9837bcpzrl7/",
-    "final_subcategory": "ADCs/DACs - Special Purpose",
+    "final_subcategory": "Direct Digital Synthesis (DDS)",
     "final_native_l1": "data-converters",
-    "final_slug": "adcs-dacs-special-purpose"
+    "final_slug": "direct-digital-synthesis-dds"
   },
   {
     "mpn": "CL32B106KBJNNNE",
@@ -19886,9 +19886,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/cpc2907b.pdf",
     "product_url": "/products/cpc2907b/",
-    "final_subcategory": "Transistor, Photovoltaic Output Optoisolators",
+    "final_subcategory": "Solid State Relays (SSR)",
     "final_native_l1": "optocouplers",
-    "final_slug": "transistor-photovoltaic-output-optoisolators"
+    "final_slug": "solid-state-relays-ssr"
   },
   {
     "mpn": "DS2411R+T&R",
@@ -28143,9 +28143,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ucc28740dr.pdf",
     "product_url": "/products/ucc28740dr/",
-    "final_subcategory": "Power Management - Specialized",
+    "final_subcategory": "AC DC Converters, Offline Switchers",
     "final_native_l1": "power-management",
-    "final_slug": "power-management-specialized-power-management"
+    "final_slug": "ac-dc-converters-offline-switchers"
   },
   {
     "mpn": "LMR14030SDDAR",
@@ -30325,7 +30325,7 @@
     "product_url": "/products/1703251/",
     "final_subcategory": "Quick Connects, Quick Disconnect Connectors",
     "final_native_l1": "terminals",
-    "final_slug": "quick-connects-quick-disconnect-connectors-terminals"
+    "final_slug": "quick-connects-quick-disconnect-connectors"
   },
   {
     "mpn": "171637-1",
@@ -31936,9 +31936,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/viper22a.pdf",
     "product_url": "/products/viper22a/",
-    "final_subcategory": "Power Management - Specialized",
+    "final_subcategory": "AC DC Converters, Offline Switchers",
     "final_native_l1": "power-management",
-    "final_slug": "power-management-specialized-power-management"
+    "final_slug": "ac-dc-converters-offline-switchers"
   },
   {
     "mpn": "TSB008A2526B",
@@ -34175,7 +34175,7 @@
     "product_url": "/products/1702332/",
     "final_subcategory": "Quick Connects, Quick Disconnect Connectors",
     "final_native_l1": "terminals",
-    "final_slug": "quick-connects-quick-disconnect-connectors-terminals"
+    "final_slug": "quick-connects-quick-disconnect-connectors"
   },
   {
     "mpn": "TCA9546APWR",
@@ -37125,9 +37125,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/1-176497-1.pdf",
     "product_url": "/products/11764971/",
-    "final_subcategory": "Rectangular Connector Housings",
+    "final_subcategory": "Housings, Boots",
     "final_native_l1": "connectors",
-    "final_slug": "rectangular-connector-housings"
+    "final_slug": "housings-boots"
   },
   {
     "mpn": "172157-1",
@@ -37516,7 +37516,7 @@
     "product_url": "/products/15442271/",
     "final_subcategory": "Quick Connects, Quick Disconnect Connectors",
     "final_native_l1": "terminals",
-    "final_slug": "quick-connects-quick-disconnect-connectors-terminals"
+    "final_slug": "quick-connects-quick-disconnect-connectors"
   },
   {
     "mpn": "282465-1",
@@ -37596,7 +37596,7 @@
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/175411-1.pdf",
     "product_url": "/products/1754111/",
     "final_subcategory": "Quick Connects, Quick Disconnect Connectors",
-    "final_native_l1": "industrial-control-electrical",
+    "final_native_l1": "terminals",
     "final_slug": "quick-connects-quick-disconnect-connectors"
   },
   {
@@ -37898,7 +37898,7 @@
     "product_url": "/products/421002/",
     "final_subcategory": "Quick Connects, Quick Disconnect Connectors",
     "final_native_l1": "terminals",
-    "final_slug": "quick-connects-quick-disconnect-connectors-terminals"
+    "final_slug": "quick-connects-quick-disconnect-connectors"
   },
   {
     "mpn": "770835-1",
@@ -42887,9 +42887,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/cpc1335p.pdf",
     "product_url": "/products/cpc1335p/",
-    "final_subcategory": "Transistor, Photovoltaic Output Optoisolators",
+    "final_subcategory": "Solid State Relays (SSR)",
     "final_native_l1": "optocouplers",
-    "final_slug": "transistor-photovoltaic-output-optoisolators"
+    "final_slug": "solid-state-relays-ssr"
   },
   {
     "mpn": "MC14049UBDR2G",
@@ -43143,9 +43143,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ad8572arz-reel7.pdf",
     "product_url": "/products/ad8572arzreel7/",
-    "final_subcategory": "Instrumentation, Op Amps, Buffer Amps",
+    "final_subcategory": "amplifiers-comparators",
     "final_native_l1": "amplifiers-comparators",
-    "final_slug": "instrumentation-op-amps-buffer-amps"
+    "final_slug": ""
   },
   {
     "mpn": "PESD5V5C1BL-QYL",
@@ -43624,7 +43624,7 @@
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C238199.pdf",
     "product_url": "/products/icsrc6508sfr/",
     "final_subcategory": "RFI and EMI - Contacts, Fingerstock and Gaskets",
-    "final_native_l1": "fasteners-hardware",
+    "final_native_l1": "filters-emi-suppression",
     "final_slug": "rfi-and-emi-contacts-fingerstock-and-gaskets"
   },
   {
@@ -43651,7 +43651,7 @@
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/icsrc6508-015sfr.pdf",
     "product_url": "/products/icsrc6508015sfr/",
     "final_subcategory": "RFI and EMI - Contacts, Fingerstock and Gaskets",
-    "final_native_l1": "fasteners-hardware",
+    "final_native_l1": "filters-emi-suppression",
     "final_slug": "rfi-and-emi-contacts-fingerstock-and-gaskets"
   },
   {
@@ -43678,7 +43678,7 @@
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/icsrc52128sfr.pdf",
     "product_url": "/products/icsrc52128sfr/",
     "final_subcategory": "RFI and EMI - Contacts, Fingerstock and Gaskets",
-    "final_native_l1": "fasteners-hardware",
+    "final_native_l1": "filters-emi-suppression",
     "final_slug": "rfi-and-emi-contacts-fingerstock-and-gaskets"
   },
   {
@@ -44048,9 +44048,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C24109.pdf",
     "product_url": "/products/tlv320aic3204irhbr/",
-    "final_subcategory": "Specialized ICs",
+    "final_subcategory": "CODECS",
     "final_native_l1": "interface-ics",
-    "final_slug": "specialized-ics"
+    "final_slug": "codecs"
   },
   {
     "mpn": "UCC3895DWTR",
@@ -46636,9 +46636,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C2652098.pdf",
     "product_url": "/products/at42qt2120xur/",
-    "final_subcategory": "Analog and Digital Output",
+    "final_subcategory": "Sensor, Capacitive Touch",
     "final_native_l1": "sensors",
-    "final_slug": "analog-and-digital-output"
+    "final_slug": "sensor-capacitive-touch"
   },
   {
     "mpn": "SN74LVC2G126DCUR",
@@ -48597,9 +48597,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/kh-5224-8p8c.pdf",
     "product_url": "/products/kh52248p8c/",
-    "final_subcategory": "Multi Purpose",
+    "final_subcategory": "Modular/Ethernet Connector (RJ45, RJ11) Jacks",
     "final_native_l1": "connectors",
-    "final_slug": "multi-purpose"
+    "final_slug": "modular-ethernet-connector-rj45-rj11-jacks"
   },
   {
     "mpn": "KH-RJ45-59-8P8C",
@@ -48627,9 +48627,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/kh-rj45-59-8p8c.pdf",
     "product_url": "/products/khrj45598p8c/",
-    "final_subcategory": "Multi Purpose",
+    "final_subcategory": "Modular/Ethernet Connector (RJ45) Jacks With Magnetics",
     "final_native_l1": "connectors",
-    "final_slug": "multi-purpose"
+    "final_slug": "modular-ethernet-connector-rj45-jacks-with-magnetics"
   },
   {
     "mpn": "KH-RJ45-56-8P8C",
@@ -48656,9 +48656,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/kh-rj45-56-8p8c.pdf",
     "product_url": "/products/khrj45568p8c/",
-    "final_subcategory": "Multi Purpose",
+    "final_subcategory": "Modular/Ethernet Connector (RJ45, RJ11) Jacks",
     "final_native_l1": "connectors",
-    "final_slug": "multi-purpose"
+    "final_slug": "modular-ethernet-connector-rj45-rj11-jacks"
   },
   {
     "mpn": "KH-RJ45-58-8P8C",
@@ -48686,9 +48686,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/kh-rj45-58-8p8c.pdf",
     "product_url": "/products/khrj45588p8c/",
-    "final_subcategory": "Multi Purpose",
+    "final_subcategory": "Modular/Ethernet Connector (RJ45, RJ11) Jacks",
     "final_native_l1": "connectors",
-    "final_slug": "multi-purpose"
+    "final_slug": "modular-ethernet-connector-rj45-rj11-jacks"
   },
   {
     "mpn": "LFCN-630+",
@@ -49819,9 +49819,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/aht20.pdf",
     "product_url": "/products/aht20/",
-    "final_subcategory": "Analog and Digital Output",
+    "final_subcategory": "Humidity, Moisture Sensors",
     "final_native_l1": "sensors",
-    "final_slug": "analog-and-digital-output"
+    "final_slug": "humidity-moisture-sensors"
   },
   {
     "mpn": "GD25Q128ESIG",
@@ -50903,9 +50903,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/max2659elt-t.pdf",
     "product_url": "/products/max2659eltt/",
-    "final_subcategory": "Special Purpose Amplifiers",
+    "final_subcategory": "RF Amplifiers",
     "final_native_l1": "rf-wireless",
-    "final_slug": "special-purpose-amplifiers-rf-wireless"
+    "final_slug": "rf-amplifiers"
   },
   {
     "mpn": "TPS63001DRCR",
@@ -52172,7 +52172,7 @@
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/icsrc6508-030sfr.pdf",
     "product_url": "/products/icsrc6508030sfr/",
     "final_subcategory": "RFI and EMI - Contacts, Fingerstock and Gaskets",
-    "final_native_l1": "fasteners-hardware",
+    "final_native_l1": "filters-emi-suppression",
     "final_slug": "rfi-and-emi-contacts-fingerstock-and-gaskets"
   },
   {
@@ -54537,9 +54537,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lm5021mmx-1-nopb.pdf",
     "product_url": "/products/lm5021mmx1nopb/",
-    "final_subcategory": "Power Management - Specialized",
+    "final_subcategory": "AC DC Converters, Offline Switchers",
     "final_native_l1": "power-management",
-    "final_slug": "power-management-specialized-power-management"
+    "final_slug": "ac-dc-converters-offline-switchers"
   },
   {
     "mpn": "STM32F407VET6",
@@ -56372,9 +56372,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C2895597.pdf",
     "product_url": "/products/36404432/",
-    "final_subcategory": "Multi Purpose",
+    "final_subcategory": "Free Hanging, Panel Mount",
     "final_native_l1": "connectors",
-    "final_slug": "multi-purpose"
+    "final_slug": "free-hanging-panel-mount"
   },
   {
     "mpn": "W25X10CLUXIG",
@@ -69988,9 +69988,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/cd74hc4060pwr.pdf",
     "product_url": "/products/cd74hc4060pwr/",
-    "final_subcategory": "Flip Flops",
+    "final_subcategory": "Counters, Dividers",
     "final_native_l1": "logic-ics",
-    "final_slug": "flip-flops"
+    "final_slug": "counters-dividers"
   },
   {
     "mpn": "SRD-05VDC-SL-C",
@@ -73118,7 +73118,7 @@
     "product_url": "/products/610701/",
     "final_subcategory": "Quick Connects, Quick Disconnect Connectors",
     "final_native_l1": "terminals",
-    "final_slug": "quick-connects-quick-disconnect-connectors-terminals"
+    "final_slug": "quick-connects-quick-disconnect-connectors"
   },
   {
     "mpn": "776001-1",
@@ -75565,9 +75565,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/bav99.pdf",
     "product_url": "/products/bav99/",
-    "final_subcategory": "Diode Arrays",
+    "final_subcategory": "Single Diodes",
     "final_native_l1": "diodes",
-    "final_slug": "diode-arrays"
+    "final_slug": "single-diodes"
   },
   {
     "mpn": "AD8606ARMZ-R7",
@@ -77291,9 +77291,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/tql9092.pdf",
     "product_url": "/products/tql9092/",
-    "final_subcategory": "Special Purpose Amplifiers",
+    "final_subcategory": "RF Amplifiers",
     "final_native_l1": "rf-wireless",
-    "final_slug": "special-purpose-amplifiers-rf-wireless"
+    "final_slug": "rf-amplifiers"
   },
   {
     "mpn": "XC6SLX9-2TQG144I",
@@ -77928,9 +77928,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ttp223-ba6-td.pdf",
     "product_url": "/products/ttp223ba6td/",
-    "final_subcategory": "Analog and Digital Output",
+    "final_subcategory": "Sensor, Capacitive Touch",
     "final_native_l1": "sensors",
-    "final_slug": "analog-and-digital-output"
+    "final_slug": "sensor-capacitive-touch"
   },
   {
     "mpn": "SS8050 Y1",
@@ -82537,9 +82537,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/bzb84-b5v1-215.pdf",
     "product_url": "/products/bzb84b5v1215/",
-    "final_subcategory": "Single Zener Diodes",
+    "final_subcategory": "Zener Diode Arrays",
     "final_native_l1": "diodes",
-    "final_slug": "single-zener-diodes"
+    "final_slug": "zener-diode-arrays"
   },
   {
     "mpn": "BZX585-B3V6,115",
@@ -82639,9 +82639,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/bzb784-c12-115.pdf",
     "product_url": "/products/bzb784c12115/",
-    "final_subcategory": "Single Zener Diodes",
+    "final_subcategory": "Zener Diode Arrays",
     "final_native_l1": "diodes",
-    "final_slug": "single-zener-diodes"
+    "final_slug": "zener-diode-arrays"
   },
   {
     "mpn": "PBSS4120T,215",
@@ -87876,9 +87876,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/pdf/50/508c8ad08f1e5a6c6d8a4295d8e1410526d84236107709cf643e1cca73e9d887.pdf",
     "product_url": "/products/hdc2010ypar/",
-    "final_subcategory": "Analog and Digital Output",
+    "final_subcategory": "Humidity, Moisture Sensors",
     "final_native_l1": "sensors",
-    "final_slug": "analog-and-digital-output"
+    "final_slug": "humidity-moisture-sensors"
   },
   {
     "mpn": "TPS54060ADGQR",
@@ -88662,9 +88662,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lis3mdltr.pdf",
     "product_url": "/products/lis3mdltr/",
-    "final_subcategory": "Angle, Linear Position Measuring",
+    "final_subcategory": "Linear, Compass (ICs)",
     "final_native_l1": "magnetic-sensors",
-    "final_slug": "angle-linear-position-measuring"
+    "final_slug": "linear-compass-ics"
   },
   {
     "mpn": "1-917807-2",
@@ -91587,7 +91587,7 @@
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/sdsdqad-032g-mk-b.pdf",
     "product_url": "/products/sdsdqad032gmkb/",
     "final_subcategory": "Memory Cards",
-    "final_native_l1": "office-supplies",
+    "final_native_l1": "memory",
     "final_slug": "memory-cards"
   },
   {
@@ -94384,7 +94384,7 @@
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/sdg01gwsiga-c.pdf",
     "product_url": "/products/sdg01gwsigac/",
     "final_subcategory": "Memory Cards",
-    "final_native_l1": "office-supplies",
+    "final_native_l1": "memory",
     "final_slug": "memory-cards"
   },
   {
@@ -99642,9 +99642,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/3-1534796-4.pdf",
     "product_url": "/products/315347964/",
-    "final_subcategory": "Multi Purpose",
+    "final_subcategory": "Free Hanging, Panel Mount",
     "final_native_l1": "connectors",
-    "final_slug": "multi-purpose"
+    "final_slug": "free-hanging-panel-mount"
   },
   {
     "mpn": "2302639-1",
@@ -100666,9 +100666,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/td223a.pdf",
     "product_url": "/products/td223a/",
-    "final_subcategory": "Analog and Digital Output",
+    "final_subcategory": "Sensor, Capacitive Touch",
     "final_native_l1": "sensors",
-    "final_slug": "analog-and-digital-output"
+    "final_slug": "sensor-capacitive-touch"
   },
   {
     "mpn": "XBL4016E1TN",
@@ -100802,9 +100802,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://www.nxp.com/docs/en/data-sheet/SGTL5000.pdf",
     "product_url": "/products/sgtl5000xnba3/",
-    "final_subcategory": "Specialized ICs",
+    "final_subcategory": "CODECS",
     "final_native_l1": "interface-ics",
-    "final_slug": "specialized-ics"
+    "final_slug": "codecs"
   },
   {
     "mpn": "HDGC4001SMD-S-2P",
@@ -101312,9 +101312,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/74hct573d-653.pdf",
     "product_url": "/products/74hct573d653/",
-    "final_subcategory": "Flip Flops",
+    "final_subcategory": "Latches",
     "final_native_l1": "logic-ics",
-    "final_slug": "flip-flops"
+    "final_slug": "latches"
   },
   {
     "mpn": "AD7980BRMZRL7",
@@ -102646,9 +102646,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ucc28061dr.pdf",
     "product_url": "/products/ucc28061dr/",
-    "final_subcategory": "Power Management - Specialized",
+    "final_subcategory": "PFC (Power Factor Correction)",
     "final_native_l1": "power-management",
-    "final_slug": "power-management-specialized-power-management"
+    "final_slug": "pfc-power-factor-correction"
   },
   {
     "mpn": "MIC5524-3.3YMT-TR",
@@ -106473,7 +106473,7 @@
     "product_url": "/products/1736901/",
     "final_subcategory": "Quick Connects, Quick Disconnect Connectors",
     "final_native_l1": "terminals",
-    "final_slug": "quick-connects-quick-disconnect-connectors-terminals"
+    "final_slug": "quick-connects-quick-disconnect-connectors"
   },
   {
     "mpn": "GXTC201210-100-MT",
@@ -106938,7 +106938,7 @@
     "product_url": "/products/7374402/",
     "final_subcategory": "Quick Connects, Quick Disconnect Connectors",
     "final_native_l1": "terminals",
-    "final_slug": "quick-connects-quick-disconnect-connectors-terminals"
+    "final_slug": "quick-connects-quick-disconnect-connectors"
   },
   {
     "mpn": "RS4G32LR4D8BNR-46BT",
@@ -114323,7 +114323,7 @@
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/sdsdqab-008g-mk-d.pdf",
     "product_url": "/products/sdsdqab008gmkd/",
     "final_subcategory": "Memory Cards",
-    "final_native_l1": "office-supplies",
+    "final_native_l1": "memory",
     "final_slug": "memory-cards"
   },
   {
@@ -117843,9 +117843,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/sn74hc373nsr.pdf",
     "product_url": "/products/sn74hc373nsr/",
-    "final_subcategory": "Flip Flops",
+    "final_subcategory": "Latches",
     "final_native_l1": "logic-ics",
-    "final_slug": "flip-flops"
+    "final_slug": "latches"
   },
   {
     "mpn": "74AHC1G66GV-Q100H",
@@ -119003,9 +119003,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/74hc573d-653.pdf",
     "product_url": "/products/74hc573d653/",
-    "final_subcategory": "Flip Flops",
+    "final_subcategory": "Latches",
     "final_native_l1": "logic-ics",
-    "final_slug": "flip-flops"
+    "final_slug": "latches"
   },
   {
     "mpn": "74HC165D,653",
@@ -119877,9 +119877,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/top254yn.pdf",
     "product_url": "/products/top254yn/",
-    "final_subcategory": "Power Management - Specialized",
+    "final_subcategory": "AC DC Converters, Offline Switchers",
     "final_native_l1": "power-management",
-    "final_slug": "power-management-specialized-power-management"
+    "final_slug": "ac-dc-converters-offline-switchers"
   },
   {
     "mpn": "TPS73701DCQR",
@@ -120261,9 +120261,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/1-215882-0.pdf",
     "product_url": "/products/12158820/",
-    "final_subcategory": "Multi Purpose",
+    "final_subcategory": "Free Hanging, Panel Mount",
     "final_native_l1": "connectors",
-    "final_slug": "multi-purpose"
+    "final_slug": "free-hanging-panel-mount"
   },
   {
     "mpn": "BC807-40,215",
@@ -123293,9 +123293,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/1-180908-0.pdf",
     "product_url": "/products/11809080/",
-    "final_subcategory": "Rectangular Connector Housings",
+    "final_subcategory": "Housings, Boots",
     "final_native_l1": "connectors",
-    "final_slug": "rectangular-connector-housings"
+    "final_slug": "housings-boots"
   },
   {
     "mpn": "1-1241370-3",
@@ -123355,9 +123355,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/180905.pdf",
     "product_url": "/products/180905/",
-    "final_subcategory": "Rectangular Connector Housings",
+    "final_subcategory": "Housings, Boots",
     "final_native_l1": "connectors",
-    "final_slug": "rectangular-connector-housings"
+    "final_slug": "housings-boots"
   },
   {
     "mpn": "PIC16LF1829-I/SS",
@@ -136732,9 +136732,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C662254.pdf",
     "product_url": "/products/adv7280awbcpzrl/",
-    "final_subcategory": "Specialized ICs",
+    "final_subcategory": "CODECS",
     "final_native_l1": "interface-ics",
-    "final_slug": "specialized-ics"
+    "final_slug": "codecs"
   },
   {
     "mpn": "ADXL355BEZ-RL",
@@ -141960,9 +141960,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ice3pcs03g.pdf",
     "product_url": "/products/ice3pcs03g/",
-    "final_subcategory": "Power Management - Specialized",
+    "final_subcategory": "PFC (Power Factor Correction)",
     "final_native_l1": "power-management",
-    "final_slug": "power-management-specialized-power-management"
+    "final_slug": "pfc-power-factor-correction"
   },
   {
     "mpn": "SN74CBTLV3245APWR",
@@ -144876,7 +144876,7 @@
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/sdsdqab-004g-mk.pdf",
     "product_url": "/products/sdsdqab004gmk/",
     "final_subcategory": "Memory Cards",
-    "final_native_l1": "office-supplies",
+    "final_native_l1": "memory",
     "final_slug": "memory-cards"
   },
   {
@@ -149044,9 +149044,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/hdc3021dehr.pdf",
     "product_url": "/products/hdc3021dehr/",
-    "final_subcategory": "Analog and Digital Output",
+    "final_subcategory": "Humidity, Moisture Sensors",
     "final_native_l1": "sensors",
-    "final_slug": "analog-and-digital-output"
+    "final_slug": "humidity-moisture-sensors"
   },
   {
     "mpn": "PCF8574T/3,518",
@@ -153640,9 +153640,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/bav99lt1g.pdf",
     "product_url": "/products/bav99lt1g/",
-    "final_subcategory": "Diode Arrays",
+    "final_subcategory": "Single Diodes",
     "final_native_l1": "diodes",
-    "final_slug": "diode-arrays"
+    "final_slug": "single-diodes"
   },
   {
     "mpn": "1N5819HW-7-F",
@@ -157558,9 +157558,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/pma3-83ln-.pdf",
     "product_url": "/products/pma383ln/",
-    "final_subcategory": "Special Purpose Amplifiers",
+    "final_subcategory": "RF Amplifiers",
     "final_native_l1": "rf-wireless",
-    "final_slug": "special-purpose-amplifiers-rf-wireless"
+    "final_slug": "rf-amplifiers"
   },
   {
     "mpn": "CL31B226KPHNNNE",
@@ -158352,9 +158352,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ucc28180dr.pdf",
     "product_url": "/products/ucc28180dr/",
-    "final_subcategory": "Power Management - Specialized",
+    "final_subcategory": "PFC (Power Factor Correction)",
     "final_native_l1": "power-management",
-    "final_slug": "power-management-specialized-power-management"
+    "final_slug": "pfc-power-factor-correction"
   },
   {
     "mpn": "BSH111BKR",
@@ -159799,9 +159799,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "",
     "product_url": "/products/j1b1211ccd/",
-    "final_subcategory": "Multi Purpose",
+    "final_subcategory": "Modular/Ethernet Connector (RJ45) Jacks With Magnetics",
     "final_native_l1": "connectors",
-    "final_slug": "multi-purpose"
+    "final_slug": "modular-ethernet-connector-rj45-jacks-with-magnetics"
   },
   {
     "mpn": "MAX98357AETE+T",
@@ -160952,9 +160952,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/lis2mdltr.pdf",
     "product_url": "/products/lis2mdltr/",
-    "final_subcategory": "Angle, Linear Position Measuring",
+    "final_subcategory": "Linear, Compass (ICs)",
     "final_native_l1": "magnetic-sensors",
-    "final_slug": "angle-linear-position-measuring"
+    "final_slug": "linear-compass-ics"
   },
   {
     "mpn": "PESD3V3S1UB-N",
@@ -161151,9 +161151,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/bme280.pdf",
     "product_url": "/products/bme280/",
-    "final_subcategory": "Analog and Digital Output",
+    "final_subcategory": "Humidity, Moisture Sensors",
     "final_native_l1": "sensors",
-    "final_slug": "analog-and-digital-output"
+    "final_slug": "humidity-moisture-sensors"
   },
   {
     "mpn": "OPA320AIDBVR",
@@ -163874,9 +163874,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/ad9833brmz-reel7.pdf",
     "product_url": "/products/ad9833brmzreel7/",
-    "final_subcategory": "ADCs/DACs - Special Purpose",
+    "final_subcategory": "Direct Digital Synthesis (DDS)",
     "final_native_l1": "data-converters",
-    "final_slug": "adcs-dacs-special-purpose"
+    "final_slug": "direct-digital-synthesis-dds"
   },
   {
     "mpn": "AD8039ARZ-REEL7",
@@ -166592,7 +166592,10 @@
     "alternative_parts": "",
     "alternative_parts_detail": "",
     "datasheet_url": "",
-    "product_url": "/products/stm32f401ccu6/"
+    "product_url": "/products/stm32f401ccu6/",
+    "final_subcategory": "microcontrollers",
+    "final_native_l1": "microcontrollers",
+    "final_slug": ""
   },
   {
     "mpn": "CH32V103C8T6",
@@ -166620,7 +166623,10 @@
     "alternative_parts": "",
     "alternative_parts_detail": "",
     "datasheet_url": "",
-    "product_url": "/products/ch32v103c8t6/"
+    "product_url": "/products/ch32v103c8t6/",
+    "final_subcategory": "microcontrollers",
+    "final_native_l1": "microcontrollers",
+    "final_slug": ""
   },
   {
     "mpn": "ESP32-WROOM-32E",
@@ -166647,7 +166653,10 @@
     "alternative_parts": "",
     "alternative_parts_detail": "",
     "datasheet_url": "",
-    "product_url": "/products/esp32wroom32e/"
+    "product_url": "/products/esp32wroom32e/",
+    "final_subcategory": "iot-communication-modules",
+    "final_native_l1": "iot-communication-modules",
+    "final_slug": ""
   },
   {
     "mpn": "AT24C02C-SSHM-T",
@@ -166673,7 +166682,10 @@
     "alternative_parts": "",
     "alternative_parts_detail": "",
     "datasheet_url": "",
-    "product_url": "/products/at24c02csshmt/"
+    "product_url": "/products/at24c02csshmt/",
+    "final_subcategory": "memory",
+    "final_native_l1": "memory",
+    "final_slug": ""
   },
   {
     "mpn": "SWPA4030S100MT",
@@ -166697,7 +166709,10 @@
     "alternative_parts": "",
     "alternative_parts_detail": "",
     "datasheet_url": "",
-    "product_url": "/products/swpa4030s100mt/"
+    "product_url": "/products/swpa4030s100mt/",
+    "final_subcategory": "inductors-coils-transformers",
+    "final_native_l1": "inductors-coils-transformers",
+    "final_slug": ""
   },
   {
     "mpn": "2.54-1*40L=15MM",
@@ -166723,7 +166738,10 @@
     "alternative_parts": "",
     "alternative_parts_detail": "",
     "datasheet_url": "",
-    "product_url": "/products/254140l15mm/"
+    "product_url": "/products/254140l15mm/",
+    "final_subcategory": "connectors",
+    "final_native_l1": "connectors",
+    "final_slug": ""
   },
   {
     "mpn": "X322516MRB4SI",
@@ -166748,7 +166766,10 @@
     "alternative_parts": "",
     "alternative_parts_detail": "",
     "datasheet_url": "",
-    "product_url": "/products/x322516mrb4si/"
+    "product_url": "/products/x322516mrb4si/",
+    "final_subcategory": "clock-timing",
+    "final_native_l1": "clock-timing",
+    "final_slug": ""
   },
   {
     "mpn": "LM393DR2G",
@@ -166772,7 +166793,10 @@
     "alternative_parts": "",
     "alternative_parts_detail": "",
     "datasheet_url": "",
-    "product_url": "/products/lm393dr2g/"
+    "product_url": "/products/lm393dr2g/",
+    "final_subcategory": "amplifiers-comparators",
+    "final_native_l1": "amplifiers-comparators",
+    "final_slug": ""
   },
   {
     "mpn": "LM321",
@@ -214877,9 +214901,9 @@
     "alternative_parts_detail": "[{\"mpn\": \"MMBD4148CC\", \"manufacturer\": \"MDD(Microdiode Semiconductor)\", \"lcsc\": \"C414020\", \"type\": \"Similar\", \"package\": \"SOT-23\"}, {\"mpn\": \"BAV23C\", \"manufacturer\": \"MDD(Microdiode Semiconductor)\", \"lcsc\": \"C5254307\", \"type\": \"Similar\", \"package\": \"SOT-23\"}]",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C408391.pdf",
     "product_url": "/products/bav70/",
-    "final_subcategory": "Diode Arrays",
+    "final_subcategory": "Single Diodes",
     "final_native_l1": "diodes",
-    "final_slug": "diode-arrays"
+    "final_slug": "single-diodes"
   },
   {
     "mpn": "NO2020AS5G509KE10",
@@ -254391,8 +254415,8 @@
     "manufacturer": "MEAN WELL",
     "brand": "MEAN WELL",
     "url_slug": "lrs7524",
-    "category": "",
-    "subcategory": "",
+    "category": "Modules & Communication",
+    "subcategory": "Power Modules",
     "description": "AC/DC CONVERTER 24V 77W - AC DC Converters RoHS",
     "applications": "",
     "keywords": "LRS-75-24",
@@ -255649,8 +255673,8 @@
     "manufacturer": "MEAN WELL",
     "brand": "MEAN WELL",
     "url_slug": "lrs10012",
-    "category": "",
-    "subcategory": "",
+    "category": "Modules & Communication",
+    "subcategory": "Power Modules",
     "description": "AC/DC CONVERTER 12V 102W - AC DC Converters RoHS",
     "applications": "",
     "keywords": "LRS-100-12",
@@ -258152,7 +258176,7 @@
     "product_url": "/products/pxn01260qlj/",
     "final_subcategory": "Single FETs, MOSFETs",
     "final_native_l1": "transistors",
-    "final_slug": "single-fets-mosfets-transistors"
+    "final_slug": "single-fets-mosfets"
   },
   {
     "mpn": "OPA569AIDWPR",
@@ -258231,7 +258255,7 @@
     "product_url": "/products/bsc360n15ns3g/",
     "final_subcategory": "Single FETs, MOSFETs",
     "final_native_l1": "transistors",
-    "final_slug": "single-fets-mosfets-transistors"
+    "final_slug": "single-fets-mosfets"
   },
   {
     "mpn": "LAIL-PHC3.96-4P-01-VH-L",
@@ -258829,7 +258853,7 @@
     "product_url": "/products/buk9y2r840hx/",
     "final_subcategory": "Single FETs, MOSFETs",
     "final_native_l1": "transistors",
-    "final_slug": "single-fets-mosfets-transistors"
+    "final_slug": "single-fets-mosfets"
   },
   {
     "mpn": "KW2-2-02CR-30-3",
@@ -258837,8 +258861,8 @@
     "manufacturer": "G-Switch",
     "brand": "G-Switch",
     "url_slug": "kw2202cr303",
-    "category": "",
-    "subcategory": "",
+    "category": "Connectors & Electromechanical",
+    "subcategory": "Switches",
     "description": "Through Hole Limit Switches",
     "applications": "",
     "keywords": "KW2-2-02CR-30-3",
@@ -258860,8 +258884,8 @@
     "manufacturer": "G-Switch",
     "brand": "G-Switch",
     "url_slug": "kw2204p303",
-    "category": "",
-    "subcategory": "",
+    "category": "Connectors & Electromechanical",
+    "subcategory": "Switches",
     "description": "Through Hole Limit Switches",
     "applications": "",
     "keywords": "KW2-2-04P-30-3",
@@ -258883,8 +258907,8 @@
     "manufacturer": "G-Switch",
     "brand": "G-Switch",
     "url_slug": "kw2200p603",
-    "category": "",
-    "subcategory": "",
+    "category": "Connectors & Electromechanical",
+    "subcategory": "Switches",
     "description": "Through Hole-3P,12x5.8mm Limit Switches",
     "applications": "",
     "keywords": "KW2-2-00P-60-3",
@@ -259080,8 +259104,8 @@
     "manufacturer": "MEAN WELL",
     "brand": "MEAN WELL",
     "url_slug": "dpbw03f12",
-    "category": "",
-    "subcategory": "",
+    "category": "Power Management",
+    "subcategory": "Power Management",
     "description": "MEAN WELL DPBW03F-12",
     "applications": "- Telecom/datacom system - Wireless network - Industrial control facility - Instrument - Analyzer - Detector - Data switch",
     "keywords": "DPBW03F-12; Voltage Regulator; Voltage Regulator",
@@ -259695,8 +259719,8 @@
     "manufacturer": "Infineon Technologies",
     "brand": "Infineon Technologies",
     "url_slug": "imza120r007m1hxksa1",
-    "category": "",
-    "subcategory": "",
+    "category": "Semiconductors & Discrete",
+    "subcategory": "Transistors (BJT/MOSFET)",
     "description": "Infineon Technologies IMZA120R007M1HXKSA1 - N-Channel - 1.2 V - 225.00 A",
     "applications": "- General Purpose Drive (GPD) - EV Charging - Online UPS/Industrial UPS - String Inverter - Solar Power Optimizer",
     "keywords": "IMZA120R007M1HXKSA1; N-Channel MOSFET; MOSFET",
@@ -259805,8 +259829,8 @@
     "manufacturer": "MEAN WELL",
     "brand": "MEAN WELL",
     "url_slug": "irm3024",
-    "category": "",
-    "subcategory": "",
+    "category": "Modules & Communication",
+    "subcategory": "Power Modules",
     "description": "Enclosed AC DC Converters 1 Output 24V 1.3A 85 ~ 264 VAC Input - IRM-30 is a 30W miniature (69.5*39*24mm) AC-DC module-type power supply, ready to be soldered onto the PCB boards of various kinds of electronic instruments or industrial automation equipments. This product allows the universal input voltage range of 85~305VAC. The 94V-0 flame retardant plastic case and potted with silicone enhance the heat dissipation. PCB mounting style model (Blank) meet the anti-vibration demand up to 2G and screw terminal style model (ST) meet the anti-vibration demand up to 5G; moreover, it provides the fundamental resistance to dust and moisture. With the high efficiency up to 90% and the extremely low no-load power consumption below 0.1W, IRM-30 series fulfills the worldwide regulation for the low power consumption requirement for electronics. The entire series is a Class II design (no FG pin), incorporating the built-in EMI filtering components, enabling the compliance with BS EN/EN55032 Class B; the supreme EMC features keep the end electronic units from electromagnetic interference. In addition to module-type model, IRM-30 series also offers the screw terminal style model (ST).",
     "applications": "- Industrial electrical equipment - Mechanical equipment - Factory automation equipment - Hand-held electronic device",
     "keywords": "IRM-30-24",
@@ -259978,8 +260002,8 @@
     "manufacturer": "MEAN WELL",
     "brand": "MEAN WELL",
     "url_slug": "irm1512",
-    "category": "",
-    "subcategory": "",
+    "category": "Modules & Communication",
+    "subcategory": "Power Modules",
     "description": "Enclosed AC DC Converters 1 Output 12V 1.25A 85 ~ 305 VAC 120 ~ 430 VDC Input - IRM-15 is a 15W miniature (52.4*27.2*24mm) AC-DC module-type power supply, ready to be soldered onto the PCB boards of various kinds of electronic instruments or industrial automation equipments. This product allows the universal input voltage range of 85~305VAC. The 94V-0 flame retardant plastic case and potted with silicone enhance the heat dissipation and meet the anti-vibration demand up to 5G; moreover, it provides the fundamental resistance to dust and moisture. With the high efficiency up to 83% and the extremely low no-load power consumption below 0.1W, IRM-15 series fulfills the worldwide regulation for the low power consumption requirement for electronics. The entire series is a Class II design (no FG pin), incorporating the built-in EMl filtering components, enabling the compliance with BS EN/EN55032 Class B; the supreme EMC features keep the end electronic units from electromagnetic interference.",
     "applications": "- Industrial electrical equipment - Mechanical equipment - Factory automation equipment - Hand-held electronic device",
     "keywords": "IRM-15-12",
@@ -260048,8 +260072,8 @@
     "manufacturer": "MEAN WELL",
     "brand": "MEAN WELL",
     "url_slug": "rs7524",
-    "category": "",
-    "subcategory": "",
+    "category": "Modules & Communication",
+    "subcategory": "Power Modules",
     "description": "AC DC Converters RoHS",
     "applications": "",
     "keywords": "RS-75-24",
@@ -260263,8 +260287,8 @@
     "manufacturer": "MEAN WELL",
     "brand": "MEAN WELL",
     "url_slug": "irm0312",
-    "category": "",
-    "subcategory": "",
+    "category": "Modules & Communication",
+    "subcategory": "Power Modules",
     "description": "Enclosed AC DC Converters 1 Output 12V 250mA 85 ~ 305 VAC 120 ~ 430 VDC Input - DIP-5 AC DC Converters RoHS",
     "applications": "",
     "keywords": "IRM-03-12",
@@ -260297,8 +260321,8 @@
     "manufacturer": "MEAN WELL",
     "brand": "MEAN WELL",
     "url_slug": "irm0512",
-    "category": "",
-    "subcategory": "",
+    "category": "Modules & Communication",
+    "subcategory": "Power Modules",
     "description": "Enclosed AC DC Converters 1 Output 12V 420mA 85 ~ 305 VAC 120 ~ 430 VDC Input - IRM-05 is a 5W miniature (45.7*25.4*21.5 mm) AC-DC module-type power supply, ready to be soldered onto the PCB boards of various kinds of electronic instruments or industrial automation equipments. This product allows the universal input voltage range of 85~305VAC. The 94V-0 flame retardant plastic case and potted with silicone enhance the heat dissipation and meet the anti-vibration demand up to 5G; moreover, it provides the fundamental resistance to dust and moisture. With the high efficiency up to 77% and the extremely low no-load power consumption below 0.1W, IRM-05 series fulfills the worldwide regulation for the low power consumption requirement for electronics. The entire series is a Class II design (no FG pin), incorporating the built-in EMI filtering components, enabling the compliance with BS EN/EN55032 Class B; the supreme EMC features keep the end electronic units from electromagnetic interference.",
     "applications": "- Industrial electrical equipment - Mechanical equipment - Factory automation equipment - Hand-held electronic device",
     "keywords": "IRM-05-12",
@@ -260391,7 +260415,7 @@
     "product_url": "/products/ixth1n200p3hv/",
     "final_subcategory": "Single FETs, MOSFETs",
     "final_native_l1": "transistors",
-    "final_slug": "single-fets-mosfets-transistors"
+    "final_slug": "single-fets-mosfets"
   },
   {
     "mpn": "MPM-20-24",
@@ -260399,8 +260423,8 @@
     "manufacturer": "MEAN WELL",
     "brand": "MEAN WELL",
     "url_slug": "mpm2024",
-    "category": "",
-    "subcategory": "",
+    "category": "Modules & Communication",
+    "subcategory": "Power Modules",
     "description": "Enclosed AC DC Converters 1 Output 24V 900mA 80 ~ 264 VAC Input - MPM-20 is a 20W high density and small size (52.4*27.2*24 mm) AC/DC module type medical power supply series offered in pin type. It features the operation for 80~264 VAC, a low no load power consumption less than 0.1W, a high efficiency up to 87%, Class II (no FG) double insulation, outstanding dissipation and high lifespan thanks to the interior potting, 2G anti-vibration, high EMC performance, 4KVAC isolation, etc. The design observes IEC/BS EN/EN60601-1 and ANSI/AAMI ES60601-1 version three with 2xMOPP level and ultra-low leakage current (<80 uA). It is very suitable for BF (patient contact) type medical device or relevant equipment.",
     "applications": "- Portable medical device - Mobile clinical workstation - Medical computer monitor - Medical examination instrument",
     "keywords": "MPM-20-24",
@@ -260433,8 +260457,8 @@
     "manufacturer": "MEAN WELL",
     "brand": "MEAN WELL",
     "url_slug": "spbw06f05",
-    "category": "",
-    "subcategory": "",
+    "category": "Power Management",
+    "subcategory": "Power Management",
     "description": "MEAN WELL SPBW06F-05",
     "applications": "- Telecom/datacom system - Wireless network - Industrial control facility - Instrument - Analyzer - Detector - Data switch",
     "keywords": "SPBW06F-05; Voltage Regulator; Voltage Regulator",
@@ -260779,8 +260803,8 @@
     "manufacturer": "MEAN WELL",
     "brand": "MEAN WELL",
     "url_slug": "dcwn06b12",
-    "category": "",
-    "subcategory": "",
+    "category": "Power Management",
+    "subcategory": "Power Management",
     "description": "MEAN WELL DCWN06B-12",
     "applications": "- Telecom/datacom system - Wireless network - Industrial control facility - Instrument - Analyzer - Detector - Data switch",
     "keywords": "DCWN06B-12; Voltage Regulator; Voltage Regulator",
@@ -260930,7 +260954,7 @@
     "product_url": "/products/2n7002et1g/",
     "final_subcategory": "Single FETs, MOSFETs",
     "final_native_l1": "transistors",
-    "final_slug": "single-fets-mosfets-transistors"
+    "final_slug": "single-fets-mosfets"
   },
   {
     "mpn": "MC78M12ABDTRKG",
@@ -260971,8 +260995,8 @@
     "manufacturer": "MEAN WELL",
     "brand": "MEAN WELL",
     "url_slug": "irm0212",
-    "category": "",
-    "subcategory": "",
+    "category": "Modules & Communication",
+    "subcategory": "Power Modules",
     "description": "Enclosed AC DC Converters 1 Output 12V 167mA 85 ~ 305 VAC 120 ~ 430 VDC Input - IRM-02 is a 2W miniature (33.7x22.2x15mm) AC-DC module-type power supply, ready to be soldered onto the PCB boards of various kinds of electronic instruments or industrial automation equipments. This product allows a universal input voltage range of 85~305V AC. The phenolic case and potted with silicone enhance the heat dissipation and meet the anti-vibration demand up to 5G; moreover, it provides the fundamental resistance to dust and moisture. With the high efficiency up to 77% and the extremely low no-load power consumption below 0.075W, IRM-02 series fulfills the worldwide regulation for the low power consumption requirement for electronics. The entire series is a Class II design (no FG pin), incorporating the built-in EMI filtering components, enabling the compliance with BS EN/EN55032 Class B; the supreme EMC features keep the end electronic units from electromagnetic interference. In addition to module-type model, IRM-02 series also offers the SMD style model.",
     "applications": "- Industrial electrical equipment - Mechanical equipment - Factory automation equipment - Handheld electronic device",
     "keywords": "IRM-02-12",
@@ -261396,7 +261420,7 @@
     "product_url": "/products/pmv65xp215/",
     "final_subcategory": "Single FETs, MOSFETs",
     "final_native_l1": "transistors",
-    "final_slug": "single-fets-mosfets-transistors"
+    "final_slug": "single-fets-mosfets"
   },
   {
     "mpn": "C2012X5R1A476MTJ00E",
@@ -261890,7 +261914,7 @@
     "product_url": "/products/fdv303n/",
     "final_subcategory": "Single FETs, MOSFETs",
     "final_native_l1": "transistors",
-    "final_slug": "single-fets-mosfets-transistors"
+    "final_slug": "single-fets-mosfets"
   },
   {
     "mpn": "2N7002P,215",
@@ -261929,7 +261953,7 @@
     "product_url": "/products/2n7002p215/",
     "final_subcategory": "Single FETs, MOSFETs",
     "final_native_l1": "transistors",
-    "final_slug": "single-fets-mosfets-transistors"
+    "final_slug": "single-fets-mosfets"
   },
   {
     "mpn": "STM32F030CCT6",
@@ -262946,8 +262970,8 @@
     "manufacturer": "MEAN WELL",
     "brand": "MEAN WELL",
     "url_slug": "lrs10024",
-    "category": "",
-    "subcategory": "",
+    "category": "Modules & Communication",
+    "subcategory": "Power Modules",
     "description": "AC/DC CONVERTER 24V 108W - AC DC Converters RoHS",
     "applications": "",
     "keywords": "LRS-100-24",
@@ -262969,8 +262993,8 @@
     "manufacturer": "MEAN WELL",
     "brand": "MEAN WELL",
     "url_slug": "lrs5024",
-    "category": "",
-    "subcategory": "",
+    "category": "Modules & Communication",
+    "subcategory": "Power Modules",
     "description": "AC/DC CONVERTER 24V 53W - AC DC Converters RoHS",
     "applications": "",
     "keywords": "LRS-50-24",
@@ -263581,7 +263605,7 @@
     "product_url": "/products/wst3401/",
     "final_subcategory": "Single FETs, MOSFETs",
     "final_native_l1": "transistors",
-    "final_slug": "single-fets-mosfets-transistors"
+    "final_slug": "single-fets-mosfets"
   },
   {
     "mpn": "WST3400S",
@@ -263620,7 +263644,7 @@
     "product_url": "/products/wst3400s/",
     "final_subcategory": "Single FETs, MOSFETs",
     "final_native_l1": "transistors",
-    "final_slug": "single-fets-mosfets-transistors"
+    "final_slug": "single-fets-mosfets"
   },
   {
     "mpn": "TPS3801L30DCKR",
@@ -263832,7 +263856,7 @@
     "product_url": "/products/stp55nf06/",
     "final_subcategory": "Single FETs, MOSFETs",
     "final_native_l1": "transistors",
-    "final_slug": "single-fets-mosfets-transistors"
+    "final_slug": "single-fets-mosfets"
   },
   {
     "mpn": "DSK36",
@@ -264878,7 +264902,7 @@
     "product_url": "/products/2n7002kq7/",
     "final_subcategory": "Single FETs, MOSFETs",
     "final_native_l1": "transistors",
-    "final_slug": "single-fets-mosfets-transistors"
+    "final_slug": "single-fets-mosfets"
   },
   {
     "mpn": "MAX5401EKA+T",
@@ -269120,7 +269144,7 @@
     "product_url": "/products/irm6024/",
     "final_subcategory": "AC DC Converters",
     "final_native_l1": "power-modules",
-    "final_slug": "ac-dc-converters-power-modules"
+    "final_slug": "ac-dc-converters"
   },
   {
     "mpn": "PESD5V0F1BL,315",
@@ -269222,7 +269246,7 @@
     "product_url": "/products/irm055/",
     "final_subcategory": "AC DC Converters",
     "final_native_l1": "power-modules",
-    "final_slug": "ac-dc-converters-power-modules"
+    "final_slug": "ac-dc-converters"
   },
   {
     "mpn": "OPA2348AIDCNR",
@@ -269296,7 +269320,7 @@
     "product_url": "/products/irm0324/",
     "final_subcategory": "AC DC Converters",
     "final_native_l1": "power-modules",
-    "final_slug": "ac-dc-converters-power-modules"
+    "final_slug": "ac-dc-converters"
   },
   {
     "mpn": "SPBW06F-12",
@@ -269327,7 +269351,7 @@
     "product_url": "/products/spbw06f12/",
     "final_subcategory": "DC DC Converters",
     "final_native_l1": "power-management",
-    "final_slug": "dc-dc-converters-power-management"
+    "final_slug": "dc-dc-converters"
   },
   {
     "mpn": "TL082IDR",
@@ -269401,7 +269425,7 @@
     "product_url": "/products/irm035/",
     "final_subcategory": "AC DC Converters",
     "final_native_l1": "power-modules",
-    "final_slug": "ac-dc-converters-power-modules"
+    "final_slug": "ac-dc-converters"
   },
   {
     "mpn": "MC78L05ACDR2G",
@@ -272544,9 +272568,9 @@
     "alternative_parts_detail": "[{\"mpn\": \"MMBD7000LT1G\", \"manufacturer\": \"FUXINSEMI\", \"lcsc\": \"C3018493\", \"type\": \"Similar\", \"package\": \"SOT-23\"}, {\"mpn\": \"MMBD4148SE\", \"manufacturer\": \"FUXINSEMI\", \"lcsc\": \"C5178959\", \"type\": \"Similar\", \"package\": \"SOT-23(TO-236)\"}, {\"mpn\": \"MMBD3004S\", \"manufacturer\": \"FUXINSEMI\", \"lcsc\": \"C7436538\", \"type\": \"Similar\", \"package\": \"SOT-23\"}, {\"mpn\": \"BAS101S\", \"manufacturer\": \"FUXINSEMI\", \"lcsc\": \"C7436547\", \"type\": \"Similar\", \"package\": \"SOT-23\"}, {\"mpn\": \"MMBD5004S\", \"manufacturer\": \"FUXINSEMI\", \"lcsc\": \"C7436555\", \"type\": \"Similar\", \"package\": \"SOT-23\"}]",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C5178965.pdf",
     "product_url": "/products/bav99lt1g-fuxinsemi/",
-    "final_subcategory": "Diode Arrays",
+    "final_subcategory": "Single Diodes",
     "final_native_l1": "diodes",
-    "final_slug": "diode-arrays"
+    "final_slug": "single-diodes"
   },
   {
     "mpn": "S9013",
@@ -272823,9 +272847,9 @@
     "alternative_parts_detail": "[{\"mpn\": \"D5-MMBD4148CC\", \"manufacturer\": \"GOODWORK\", \"lcsc\": \"C5807892\", \"type\": \"Similar\", \"package\": \"SOT-23\"}]",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C5248045.pdf",
     "product_url": "/products/bav70-goodwork/",
-    "final_subcategory": "Diode Arrays",
+    "final_subcategory": "Single Diodes",
     "final_native_l1": "diodes",
-    "final_slug": "diode-arrays"
+    "final_slug": "single-diodes"
   },
   {
     "mpn": "LM321",
@@ -276422,9 +276446,9 @@
     "alternative_parts_detail": "[{\"mpn\": \"MMBD7000\", \"manufacturer\": \"YONGYUTAI\", \"lcsc\": \"C6562219\", \"type\": \"Similar\", \"package\": \"SOT-23\"}, {\"mpn\": \"MMBD4148SE\", \"manufacturer\": \"YONGYUTAI\", \"lcsc\": \"C2904841\", \"type\": \"Similar\", \"package\": \"SOT-23\"}, {\"mpn\": \"BAS31\", \"manufacturer\": \"YONGYUTAI\", \"lcsc\": \"C52097664\", \"type\": \"Similar\", \"package\": \"SOT-23\"}]",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C2891735.pdf",
     "product_url": "/products/bav99-yongyutai/",
-    "final_subcategory": "Diode Arrays",
+    "final_subcategory": "Single Diodes",
     "final_native_l1": "diodes",
-    "final_slug": "diode-arrays"
+    "final_slug": "single-diodes"
   },
   {
     "mpn": "PCF85134HL/1,118",
@@ -295556,9 +295580,9 @@
     "alternative_parts_detail": "",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C46550851.pdf",
     "product_url": "/products/bav99-tdsemic/",
-    "final_subcategory": "Diode Arrays",
+    "final_subcategory": "Single Diodes",
     "final_native_l1": "diodes",
-    "final_slug": "diode-arrays"
+    "final_slug": "single-diodes"
   },
   {
     "mpn": "SD05",
@@ -295969,9 +295993,9 @@
     "alternative_parts_detail": "[{\"mpn\": \"MMBD4148SE\", \"manufacturer\": \"R+O\", \"lcsc\": \"C17179590\", \"type\": \"Similar\", \"package\": \"SOT-23\"}, {\"mpn\": \"BAS21S\", \"manufacturer\": \"R+O\", \"lcsc\": \"C7502726\", \"type\": \"Similar\", \"package\": \"SOT-23\"}]",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C7420336.pdf",
     "product_url": "/products/bav99-r-o/",
-    "final_subcategory": "Diode Arrays",
+    "final_subcategory": "Single Diodes",
     "final_native_l1": "diodes",
-    "final_slug": "diode-arrays"
+    "final_slug": "single-diodes"
   },
   {
     "mpn": "2N5551",
@@ -296283,9 +296307,9 @@
     "alternative_parts_detail": "[{\"mpn\": \"BAS21S\", \"manufacturer\": \"GOODWORK\", \"lcsc\": \"C22470936\", \"type\": \"Similar\", \"package\": \"SOT-23\"}, {\"mpn\": \"BAV23S\", \"manufacturer\": \"GOODWORK\", \"lcsc\": \"C42402292\", \"type\": \"Similar\", \"package\": \"SOT-23\"}, {\"mpn\": \"D4-MMBD4148SE\", \"manufacturer\": \"GOODWORK\", \"lcsc\": \"C5807893\", \"type\": \"Similar\", \"package\": \"SOT-23\"}]",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C909763.pdf",
     "product_url": "/products/bav99-goodwork/",
-    "final_subcategory": "Diode Arrays",
+    "final_subcategory": "Single Diodes",
     "final_native_l1": "diodes",
-    "final_slug": "diode-arrays"
+    "final_slug": "single-diodes"
   },
   {
     "mpn": "1N4148WS",
@@ -296419,9 +296443,9 @@
     "alternative_parts_detail": "[{\"mpn\": \"BAV23S-JSM\", \"manufacturer\": \"JSMSEMI\", \"lcsc\": \"C53113959\", \"type\": \"Similar\", \"package\": \"SOT-23\"}, {\"mpn\": \"BAV23S,215-JSM\", \"manufacturer\": \"JSMSEMI\", \"lcsc\": \"C53114271\", \"type\": \"Similar\", \"package\": \"SOT-23\"}, {\"mpn\": \"MMBD4148SE-JSM\", \"manufacturer\": \"JSMSEMI\", \"lcsc\": \"C18189097\", \"type\": \"Similar\", \"package\": \"SOT-23-3\"}, {\"mpn\": \"MMBD4148SE\", \"manufacturer\": \"JSMSEMI\", \"lcsc\": \"C916436\", \"type\": \"Similar\", \"package\": \"SOT-23\"}, {\"mpn\": \"BAV99-QR-JSM\", \"manufacturer\": \"JSMSEMI\", \"lcsc\": \"C53114074\", \"type\": \"Similar\", \"package\": \"SOT-23\"}, {\"mpn\": \"BAV99,215-JSM\", \"manufacturer\": \"JSMSEMI\", \"lcsc\": \"C53113845\", \"type\": \"Similar\", \"package\": \"SOT-23\"}]",
     "datasheet_url": "https://pub-fd1103d4aed04a7c9cbf10d74caaaade.r2.dev/datasheets/C916421.pdf",
     "product_url": "/products/bav99-jsmsemi/",
-    "final_subcategory": "Diode Arrays",
+    "final_subcategory": "Single Diodes",
     "final_native_l1": "diodes",
-    "final_slug": "diode-arrays"
+    "final_slug": "single-diodes"
   },
   {
     "mpn": "1N4148WS",
