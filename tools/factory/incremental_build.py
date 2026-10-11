@@ -297,6 +297,17 @@ def incremental_build(base_out, full_csv, out_root,
     attr_json = attr_json or os.path.join(REPO, "tools", "attribute_dictionary.json")
     val_json = val_json or os.path.join(REPO, "tools", "value_translation.json")
 
+    # (2026-10-11) Components V2.4 protection: a whole-tree overwrite landing on the
+    # live site would silently replace the hand-designed components/index.html with the
+    # copied base snapshot. Refuse before anything is deleted. Anchor-scoped injection
+    # performed later by gp.inject_hub_anchors() remains allowed.
+    try:
+        import hub_v24_guard as _hub_guard
+    except ImportError:  # pragma: no cover -- gen_parts puts tools/ on sys.path for us
+        sys.path.insert(0, os.path.join(REPO, "tools"))
+        import hub_v24_guard as _hub_guard
+    _hub_guard.refuse_live_hub_tree_overwrite(out_root)
+
     if os.path.exists(out_root):
         shutil.rmtree(out_root)
     shutil.copytree(base_out, out_root)

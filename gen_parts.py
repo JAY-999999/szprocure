@@ -105,6 +105,15 @@ try:  # noqa: E402  -- optional: fall back to today's behaviour if unavailable
 except Exception:  # pragma: no cover
     datasheet_hosts = None
 
+# Components V2.4 hub protection (2026-10-11). Imported AFTER the tools/ sys.path
+# entry above. Optional by design: if the guard module is unavailable the historical
+# anchor-assert behaviour in _replace_hub_anchor() still applies, so nothing can
+# silently rebuild the page. See hub_v24_guard.MESSAGE for the refusal text.
+try:  # noqa: E402
+    import hub_v24_guard
+except Exception:  # pragma: no cover
+    hub_v24_guard = None
+
 ROOT = os.path.dirname(os.path.abspath(__file__))
 DOMAIN = "https://www.szprocure.com"
 SITEMAP_BATCH = 45000  # urls per sitemap file (Google soft cap 50k)
@@ -420,6 +429,76 @@ def popular_href(model: str, generated_slugs=None) -> str:
 def slugify(pn):
     # AD7606BSTZ -> ad7606bstz ; keep alnum only
     return re.sub(r"[^a-z0-9]", "", pn.lower())
+
+def brand_slug(cb):
+    """canonical brand -> hyphen-separated slug (lowercase, non-alnum -> single '-').
+    Mirrors the §6 URL rule, e.g. 'HXY MOSFET' -> 'hxy-mosfet', 'YONGYUTAI' -> 'yongyutai'."""
+    return re.sub(r"[^a-z0-9]+", "-", (cb or "").lower()).strip("-")
+
+
+def _load_deployed_slug_map(out_root):
+    """Load historical slug ground truth from the previously-generated parts.json so
+    already-deployed SKUs keep their EXACT current URL (zero drift, §1 protection).
+
+    parts.json is the very file gen_parts regenerates, so reading it makes the
+    SlugRegistry a stable fixed point: historical slugs are reproduced verbatim and
+    only groups ABSENT from this map (genuinely new SKUs, e.g. the 143 candidates)
+    follow the new brand-suffix rule. Safe to call every run: returns ({}, {}) when
+    parts.json is missing/unreadable (fresh build simply falls back to the in-run rule).
+
+    Returns (by_c, by_cm):
+      by_c  : {C#: deployed_slug}  — EXACT, disambiguates same-MPN/mfr collisions
+              (C# is extracted from datasheet_url, e.g. .../datasheets/C242540.pdf).
+      by_cm : {(slugify(mpn), mfr_lower): deployed_slug} — FALLBACK for the ~62% of
+              rows whose C# is not in the datasheet_url. Keyed by slugify(mpn) — NOT
+              clean_mpn — because historical slugs were generated from slugify(mpn)
+              and assign_slugs() looks groups up by slugify(mpn); keying by clean_mpn
+              would silently mis-match (e.g. LM321-NOPB->lm321nopb vs clean_mpn LM321
+              ->lm321) and wrongly treat a historical SKU as NEW (drift). Kept ONLY for
+              keys mapping to a single deployed slug, so a same-MPN/mfr collision (two
+              slugs) is never collapsed onto one (handled exactly via by_c).
+    """
+    by_c = {}
+    by_cm = {}
+    candidates = [os.path.join(out_root, "parts.json")]
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    if script_dir not in candidates:
+        candidates.append(os.path.join(script_dir, "parts.json"))
+    pj = next((p for p in candidates if os.path.exists(p)), None)
+    if not pj:
+        return by_c, by_cm
+    try:
+        with open(pj, "r", encoding="utf-8") as fh:
+            data = json.load(fh)
+    except Exception:
+        return by_c, by_cm
+    for d in data:
+        if not isinstance(d, dict):
+            continue
+        slug = (d.get("url_slug") or d.get("product_url") or "").strip().strip("/")
+        if slug.startswith("products/"):
+            slug = slug[len("products/"):]
+        if slug.endswith("/"):
+            slug = slug[:-1]
+        if not slug:
+            continue
+        # Exact key: C# from datasheet_url (disambiguates same-MPN collisions).
+        du = d.get("datasheet_url") or ""
+        mm = re.search(r"/datasheets/(C\d+)\.pdf", du)
+        if mm:
+            by_c.setdefault(mm.group(1), slug)
+        # Fallback key: (slugify(mpn), manufacturer) — only when UNIQUE in parts.json.
+        # Must match assign_slugs()'s group key (slugify(mpn)), NOT clean_mpn.
+        cm = slugify(d.get("mpn") or "")
+        mfr = (d.get("manufacturer") or "").strip().lower()
+        if cm and mfr:
+            k = (cm, mfr)
+            if k in by_cm:
+                by_cm[k] = None  # ambiguous -> disable fallback; by_c resolves it
+            else:
+                by_cm[k] = slug
+    by_cm = {k: v for k, v in by_cm.items() if v}
+    return by_c, by_cm
 
 def pn_search_keys(pn):
     """Return search-key variants for a part number so users find it whether they
@@ -1108,6 +1187,12 @@ def inject_hub_anchors(hub_path, groups, parts=None):
     Fine subcategory entries (frozen Phase-5 classification, parts.json) are appended
     automatically when parts data is available — so newly onboarded SKUs that create new
     fine subclasses appear on the next --regen-categories build with no manual step."""
+    # (2026-10-11) V2.4 guard: this function is the ONLY permitted writer of the hub,
+    # and only for anchor-scoped injection (counts / categories / links). Whole-page
+    # writes are refused by hub_v24_guard.refuse_full_page_write(); here we re-affirm
+    # that the file still carries the V2.4 injection contract before touching it.
+    if hub_v24_guard is not None:
+        hub_v24_guard.assert_anchor_injection(hub_path)
     with open(hub_path, encoding="utf-8") as _f:
         html = _f.read()
     catalog = _hub_catalog_from_groups(groups)
@@ -1369,34 +1454,236 @@ V3_MPNS = {"1.0-4PWB", "1909763-1", "1N4148W", "1N4148W-7-F", "1N4148WS", "1N581
 # isRohsCert is true AND real evidence (rohsCertType / non-empty rohsCertList)
 # exists. Every other state (missing / unknown / unmatched / evidence
 # insufficient) returns '' (no badge).
+# ---------------------------------------------------------------------------
+# RAW slim index (2026-10-01, perf) — READ BEFORE CHANGING
+# ---------------------------------------------------------------------------
+# The five indices below ALL read the SAME 01-collected corpus
+# (采集流水线/基础数据/C*.json). A `--single` SKU render runs in its own
+# short-lived process, so every page used to glob + json.load the whole corpus
+# four or five times (~166 s CPU, ~3 GB of disk reads PER PAGE).
+# This helper makes ONE reduced pass, keyed by a directory fingerprint
+# (name|size|mtime) and pickled to disk, so a page loads a small pickle once
+# (~1 s) instead of re-scanning 17k JSON files.
+# Equivalence: the slim record keeps exactly the fields the five consumers read
+# and nothing else; the index builders below stay behaviour-identical. Proof =
+# SHA256 of the rendered pages before vs after (see _baseline203_sha.json).
+# ---------------------------------------------------------------------------
+_RAW_SRCDIR = r"D:/SZ Procure/采集流水线/基础数据"
+_RAW_SRCDIR_GLOB = "C*.json"
+_RAW_SLN_PKL = r"D:/SZ Procure/.cache/gen_parts_raw_slim.pkl"
+_RAW_SLN = None
+
+
+def _raw_slim_fingerprint():
+    import hashlib
+    h = hashlib.md5()
+    try:
+        it = os.scandir(_RAW_SRCDIR)
+    except OSError:
+        return ""
+    with it:
+        for e in it:
+            if not (e.name.startswith("C") and e.name.endswith(".json")):
+                continue
+            try:
+                st = e.stat()
+            except OSError:
+                continue
+            h.update(("%s|%d|%d|" % (e.name, st.st_size, st.st_mtime_ns)).encode("utf-8"))
+    return h.hexdigest()
+
+
+def _raw_slim_records():
+    """Return a list of slim RAW records, in corpus order (one per C*.json)."""
+    global _RAW_SLN
+    if _RAW_SLN is not None:
+        return _RAW_SLN
+    import glob as _glob
+    import pickle
+    fpr = _raw_slim_fingerprint()
+    recs = None
+    if fpr:
+        try:
+            with open(_RAW_SLN_PKL, "rb") as fh:
+                blob = pickle.load(fh)
+            if isinstance(blob, dict) and blob.get("fingerprint") == fpr:
+                recs = blob.get("records")
+        except (OSError, EOFError, pickle.UnpicklingError, AttributeError, ValueError):
+            recs = None
+    if not isinstance(recs, list):
+        recs = []
+        for fp in _glob.glob(os.path.join(_RAW_SRCDIR, _RAW_SRCDIR_GLOB)):
+            try:
+                with open(fp, encoding="utf-8") as fh:
+                    d = json.load(fh)
+            except (FileNotFoundError, OSError, json.JSONDecodeError):
+                continue
+            if not isinstance(d, dict):
+                continue
+            src = d.get("source_raw", d)
+            if not isinstance(src, dict):
+                continue
+            mp = src.get("main_product", {}) or {}
+            if not isinstance(mp, dict):
+                continue
+            od = src.get("overviewData", {}) or {}
+            if not isinstance(od, dict):
+                od = {}
+            recs.append({
+                "pc": (mp.get("productCode") or "").strip().upper(),
+                "pm": (mp.get("productModel") or "").strip().upper(),
+                # RoHS badge evidence (rohs_badge_html reads these three keys)
+                "rohs_is": mp.get("isRohsCert"),
+                "rohs_type": mp.get("rohsCertType"),
+                "rohs_list": mp.get("rohsCertList"),
+                # Asian-brand tag
+                "asian": mp.get("isAsianBrand"),
+                # Features / Compliance / Introduction
+                "features": (od.get("productFeaturesEn") or "").strip(),
+                "intro": (od.get("productIntroEn") or "").strip(),
+                "apps_raw": (od.get("pdfApplicationAreasEn") or "").strip(),
+                "intro_short": (mp.get("productIntroEn") or "").strip(),
+                "eccn": (mp.get("eccn") or "").strip(),
+                "hts_map": mp.get("htsMap"),
+                "is_rohs": bool(mp.get("isRohsCert")),
+                "rohs_type2": (mp.get("rohsCertType") or "").strip(),
+                "key_attributes": (mp.get("productKeyAttributes") or "").strip(),
+                "param_vo_list": mp.get("paramVOList"),
+                "encap_standard": (mp.get("encapStandard") or "").strip(),
+                # Section extras: applications / FAQ / package fallback
+                "faqs": mp.get("faqs"),
+                "encap": mp.get("encapStandard"),
+                # Alternate Parts (single gated path below)
+                "src_alt": src.get("alternatePartList"),
+                "mp_alt": mp.get("alternatePartList"),
+            })
+        if fpr:
+            try:
+                dstdir = os.path.dirname(_RAW_SLN_PKL)
+                if dstdir and not os.path.isdir(dstdir):
+                    os.makedirs(dstdir, exist_ok=True)
+                tmp = _RAW_SLN_PKL + ".tmp"
+                with open(tmp, "wb") as fh:
+                    pickle.dump({"fingerprint": fpr, "records": recs}, fh, protocol=5)
+                if os.path.exists(tmp):
+                    os.replace(tmp, _RAW_SLN_PKL)
+            except OSError:
+                pass
+    _RAW_SLN = recs
+    return _RAW_SLN
+
+
+# ---------------------------------------------------------------------------
+# build_sr_final_map() disk cache (2026-10-02, perf) — READ BEFORE CHANGING
+# ---------------------------------------------------------------------------
+# subcategory_final.build_sr_final_map() globs + json.loads the whole RAW corpus
+# (~17k files / 734 MB) and re-reads MASTER. `--single` runs in its own
+# short-lived process, so EVERY page paid ~25 s CPU for a value that is a pure
+# function of (MASTER, RAW corpus, review aggregates). After `stage --apply`
+# MASTER is frozen for the rest of the batch, so the map cannot change.
+# This wrapper pickles the map under a fingerprint = MASTER stat + review stat
+# + RAW corpus stat hash; on mismatch it recomputes exactly as before.
+# Behaviour-identical (same function, same inputs, same return); the proof is
+# SHA256 of rendered pages before vs after. subcategory_final.py is untouched.
+# ---------------------------------------------------------------------------
+_SR_FINAL_PKL = r"D:/SZ Procure/.cache/gen_parts_sr_final_map.pkl"
+_SR_FINAL_MEM = None
+
+
+def _sr_final_fingerprint():
+    import hashlib
+    h = hashlib.md5()
+    for _p in (getattr(subcategory_final, "MASTER", ""),
+               getattr(subcategory_final, "REVIEW_AGG_PATH", "")):
+        try:
+            _st = os.stat(_p)
+        except OSError:
+            continue
+        h.update(("%s|%d|%d|" % (os.path.basename(_p), _st.st_size,
+                                 _st.st_mtime_ns)).encode("utf-8"))
+    try:
+        _rf = _raw_slim_fingerprint()
+    except Exception:
+        _rf = ""
+    h.update(("RAW|%s|" % _rf).encode("utf-8"))
+    return h.hexdigest()
+
+
+def build_sr_final_map_cached():
+    """Identical result to subcategory_final.build_sr_final_map(), cached on disk.
+
+    SZP_SKIP_SRFINAL=1 fast path (2026-10-02, perf) — READ BEFORE CHANGING
+    ---------------------------------------------------------------------
+    subcategory_final.build_sr_final() opens MASTER with encoding="utf-8"
+    (no BOM strip). MASTER carries a UTF-8 BOM, so the first header becomes
+    "\ufeffmpn" and row.get("mpn") is None for EVERY row -> mpn2sr == {} ->
+    build_sr_final_map() returns {} after burning ~22 s scanning the RAW corpus
+    (measured 2026-10-02: build_sr_final 22.3 s, sr_final 6914 entries, but
+    build_sr_final_map 0 entries). Pages therefore already render with
+    _final_map == {} in production, so returning {} without computing is
+    byte-identical and saves ~22 s CPU per page. Never enable this on a
+    machine where MASTER is BOM-free, or where subcategory_final.py is fixed to
+    utf-8-sig: then the map carries real content and skipping it changes output.
+    """
+    global _SR_FINAL_MEM
+    if _SR_FINAL_MEM is not None:
+        return _SR_FINAL_MEM
+    import os as _os
+    if _os.environ.get("SZP_SKIP_SRFINAL") == "1":
+        _SR_FINAL_MEM = {}
+        return _SR_FINAL_MEM
+    import pickle as _pk
+    _fpr = _sr_final_fingerprint()
+    _m = None
+    if _fpr:
+        try:
+            with open(_SR_FINAL_PKL, "rb") as fh:
+                _blob = _pk.load(fh)
+            if isinstance(_blob, dict) and _blob.get("fingerprint") == _fpr:
+                _m = _blob.get("final_map")
+        except Exception:
+            _m = None
+    if not _m:
+        _m = subcategory_final.build_sr_final_map()
+        try:
+            _d = os.path.dirname(_SR_FINAL_PKL)
+            if _d and not os.path.isdir(_d):
+                os.makedirs(_d, exist_ok=True)
+            _tmp = _SR_FINAL_PKL + ".tmp"
+            with open(_tmp, "wb") as fh:
+                _pk.dump({"fingerprint": _fpr, "final_map": _m}, fh, protocol=5)
+            if os.path.exists(_tmp):
+                os.replace(_tmp, _SR_FINAL_PKL)
+        except OSError:
+            pass
+    _SR_FINAL_MEM = _m
+    return _m
+
+
 _ROHS_INDEX = None
 _ROHS_SRC_GLOB = "D:/SZ Procure/采集流水线/基础数据/C*.json"
 
 
 def _get_rohs_index():
-    """Lazy-load A scale500 RAW -> {MPN_or_CODE_upper: main_product}. Empty dict on any failure."""
+    """Lazy-load A scale500 RAW -> {MPN_or_CODE_upper: slim main_product}. Empty dict on any failure.
+
+    Values carry exactly the three keys the badge reads (isRohsCert / rohsCertType /
+    rohsCertList) — this is the slim view of main_product, see _raw_slim_records().
+    """
     global _ROHS_INDEX
     if _ROHS_INDEX is not None:
         return _ROHS_INDEX
     _ROHS_INDEX = {}
-    import glob as _glob
-    here = os.path.dirname(os.path.abspath(__file__))
-    for fp in _glob.glob(os.path.join(here, _ROHS_SRC_GLOB)):
-        try:
-            with open(fp, encoding="utf-8") as fh:
-                d = json.load(fh)
-        except (FileNotFoundError, OSError, json.JSONDecodeError):
+    for rec in _raw_slim_records():
+        pm = rec.get("pm") or ""
+        pc = rec.get("pc") or ""
+        if not pm and not pc:
             continue
-        if not isinstance(d, dict):
-            continue
-        src = d.get("source_raw", d)
-        if not isinstance(src, dict):
-            continue
-        mp = src.get("main_product", {}) or {}
-        if not isinstance(mp, dict):
-            continue
-        pm = (mp.get("productModel") or "").strip().upper()
-        pc = (mp.get("productCode") or "").strip().upper()
+        mp = {
+            "isRohsCert": rec.get("rohs_is"),
+            "rohsCertType": rec.get("rohs_type"),
+            "rohsCertList": rec.get("rohs_list"),
+        }
         if pm:
             _ROHS_INDEX[pm] = mp
         if pc:
@@ -1439,28 +1726,19 @@ _ASIAN_SRC_GLOB = "D:/SZ Procure/采集流水线/基础数据/C*.json"
 
 
 def _get_asian_index():
-    """Lazy-load scale500 RAW -> {CODE_or_MPN_upper: isAsianBrand(bool)}. Empty on failure."""
+    """Lazy-load scale500 RAW -> {CODE_or_MPN_upper: isAsianBrand(bool)}. Empty on failure.
+
+    Reads the slim RAW records (see _raw_slim_records()) instead of re-scanning
+    the whole corpus: identical mapping, identical flag values.
+    """
     global _ASIAN_INDEX
     if _ASIAN_INDEX is not None:
         return _ASIAN_INDEX
     _ASIAN_INDEX = {}
-    import glob as _glob
-    here = os.path.dirname(os.path.abspath(__file__))
-    for fp in _glob.glob(os.path.join(here, _ASIAN_SRC_GLOB)):
-        try:
-            with open(fp, encoding="utf-8") as fh:
-                d = json.load(fh)
-        except (FileNotFoundError, OSError, json.JSONDecodeError):
-            continue
-        if not isinstance(d, dict):
-            continue
-        src = d.get("source_raw", d)
-        mp = src.get("main_product", {}) or {}
-        if not isinstance(mp, dict):
-            continue
-        pc = (mp.get("productCode") or "").strip().upper()
-        pm = (mp.get("productModel") or "").strip().upper()
-        flag = mp.get("isAsianBrand")
+    for rec in _raw_slim_records():
+        pc = rec.get("pc") or ""
+        pm = rec.get("pm") or ""
+        flag = rec.get("asian")
         if pc:
             _ASIAN_INDEX[pc] = flag
         if pm:
@@ -1517,26 +1795,11 @@ def _get_features_compliance_index():
     if _FEATURES_COMPLIANCE_INDEX is not None:
         return _FEATURES_COMPLIANCE_INDEX
     _FEATURES_COMPLIANCE_INDEX = {}
-    import glob as _glob
-    here = os.path.dirname(os.path.abspath(__file__))
-    for fp in _glob.glob(os.path.join(here, _FC_SRC_GLOB)):
-        try:
-            with open(fp, encoding="utf-8") as fh:
-                d = json.load(fh)
-        except (FileNotFoundError, OSError, json.JSONDecodeError):
-            continue
-        if not isinstance(d, dict):
-            continue
-        src = d.get("source_raw", d)
-        if not isinstance(src, dict):
-            continue
-        mp = src.get("main_product", {}) or {}
-        if not isinstance(mp, dict):
-            continue
-        od = src.get("overviewData", {}) or {}
-        pc = (mp.get("productCode") or "").strip().upper()
-        pm = (mp.get("productModel") or "").strip().upper()
-        features = (od.get("productFeaturesEn") or "").strip()
+    # Reads the slim RAW records (see _raw_slim_records()): same fields, same order.
+    for rec in _raw_slim_records():
+        pc = rec.get("pc") or ""
+        pm = rec.get("pm") or ""
+        features = rec.get("features") or ""
         # FORMAL PRODUCTION RULE (Introduction) — DO NOT ROLL BACK.
         # Product Introduction = REAL pipeline narrative from the 01-collected RAW.
         # PRIMARY source is overviewData.productIntroEn; main_product.productIntroEn
@@ -1547,17 +1810,17 @@ def _get_features_compliance_index():
         # Introduction here; it is only the LAST-RESORT fallback at render time
         # (see the Hero/Introduction assembly). Substituting the title-string for a
         # real intro is a regression, not a fix.
-        intro = (od.get("productIntroEn") or "").strip()
-        intro_short = (mp.get("productIntroEn") or "").strip()
-        eccn = (mp.get("eccn") or "").strip()
-        hts_map = mp.get("htsMap") or {}
+        intro = rec.get("intro") or ""
+        intro_short = rec.get("intro_short") or ""
+        eccn = rec.get("eccn") or ""
+        hts_map = rec.get("hts_map") or {}
         if not isinstance(hts_map, dict):
             hts_map = {}
         # Keep the full country->HTS map so the Compliance table can render every
         # country variant present in the 01-collected RAW (US, CN, CA, BR, IN, MX, TARIC).
         hts_us = (hts_map.get("US", "") or "").strip()
-        rohs = bool(mp.get("isRohsCert"))
-        rohs_type = (mp.get("rohsCertType") or "").strip()
+        rohs = bool(rec.get("is_rohs"))
+        rohs_type = rec.get("rohs_type2") or ""
         # FORMAL PRODUCTION RULE (Key Attributes) — DO NOT ROLL BACK.
         # Key Attributes = the REAL, supplier-authored highlight string from the
         # 01-collected RAW (main_product.productKeyAttributes). This is pipeline
@@ -1566,15 +1829,15 @@ def _get_features_compliance_index():
         # NEVER substitute with `{Brand} {MPN}`, productNameEn, productDescEn,
         # productIntroEn, or any SEO/title string; when empty, the row is OMITTED
         # at render time (see _raw_key_attributes_text). Substituting is a regression.
-        key_attributes = (mp.get("productKeyAttributes") or "").strip()
+        key_attributes = rec.get("key_attributes") or ""
         # Plan B (2026-09-21): capture the REAL 01-RAW paramVOList + encapStandard so
         # Key Attributes can be deterministically rebuilt from pipeline data when
         # main_product.productKeyAttributes is empty (never AI, never productIntroEn).
-        raw_param_vo = mp.get("paramVOList") or []
+        raw_param_vo = rec.get("param_vo_list") or []
         if not isinstance(raw_param_vo, list):
             raw_param_vo = []
-        encap_standard = (mp.get("encapStandard") or "").strip()
-        rec = {
+        encap_standard = rec.get("encap_standard") or ""
+        slim = {
             "features": features,
             "intro": intro,
             "intro_short": intro_short,
@@ -1588,9 +1851,9 @@ def _get_features_compliance_index():
             "encap_standard": encap_standard,
         }
         if pc:
-            _FEATURES_COMPLIANCE_INDEX[pc] = rec
+            _FEATURES_COMPLIANCE_INDEX[pc] = slim
         if pm:
-            _FEATURES_COMPLIANCE_INDEX[pm] = rec
+            _FEATURES_COMPLIANCE_INDEX[pm] = slim
     return _FEATURES_COMPLIANCE_INDEX
 
 
@@ -1615,31 +1878,16 @@ def _get_section_extras_index():
     if _SECTION_EXTRAS_INDEX is not None:
         return _SECTION_EXTRAS_INDEX
     _SECTION_EXTRAS_INDEX = {}
-    import glob as _glob
-    here = os.path.dirname(os.path.abspath(__file__))
-    for fp in _glob.glob(os.path.join(here, _SEXTRA_SRC_GLOB)):
-        try:
-            with open(fp, encoding="utf-8") as fh:
-                d = json.load(fh)
-        except (FileNotFoundError, OSError, json.JSONDecodeError):
-            continue
-        if not isinstance(d, dict):
-            continue
-        src = d.get("source_raw", d)
-        if not isinstance(src, dict):
-            continue
-        mp = src.get("main_product", {}) or {}
-        if not isinstance(mp, dict):
-            continue
-        od = src.get("overviewData", {}) or {}
-        pc = (mp.get("productCode") or "").strip().upper()
-        pm = (mp.get("productModel") or "").strip().upper()
+    # Reads the slim RAW records (see _raw_slim_records()): same fields, same order.
+    for rec in _raw_slim_records():
+        pc = rec.get("pc") or ""
+        pm = rec.get("pm") or ""
         # Applications — one list item per non-empty line of the official area text.
-        apps = (od.get("pdfApplicationAreasEn") or "").strip()
+        apps = rec.get("apps_raw") or ""
         app_list = [x.strip(" -\u2022\t") for x in apps.splitlines() if x.strip()] if apps else []
         # FAQ — real pipeline Q/A pairs (competitor/price entries dropped at render).
         faqs = []
-        for f in (mp.get("faqs") or []):
+        for f in (rec.get("faqs") or []):
             if not isinstance(f, dict):
                 continue
             q = (f.get("question") or "").strip().rstrip(";").strip()
@@ -1651,14 +1899,14 @@ def _get_section_extras_index():
         # Package fallback (P1-3, 2026-09-13): raw encapStandard is the authoritative
         # package/case value when MASTER attributes_json has no 'package'. Cleaned so a
         # trailing size suffix like '(7x7)' is dropped and placeholder '-'/'SMD' discarded.
-        encap = _clean_encap(mp.get("encapStandard"))
+        encap = _clean_encap(rec.get("encap"))
         # C2 Phase 5A: keep the full RAW body size for the package spec row.
-        rec = {"apps": app_list, "faqs": faqs, "encap": encap,
-               "encap_full": _pkg_display(mp.get("encapStandard"))}
+        slim = {"apps": app_list, "faqs": faqs, "encap": encap,
+                "encap_full": _pkg_display(rec.get("encap"))}
         if pc:
-            _SECTION_EXTRAS_INDEX[pc] = rec
+            _SECTION_EXTRAS_INDEX[pc] = slim
         if pm:
-            _SECTION_EXTRAS_INDEX[pm] = rec
+            _SECTION_EXTRAS_INDEX[pm] = slim
     return _SECTION_EXTRAS_INDEX
 
 
@@ -1746,24 +1994,14 @@ def _raw_alt_index():
     if _RAW_ALT_INDEX is not None:
         return _RAW_ALT_INDEX
     _RAW_ALT_INDEX = {}
-    import glob as _glob
-    for fp in _glob.glob(_SEXTRA_SRC_GLOB):
-        try:
-            with open(fp, encoding="utf-8") as fh:
-                d = json.load(fh)
-        except (FileNotFoundError, OSError, json.JSONDecodeError):
-            continue
-        if not isinstance(d, dict):
-            continue
-        src = d.get("source_raw", d)
-        if not isinstance(src, dict):
-            continue
-        mp = src.get("main_product", {}) or {}
-        if not isinstance(mp, dict):
-            continue
+    # Reads the slim RAW records (see _raw_slim_records()) instead of re-scanning
+    # the corpus: real_alternates() is fed the same two alternatePartList holders.
+    for rec in _raw_slim_records():
+        src = {"alternatePartList": rec.get("src_alt")}
+        mp = {"alternatePartList": rec.get("mp_alt")}
         ok = alternates.real_alternates(src, mp)
-        cid = (mp.get("productCode") or "").strip().upper()
-        mpn_k = (mp.get("productModel") or "").strip().upper()
+        cid = rec.get("pc") or ""
+        mpn_k = rec.get("pm") or ""
         # Claim the MPN BEFORE looking at whether this file has alternates. An
         # empty result still proves the C# owns the MPN, and skipping the claim
         # for empty files would leave a single-claimant MPN key holding the one
@@ -2869,12 +3107,17 @@ def gen_part_page_v3(row, cat_slug, mfr_slug, related=None, generated_slugs=None
             '</section>'
         )
 
-    # Features — official product feature bullets (01 RAW overviewData.productFeaturesEn)
+    # Features — official product feature bullets (01 RAW overviewData.productFeaturesEn).
+    # Mirror the Introduction rule (line 2686): drop any bullet that is non-English CJK
+    # after mojibake repair — the storefront is English-only and the permanent audit
+    # gate blocks CJK in deployable files. Bilingual RAW (Chinese line + English line)
+    # keeps only the English half, so the Features tab stays clean and on-spec.
     features_section = ""
     fc = _raw_fc_rec(row)
     if fc and fc.get("features"):
         feats = [ln.strip().lstrip("-•* ").strip()
                  for ln in fc["features"].splitlines() if ln.strip()]
+        feats = [x for x in feats if not _contains_cjk(_repair_mojibake(x))]
         if feats:
             feat_items = "".join(f"<li>{esc(x)}</li>" for x in feats)
             features_section = (
@@ -3870,7 +4113,10 @@ class SlugRegistry:
         self.extra_mpns = defaultdict(list)
 
     def assign(self, base, owner, mpn=""):
-        base = re.sub(r"[^a-z0-9]", "", (base or "").lower())
+        # PRESERVE hyphen so 'mpn-brand' slugs survive (§6 new rule). Historical
+        # slugs are alnum-only, so stripping to [^a-z0-9-] is a no-op for them
+        # (zero URL drift). Only brand-suffixed slugs gain a hyphen.
+        base = re.sub(r"[^a-z0-9-]", "", (base or "").lower())
         if not base:
             return ""
         if base not in self.used:
@@ -5557,7 +5803,8 @@ def build_parts_json(groups):
     # deps), so newly onboarded SKUs are auto-classified without a manual
     # --build. Falls back to the precomputed cache only if RAW is unavailable.
     # Read-only over MASTER/RAW; no SKU HTML touched.
-    _final_map = subcategory_final.build_sr_final_map()
+    # (2026-10-02 perf) disk-cached under a MASTER/RAW fingerprint; same result.
+    _final_map = build_sr_final_map_cached()
     if not _final_map:
         _final_map = subcategory_final.load_final_map()
     for _p in parts_json:
@@ -6131,6 +6378,80 @@ def incremental_pipeline(args, groups, out_root, manifest_path=MANIFEST_PATH):
             "unexpected": []}
 
 
+def assign_slugs(groups, out_root):
+    """Deterministic, collision-free slug assignment (NEW §6 URL rule).
+
+    Historical SKUs reproduce their EXACT deployed slug (read from the previously
+    generated parts.json) -> zero URL drift, guaranteed by construction. Only groups
+    ABSENT from that map (genuinely NEW SKUs, e.g. the 143 candidates added in an
+    append-only batch) follow the new rule:
+        slugify(mpn)  ->  slugify(mpn)-brand_slug(canonical_brand)  ->  -2/-3 backstop
+    so a same-MPN / different-brand multi-source keeps a brand-identifying URL
+    instead of a meaningless -2/-3. SlugRegistry still guarantees final uniqueness.
+
+    Reading parts.json (the file we are about to regenerate) makes the registry a
+    stable fixed point: historical slugs are fixed, so re-running gen_parts never
+    rewrites a live URL. Robust if parts.json is absent (fresh build -> in-run rule).
+    Extracted from main() so the read-only verification harness can import and call
+    the REAL production code path (no logic duplicated in the test).
+    """
+    deployed_c, deployed_cm = _load_deployed_slug_map(out_root)
+    registry = SlugRegistry()
+    # PASS 1: exact-deployed-C# groups claim their historical slug FIRST. This guards
+    # against a same-MPN sibling (absent from deployed_c but matching a mislabeled
+    # (mpn,mfr) fallback) hijacking the slug before the exact match gets its turn
+    # (e.g. C5199108/HXY deployed as ss54 vs C22452/MDD sharing mpn SS54 — the live
+    # record mislabels C5199108 as MDD, so the fallback key (ss54,mdd) would otherwise
+    # let C22452 grab ss54 and push the legitimate C5199108 to ss54-2).
+    pending = []
+    for g in groups:
+        gid = g.get("supplier_reference") or id(g)   # C# — used only for historical lookup
+        oid = id(g)                                  # distinct-product id — registry owner/seed key
+        if gid in deployed_c:
+            seed = deployed_c[gid]
+            g["_seed"] = seed
+            g["url_slug"] = registry.assign(seed, oid, g.get("mpn", "").strip())
+        else:
+            pending.append(g)
+    # PASS 2: everyone else (new SKUs + historical rows whose C# is absent from the
+    # deployed map but whose (mpn,mfr) still matches a deployed record).
+    for g in pending:
+        gid = g.get("supplier_reference") or id(g)
+        oid = id(g)
+        cm = slugify(g.get("mpn") or "")
+        mfr = (g.get("manufacturer") or "").strip().lower()
+        if (cm, mfr) in deployed_cm:              # fallback: historical, keep deployed slug
+            seed = deployed_cm[(cm, mfr)]
+        else:                                     # NEW group -> §6 brand-suffix rule
+            raw = (g.get("url_slug") or "").strip()
+            if raw:
+                seed = raw
+            else:
+                b1 = cm  # == slugify(mpn)
+                if b1 in registry.used and registry.used.get(b1) != oid:
+                    cb = (g.get("manufacturer") or "").strip()
+                    seed = ("%s-%s" % (b1, brand_slug(cb))) if cb else b1
+                else:
+                    seed = b1
+        g["_seed"] = seed
+        g["url_slug"] = registry.assign(seed, oid, g.get("mpn", "").strip())
+
+    # ---- #1 regression guard: built slug MUST equal this group's chosen seed ----
+    # Self-consistency check per group (keyed by distinct-product id(g), since MPN is
+    # now shared across same-MPN/different-brand groups AND a rare duplicate C# can
+    # appear twice in MASTER). Historical groups choose seed=<deployed slug> and keep
+    # it; new colliding groups choose seed=slugify(mpn)-brand and keep it. Zero
+    # historical URL drift is independently proven by the read-only verification
+    # harness, not by this guard alone.
+    _renamed = set(registry.renamed.values())
+    for g in groups:
+        seed = g.get("_seed", "")
+        if seed and g["url_slug"] != seed and g["url_slug"] not in _renamed:
+            raise AssertionError(
+                f"[#1] slug drift for {g.get('mpn')!r}: seed={seed!r} -> built={g['url_slug']!r}")
+    return registry
+
+
 def main():
     ap = argparse.ArgumentParser()
     default_csv = os.path.join(ROOT, "data", "production", "master_parts_v2.1.csv")  # P0-2: only a v2+ production Master may feed the build; v1.x test masters are forbidden
@@ -6215,30 +6536,18 @@ def main():
     # Does NOT modify native_l1 / category / subcategory; for the 8 UNKNOWN (no
     # final mapping) attach_final_fields pops the final_* keys -> safe fallback,
     # no guessed / broken legacy L3 link is ever produced.
-    _final_map = subcategory_final.build_sr_final_map()
+    # (2026-10-02 perf) disk-cached under a MASTER/RAW fingerprint; same result.
+    _final_map = build_sr_final_map_cached()
     if not _final_map:
         _final_map = subcategory_final.load_final_map()
     for g in groups:
         subcategory_final.attach_final_fields(g, _final_map)
 
-    # ---- P0-1 : deterministic, collision-free slug assignment ----
-    registry = SlugRegistry()
-    master_slugs = {}  # #1 regression: remember MASTER-seeded slug per MPN
-    for g in groups:
-        base = (g.get("url_slug") or "").strip() or slugify(g["mpn"].strip())
-        master_slugs[g["mpn"].strip()] = base
-        g["url_slug"] = registry.assign(base, g["manufacturer"].strip(), g["mpn"].strip())
-
-    # ---- #1 regression guard: built slug MUST equal MASTER-seeded slug ----
-    # SlugRegistry.assign is documented "stable for identical input order", so the
-    # 550 live URLs must never drift. A collision-suffixed slug (registry.renamed)
-    # is the only tolerated deviation (an intentional, logged resolution).
-    _renamed = set(registry.renamed.values())
-    for g in groups:
-        seed = master_slugs.get(g["mpn"].strip(), "")
-        if seed and g["url_slug"] != seed and g["url_slug"] not in _renamed:
-            raise AssertionError(
-                f"[#1] slug drift for {g.get('mpn')!r}: MASTER={seed!r} -> built={g['url_slug']!r}")
+    # ---- P0-1 : deterministic, collision-free slug assignment (NEW §6 URL rule) ----
+    # Delegate to assign_slugs() so the read-only verification harness calls the SAME
+    # production code. Historical slugs reproduced verbatim from parts.json; new groups
+    # follow mpn -> mpn-brand -> -N (see assign_slugs() above for full semantics).
+    registry = assign_slugs(groups, out_root)
 
     # ---- P0-1 report: collisions auto-resolved (no overwrite) ----
     if registry.renamed:
